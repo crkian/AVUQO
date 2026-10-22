@@ -1,0 +1,1 @@
+.button{min-height:56px;padding:0 18px;border:1px solid #e3dfee;border-radius:16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:#3a20bd;font-weight:850}.active{color:#fff;border-color:transparent;background:linear-gradient(135deg,#5b35f5,#3478f6)}.button:disabled{opacity:.62;cursor:wait}

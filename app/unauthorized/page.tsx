@@ -1,0 +1,2 @@
+import Link from "next/link"; import styles from "./page.module.css";
+export default function UnauthorizedPage(){return <main className={styles.page}><section className={styles.card}><div className={styles.q}>Q</div><p className={styles.kicker}>Private AVUQO area</p><h1>Control Centre access required.</h1><p className={styles.copy}>This account is signed in, but it does not have an AVUQO admin or owner role.</p><Link href="/" className={styles.button}>Return to AVUQO</Link></section></main>}
