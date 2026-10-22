@@ -1,4 +1,5 @@
 import { Suspense, type ReactNode } from "react";
+import { connection } from "next/server";
 import { requireControlCentreAccess } from "../../lib/auth/requireControlCentreAccess";
 
 async function SecureControlCentre({
@@ -6,6 +7,12 @@ async function SecureControlCentre({
 }: {
   children: ReactNode;
 }) {
+  // The Control Centre is private, user-specific and reads request-time
+  // authentication/database state. Tell Next.js explicitly that everything
+  // below this point must render for the incoming request rather than during
+  // build-time prerendering.
+  await connection();
+
   await requireControlCentreAccess();
 
   return <>{children}</>;
