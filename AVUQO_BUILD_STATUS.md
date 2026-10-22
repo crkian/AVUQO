@@ -1,97 +1,70 @@
-# AVUQO build status after Major Build v0.5
+# AVUQO Build Status - v0.6
 
-## Consolidated and substantially built
+## Working product surface
 
-### Consumer product
-- Premium AVUQO homepage
-- Search and category browsing
-- Discover rails for Exceptional, new lows, travel, ending soon and popular items
-- Deal detail with AVUQO Score, Confidence, decision guidance and price-history shape
-- Database-backed Watches
-- Database-backed Saved shortlist
-- Shared Lists creation and deal-to-list insertion
-- Reality Check URL intake with safe verification queue design
-- Account/profile preference editing
-- AVUQO Score / trust explainer
-- “Found better?” user evidence flow
-- Sign-up, sign-in and sign-out
+Consumer:
+- homepage
+- Discover
+- Search
+- Categories
+- fixture deal intelligence pages
+- Watches
+- Saved
+- Shared Lists
+- Account / preferences
+- Reality Check intake
+- AVUQO Score explainer
+- feedback / Found Better
+- Live pipeline deals
+- live deal detail
+- outbound merchant click tracking
 
-### Trust and intelligence foundations
-- AVUQO Score remains separate from affiliate economics
-- Promotion Score scaffold
-- Availability and product-match models
-- Price/history foundation
-- feedback and trust-metric models
-- user preferences / behaviour foundation
-- households and collaborative list schema
-- notification schema
-- seasonal-event model
-
-### Universal Source Connector foundation
-- source registry
-- source mappings
-- sync runs
-- connector status / credentials state
-- initial registry definitions for Awin, eBay Partner Network, CJ, impact.com, Booking.com, Skyscanner and direct feeds
-- definitions are not live connections
-
-### Private Control Centre
-- server-side admin/owner route gate
-- database role enforcement
+Private Control Centre:
+- authenticated owner/admin gate
 - Overview
 - Sources
-- Affiliate Promotion Intelligence
-- Exception Queue
-- Autopilot jobs
-- kill switches / system controls
-- Revenue ledger
-- Trust metrics
-- working server actions for source pause/resume, promotion approve/pause, exception resolution, job retry and system controls
+- Deal Intelligence Pipeline
+- Promotion Intelligence
+- Exceptions
+- Autopilot controls
+- Revenue
+- Trust
 
-### Promotion / affiliate foundation
-- affiliate programmes
-- channel connections
-- publishing rules
-- promotion candidates and components
-- compliance checks
-- campaigns / campaign items
-- creative assets
-- scheduled publications
-- attribution events
-- affiliate conversions
-- revenue reconciliation
-- promotion experiments
-- social publication defaults to disabled / review-first
+Backend foundations:
+- hosted Supabase
+- RLS / user roles
+- source registry
+- source sync runs
+- raw ingestion evidence
+- product matching
+- offer catalogue
+- price history
+- availability history
+- deterministic AVUQO Score components
+- public publication layer
+- click attribution
+- promotion candidate generation
+- automation endpoint
+- system health / exceptions
 
-### Travel data foundation
-- airports
-- destinations
-- hotels
-- travel offers
-- travel price history
+## First live connector
 
-## Intentionally not pretended to be live
+Awin Enhanced Feed adapter is implemented but remains inactive until the owner supplies valid server-only Awin credentials and enables the Awin source.
 
-The following still need real providers, production workers or commercial setup:
-- live Awin/eBay/CJ/impact.com ingestion
-- Amazon-specific integration/compliance adapter
-- Booking/Skyscanner/Expedia-style live travel feeds
-- production product matching and deduplication workers
-- full deterministic Score calculation from real evidence
-- safe remote Reality Check verification worker
-- live affiliate redirect/click attribution
-- affiliate conversion imports/reconciliation
-- Pinterest / Meta / TikTok / X publishing credentials
-- automated creative generation pipeline
-- email/push delivery workers
-- scheduled background queues
-- real product and travel imagery
-- native mobile apps
+## Still intentionally not live
 
-## Architecture rule retained
+- unattended social publishing
+- Pinterest credentials / publishing
+- eBay/CJ/impact live connectors
+- travel live connectors
+- automatic user notifications
+- remote Reality Check fetch worker
+- production cron scheduling
+- affiliate conversion reconciliation imports
+- full personal-intelligence learning
 
-**Automated operation. Complete visibility. Human override.**
+These remain staged because credentials, provider permissions, policies or production worker infrastructure are still required.
 
-And the trust firewall remains:
+## Trust rule
 
-**We rank value, not commission.**
+AVUQO Score is determined from value evidence. Affiliate commission does not enter the score or organic ranking calculation.

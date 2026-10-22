@@ -1,0 +1,15 @@
+# Add these to C:\avuqo\.env.local as required.
+# Never prefix secret values with NEXT_PUBLIC_.
+
+# Required for backend ingestion/automation. Use the Supabase server secret key.
+SUPABASE_SECRET_KEY=sb_secret_REPLACE_ME
+
+# Optional now, recommended before automated/cron execution.
+AVUQO_CRON_SECRET=replace-with-a-long-random-secret
+
+# Awin Enhanced Feed connector. Leave absent until your publisher/advertiser access is ready.
+AWIN_PUBLISHER_ID=
+AWIN_ADVERTISER_ID=
+AWIN_ADVERTISER_NAME=
+AWIN_ACCESS_TOKEN=
+AWIN_LOCALE=en_GB

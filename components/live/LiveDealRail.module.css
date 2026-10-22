@@ -1,0 +1,23 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.empty {
+  padding: 34px;
+  border: 1px dashed #d8d3de;
+  border-radius: 22px;
+  color: #777280;
+  background: rgba(255,255,255,.55);
+  font-size: 13px;
+  text-align: center;
+}
+
+@media (max-width: 1050px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 620px) {
+  .grid { grid-template-columns: 1fr; }
+}
