@@ -5,3 +5,20 @@
 .footer-links{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:12px;font-weight:700}.footer-links a:hover{color:var(--violet)}
 @media(max-width:1050px){.nav nav{gap:15px;font-size:12px}.auth-email{display:none}}
 @media(max-width:820px){.nav nav{display:none}.footer-content{gap:18px;flex-wrap:wrap}.footer-links{width:100%;order:3}}
+
+/* AVUQO v0.8: structured, accessible footer */
+.avuqo-footer{background:#100e1e;color:#f9f8ff;padding:64px 0 0}
+.avuqo-footer__main{display:grid;grid-template-columns:minmax(230px,1.5fr) repeat(3,minmax(145px,1fr));gap:42px;padding-bottom:44px}
+.avuqo-footer__brand .logo{color:#fff;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.avuqo-footer__brand p{max-width:310px;color:#b9b5c8;font-size:14px;line-height:1.75}
+.avuqo-footer__brand .avuqo-footer__motto{color:#fff;font-size:19px;font-weight:800;margin:18px 0 6px}
+.avuqo-footer__email{color:#c5c0ff;font-size:14px;font-weight:700;overflow-wrap:anywhere}
+.avuqo-footer__group h2{color:#fff;font-size:13px;font-weight:850;letter-spacing:.04em;text-transform:uppercase;margin:8px 0 22px}
+.avuqo-footer__group ul{list-style:none;padding:0;margin:0;display:grid;gap:13px}
+.avuqo-footer__group a{color:#bbb6ca;text-decoration:none;font-size:14px;line-height:1.45}
+.avuqo-footer a:hover,.avuqo-footer a:focus-visible{color:#fff;text-decoration:underline;text-underline-offset:4px}
+.avuqo-footer__disclosure{border-top:1px solid #343041;padding:22px 0;color:#c4bfd3;font-size:13px;line-height:1.7}
+.avuqo-footer__disclosure strong{color:#fff}.avuqo-footer__disclosure a{color:#d0cbff}
+.avuqo-footer__bottom{border-top:1px solid #343041;padding:22px 0 30px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:#a7a1b8;font-size:12px;line-height:1.6}
+@media(max-width:950px){.avuqo-footer__main{grid-template-columns:repeat(2,minmax(0,1fr));gap:34px}}
+@media(max-width:560px){.avuqo-footer{padding-top:45px}.avuqo-footer__main{grid-template-columns:1fr 1fr;column-gap:18px}.avuqo-footer__brand{grid-column:1/-1}.avuqo-footer__group:last-child{grid-column:1/-1}.avuqo-footer__bottom{flex-direction:column}}
