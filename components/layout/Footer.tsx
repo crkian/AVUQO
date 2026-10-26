@@ -1,9 +1,30 @@
+"use client";
 import Link from "next/link";
 import { getContactEmail } from "../../lib/site/url";
-import { getPublishedFooter } from "../../lib/content/footer";
+import { useEffect, useState } from "react";
+import { DEFAULT_FOOTER, parseFooter, type FooterContent } from "../../lib/content/footer";
 
-export default async function Footer() {
-  const content = await getPublishedFooter();
+export default function Footer() {
+  const [content, setContent] = useState<FooterContent>(DEFAULT_FOOTER);
+  const [copyrightYear, setCopyrightYear] = useState(2026);
+  useEffect(() => {
+    const controller = new AbortController();
+    setCopyrightYear(new Date().getFullYear());
+    async function load() {
+      try {
+        const response = await fetch("/api/site/footer", {
+          signal: controller.signal,
+          cache: "no-store",
+        });
+        if (!response.ok) return;
+        setContent(parseFooter(await response.json()));
+      } catch {
+        // Continue showing trusted defaults if public content is unavailable.
+      }
+    }
+    void load();
+    return () => controller.abort();
+  }, []);
   const contact = getContactEmail();
   const hasContact = contact !== "Contact email not configured";
   return (
@@ -24,7 +45,7 @@ export default async function Footer() {
           ))}
         </div>
         <div className="avuqo-footer__disclosure"><strong>Our promise:</strong> {content.disclosure} <Link href="/affiliate-disclosure">How affiliate links work</Link>.</div>
-        <div className="avuqo-footer__bottom"><span>© {new Date().getFullYear()} AVUQO. All rights reserved.</span><span>UK-focused value discovery · Prices and availability can change. Check merchant details before buying.</span></div>
+        <div className="avuqo-footer__bottom"><span>© {copyrightYear} AVUQO. All rights reserved.</span><span>UK-focused value discovery · Prices and availability can change. Check merchant details before buying.</span></div>
       </div>
     </footer>
   );

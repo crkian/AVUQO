@@ -1,17 +1,16 @@
+import { Suspense } from "react";
+import { publishedEditorial } from "../../lib/content/editorial";
+import type { Metadata } from "next";
 import LegalPage, { styles } from "../../components/legal/LegalPage";
 
-export const metadata = {
-  title: "About",
-  description:
-    "AVUQO is independent value intelligence built to help buyers decide what is genuinely worth it.",
-};
 
-export default function AboutPage() {
+async function AboutPageContent() {
+  const editorial=await publishedEditorial("about");
   return (
     <LegalPage
-      kicker="About AVUQO"
-      title="Independent intelligence for better buying decisions."
-      intro="AVUQO is being built to answer a deceptively simple question: is this actually worth it?"
+      kicker={editorial.eyebrow}
+      title={editorial.headline}
+      intro={editorial.description}
     >
       <section>
         <h2>What AVUQO does</h2>
@@ -43,5 +42,18 @@ export default function AboutPage() {
         </p>
       </section>
     </LegalPage>
+  );
+}
+
+export const metadata: Metadata = {
+  title: "About AVUQO",
+  description: "Learn about AVUQO independent value intelligence.",
+};
+
+export default function AboutPage() {
+  return (
+    <Suspense fallback={<div className="shell" role="status">Loading About AVUQO…</div>}>
+      <AboutPageContent />
+    </Suspense>
   );
 }

@@ -1,5 +1,3 @@
-import { createClient } from "../supabase/server";
-
 export type FooterContent = {
   motto: string;
   description: string;
@@ -32,11 +30,3 @@ export function parseFooter(raw: unknown): FooterContent {
   return item as FooterContent;
 }
 
-export async function getPublishedFooter(): Promise<FooterContent> {
-  try {
-    const supabase = await createClient();
-    const { data, error } = await supabase.from("site_content_published").select("payload").eq("key", "footer").maybeSingle();
-    if (error) return DEFAULT_FOOTER; // Safe fallback before migration or on transient failure.
-    return data ? parseFooter(data.payload) : DEFAULT_FOOTER;
-  } catch { return DEFAULT_FOOTER; }
-}
