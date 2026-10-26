@@ -299,7 +299,7 @@ async function processOffer(
   const merchant = await ensureMerchant(
     supabase,
     normalized,
-    source.source_type === "affiliate_network" || source.connector_key === "demo"
+    source.source_type === "affiliate_network" && source.connector_key !== "demo"
   );
 
   const product = await ensureProduct(supabase, source.id, normalized, categoryId);
@@ -442,6 +442,7 @@ async function processOffer(
 
   const referencePrice = numeric(score.explanation.referencePrice, normalized.previousPrice ?? normalized.rrp ?? normalized.price);
   const shouldPublish =
+    source.connector_key !== "demo" &&
     dealPublishing &&
     score.score >= 60 &&
     score.confidence >= 55 &&
@@ -473,6 +474,7 @@ async function processOffer(
 
   let promotionCreated = false;
   if (
+    source.connector_key !== "demo" &&
     score.score >= 75 &&
     score.confidence >= 65 &&
     merchant.affiliateEligible &&
