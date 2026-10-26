@@ -6,6 +6,7 @@ import {
   AlertTriangle,
   Banknote,
   Database,
+  FilePenLine,
   GitBranch,
   LayoutDashboard,
   Megaphone,
@@ -18,6 +19,7 @@ import styles from "../../app/control-centre/control-centre.module.css";
 const items = [
   ["/control-centre", "Overview", LayoutDashboard],
   ["/control-centre/sources", "Sources", Database],
+  ["/control-centre/content", "Website & Content", FilePenLine],
   ["/control-centre/pipeline", "Pipeline", GitBranch],
   ["/control-centre/promotions", "Promotion", Megaphone],
   ["/control-centre/exceptions", "Exceptions", AlertTriangle],
