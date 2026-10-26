@@ -1,0 +1,22 @@
+# Public production URL.
+# Set this to the final canonical custom domain in Vercel Production.
+NEXT_PUBLIC_SITE_URL=https://www.example.com
+
+# Public contact address shown on AVUQO legal/contact pages.
+NEXT_PUBLIC_CONTACT_EMAIL=hello@example.com
+
+# Supabase browser/server public configuration.
+NEXT_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_YOUR_KEY
+
+# Privileged server-only key used by AVUQO backend/pipeline jobs.
+# NEVER prefix with NEXT_PUBLIC_.
+SUPABASE_SECRET_KEY=sb_secret_YOUR_SECRET_KEY
+
+# Optional Awin connector. Add only after your publisher account/programme
+# is approved and you have the relevant IDs/token.
+AWIN_PUBLISHER_ID=
+AWIN_ADVERTISER_ID=
+AWIN_ADVERTISER_NAME=
+AWIN_ACCESS_TOKEN=
+AWIN_LOCALE=en_GB

@@ -1,0 +1,87 @@
+.page {
+  min-height: 100vh;
+  background: #f7f5ef;
+}
+
+.hero {
+  padding: 78px 0 46px;
+  border-bottom: 1px solid #e7e3ec;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(91,53,245,.13), transparent 30%),
+    radial-gradient(circle at 90% 0%, rgba(52,120,246,.12), transparent 28%);
+}
+
+.hero h1 {
+  max-width: 850px;
+  margin: 8px 0 16px;
+  font-size: clamp(44px, 7vw, 76px);
+  line-height: .98;
+  letter-spacing: -.06em;
+}
+
+.intro {
+  max-width: 760px;
+  margin: 0;
+  color: #716d80;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.content {
+  width: min(840px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 54px 0 80px;
+}
+
+.content section + section {
+  margin-top: 38px;
+}
+
+.content h2 {
+  margin: 0 0 12px;
+  font-size: 27px;
+  letter-spacing: -.035em;
+}
+
+.content h3 {
+  margin: 24px 0 8px;
+  font-size: 17px;
+}
+
+.content p,
+.content li {
+  color: #625d6e;
+  line-height: 1.75;
+  font-size: 14px;
+}
+
+.content strong {
+  color: #17142b;
+}
+
+.callout {
+  margin: 26px 0;
+  padding: 20px;
+  border: 1px solid rgba(91,53,245,.14);
+  border-radius: 18px;
+  background: #efecfb;
+  color: #493887;
+}
+
+.contactCard {
+  padding: 24px;
+  border: 1px solid #e7e3ec;
+  border-radius: 20px;
+  background: #fff;
+}
+
+.contactCard a {
+  color: #5b35f5;
+  font-weight: 850;
+}
+
+@media (max-width: 650px) {
+  .content {
+    width: calc(100% - 24px);
+  }
+}
