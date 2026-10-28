@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import Link from "next/link";
 
 import DealCard from "../../components/deal/DealCard";
 import Footer from "../../components/layout/Footer";
@@ -31,16 +32,16 @@ export default function DiscoverPage(){
       </section>
       <section className={`shell ${styles.section}`}>
         <div className={styles.signalGrid}>
-          <article className={styles.signal}><strong>95+</strong><span>Exceptional AVUQO Scores deserve immediate attention.</span><a href="/search">Explore exceptional finds</a></article>
-          <article className={styles.signal}><strong>New lows</strong><span>Items hitting the bottom of their recent observed range.</span><a href="/search?q=new-low">See price lows</a></article>
-          <article className={styles.signal}><strong>Worth waiting</strong><span>Good products where the current price still leaves room for patience.</span><a href="/search">See watch-worthy items</a></article>
+          <article className={styles.signal}><strong>95+</strong><span>Exceptional AVUQO Scores deserve immediate attention.</span><Link href="/search">Explore exceptional finds</Link></article>
+          <article className={styles.signal}><strong>New lows</strong><span>Items hitting the bottom of their recent observed range.</span><Link href="/search?q=new-low">See price lows</Link></article>
+          <article className={styles.signal}><strong>Worth waiting</strong><span>Good products where the current price still leaves room for patience.</span><Link href="/search">See watch-worthy items</Link></article>
         </div>
       </section>
 
       <section className={`shell ${styles.section}`}>
         <div className={styles.heading}>
           <div><p>Database-backed</p><h2>Live from the Deal Intelligence Pipeline</h2></div>
-          <a href="/live">See all live deals</a>
+          <Link href="/live">See all live deals</Link>
         </div>
         <Suspense fallback={<div>Loading live AVUQO intelligence…</div>}>
           <LiveDealRail limit={4}/>

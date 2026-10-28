@@ -6,10 +6,8 @@ import { DEFAULT_FOOTER, parseFooter, type FooterContent } from "../../lib/conte
 
 export default function Footer() {
   const [content, setContent] = useState<FooterContent>(DEFAULT_FOOTER);
-  const [copyrightYear, setCopyrightYear] = useState(2026);
   useEffect(() => {
     const controller = new AbortController();
-    setCopyrightYear(new Date().getFullYear());
     async function load() {
       try {
         const response = await fetch("/api/site/footer", {
@@ -45,7 +43,7 @@ export default function Footer() {
           ))}
         </div>
         <div className="avuqo-footer__disclosure"><strong>Our promise:</strong> {content.disclosure} <Link href="/affiliate-disclosure">How affiliate links work</Link>.</div>
-        <div className="avuqo-footer__bottom"><span>© {copyrightYear} AVUQO. All rights reserved.</span><span>UK-focused value discovery · Prices and availability can change. Check merchant details before buying.</span></div>
+        <div className="avuqo-footer__bottom"><span>© 2026 AVUQO. All rights reserved.</span><span>UK-focused value discovery · Prices and availability can change. Check merchant details before buying.</span></div>
       </div>
     </footer>
   );

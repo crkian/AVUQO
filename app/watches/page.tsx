@@ -87,13 +87,13 @@ export default function WatchesPage() {
   }
 
   useEffect(() => {
-    loadWatches();
+    const timer = window.setTimeout(() => { void loadWatches(); }, 0);
 
     const { data: listener } = supabase.auth.onAuthStateChange(() => {
       loadWatches();
     });
 
-    return () => listener.subscription.unsubscribe();
+    return () => { window.clearTimeout(timer); listener.subscription.unsubscribe(); };
   }, [supabase]);
 
   async function removeWatch(rowId: string) {

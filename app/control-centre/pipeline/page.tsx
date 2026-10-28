@@ -5,6 +5,20 @@ import { createClient } from "../../../lib/supabase/server";
 import styles from "../control-centre.module.css";
 import { runAwinPipeline, runDemoPipeline } from "./actions";
 
+type PipelineRun = {
+  id: string;
+  status: string;
+  records_seen: number | null;
+  records_accepted: number | null;
+  records_rejected: number | null;
+  started_at: string | null;
+  finished_at: string | null;
+  error_summary: string | null;
+  metrics: { connector?: string } | null;
+  source: { name: string; connector_key: string | null } | null;
+};
+type PipelineEvent = { id: string; event_type: string; level: string; message: string; created_at: string | null };
+
 export const instant = false;
 
 function stamp(value: string | null) {
@@ -104,7 +118,7 @@ export default async function PipelinePage() {
           <table className={styles.table}>
             <thead><tr><th>Source</th><th>Status</th><th>Seen</th><th>Accepted</th><th>Rejected</th><th>Started</th><th>Finished</th></tr></thead>
             <tbody>
-              {runs.map((run: any) => (
+              {(runs as unknown as PipelineRun[]).map((run) => (
                 <tr key={run.id}>
                   <td><b>{run.source?.name ?? run.metrics?.connector ?? "Source"}</b></td>
                   <td><span className={`${styles.pill} ${run.status === "completed" ? styles.good : run.status === "failed" ? styles.bad : styles.warn}`}>{run.status}</span></td>
@@ -127,7 +141,7 @@ export default async function PipelinePage() {
         </div>
         {events?.length ? (
           <div className={styles.eventList}>
-            {events.map((item: any) => (
+            {(events as PipelineEvent[]).map((item) => (
               <div className={styles.eventRow} key={item.id}>
                 <span className={`${styles.statusDot} ${item.level === "error" ? styles.dotBad : item.level === "warning" ? styles.dotWarn : styles.dotGood}`} />
                 <div><b>{item.event_type.replaceAll("_", " ")}</b><p>{item.message}</p></div>
