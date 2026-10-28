@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { calculateContractTotal } from "./contract-cost.ts";
+import { calculateContractTotal } from "./contract-cost";
 
 test("flat SIM-only cost includes one-off fees", () => {
   const actual = calculateContractTotal({
