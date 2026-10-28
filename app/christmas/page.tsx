@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, Gift, Heart, ShoppingBag, Sparkles, Truck } from "lucide-react";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
+import GiftFinder from "./GiftFinder";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -33,6 +34,7 @@ export default function ChristmasPage() {
       <div className="section-title"><div><p className="kicker">Find your starting point</p><h2>Gifts for every budget.</h2><p>Browse ideas, then check current prices, availability and delivery charges with the retailer.</p></div></div>
       <div className={styles.grid}>{giftBudgets.map(item => <Link href={`/search?q=${encodeURIComponent(item.q)}`} className={styles.tile} key={item.label}><Gift size={25}/><h3>{item.label}</h3><p>{item.detail}</p><span>Explore <ArrowRight size={15}/></span></Link>)}</div>
     </section>
+    <GiftFinder />
     <section className="shell section">
       <div className={styles.spotlight}>
         <div><p className="kicker">Crafts & creative gifting</p><h2>Make something worth keeping.</h2><p>Explore crystal art, painting kits and hands-on creative gifts. AVUQO has an approved affiliate partnership with Craft Buddy Shop. Its product feed is being checked before individual items are published here.</p><Link className={styles.primary} href="/search?q=craft%20kits">Explore craft ideas <ArrowRight size={17}/></Link></div>
