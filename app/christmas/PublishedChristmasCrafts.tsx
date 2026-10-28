@@ -4,7 +4,7 @@ import LiveDealCard, { type LiveDealCardData } from "../../components/live/LiveD
 import styles from "./published-crafts.module.css";
 
 /**
- * Read only from AVUQO's existing public publication gate.
+ * Read only from AVUQO&apos;s existing public publication gate.
  * Raw feed_import_records must never be rendered to public visitors.
  */
 export default async function PublishedChristmasCrafts() {
@@ -24,14 +24,14 @@ export default async function PublishedChristmasCrafts() {
       <div>
         <p className="kicker">Published retailer offers</p>
         <h2 id="christmas-crafts-heading">Creative gifts from Craft Buddy</h2>
-        <p>Only offers that have passed AVUQO's publication process appear below.</p>
+        <p>Only offers that have passed AVUQO&apos;s publication process appear below.</p>
       </div>
     </div>
     {products.length ? <div className={styles.grid}>{products.map(product =>
       <LiveDealCard key={product.offer_id} deal={product}/>
     )}</div> : <div className={styles.empty}>
       <strong>Product listings are being verified.</strong>
-      <p>Craft Buddy's catalogue is available to AVUQO, but individual offers are not yet approved for public display. Gift ideas above remain available while we complete that work.</p>
+      <p>Craft Buddy&apos;s catalogue is available to AVUQO, but individual offers are not yet approved for public display. Gift ideas above remain available while we complete that work.</p>
     </div>}
     <p className={styles.disclosure}>Prices and availability can change. Check final amounts and delivery with the retailer. AVUQO may receive commission from eligible purchases.</p>
   </section>;
