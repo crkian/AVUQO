@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <Suspense fallback={<main><div className="shell" role="status">Loading AVUQO content…</div></main>}>
+    <Suspense fallback={<main><Header/><section className="hero"><div className="shell hero-content"><div className="eyebrow">AVUQO</div><h1>Find what’s worth it.</h1><p className="hero-text">Independent value intelligence for shopping, travel and more.</p><form className="search" action="/search" method="GET"><Search size={23}/><input name="q" placeholder="What are you looking for?" aria-label="Search AVUQO"/><button type="submit">Find value</button></form></div></section></main>}>
       <HomeContent />
     </Suspense>
   );
