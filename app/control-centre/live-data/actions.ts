@@ -19,6 +19,7 @@ export async function checkApprovedEndpoints(): Promise<EndpointResult[]> {
   await requireControlCentreAccess();
   const raw = process.env.AVUQO_HEALTHCHECK_URLS ?? "";
   const entries = raw.split(",").map((x) => x.trim()).filter(Boolean).slice(0, 5);
+  const approvedHosts = new Set((process.env.AVUQO_HEALTHCHECK_HOSTS ?? "").split(",").map(x => x.trim().toLowerCase()).filter(Boolean));
   const out: EndpointResult[] = [];
 
   for (const entry of entries) {
@@ -34,11 +35,11 @@ export async function checkApprovedEndpoints(): Promise<EndpointResult[]> {
     // Explicit public-domain endpoints with no credentials, custom ports or IP addresses.
     const validHost = /^(?=.{4,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/.test(host);
     const isPrivateSuffix = /(?:^|\.)(?:localhost|local|internal|test|invalid)$/.test(host);
-    if (url.protocol !== "https:" || !validHost || isPrivateSuffix ||
+    if (!approvedHosts.has(host) || url.protocol !== "https:" || !validHost || isPrivateSuffix ||
         url.port || url.username || url.password || url.hash ||
         url.search || url.pathname !== "/" ||
         host.endsWith(".example.com")) {
-      out.push({ host, outcome: "blocked", checkedAt, detail: "Only HTTPS root endpoints on public DNS hostnames are permitted" });
+      out.push({ host, outcome: "blocked", checkedAt, detail: "Endpoint must match the exact approved hostname and use a public HTTPS root URL" });
       continue;
     }
     try {
