@@ -25,11 +25,14 @@ export default function ChristmasPage() {
   return <main>
     <Header />
     <section className={styles.hero}>
-      <div className="shell">
+      <div className={`shell ${styles.heroLayout}`}>
+        <div className={styles.heroCopy}>
         <p className={styles.eyebrow}><Sparkles size={16} /> AVUQO Christmas 2026</p>
         <h1>More festive joy.<br /><span>Less guesswork.</span></h1>
         <p>Find Christmas gift ideas, creative projects and practical ways to keep seasonal spending in check. We focus on the total cost and the details that matter, not just a flashy discount.</p>
         <div className={styles.heroActions}><Link className={styles.primary} href="#gift-ideas">Explore gift ideas <ArrowRight size={17}/></Link><Link className={styles.secondary} href="/lists">Plan a gift list</Link></div>
+        </div>
+        <div className={styles.heroArtwork} aria-hidden="true" />
       </div>
     </section>
     <section className="shell section" id="gift-ideas">
@@ -40,7 +43,7 @@ export default function ChristmasPage() {
     <section className="shell section">
       <div className={styles.spotlight}>
         <div><p className="kicker">Crafts & creative gifting</p><h2>Make something worth keeping.</h2><p>Explore crystal art, painting kits and hands-on creative gifts. AVUQO has an approved affiliate partnership with Craft Buddy Shop. Its product feed is being checked before individual items are published here.</p><Link className={styles.primary} href="/search?q=craft%20kits">Explore craft ideas <ArrowRight size={17}/></Link></div>
-        <div className={styles.decoration} aria-hidden="true"><Gift size={88}/><Sparkles size={35}/></div>
+        <div className={styles.decoration} aria-hidden="true" />
       </div>
     </section>
     <Suspense fallback={<section className="shell section">Checking published Christmas offers…</section>}><PublishedChristmasCrafts /></Suspense>
