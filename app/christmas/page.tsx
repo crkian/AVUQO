@@ -4,6 +4,8 @@ import { ArrowRight, Gift, Heart, ShoppingBag, Sparkles, Truck } from "lucide-re
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import GiftFinder from "./GiftFinder";
+import PublishedChristmasCrafts from "./PublishedChristmasCrafts";
+import { Suspense } from "react";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -41,6 +43,7 @@ export default function ChristmasPage() {
         <div className={styles.decoration} aria-hidden="true"><Gift size={88}/><Sparkles size={35}/></div>
       </div>
     </section>
+    <Suspense fallback={<section className="shell section">Checking published Christmas offers…</section>}><PublishedChristmasCrafts /></Suspense>
     <section className="shell section">
       <div className="section-title"><div><p className="kicker">Shop with your eyes open</p><h2>What makes a festive deal worthwhile?</h2></div></div>
       <div className={styles.grid3}><article><ShoppingBag size={24}/><h3>Check the full price</h3><p>Account for delivery, fees and any minimum spend before comparing offers.</p></article><article><Truck size={24}/><h3>Check delivery dates</h3><p>Confirm stock, dispatch and final delivery deadlines with the retailer.</p></article><article><Heart size={24}/><h3>Buy for the person</h3><p>Use a gift list to stay focused on what the recipient actually wants.</p></article></div>
