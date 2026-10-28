@@ -13,10 +13,11 @@ export async function POST(request: NextRequest) {
     if (!(file instanceof File)) return NextResponse.json({ error: 'Choose a .csv or .csv.gz feed' }, { status: 400 });
     if (!/\.csv(\.gz)?$/i.test(file.name) || file.size > 8 * 1024 * 1024) return NextResponse.json({ error: 'Only CSV/gzip files up to 8MB are allowed' }, { status: 400 });
     const craftBuddy = /^45747-retail-en_GB\.csv(\.gz)?$/i.test(file.name);
+    const cadbury = /^736-48599-en_GB-Cadbury_Shopping_Feed\.csv(\.gz)?$/i.test(file.name);
     const { records, total, review, excluded } = craftBuddy ? parseCraftBuddyGoogleFeed(Buffer.from(await file.arrayBuffer()), /\.gz$/i.test(file.name)) : parseAwinFeed(Buffer.from(await file.arrayBuffer()), /\.gz$/i.test(file.name));
     // Deny cross-merchant uploads in the pilot. AKKO UK's Awin merchant ID is 69178.
-    const merchantId = craftBuddy ? '45747' : '69178';
-    const merchantName = craftBuddy ? 'Craft Buddy Shop' : 'AKKO UK';
+    const merchantId = craftBuddy ? '45747' : cadbury ? '736' : '69178';
+    const merchantName = craftBuddy ? 'Craft Buddy Shop' : cadbury ? 'Cadbury Gifts Direct' : 'AKKO UK';
     if (records.some(r => r.merchant_id !== merchantId)) return NextResponse.json({ error: 'Mixed or unsupported advertiser feed' }, { status: 400 });
     const { data: run, error: runError } = await supabase.from('feed_import_runs').insert({ created_by: user.id, merchant_id: merchantId, merchant_name: merchantName, filename: file.name.slice(0,255), total_count: total, review_count: review, excluded_count: excluded, status: 'private_review', permission_status: 'unverified' }).select('id').single();
     if (runError || !run) throw new Error(runError?.message || 'Could not create import run');
