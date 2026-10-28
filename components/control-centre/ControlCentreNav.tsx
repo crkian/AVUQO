@@ -9,6 +9,7 @@ import {
   FilePenLine,
   GitBranch,
   LayoutDashboard,
+  Activity,
   Megaphone,
   ShieldCheck,
   Workflow,
@@ -18,6 +19,7 @@ import styles from "../../app/control-centre/control-centre.module.css";
 
 const items = [
   ["/control-centre", "Overview", LayoutDashboard],
+  ["/control-centre/live-data", "Live Data", Activity],
   ["/control-centre/sources", "Sources", Database],
   ["/control-centre/content", "Website & Content", FilePenLine],
   ["/control-centre/pipeline", "Pipeline", GitBranch],
