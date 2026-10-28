@@ -18,7 +18,7 @@ const numeric = (value: unknown, fallback = 0) => {
 };
 
 async function event(
-  supabase: SupabaseClient<any>,
+  supabase: SupabaseClient,
   runId: string,
   eventType: string,
   message: string,
@@ -38,13 +38,13 @@ async function event(
   });
 }
 
-async function getControls(supabase: SupabaseClient<any>) {
+async function getControls(supabase: SupabaseClient) {
   const { data } = await supabase
     .from("system_controls")
     .select("control_key,enabled")
     .in("control_key", ["source_ingestion", "deal_publishing", "global_emergency_stop"]);
 
-  const map = new Map((data ?? []).map((row: any) => [row.control_key, Boolean(row.enabled)]));
+  const map = new Map<string, boolean>((data ?? []).map((row) => [row.control_key, Boolean(row.enabled)]));
   return {
     sourceIngestion: map.get("source_ingestion") ?? true,
     dealPublishing: map.get("deal_publishing") ?? true,
@@ -52,7 +52,7 @@ async function getControls(supabase: SupabaseClient<any>) {
   };
 }
 
-async function ensureSource(supabase: SupabaseClient<any>, sourceKey: PipelineConnectorKey) {
+async function ensureSource(supabase: SupabaseClient, sourceKey: PipelineConnectorKey) {
   const { data: existing, error } = await supabase
     .from("sources")
     .select("id,name,source_type,status,reliability_score,connector_key,sync_enabled,credential_status")
@@ -87,7 +87,7 @@ async function ensureSource(supabase: SupabaseClient<any>, sourceKey: PipelineCo
   return inserted;
 }
 
-async function ensureCategory(supabase: SupabaseClient<any>, slug: string) {
+async function ensureCategory(supabase: SupabaseClient, slug: string) {
   const { data: existing, error } = await supabase
     .from("categories")
     .select("id")
@@ -107,7 +107,7 @@ async function ensureCategory(supabase: SupabaseClient<any>, slug: string) {
 }
 
 async function ensureMerchant(
-  supabase: SupabaseClient<any>,
+  supabase: SupabaseClient,
   offer: NormalizedOffer,
   affiliateEligible: boolean
 ) {
@@ -153,7 +153,7 @@ async function ensureMerchant(
   };
 }
 
-async function findProductByIdentifier(supabase: SupabaseClient<any>, offer: NormalizedOffer) {
+async function findProductByIdentifier(supabase: SupabaseClient, offer: NormalizedOffer) {
   for (const identifier of offer.identifiers) {
     const { data, error } = await supabase
       .from("product_identifiers")
@@ -169,7 +169,7 @@ async function findProductByIdentifier(supabase: SupabaseClient<any>, offer: Nor
 }
 
 async function ensureProduct(
-  supabase: SupabaseClient<any>,
+  supabase: SupabaseClient,
   sourceId: string,
   offer: NormalizedOffer,
   categoryId: string
@@ -252,7 +252,7 @@ async function ensureProduct(
 }
 
 async function writeIngestionItem(
-  supabase: SupabaseClient<any>,
+  supabase: SupabaseClient,
   runId: string,
   sourceId: string,
   raw: RawSourceOffer,
@@ -286,9 +286,9 @@ function reasonFor(score: ReturnType<typeof calculateAvuqoScore>) {
 }
 
 async function processOffer(
-  supabase: SupabaseClient<any>,
+  supabase: SupabaseClient,
   runId: string,
-  source: any,
+  source: Awaited<ReturnType<typeof ensureSource>>,
   raw: RawSourceOffer,
   dealPublishing: boolean
 ) {
@@ -322,7 +322,7 @@ async function processOffer(
       .order("observed_at", { ascending: false })
       .limit(30);
     if (historyError) throw historyError;
-    historicalPrices = (history ?? []).map((row: any) => numeric(row.price)).filter((price) => price > 0);
+    historicalPrices = (history ?? []).map((row) => numeric(row.price)).filter((price) => price > 0);
   }
 
   const { data: offer, error: offerError } = await supabase
@@ -368,7 +368,7 @@ async function processOffer(
     .limit(20);
   if (competitorError) throw competitorError;
   const competitorPrices = (competitors ?? [])
-    .map((row: any) => numeric(row.total_price || row.price))
+    .map((row) => numeric(row.total_price || row.price))
     .filter((price) => price > 0);
 
   const score = calculateAvuqoScore({
@@ -545,7 +545,7 @@ async function processOffer(
 }
 
 export async function runDealIntelligencePipeline(
-  supabase: SupabaseClient<any>,
+  supabase: SupabaseClient,
   options: { sourceKey: PipelineConnectorKey; limit?: number }
 ): Promise<PipelineRunSummary> {
   const connector = getConnector(options.sourceKey);
