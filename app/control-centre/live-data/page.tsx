@@ -32,7 +32,7 @@ export default async function LiveDataPage() {
     { label: "Grocery evidence", result: evidence, note: "Evidence entries are separate from published grocery prices" },
   ];
   const errors = [sources.error?.message, runs.error?.message, ...counts.map(x => x.result.error?.message)].filter(Boolean);
-  const now = Date.now();
+  const now = new Date().getTime();
   return <>
     <div className={styles.pageHead}><div><p className={styles.eyebrow}>Evidence before claims</p><h1>Live Data Monitor</h1><p className={styles.sub}>Read-only operational snapshot from the connected Supabase database. Nothing on this screen imports, approves, publishes or changes data.</p></div></div>
     {errors.length > 0 && <div className={styles.callout}><b>Some data could not be loaded.</b> Counts with access errors show Unavailable, not zero. Check permissions and logs.<ul>{errors.map((x,i)=><li key={i}>{x}</li>)}</ul></div>}
