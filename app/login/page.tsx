@@ -36,9 +36,10 @@ export default function LoginPage() {
     const authError = new URLSearchParams(window.location.search).get("error");
 
     if (authError) {
-      setError(
-        "That authentication link could not be completed. Please try again."
-      );
+      const timer = window.setTimeout(() => {
+        setError("That authentication link could not be completed. Please try again.");
+      }, 0);
+      return () => window.clearTimeout(timer);
     }
   }, []);
 
