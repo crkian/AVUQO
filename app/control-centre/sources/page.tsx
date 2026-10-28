@@ -4,6 +4,8 @@ import { createClient } from "../../../lib/supabase/server";
 import { setSourceStatus } from "../actions";
 import styles from "../control-centre.module.css";
 
+type SourceRow = { id: string; name: string; source_type: string; status: string; reliability_score: number | null; connector_key: string | null; sync_enabled: boolean; credential_status: string | null; health_status: string | null; last_sync_at: string | null; last_successful_sync_at: string | null; metadata: unknown };
+
 export const instant = false;
 
 function stamp(value: string | null) {
@@ -39,7 +41,7 @@ export default async function SourcesPage() {
           <table className={styles.table}>
             <thead><tr><th>Source</th><th>Connector</th><th>Reliability</th><th>Health</th><th>Credentials</th><th>Last success</th><th>Control</th></tr></thead>
             <tbody>
-              {rows.map((row: any) => (
+              {(rows as SourceRow[]).map((row) => (
                 <tr key={row.id}>
                   <td><b>{row.name}</b><br/><span>{row.source_type}</span></td>
                   <td>{row.connector_key ?? "custom"}</td>
