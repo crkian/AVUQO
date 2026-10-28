@@ -1,5 +1,5 @@
 'use client';
-import { useEffect,useMemo,useState } from 'react';
+import { useEffect,useState } from 'react';
 import { calculateBasket,parsePence,type BasketLine,type GroceryPrice,type PersonalPrices,type Store } from '../../lib/groceries/compare';
 import { BASKET_KEY,parseSavedBasket,parseSavedOverrides } from '../../lib/groceries/storage';
 import styles from './page.module.css';
@@ -9,11 +9,11 @@ export default function GroceryClient({stores,products,prices,unavailable}:{stor
   const availableStores=stores.length?stores:fallbackStores;
   const [basket,setBasket]=useState<BasketLine[]>([]); const [personal,setPersonal]=useState<PersonalPrices>({});
   const [chosen,setChosen]=useState<string[]>(availableStores.map(x=>x.id)); const [query,setQuery]=useState('');const [ready,setReady]=useState(false);
-  useEffect(()=>{try{setBasket(parseSavedBasket(localStorage.getItem(BASKET_KEY)));setPersonal(parseSavedOverrides(localStorage.getItem('avuqo.groceries.personal.v1')));}catch{} setReady(true);},[]);
+  useEffect(()=>{const timer=window.setTimeout(()=>{try{setBasket(parseSavedBasket(localStorage.getItem(BASKET_KEY)));setPersonal(parseSavedOverrides(localStorage.getItem('avuqo.groceries.personal.v1')));}catch{} setReady(true);},0);return ()=>window.clearTimeout(timer);},[]);
   useEffect(()=>{if(ready)try{localStorage.setItem(BASKET_KEY,JSON.stringify(basket));}catch{}},[basket,ready]);
   useEffect(()=>{if(ready)try{localStorage.setItem('avuqo.groceries.personal.v1',JSON.stringify(personal));}catch{}},[personal,ready]);
   const selected=availableStores.filter(x=>chosen.includes(x.id));
-  const comparison=useMemo(()=>calculateBasket(basket,selected,prices,personal),[basket,selected.map(x=>x.id).join(','),prices,personal]);
+  const comparison=calculateBasket(basket,selected,prices,personal);
   function add(name:string,productId?:string){const trimmed=name.trim();if(!trimmed||basket.length>=100)return;const id=productId??`free:${trimmed.toLocaleLowerCase().replace(/\s+/g,' ')}`;setBasket(old=>{const existing=old.find(x=>x.id===id);if(existing)return old.map(x=>x.id===id?{...x,quantity:Math.min(99,x.quantity+1)}:x);return [...old,{id,name:trimmed,quantity:1,productId:productId??null}];});setQuery('');}
   const suggestions=products.filter(p=>query.trim().length>1 && `${p.name} ${p.brand??''} ${p.pack_size??''}`.toLowerCase().includes(query.toLowerCase())).slice(0,8);
   const money=(p:number)=>`£${(p/100).toFixed(2)}`;
