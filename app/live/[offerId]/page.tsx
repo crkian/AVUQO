@@ -16,6 +16,7 @@ import styles from "./page.module.css";
 export const instant = false;
 
 type Props = { params: Promise<{ offerId: string }> };
+type ScoreComponent = { component_name: string; component_score: number | null; evidence: unknown };
 
 function rating(label: string): DealRating {
   const value = label.toLowerCase();
@@ -60,9 +61,9 @@ export default async function LiveDealPage({ params }: Props) {
 
   const { data: components } = scoreRow?.id
     ? await supabase.from("score_components").select("component_name,component_score,evidence").eq("deal_score_id", scoreRow.id).order("weight", { ascending: false })
-    : { data: [] as any[] };
+    : { data: [] as ScoreComponent[] };
 
-  const historyValues = (history ?? []).map((item: any) => Number(item.price)).filter(Number.isFinite);
+  const historyValues = (history ?? []).map((item) => Number(item.price)).filter(Number.isFinite);
   const max = Math.max(Number(row.current_price), ...historyValues, 1);
   const typical = Number(row.typical_price ?? row.current_price);
   const liveDeal: Deal = {
@@ -125,7 +126,7 @@ export default async function LiveDealPage({ params }: Props) {
 
       <section className={`shell ${styles.section}`}>
         <div className={styles.evidence}>
-          {(components ?? []).slice(0, 6).map((component: any) => (
+          {(components ?? []).slice(0, 6).map((component: ScoreComponent) => (
             <article className={styles.card} key={component.component_name}>
               <span>{String(component.component_name).replaceAll("_", " ")}</span>
               <strong>{Math.round(Number(component.component_score))}/100</strong>
