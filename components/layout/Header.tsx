@@ -56,6 +56,7 @@ export default function Header() {
 
         <nav aria-label="Primary navigation">
           <Link href="/discover">Discover</Link>
+          <Link href="/compare">Compare contracts</Link>
           <Link href="/live">Live</Link>
           <Link href="/search?q=Shopping">Shopping</Link>
           <Link href="/search?q=Travel">Travel</Link>
