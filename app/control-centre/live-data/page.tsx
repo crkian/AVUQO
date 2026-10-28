@@ -15,7 +15,7 @@ function freshness(value: string | null) {
 export default async function LiveDataPage() {
   await connection();
   const db = await createClient();
-  const [sources, runs, feeds, deals, groceries, evidence, needsReview, excluded, checked, candidates] = await Promise.all([
+  const [sources, runs, feeds, deals, groceries, evidence, needsReview, excluded, checked, candidates, timestamped, linkIndicated, gtinIndicated] = await Promise.all([
     db.from("sources").select("id,name,source_type,status,health_status,sync_enabled,last_successful_sync_at,connector_key").order("name"),
     db.from("source_sync_runs").select("id,status,records_seen,records_accepted,records_rejected,started_at,finished_at,error_summary").order("started_at", { ascending: false }).limit(8),
     db.from("feed_import_records").select("*", { count: "exact", head: true }),
@@ -26,6 +26,9 @@ export default async function LiveDataPage() {
     db.from("feed_import_records").select("*", { count: "exact", head: true }).eq("status", "excluded"),
     db.from("feed_import_records").select("*", { count: "exact", head: true }).eq("review_decision", "checked"),
     db.from("feed_import_records").select("id,merchant_id,merchant_product_id,awin_product_id,title,brand,category,price,currency,image_url,created_at,reasons,status,review_decision,metadata").eq("status", "review").eq("review_decision", "pending").gt("price", 0).not("title", "is", null).order("created_at", { ascending: false }).limit(40),
+    db.from("feed_import_records").select("*", { count: "exact", head: true }).eq("status", "review").eq("review_decision", "pending").contains("metadata", { source_update_present: true }),
+    db.from("feed_import_records").select("*", { count: "exact", head: true }).eq("status", "review").eq("review_decision", "pending").contains("metadata", { tracking_link_present: true }),
+    db.from("feed_import_records").select("*", { count: "exact", head: true }).eq("status", "review").eq("review_decision", "pending").contains("metadata", { gtin_present: true }),
   ]);
   const counts: { label: string; result: CountResult; note: string }[] = [
     { label: "Feed import records", result: feeds, note: "Imported records are not automatically approved offers" },
@@ -35,6 +38,9 @@ export default async function LiveDataPage() {
     { label: "Feed records awaiting review", result: needsReview, note: "Not approved for publication" },
     { label: "Excluded feed records", result: excluded, note: "Held out of the review-to-publication path" },
     { label: "Feed records checked", result: checked, note: "Reviewed does not automatically mean published" },
+    { label: "Source update indicated", result: timestamped, note: "Pending records whose metadata indicates a source update; not live verification" },
+    { label: "Tracking link indicated", result: linkIndicated, note: "Presence is not a successful retailer HTTP check" },
+    { label: "GTIN indicated", result: gtinIndicated, note: "Identifier presence is not product-match verification" },
   ];
   const candidateRows = (candidates.data ?? []) as Candidate[];
   const repeatedKeys = new Map<string, number>();
