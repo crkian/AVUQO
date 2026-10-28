@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 690" role="img" aria-labelledby="title desc">
+<title id="title">Colourful Christmas presents and festive decorations</title>
+<desc id="desc">Original AVUQO illustration with wrapped presents, ribbons, evergreen sprigs, ornaments and winter sparkle.</desc>
+<defs>
+<linearGradient id="bg" x1=".1" y1="0" x2=".9" y2="1"><stop stop-color="#fff5ed"/><stop offset="1" stop-color="#e9e2f9"/></linearGradient>
+<linearGradient id="indigo" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7355c6"/><stop offset="1" stop-color="#4b377b"/></linearGradient>
+<linearGradient id="green" x1="0" y1="0" x2="1" y2=".9"><stop stop-color="#458978"/><stop offset="1" stop-color="#1f625b"/></linearGradient>
+<linearGradient id="coral" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e79089"/><stop offset="1" stop-color="#c8637c"/></linearGradient>
+<linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffd58e"/><stop offset="1" stop-color="#e9a846"/></linearGradient>
+<filter id="shadow" x="-20%" y="-25%" width="150%" height="170%"><feGaussianBlur stdDeviation="15"/></filter>
+</defs>
+<circle cx="445" cy="342" r="278" fill="url(#bg)"/>
+<circle cx="670" cy="130" r="38" fill="#e9d4df" opacity=".8"/>
+<circle cx="170" cy="190" r="25" fill="#dfd7f3" opacity=".85"/>
+<ellipse cx="452" cy="590" rx="300" ry="32" fill="#5d4066" opacity=".14" filter="url(#shadow)"/>
+<g fill="none" stroke="#327364" stroke-linecap="round" stroke-width="10">
+<path d="M130 433C105 364 128 294 175 239"/><path d="M170 262l-67-20M161 284l-66-5M150 308l-75 11M145 335l-72 25M153 355l-68 55M178 257l-6-67M199 239l17-60"/>
+<path d="M703 433c44-79 38-146-1-218"/><path d="M701 258l76-36M712 284l72-8M715 319l75 21M717 354l60 50M694 255l-20-66M674 225l-39-45"/>
+</g>
+<g fill="#3b8673"><ellipse cx="126" cy="265" rx="13" ry="34" transform="rotate(-53 126 265)"/><ellipse cx="116" cy="325" rx="12" ry="31" transform="rotate(-71 116 325)"/><ellipse cx="761" cy="255" rx="12" ry="34" transform="rotate(45 761 255)"/><ellipse cx="758" cy="337" rx="12" ry="31" transform="rotate(65 758 337)"/></g>
+<g>
+<rect x="241" y="335" width="310" height="230" rx="24" fill="url(#green)"/>
+<path d="M385 335h58v230h-58z" fill="#edc996"/>
+<path d="M241 378h310v45H241z" fill="#efd2a7"/>
+<rect x="219" y="310" width="354" height="72" rx="18" fill="#378074"/>
+<path d="M392 310h47v72h-47z" fill="#f6d4a4"/>
+<path d="M420 312c-83-56-94-113-48-110 42 3 48 67 48 110zm0 0c84-56 94-113 48-110-42 3-48 67-48 110z" fill="none" stroke="#f2c580" stroke-width="20" stroke-linejoin="round"/>
+<circle cx="420" cy="312" r="23" fill="#edc58d"/>
+</g>
+<g>
+<rect x="490" y="420" width="226" height="145" rx="17" fill="url(#indigo)"/>
+<path d="M585 420h34v145h-34z" fill="#e3a5a8"/><path d="M490 454h226v29H490z" fill="#e3a5a8"/>
+<rect x="476" y="398" width="251" height="44" rx="12" fill="#6c4eab"/>
+<path d="M587 398h30v44h-30z" fill="#f0afb0"/>
+<path d="M606 399c-43-32-61-67-32-72 29-4 39 40 32 72zm0 0c41-33 61-65 34-70-30-4-43 39-34 70z" fill="none" stroke="#f4b8b8" stroke-width="13"/>
+</g>
+<g>
+<rect x="137" y="452" width="162" height="113" rx="13" fill="url(#coral)"/>
+<path d="M206 452h28v113h-28z" fill="#ffe5c5"/><path d="M137 478h162v24H137z" fill="#ffe5c5"/>
+<rect x="124" y="432" width="188" height="31" rx="10" fill="#d7757c"/>
+<path d="M208 432h22v31h-22z" fill="#ffdfc3"/>
+<path d="M219 430c-27-25-34-47-12-48 19 0 21 25 12 48zm0 0c26-27 35-48 13-48-17 1-20 25-13 48z" fill="none" stroke="#ffe1bd" stroke-width="11"/>
+</g>
+<g>
+<path d="M636 145v74" stroke="#b58b84" stroke-width="4"/><circle cx="636" cy="250" r="37" fill="url(#coral)"/><path d="M612 230c12-15 36-17 50-7" stroke="#ffccc2" stroke-width="6" fill="none" stroke-linecap="round"/><rect x="626" y="208" width="20" height="10" rx="3" fill="#e7b65e"/>
+<path d="M279 93v79" stroke="#b58b84" stroke-width="4"/><circle cx="279" cy="199" r="26" fill="url(#gold)"/><rect x="271" y="167" width="16" height="9" rx="3" fill="#dba64f"/>
+</g>
+<g fill="#f3bb66"><path d="M554 146l9 21 22 9-22 9-9 22-9-22-22-9 22-9z"/><path d="M162 153l6 15 15 6-15 6-6 15-6-15-15-6 15-6z"/><path d="M713 379l8 17 17 8-17 7-8 18-7-18-18-7 18-8z"/></g>
+<g fill="#fff" opacity=".9"><circle cx="204" cy="119" r="5"/><circle cx="727" cy="149" r="6"/><circle cx="520" cy="93" r="5"/><circle cx="113" cy="408" r="4"/></g>
+</svg>
