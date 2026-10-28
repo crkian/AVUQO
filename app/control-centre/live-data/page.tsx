@@ -14,19 +14,25 @@ function freshness(value: string | null) {
 export default async function LiveDataPage() {
   await connection();
   const db = await createClient();
-  const [sources, runs, feeds, deals, groceries, evidence] = await Promise.all([
+  const [sources, runs, feeds, deals, groceries, evidence, needsReview, excluded, checked] = await Promise.all([
     db.from("sources").select("id,name,source_type,status,health_status,sync_enabled,last_successful_sync_at,connector_key").order("name"),
     db.from("source_sync_runs").select("id,status,records_seen,records_accepted,records_rejected,started_at,finished_at,error_summary").order("started_at", { ascending: false }).limit(8),
     db.from("feed_import_records").select("*", { count: "exact", head: true }),
     db.from("published_deals").select("*", { count: "exact", head: true }).eq("status", "published"),
     db.from("grocery_prices").select("*", { count: "exact", head: true }),
     db.from("grocery_price_evidence").select("*", { count: "exact", head: true }),
+    db.from("feed_import_records").select("*", { count: "exact", head: true }).eq("status", "review").eq("review_decision", "pending"),
+    db.from("feed_import_records").select("*", { count: "exact", head: true }).eq("status", "excluded"),
+    db.from("feed_import_records").select("*", { count: "exact", head: true }).eq("review_decision", "checked"),
   ]);
   const counts: { label: string; result: CountResult; note: string }[] = [
     { label: "Feed import records", result: feeds, note: "Imported records are not automatically approved offers" },
     { label: "Published deal records", result: deals, note: "Publication alone does not confirm current price or availability" },
     { label: "Grocery prices", result: groceries, note: "Requires retailer-backed price evidence before comparison" },
     { label: "Grocery evidence", result: evidence, note: "Evidence entries are separate from published grocery prices" },
+    { label: "Feed records awaiting review", result: needsReview, note: "Not approved for publication" },
+    { label: "Excluded feed records", result: excluded, note: "Held out of the review-to-publication path" },
+    { label: "Feed records checked", result: checked, note: "Reviewed does not automatically mean published" },
   ];
   const errors = [sources.error?.message, runs.error?.message, ...counts.map(x => x.result.error?.message)].filter(Boolean);
   return <>
