@@ -15,7 +15,7 @@ export default function UploadForm() {
     finally { setBusy(false); }
   }
   return <form action={upload} style={{ display: 'grid', gap: 12, padding: 20, background: 'white', borderRadius: 16 }}>
-    <label htmlFor="awin-upload"><strong>AKKO UK, Craft Buddy Shop or Cadbury Gifts Direct feed (.csv or .csv.gz)</strong></label>
+    <label htmlFor="awin-upload"><strong>AKKO UK, Craft Buddy Shop, Cadbury Gifts Direct or Petlibro UK feed (.csv or .csv.gz)</strong></label>
     <input id="awin-upload" type="file" name="file" accept=".csv,.gz,.csv.gz" required disabled={busy}/>
     <button type="submit" disabled={busy} style={{ background: '#5841e8', color: 'white', borderRadius: 8, padding: 12, cursor: 'pointer' }}>{busy ? 'Validating and saving…' : 'Import for private review'}</button>
     {message && <p role="status">{message}</p>}
