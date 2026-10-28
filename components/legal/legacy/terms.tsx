@@ -26,7 +26,7 @@ export default function TermsPage() {
         <h2>Third-party merchants</h2>
         <p>
           Transactions completed with external merchants are governed by the
-          merchant's terms. AVUQO is not the seller, travel provider or
+          merchant&apos;s terms. AVUQO is not the seller, travel provider or
           fulfilment provider unless explicitly stated otherwise.
         </p>
       </section>
