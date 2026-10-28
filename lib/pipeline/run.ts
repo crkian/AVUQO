@@ -55,7 +55,7 @@ async function getControls(supabase: SupabaseClient) {
 async function ensureSource(supabase: SupabaseClient, sourceKey: PipelineConnectorKey) {
   const { data: existing, error } = await supabase
     .from("sources")
-    .select("id,name,source_type,status,reliability_score,connector_key,sync_enabled,credential_status")
+    .select("id,name,source_type,status,reliability_score,connector_key,sync_enabled,credential_status,metadata")
     .eq("connector_key", sourceKey)
     .maybeSingle();
 
@@ -80,7 +80,7 @@ async function ensureSource(supabase: SupabaseClient, sourceKey: PipelineConnect
       health_status: "healthy",
       metadata: { stage: "pipeline-test", synthetic: true },
     })
-    .select("id,name,source_type,status,reliability_score,connector_key,sync_enabled,credential_status")
+    .select("id,name,source_type,status,reliability_score,connector_key,sync_enabled,credential_status,metadata")
     .single();
 
   if (insertError) throw insertError;
@@ -440,10 +440,18 @@ async function processOffer(
     raw_data: { source_record_id: normalized.sourceRecordId },
   });
 
+  // Fail closed: an active source and a high score do not establish permission
+  // to publish or independent confirmation of the current retail price.
+  const sourceMeta = source.metadata && typeof source.metadata === "object" && !Array.isArray(source.metadata)
+    ? source.metadata as Record<string, unknown> : {};
+  const publicationEligible =
+    sourceMeta.publication_permission === "verified" &&
+    sourceMeta.price_evidence_status === "verified";
   const referencePrice = numeric(score.explanation.referencePrice, normalized.previousPrice ?? normalized.rrp ?? normalized.price);
   const shouldPublish =
     source.connector_key !== "demo" &&
     dealPublishing &&
+    publicationEligible &&
     score.score >= 60 &&
     score.confidence >= 55 &&
     normalized.normalizedStockStatus !== "out_of_stock";
@@ -475,6 +483,7 @@ async function processOffer(
   let promotionCreated = false;
   if (
     source.connector_key !== "demo" &&
+    publicationEligible &&
     score.score >= 75 &&
     score.confidence >= 65 &&
     merchant.affiliateEligible &&
@@ -530,6 +539,7 @@ async function processOffer(
       confidence: score.confidence,
       decision: score.decision,
       published: shouldPublish,
+      publicationEligible,
       promotionCandidate: promotionCreated,
     },
     "info",

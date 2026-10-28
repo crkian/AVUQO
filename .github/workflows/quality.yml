@@ -29,6 +29,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
+      - name: Contract pricing unit tests
+        run: node --experimental-strip-types --experimental-specifier-resolution=node --test lib/comparison/contract-cost.test.ts
 
   build:
     name: Build
