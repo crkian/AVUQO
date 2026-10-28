@@ -1,4 +1,7 @@
 import { Suspense } from 'react';
+import Link from 'next/link';
+import Header from '../../components/layout/Header';
+import Footer from '../../components/layout/Footer';
 import { connection } from 'next/server';
 import { createClient } from '../../lib/supabase/server';
 import GroceryClient from './GroceryClient';
@@ -16,8 +19,13 @@ async function GroceryData() {
 
 export default function GroceriesPage() {
   return (
+    <>
+    <Header />
+    <nav aria-label="Grocery page navigation" style={{maxWidth:1190,margin:"16px auto 0",padding:"0 20px",display:"flex",gap:16,flexWrap:"wrap",fontWeight:650}}><Link href="/">Home</Link><Link href="/lists">Shared Lists</Link><Link href="/groceries" aria-current="page">Groceries</Link></nav>
     <Suspense fallback={<main style={{maxWidth:1100,margin:'40px auto',padding:24}}><h1>AVUQO Groceries</h1><p>Loading supermarket availability and your shopping tools…</p></main>}>
       <GroceryData />
     </Suspense>
+    <Footer />
+    </>
   );
 }
