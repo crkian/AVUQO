@@ -30,7 +30,7 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - name: Contract pricing unit tests
-        run: node --experimental-strip-types --test lib/comparison/contract-cost.test.ts
+        run: node --experimental-strip-types --experimental-specifier-resolution=node --test lib/comparison/contract-cost.test.ts
 
   build:
     name: Build
