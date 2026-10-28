@@ -18,7 +18,7 @@ export default async function FeedImportsPage() {
   const latest = runs?.[0];
   // Pilot limit is 2500 records; paginate at the API/db layer when this is expanded.
   const { data: records, error: recordsError } = latest ? await supabase.from('feed_import_records')
-    .select('id,title,price,currency,status,reasons,merchant_product_id,brand,category,review_decision,review_notes')
+    .select('id,title,price,currency,status,reasons,merchant_product_id,brand,category,review_decision,review_notes,image_url')
     .eq('import_id', latest.id).order('created_at', { ascending: true }).range(0, 999) : { data: [], error: null };
   return <main style={{ display: 'grid', gap: 24, maxWidth: 1220, paddingBottom: 40 }}>
     <header><p style={{ color: '#6545d6', fontWeight: 750, letterSpacing: 1, fontSize: 12 }}>SOURCES / PRIVATE IMPORTS</p><h1 style={{ fontSize: 30, margin: '8px 0' }}>Product feed review</h1><p style={{ color: '#62627a' }}>Private pilot. No products are published, and affiliate links remain disabled while merchant rights are unverified.</p></header>

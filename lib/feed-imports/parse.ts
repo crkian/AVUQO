@@ -1,6 +1,6 @@
 import { gunzipSync } from 'node:zlib';
 
-export type FeedRecord = { merchant_id: string; merchant_product_id: string; awin_product_id: string; title: string; price: string | null; currency: string; brand: string; category: string; status: 'review' | 'excluded'; reasons: string[]; metadata: Record<string, unknown> };
+export type FeedRecord = { merchant_id: string; merchant_product_id: string; awin_product_id: string; title: string; price: string | null; currency: string; brand: string; category: string; status: 'review' | 'excluded'; reasons: string[]; image_url: string | null; metadata: Record<string, unknown> };
 const REQUIRED = ['aw_product_id', 'merchant_product_id', 'product_name', 'merchant_id', 'search_price', 'currency'];
 
 function csvRows(source: string): string[][] {
@@ -36,6 +36,9 @@ export function parseAwinFeed(bytes: Buffer, compressed: boolean) {
     const merchant_id = get('merchant_id'), merchant_product_id = get('merchant_product_id'), awin_product_id = get('aw_product_id');
     const title = get('product_name'), currency = get('currency').toUpperCase(); const price = Number(get('search_price'));
     const reasons: string[] = [];
+    const rawImage = get('merchant_image_url') || get('aw_image_url');
+    let image_url: string | null = null;
+    try { const url = new URL(rawImage); if (url.protocol === 'https:' && rawImage.length <= 2048) image_url = url.toString(); } catch { /* optional image unavailable */ }
     if (!Number.isFinite(price) || price <= 0) reasons.push('invalid_or_zero_price');
     if (!title || !merchant_id || !(merchant_product_id || awin_product_id)) reasons.push('missing_identity');
     if (currency !== 'GBP') reasons.push('unexpected_currency');
@@ -45,7 +48,7 @@ export function parseAwinFeed(bytes: Buffer, compressed: boolean) {
     if (title.toLowerCase().includes('shipping protection')) reasons.push('non_product_shipping_protection');
     if (['0','false','no'].includes(get('in_stock').toLowerCase()) || ['out of stock','unavailable'].includes(get('stock_status').toLowerCase())) reasons.push('out_of_stock');
     records.push({ merchant_id, merchant_product_id, awin_product_id, title: title.slice(0, 500), price: Number.isFinite(price) && price > 0 ? price.toFixed(2) : null, currency,
-      brand: get('brand_name'), category: get('category_name'), status: reasons.length ? 'excluded' : 'review', reasons,
+      brand: get('brand_name'), category: get('category_name'), status: reasons.length ? 'excluded' : 'review', reasons, image_url,
       metadata: { gtin_present: Boolean(get('product_GTIN')), image_present: Boolean(get('merchant_image_url') || get('aw_image_url')), tracking_link_present: Boolean(get('aw_deep_link')), source_update_present: Boolean(get('last_updated')) } });
   }
   return { records, total: records.length, review: records.filter(x => x.status === 'review').length, excluded: records.filter(x => x.status === 'excluded').length };
