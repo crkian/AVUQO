@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Never commit support archives or environment exports
+*.zip
+*.tar
+*.tar.gz
+*.env.local
