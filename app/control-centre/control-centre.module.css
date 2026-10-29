@@ -517,3 +517,18 @@
 .dotGood { background: #17a678; }
 .dotWarn { background: #d69016; }
 .dotBad { background: #cf4e45; }
+
+
+@media(max-width:620px){
+ .sideNav{overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+ .sideNav a{min-height:44px}
+ .private{max-width:100%;overflow-wrap:anywhere}
+ .panel{padding:16px}
+ .panelHead{align-items:flex-start;flex-wrap:wrap}
+ .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .metric{padding:14px}
+ .metric strong{font-size:24px}
+ .table{max-width:100%;white-space:nowrap;-webkit-overflow-scrolling:touch}
+ .content{min-width:0}
+}
+@media(max-width:360px){.metrics{grid-template-columns:1fr}}

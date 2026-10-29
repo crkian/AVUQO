@@ -28,3 +28,52 @@
 .mobile-menu-toggle{display:none;border:1px solid var(--border);border-radius:12px;background:#fff;width:43px;height:43px;align-items:center;justify-content:center;color:var(--ink)}
 @media(min-width:1001px){.nav{gap:24px}.nav .primary-nav{gap:16px;font-size:12px}.nav .primary-nav a{white-space:nowrap}}
 @media(max-width:1000px){.nav{position:relative;gap:12px}.mobile-menu-toggle{display:flex;margin-left:auto;flex-shrink:0}.nav .primary-nav{position:absolute;top:calc(100% + 1px);left:0;right:0;display:none;flex-direction:column;align-items:stretch;gap:0;padding:12px;border:1px solid var(--border);border-radius:0 0 20px 20px;background:#fff;box-shadow:0 20px 35px rgba(23,20,43,.14);white-space:normal;max-height:calc(100vh - 84px);overflow:auto}.nav .primary-nav.is-open{display:flex}.nav .primary-nav a{display:block;padding:13px 15px;border-bottom:1px solid #f0edf4;font-size:15px}.nav .primary-nav a:last-child{border-bottom:none}.signin{margin-left:0}}
+
+/* 2026-10 mobile UX pass: consistent touch targets, readability and safe viewports */
+html{scroll-padding-top:90px}
+body{min-width:280px}
+img,video{max-width:100%;height:auto}
+main,section,article,.nav>*{min-width:0}
+button,a,input,select,textarea{touch-action:manipulation}
+:focus-visible{outline:3px solid #6540dd;outline-offset:3px}
+@media(max-width:1000px){
+  .header{z-index:100}
+  .mobile-menu-toggle{min-width:46px;min-height:46px;margin-left:auto}
+  .nav .primary-nav{z-index:101;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+  .nav .primary-nav a{min-height:47px;display:flex;align-items:center}
+  .nav .logo{flex-shrink:0}
+  .nav .signin,.nav .auth-menu{flex-shrink:0}
+}
+@media(max-width:600px){
+  .shell{width:calc(100% - 32px)}
+  .nav{height:68px;gap:10px}
+  .logo{font-size:20px}
+  .q-mark{width:35px;height:35px;border-radius:11px}
+  .mobile-menu-toggle{min-width:44px;min-height:44px}
+  .nav .signin{padding:10px 12px;font-size:12px;min-height:44px;display:flex;align-items:center}
+  .nav .auth-menu{gap:6px}
+  .nav .auth-menu .control-centre-link{width:42px;height:42px}
+  .section{padding:42px 0}
+  .section-title{gap:12px;align-items:flex-start;flex-wrap:wrap}
+  .section-title h2{font-size:clamp(27px,8vw,38px)}
+  .hero h1{overflow-wrap:break-word}
+  .feature{min-height:0}
+  .feature h2{font-size:clamp(30px,9vw,46px)}
+  .search{margin-top:23px;min-width:0}
+  .search input{font-size:16px}
+  .auth-form input,.search-page-box input{font-size:16px}
+  .watch-item{gap:12px}
+  .watch-item-actions{flex-wrap:wrap}
+  .watch-item-actions a,.watch-item-actions button{min-height:44px;display:inline-flex;align-items:center}
+}
+@media(max-width:370px){
+  .nav .signin{padding:8px 10px}
+  .nav .auth-menu .control-centre-link{display:none}
+  .watch-item{grid-template-columns:58px minmax(0,1fr) 58px;padding:11px}
+  .watch-product-art{width:58px;height:58px}
+  .watch-score{width:57px;height:57px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .deal-card,.category{transition:none}
+}

@@ -27,3 +27,18 @@
 .cardBody h3{margin:10px 0 7px}
 .cardBody span{color:#d56a31}
 @media(max-width:700px){.hero{min-height:510px}.heroPhoto{background-position:65% 34%}.heroWash{background:linear-gradient(0deg,rgba(250,247,241,.99) 0%,rgba(250,247,241,.91) 42%,rgba(250,247,241,.42) 80%)}.heroLayout{padding:170px 0 45px}.hero h1{font-size:clamp(47px,11vw,66px)}.cardPhoto{height:195px}}
+
+
+@media(max-width:700px){
+ .hero{min-height:545px}
+ .heroLayout{padding:190px 0 35px}
+ .heroCopy h1{font-size:clamp(42px,10.8vw,61px);line-height:1.04}
+ .hero p:not(.kicker){font-size:15px;line-height:1.58}
+ .primary{min-height:48px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ .cardPhoto{height:145px}
+ .cardBody{padding:16px;min-height:195px}
+ .cardBody h3{font-size:17px}
+ .tip{padding:23px}
+}
+@media(max-width:370px){.grid{grid-template-columns:1fr}.cardPhoto{height:200px}.cardBody{min-height:135px}}
