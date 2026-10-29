@@ -28,9 +28,9 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
-      - run: npm run lint
       - name: Four-brand marketing policy tests
         run: node --experimental-strip-types --test tests/marketing-policy.test.mjs
+      - run: npm run lint
       - name: Contract pricing unit tests
         run: node --experimental-strip-types --experimental-specifier-resolution=node --test lib/comparison/contract-cost.test.ts
 
