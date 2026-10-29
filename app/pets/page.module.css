@@ -8,3 +8,8 @@
 @media(max-width:960px){.heroLayout{grid-template-columns:minmax(0,1fr) minmax(265px,.75fr)}.heroArtwork{min-height:390px}}
 @media(max-width:700px){.hero{padding:50px 0 32px}.heroLayout{grid-template-columns:1fr;gap:0}.heroArtwork{min-height:295px;max-width:500px;width:100%;justify-self:center}.hero h1{font-size:clamp(48px,12vw,70px)}}
 @media(prefers-reduced-motion:no-preference){.heroArtwork{animation:petArrival .65s ease-out both}@keyframes petArrival{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}}
+
+/* Editorial pet photo. Merchant product images remain unpublished pending approval. */
+.hero{position:relative;min-height:510px;display:flex;align-items:center;padding:60px 0;background-image:linear-gradient(90deg,#f4f8f4 0%,rgba(244,248,244,.98) 20%,rgba(244,248,244,.8) 39%,rgba(244,248,244,.05) 76%),url('https://images.pexels.com/photos/32276112/pexels-photo-32276112.jpeg?auto=compress&cs=tinysrgb&w=1800');background-size:cover;background-position:center}
+.heroLayout{display:block}.heroCopy{max-width:590px;padding:0}.heroArtwork{display:none}
+@media(max-width:700px){.hero{min-height:565px;align-items:end;padding:35px 0;background-image:linear-gradient(0deg,#f4f8f4 0%,rgba(244,248,244,.97) 43%,rgba(244,248,244,.03) 86%),url('https://images.pexels.com/photos/32276112/pexels-photo-32276112.jpeg?auto=compress&cs=tinysrgb&w=900');background-position:54% top}.heroLayout{padding-top:215px}.heroCopy{max-width:100%}}
