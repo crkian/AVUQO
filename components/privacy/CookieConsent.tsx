@@ -32,12 +32,17 @@ export default function CookieConsent(){
  const[analytics,setAnalytics]=useState(false);
  const[marketing,setMarketing]=useState(false);
  useEffect(()=>{
-  const saved=read();setReady(true);
-  if(!saved)setShow(true);
-  else{setAnalytics(saved.analytics);setMarketing(saved.marketing);}
+  let cancelled=false;
+  // Initialize after the mount effect to avoid synchronous state cascades.
+  queueMicrotask(()=>{
+    if(cancelled)return;
+    const saved=read();setReady(true);
+    if(!saved)setShow(true);
+    else{setAnalytics(saved.analytics);setMarketing(saved.marketing);}
+  });
   const open=()=>{const latest=read();setAnalytics(latest?.analytics??false);setMarketing(latest?.marketing??false);setDetails(true);setShow(true)};
   window.addEventListener("avuqo:open-cookie-settings",open);
-  return ()=>window.removeEventListener("avuqo:open-cookie-settings",open);
+  return ()=>{cancelled=true;window.removeEventListener("avuqo:open-cookie-settings",open)};
  },[]);
  const save=useCallback((a:boolean,m:boolean)=>{
   const c=persist(a,m);
