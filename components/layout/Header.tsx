@@ -59,7 +59,7 @@ export default function Header() {
 
   return (
     <header className="header">
-      <div className="shell nav">
+      <div className="shell nav avuqo-header-layout">
         <Link className="logo" href="/">
           <span className="q-mark">Q</span>
           AVUQO
@@ -68,6 +68,7 @@ export default function Header() {
         <MegaNav menuOpen={menuOpen} onNavigate={() => setMenuOpen(false)} />
         <button className="mobile-menu-toggle" type="button" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="avuqo-primary-nav" onClick={() => setMenuOpen(open => !open)}>{menuOpen ? <X size={23}/> : <Menu size={23}/>}</button>
 
+        <div className="header-actions">
         {!ready ? (
           <span className="signin auth-loading">...</span>
         ) : email ? (
@@ -80,7 +81,7 @@ export default function Header() {
             <Link className="auth-email" href="/account" title={email}>
               Account
             </Link>
-            <button className="signout-button" type="button" onClick={signOut}>
+            <button className="signout-button" type="button" aria-label="Sign out" title="Sign out" onClick={signOut}>
               <LogOut size={16} />
               <span>Sign out</span>
             </button>
@@ -88,6 +89,7 @@ export default function Header() {
         ) : (
           <Link className="signin" href="/login">Sign in</Link>
         )}
+        </div>
       </div>
     </header>
   );

@@ -24,3 +24,11 @@
 .menuLink{min-height:45px!important;padding:10px 12px!important}
 }
 @media(min-width:1001px) and (max-width:1240px){.trigger{padding:10px 4px;font-size:11px}.nav{gap:1px}.dropdown{width:520px}}
+
+
+/* Desktop mega-menu headings must retain their intrinsic width. */
+@media(min-width:1001px){
+ .nav{width:100%;max-width:100%;min-width:0}
+ .trigger{white-space:nowrap;flex-shrink:0}
+ .dropdown{top:calc(100% + 5px)}
+}

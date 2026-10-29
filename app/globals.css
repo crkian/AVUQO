@@ -77,3 +77,40 @@ button,a,input,select,textarea{touch-action:manipulation}
   html{scroll-behavior:auto}
   .deal-card,.category{transition:none}
 }
+
+
+/* Header navigation: separate the full six-section taxonomy from account controls.
+   The previous single row shrank auth controls and clipped "About AVUQO". */
+.avuqo-header-layout .header-actions{display:flex;align-items:center;justify-content:flex-end;min-width:max-content;flex-shrink:0}
+.avuqo-header-layout .header-actions .auth-menu{display:flex;align-items:center;gap:10px;min-width:max-content}
+.avuqo-header-layout .header-actions .auth-email{white-space:nowrap;flex-shrink:0}
+.avuqo-header-layout .header-actions .signout-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;white-space:nowrap;flex:0 0 auto;min-width:100px;min-height:42px}
+.avuqo-header-layout .header-actions .signout-button span{white-space:nowrap}
+.avuqo-header-layout .header-actions .signin{white-space:nowrap;margin-left:0}
+@media(min-width:1001px){
+  .header .avuqo-header-layout{height:auto;min-height:110px;padding:6px 0 9px;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:57px 40px;column-gap:20px;row-gap:2px;align-items:center}
+  .avuqo-header-layout>.logo{grid-column:1;grid-row:1;justify-self:start;white-space:nowrap}
+  .avuqo-header-layout>.header-actions{grid-column:2;grid-row:1;justify-self:end}
+  .header .avuqo-header-layout>.primary-nav{grid-column:1/-1;grid-row:2;display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;min-width:0;overflow:visible}
+  .avuqo-header-layout>.primary-nav .group{flex:0 0 auto;min-width:max-content}
+  .avuqo-header-layout>.primary-nav .trigger{min-height:40px;padding:9px 13px;font-size:13px}
+}
+@media(max-width:1000px){
+  .header .avuqo-header-layout{display:flex;height:76px;gap:10px;position:relative}
+  .avuqo-header-layout>.logo{order:1;margin-right:auto;white-space:nowrap}
+  .avuqo-header-layout>.header-actions{order:2;margin-left:0}
+  .avuqo-header-layout>.mobile-menu-toggle{order:3;margin-left:0}
+  .header .avuqo-header-layout>.primary-nav{order:4}
+  .avuqo-header-layout .header-actions .signout-button{min-width:93px}
+}
+@media(max-width:680px){
+  .header .avuqo-header-layout{height:68px}
+  .avuqo-header-layout .header-actions .auth-email{display:none}
+  .avuqo-header-layout .header-actions .signout-button{min-width:44px;min-height:44px;width:44px;padding:0}
+  .avuqo-header-layout .header-actions .signout-button span{display:none}
+  .avuqo-header-layout .header-actions .control-centre-link{width:44px;height:44px}
+  .avuqo-header-layout>.mobile-menu-toggle{width:44px;height:44px;flex-shrink:0}
+}
+@media(max-width:370px){
+  .avuqo-header-layout .header-actions .control-centre-link{display:none}
+}
