@@ -27,7 +27,7 @@ type EditorialRule = {id:string;brand_slug:string;platform:string;enabled:boolea
 type GlobalControls = {publishing_enabled:boolean;ai_enabled:boolean;emergency_stop:boolean};
 type Audit = { id:number; brand_slug:string|null; entity:string; operation:string; happened_at:string; actor_id:string|null };
 const TABS = [
-  ["overview","Overview"],["brands","Brands"],["facts","Brand knowledge"],["homepage","Homepage rotation"],
+  ["overview","Overview"],["brands","Brands"],["facts","Brand knowledge"],["homepage","AVUQO editorial rotation"],
   ["studio","Content Studio"],["media","Images"],["calendar","Calendar"],["channels","Social Connections"],["queue","Publishing Queue"],
   ["website","Website Content"],["automation","Automation"],["analytics","Analytics"],["audit","Audit"]
 ] as const;
@@ -106,8 +106,8 @@ export default async function MarketingPage({
   return <div className={styles.wrap}>
     <div className={styles.head}>
       <div><p className={styles.eyebrow}>AVUQO Control Centre / Marketing</p>
-        <h1>Marketing workspace</h1>
-        <p className={styles.muted}>One place to plan and review content for four independent brands.</p></div>
+        <h1>Brand social marketing</h1>
+        <p className={styles.muted}>Create, review and schedule social content for AVUQO, Fantasy Lockr, Capshur and Cluedoku. AVUQO website advertising for external businesses is a separate future system.</p></div>
       <span className={styles.pill}>{safeMode?"Live publishing OFF":system?.emergency_stop?"Emergency stop ON":"Publishing controls configured"}</span>
     </div>
     <nav className={styles.tabs} aria-label="Marketing sections">
@@ -148,8 +148,8 @@ export default async function MarketingPage({
 
     {tab==="homepage"&&<>
       <section className={styles.panel}>
-        <h2>Front-page rotating campaigns</h2>
-        <p className={styles.muted}>Approved AVUQO campaigns appear in a rotating panel below the homepage introduction. Set a start and end time, choose a real AVUQO page, and review the copy. Campaigns expire automatically. Sponsored placements are visibly labelled and never affect product scores or organic rankings.</p>
+        <h2>AVUQO editorial homepage rotation</h2>
+        <p className={styles.muted}>Approved AVUQO campaigns appear in a rotating panel below the homepage introduction. Set a start and end time, choose a real AVUQO page, and review the copy. Campaigns expire automatically. This current editor supports AVUQO-owned pages and approved AVUQO facts only. Paid advertisements by external businesses require a separate advertiser management system. Any future paid placements must be clearly labelled and must never affect product scores or organic rankings.</p>
         {brand!=="avuqo"?<div className={styles.warning}>This front-page carousel belongs to AVUQO only. Select AVUQO above. Other brands keep separate marketing workspaces and cannot add claims to AVUQO&apos;s homepage.</div>:
          <form action={createHomePlacement} className={styles.form}>
           <label>Headline<input name="title" required minLength={8} maxLength={100} placeholder="Explore smarter shopping decisions"/></label>
