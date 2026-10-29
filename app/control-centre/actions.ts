@@ -21,12 +21,12 @@ export async function setSourceStatus(id: string, status: string) {
   if (status === "active") {
     if (role !== "owner") throw new Error("Only the owner may activate a connector");
     const { data: source, error: readError } = await supabase
-      .from("sources").select("id,credential_status,status,metadata").eq("id", id).single();
+      .from("sources").select("id,credential_status,status,metadata,connector_key").eq("id", id).single();
     if (readError || !source) throw new Error("Source not found");
     // Activation alone does not prove publication rights. Explicit source-specific approval required.
     const metadata = source.metadata && typeof source.metadata === "object" && !Array.isArray(source.metadata)
       ? source.metadata as Record<string, unknown> : {};
-    if (source.credential_status !== "ready" || metadata.usage_rights_confirmed !== true) {
+    if (!source.connector_key || source.connector_key === "demo" || source.credential_status !== "ready" || metadata.usage_rights_confirmed !== true || typeof metadata.rights_evidence_ref !== "string" || metadata.rights_evidence_ref.length < 5) {
       throw new Error("Confirm credentials and source-specific publishing rights before enabling ingestion");
     }
   }
