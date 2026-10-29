@@ -3,26 +3,15 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  AlertTriangle,
-  Banknote,
-  Database,
-  ClipboardCheck,
-  CalendarDays,
-  PackageCheck,
-  FilePenLine,
-  GitBranch,
-  LayoutDashboard,
-  Activity,
-  Layers3,
-  Megaphone,
-  ShieldCheck,
-  Workflow,
+  AlertTriangle, Banknote, Database, ClipboardCheck, CalendarDays, PackageCheck,
+  FilePenLine, GitBranch, LayoutDashboard, Activity, Layers3, Megaphone,
+  ShieldCheck, Workflow
 } from "lucide-react";
-
 import styles from "../../app/control-centre/control-centre.module.css";
 
 const items = [
   ["/control-centre", "Overview", LayoutDashboard],
+  ["/control-centre/marketing", "Marketing", Megaphone],
   ["/control-centre/live-data", "Live Data", Activity],
   ["/control-centre/coverage", "Coverage", Layers3],
   ["/control-centre/sources", "Sources", Database],
@@ -40,17 +29,11 @@ const items = [
 
 export default function ControlCentreNav() {
   const pathname = usePathname();
-
   return (
     <nav className={styles.sideNav} aria-label="Control Centre">
       {items.map(([href, label, Icon]) => (
-        <Link
-          key={href}
-          href={href}
-          className={pathname === href ? styles.active : ""}
-        >
-          <Icon size={17} />
-          <span>{label}</span>
+        <Link key={href} href={href} className={pathname === href ? styles.active : ""}>
+          <Icon size={17} /><span>{label}</span>
         </Link>
       ))}
     </nav>
