@@ -58,7 +58,7 @@ async function validateJob(id:string) {
       (!asset||asset.brand_slug===job.brand_slug),
     channelMatches:channel.brand_slug===job.brand_slug && channel.platform===post.platform,
     platform:post.platform,hasApprovedImage:asset?.status==="approved"&&!!asset.public_url,
-    withinCap:(count??0)<=brand.weekly_post_cap,duplicate,dueAt:job.due_at
+    withinCap:(count??0)<brand.weekly_post_cap,duplicate,dueAt:job.due_at
   },process.env.MARKETING_LIVE_PUBLISH);
   return {job,post,channel,asset,gate:state};
 }

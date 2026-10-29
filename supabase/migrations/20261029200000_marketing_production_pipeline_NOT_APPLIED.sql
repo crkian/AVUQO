@@ -198,3 +198,8 @@ insert into storage.buckets (id,name,public,file_size_limit,allowed_mime_types)
 values ('marketing-media','marketing-media',false,10485760,array['image/png','image/jpeg'])
 on conflict (id) do nothing;
 -- Storage access is via the existing server-only Supabase admin client, not client credentials.
+
+-- Public, owner-approved media only; private originals remain in marketing-media.
+insert into storage.buckets (id,name,public,file_size_limit,allowed_mime_types)
+values ('marketing-media-approved','marketing-media-approved',true,10485760,array['image/png','image/jpeg'])
+on conflict (id) do nothing;
