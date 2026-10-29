@@ -35,7 +35,7 @@ begin
   raise exception 'Homepage requires a matching AVUQO fact';
  end if;
  if new.status in ('approved','paused') and (f.status<>'approved' or
-    (f.expires_at is not null and f.expires_at<=now())) then
+    (f.expires_at is not null and (f.expires_at<=now() or new.ends_at>f.expires_at))) then
   raise exception 'Cannot publish placement without approved current fact';
  end if;
  if tg_op='UPDATE' and old.status in ('approved','paused') and (
