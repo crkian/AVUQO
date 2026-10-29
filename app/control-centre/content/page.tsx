@@ -1,4 +1,5 @@
 import { connection } from "next/server";
+import Link from "next/link";
 import { requireControlCentreAccess } from "../../../lib/auth/requireControlCentreAccess";
 import { createClient } from "../../../lib/supabase/server";
 import { DEFAULT_FOOTER, parseFooter } from "../../../lib/content/footer";
@@ -16,6 +17,11 @@ export default async function ContentPage() {
   const content = draft ? parseFooter(draft.payload) : DEFAULT_FOOTER;
   return <>
     <div className={styles.pageHead}><div><p className={styles.eyebrow}>Website & Content</p><h1>Footer editor</h1><p className={styles.sub}>Save changes as a private draft. Publishing updates the public footer. Legal documents and other pages will receive separate approval workflows later.</p></div></div>
+    <section className={styles.panel} style={{padding:20,marginBottom:20}}>
+      <h2>Primary navigation</h2>
+      <p>Manage seven customer-facing departments, submenu wording and visibility. Save drafts, publish, and restore earlier versions without editing code.</p>
+      <Link href="/control-centre/content/navigation" style={{fontWeight:850,color:"#6041bb"}}>Open Navigation Editor →</Link>
+    </section>
     <section className={styles.panel} style={{padding:24}}>
       <p>Live version: <strong>{published?.version ?? "Default source footer"}</strong> · Draft last updated: {draft?.updated_at ? new Date(draft.updated_at).toLocaleString("en-GB") : "No saved draft"}</p>
       <form action={saveFooterDraft} style={{display:"grid",gap:18,maxWidth:800,marginTop:24}}>

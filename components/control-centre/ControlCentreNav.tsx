@@ -19,6 +19,7 @@ const items = [
   ["/control-centre/product-readiness", "Product Readiness", PackageCheck],
   ["/control-centre/seasonal", "Seasonal & Pages", CalendarDays],
   ["/control-centre/content", "Website & Content", FilePenLine],
+  ["/control-centre/content/navigation", "Site Navigation", Layers3],
   ["/control-centre/pipeline", "Pipeline", GitBranch],
   ["/control-centre/promotions", "Promotion", Megaphone],
   ["/control-centre/exceptions", "Exceptions", AlertTriangle],

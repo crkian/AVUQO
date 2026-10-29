@@ -48,3 +48,10 @@
 @media(max-width:800px){.heroGrid,.editorialGrid,.trustInner{grid-template-columns:1fr}.hero{padding:40px 0 70px}.heroCopy{padding:10px 0}.heroVisual{max-width:580px;width:100%;margin:auto}.heroArt{min-height:345px;border-radius:120px 120px 26px 26px}.heroCard{left:12px}.reassuranceInner{justify-content:flex-start}.storySection{padding:72px 0}.editorialImage{min-height:330px}.editorialGrid{gap:34px}.seasonCard{min-height:250px}.seasonCard img{width:27%}}
 @media(max-width:600px){.heroCopy h1{font-size:clamp(46px,12vw,67px)}.heroText{font-size:16px}.search{flex-wrap:wrap;border-radius:18px}.search input{flex-basis:calc(100% - 60px)}.search button{width:100%}.heroArt{min-height:285px}.heroCard{position:relative;margin:-20px auto 0;left:auto;bottom:auto}.reassuranceInner{gap:14px}.reassuranceInner span{font-size:12px}.helpGrid,.seasonGrid{grid-template-columns:1fr;gap:17px}.helpCard{min-height:0;padding:27px}.storySection,.seasonSection{padding:68px 0}.editorialBand{padding:68px 0}.editorialImage{min-height:260px}.seasonCard{min-height:220px;padding:27px}.seasonCard h3{font-size:32px}.seasonCard img{width:32%}.trustBand{padding:62px 0}}
 @media(prefers-reduced-motion:reduce){.page *{scroll-behavior:auto}}
+
+/* Clear, above-the-fold journeys without inventing live deal inventory. */
+.heroShortcuts{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:17px}
+.heroShortcuts span{font-size:12px;color:#817582;font-weight:750;margin-right:3px}
+.heroShortcuts a{display:inline-flex;min-height:34px;align-items:center;border:1px solid #e6dae8;border-radius:999px;padding:6px 12px;background:#fff8;color:#65409a;font-size:12px;font-weight:850}
+.heroShortcuts a:hover,.heroShortcuts a:focus-visible{background:#f0e7fa}
+@media(max-width:650px){.heroShortcuts{gap:6px}.heroShortcuts a{font-size:11px;padding:6px 9px}}
