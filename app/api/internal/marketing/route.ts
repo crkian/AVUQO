@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
+import { connection } from "next/server";
 import { runMarketingWorker, reconcileMarketingWorker } from "../../../../lib/marketing/worker";
 
 /** For a future explicitly approved trusted scheduler. No cron registration in this change. */
-export const dynamic="force-dynamic";
+
 export async function GET(request:NextRequest) {
+  await connection();
   const secret=process.env.CRON_SECRET;
   if(!secret || request.headers.get("authorization")!=="Bearer "+secret) {
     return new NextResponse("Not found",{status:404});
