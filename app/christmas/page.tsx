@@ -40,6 +40,7 @@ export default function ChristmasPage() {
       <div className="section-title"><div><p className="kicker">Find your starting point</p><h2>Gifts for every budget.</h2><p>Browse ideas, then check current prices, availability and delivery charges with the retailer.</p></div></div>
       <div className={styles.grid}>{giftBudgets.map(item => <Link href={`/search?q=${encodeURIComponent(item.q)}`} className={styles.tile} key={item.label}><div className={styles.tilePhoto} style={{backgroundImage:`url("${item.image}")`}} aria-hidden="true"/><div className={styles.tileCopy}><Gift size={22}/><h3>{item.label}</h3><p>{item.detail}</p><span>Explore <ArrowRight size={15}/></span></div></Link>)}</div>
     </section>
+    <section className="shell section"><div className={styles.seasonNav}><div><p className="kicker">Plan the season</p><h2>Christmas is not one shopping day.</h2><p>Explore Black Friday planning and thoughtful sales guides alongside your Christmas gift list.</p></div><div className={styles.seasonNavLinks}><Link href="/black-friday">Black Friday 2026 <ArrowRight size={17}/></Link><Link href="/sales">Seasonal sales <ArrowRight size={17}/></Link><Link href="/groceries">Festive food planning <ArrowRight size={17}/></Link></div></div></section>
     <GiftFinder />
     <section className="shell section">
       <div className={styles.spotlight}>

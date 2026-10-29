@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 
 import "./globals.css";
 import "./phase2.css";
+import CookieConsent from "../components/privacy/CookieConsent";
 
 import { getSiteUrl } from "../lib/site/url";
 
@@ -16,9 +17,6 @@ export const metadata: Metadata = {
   description:
     "Independent value intelligence for shopping, travel, motoring and experiences. AVUQO helps people decide what is genuinely worth it.",
   applicationName: "AVUQO",
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     type: "website",
     siteName: "AVUQO",
@@ -51,7 +49,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en-GB">
-      <body>{children}</body>
+      <body>{children}<CookieConsent/></body>
     </html>
   );
 }

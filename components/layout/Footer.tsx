@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { CookieSettingsButton } from "../privacy/CookieConsent";
 import { getContactEmail } from "../../lib/site/url";
 import { useEffect, useState } from "react";
 import { DEFAULT_FOOTER, parseFooter, type FooterContent } from "../../lib/content/footer";
@@ -43,7 +44,7 @@ export default function Footer() {
           ))}
         </div>
         <div className="avuqo-footer__disclosure"><strong>Our promise:</strong> {content.disclosure} <Link href="/affiliate-disclosure">How affiliate links work</Link>.</div>
-        <div className="avuqo-footer__bottom"><span>© 2026 AVUQO. All rights reserved.</span><span>UK-focused value discovery · Prices and availability can change. Check merchant details before buying.</span></div>
+        <div className="avuqo-footer__bottom"><span>© 2026 AVUQO. All rights reserved. <CookieSettingsButton /> · <Link href="/cookie-preferences">Cookie details</Link> · <Link href="/privacy-centre">Privacy centre</Link> · <Link href="/accessibility">Accessibility</Link></span><span>UK-focused value discovery · Prices and availability can change. Check merchant details before buying.</span></div>
       </div>
     </footer>
   );

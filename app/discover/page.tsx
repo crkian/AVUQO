@@ -1,59 +1,23 @@
-import { Suspense } from "react";
+import {Suspense} from "react";
 import Link from "next/link";
-
-import DealCard from "../../components/deal/DealCard";
-import Footer from "../../components/layout/Footer";
+import type {Metadata} from "next";
+import {ArrowRight} from "lucide-react";
 import Header from "../../components/layout/Header";
+import Footer from "../../components/layout/Footer";
 import LiveDealRail from "../../components/live/LiveDealRail";
-import { deals } from "../../data/mock/deals";
 import styles from "./page.module.css";
-
-const hasTag = (tag: string) => deals.filter((deal) => deal.tags.includes(tag));
-
-function DealRail({ title, kicker, items }: { title:string; kicker:string; items:typeof deals }) {
-  return (
-    <section className={`shell ${styles.section}`}>
-      <div className={styles.heading}><div><p>{kicker}</p><h2>{title}</h2></div></div>
-      <div className={styles.rail}>{items.slice(0,4).map((deal)=><DealCard key={deal.id} deal={deal}/>)}</div>
-    </section>
-  );
-}
-
-export default function DiscoverPage(){
-  return (
-    <main>
-      <Header/>
-      <section className={styles.hero}>
-        <div className="shell">
-          <p className="kicker">AVUQO Discover</p>
-          <h1>The market, filtered for value.</h1>
-          <p>Price drops, new lows, travel steals, ending-soon offers and things that may actually be worth waiting for. Ranked by value, never commission.</p>
-        </div>
-      </section>
-      <section className={`shell ${styles.section}`}>
-        <div className={styles.signalGrid}>
-          <article className={styles.signal}><strong>95+</strong><span>Exceptional AVUQO Scores deserve immediate attention.</span><Link href="/search">Explore exceptional finds</Link></article>
-          <article className={styles.signal}><strong>New lows</strong><span>Items hitting the bottom of their recent observed range.</span><Link href="/search?q=new-low">See price lows</Link></article>
-          <article className={styles.signal}><strong>Worth waiting</strong><span>Good products where the current price still leaves room for patience.</span><Link href="/search">See watch-worthy items</Link></article>
-        </div>
-      </section>
-
-      <section className={`shell ${styles.section}`}>
-        <div className={styles.heading}>
-          <div><p>Database-backed</p><h2>Live from the Deal Intelligence Pipeline</h2></div>
-          <Link href="/live">See all live deals</Link>
-        </div>
-        <Suspense fallback={<div>Loading live AVUQO intelligence…</div>}>
-          <LiveDealRail limit={4}/>
-        </Suspense>
-      </section>
-
-      <DealRail kicker="Exceptional today" title="AVUQO 95+" items={deals.filter(d=>d.avuqoScore>=95)}/>
-      <DealRail kicker="Market movement" title="Biggest drops & new lows" items={hasTag("new-low")}/>
-      <DealRail kicker="Travel steals" title="Trips worth opening" items={deals.filter(d=>d.category==="Travel")}/>
-      <DealRail kicker="Time-sensitive" title="Ending soon" items={hasTag("ending-soon")}/>
-      <DealRail kicker="Popular right now" title="Strong crowd interest, verified value" items={hasTag("popular")}/>
-      <Footer/>
-    </main>
-  );
-}
+export const metadata:Metadata={title:"Discover worthwhile choices",description:"Thoughtful shopping, seasonal guides and only approved, fresh retailer offers from AVUQO.",alternates:{canonical:"/discover"}};
+const rooms=[
+ {title:"Individual products",copy:"Exact variants and verified retailer evidence, when approved.",url:"/products"},
+ {title:"Black Friday",copy:"Plan the 2026 sales without the discount noise.",url:"/black-friday"},
+ {title:"Christmas",copy:"Thoughtful gifting, lists and seasonal inspiration.",url:"/christmas"},
+ {title:"Your grocery basket",copy:"Compare what you can, and see clearly where prices are missing.",url:"/groceries"},
+ {title:"Home & living",copy:"Make space for choices that fit real life.",url:"/home"},
+ {title:"Travel",copy:"Journeys and escapes with the whole cost in mind.",url:"/travel"},
+];
+export default function DiscoverPage(){return <main><Header/>
+<section className={styles.hero}><div className="shell"><p className="kicker">Welcome to AVUQO Discover</p><h1>Worth exploring. Not just worth clicking.</h1><p>Find thoughtful departments, everyday comparisons, and genuine offers only when enough verified evidence exists to stand behind them.</p></div></section>
+<section className={`shell ${styles.section}`}><div className={styles.heading}><div><p>Take a look around</p><h2>Find your own starting point.</h2></div><Link href="/categories">All categories <ArrowRight size={17}/></Link></div>
+<div className={styles.discoveryGrid}>{rooms.map(room=><Link key={room.url} href={room.url} className={styles.discoveryCard}><h3>{room.title}</h3><p>{room.copy}</p><span>Explore <ArrowRight size={17}/></span></Link>)}</div></section>
+<section className={`shell ${styles.section}`}><div className={styles.heading}><div><p>From verified sources only</p><h2>Eligible retailer offers</h2></div><Link href="/live">All approved offers <ArrowRight size={17}/></Link></div><Suspense fallback={<p>Checking current offer evidence…</p>}><LiveDealRail limit={6}/></Suspense><p className={styles.provenance}>No sample prices, unpublished feed records or unapproved affiliate offers are shown here.</p></section>
+<Footer/></main>}
