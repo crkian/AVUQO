@@ -1,1 +1,14 @@
 .page{background:#fbfaf8;color:#152133}.hero{padding:88px 0 80px;background:linear-gradient(90deg,rgba(251,248,243,.97),rgba(251,248,243,.72),rgba(251,248,243,.25)),url("https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=1800&q=80") center/cover}.eyebrow{font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#e76e31}.hero h1{font-size:clamp(45px,7vw,84px);max-width:800px;letter-spacing:-.067em;line-height:1.02;margin:16px 0}.hero h1 span{color:#d26b41}.hero p:last-child{max-width:680px;color:#4e5862;line-height:1.7;font-size:17px}.section{padding:65px 0 90px}.heading{margin-bottom:28px}.heading h2{font-size:clamp(32px,4vw,48px);letter-spacing:-.05em;margin:0 0 9px}.heading p{color:#636c76;margin:0}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}.card{display:block;overflow:hidden;background:#fff;border:1px solid #ebe7e2;border-radius:22px;box-shadow:0 6px 20px rgba(23,27,35,.04);transition:transform .2s,box-shadow .2s}.card:hover{transform:translateY(-3px);box-shadow:0 18px 35px rgba(23,27,35,.1)}.card:focus-visible{outline:3px solid #e76e31;outline-offset:3px}.photo{height:176px;background-color:#efe8e0;background-size:cover;background-position:center}.cardCopy{position:relative;padding:18px 42px 21px 18px;min-height:102px}.cardCopy h3{font-size:19px;letter-spacing:-.02em;margin:0 0 8px}.cardCopy p{font-size:12px;line-height:1.4;color:#6d737d;margin:0}.cardCopy svg{position:absolute;right:16px;top:22px;color:#e76e31}.note{font-size:12px;color:#727b82;line-height:1.5;margin:20px 0 0}@media(max-width:1050px){.grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:740px){.grid{grid-template-columns:repeat(2,1fr)}.hero{padding:65px 0}.photo{height:154px}}@media(max-width:490px){.grid{grid-template-columns:1fr}.photo{height:195px}.hero h1{font-size:48px}.hero p:last-child{font-size:15px}}
+
+@media(max-width:490px){
+ .hero{padding:48px 0 50px;background-position:center,65% center}
+ .hero h1{font-size:clamp(40px,11vw,48px)}
+ .section{padding:40px 0 60px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+ .photo{height:125px}
+ .cardCopy{padding:13px 26px 16px 13px;min-height:112px}
+ .cardCopy h3{font-size:16px;line-height:1.25}
+ .cardCopy p{font-size:11px;line-height:1.5}
+ .cardCopy svg{width:15px;right:8px;top:17px}
+}
+@media(max-width:350px){.grid{grid-template-columns:1fr}.photo{height:190px}}
