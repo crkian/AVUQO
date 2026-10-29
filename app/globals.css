@@ -22,3 +22,9 @@
 .avuqo-footer__bottom{border-top:1px solid #343041;padding:22px 0 30px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:#a7a1b8;font-size:12px;line-height:1.6}
 @media(max-width:950px){.avuqo-footer__main{grid-template-columns:repeat(2,minmax(0,1fr));gap:34px}}
 @media(max-width:560px){.avuqo-footer{padding-top:45px}.avuqo-footer__main{grid-template-columns:1fr 1fr;column-gap:18px}.avuqo-footer__brand{grid-column:1/-1}.avuqo-footer__group:last-child{grid-column:1/-1}.avuqo-footer__bottom{flex-direction:column}}
+
+/* Mobile department navigation: retain access to photo-led category pages */
+.primary-nav{white-space:nowrap}
+.mobile-menu-toggle{display:none;border:1px solid var(--border);border-radius:12px;background:#fff;width:43px;height:43px;align-items:center;justify-content:center;color:var(--ink)}
+@media(min-width:1001px){.nav{gap:24px}.nav .primary-nav{gap:16px;font-size:12px}.nav .primary-nav a{white-space:nowrap}}
+@media(max-width:1000px){.nav{position:relative;gap:12px}.mobile-menu-toggle{display:flex;margin-left:auto;flex-shrink:0}.nav .primary-nav{position:absolute;top:calc(100% + 1px);left:0;right:0;display:none;flex-direction:column;align-items:stretch;gap:0;padding:12px;border:1px solid var(--border);border-radius:0 0 20px 20px;background:#fff;box-shadow:0 20px 35px rgba(23,20,43,.14);white-space:normal;max-height:calc(100vh - 84px);overflow:auto}.nav .primary-nav.is-open{display:flex}.nav .primary-nav a{display:block;padding:13px 15px;border-bottom:1px solid #f0edf4;font-size:15px}.nav .primary-nav a:last-child{border-bottom:none}.signin{margin-left:0}}
