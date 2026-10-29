@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { LogOut, Shield, Menu, X } from "lucide-react";
+import MegaNav from "./MegaNav";
 import { useEffect, useMemo, useState } from "react";
 import { createClient } from "../../lib/supabase/client";
 
@@ -64,17 +65,7 @@ export default function Header() {
           AVUQO
         </Link>
 
-        <nav id="avuqo-primary-nav" className={`primary-nav ${menuOpen ? "is-open" : ""}`} aria-label="Primary navigation">
-          <Link href="/shopping" onClick={() => setMenuOpen(false)}>Shopping</Link>
-          <Link href="/travel" onClick={() => setMenuOpen(false)}>Travel</Link>
-          <Link href="/christmas" onClick={() => setMenuOpen(false)}>Christmas</Link>
-          <Link href="/black-friday" onClick={() => setMenuOpen(false)}>Black Friday</Link>
-          <Link href="/motoring" onClick={() => setMenuOpen(false)}>Motoring</Link>
-          <Link href="/groceries" onClick={() => setMenuOpen(false)}>Groceries</Link>
-          <Link href="/compare" onClick={() => setMenuOpen(false)}>Compare</Link>
-          <Link href="/sales" onClick={() => setMenuOpen(false)}>Sales</Link>
-          <Link href="/services" onClick={() => setMenuOpen(false)}>Services</Link>
-        </nav>
+        <MegaNav menuOpen={menuOpen} onNavigate={() => setMenuOpen(false)} />
         <button className="mobile-menu-toggle" type="button" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="avuqo-primary-nav" onClick={() => setMenuOpen(open => !open)}>{menuOpen ? <X size={23}/> : <Menu size={23}/>}</button>
 
         {!ready ? (

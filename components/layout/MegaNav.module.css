@@ -1,0 +1,26 @@
+.nav{display:flex;align-items:center;gap:4px;min-width:0}
+.group{position:relative}
+.trigger{border:0;display:flex;align-items:center;gap:5px;padding:12px 9px;border-radius:10px;background:transparent;color:#29233a;font:inherit;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap}
+.trigger:hover,.trigger:focus-visible,.trigger[aria-expanded="true"]{background:#f1eafa;color:#5033a0}
+.dropdown{display:none;position:absolute;z-index:160;top:calc(100% + 11px);left:0;width:min(620px,88vw);max-height:75vh;overflow:auto;border:1px solid #e6dfed;border-radius:19px;background:#fff;box-shadow:0 28px 70px #221b3340;padding:19px}
+.group:nth-last-child(-n+2) .dropdown{left:auto;right:0}
+.open,.group:hover .dropdown,.group:focus-within .dropdown{display:block}
+.intro{padding:3px 8px 15px;border-bottom:1px solid #eee8f3;display:flex;flex-direction:column;gap:5px}
+.intro strong{font-size:15px;color:#33284d}.intro span{font-size:12px;color:#7b7386}
+.linkGrid{padding-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.menuLink{display:flex!important;align-items:center!important;justify-content:space-between;gap:12px;border-radius:10px;padding:12px!important;color:#413952!important;text-decoration:none!important}
+.menuLink:hover{background:#f5f0fc}
+.menuLink span{display:flex;flex-direction:column;align-items:start;gap:5px}
+.menuLink b{font-size:13px}.menuLink small{font-size:11px;font-weight:400;line-height:1.4;color:#82798e;white-space:normal}
+@media(max-width:1000px){.nav{display:none;align-items:stretch;flex-direction:column;gap:0}
+.group{width:100%;border-bottom:1px solid #eee8f3}
+.group:last-child{border-bottom:0}
+.trigger{width:100%;min-height:48px;justify-content:space-between;padding:12px 13px;font-size:15px}
+.dropdown{display:none!important;position:static;width:100%;max-height:none;overflow:visible;padding:4px 5px 10px;border:0;border-radius:0;box-shadow:none;background:#faf8fd}
+.open{display:block!important}
+.group:hover .dropdown,.group:focus-within .dropdown{display:none}
+.group .open{display:block!important}
+.intro{padding:8px 12px}.linkGrid{grid-template-columns:1fr;gap:2px}
+.menuLink{min-height:45px!important;padding:10px 12px!important}
+}
+@media(min-width:1001px) and (max-width:1240px){.trigger{padding:10px 4px;font-size:11px}.nav{gap:1px}.dropdown{width:520px}}
