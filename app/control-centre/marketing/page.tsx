@@ -194,11 +194,11 @@ export default async function MarketingPage({
         </form>
       </section>
       <section className={styles.panel}><h2>Plan the next seven days</h2>
-        <p className={styles.muted}>One click creates up to your brand's weekly cap in varied evergreen drafts from approved facts. Repeated captions are skipped. All require review and approval.</p>
+        <p className={styles.muted}>One click creates up to your brand&apos;s weekly cap in varied evergreen drafts from approved facts. Repeated captions are skipped. All require review and approval.</p>
         <form className={styles.form} action={planMarketingWeek}>
           <input type="hidden" name="brand" value={brand}/>
           <label>Channel<select name="platform"><option value="facebook">Facebook</option><option value="instagram">Instagram</option></select></label>
-          <button type="submit" disabled={!isOwner||!approvedFacts.length}>Create my week's drafts</button>
+          <button type="submit" disabled={!isOwner||!approvedFacts.length}>Create my week&apos;s drafts</button>
         </form>
       </section>
       <section className={styles.panel}><h2>Quick evergreen draft</h2>
