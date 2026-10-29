@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { LogOut, Shield, Menu, X } from "lucide-react";
 import MegaNav from "./MegaNav";
+import MobileDock from "./MobileDock";
+import {DEFAULT_NAVIGATION,parseNavigation} from "../../lib/content/navigation";
+import {Search as SearchIcon} from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { createClient } from "../../lib/supabase/client";
 
@@ -12,6 +15,17 @@ export default function Header() {
   const [admin, setAdmin] = useState(false);
   const [ready, setReady] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [navigation, setNavigation] = useState(DEFAULT_NAVIGATION);
+  useEffect(()=>{
+    let active=true;
+    const load=async()=>{
+      const {data,error}=await supabase.from("site_content_published")
+       .select("payload").eq("key","navigation").maybeSingle();
+      if(active&&!error&&data)setNavigation(parseNavigation(data.payload));
+    };
+    void load();
+    return ()=>{active=false};
+  },[supabase]);
 
   useEffect(() => {
     let mounted = true;
@@ -58,6 +72,7 @@ export default function Header() {
   }
 
   return (
+    <>
     <header className="header">
       <div className="shell nav avuqo-header-layout">
         <Link className="logo" href="/">
@@ -65,7 +80,18 @@ export default function Header() {
           AVUQO
         </Link>
 
-        <MegaNav menuOpen={menuOpen} onNavigate={() => setMenuOpen(false)} />
+        <form className="header-search" action="/search" method="get" role="search">
+          <SearchIcon size={18} aria-hidden="true"/>
+          <input type="search" name="q" aria-label="Search AVUQO"
+            placeholder="Search products, guides, groceries..." maxLength={120}
+            list="avuqo-search-suggestions"/>
+          <datalist id="avuqo-search-suggestions">
+            <option value="Groceries"/><option value="Technology"/><option value="Travel"/>
+            <option value="Home"/><option value="Broadband"/>
+          </datalist>
+          <button type="submit" aria-label="Search">Search</button>
+        </form>
+        <MegaNav navigation={navigation} menuOpen={menuOpen} onNavigate={() => setMenuOpen(false)} />
         <button className="mobile-menu-toggle" type="button" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="avuqo-primary-nav" onClick={() => setMenuOpen(open => !open)}>{menuOpen ? <X size={23}/> : <Menu size={23}/>}</button>
 
         <div className="header-actions">
@@ -92,5 +118,7 @@ export default function Header() {
         </div>
       </div>
     </header>
+    <MobileDock signedIn={!!email}/>
+    </>
   );
 }
