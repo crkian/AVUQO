@@ -42,6 +42,15 @@ export default function Header() {
     };
   }, [supabase]);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+    function onEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setMenuOpen(false);
+    }
+    window.addEventListener("keydown", onEscape);
+    return () => window.removeEventListener("keydown", onEscape);
+  }, [menuOpen]);
+
   async function signOut() {
     await supabase.auth.signOut();
     window.location.href = "/";
