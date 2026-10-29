@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 
 import "./globals.css";
 import "./phase2.css";
+import CookieConsent from "../components/privacy/CookieConsent";
 
 import { getSiteUrl } from "../lib/site/url";
 
@@ -48,7 +49,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en-GB">
-      <body>{children}</body>
+      <body>{children}<CookieConsent/></body>
     </html>
   );
 }

@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/reality-check",
     "/about",
     "/trust",
-    "/affiliate-disclosure", "/privacy-centre", "/editorial-policy", "/accessibility", "/cookies",
+    "/affiliate-disclosure", "/privacy-centre", "/editorial-policy", "/accessibility", "/cookies", "/cookie-preferences",
     "/privacy",
     "/terms",
     "/contact",
