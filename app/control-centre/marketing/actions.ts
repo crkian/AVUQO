@@ -9,7 +9,7 @@ import { evergreenCaption, isBrandSlug, reviewDraft } from "../../../lib/marketi
 const HOME = "/control-centre/marketing";
 const value = (form: FormData, field: string, max = 2500) =>
   String(form.get(field) ?? "").trim().slice(0, max);
-const fail = (message: string): never => { throw new Error("Marketing: " + message); };
+function fail(message: string): never { throw new Error("Marketing: " + message); }
 const done = (tab: string, brand: string, notice: string): never =>
   redirect(HOME + "?tab=" + encodeURIComponent(tab) + "&brand=" + encodeURIComponent(brand) + "&notice=" + notice);
 

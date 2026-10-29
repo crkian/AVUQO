@@ -55,7 +55,7 @@ export default async function MarketingPage({
   const bf = facts.filter(item=>item.brand_slug===brand);
   const bp = posts.filter(item=>item.brand_slug===brand);
   const bc = channels.filter(item=>item.brand_slug===brand);
-  const approvedFacts = bf.filter(item=>item.status==="approved"&&(!item.expires_at||Date.parse(item.expires_at)>Date.now()));
+  const approvedFacts = bf.filter(item=>item.status==="approved");
   const isOwner = role==="owner";
 
   return <div className={styles.wrap}>
