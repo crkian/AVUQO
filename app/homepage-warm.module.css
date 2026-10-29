@@ -1,0 +1,50 @@
+.page{background:#faf8f3;color:#282b34}
+.hero{padding:clamp(32px,5vw,72px) 0 clamp(45px,6vw,82px);background:#f7f3ec}
+.heroGrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr);gap:clamp(34px,5.5vw,82px);align-items:center}
+.heroCopy{padding:22px 0}
+.eyebrow,.kicker{display:flex;align-items:center;gap:8px;margin:0 0 18px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:850;color:#755a60}
+.heroCopy h1{font-size:clamp(54px,6.9vw,96px);line-height:1.02;letter-spacing:-.065em;margin:0 0 26px;max-width:760px;color:#302639}
+.heroText{max-width:570px;font-size:clamp(17px,1.7vw,20px);line-height:1.7;color:#6b646c;margin:0}
+.heroAside{margin:17px 0 0;color:#877d80;font-size:13px}
+.search{margin-top:34px;padding:10px;display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #e9e0dc;border-radius:22px;box-shadow:0 17px 38px rgba(68,51,53,.07)}
+.search>svg{flex:none;margin-left:12px;color:#786570}
+.search input{min-width:0;flex:1;width:100%;background:transparent;border:0;outline:0;font-size:16px;height:47px;color:#342d36}
+.search button{display:flex;align-items:center;justify-content:center;gap:7px;min-height:49px;padding:0 20px;border:0;border-radius:15px;color:#fff;font-weight:800;background:#6043a3;white-space:nowrap}
+.search:focus-within{outline:3px solid #9a87d8;outline-offset:3px}
+.heroVisual{position:relative;padding-bottom:22px}
+.heroArt{min-height:485px;width:100%;border-radius:190px 190px 34px 34px;background:#ddd2c8 center / cover no-repeat;box-shadow:0 26px 65px rgba(83,63,59,.13)}
+.heroCard{position:absolute;bottom:0;left:-30px;display:flex;align-items:center;gap:13px;padding:16px 20px;border:1px solid #efe7df;background:rgba(255,255,255,.97);box-shadow:0 15px 33px rgba(56,46,48,.1);border-radius:18px;max-width:310px}
+.heroCardIcon{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;color:#6f4da5;background:#f0eaf7}
+.heroCard strong,.heroCard small{display:block}.heroCard strong{font-size:14px}.heroCard small{color:#777078;margin-top:4px;font-size:12px}
+.reassurance{background:#fff;border-top:1px solid #eee7df;border-bottom:1px solid #eee7df}
+.reassuranceInner{min-height:90px;display:flex;justify-content:space-around;align-items:center;gap:18px;flex-wrap:wrap;padding:22px 0}
+.reassuranceInner span{display:flex;align-items:center;gap:10px;color:#645c65;font-size:14px;font-weight:750}.reassuranceInner svg{color:#7966a2;flex:none}
+.storySection{padding:clamp(82px,9vw,132px) 0}
+.storyHeading{max-width:750px;margin-bottom:38px}
+.storyHeading h2,.editorialCopy h2,.seasonHeading h2,.trustInner h2{margin:0;color:#332b35;letter-spacing:-.052em;line-height:1.11;font-size:clamp(34px,4.5vw,58px)}
+.storyHeading>p:last-child{margin:20px 0 0;max-width:640px;color:#777079;line-height:1.75;font-size:17px}
+.helpGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.helpCard{padding:30px 25px;border:1px solid #eae5df;border-radius:27px;background:#fff;display:flex;flex-direction:column;min-height:330px;box-shadow:0 8px 26px rgba(49,40,42,.035)}
+.helpCard:nth-child(2){background:#f7f4fa}.helpCard:nth-child(3){background:#f8f5f0}.helpCard:nth-child(4){background:#f1f6f3}
+.helpIcon{width:47px;height:47px;border-radius:15px;display:grid;place-items:center;color:#674895;background:#eee9f4;margin-bottom:25px}
+.helpCard .kicker{font-size:10px;margin-bottom:13px}.helpCard h3{font-size:24px;line-height:1.15;letter-spacing:-.04em;margin:0 0 13px}.helpCard>p:not(.kicker){font-size:14px;line-height:1.6;color:#6b6870;margin:0 0 24px}
+.helpCard>a,.trustInner a{display:inline-flex;align-items:center;gap:7px;margin-top:auto;color:#59428c;font-size:13px;font-weight:850}
+.editorialBand{background:#eae6de;padding:clamp(60px,7vw,105px) 0}
+.editorialGrid{display:grid;grid-template-columns:1.07fr .93fr;align-items:center;gap:clamp(36px,8vw,110px)}
+.editorialImage{min-height:435px;border-radius:35px;background:#e5ded5 center / cover no-repeat;box-shadow:0 20px 46px rgba(50,40,34,.11)}
+.editorialCopy{padding:14px 0}.editorialCopy>p:not(.kicker){font-size:17px;color:#6b6464;line-height:1.8;margin:23px 0 28px;max-width:500px}
+.softButton{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:15px 22px;background:#fff;color:#4d3a70;font-weight:850;font-size:14px}
+.seasonSection{padding:clamp(80px,9vw,125px) 0}.seasonHeading{margin-bottom:34px}
+.seasonGrid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.seasonCard{position:relative;overflow:hidden;display:flex;justify-content:space-between;gap:12px;align-items:center;min-height:290px;border-radius:33px;padding:36px 31px}
+.seasonCard>div{z-index:1;max-width:330px}.seasonCard p{font-size:11px;font-weight:850;letter-spacing:.1em;text-transform:uppercase;margin:0 0 15px}.seasonCard h3{font-size:clamp(27px,3vw,38px);letter-spacing:-.045em;line-height:1.1;margin:0 0 30px}
+.seasonCard span{display:inline-flex;align-items:center;gap:8px;font-weight:850;font-size:14px}.seasonCard img{width:32%;max-height:220px;object-fit:contain}
+.petsCard{background:#e6efe5;color:#295344}.christmasCard{background:#f3e5e7;color:#7f4a5b}
+.trustBand{padding:clamp(65px,8vw,115px) 0;background:#30283b;color:#fff}
+.trustInner{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(35px,7vw,100px);align-items:center}
+.trustInner .kicker{color:#d3bfde}.trustInner h2{color:#fff}
+.trustInner>div:last-child p{line-height:1.8;color:#ddd7df;font-size:17px;margin:0 0 22px}.trustInner a{color:#e9dafa}
+@media(max-width:1100px){.helpGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.helpCard{min-height:260px}.heroArt{min-height:430px}.heroCopy h1{font-size:clamp(49px,6.2vw,80px)}}
+@media(max-width:800px){.heroGrid,.editorialGrid,.trustInner{grid-template-columns:1fr}.hero{padding:40px 0 70px}.heroCopy{padding:10px 0}.heroVisual{max-width:580px;width:100%;margin:auto}.heroArt{min-height:345px;border-radius:120px 120px 26px 26px}.heroCard{left:12px}.reassuranceInner{justify-content:flex-start}.storySection{padding:72px 0}.editorialImage{min-height:330px}.editorialGrid{gap:34px}.seasonCard{min-height:250px}.seasonCard img{width:27%}}
+@media(max-width:600px){.heroCopy h1{font-size:clamp(46px,12vw,67px)}.heroText{font-size:16px}.search{flex-wrap:wrap;border-radius:18px}.search input{flex-basis:calc(100% - 60px)}.search button{width:100%}.heroArt{min-height:285px}.heroCard{position:relative;margin:-20px auto 0;left:auto;bottom:auto}.reassuranceInner{gap:14px}.reassuranceInner span{font-size:12px}.helpGrid,.seasonGrid{grid-template-columns:1fr;gap:17px}.helpCard{min-height:0;padding:27px}.storySection,.seasonSection{padding:68px 0}.editorialBand{padding:68px 0}.editorialImage{min-height:260px}.seasonCard{min-height:220px;padding:27px}.seasonCard h3{font-size:32px}.seasonCard img{width:32%}.trustBand{padding:62px 0}}
+@media(prefers-reduced-motion:reduce){.page *{scroll-behavior:auto}}

@@ -8,7 +8,7 @@ import styles from "./LifestyleLanding.module.css";
 
 const photo = (image: string): CSSProperties => ({backgroundImage:`url("${image}")`});
 const links = [
-  {href:"/shopping",label:"Shopping"},{href:"/travel",label:"Travel"},
+  {href:"/shopping",label:"Shopping"},{href:"/groceries",label:"Groceries"},{href:"/travel",label:"Travel"},
   {href:"/home",label:"Home"},{href:"/tech",label:"Tech"},
   {href:"/beauty",label:"Beauty"},{href:"/gifts",label:"Gifts"},
   {href:"/toys",label:"Toys"},{href:"/pets",label:"Pets"},
