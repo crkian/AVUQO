@@ -74,7 +74,7 @@ export default function LifestyleLanding({config}: {config:Landing}) {
       <div className={styles.tipGrid}>{config.tips.map((tip,i)=><article key={tip.title} className={styles.tip}><span>{String(i+1).padStart(2,"0")}</span><h3>{tip.title}</h3><p>{tip.copy}</p></article>)}</div>
     </section>
     <section className={`shell ${styles.searchWrap}`}>
-      <div className={styles.searchPanel}><div><p className={styles.kicker}>Find what's worth it</p><h2>Know what you're looking for?</h2><p>Search AVUQO and refine your choices. Listings and offers are only live when independently validated.</p></div>
+      <div className={styles.searchPanel}><div><p className={styles.kicker}>Find what&apos;s worth it</p><h2>Know what you&apos;re looking for?</h2><p>Search AVUQO and refine your choices. Listings and offers are only live when independently validated.</p></div>
         <form action="/search" method="get" className={styles.searchForm}><Search size={20}/><input name="q" aria-label="Search AVUQO" placeholder={`Search ${config.slug} ideas…`} required/><button type="submit">Search</button></form>
       </div>
     </section>
