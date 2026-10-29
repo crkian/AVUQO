@@ -203,3 +203,59 @@ on conflict (id) do nothing;
 insert into storage.buckets (id,name,public,file_size_limit,allowed_mime_types)
 values ('marketing-media-approved','marketing-media-approved',true,10485760,array['image/png','image/jpeg'])
 on conflict (id) do nothing;
+
+
+-- APPROVED CONTENT IS IMMUTABLE. Revisions are separate drafts requiring fresh approval.
+create function private.marketing_approval_freeze() returns trigger
+language plpgsql set search_path='' as $$
+begin
+  if tg_table_name='marketing_posts' and old.status='approved' and (
+    new.caption is distinct from old.caption or
+    new.brand_slug is distinct from old.brand_slug or
+    new.source_fact_id is distinct from old.source_fact_id or
+    new.platform is distinct from old.platform or
+    new.kind is distinct from old.kind or
+    new.asset_id is distinct from old.asset_id or
+    new.ai_assisted is distinct from old.ai_assisted
+  ) then raise exception 'Approved post is immutable; create a new draft'; end if;
+  if tg_table_name='marketing_facts' and old.status='approved' and (
+    new.claim is distinct from old.claim or
+    new.brand_slug is distinct from old.brand_slug or
+    new.source_note is distinct from old.source_note or
+    new.expires_at is distinct from old.expires_at
+  ) then raise exception 'Approved fact is immutable; create a new draft'; end if;
+  if tg_table_name='marketing_assets' and old.status='approved' and (
+    new.storage_path is distinct from old.storage_path or
+    new.brand_slug is distinct from old.brand_slug or
+    new.public_url is distinct from old.public_url or
+    new.rights_note is distinct from old.rights_note
+  ) then raise exception 'Approved image is immutable; create a new asset'; end if;
+  return new;
+end $$;
+revoke all on function private.marketing_approval_freeze() from public,anon,authenticated;
+create trigger marketing_post_freeze before update on public.marketing_posts
+for each row execute function private.marketing_approval_freeze();
+create trigger marketing_fact_freeze before update on public.marketing_facts
+for each row execute function private.marketing_approval_freeze();
+create trigger marketing_asset_freeze before update on public.marketing_assets
+for each row execute function private.marketing_approval_freeze();
+
+create function private.marketing_channel_owner_guard() returns trigger
+language plpgsql set search_path='' as $$
+begin
+ if old.connection_state='verified' and (
+   new.buffer_channel_id is distinct from old.buffer_channel_id or
+   new.brand_slug is distinct from old.brand_slug or
+   new.platform is distinct from old.platform or
+   new.handle is distinct from old.handle
+ ) then raise exception 'Verified channel identity is locked'; end if;
+ return new;
+end $$;
+revoke all on function private.marketing_channel_owner_guard() from public,anon,authenticated;
+create trigger marketing_channel_identity before update on public.marketing_channels
+for each row execute function private.marketing_channel_owner_guard();
+
+drop policy if exists marketing_brand_edit on public.marketing_brands;
+create policy marketing_brand_edit on public.marketing_brands for update to authenticated
+using (exists (select 1 from public.user_roles r where r.user_id=(select auth.uid()) and r.role='owner'))
+with check (exists (select 1 from public.user_roles r where r.user_id=(select auth.uid()) and r.role='owner'));
