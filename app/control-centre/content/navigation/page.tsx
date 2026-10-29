@@ -2,7 +2,7 @@ import {connection} from "next/server";
 import Link from "next/link";
 import {requireControlCentreAccess} from "../../../../lib/auth/requireControlCentreAccess";
 import {createClient} from "../../../../lib/supabase/server";
-import {DEFAULT_NAVIGATION,parseNavigation} from "../../../../lib/content/navigation";
+import {DEFAULT_NAVIGATION,parseNavigation,orderedNavigation} from "../../../../lib/content/navigation";
 import {publishNavigation,restoreNavigation,saveNavigationDraft} from "./actions";
 import styles from "./navigation.module.css";
 export default async function NavigationEditor(){
@@ -32,6 +32,16 @@ export default async function NavigationEditor(){
     <strong>Recommended customer journey:</strong> Discover → Deals → Compare → Groceries → Categories → Travel → More.
     Budgeting remains a planned service, so it is not presented as a working menu destination.
   </div>
+  <section className={styles.preview}>
+    <h2>Saved menu preview</h2>
+    <p>This shows your latest saved draft or the vetted default. Edit the fields below and save to refresh the preview; nothing changes publicly until published.</p>
+    <div className={styles.previewGrid}>
+      {orderedNavigation(draft).map(g=><div className={styles.previewGroup} key={g.id}>
+        <strong>{g.label}</strong><span>{g.intro}</span>
+        <div>{g.links.map(link=><Link href={link.href} key={link.href} target="_blank">{link.label}</Link>)}</div>
+      </div>)}
+    </div>
+  </section>
   <form action={saveNavigationDraft} className={styles.form}>
     {draft.groups.map(g=>{
       const essential=["discover","deals","compare","groceries","categories"].includes(g.id);
