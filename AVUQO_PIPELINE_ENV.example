@@ -2,7 +2,7 @@
 # Never prefix secret values with NEXT_PUBLIC_.
 
 # Required for backend ingestion/automation. Use the Supabase server secret key.
-SUPABASE_SECRET_KEY=sb_secret_REPLACE_ME
+SUPABASE_SECRET_KEY=REPLACE_WITH_SERVER_SECRET
 
 # Optional now, recommended before automated/cron execution.
 AVUQO_CRON_SECRET=replace-with-a-long-random-secret
