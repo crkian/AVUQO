@@ -81,3 +81,18 @@ export async function getBufferPost(id:string):Promise<BufferPost> {
   );
   return result.post;
 }
+
+
+/** Explicit owner request only. Never treat a timeout as confirmed cancellation. */
+export async function deleteScheduledBufferPost(id:string):Promise<void> {
+  if(process.env.MARKETING_LIVE_PUBLISH!=="YES") throw new Error("Publishing provider disabled");
+  const state=await getBufferPost(id);
+  if(state.status!=="scheduled"&&state.status!=="draft"&&state.status!=="needs_approval") {
+    throw new Error("Provider post is not safely deletable");
+  }
+  const response=await bufferGraphql<{deletePost:{id?:string;message?:string;__typename:string}}>(
+    "mutation Delete($input:DeletePostInput!) { deletePost(input:$input) { __typename ... on DeletePostSuccess { id } ... on VoidMutationError { message } } }",
+    {input:{id}}
+  );
+  if(!response.deletePost.id) throw new Error(response.deletePost.message||"Buffer deletion not confirmed");
+}

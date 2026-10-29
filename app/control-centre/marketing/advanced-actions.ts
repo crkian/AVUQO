@@ -6,7 +6,7 @@ import { requireControlCentreAccess } from "../../../lib/auth/requireControlCent
 import { createClient } from "../../../lib/supabase/server";
 import { createAdminClient } from "../../../lib/supabase/admin";
 import { generateMarketingCaption, generateMarketingImage, marketingAiAllowed, MAX_DAILY_AI_CALLS } from "../../../lib/marketing/creative";
-import { listBufferChannels } from "../../../lib/marketing/buffer";
+import { listBufferChannels, deleteScheduledBufferPost } from "../../../lib/marketing/buffer";
 import { reviewDraft } from "../../../lib/marketing/policy";
 
 const HOME="/control-centre/marketing";
@@ -273,4 +273,38 @@ export async function queueMarketingPost(form:FormData) {
  });
  if(error) fail(error.message);
  revalidatePath(HOME);next("queue",brand,"post-queued");
+}
+
+
+export async function cancelMarketingPublication(form:FormData) {
+  await owner(); const brand=await brandCheck(form);const id=field(form,"job_id",100);
+  const db=await createClient();
+  const {data:job,error}=await db.from("marketing_publication_jobs")
+    .select("id,state,provider_post_id,channel_id").eq("id",id).eq("brand_slug",brand).maybeSingle();
+  if(error||!job) fail("Publishing item not found");
+  if(!["queued","scheduled"].includes(job.state)) fail("Only queued or provider-scheduled items can be cancelled here");
+  const admin=createAdminClient();
+  if(job.state==="scheduled"&&job.provider_post_id) {
+    const {data:channel}=await db.from("marketing_channels").select("buffer_channel_id")
+      .eq("id",job.channel_id).eq("brand_slug",brand).maybeSingle();
+    if(!channel?.buffer_channel_id) fail("Cannot verify social channel ownership");
+    try {
+      const status=await import("../../../lib/marketing/buffer").then(m=>m.getBufferPost(job.provider_post_id));
+      if(status.channelId!==channel.buffer_channel_id) fail("Provider channel mismatch");
+      await deleteScheduledBufferPost(job.provider_post_id);
+    } catch {
+      await admin.from("marketing_publication_jobs").update({
+        state:"needs_reconciliation",last_error:"Cancellation was not confirmed by Buffer. Check Buffer directly."
+      }).eq("id",id).eq("brand_slug",brand).eq("state","scheduled");
+      fail("Buffer cancellation not confirmed. Review the post in Buffer.");
+    }
+  } else if(job.state==="scheduled") {
+    fail("Provider post reference missing. Manual reconciliation required");
+  }
+  const {error:updateError}=await admin.from("marketing_publication_jobs").update({
+    state:"blocked",last_error:"Cancelled by owner before publication",
+    updated_at:new Date().toISOString()
+  }).eq("id",id).eq("brand_slug",brand).eq("state",job.state);
+  if(updateError) fail("Cancellation status could not be recorded");
+  revalidatePath(HOME);next("queue",brand,"post-cancelled");
 }

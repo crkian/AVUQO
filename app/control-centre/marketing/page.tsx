@@ -12,7 +12,7 @@ import {createAdminClient} from "../../../lib/supabase/admin";
 import {
   createAIMarketingDraft, createAIMarketingImage, uploadMarketingImage,
   approveMarketingImage, attachMarketingImage, verifyMarketingBufferChannel,
-  setMarketingSwitch, queueMarketingPost
+  setMarketingSwitch, queueMarketingPost, cancelMarketingPublication
 } from "./advanced-actions";
 
 type Brand = {slug:string;name:string;tone:string;audience:string;website_url:string|null;weekly_post_cap:number;publishing_enabled:boolean;ai_enabled:boolean};
@@ -36,7 +36,7 @@ const notices: Record<string,string> = {
   "ai-draft":"AI draft created for owner review. It is not approved or published.",
   "image-draft":"Image saved privately for review.","image-approved":"Approved image is available for publishing after all other checks.",
   "image-attached":"Approved image attached to draft.","channel-verified":"Buffer account verified, but publishing remains disabled.",
-  "switch-saved":"Safety settings updated.","post-queued":"Approved post queued for the future provider worker."
+  "switch-saved":"Safety settings updated.","post-queued":"Approved post queued for the future provider worker.","post-cancelled":"Publication cancelled, pending external provider confirmation where applicable."
 };
 const href = (tab:string, brand:string) => "/control-centre/marketing?tab=" + tab + "&brand=" + brand;
 const shortDate = (s:string) => new Date(s).toLocaleString("en-GB",{dateStyle:"medium"});
@@ -313,12 +313,18 @@ export default async function MarketingPage({
         </form>
       </section>
       <section className={styles.panel}><h2>Delivery and reconciliation</h2>
-        <p className={styles.muted}>Scheduled means Buffer acknowledged the request. Published appears only after Buffer reports sent. Uncertain requests must be reconciled, never blindly retried.</p>
+        <p className={styles.muted}>Scheduled means Buffer acknowledged the request. Published appears only after Buffer reports sent. Uncertain requests must be reconciled, never blindly retried. The global stop prevents new dispatches but cannot unsend posts already accepted by Buffer.</p>
         <div className={styles.list}>{myJobs.length?myJobs.map(j=><article className={styles.item} key={j.id}>
           <span className={styles.status}>{j.state}</span> <span className={styles.meta}>{new Date(j.due_at).toLocaleString("en-GB",{timeZone:"Europe/London"})}</span>
           <p>{bp.find(p=>p.id===j.post_id)?.caption.slice(0,180)??"Approved post"}</p>
           {j.last_error&&<p className={styles.warning}>{j.last_error}</p>}
           {j.provider_post_id&&<p className={styles.meta}>Provider reference: {j.provider_post_id}</p>}
+          {isOwner&&["queued","scheduled"].includes(j.state)&&
+            <form action={cancelMarketingPublication} className={styles.actionRow}>
+              <input type="hidden" name="brand" value={brand}/>
+              <input type="hidden" name="job_id" value={j.id}/>
+              <button type="submit">Cancel publication</button>
+            </form>}
         </article>):<p className={styles.empty}>No scheduled publications yet.</p>}</div>
       </section>
     </>}
