@@ -10,6 +10,7 @@ import SaveButton from "../../../components/saved/SaveButton";
 import WatchButton from "../../../components/watch/WatchButton";
 import { money } from "../../../lib/avuqo/deal";
 import { createClient } from "../../../lib/supabase/server";
+import { verifiedOffers } from "../../../lib/products/public-catalog";
 import type { Deal, DealDecision, DealRating } from "../../../types/deal";
 import styles from "./page.module.css";
 
@@ -51,13 +52,13 @@ export default async function LiveDealPage({ params }: Props) {
   const { offerId } = await params;
   const supabase = await createClient();
 
-  const [{ data: row }, { data: history }, { data: scoreRow }] = await Promise.all([
-    supabase.from("published_deals").select("*").eq("offer_id", offerId).eq("status", "published").maybeSingle(),
+  const [eligible] = await verifiedOffers({offerId, limit:1});
+  if (!eligible) notFound();
+  const row=eligible.published;
+  const [{ data: history }, { data: scoreRow }] = await Promise.all([
     supabase.from("price_history").select("price,observed_at").eq("offer_id", offerId).eq("is_valid", true).order("observed_at", { ascending: true }).limit(40),
     supabase.from("deal_scores").select("id,explanation").eq("offer_id", offerId).maybeSingle(),
   ]);
-
-  if (!row) notFound();
 
   const { data: components } = scoreRow?.id
     ? await supabase.from("score_components").select("component_name,component_score,evidence").eq("deal_score_id", scoreRow.id).order("weight", { ascending: false })
@@ -95,7 +96,7 @@ export default async function LiveDealPage({ params }: Props) {
               {row.image_url ? <img src={row.image_url} alt="" /> : <span className={styles.q}>Q</span>}
             </div>
             <div className={styles.summary}>
-              <p className="kicker">Live AVUQO intelligence</p>
+              <p className="kicker">Approved-source AVUQO intelligence</p>
               <h1>{row.title}</h1>
               <div className={styles.scoreRow}>
                 <div className={styles.score}>{row.avuqo_score}</div>

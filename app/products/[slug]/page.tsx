@@ -24,7 +24,7 @@ async function ProductDetails({params}:Props){
  const {product,offers}=entry;
  const best=[...offers].sort((a,b)=>Number(a.offer.total_price??a.offer.price)-Number(b.offer.total_price??b.offer.price))[0];
  const specs=product.specifications&&typeof product.specifications==="object"&&!Array.isArray(product.specifications)?Object.entries(product.specifications as Record<string,unknown>).filter(([k,v])=>k.length<=50&&["string","number","boolean"].includes(typeof v)&&String(v).length<150).slice(0,12):[];
- const photo=offers.some(o=>o.source.imageAllowed)&&product.primary_image_url&&/^https:\/\//.test(product.primary_image_url)?product.primary_image_url:best.published.image_url;
+ const photo=best.published.image_url;
  return <><section className={styles.hero}><div className="shell"><Link className={styles.back} href="/products"><ArrowLeft size={17}/> All products</Link><div className={styles.heroGrid}>
  <div className={styles.art}>{photo?<img src={photo} alt={product.canonical_title} referrerPolicy="no-referrer"/>:<div className={styles.placeholder}><span>Q</span><small>Verified image not available</small></div>}</div>
  <div className={styles.copy}><p className={styles.kicker}>AVUQO product guide</p><h1>{product.canonical_title}</h1>{(product.brand||product.model)&&<p className={styles.variant}>{product.brand&&<span>{product.brand}</span>}{product.model&&<span>{product.model}</span>}</p>}
