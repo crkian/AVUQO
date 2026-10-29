@@ -13,17 +13,29 @@ export async function setPromotionStatus(id: string, status: string) {
 }
 
 export async function setSourceStatus(id: string, status: string) {
-  await requireControlCentreAccess();
+  const { role } = await requireControlCentreAccess();
+  if (!/^[0-9a-f-]{36}$/i.test(id) || !["active", "paused"].includes(status)) {
+    throw new Error("Invalid source update");
+  }
   const supabase = await createClient();
-  await supabase
-    .from("sources")
-    .update({
-      status,
-      sync_enabled: status === "active",
-      updated_at: new Date().toISOString(),
-    })
-    .eq("id", id);
+  if (status === "active") {
+    if (role !== "owner") throw new Error("Only the owner may activate a connector");
+    const { data: source, error: readError } = await supabase
+      .from("sources").select("id,credential_status,status,metadata").eq("id", id).single();
+    if (readError || !source) throw new Error("Source not found");
+    // Activation alone does not prove publication rights. Explicit source-specific approval required.
+    const metadata = source.metadata && typeof source.metadata === "object" && !Array.isArray(source.metadata)
+      ? source.metadata as Record<string, unknown> : {};
+    if (source.credential_status !== "ready" || metadata.usage_rights_confirmed !== true) {
+      throw new Error("Confirm credentials and source-specific publishing rights before enabling ingestion");
+    }
+  }
+  const { error } = await supabase.from("sources").update({
+    status, sync_enabled: status === "active", updated_at: new Date().toISOString()
+  }).eq("id", id);
+  if (error) throw new Error("Unable to update source status");
   revalidatePath("/control-centre/sources");
+  revalidatePath("/control-centre/source-readiness");
   revalidatePath("/control-centre/pipeline");
 }
 

@@ -69,11 +69,11 @@ export default function Header() {
           <Link href="/travel" onClick={() => setMenuOpen(false)}>Travel</Link>
           <Link href="/home" onClick={() => setMenuOpen(false)}>Home</Link>
           <Link href="/tech" onClick={() => setMenuOpen(false)}>Tech</Link>
-          <Link href="/pets" onClick={() => setMenuOpen(false)}>Pets</Link>
+          <Link href="/motoring" onClick={() => setMenuOpen(false)}>Motoring</Link>
           <Link href="/groceries" onClick={() => setMenuOpen(false)}>Groceries</Link>
           <Link href="/compare" onClick={() => setMenuOpen(false)}>Compare</Link>
-          <Link href="/categories" onClick={() => setMenuOpen(false)}>Categories</Link>
-          <Link href="/watches" onClick={() => setMenuOpen(false)}>Watches</Link>
+          <Link href="/sales" onClick={() => setMenuOpen(false)}>Sales</Link>
+          <Link href="/services" onClick={() => setMenuOpen(false)}>Services</Link>
         </nav>
         <button className="mobile-menu-toggle" type="button" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="avuqo-primary-nav" onClick={() => setMenuOpen(open => !open)}>{menuOpen ? <X size={23}/> : <Menu size={23}/>}</button>
 

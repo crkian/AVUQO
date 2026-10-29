@@ -16,9 +16,6 @@ export const metadata: Metadata = {
   description:
     "Independent value intelligence for shopping, travel, motoring and experiences. AVUQO helps people decide what is genuinely worth it.",
   applicationName: "AVUQO",
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     type: "website",
     siteName: "AVUQO",
