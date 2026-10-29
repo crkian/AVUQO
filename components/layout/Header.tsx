@@ -55,15 +55,15 @@ export default function Header() {
         </Link>
 
         <nav aria-label="Primary navigation">
-          <Link href="/discover">Discover</Link>
-          <Link href="/compare">Compare contracts</Link>
-          <Link href="/live">Live</Link>
-          <Link href="/search?q=Shopping">Shopping</Link>
-          <Link href="/search?q=Travel">Travel</Link>
-          <Link href="/search?q=Experiences">Experiences</Link>
+          <Link href="/shopping">Shopping</Link>
+          <Link href="/travel">Travel</Link>
+          <Link href="/home">Home</Link>
+          <Link href="/tech">Tech</Link>
+          <Link href="/pets">Pets</Link>
+          <Link href="/christmas">Christmas</Link>
+          <Link href="/compare">Compare</Link>
           <Link href="/categories">Categories</Link>
           <Link href="/watches">Watches</Link>
-          <Link href="/saved">Saved</Link>
         </nav>
 
         {!ready ? (

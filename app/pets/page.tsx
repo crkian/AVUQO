@@ -16,10 +16,10 @@ export const metadata: Metadata = {
 };
 
 const categories = [
-  { title:"Automatic feeders", description:"Explore meal-time technology and portion-control options.", href:"/search?q=automatic%20pet%20feeders", Icon:Cat },
-  { title:"Water fountains", description:"Consider capacity, replacement filters and cleaning costs.", href:"/search?q=pet%20water%20fountains", Icon:Droplets },
-  { title:"Dog essentials", description:"Compare everyday gear and practical care accessories.", href:"/search?q=dog%20accessories", Icon:Dog },
-  { title:"Pet gifts", description:"Useful presents for pets and the people who care for them.", href:"/search?q=pet%20gifts", Icon:Gift },
+  { title:"Automatic feeders", description:"Explore meal-time technology and portion-control options.", href:"/search?q=automatic%20pet%20feeders", Icon:Cat, image:"https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=800&q=80" },
+  { title:"Water fountains", description:"Consider capacity, replacement filters and cleaning costs.", href:"/search?q=pet%20water%20fountains", Icon:Droplets, image:"https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=800&q=80" },
+  { title:"Dog essentials", description:"Compare everyday gear and practical care accessories.", href:"/search?q=dog%20accessories", Icon:Dog, image:"https://images.unsplash.com/photo-1558788353-f76d92427f16?auto=format&fit=crop&w=800&q=80" },
+  { title:"Pet gifts", description:"Useful presents for pets and the people who care for them.", href:"/search?q=pet%20gifts", Icon:Gift, image:"https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=800&q=80" },
 ];
 
 async function PublishedPetOffers() {
@@ -40,8 +40,8 @@ async function PublishedPetOffers() {
 
 export default function PetsPage() {
   return <main><Header/>
-    <section className={styles.hero}><div className={`shell ${styles.heroLayout}`}><div className={styles.heroCopy}><p className="kicker">AVUQO Pets</p><h1>Better care. <span>Better value.</span></h1><p>Make sense of pet tech, accessories and running costs, without mistaking a flashy offer for a good decision.</p><Link className={styles.primary} href="#categories">Explore pet essentials <ArrowRight size={17}/></Link></div><div className={styles.heroArtwork} aria-hidden="true" /></div></section>
-    <section className="shell section" id="categories"><div className="section-title"><div><p className="kicker">Find your category</p><h2>Start with what your pet needs.</h2></div></div><div className={styles.grid}>{categories.map(({title,description,href,Icon})=><Link key={title} href={href} className={styles.card}><Icon size={28}/><h3>{title}</h3><p>{description}</p><span>Explore ideas <ArrowRight size={15}/></span></Link>)}</div></section>
+    <section className={styles.hero}><div className={styles.heroPhoto} aria-hidden="true"/><div className={styles.heroWash} aria-hidden="true"/><div className={`shell ${styles.heroLayout}`}><div className={styles.heroCopy}><p className="kicker">AVUQO Pets</p><h1>Happier pets. <span>Better value.</span></h1><p>Explore smart feeders, fountains and thoughtful pet essentials. Compare usefulness and total cost, not just marketing promises.</p><Link className={styles.primary} href="#categories">Explore pet essentials <ArrowRight size={17}/></Link></div></div></section>
+    <section className="shell section" id="categories"><div className="section-title"><div><p className="kicker">Find your category</p><h2>Start with what your pet needs.</h2></div></div><div className={styles.grid}>{categories.map(({title,description,href,Icon,image})=><Link key={title} href={href} className={styles.card}><div className={styles.cardPhoto} style={{backgroundImage:`url("${image}")`}} aria-hidden="true"/><div className={styles.cardBody}><Icon size={21}/><h3>{title}</h3><p>{description}</p><span>Explore ideas <ArrowRight size={15}/></span></div></Link>)}</div></section>
     <Suspense fallback={<section className="shell section">Checking approved pet offers…</section>}><PublishedPetOffers/></Suspense>
     <section className="shell section"><div className={styles.tip}><h2>Look beyond the sticker price.</h2><p>For automatic feeders and fountains, compare ongoing filter costs, capacity, cleaning needs, power requirements and replacement parts as well as the upfront purchase.</p></div></section>
     <Footer/></main>;

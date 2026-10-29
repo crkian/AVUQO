@@ -15,16 +15,17 @@ export const metadata: Metadata = {
 };
 
 const giftBudgets = [
-  { label: "Under £10", q: "Christmas gifts under £10", detail: "Small gifts, craft ideas and stocking fillers" },
-  { label: "Under £25", q: "Christmas gifts under £25", detail: "Thoughtful presents without stretching the budget" },
-  { label: "Under £50", q: "Christmas gifts under £50", detail: "Gifts worth considering for family and friends" },
-  { label: "Make & create", q: "Christmas craft kits", detail: "Craft activities, decorations and handmade gifting" },
+  { label: "Under £10", q: "Christmas gifts under £10", detail: "Small gifts, craft ideas and stocking fillers", image: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=700&q=80" },
+  { label: "Under £25", q: "Christmas gifts under £25", detail: "Thoughtful presents without stretching the budget", image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=700&q=80" },
+  { label: "Under £50", q: "Christmas gifts under £50", detail: "Gifts worth considering for family and friends", image: "https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=700&q=80" },
+  { label: "Make & create", q: "Christmas craft kits", detail: "Craft activities, decorations and handmade gifting", image: "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=700&q=80" },
 ];
 
 export default function ChristmasPage() {
   return <main>
     <Header />
     <section className={styles.hero}>
+      <div className={styles.heroPhoto} aria-hidden="true"/><div className={styles.heroWash} aria-hidden="true"/>
       <div className={`shell ${styles.heroLayout}`}>
         <div className={styles.heroCopy}>
         <p className={styles.eyebrow}><Sparkles size={16} /> AVUQO Christmas 2026</p>
@@ -32,12 +33,12 @@ export default function ChristmasPage() {
         <p>Find Christmas gift ideas, creative projects and practical ways to keep seasonal spending in check. We focus on the total cost and the details that matter, not just a flashy discount.</p>
         <div className={styles.heroActions}><Link className={styles.primary} href="#gift-ideas">Explore gift ideas <ArrowRight size={17}/></Link><Link className={styles.secondary} href="/lists">Plan a gift list</Link></div>
         </div>
-        <div className={styles.heroArtwork} aria-hidden="true" />
+
       </div>
     </section>
     <section className="shell section" id="gift-ideas">
       <div className="section-title"><div><p className="kicker">Find your starting point</p><h2>Gifts for every budget.</h2><p>Browse ideas, then check current prices, availability and delivery charges with the retailer.</p></div></div>
-      <div className={styles.grid}>{giftBudgets.map(item => <Link href={`/search?q=${encodeURIComponent(item.q)}`} className={styles.tile} key={item.label}><Gift size={25}/><h3>{item.label}</h3><p>{item.detail}</p><span>Explore <ArrowRight size={15}/></span></Link>)}</div>
+      <div className={styles.grid}>{giftBudgets.map(item => <Link href={`/search?q=${encodeURIComponent(item.q)}`} className={styles.tile} key={item.label}><div className={styles.tilePhoto} style={{backgroundImage:`url("${item.image}")`}} aria-hidden="true"/><div className={styles.tileCopy}><Gift size={22}/><h3>{item.label}</h3><p>{item.detail}</p><span>Explore <ArrowRight size={15}/></span></div></Link>)}</div>
     </section>
     <GiftFinder />
     <section className="shell section">
