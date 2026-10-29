@@ -12,7 +12,7 @@ import {createAdminClient} from "../../../lib/supabase/admin";
 import {
   createAIMarketingDraft, createAIMarketingImage, uploadMarketingImage,
   approveMarketingImage, attachMarketingImage, verifyMarketingBufferChannel,
-  setMarketingSwitch, queueMarketingPost, cancelMarketingPublication
+  setMarketingSwitch, queueMarketingPost, cancelMarketingPublication, planMarketingWeek
 } from "./advanced-actions";
 
 type Brand = {slug:string;name:string;tone:string;audience:string;website_url:string|null;weekly_post_cap:number;publishing_enabled:boolean;ai_enabled:boolean};
@@ -36,7 +36,7 @@ const notices: Record<string,string> = {
   "ai-draft":"AI draft created for owner review. It is not approved or published.",
   "image-draft":"Image saved privately for review.","image-approved":"Approved image is available for publishing after all other checks.",
   "image-attached":"Approved image attached to draft.","channel-verified":"Buffer account verified, but publishing remains disabled.",
-  "switch-saved":"Safety settings updated.","post-queued":"Approved post queued for the future provider worker.","post-cancelled":"Publication cancelled, pending external provider confirmation where applicable."
+  "switch-saved":"Safety settings updated.","post-queued":"Approved post queued for the future provider worker.","post-cancelled":"Publication cancelled, pending external provider confirmation where applicable.", "week-planned":"A fresh batch of review-required evergreen drafts was placed in the editorial calendar."
 };
 const href = (tab:string, brand:string) => "/control-centre/marketing?tab=" + tab + "&brand=" + brand;
 const shortDate = (s:string) => new Date(s).toLocaleString("en-GB",{dateStyle:"medium"});
@@ -191,6 +191,14 @@ export default async function MarketingPage({
           <label>Approved factual source<select name="fact_id" required>{approvedFacts.map(f=><option key={f.id} value={f.id}>{f.claim.slice(0,100)}</option>)}</select></label>
           <label>Destination<select name="platform"><option value="facebook">Facebook</option><option value="instagram">Instagram</option><option value="website">Website article</option></select></label>
           <button disabled={!isOwner||!canGenerate||!approvedFacts.length}>Generate private AI draft</button>
+        </form>
+      </section>
+      <section className={styles.panel}><h2>Plan the next seven days</h2>
+        <p className={styles.muted}>One click creates up to your brand's weekly cap in varied evergreen drafts from approved facts. Repeated captions are skipped. All require review and approval.</p>
+        <form className={styles.form} action={planMarketingWeek}>
+          <input type="hidden" name="brand" value={brand}/>
+          <label>Channel<select name="platform"><option value="facebook">Facebook</option><option value="instagram">Instagram</option></select></label>
+          <button type="submit" disabled={!isOwner||!approvedFacts.length}>Create my week's drafts</button>
         </form>
       </section>
       <section className={styles.panel}><h2>Quick evergreen draft</h2>

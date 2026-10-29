@@ -7,7 +7,7 @@ import { createClient } from "../../../lib/supabase/server";
 import { createAdminClient } from "../../../lib/supabase/admin";
 import { generateMarketingCaption, generateMarketingImage, marketingAiAllowed, MAX_DAILY_AI_CALLS } from "../../../lib/marketing/creative";
 import { listBufferChannels, deleteScheduledBufferPost } from "../../../lib/marketing/buffer";
-import { reviewDraft } from "../../../lib/marketing/policy";
+import { reviewDraft, evergreenCaption, normaliseCaption } from "../../../lib/marketing/policy";
 
 const HOME="/control-centre/marketing";
 const field=(f:FormData,k:string,max=500)=>String(f.get(k)??"").trim().slice(0,max);
@@ -307,4 +307,42 @@ export async function cancelMarketingPublication(form:FormData) {
   }).eq("id",id).eq("brand_slug",brand).eq("state",job.state);
   if(updateError) fail("Cancellation status could not be recorded");
   revalidatePath(HOME);next("queue",brand,"post-cancelled");
+}
+
+
+/** Draft-only weekly planning: rotates approved facts and never connects to a brand website. */
+export async function planMarketingWeek(form:FormData) {
+  const user=await owner();const brand=await brandCheck(form);
+  const platform=field(form,"platform",30);
+  if(!["facebook","instagram"].includes(platform)) fail("Select Facebook or Instagram");
+  const db=await createClient();
+  const [br,fr,existingR]=await Promise.all([
+    db.from("marketing_brands").select("name,weekly_post_cap").eq("slug",brand).maybeSingle(),
+    db.from("marketing_facts").select("id,claim,expires_at").eq("brand_slug",brand)
+      .eq("status","approved").order("approved_at",{ascending:true}).limit(150),
+    db.from("marketing_posts").select("caption").eq("brand_slug",brand)
+      .gte("created_at",new Date(Date.now()-28*86400000).toISOString()).limit(500)
+  ]);
+  if(br.error||fr.error||existingR.error||!br.data) fail("Cannot load verified brand knowledge");
+  const used=new Set((existingR.data??[]).map(p=>normaliseCaption(p.caption)));
+  const candidates=(fr.data??[]).filter(f=>!f.expires_at||Date.parse(f.expires_at)>Date.now());
+  const today=new Date();
+  const start=new Date(Date.UTC(today.getUTCFullYear(),today.getUTCMonth(),today.getUTCDate()+1));
+  const drafts:{brand_slug:string;kind:string;platform:string;caption:string;source_fact_id:string;planned_date:string;status:string;created_by:string}[]=[];
+  for(const fact of candidates) {
+    if(drafts.length>=br.data.weekly_post_cap) break;
+    const caption=evergreenCaption(fact,br.data.name);
+    const fingerprint=normaliseCaption(caption);
+    if(used.has(fingerprint)) continue;
+    used.add(fingerprint);
+    const when=new Date(start.getTime()+drafts.length*2*86400000);
+    drafts.push({
+      brand_slug:brand,kind:"social",platform,caption,source_fact_id:fact.id,
+      planned_date:when.toISOString().slice(0,10),status:"draft",created_by:user.id
+    });
+  }
+  if(!drafts.length) fail("No fresh approved facts available. Add more facts before planning.");
+  const {error}=await db.from("marketing_posts").insert(drafts);
+  if(error) fail(error.message);
+  revalidatePath(HOME);next("calendar",brand,"week-planned");
 }
