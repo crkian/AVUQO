@@ -28,6 +28,10 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
+      - name: Four-brand marketing policy tests
+        run: node --experimental-strip-types --test tests/marketing-policy.test.mjs tests/marketing-publishing.test.mjs tests/marketing-home-automation.test.mjs
+      - name: Marketing-only lint
+        run: npx eslint lib/marketing components/layout/MegaNav.tsx components/home app/control-centre/marketing app/api/internal/marketing
       - run: npm run lint
       - name: Contract pricing unit tests
         run: node --experimental-strip-types --experimental-specifier-resolution=node --test lib/comparison/contract-cost.test.ts

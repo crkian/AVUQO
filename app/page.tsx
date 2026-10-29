@@ -7,6 +7,8 @@ import { lifestylePages } from "../lib/lifestyle/landing-data";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import LifestyleExplorer from "../components/lifestyle/LifestyleExplorer";
+import HomeCampaignCarousel from "../components/home/HomeCampaignCarousel";
+import {loadHomeCampaigns} from "../lib/marketing/homepage";
 import styles from "./homepage-warm.module.css";
 
 export const metadata: Metadata = {
@@ -37,7 +39,7 @@ function HeroPlaceholder() {
 }
 
 async function HomeContent() {
-  const editorial = await publishedEditorial("home");
+  const [editorial,campaigns] = await Promise.all([publishedEditorial("home"),loadHomeCampaigns()]);
   return <main className={styles.page}>
     <Header/>
     <section className={styles.hero} aria-labelledby="home-title">
@@ -67,6 +69,7 @@ async function HomeContent() {
       </div>
     </div>
 
+    <HomeCampaignCarousel campaigns={campaigns}/>
     <LifestyleExplorer/>
 
     <section className={`shell ${styles.storySection}`} aria-labelledby="why-avuqo">
