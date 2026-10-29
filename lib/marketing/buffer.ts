@@ -57,6 +57,7 @@ export function buildBufferVariables(input: BufferSchedule) {
   return {input:{
     text:input.text, channelId:input.channelId,
     schedulingType:"automatic", mode:"customScheduled", dueAt:input.dueAt,
+    needsApproval:false, saveToDraft:false,
     aiAssisted:!!input.aiAssisted,
     assets:input.imageUrl?[{image:{url:input.imageUrl}}]:[]
   }};

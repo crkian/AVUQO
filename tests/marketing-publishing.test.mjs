@@ -18,7 +18,7 @@ test("only provider sent state is published",()=>assert.equal(stateAfterBuffer("
 test("unknown provider state needs reconciliation",()=>assert.equal(stateAfterBuffer("unexpected"),"needs_reconciliation"));
 test("Buffer variables preserve channel, time and image",()=>{
  const {input}=buildBufferVariables({text:"Example",channelId:"chan-1",dueAt:safe.dueAt,imageUrl:"https://cdn.example.com/approved.png"});
- assert.equal(input.channelId,"chan-1");assert.equal(input.mode,"customScheduled");
+ assert.equal(input.channelId,"chan-1");assert.equal(input.mode,"customScheduled");assert.equal(input.needsApproval,false);
  assert.equal(input.assets[0].image.url,"https://cdn.example.com/approved.png");
 });
 test("creative prompt explicitly prohibits invented claims",()=> {

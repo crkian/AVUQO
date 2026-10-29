@@ -1,7 +1,8 @@
 /** Owner-initiated, spending-controlled creative adapters. No background AI calls. */
 export const MAX_DAILY_AI_CALLS = 3;
 export function marketingAiAllowed() {
-  return process.env.MARKETING_AI_GENERATION === "YES" && !!process.env.OPENAI_API_KEY;
+  return process.env.MARKETING_AI_GENERATION === "YES" && !!process.env.OPENAI_API_KEY &&
+    !!process.env.MARKETING_TEXT_MODEL && !!process.env.MARKETING_IMAGE_MODEL;
 }
 export function marketingPrompt(input:{
   brand:string;audience:string;tone:string;fact:string;platform:"facebook"|"instagram"|"website"
@@ -21,7 +22,7 @@ export async function generateMarketingCaption(input:Parameters<typeof marketing
   if (!marketingAiAllowed()) throw new Error("Marketing AI generation is not enabled");
   const response = await fetch("https://api.openai.com/v1/responses",{
     method:"POST",headers:{"Authorization":"Bearer "+process.env.OPENAI_API_KEY,"Content-Type":"application/json"},
-    body:JSON.stringify({model:process.env.MARKETING_TEXT_MODEL||"gpt-6-luna",
+    body:JSON.stringify({model:process.env.MARKETING_TEXT_MODEL,
       ...marketingPrompt(input),max_output_tokens:500,store:false}),
     signal:AbortSignal.timeout(30000),cache:"no-store"
   });
@@ -49,7 +50,7 @@ export async function generateMarketingImage(input:{
   ].join(" ");
   const response = await fetch("https://api.openai.com/v1/images/generations",{
     method:"POST",headers:{"Authorization":"Bearer "+process.env.OPENAI_API_KEY,"Content-Type":"application/json"},
-    body:JSON.stringify({model:process.env.MARKETING_IMAGE_MODEL||"gpt-image-2.5-flare",
+    body:JSON.stringify({model:process.env.MARKETING_IMAGE_MODEL,
       prompt,size:"1024x1024",n:1}),
     signal:AbortSignal.timeout(90000),cache:"no-store"
   });

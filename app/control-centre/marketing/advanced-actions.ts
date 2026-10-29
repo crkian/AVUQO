@@ -73,7 +73,7 @@ export async function createAIMarketingDraft(form:FormData) {
  const factId=field(form,"fact_id",100);
  await aiPreflight(brand);
  const {fact,profile,db}=await factForBrand(brand,factId);
- const model=process.env.MARKETING_TEXT_MODEL||"gpt-6-luna";
+ const model=process.env.MARKETING_TEXT_MODEL || "unconfigured";
  // Never approve AI output automatically, regardless of semantic checks.
  const generated=await generateMarketingCaption({
   brand:profile.name,platform:platform as "facebook"|"instagram"|"website",
@@ -94,7 +94,7 @@ export async function createAIMarketingImage(form:FormData) {
  const factId=field(form,"fact_id",100);
  const visualStyle=field(form,"visual_style",250);
  const {fact,profile,db}=await factForBrand(brand,factId);
- const model=process.env.MARKETING_IMAGE_MODEL||"gpt-image-2.5-flare";
+ const model=process.env.MARKETING_IMAGE_MODEL || "unconfigured";
  const image=await generateMarketingImage({
   brand:profile.name,headline:fact.claim,visualStyle:visualStyle||profile.tone
  });
