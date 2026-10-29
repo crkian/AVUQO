@@ -1,6 +1,7 @@
 import {createClient} from "../supabase/server";
 import {EDITORIAL_ROTATION,validPublicCampaign,type HomeCampaign} from "./homepage-policy";
 export {EDITORIAL_ROTATION,DEFAULT_CAMPAIGN,validPublicCampaign} from "./homepage-policy";
+export type {HomeCampaign} from "./homepage-policy";
 export async function loadHomeCampaigns():Promise<HomeCampaign[]> {
  try{
   const db=await createClient();

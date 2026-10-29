@@ -150,7 +150,7 @@ export default async function MarketingPage({
       <section className={styles.panel}>
         <h2>Front-page rotating campaigns</h2>
         <p className={styles.muted}>Approved AVUQO campaigns appear in a rotating panel below the homepage introduction. Set a start and end time, choose a real AVUQO page, and review the copy. Campaigns expire automatically. Sponsored placements are visibly labelled and never affect product scores or organic rankings.</p>
-        {brand!=="avuqo"?<div className={styles.warning}>This front-page carousel belongs to AVUQO only. Select AVUQO above. Other brands keep separate marketing workspaces and cannot add claims to AVUQO's homepage.</div>:
+        {brand!=="avuqo"?<div className={styles.warning}>This front-page carousel belongs to AVUQO only. Select AVUQO above. Other brands keep separate marketing workspaces and cannot add claims to AVUQO&apos;s homepage.</div>:
          <form action={createHomePlacement} className={styles.form}>
           <label>Headline<input name="title" required minLength={8} maxLength={100} placeholder="Explore smarter shopping decisions"/></label>
           <label>Description<textarea name="summary" required minLength={15} maxLength={260} placeholder="Useful, factual, owner-reviewed campaign copy"/></label>
@@ -461,7 +461,7 @@ export default async function MarketingPage({
               <label>One new draft every<select name="cadence_days" defaultValue={rule?.cadence_days??3}>
                 {[2,3,4,5,7,10,14].map(day=><option value={day} key={day}>{day} days</option>)}
               </select></label>
-              <label><input type="checkbox" style={{width:18}} name="enabled" value="yes" defaultChecked={rule?.enabled??false}/> Enable this brand's editorial draft planner</label>
+              <label><input type="checkbox" style={{width:18}} name="enabled" value="yes" defaultChecked={rule?.enabled??false}/> Enable this brand&apos;s editorial draft planner</label>
               {rule?.last_error&&<p className={styles.warning}>{rule.last_error}</p>}
               <button type="submit" disabled={!isOwner}>Save draft schedule</button>
             </form>;
