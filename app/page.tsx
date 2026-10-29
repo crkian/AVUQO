@@ -49,7 +49,14 @@ async function HomeContent() {
           <h1 id="home-title">{editorial.headline}</h1>
           <p className={styles.heroText}>{editorial.description}</p>
           <SearchForm/>
-          <p className={styles.heroAside}>Look around, compare carefully, and decide at your own pace.</p>
+          <nav className={styles.heroShortcuts} aria-label="Quick ways to explore">
+            <span>Start with</span>
+            <Link href="/sales">Deals &amp; Sales</Link>
+            <Link href="/compare">Compare</Link>
+            <Link href="/groceries">Groceries</Link>
+            <Link href="/travel">Travel</Link>
+          </nav>
+          <p className={styles.heroAside}>Compare carefully, check the evidence, and decide at your own pace.</p>
         </div>
         <div className={styles.heroVisual}>
           <div className={styles.heroArt} style={{backgroundImage:`url("${lifestylePages.home.hero}")`}} role="img" aria-label="A welcoming, sunlit living room"/>

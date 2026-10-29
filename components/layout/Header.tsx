@@ -6,7 +6,7 @@ import MegaNav from "./MegaNav";
 import MobileDock from "./MobileDock";
 import {DEFAULT_NAVIGATION,parseNavigation} from "../../lib/content/navigation";
 import {Search as SearchIcon} from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { createClient } from "../../lib/supabase/client";
 
 export default function Header() {
@@ -91,7 +91,14 @@ export default function Header() {
           </datalist>
           <button type="submit" aria-label="Search">Search</button>
         </form>
-        <MegaNav navigation={navigation} menuOpen={menuOpen} onNavigate={() => setMenuOpen(false)} />
+        <Suspense fallback={<nav className="primary-nav header-nav-fallback" id="avuqo-primary-nav" aria-label="Primary navigation">
+          <Link href="/discover">Discover</Link><Link href="/sales">Deals &amp; Sales</Link>
+          <Link href="/compare">Compare</Link><Link href="/groceries">Groceries</Link>
+          <Link href="/categories">Categories</Link><Link href="/travel">Travel</Link>
+          <Link href="/about">More</Link>
+        </nav>}>
+          <MegaNav navigation={navigation} menuOpen={menuOpen} onNavigate={() => setMenuOpen(false)} />
+        </Suspense>
         <button className="mobile-menu-toggle" type="button" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="avuqo-primary-nav" onClick={() => setMenuOpen(open => !open)}>{menuOpen ? <X size={23}/> : <Menu size={23}/>}</button>
 
         <div className="header-actions">
@@ -118,7 +125,7 @@ export default function Header() {
         </div>
       </div>
     </header>
-    <MobileDock signedIn={!!email}/>
+    <Suspense fallback={null}><MobileDock signedIn={!!email}/></Suspense>
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { createClient } from "../supabase/server";
 export const DEFAULT_EDITORIAL = {
- home: { eyebrow:"Intelligent value discovery", headline:"Find what’s worth it.", description:"AVUQO searches sales, offers, bookings and price drops across the internet to find the ones genuinely worth your attention.", seoTitle:"AVUQO | Find what's worth it", seoDescription:"Discover value with AVUQO's independent shopping intelligence." },
+ home: { eyebrow:"Intelligent value discovery", headline:"Find what’s worth it.", description:"Explore shopping guides, grocery lists, travel and useful comparisons. We only call offers verified when real source and price evidence support them.", seoTitle:"AVUQO | Find what's worth it", seoDescription:"Discover value with AVUQO's independent shopping intelligence." },
  about: { eyebrow:"About AVUQO", headline:"Independent intelligence for better buying decisions.", description:"AVUQO is being built to answer a deceptively simple question: is this actually worth it?", seoTitle:"About AVUQO", seoDescription:"Learn about AVUQO's independent value intelligence." },
  trust: { eyebrow:"Trust and independence", headline:"Built for the buyer.", description:"AVUQO puts evidence and independence ahead of commissions.", seoTitle:"Trust | AVUQO", seoDescription:"Our commitment to transparent value intelligence." },
 } as const;
