@@ -38,3 +38,10 @@
 .home .templateGrid{grid-template-columns:1.2fr .8fr}.beauty .templateGrid{grid-template-columns:.8fr 1.2fr}
 @media(max-width:900px){.wideImage,.portraitImage,.travel .heroGrid,.templateGrid,.tech .templateGrid,.grocery .templateGrid,.travel .templateGrid,.home .templateGrid,.beauty .templateGrid{grid-template-columns:1fr}.portraitImage .art{min-height:315px;border-radius:26px;max-width:560px}.templateSection{padding:65px 0 0}.templateGrid{gap:16px}}
 @media(max-width:600px){.templateGrid>div{padding:26px;min-height:0}.templateHeading h2{font-size:33px}.wideImage .art,.travel .art{min-height:260px}}
+
+.fashion{--product-tone:#835374;--product-bg:#f5edf1;--product-soft:#f0e3ec}
+.gifts{--product-tone:#966044;--product-bg:#f7efe7;--product-soft:#f3e5d5}
+.fashionPanel,.giftsPanel{background:var(--product-soft);display:flex;flex-direction:column;justify-content:center;min-height:260px}
+.fashion .heroGrid{grid-template-columns:.72fr 1.28fr}.gifts .heroGrid{grid-template-columns:.78fr 1.22fr}
+.fashion .art,.gifts .art{border-radius:180px 180px 26px 26px;min-height:480px}
+@media(max-width:900px){.fashion .heroGrid,.gifts .heroGrid{grid-template-columns:1fr}.fashion .art,.gifts .art{min-height:310px;max-width:580px}}
