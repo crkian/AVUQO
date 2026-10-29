@@ -1,5 +1,7 @@
 -- AVUQO Marketing: private four-brand editorial workspace. REVIEW BEFORE APPLYING.
 -- There is NO external source connector, social publisher, scheduler, ad-spend path or live posting trigger.
+create schema if not exists private;
+
 create table public.marketing_brands (
   slug text primary key check (slug in ('avuqo','fantasy-lockr','capshur','cluedoku')),
   name text not null,
@@ -80,6 +82,16 @@ begin
       raise exception 'Marketing fact belongs to a different brand or is missing';
     end if;
   end if;
+  if new.status = 'approved' then
+    if new.source_fact_id is null or f.status <> 'approved' or
+       (f.expires_at is not null and f.expires_at <= now()) then
+      raise exception 'Marketing approval requires an unexpired approved same-brand fact';
+    end if;
+    if new.brand_slug = 'fantasy-lockr' and new.caption ~* 
+      '(gameweek|fixture|score|result|kick-off|kickoff|deadline|rival)' then
+      raise exception 'Fantasy Lockr live-event and Rival content is prohibited';
+    end if;
+  end if;
   return new;
 end; $$;
 revoke all on function private.check_marketing_post_fact() from public, anon, authenticated;
@@ -136,40 +148,40 @@ grant select,insert on public.marketing_channels to authenticated;
 grant select on public.marketing_audit to authenticated;
 
 create policy marketing_brand_read on public.marketing_brands for select to authenticated
-using ((select private.is_avuqo_admin()));
+using (exists (select 1 from public.user_roles r where r.user_id=(select auth.uid()) and r.role in ('owner','admin')));
 create policy marketing_brand_edit on public.marketing_brands for update to authenticated
-using ((select private.is_avuqo_admin())) with check ((select private.is_avuqo_admin()));
+using (exists (select 1 from public.user_roles r where r.user_id=(select auth.uid()) and r.role in ('owner','admin'))) with check (exists (select 1 from public.user_roles r where r.user_id=(select auth.uid()) and r.role in ('owner','admin')));
 
 create policy marketing_fact_read on public.marketing_facts for select to authenticated
-using ((select private.is_avuqo_admin()));
+using (exists (select 1 from public.user_roles r where r.user_id=(select auth.uid()) and r.role in ('owner','admin')));
 create policy marketing_fact_insert on public.marketing_facts for insert to authenticated
-with check ((select private.is_avuqo_admin()) and created_by=(select auth.uid())
+with check (exists (select 1 from public.user_roles r where r.user_id=(select auth.uid()) and r.role in ('owner','admin')) and created_by=(select auth.uid())
 and status='draft' and approved_by is null);
 create policy marketing_fact_edit on public.marketing_facts for update to authenticated
-using ((select private.is_avuqo_admin()))
-with check ((select private.is_avuqo_admin()) and (
+using (exists (select 1 from public.user_roles r where r.user_id=(select auth.uid()) and r.role in ('owner','admin')))
+with check (exists (select 1 from public.user_roles r where r.user_id=(select auth.uid()) and r.role in ('owner','admin')) and (
   status='draft' or exists (
     select 1 from public.user_roles r where r.user_id=(select auth.uid()) and r.role='owner'
   )
 ));
 
 create policy marketing_channel_read on public.marketing_channels for select to authenticated
-using ((select private.is_avuqo_admin()));
+using (exists (select 1 from public.user_roles r where r.user_id=(select auth.uid()) and r.role in ('owner','admin')));
 create policy marketing_channel_insert on public.marketing_channels for insert to authenticated
-with check ((select private.is_avuqo_admin()) and connection_state='unconnected');
+with check (exists (select 1 from public.user_roles r where r.user_id=(select auth.uid()) and r.role in ('owner','admin')) and connection_state='unconnected');
 
 create policy marketing_post_read on public.marketing_posts for select to authenticated
-using ((select private.is_avuqo_admin()));
+using (exists (select 1 from public.user_roles r where r.user_id=(select auth.uid()) and r.role in ('owner','admin')));
 create policy marketing_post_insert on public.marketing_posts for insert to authenticated
-with check ((select private.is_avuqo_admin()) and created_by=(select auth.uid())
+with check (exists (select 1 from public.user_roles r where r.user_id=(select auth.uid()) and r.role in ('owner','admin')) and created_by=(select auth.uid())
 and status='draft' and approved_by is null);
 create policy marketing_post_edit on public.marketing_posts for update to authenticated
-using ((select private.is_avuqo_admin()))
-with check ((select private.is_avuqo_admin()) and (
+using (exists (select 1 from public.user_roles r where r.user_id=(select auth.uid()) and r.role in ('owner','admin')))
+with check (exists (select 1 from public.user_roles r where r.user_id=(select auth.uid()) and r.role in ('owner','admin')) and (
   status='draft' or exists (
     select 1 from public.user_roles r where r.user_id=(select auth.uid()) and r.role='owner'
   )
 ));
 create policy marketing_audit_read on public.marketing_audit for select to authenticated
-using ((select private.is_avuqo_admin()));
+using (exists (select 1 from public.user_roles r where r.user_id=(select auth.uid()) and r.role in ('owner','admin')));
 -- No public access, no DELETE policies, no audit UPDATE/INSERT grants, no publishing permissions.
