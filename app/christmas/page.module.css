@@ -9,3 +9,22 @@
 @media(max-width:960px){.heroLayout{grid-template-columns:minmax(0,1fr) minmax(265px,.75fr)}.heroArtwork{min-height:380px}}
 @media(max-width:700px){.hero{padding:49px 0 32px}.heroLayout{grid-template-columns:1fr;gap:0}.heroArtwork{min-height:300px;background-position:center top;max-width:500px;width:100%;justify-self:center}.hero h1{font-size:clamp(47px,12vw,70px)}.decoration{min-height:195px;display:block}}
 @media(prefers-reduced-motion:no-preference){.heroArtwork{animation:giftArrival .65s ease-out both}@keyframes giftArrival{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}}
+
+/* Photographic Christmas art direction */
+.hero{position:relative;display:flex;align-items:center;min-height:570px;padding:0;background:#fbf4ed}
+.heroPhoto{position:absolute;inset:0;background:url("https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=1800&q=82") center 45%/cover no-repeat}
+.heroWash{position:absolute;inset:0;background:linear-gradient(90deg,#fcf7f2 0%,rgba(252,247,242,.98) 25%,rgba(252,247,242,.83) 43%,rgba(252,247,242,.18) 72%,transparent 90%)}
+.heroLayout{position:relative;z-index:1;display:block;padding:85px 0}
+.heroCopy{max-width:590px}
+.hero h1{font-size:clamp(50px,7vw,86px)}
+.hero h1 span{color:#c85060}
+.heroArtwork{display:none}
+.tile{padding:0;min-height:0;overflow:hidden}
+.tilePhoto{height:185px;background-size:cover;background-position:center;background-color:#e9d9d6}
+.tileCopy{padding:20px;min-height:205px;display:flex;flex-direction:column}
+.tileCopy>svg{color:#a64f68}
+.tileCopy h3{margin:12px 0 7px}
+.tileCopy span{margin-top:auto}
+.decoration{min-height:310px;display:block;background:url("https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=900&q=80") center/cover no-repeat;border-radius:22px}
+@media(max-width:850px){.spotlight{grid-template-columns:1fr 1fr}.decoration{min-height:240px;display:block}}
+@media(max-width:700px){.hero{min-height:530px}.heroPhoto{background-position:62% 34%}.heroWash{background:linear-gradient(0deg,rgba(252,247,242,.99) 0%,rgba(252,247,242,.91) 40%,rgba(252,247,242,.4) 85%)}.heroLayout{padding:170px 0 42px}.hero h1{font-size:clamp(49px,11vw,70px)}.spotlight{grid-template-columns:1fr}.decoration{height:230px;min-height:230px}}
