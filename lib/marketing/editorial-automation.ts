@@ -1,11 +1,8 @@
 /** Owner-controlled, scheduled editorial generation. This NEVER publishes or sends content. */
 import {createAdminClient} from "../supabase/admin";
 import {evergreenCaption,normaliseCaption,reviewDraft} from "./policy";
+import {nextEditorialRun} from "./editorial-automation-policy";
 
-export function nextEditorialRun(base:Date,days:number) {
- if(!Number.isInteger(days)||days<2||days>14)throw Error("Invalid cadence");
- return new Date(base.getTime()+days*86400000).toISOString();
-}
 export async function runEditorialDraftAutomation() {
  if(process.env.MARKETING_AUTOMATION_DRAFTS!=="YES") return {enabled:false,drafts:0};
  const db=createAdminClient();

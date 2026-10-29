@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {validPublicCampaign,DEFAULT_CAMPAIGN} from "../lib/marketing/homepage.ts";
-import {nextEditorialRun} from "../lib/marketing/editorial-automation.ts";
+import {validPublicCampaign,DEFAULT_CAMPAIGN} from "../lib/marketing/homepage-policy.ts";
+import {nextEditorialRun} from "../lib/marketing/editorial-automation-policy.ts";
 test("homepage campaign rejects external or protocol-relative URLs",()=>{
  const base={id:"x",title:"A featured AVUQO guide",summary:"Find a useful AVUQO guide on total cost.",cta_label:"Explore now",href:"/products",sponsored:false};
  assert.equal(validPublicCampaign({...base,href:"https://evil.example"}),null);
