@@ -1,0 +1,27 @@
+.page{display:grid;gap:20px;max-width:1050px}
+.head{display:grid;gap:10px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#6753ad;font-weight:900}
+.head h1{font-size:clamp(29px,4vw,42px);margin:0;letter-spacing:-.045em}
+.head p{margin:0;line-height:1.6;color:#665f72}.meta{font-size:12px}
+.actions{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;font-weight:800;color:#5c36d6}
+.guide,.publish,.history{padding:22px;border:1px solid #e5dfed;border-radius:18px;background:#fff;color:#4b435c;line-height:1.55}
+.form{display:grid;gap:12px}.department{border:1px solid #e4dfec;border-radius:17px;background:#fff;overflow:hidden}
+.department>summary{cursor:pointer;display:flex;align-items:center;padding:17px 20px;background:#faf8fd}
+.department>summary span{display:flex;flex-direction:column;gap:6px}
+.department>summary strong{font-size:17px}.department>summary small{font-size:11px;color:#776e87}
+.groupBody{padding:22px;display:grid;gap:16px}
+.groupBody label{display:grid;gap:7px;font-size:12px;font-weight:800;color:#5a5265}
+.groupBody input:not([type=checkbox]){width:100%;padding:10px 12px;border:1px solid #dcd4e6;border-radius:9px;font-size:14px}
+.cols{display:grid;grid-template-columns:minmax(0,3fr) minmax(100px,1fr);gap:16px}
+.groupBody h3{margin:12px 0 0;font-size:15px}.note{color:#736980;font-size:12px;margin:0}
+.toggle{display:flex!important;flex-direction:row!important;align-items:center;gap:8px!important}
+.toggle input{width:18px;height:18px;accent-color:#6040d8}
+.linkRow{background:#faf8fd;border:1px solid #eee8f5;border-radius:13px;padding:15px;display:grid;gap:12px}
+.linkFoot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;color:#716980}
+.primary{border:0;border-radius:12px;background:#6041bb;color:white;min-height:44px;padding:11px 22px;font-weight:850;justify-self:start}
+.publish{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.publish h2,.history h2{font-size:18px;margin:0 0 8px}
+.publish p,.history p{margin:0;font-size:13px}.history{display:grid;gap:14px}
+.revision{display:flex;align-items:center;justify-content:space-between;gap:15px;border-top:1px solid #eee5f4;padding-top:12px;font-size:13px}
+.revision button{border:1px solid #ded3f0;background:#f7f2ff;color:#5638b2;padding:8px 14px;border-radius:9px;font-weight:800}
+.warning{border:1px solid #ebca8a;background:#fffaf0;color:#785114;padding:13px;border-radius:12px}
+@media(max-width:680px){.cols{grid-template-columns:1fr}.publish{align-items:start;flex-direction:column}.groupBody{padding:14px}}
