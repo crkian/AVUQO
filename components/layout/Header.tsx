@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LogOut, Shield } from "lucide-react";
+import { LogOut, Shield, Menu, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { createClient } from "../../lib/supabase/client";
 
@@ -10,6 +10,7 @@ export default function Header() {
   const [email, setEmail] = useState<string | null>(null);
   const [admin, setAdmin] = useState(false);
   const [ready, setReady] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -54,17 +55,18 @@ export default function Header() {
           AVUQO
         </Link>
 
-        <nav aria-label="Primary navigation">
-          <Link href="/shopping">Shopping</Link>
-          <Link href="/travel">Travel</Link>
-          <Link href="/home">Home</Link>
-          <Link href="/tech">Tech</Link>
-          <Link href="/pets">Pets</Link>
-          <Link href="/christmas">Christmas</Link>
-          <Link href="/compare">Compare</Link>
-          <Link href="/categories">Categories</Link>
-          <Link href="/watches">Watches</Link>
+        <nav id="avuqo-primary-nav" className={`primary-nav ${menuOpen ? "is-open" : ""}`} aria-label="Primary navigation">
+          <Link href="/shopping" onClick={() => setMenuOpen(false)}>Shopping</Link>
+          <Link href="/travel" onClick={() => setMenuOpen(false)}>Travel</Link>
+          <Link href="/home" onClick={() => setMenuOpen(false)}>Home</Link>
+          <Link href="/tech" onClick={() => setMenuOpen(false)}>Tech</Link>
+          <Link href="/pets" onClick={() => setMenuOpen(false)}>Pets</Link>
+          <Link href="/christmas" onClick={() => setMenuOpen(false)}>Christmas</Link>
+          <Link href="/compare" onClick={() => setMenuOpen(false)}>Compare</Link>
+          <Link href="/categories" onClick={() => setMenuOpen(false)}>Categories</Link>
+          <Link href="/watches" onClick={() => setMenuOpen(false)}>Watches</Link>
         </nav>
+        <button className="mobile-menu-toggle" type="button" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="avuqo-primary-nav" onClick={() => setMenuOpen(open => !open)}>{menuOpen ? <X size={23}/> : <Menu size={23}/>}</button>
 
         {!ready ? (
           <span className="signin auth-loading">...</span>
