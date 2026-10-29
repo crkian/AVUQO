@@ -66,6 +66,13 @@ export async function runMarketingWorker() {
   if(!enabled()) return {ok:true,skipped:"Worker disabled in environment"};
   if(!(await systemReady())) return {ok:true,skipped:"Global stop or publishing disabled"};
   const db=createAdminClient();
+  // Abandoned dispatch attempts may already have reached Buffer. Quarantine, never retry.
+  const staleBefore=new Date(Date.now()-15*60000).toISOString();
+  const {error:staleError}=await db.from("marketing_publication_jobs")
+    .update({state:"needs_reconciliation",
+      last_error:"Worker stopped during dispatch; verify Buffer before any further action"})
+    .eq("state","dispatching").lt("dispatch_started_at",staleBefore);
+  if(staleError) throw staleError;
   const {data:jobs,error}=await db.from("marketing_publication_jobs")
     .select("id,state,due_at").eq("state","queued")
     .gt("due_at",new Date(Date.now()+15*60000).toISOString())
