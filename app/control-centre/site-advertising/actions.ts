@@ -54,8 +54,11 @@ export async function addSiteAdCampaign(f:FormData){
  const body=field(f,"body",350),cta_label=field(f,"cta_label",35);
  const target_url=field(f,"target_url",500),zone=field(f,"zone",40);
  const from=field(f,"starts_at",40),to=field(f,"ends_at",40);
- const starts_at=new Date(from.endsWith("Z")?from:from+"Z").toISOString();
- const ends_at=new Date(to.endsWith("Z")?to:to+"Z").toISOString();
+ const s=Date.parse(from.endsWith("Z")?from:from+"Z");
+ const e=Date.parse(to.endsWith("Z")?to:to+"Z");
+ if(!Number.isFinite(s)||!Number.isFinite(e))fail("Provide valid UTC start/end dates");
+ const starts_at=new Date(s).toISOString();
+ const ends_at=new Date(e).toISOString();
  if(title.length<6||headline.length<8||body.length<15||cta_label.length<3 ||
   !AD_ZONES.some(z=>z.id===zone)||!validAdvertiserSite(target_url)||
   !validCampaignWindow(starts_at,ends_at))fail("Complete the campaign brief, future schedule, HTTPS destination and ad zone");
@@ -82,10 +85,10 @@ export async function reviewSiteAdCampaign(f:FormData){
  else if(decision==="decline"&&["draft","in_review"].includes(campaign.status))update.status="declined";
  else if(decision==="pause"&&campaign.status==="ready")update.status="paused";
  else if(decision==="approve"&&campaign.status==="in_review"){
-  const {data:advertiser}=await db.from("site_advertisers").select("status").eq("id",campaign.advertiser_id).maybeSingle();
+  const {data:advertiser}=await db.from("site_advertisers").select("status,website").eq("id",campaign.advertiser_id).maybeSingle();
   const rightsNote=field(f,"rights_note",750);
   const gate=readyForEditorialApproval({
-   advertiserVerified:advertiser?.status==="verified",rightsNote,
+   advertiserVerified:advertiser?.status==="verified",advertiserWebsite:advertiser?.website??"",rightsNote,
    disclosure:campaign.disclosure_text,destination:campaign.target_url,end:campaign.ends_at
   });
   if(!gate.ok)fail(gate.reasons.join("; "));

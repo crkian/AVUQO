@@ -18,18 +18,26 @@ export function validAdvertiserSite(raw:string):boolean{
   return raw.length<=500&&!u.hash;
  }catch{return false}
 }
+export function matchesAdvertiserDomain(destination:string,verifiedWebsite:string):boolean{
+ if(!validAdvertiserSite(destination)||!validAdvertiserSite(verifiedWebsite))return false;
+ const dest=new URL(destination).hostname.toLowerCase();
+ const verified=new URL(verifiedWebsite).hostname.toLowerCase();
+ const bare=verified.startsWith("www.")?verified.slice(4):verified;
+ return dest===bare||dest==="www."+bare||dest.endsWith("."+bare);
+}
 export function validCampaignWindow(start:string,end:string,now=new Date()):boolean{
  const s=Date.parse(start),e=Date.parse(end);
  return Number.isFinite(s)&&Number.isFinite(e)&&s<e&&e>now.getTime();
 }
 export function readyForEditorialApproval(input:{
- advertiserVerified:boolean;rightsNote:string;disclosure:string;destination:string;end:string;
+ advertiserVerified:boolean;advertiserWebsite:string;rightsNote:string;disclosure:string;destination:string;end:string;
 },now=new Date()):{ok:boolean;reasons:string[]}{
  const reasons:string[]=[];
  if(!input.advertiserVerified)reasons.push("Advertiser must be verified");
  if(input.rightsNote.trim().length<8)reasons.push("Record creative rights evidence");
  if(!["Advertisement","Sponsored"].includes(input.disclosure))reasons.push("Disclosure is required");
  if(!validAdvertiserSite(input.destination))reasons.push("Destination must be safe HTTPS");
+ if(!matchesAdvertiserDomain(input.destination,input.advertiserWebsite))reasons.push("Landing page must belong to the verified advertiser domain");
  if(!Number.isFinite(Date.parse(input.end))||Date.parse(input.end)<=now.getTime())reasons.push("Campaign has expired");
  return {ok:reasons.length===0,reasons};
 }
