@@ -1,53 +1,17 @@
-import LegalPage, { styles } from "../LegalPage";
-import { getContactEmail } from "../../../lib/site/url";
-
-export const metadata = {
-  title: "Privacy",
-  description: "AVUQO privacy information.",
-};
-
-export default function PrivacyPage() {
-  const contact = getContactEmail();
-
-  return (
-    <LegalPage
-      kicker="Privacy"
-      title="Privacy at AVUQO."
-      intro="This page describes the data categories AVUQO is designed to process. It should be reviewed against the final production services and legal requirements before full commercial launch."
-    >
-      <section>
-        <h2>Information you provide</h2>
-        <p>
-          This can include account details, Watches, Saved items, Shared Lists,
-          preferences, feedback and URLs submitted to Reality Check.
-        </p>
-      </section>
-
-      <section>
-        <h2>Operational information</h2>
-        <p>
-          AVUQO may process security logs, device/browser information,
-          interaction events and affiliate attribution information needed to
-          operate, protect and improve the service.
-        </p>
-      </section>
-
-      <section>
-        <h2>Third-party services</h2>
-        <p>
-          AVUQO uses infrastructure and data providers such as hosting,
-          authentication/database services, merchant and affiliate networks.
-          Their processing is subject to their respective agreements and
-          privacy terms.
-        </p>
-      </section>
-
-      <section>
-        <h2>Contact</h2>
-        <div className={styles.contactCard}>
-          Privacy enquiries: <strong>{contact}</strong>
-        </div>
-      </section>
-    </LegalPage>
-  );
+import Link from "next/link";
+import LegalPage,{styles} from "../LegalPage";
+import {getContactEmail} from "../../../lib/site/url";
+export const metadata={title:"Privacy notice",description:"How AVUQO handles personal data, account information and shopping tools."};
+export default function PrivacyPage(){
+ const email=getContactEmail();const configured=email!=="Contact email not configured";
+ return <LegalPage kicker="Privacy and your information" title="Privacy at AVUQO." intro="We want to make the information involved in shopping, lists, accounts and everyday comparisons understandable. This notice explains the processing we can currently describe; the final legal controller identity, provider inventory, retention schedule and overseas transfer details still require a documented review.">
+ <section><h2>Who is responsible for your information?</h2><p>AVUQO operates this comparison and shopping guidance website. Its full legal data-controller name and physical contact address must be verified and added to this notice before it can be treated as a complete UK GDPR privacy statement. No company registration details have been invented.</p><div className={styles.contactCard}>{configured?<>Privacy requests: <a href={`mailto:${email}?subject=AVUQO%20privacy%20request`}>{email}</a></>:<>Contact details are being verified. Please use the <Link href="/contact">contact page</Link> for an enquiry.</>}</div></section>
+ <section><h2>What information may be involved?</h2><p>Account and authentication records may include your email address, account ID and sign-in/session information. If you use them, Watches, Saved items, Shared Lists, grocery baskets, your preferences, feedback and URLs you submit to Reality Check may be stored. Anonymous visitors can use some features without an account. Browser storage may remember a local list or a cookie preference.</p><p>Operational information can include website requests, device and browser details, security logs, error diagnostics, and information associated with a retailer click. This does not mean all possible tracking or advertising features are currently active.</p></section>
+ <section><h2>Why AVUQO uses information</h2><p>AVUQO processes information to provide account access and requested tools, keep lists and Watches working, secure services, prevent abuse, and respond to enquiries. Different purposes may have different lawful bases, such as performing requested services, compliance with legal obligations, legitimate interests in website security, or valid consent where required. A complete purpose-by-purpose lawful basis register must be confirmed before this notice is finalised.</p></section>
+ <section><h2>Who supports the service?</h2><p>AVUQO uses Vercel for website deployment and Supabase for database and authentication infrastructure. Affiliate networks, retailers and third-party content providers may also become involved where their integration has been approved. Opening a retailer's site puts you under that site's own privacy notice. Approved integrations, contracts, subprocessors and any international transfers must be recorded in the final provider inventory.</p></section>
+ <section><h2>Cookies and local storage</h2><p>Essential session and security technologies help the website function. AVUQO has a <Link href="/cookie-preferences">cookie preferences control</Link> for optional purposes, and a <Link href="/cookies">cookie information page</Link>. Some saved-list or basket features may use local browser storage. Optional analytics and marketing scripts are not currently enabled in the site's reviewed code; this must be verified again whenever new services are connected.</p></section>
+ <section><h2>How long is information kept?</h2><p>Account and list data may be retained while needed for the requested service, subject to deletion obligations, security needs and legal requirements. The specific retention periods for each dataset, backups and operational logs have not yet been finalised. They must be documented and reflected here rather than guessed.</p></section>
+ <section><h2>Your rights</h2><p>UK data protection law can give you rights to access, correct or erase personal data, object to or restrict processing, and request portability, subject to legal conditions and exemptions. Start at the <Link href="/privacy-centre">Privacy Centre</Link> to make an enquiry. Do not send passwords or identity documents in your first message.</p><p>You can seek independent information or raise a concern with the <a href="https://ico.org.uk/for-the-public/" target="_blank" rel="noopener noreferrer">UK Information Commissioner's Office</a>.</p></section>
+ <section><h2>Transparency as AVUQO grows</h2><p>New service providers, marketing technologies, affiliate data uses, regulated comparison partners and optional financial integrations must be assessed before enabling them. The public notice, consent controls and contract documentation must change as the actual system changes. Read our <Link href="/editorial-policy">editorial and source policy</Link> for commercial independence.</p></section>
+ </LegalPage>;
 }
