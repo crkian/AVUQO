@@ -35,3 +35,19 @@
  .searchForm button{flex:1;min-height:44px}
 }
 @media(max-width:350px){.tileGrid{grid-template-columns:1fr}.tilePhoto{height:190px}.tileBody{min-height:120px}}
+
+/* Warm editorial spacing, intentionally scoped to lifestyle departments. */
+.section{padding-top:98px;padding-bottom:98px}
+.sectionHeading{margin-bottom:38px;gap:28px}
+.tileGrid{gap:25px}
+.tile{border-radius:27px;box-shadow:0 10px 30px rgba(49,40,42,.045)}
+.tilePhoto{height:235px}
+.tileBody{padding:24px 48px 26px 25px;min-height:122px}
+.featureInner{gap:80px;padding:86px 0}
+.featurePhoto{border-radius:34px}
+.tipGrid{gap:25px}
+.tip{padding:33px;border-radius:27px}
+.searchWrap{padding-bottom:110px}
+@media(max-width:900px){.tileGrid,.tipGrid{gap:18px}.featureInner{gap:38px}}
+@media(max-width:720px){.section{padding-top:66px;padding-bottom:66px}.tileGrid{gap:16px}.tilePhoto{height:188px}.tileBody{min-height:134px;padding:20px 36px 22px 19px}.featureInner{padding:63px 0}.tip{padding:26px}.searchWrap{padding-bottom:75px}}
+@media(max-width:480px){.tileGrid{grid-template-columns:1fr}.tilePhoto{height:210px}.tileBody{min-height:0}}
