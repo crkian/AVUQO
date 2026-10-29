@@ -8,7 +8,7 @@ export type PublicOffer={
  source:{id:string;name:string;imageAllowed:boolean};
 };
 export type PublicProduct={
- id:string;slug:string;canonical_title:string;brand:string|null;model:string|null;description:string|null;primary_image_url:string|null;specifications:unknown;status:string;
+ id:string;slug:string;canonical_title:string;brand:string|null;model:string|null;description:string|null;primary_image_url:string|null;specifications:unknown;status:string;product_type:string|null;
 };
 function metadata(raw:unknown):Record<string,unknown>{return raw&&typeof raw==="object"&&!Array.isArray(raw)?raw as Record<string,unknown>:{};}
 function isHttps(value:string|null){if(!value)return false;try{const u=new URL(value);return u.protocol==="https:"&&!u.username&&!u.password&&u.hostname.length>3;}catch{return false;}}
@@ -60,7 +60,7 @@ export async function verifiedProduct(slug:string):Promise<{product:PublicProduc
  if(!/^[a-z0-9][a-z0-9-]{2,159}$/.test(slug))return null;
  try{
   const db=createAdminClient();
-  const {data,error}=await db.from("products").select("id,slug,canonical_title,brand,model,description,primary_image_url,specifications,status").eq("slug",slug).eq("status","active").maybeSingle();
+  const {data,error}=await db.from("products").select("id,slug,canonical_title,brand,model,description,primary_image_url,specifications,status,product_type").eq("slug",slug).eq("status","active").maybeSingle();
   if(error||!data)return null;
   const offers=await verifiedOffers({productId:data.id,limit:35});
   if(!offers.length)return null;
@@ -73,7 +73,7 @@ export async function verifiedProductIndex(limit=60):Promise<{product:PublicProd
   const ids=[...new Set(offers.map(o=>o.published.product_id))].slice(0,limit);
   if(!ids.length)return [];
   const db=createAdminClient();
-  const {data,error}=await db.from("products").select("id,slug,canonical_title,brand,model,description,primary_image_url,specifications,status").in("id",ids).eq("status","active");
+  const {data,error}=await db.from("products").select("id,slug,canonical_title,brand,model,description,primary_image_url,specifications,status,product_type").in("id",ids).eq("status","active");
   if(error||!data)return [];
   return (data as PublicProduct[]).filter(p=>/^[a-z0-9][a-z0-9-]{2,159}$/.test(p.slug)).map(product=>({product,offers:offers.filter(o=>o.published.product_id===product.id)})).filter(x=>x.offers.length).slice(0,limit);
  }catch{return [];}
