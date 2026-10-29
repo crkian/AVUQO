@@ -17,6 +17,15 @@ export function validPublicCampaign(value:Record<string,unknown>):HomeCampaign|n
  return {id:String(value.id),title:value.title,summary:value.summary,
   ctaLabel:value.cta_label,href:value.href,sponsored:value.sponsored};
 }
+export const EDITORIAL_ROTATION:HomeCampaign[]=[
+ DEFAULT_CAMPAIGN,
+ {id:"groceries",title:"Make the weekly shop clearer.",
+  summary:"Bring your shopping list together and see which supermarket prices have been verified.",
+  ctaLabel:"Explore groceries",href:"/groceries",sponsored:false},
+ {id:"total-cost",title:"Look beyond the monthly price.",
+  summary:"Explore the true costs of broadband, mobile and other everyday contracts using your figures.",
+  ctaLabel:"Compare contracts",href:"/compare",sponsored:false}
+];
 export async function loadHomeCampaigns():Promise<HomeCampaign[]> {
  try{
   const db=await createClient();
@@ -26,7 +35,8 @@ export async function loadHomeCampaigns():Promise<HomeCampaign[]> {
    .eq("brand_slug","avuqo").eq("status","approved")
    .lte("starts_at",now).gt("ends_at",now)
    .order("priority",{ascending:false}).order("created_at",{ascending:false}).limit(8);
-  if(error||!data)return [];
-  return data.map(r=>validPublicCampaign(r)).filter((r):r is HomeCampaign=>!!r);
- }catch{return []}
+  if(error||!data)return EDITORIAL_ROTATION;
+  const accepted=data.map(r=>validPublicCampaign(r)).filter((r):r is HomeCampaign=>!!r);
+  return accepted.length?accepted:EDITORIAL_ROTATION;
+ }catch{return EDITORIAL_ROTATION}
 }

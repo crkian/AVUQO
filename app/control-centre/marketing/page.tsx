@@ -8,6 +8,7 @@ import {
   approveMarketingPost, draftFromApprovedFact, editMarketingDraft, updateMarketingBrand
 } from "./actions";
 import styles from "./marketing.module.css";
+import {createHomePlacement,reviewHomePlacement,saveEditorialRule} from "./campaign-actions";
 import {createAdminClient} from "../../../lib/supabase/admin";
 import {
   createAIMarketingDraft, createAIMarketingImage, uploadMarketingImage,
@@ -21,10 +22,12 @@ type Post = {id:string;brand_slug:string;kind:string;platform:string;caption:str
 type Channel = {id:string;brand_slug:string;platform:string;handle:string;connection_state:string;publishing_enabled:boolean;buffer_channel_id:string|null};
 type Asset = {id:string;brand_slug:string;status:string;alt_text:string;storage_path:string;public_url:string|null;rights_note:string;created_at:string};
 type Job = {id:string;post_id:string;brand_slug:string;state:string;due_at:string;last_error:string|null;provider_post_id:string|null;provider_metrics: {type:string;name:string;value:number;unit:string}[]|null;metrics_updated_at:string|null};
+type HomePlacement = {id:string;title:string;summary:string;cta_label:string;href:string;sponsored:boolean;status:string;starts_at:string;ends_at:string;priority:number;fact_id:string};
+type EditorialRule = {id:string;brand_slug:string;platform:string;enabled:boolean;cadence_days:number;next_run_at:string;last_run_at:string|null;last_error:string|null};
 type GlobalControls = {publishing_enabled:boolean;ai_enabled:boolean;emergency_stop:boolean};
 type Audit = { id:number; brand_slug:string|null; entity:string; operation:string; happened_at:string; actor_id:string|null };
 const TABS = [
-  ["overview","Overview"],["brands","Brands"],["facts","Brand knowledge"],
+  ["overview","Overview"],["brands","Brands"],["facts","Brand knowledge"],["homepage","Homepage rotation"],
   ["studio","Content Studio"],["media","Images"],["calendar","Calendar"],["channels","Social Connections"],["queue","Publishing Queue"],
   ["website","Website Content"],["automation","Automation"],["analytics","Analytics"],["audit","Audit"]
 ] as const;
@@ -33,6 +36,8 @@ const notices: Record<string,string> = {
   "fact-approved":"Fact approved for editorial use.","draft-saved":"Draft saved privately.",
   "post-approved":"Content approved for review purposes, not published or scheduled.",
   "channel-added":"Account label saved. No social account has been connected.",
+  "placement-draft":"Homepage feature saved as a private draft.","placement-updated":"Homepage feature approval status updated.",
+  "rule-saved":"The brand automation schedule has been saved.",
   "ai-draft":"AI draft created for owner review. It is not approved or published.",
   "image-draft":"Image saved privately for review.","image-approved":"Approved image is available for publishing after all other checks.",
   "image-attached":"Approved image attached to draft.","channel-verified":"Buffer account verified, but publishing remains disabled.",
@@ -61,11 +66,16 @@ export default async function MarketingPage({
   const extended = await Promise.all([
     db.from("marketing_system").select("publishing_enabled,ai_enabled,emergency_stop").eq("singleton",true).maybeSingle(),
     db.from("marketing_assets").select("id,brand_slug,status,alt_text,storage_path,public_url,rights_note,created_at").order("created_at",{ascending:false}).limit(100),
-    db.from("marketing_publication_jobs").select("id,post_id,brand_slug,state,due_at,last_error,provider_post_id,provider_metrics,metrics_updated_at").order("created_at",{ascending:false}).limit(100)
+    db.from("marketing_publication_jobs").select("id,post_id,brand_slug,state,due_at,last_error,provider_post_id,provider_metrics,metrics_updated_at").order("created_at",{ascending:false}).limit(100),
+    db.from("marketing_home_placements").select("id,title,summary,cta_label,href,sponsored,status,starts_at,ends_at,priority,fact_id").order("created_at",{ascending:false}).limit(100),
+    db.from("marketing_automation_rules").select("id,brand_slug,platform,enabled,cadence_days,next_run_at,last_run_at,last_error").order("brand_slug").limit(100)
   ]);
   const system = (extended[0].data??null) as GlobalControls|null;
   const assets = (extended[1].data??[]) as Asset[];
   const jobs = (extended[2].data??[]) as Job[];
+  const homePlacements=(extended[3].data??[]) as HomePlacement[];
+  const editorialRules=(extended[4].data??[]) as EditorialRule[];
+  const brandRules=editorialRules.filter(r=>r.brand_slug===brand);
   const myAssets=assets.filter(a=>a.brand_slug===brand);
   const approvedImages=myAssets.filter(a=>a.status==="approved");
   const myJobs=jobs.filter(j=>j.brand_slug===brand);
@@ -136,6 +146,50 @@ export default async function MarketingPage({
       <Notice>Next steps: set up a brand profile, add evidence-backed facts, create a post, then review it. Social accounts and website publishers remain unconnected.</Notice>
     </>}
 
+    {tab==="homepage"&&<>
+      <section className={styles.panel}>
+        <h2>Front-page rotating campaigns</h2>
+        <p className={styles.muted}>Approved AVUQO campaigns appear in a rotating panel below the homepage introduction. Set a start and end time, choose a real AVUQO page, and review the copy. Campaigns expire automatically. Sponsored placements are visibly labelled and never affect product scores or organic rankings.</p>
+        {brand!=="avuqo"?<div className={styles.warning}>This front-page carousel belongs to AVUQO only. Select AVUQO above. Other brands keep separate marketing workspaces and cannot add claims to AVUQO's homepage.</div>:
+         <form action={createHomePlacement} className={styles.form}>
+          <label>Headline<input name="title" required minLength={8} maxLength={100} placeholder="Explore smarter shopping decisions"/></label>
+          <label>Description<textarea name="summary" required minLength={15} maxLength={260} placeholder="Useful, factual, owner-reviewed campaign copy"/></label>
+          <label>Approved AVUQO fact<select name="fact_id" required>{approvedFacts.map(f=><option key={f.id} value={f.id}>{f.claim.slice(0,120)}</option>)}</select></label>
+          <label>Link to an AVUQO page<input name="href" required defaultValue="/discover" placeholder="/discover" pattern="/[a-z0-9][a-z0-9/-]*"/></label>
+          <label>Button label<input name="cta_label" required defaultValue="Explore now" maxLength={40}/></label>
+          <div className={styles.grid}>
+            <label>Start (UTC)<input type="datetime-local" name="starts_at" required/></label>
+            <label>End (UTC)<input type="datetime-local" name="ends_at" required/></label>
+          </div>
+          <label>Order priority (0-100)<input type="number" min={0} max={100} name="priority" defaultValue={50}/></label>
+          <label><input type="checkbox" name="sponsored" value="yes" style={{width:18}}/> This is a paid/sponsored placement (must show advertisement disclosure)</label>
+          <button type="submit" disabled={!isOwner||!approvedFacts.length}>Save private homepage campaign</button>
+        </form>}
+      </section>
+      <section className={styles.panel}><h2>Review and rotate</h2>
+        <div className={styles.list}>{homePlacements.length?homePlacements.map(p=>
+          <article key={p.id} className={styles.item}>
+            <span className={styles.status}>{p.status}</span>
+            {p.sponsored&&<span className={styles.pill}>Sponsored · Advertisement</span>}
+            <h3>{p.title}</h3><p>{p.summary}</p>
+            <p className={styles.meta}>{p.href} · Priority {p.priority} · UTC {p.starts_at.slice(0,16)} to {p.ends_at.slice(0,16)}</p>
+            {isOwner&&<div className={styles.actionRow}>
+              {p.status==="draft"&&<form action={reviewHomePlacement}>
+                <input type="hidden" name="placement_id" value={p.id}/><input type="hidden" name="decision" value="approve"/>
+                <button type="submit">Approve for homepage</button>
+              </form>}
+              {p.status==="approved"&&<form action={reviewHomePlacement}>
+                <input type="hidden" name="placement_id" value={p.id}/><input type="hidden" name="decision" value="pause"/>
+                <button type="submit">Pause this campaign</button>
+              </form>}
+              {p.status==="paused"&&<form action={reviewHomePlacement}>
+                <input type="hidden" name="placement_id" value={p.id}/><input type="hidden" name="decision" value="resume"/>
+                <button type="submit">Resume this campaign</button>
+              </form>}
+            </div>}
+          </article>):<div className={styles.empty}>No custom homepage campaigns yet. A safe AVUQO editorial rotation will be shown until one is approved.</div>}</div>
+      </section>
+    </>}
     {tab==="brands"&&<section className={styles.panel}>
       <h2>{current?.name??brand} brand identity</h2>
       <p className={styles.muted}>Write a short audience description and a tone of voice. This informs future creative work without accessing brand websites.</p>
@@ -394,6 +448,26 @@ export default async function MarketingPage({
           <p className={styles.muted}>No automatic ad spending, DMs, account monitoring or third-party website crawling is implemented.</p>
         </div>
       </div>
+      <section className={styles.profile}><h3>Recurring editorial drafts</h3>
+        <p className={styles.muted}>Create a fresh draft every 2–14 days from owner-approved brand facts. Drafts enter the review queue; this automation can never post to Facebook or Instagram on its own.</p>
+        <p className={styles.muted}>Automation worker: {process.env.MARKETING_AUTOMATION_DRAFTS==="YES"?"configured":"disabled in server environment"} · Actual scheduled execution also needs the protected daily worker credential.</p>
+        <div className={styles.grid}>
+          {(["facebook","instagram"] as const).map(platform=>{
+            const rule=brandRules.find(r=>r.platform===platform);
+            return <form key={platform} className={styles.form} action={saveEditorialRule}>
+              <input type="hidden" name="brand" value={brand}/><input type="hidden" name="platform" value={platform}/>
+              <h3>{platform==="facebook"?"Facebook":"Instagram"} draft planner</h3>
+              <p className={styles.muted}>{rule?.enabled?"Enabled":"Off"} · Next check: {rule?.next_run_at?shortDate(rule.next_run_at):"Not configured"}</p>
+              <label>One new draft every<select name="cadence_days" defaultValue={rule?.cadence_days??3}>
+                {[2,3,4,5,7,10,14].map(day=><option value={day} key={day}>{day} days</option>)}
+              </select></label>
+              <label><input type="checkbox" style={{width:18}} name="enabled" value="yes" defaultChecked={rule?.enabled??false}/> Enable this brand's editorial draft planner</label>
+              {rule?.last_error&&<p className={styles.warning}>{rule.last_error}</p>}
+              <button type="submit" disabled={!isOwner}>Save draft schedule</button>
+            </form>;
+          })}
+        </div>
+      </section>
       <p className={styles.warning}>Fantasy Lockr uses ONLY owner-approved facts in AVUQO, never its live website, runtime, results, database, fixtures or Rival services.</p>
     </section>}
 
