@@ -3,7 +3,7 @@ import {ArrowRight,ArrowUpRight,Compass,Search,ShieldCheck} from "lucide-react";
 import {type CategoryStory,storySearchHref} from "../../lib/lifestyle/category-story";
 import styles from "./CategoryMoments.module.css";
 export default function CategoryMoments({story}:{story:CategoryStory}){
- return <section className={styles.wrap+" "+styles[story.energy]} aria-labelledby="category-story-title">
+ return <section className={styles.wrap+" "+(styles[story.energy]??"")} aria-labelledby="category-story-title">
   <div className="shell">
    <div className={styles.heading}>
     <p className={styles.eyebrow}><Compass size={16}/> {story.identity}</p>
