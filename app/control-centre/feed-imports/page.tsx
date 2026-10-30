@@ -22,6 +22,11 @@ export default async function FeedImportsPage() {
     .eq('import_id', latest.id).order('created_at', { ascending: true }).range(0, 999) : { data: [], error: null };
   return <main style={{ display: 'grid', gap: 24, maxWidth: 1220, paddingBottom: 40 }}>
     <header><p style={{ color: '#6545d6', fontWeight: 750, letterSpacing: 1, fontSize: 12 }}>SOURCES / PRIVATE IMPORTS</p><h1 style={{ fontSize: 30, margin: '8px 0' }}>Product feed review</h1><p style={{ color: '#62627a' }}>Private pilot. No products are published, and affiliate links remain disabled while merchant rights are unverified.</p></header>
+    <div style={{padding:17,border:"1px solid #e7dff0",background:"#faf7ff",borderRadius:14,display:"grid",gap:9}}>
+      <strong style={{fontSize:15}}>Check how imported products will look</strong>
+      <p style={{fontSize:12,margin:0,color:"#74677f"}}>Open the private Product Preview Gallery to inspect staged product cards across merchants and mobile layouts. No prices or images are published.</p>
+      <Link href="/control-centre/product-previews" style={{fontWeight:850,color:"#5838b2"}}>Open Product Preview Gallery →</Link>
+    </div>
     <UploadForm />
     {error && <p role="alert">Import history unavailable: {error.message}</p>}
     <section><h2 style={{ marginBottom: 12 }}>Import history</h2><div style={{ overflowX: 'auto', border: '1px solid #e3e2eb', borderRadius: 12, background: 'white' }}><table style={{ borderCollapse: 'collapse', width: '100%', minWidth: 680, fontSize: 14 }}><thead><tr>{['Date','Merchant','Received','Review','Excluded','Rights'].map(x => <th key={x} style={{ padding: 14, borderBottom: '1px solid #eee', textAlign: 'left', background: '#f7f6fb' }}>{x}</th>)}</tr></thead><tbody>{runs?.map(run => <tr key={run.id}><td style={{ padding: 12, borderBottom: '1px solid #eee' }}>{new Date(run.created_at).toLocaleString('en-GB')}</td><td style={{ padding: 12, borderBottom: '1px solid #eee' }}>{run.merchant_name}</td><td style={{ padding: 12, borderBottom: '1px solid #eee' }}>{run.total_count}</td><td style={{ padding: 12, borderBottom: '1px solid #eee' }}>{run.review_count}</td><td style={{ padding: 12, borderBottom: '1px solid #eee' }}>{run.excluded_count}</td><td style={{ padding: 12, borderBottom: '1px solid #eee' }}>{run.permission_status}</td></tr>)}</tbody></table></div></section>
