@@ -8,6 +8,9 @@ import styles from "./page.module.css";
 
 export const metadata:Metadata = {title:"Explore categories",description:"Discover AVUQO shopping, travel, home, tech, pets, Christmas and other editorial categories.",alternates:{canonical:"/categories"}};
 const extras=[
+  {title:"Crafts & Hobbies",copy:"Crystal Art, craft kits, cards, flower-making and tools.",href:"/crafts",image:"https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=800&q=80"},
+  {title:"Chocolate & Gifts",copy:"Chocolate bars, gift boxes, occasion gifts and hampers.",href:"/chocolate-gifts",image:"https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=800&q=80"},
+  {title:"Mechanical Keyboards",copy:"Keyboard layouts, keycaps, switches and accessories.",href:"/keyboards",image:"https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=800&q=80"},
   {title:"Pets",copy:"Feeders, fountains, supplies and gifts.",href:"/pets",image:"https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=800&q=80"},
   {title:"Christmas",copy:"Gift ideas and festive shopping.",href:"/christmas",image:"https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=800&q=80"},
   {title:"Groceries",copy:"Shopping lists and supported supermarket comparisons.",href:"/groceries",image:"https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80"},
