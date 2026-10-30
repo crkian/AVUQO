@@ -37,7 +37,7 @@ export async function createHomePlacement(form:FormData) {
  const {error}=await db.from("marketing_home_placements").insert({
   brand_slug:brand,title,summary,cta_label,href,fact_id,
   starts_at:startDate.toISOString(),ends_at:endDate.toISOString(),
-  priority,sponsored:field(form,"sponsored",6)==="yes",status:"draft",created_by:user.id
+  priority,sponsored:false,status:"draft",created_by:user.id
  });
  if(error)fail(error.message);
  revalidatePath("/");revalidatePath(HOME);

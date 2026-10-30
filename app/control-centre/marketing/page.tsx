@@ -149,7 +149,7 @@ export default async function MarketingPage({
     {tab==="homepage"&&<>
       <section className={styles.panel}>
         <h2>AVUQO editorial homepage rotation</h2>
-        <p className={styles.muted}>Approved AVUQO campaigns appear in a rotating panel below the homepage introduction. Set a start and end time, choose a real AVUQO page, and review the copy. Campaigns expire automatically. This current editor supports AVUQO-owned pages and approved AVUQO facts only. Paid advertisements by external businesses require a separate advertiser management system. Any future paid placements must be clearly labelled and must never affect product scores or organic rankings.</p>
+        <p className={styles.muted}>Approved AVUQO campaigns appear in a rotating panel below the homepage introduction. Set a start and end time, choose a real AVUQO page, and review the copy. Campaigns expire automatically. This current editor supports AVUQO-owned pages and approved AVUQO facts only. Outside advertiser briefs and creative approvals are managed in the separate Site Advertising workspace. There is no live paid-ad delivery yet. Any future paid placements must be clearly labelled and must never affect product scores or organic rankings.</p>
         {brand!=="avuqo"?<div className={styles.warning}>This front-page carousel belongs to AVUQO only. Select AVUQO above. Other brands keep separate marketing workspaces and cannot add claims to AVUQO&apos;s homepage.</div>:
          <form action={createHomePlacement} className={styles.form}>
           <label>Headline<input name="title" required minLength={8} maxLength={100} placeholder="Explore smarter shopping decisions"/></label>
@@ -162,7 +162,7 @@ export default async function MarketingPage({
             <label>End (UTC)<input type="datetime-local" name="ends_at" required/></label>
           </div>
           <label>Order priority (0-100)<input type="number" min={0} max={100} name="priority" defaultValue={50}/></label>
-          <label><input type="checkbox" name="sponsored" value="yes" style={{width:18}}/> This is a paid/sponsored placement (must show advertisement disclosure)</label>
+          <p className={styles.muted}>This editor is for AVUQO-owned editorial features only. Outside advertisers are managed separately under Site Advertising.</p>
           <button type="submit" disabled={!isOwner||!approvedFacts.length}>Save private homepage campaign</button>
         </form>}
       </section>
