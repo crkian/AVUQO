@@ -4,6 +4,8 @@ import { ArrowRight, CheckCircle2, Heart, ReceiptText, Search, ShieldCheck, Spar
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import { type Landing } from "../../lib/lifestyle/landing-data";
+import {storyFor,storySearchHref} from "../../lib/lifestyle/category-story";
+import CategoryMoments from "./CategoryMoments";
 import styles from "./LifestyleLanding.module.css";
 
 const photo = (image: string): CSSProperties => ({backgroundImage:`url("${image}")`});
@@ -15,8 +17,9 @@ const links = [
   {href:"/christmas",label:"Christmas"}
 ];
 export default function LifestyleLanding({config}: {config:Landing}) {
+  const story=storyFor(config.slug);
   const theme = {"--accent":config.accent} as CSSProperties;
-  return <main className={styles.page} style={theme}>
+  return <main className={styles.page} style={theme} data-category={config.slug}>
     <Header />
     <nav className={styles.subnav} aria-label="Explore shopping categories">
       <div className={`shell ${styles.subnavLinks}`}>{links.map(item=>
@@ -28,8 +31,9 @@ export default function LifestyleLanding({config}: {config:Landing}) {
       <div className={styles.heroWash} aria-hidden="true"/>
       <div className={`shell ${styles.heroInner}`}>
         <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}><Sparkles size={15}/>{config.eyebrow}</p>
+          <p className={styles.eyebrow}><Sparkles size={15}/>{story?.identity??config.eyebrow}</p>
           <h1 id="lifestyle-title">{config.headline}<span>{config.highlight}</span></h1>
+          {story&&<p className={styles.categoryPromise}>{story.strapline}</p>}
           <p>{config.intro}</p>
           <div className={styles.heroActions}>
             <Link href="#explore" className={styles.cta}>Explore {config.slug==="home"?"home ideas":config.slug} <ArrowRight size={18}/></Link>
@@ -46,9 +50,10 @@ export default function LifestyleLanding({config}: {config:Landing}) {
         <div><CheckCircle2 size={22}/><span><strong>Clear next steps</strong><small>Verify with the retailer</small></span></div>
       </div>
     </div>
+    {story&&<CategoryMoments story={story}/>}
     <section className={`shell ${styles.section}`} id="explore">
       <div className={styles.sectionHeading}>
-        <div><p className={styles.kicker}>Explore the possibilities</p><h2>Find what matters to you.</h2><p>Browse inspiration and use AVUQO search to explore the right category for your needs.</p></div>
+        <div><p className={styles.kicker}>Explore the possibilities</p><h2>{story?.browseLabel??"Find what matters to you."}</h2><p>Browse this category, then search for eligible products and independent guidance. Some searches may not yet have verified matches.</p></div>
         <Link href="/categories">All categories <ArrowRight size={17}/></Link>
       </div>
       <div className={styles.tileGrid}>
@@ -75,7 +80,12 @@ export default function LifestyleLanding({config}: {config:Landing}) {
     </section>
     <section className={`shell ${styles.searchWrap}`}>
       <div className={styles.searchPanel}><div><p className={styles.kicker}>Find what&apos;s worth it</p><h2>Know what you&apos;re looking for?</h2><p>Search AVUQO and refine your choices. Listings and offers are only live when independently validated.</p></div>
-        <form action="/search" method="get" className={styles.searchForm}><Search size={20}/><input name="q" aria-label="Search AVUQO" placeholder={`Search ${config.slug} ideas…`} required/><button type="submit">Search</button></form>
+        <form action="/search" method="get" className={styles.searchForm}><Search size={20}/><input name="q" aria-label="Search AVUQO" placeholder={story?.searchPlaceholder??`Search ${config.slug} ideas…`} list={`category-suggestions-${config.slug}`} maxLength={120} required/>
+          {story&&<datalist id={`category-suggestions-${config.slug}`}>{story.moments.map(m=><option key={m.title} value={m.query}/>)}</datalist>}<button type="submit">Search</button></form>
+        {story&&<nav aria-label={`Suggested ${config.slug} searches`} className={styles.suggestedSearches}>
+          <span>Popular ways to explore</span>
+          {story.moments.map(item=><Link key={item.title} href={storySearchHref(item.query)}>{item.title}<ArrowRight size={14}/></Link>)}
+        </nav>}
       </div>
     </section>
     <Footer />
