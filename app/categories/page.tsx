@@ -27,7 +27,7 @@ export default function CategoriesPage(){return <main className={styles.page}>
   <div className="shell">
    <p className={styles.eyebrow}><Compass size={16}/> The AVUQO category atlas</p>
    <h1>Every interest deserves <em>its own world.</em></h1>
-   <p>From useful technology to thoughtful gifts and life's bigger adventures, explore destinations with their own personality, questions and buying guidance.</p>
+   <p>From useful technology to thoughtful gifts and life&apos;s bigger adventures, explore destinations with their own personality, questions and buying guidance.</p>
    <form className={styles.search} action="/search" method="get" role="search">
     <Search size={20}/><input name="q" maxLength={120} aria-label="Search AVUQO" placeholder="What would you like to discover?" required/><button>Search <ArrowRight size={16}/></button>
    </form>
