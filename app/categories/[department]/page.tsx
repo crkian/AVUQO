@@ -60,7 +60,7 @@ export default async function DepartmentPage({params}:Params){
   <section className={styles.searchSection}>
    <div className={"shell "+styles.searchInner}>
     <div><p className={styles.kicker}>Find what matters</p><h2>Looking for something specific?</h2>
-     <p>Search AVUQO's checked listings and editorial destinations. If no verified results exist, we'll tell you rather than invent offers.</p>
+     <p>Search AVUQO&apos;s checked listings and editorial destinations. If no verified results exist, we&apos;ll tell you rather than invent offers.</p>
     </div>
     <form action="/search" method="get" role="search"><Search size={18}/>
      <input name="q" maxLength={120} placeholder={"Search "+item.name.toLowerCase()+" ideas"} aria-label={"Search "+item.name} required/>
