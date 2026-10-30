@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, Bell, LogIn, Trash2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import Header from "../../components/layout/Header";
+import Footer from "../../components/layout/Footer";
 import { createClient } from "../../lib/supabase/client";
 import { migrateLocalWatches } from "../../lib/watches/migrateLocalWatches";
 import { dealDestination } from "../../lib/avuqo/deal-links";
@@ -113,9 +114,9 @@ export default function WatchesPage() {
         <div className="shell">
           <div className="watch-hero-icon"><Bell size={28} /></div>
           <p className="kicker">AVUQO Watches</p>
-          <h1>Don’t keep checking.<br />AVUQO will.</h1>
+          <h1>Keep what’s worth watching.</h1>
           <p>
-            Your Watches now live in your AVUQO account, ready to follow you across devices as the platform grows.
+            Keep a private shortlist across devices. Automated price-change alerts are not active yet; confirm current offers before you buy.
           </p>
         </div>
       </section>
@@ -142,7 +143,7 @@ export default function WatchesPage() {
               <div className="watch-empty">
                 <div className="watch-empty-icon"><Bell size={28} /></div>
                 <h2>Nothing being watched yet.</h2>
-                <p>Open a deal and press Watch. AVUQO will save it to your account.</p>
+                <p>Open a verified offer and press Watch to keep it in your account.</p>
                 <Link href="/search" className="merchant-button watch-empty-button">Discover deals</Link>
               </div>
             ) : (
@@ -176,6 +177,7 @@ export default function WatchesPage() {
           </>
         )}
       </section>
+      <Footer />
     </main>
   );
 }
