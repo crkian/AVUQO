@@ -4,6 +4,7 @@ import {requireControlCentreAccess} from "../../../lib/auth/requireControlCentre
 import {createClient} from "../../../lib/supabase/server";
 import {safePreviewSelection,stagedPrice,type StagedPreviewRow} from "../../../lib/feed-imports/preview-selection";
 import styles from "./product-previews.module.css";
+import StorefrontComposition from "./StorefrontComposition";
 
 type ImportRun={id:string;merchant_id:string;merchant_name:string;total_count:number;permission_status:string;created_at:string};
 type SampleGroup={run:ImportRun;samples:StagedPreviewRow[];error:string|null};
@@ -65,6 +66,9 @@ export default async function ProductPreviews({
    <div><strong>{samples.filter(x=>x.p.price===null).length}</strong><span>Missing staged prices</span></div>
    <div><strong>{samples.filter(x=>x.p.status==="excluded").length}</strong><span>Excluded record examples</span></div>
   </div>
+  <StorefrontComposition departments={groups.map(group=>({
+    label:group.run.merchant_name,merchant:group.run.merchant_name,count:group.samples.length
+   }))}/>
   <section className={styles.intro}>
     <h2>{compact?"Compact list preview":"Customer product-card preview"}</h2>
     <p>Try narrow screens and longer titles. The fields are real private input data; badges and layout are illustrative, and no source is being claimed as licensed.</p>
