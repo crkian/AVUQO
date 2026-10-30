@@ -28,6 +28,7 @@ export const CONTROL_CENTRE_SECTIONS:AdminSection[]=[
  {id:"operations",label:"Operations & Trust",description:"Automation, exceptions and safeguards",links:[
   {href:"/control-centre/automation",label:"Autopilot & controls",description:"System switches and worker queues"},
   {href:"/control-centre/exceptions",label:"Exception queue",description:"Failures requiring attention"},
+  {href:"/control-centre/analytics",label:"Analytics & intelligence",description:"First-party measurement and reporting"},
   {href:"/control-centre/trust",label:"Trust & feedback",description:"Quality signals and independence"}]}
 ];
 export const allAdminLinks=()=>CONTROL_CENTRE_SECTIONS.flatMap(s=>s.links);
