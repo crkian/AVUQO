@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { createClient } from "../../lib/supabase/client";
 import { dealSnapshot } from "../../lib/avuqo/deal";
+import { dealDestination } from "../../lib/avuqo/deal-links";
 import type { Deal } from "../../types/deal";
 import styles from "./AddToListButton.module.css";
 
@@ -30,6 +31,8 @@ export default function AddToListButton({ deal }: { deal: Deal }) {
 
   async function add() {
     if (!selected) { router.push("/lists"); return; }
+    const url = dealDestination(deal.id);
+    if (!url) { setMessage("This item cannot be added to a list."); return; }
     const itemKey = `deal:${deal.id}`;
     const { data: existing } = await supabase
       .from("shared_list_items")
@@ -42,7 +45,7 @@ export default function AddToListButton({ deal }: { deal: Deal }) {
       list_id: selected,
       item_key: itemKey,
       title_override: deal.title,
-      url: `/deal/${deal.id}`,
+      url,
       snapshot: dealSnapshot(deal),
     });
     setMessage(error ? error.message : "Added to list.");
