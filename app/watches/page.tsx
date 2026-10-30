@@ -157,8 +157,8 @@ export default function WatchesPage() {
                       <p>{watch.merchant}</p>
                     </div>
                     <div className="watch-price">
-                      <strong>{watch.currentPrice ? money(watch.currentPrice) : "Tracking"}</strong>
-                      <span>{watch.typicalPrice ? `Typical ${money(watch.typicalPrice)}` : "Waiting for market data"}</span>
+                      <strong>{watch.currentPrice ? money(watch.currentPrice) : "Price unavailable"}</strong>
+                      <span>{watch.typicalPrice ? `Reference at watch time: ${money(watch.typicalPrice)}` : "Reference price unavailable"}</span><span>Stored snapshot, not a live quote</span>
                     </div>
                     <div className="watch-score">
                       <strong>{watch.avuqoScore || "–"}</strong>
