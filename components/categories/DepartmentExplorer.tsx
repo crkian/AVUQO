@@ -21,7 +21,7 @@ export default function DepartmentExplorer({
    {variant==="directory"&&<span className={styles.total}>{BROWSE_DEPARTMENTS.length} departments</span>}
   </div>
   <label className={styles.filter}><Search size={17}/><span className={styles.srOnly}>Filter departments and topics</span>
-   <input value={filter} onChange={v=>setFilter(v)} placeholder="Find a department or topic" autoComplete="off"
+   <input value={filter} onChange={event=>setFilter(event.currentTarget.value)} placeholder="Find a department or topic" autoComplete="off"
      aria-label="Filter departments and topics" maxLength={70}/></label>
   <div className={styles.columns}>
    <div className={styles.list} aria-label="Departments">

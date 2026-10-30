@@ -44,3 +44,6 @@
 @media(max-width:650px){.hero{padding:50px 0 58px}.section{padding-top:50px;padding-bottom:58px}.grid{gap:11px}.photo{height:145px}.cardCopy{padding:14px;min-height:180px}.cardCopy h3{font-size:18px}.more{padding:53px 0}.moreGrid{gap:11px}.moreCard{padding:17px;min-height:209px}.moreCard h3{font-size:18px}.moreCard>span{font-size:34px}}
 @media(max-width:450px){.grid{grid-template-columns:1fr}.card{flex-direction:row}.photo{width:36%;height:auto;min-height:155px;flex-shrink:0}.cardCopy{min-height:155px}.moreGrid{grid-template-columns:1fr}.moreCard{min-height:0}.search{flex-wrap:wrap}.search input{flex-basis:70%}.search button{width:100%;justify-content:center}}
 @media(prefers-reduced-motion:reduce){.card{transition:none}}
+
+.directorySection{padding-top:65px;padding-bottom:15px}
+@media(max-width:680px){.directorySection{padding-top:30px}}
