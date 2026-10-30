@@ -17,6 +17,7 @@ const items = [
   ["/control-centre/sources", "Sources", Database],
   ["/control-centre/source-readiness", "Source Readiness", ClipboardCheck],
   ["/control-centre/product-readiness", "Product Readiness", PackageCheck],
+  ["/control-centre/taxonomy", "Category Taxonomy", Layers3],
   ["/control-centre/seasonal", "Seasonal & Pages", CalendarDays],
   ["/control-centre/content", "Website & Content", FilePenLine],
   ["/control-centre/content/navigation", "Site Navigation", Layers3],
