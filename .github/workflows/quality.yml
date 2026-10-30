@@ -34,6 +34,8 @@ jobs:
         run: node --experimental-strip-types --test tests/item-destination.test.mjs
       - name: Awin feed category coverage tests
         run: node --experimental-strip-types --test tests/feed-category-suggestions.test.mjs
+      - name: Universal catalogue and no-publishing SQL tests
+        run: node --test tests/universal-categories.test.mjs
       - name: Marketing-only lint
         run: npx eslint lib/marketing components/layout/MegaNav.tsx components/home app/control-centre/marketing app/api/internal/marketing
       - run: npm run lint
