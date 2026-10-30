@@ -3,7 +3,7 @@
  * Never present these images as exact affiliate products or verified merchant offers.
  */
 const image = (id: string, width = 1500) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=80`;
-export type Inspiration = {title: string; copy: string; search: string; image: string};
+export type Inspiration = {title: string; copy: string; search: string; image: string; href?: string};
 export type Landing = {
   slug: string; eyebrow: string; headline: string; highlight: string; intro: string;
   hero: string; heroPosition?: string; accent: string;
@@ -66,7 +66,8 @@ export const lifestylePages: Record<string,Landing> = {
       {title:"Audio",copy:"Headphones, speakers and sound.",search:"headphones",image:image("photo-1505740420928-5e560c06d30e",700)},
       {title:"Home tech",copy:"Connected comfort and smarter routines.",search:"smart home",image:image("photo-1558002038-1055907df827",700)},
       {title:"TV & entertainment",copy:"Screens, streaming and setups.",search:"television",image:image("photo-1593359677879-a4bb92f829d1",700)},
-      {title:"Cameras & creativity",copy:"Tools for making memories.",search:"cameras",image:image("photo-1516035069371-29a1b244cc32",700)}
+      {title:"Cameras & creativity",copy:"Tools for making memories.",search:"cameras",image:image("photo-1516035069371-29a1b244cc32",700)},
+      {title:"Mechanical keyboards",copy:"Choose the right layout, switches and fit.",search:"mechanical keyboards",image:image("photo-1496181133206-80ce9b88a853",700),href:"/keyboards"}
     ],
     tips:[{title:"Check compatibility",copy:"Make sure it works with your existing devices and services."},{title:"Read subscription costs",copy:"Some devices have memberships, storage or service fees."},{title:"Look past specifications",copy:"Practical performance matters more than marketing numbers."}],
     featureTitle:"Technology should earn its place.",featureCopy:"Discover features worth paying for, and those you can probably do without.",featureImage:image("photo-1519389950473-47ba0277781c",900)
@@ -77,8 +78,8 @@ export const lifestylePages: Record<string,Landing> = {
     hero:image("photo-1549465220-1a8b9238cd48"),
     tiles:[
       {title:"Gifts under £25",copy:"Small budget, thoughtful choice.",search:"gifts under £25",image:image("photo-1513201099705-a9746e1e201f",700)},
-      {title:"Creative gifting",copy:"Make, paint and personalise.",search:"creative craft gifts",image:image("photo-1452860606245-08befc0ff44b",700)},
-      {title:"Food & sweet treats",copy:"Share something delicious.",search:"chocolate gifts",image:image("photo-1511381939415-e44015466834",700)},
+      {title:"Creative gifting",copy:"Make, paint and personalise.",search:"creative craft gifts",image:image("photo-1452860606245-08befc0ff44b",700),href:"/crafts"},
+      {title:"Food & sweet treats",copy:"Share something delicious.",search:"chocolate gifts",image:image("photo-1511381939415-e44015466834",700),href:"/chocolate-gifts"},
       {title:"For the home",copy:"Useful things with a personal touch.",search:"home gifts",image:image("photo-1490312278390-ab64016e0aa9",700)},
       {title:"For pet lovers",copy:"Thoughtful surprises for animal people.",search:"pet gifts",image:image("photo-1517849845537-4d257902454a",700)},
       {title:"Christmas ideas",copy:"Festive presents and planning.",search:"Christmas gifts",image:image("photo-1512389142860-9c449e58a543",700)}
