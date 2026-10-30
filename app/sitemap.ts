@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
     "/discover",
-    "/products", "/shopping", "/groceries", "/home", "/tech", "/travel", "/motoring", "/insurance", "/broadband", "/services", "/pets", "/gifts", "/beauty", "/christmas", "/black-friday", "/sales",
+    "/products", "/shopping", "/groceries", "/home", "/tech", "/travel", "/motoring", "/insurance", "/broadband", "/services", "/pets", "/gifts", "/crafts", "/chocolate-gifts", "/keyboards", "/beauty", "/christmas", "/black-friday", "/sales",
     "/categories",
     "/search",
     "/score",

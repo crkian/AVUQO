@@ -35,7 +35,10 @@ export const DEFAULT_NAVIGATION:NavigationContent={schemaVersion:2,groups:[
   ["Fashion","/fashion","Clothing and accessories"],
   ["Gifts","/gifts","Ideas for different occasions"],
   ["Toys","/toys","Activities, games and play"],
-  ["Pets","/pets","Products for your companions"]]),
+  ["Pets","/pets","Products for your companions"],
+  ["Crafts & Hobbies","/crafts","Crystal Art, kits, tools and creative projects"],
+  ["Chocolate & Gifts","/chocolate-gifts","Chocolate treats, gift boxes and hampers"],
+  ["Mechanical Keyboards","/keyboards","Layouts, switches, keycaps and accessories"]]),
  group("travel","Travel","/travel","Explore travel and experiences thoughtfully.",5,[
   ["Travel","/travel","Trips, stays and useful travel guidance"],
   ["Experiences","/experiences","Days out and memorable plans"],

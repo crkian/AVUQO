@@ -10,7 +10,7 @@ const photo = (image: string): CSSProperties => ({backgroundImage:`url("${image}
 const links = [
   {href:"/shopping",label:"Shopping"},{href:"/groceries",label:"Groceries"},{href:"/travel",label:"Travel"},
   {href:"/home",label:"Home"},{href:"/tech",label:"Tech"},
-  {href:"/beauty",label:"Beauty"},{href:"/gifts",label:"Gifts"},
+  {href:"/beauty",label:"Beauty"},{href:"/gifts",label:"Gifts"},{href:"/crafts",label:"Crafts"},
   {href:"/toys",label:"Toys"},{href:"/pets",label:"Pets"},
   {href:"/christmas",label:"Christmas"}
 ];
@@ -52,7 +52,7 @@ export default function LifestyleLanding({config}: {config:Landing}) {
         <Link href="/categories">All categories <ArrowRight size={17}/></Link>
       </div>
       <div className={styles.tileGrid}>
-        {config.tiles.map(tile=><Link className={styles.tile} key={tile.title} href={`/search?q=${encodeURIComponent(tile.search)}`}>
+        {config.tiles.map(tile=><Link className={styles.tile} key={tile.title} href={tile.href??`/search?q=${encodeURIComponent(tile.search)}`}>
           <div className={styles.tilePhoto} style={photo(tile.image)} aria-hidden="true"/>
           <div className={styles.tileBody}><h3>{tile.title}</h3><p>{tile.copy}</p><ArrowRight size={19} aria-hidden="true"/></div>
         </Link>)}
