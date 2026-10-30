@@ -40,7 +40,7 @@ export default async function BrandPreview({params}:Props){
    </section>
    <div className={styles.mockBody}>
     <section className={styles.brandIntro}><div><p className={styles.productEyebrow}>Explore the collection</p>
-      <h2>A company-focused starting point, with AVUQO's independence intact.</h2>
+      <h2>A company-focused starting point, with AVUQO&apos;s independence intact.</h2>
       <p>{config.customerAngle}</p></div></section>
     <section className={styles.focusSection}><h2>What visitors could browse</h2>
      <div className={styles.focusGrid}>{config.focusAreas.map((item,i)=><article key={item}>
