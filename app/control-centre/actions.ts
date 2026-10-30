@@ -5,10 +5,52 @@ import { revalidatePath } from "next/cache";
 import { requireControlCentreAccess } from "../../lib/auth/requireControlCentreAccess";
 import { createClient } from "../../lib/supabase/server";
 
+const ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
 export async function setPromotionStatus(id: string, status: string) {
-  await requireControlCentreAccess();
-  const supabase = await createClient();
-  await supabase.from("promotion_candidates").update({ status }).eq("id", id);
+  const {role} = await requireControlCentreAccess();
+  if (!ID.test(id) || !["approved", "paused"].includes(status)) {
+    throw new Error("Invalid promotion update");
+  }
+  if (status === "approved" && role !== "owner") {
+    throw new Error("Only the owner may approve affiliate promotions");
+  }
+
+  const db = await createClient();
+  if (status === "approved") {
+    const {data: candidate, error: readError} = await db.from("promotion_candidates")
+      .select("id,offer_id,affiliate_program_id,affiliate_eligible,compliance_clear,promotion_tier,status")
+      .eq("id",id).single();
+    if (readError || !candidate) throw new Error("Promotion candidate not found");
+    if (candidate.status !== "review" && candidate.status !== "paused") {
+      throw new Error("Promotion is not awaiting review");
+    }
+    if (!candidate.affiliate_eligible || !candidate.compliance_clear ||
+        !candidate.offer_id || !candidate.affiliate_program_id ||
+        candidate.promotion_tier === "hold") {
+      throw new Error("Promotion has not passed affiliate and compliance gates");
+    }
+    const {data: programme, error: programmeError} = await db.from("affiliate_programs")
+      .select("id,status").eq("id",candidate.affiliate_program_id).maybeSingle();
+    if (programmeError || !programme || programme.status !== "approved") {
+      throw new Error("Affiliate programme approval is not verified");
+    }
+    // Public admission checks enforce current authorised source and offer evidence.
+    const {verifiedOffers} = await import("../../lib/products/public-catalog");
+    const [offer] = await verifiedOffers({offerId:candidate.offer_id,limit:1});
+    if (!offer) throw new Error("Offer is not eligible for public promotion");
+    const {data, error} = await db.from("promotion_candidates")
+      .update({status:"approved",updated_at:new Date().toISOString()})
+      .eq("id",id).in("status",["review","paused"])
+      .eq("affiliate_eligible",true).eq("compliance_clear",true)
+      .select("id");
+    if (error || !data?.length) throw new Error("Promotion approval failed");
+  } else {
+    const {data,error} = await db.from("promotion_candidates")
+      .update({status:"paused",updated_at:new Date().toISOString()})
+      .eq("id",id).select("id");
+    if (error || !data?.length) throw new Error("Promotion pause failed");
+  }
   revalidatePath("/control-centre/promotions");
 }
 
