@@ -1,8 +1,15 @@
 'use client';
 import { Fragment, useMemo, useState } from 'react';
+import {suggestFeedCategory} from '../../../lib/feed-imports/category-suggestions';
 
 type Decision = 'pending' | 'checked' | 'needs_attention';
 type RecordRow = { id: string; title: string; price: number | string | null; currency: string; status: 'review' | 'excluded'; reasons: string[] | null; merchant_product_id: string; brand: string; category: string; review_decision: Decision; review_notes: string | null; image_url: string | null };
+function CategoryHint({merchantName,title,category}:{merchantName:string;title:string;category:string}) {
+  const suggestion=suggestFeedCategory({merchantName,title,category});
+  return suggestion?<div style={{marginTop:5,fontSize:11,color:'#64508c'}}>
+    Suggested AVUQO category: <strong>{suggestion.department} / {suggestion.subcategory}</strong>
+  </div>:<div style={{marginTop:5,fontSize:11,color:'#8a6d56'}}>Category needs manual mapping</div>;
+}
 const cell: React.CSSProperties = { padding: '12px 10px', borderBottom: '1px solid #edecf2', textAlign: 'left', verticalAlign: 'top' };
 const input: React.CSSProperties = { padding: '10px 12px', border: '1px solid #dedce9', borderRadius: 9, background: '#fff', color: '#25223a', minWidth: 0 };
 export default function ReviewDashboard({ runName, initialRecords, totalCount }: { runName: string; initialRecords: RecordRow[]; totalCount: number }) {
@@ -52,7 +59,7 @@ export default function ReviewDashboard({ runName, initialRecords, totalCount }:
           <tr style={{ background: selected === r.id ? '#f7f4ff' : '#fff' }}>
             <td style={{ ...cell, maxWidth: 340 }}><div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
               {r.image_url ? <img src={r.image_url} alt={r.title} loading="lazy" referrerPolicy="no-referrer" style={{ width: 62, height: 62, objectFit: 'contain', background: '#f7f7f9', borderRadius: 9, flexShrink: 0 }} /> : <span style={{ width: 62, height: 62, flexShrink: 0, display: 'grid', placeItems: 'center', background: '#f5f4f7', borderRadius: 9, fontSize: 11, color: '#797487' }}>No image</span>}
-              <span><strong>{r.title}</strong>{r.brand && <div style={{ color: '#756f83' }}>{r.brand}</div>}</span>
+              <span><strong>{r.title}</strong>{r.brand && <div style={{ color: '#756f83' }}>{r.brand}</div>}<CategoryHint merchantName={runName} title={r.title} category={r.category}/></span>
             </div></td>
             <td style={{ ...cell, whiteSpace: 'nowrap' }}>{r.price == null ? 'Invalid' : `${Number(r.price).toFixed(2)} ${r.currency}`}</td>
             <td style={cell}><span style={{ color: r.status === 'excluded' ? '#a13f3f' : '#7551a5', fontWeight: 700 }}>{r.status}</span></td>
@@ -70,7 +77,7 @@ export default function ReviewDashboard({ runName, initialRecords, totalCount }:
               <label style={{ display: 'grid', gap: 6 }}><strong>Private review notes</strong><textarea value={note} maxLength={1000} onChange={e => setNote(e.target.value)} rows={3} style={{ ...input, width: '100%', boxSizing: 'border-box' }}/></label>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}><button disabled={busy} onClick={() => save('checked')} style={input}>Mark checked</button><button disabled={busy} onClick={() => save('needs_attention')} style={input}>Needs attention</button><button disabled={busy} onClick={() => save('pending')} style={input}>Reset to pending</button></div>
               {message && <p role="status" style={{ margin: 0 }}>{message}</p>}
-              <small>Review decisions are private only. Excluded products stay excluded. No publishing or affiliate links.</small>
+              <small>Category suggestions are provisional and do not change a product or grant data rights. Review decisions stay private; excluded products remain excluded. No publishing or affiliate links.</small>
             </div>
           </td></tr>}
         </Fragment>)}</tbody>
