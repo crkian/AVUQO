@@ -1,20 +1,24 @@
 import {connection} from "next/server";
 import Link from "next/link";
 import {requireControlCentreAccess} from "../../../lib/auth/requireControlCentreAccess";
-import {createClient} from "../../../lib/supabase/server";
+import {createAdminClient} from "../../../lib/supabase/admin";
 import styles from "./pilot.module.css";
 type Pilot={id:string;slug:string;canonical_title:string;brand:string|null;status:string;category_id:string|null;metadata:unknown;specifications:unknown};
 type Category={id:string;name:string};
 const details=(x:unknown):Record<string,unknown>=>x&&typeof x==="object"&&!Array.isArray(x)?x as Record<string,unknown>:{};
 export default async function PilotProducts(){
  await connection();await requireControlCentreAccess();
- const db=await createClient();
- const [productsR,categoriesR]=await Promise.all([
-  db.from("products").select("id,slug,canonical_title,brand,status,category_id,metadata,specifications")
-   .like("slug","pilot-%").eq("status","draft").order("canonical_title").limit(20),
-  db.from("categories").select("id,name").eq("is_active",true).limit(100)
- ]);
+ // The public products SELECT policy intentionally filters draft records.
+ // Never relax that policy: authenticate and authorise BEFORE service-role reads.
+ const db=createAdminClient();
+ const productsR=await db.from("products")
+  .select("id,slug,canonical_title,brand,status,category_id,metadata,specifications")
+  .like("slug","pilot-%").eq("status","draft").order("canonical_title").limit(20);
  const products=(productsR.data??[]) as Pilot[];
+ const categoryIds=[...new Set(products.map(row=>row.category_id).filter((id):id is string=>Boolean(id)))];
+ const categoriesR=categoryIds.length
+  ?await db.from("categories").select("id,name").in("id",categoryIds)
+  :{data:[] as Category[],error:null};
  const names=new Map(((categoriesR.data??[]) as Category[]).map(c=>[c.id,c.name]));
  return <div className={styles.page}>
   <p className={styles.kicker}>Sources & Value / Product readiness</p>
@@ -23,7 +27,8 @@ export default async function PilotProducts(){
   <div className={styles.warning}><b>Draft only · No public sale</b>
    <span>Source permissions unverified · Image rights unverified · Exact identity matching pending · Merchant prices deliberately hidden.</span>
   </div>
-  {(productsR.error||categoriesR.error)&&<p role="alert">Private product data could not be loaded completely. Do not assume these records have been verified.</p>}
+  {(productsR.error||categoriesR.error)&&<p role="alert" className={styles.loadError}>The product draft database could not be read. Contact the site administrator; no product has been published.</p>}
+  {!productsR.error&&<p className={styles.visibleCount} role="status">{products.length} private draft {products.length===1?"product":"products"} loaded</p>}
   <div className={styles.grid}>
    {products.map((p,index)=>{
     const info=details(p.metadata),spec=details(p.specifications);
@@ -44,7 +49,7 @@ export default async function PilotProducts(){
     </article>;
    })}
   </div>
-  {!products.length&&<p className={styles.empty}>No private pilot drafts found. Check the production seed and owner access.</p>}
+  {!products.length&&!productsR.error&&<p className={styles.empty}>No private pilot drafts were found. The page can now read draft records, so check the production seed if this is unexpected.</p>}
   <div className={styles.next}>
    <h2>Before public publication</h2>
    <p>Approve source and image rights, verify exact models and packaging, confirm current offer totals and stock, then publish through the reviewed product pipeline.</p>
