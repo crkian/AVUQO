@@ -9,6 +9,13 @@ test("navigation points to existing internal site routes",()=>{
   for(const link of group.links)assert.match(link.href,/^\/[a-z0-9/-]+$/);
  }
 });
+test("merchant-related departments stay within vetted navigation",()=>{
+ const links=DEFAULT_NAVIGATION.groups.find(g=>g.id==="categories")?.links??[];
+ for(const href of ["/crafts","/chocolate-gifts","/keyboards","/pets"]){
+  assert.equal(links.some(link=>link.href===href),true);
+ }
+ assert.equal(isValidNavigation(DEFAULT_NAVIGATION),true);
+});
 test("essential destinations remain prominent",()=>{
  assert.deepEqual(orderedNavigation(DEFAULT_NAVIGATION).slice(0,4).map(x=>x.id),["discover","deals","compare","groceries"]);
 });
