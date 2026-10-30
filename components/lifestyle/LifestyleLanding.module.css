@@ -51,3 +51,20 @@
 @media(max-width:900px){.tileGrid,.tipGrid{gap:18px}.featureInner{gap:38px}}
 @media(max-width:720px){.section{padding-top:66px;padding-bottom:66px}.tileGrid{gap:16px}.tilePhoto{height:188px}.tileBody{min-height:134px;padding:20px 36px 22px 19px}.featureInner{padding:63px 0}.tip{padding:26px}.searchWrap{padding-bottom:75px}}
 @media(max-width:480px){.tileGrid{grid-template-columns:1fr}.tilePhoto{height:210px}.tileBody{min-height:0}}
+
+/* Each living category has its own visual rhythm, while preserving the AVUQO brand. */
+.categoryPromise{display:inline-flex!important;padding:7px 12px;margin:13px 0 0!important;border-radius:99px;border:1px solid color-mix(in srgb,var(--accent),transparent 72%);background:#ffffffd9;font-size:12px!important;color:var(--accent)!important;font-weight:900!important;max-width:100%!important}
+.page[data-category=tech] .hero{background:#e8edfa}
+.page[data-category=tech] .heroWash{background:linear-gradient(90deg,#e9eff8 0%,#e9eff8f2 24%,#e9eff8c7 49%,#e9eff833 77%)}
+.page[data-category=travel] .hero{background:#e8f5f4}
+.page[data-category=travel] .heroWash{background:linear-gradient(90deg,#edf7f7 0%,#edf7f7ef 24%,#edf7f7b7 50%,#edf7f71a 77%)}
+.page[data-category=beauty] .hero,.page[data-category=fashion] .hero{background:#f7e9ec}
+.page[data-category=beauty] .heroWash,.page[data-category=fashion] .heroWash{background:linear-gradient(90deg,#fff0f2 0%,#fff0f2ef 25%,#fff0f2ad 51%,#fff0f210 77%)}
+.page[data-category=toys] .hero,.page[data-category=gifts] .hero{background:#fff0d8}
+.page[data-category=toys] .heroWash,.page[data-category=gifts] .heroWash{background:linear-gradient(90deg,#fff4e5 0%,#fff4e5f1 27%,#fff4e5b0 52%,#fff4e51c 79%)}
+.page[data-category=experiences] .hero{background:#e9f3e7}
+.page[data-category=experiences] .heroWash{background:linear-gradient(90deg,#edf5eb 0%,#edf5ebf1 27%,#edf5eba8 52%,#edf5eb1a 79%)}
+.suggestedSearches{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:17px;grid-column:1/-1}
+.suggestedSearches>span{font-size:12px;color:#716979;font-weight:750}
+.suggestedSearches>a{display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:9px 12px;border:1px solid color-mix(in srgb,var(--accent),#fff 65%);background:#fff;border-radius:99px;color:var(--accent);font-weight:800}
+@media(max-width:720px){.page[data-category] .heroWash{background:linear-gradient(0deg,#faf7f1 0%,#faf7f1f7 36%,#faf7f180 76%,#faf7f120 100%)}}
