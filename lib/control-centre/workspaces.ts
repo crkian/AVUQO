@@ -25,6 +25,7 @@ export const CONTROL_CENTRE_SECTIONS:AdminSection[]=[
   {href:"/control-centre/pipeline",label:"Deal pipeline",description:"Ingestion and review"}]},
  {id:"commercial",label:"Advertising & Growth",description:"Separate advertising, marketing and affiliate systems",links:[
   {href:"/control-centre/site-advertising",label:"Site advertising",description:"Third-party advertisers and on-site campaigns"},
+  {href:"/control-centre/brand-previews",label:"Company-area previews",description:"Private concept pages for five merchant brands"},
   {href:"/control-centre/marketing",label:"Brand social marketing",description:"Our four brands on social platforms"},
   {href:"/control-centre/promotions",label:"Affiliate promotion",description:"Eligible merchant promotion engine"},
   {href:"/control-centre/revenue",label:"Revenue & conversions",description:"Verified affiliate reporting"}]},

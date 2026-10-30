@@ -3,6 +3,7 @@ import Link from "next/link";
 import {requireControlCentreAccess} from "../../../lib/auth/requireControlCentreAccess";
 import {createAdminClient} from "../../../lib/supabase/admin";
 import styles from "./pilot.module.css";
+import {BRAND_PREVIEWS,findPilotPreview,privatePilotHref,privateBrandHref} from "../../../lib/products/private-preview";
 type Pilot={id:string;slug:string;canonical_title:string;brand:string|null;status:string;category_id:string|null;metadata:unknown;specifications:unknown};
 type Category={id:string;name:string};
 const details=(x:unknown):Record<string,unknown>=>x&&typeof x==="object"&&!Array.isArray(x)?x as Record<string,unknown>:{};
@@ -29,15 +30,26 @@ export default async function PilotProducts(){
   </div>
   {(productsR.error||categoriesR.error)&&<p role="alert" className={styles.loadError}>The product draft database could not be read. Contact the site administrator; no product has been published.</p>}
   {!productsR.error&&<p className={styles.visibleCount} role="status">{products.length} private draft {products.length===1?"product":"products"} loaded</p>}
+  <section className={styles.brandDirectory} aria-labelledby="brand-previews-heading">
+   <div><h2 id="brand-previews-heading">Company-area design concepts</h2>
+   <p>Preview five separate, unaffiliated brand-themed destinations. These are editorial mock-ups, not official or sponsored stores.</p></div>
+   <div className={styles.brands}>{BRAND_PREVIEWS.map(brand=><Link key={brand.slug} href={privateBrandHref(brand.slug)}>
+    {brand.displayName}<span>View concept ↗</span></Link>)}</div>
+  </section>
   <div className={styles.grid}>
    {products.map((p,index)=>{
-    const info=details(p.metadata),spec=details(p.specifications);
+    const info=details(p.metadata),spec=details(p.specifications),config=findPilotPreview(p.slug);
     return <article className={styles.card} key={p.id}>
      <div className={styles.image} data-tone={index%4} aria-label="Illustrative placeholder, not merchant photography"><span>Q</span><small>IMAGE RIGHTS PENDING</small></div>
      <div className={styles.copy}>
       <span className={styles.tag}>Private product draft</span>
       <p className={styles.brand}>{p.brand??"Brand unconfirmed"} · {names.get(p.category_id??"")??"Category mapping pending"}</p>
-      <h2>{p.canonical_title}</h2>
+      <h2>{config?.suggestedTitle??p.canonical_title}</h2>
+      {config&&config.suggestedTitle!==p.canonical_title&&<p className={styles.sourceTitle}>Original feed title: {p.canonical_title}</p>}
+      {config&&<div className={styles.previewLinks}>
+       <Link className={styles.detailButton} href={privatePilotHref(p.slug)}>Open full product page →</Link>
+       <Link href={privatePilotHref(p.slug)+"?layout=story"}>Alternative editorial layout</Link>
+      </div>}
       <p>Product identity and source matching require review before any price, stock or comparison can be shown.</p>
       <dl>
        <div><dt>Record state</dt><dd>{p.status}</dd></div>
@@ -45,6 +57,7 @@ export default async function PilotProducts(){
        <div><dt>Merchant SKU</dt><dd>{String(spec.merchant_sku??"Missing")}</dd></div>
        <div><dt>Published price</dt><dd>Not available</dd></div>
       </dl>
+      {config&&<Link className={styles.brandConceptLink} href={privateBrandHref(config.brandSlug)}>See {p.brand??"brand"} company-area concept ↗</Link>}
      </div>
     </article>;
    })}
