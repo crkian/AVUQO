@@ -5,7 +5,7 @@ import { ArrowRight, Cat, Dog, Droplets, Gift, ShieldCheck } from "lucide-react"
 import { connection } from "next/server";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
-import { createClient } from "../../lib/supabase/server";
+import { verifiedOffers } from "../../lib/products/public-catalog";
 import LiveDealCard, { type LiveDealCardData } from "../../components/live/LiveDealCard";
 import styles from "./page.module.css";
 
@@ -24,16 +24,14 @@ const categories = [
 
 async function PublishedPetOffers() {
   await connection();
-  const db = await createClient();
-  const {data,error} = await db.from("published_deals")
-    .select("offer_id,title,category,merchant,current_price,typical_price,saving_amount,avuqo_score,confidence,label,decision,image_url,reason")
-    .eq("status","published").ilike("merchant","%petlibro%").gt("current_price",0)
-    .order("avuqo_score",{ascending:false}).limit(8);
-  const offers = error ? [] : (data ?? []) as LiveDealCardData[];
+  // Reuse the public admission gate: published status alone is not merchant permission.
+  const offers:LiveDealCardData[]=(await verifiedOffers({limit:60}))
+    .filter(item=>item.published.merchant.toLowerCase().includes("petlibro"))
+    .slice(0,8).map(item=>item.published);
   return <section className="shell section" aria-labelledby="pet-offers">
     <div className="section-title"><div><p className="kicker">Retailer-backed shopping</p><h2 id="pet-offers">Verified pet offers</h2><p>Only products approved through the AVUQO publication process are shown here.</p></div></div>
     {offers.length ? <div className={styles.grid}>{offers.map(offer=><LiveDealCard key={offer.offer_id} deal={offer}/>)}</div> :
-    <div className={styles.empty}><ShieldCheck size={28}/><h3>Product checks in progress</h3><p>Petlibro UK is an approved affiliate partner. We have imported its catalogue for private review, but have not verified current pricing, retailer permissions and publication readiness. No offers are being shown yet.</p></div>}
+    <div className={styles.empty}><ShieldCheck size={28}/><h3>Product checks in progress</h3><p>Petlibro products have been imported for private review. Current AVUQO records do not yet establish publication rights, fresh eligible prices or complete retailer approval. No unverified offers are shown.</p></div>}
     <p className={styles.note}>Prices and stock can change. Confirm current details with each retailer. AVUQO may earn a commission from eligible purchases; this does not determine organic ranking.</p>
   </section>;
 }
