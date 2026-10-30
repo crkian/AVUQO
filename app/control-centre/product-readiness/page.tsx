@@ -1,6 +1,7 @@
 import {connection} from "next/server";
 import Link from "next/link";
-import {createClient} from "../../../lib/supabase/server";
+import {createAdminClient} from "../../../lib/supabase/admin";
+import {requireControlCentreAccess} from "../../../lib/auth/requireControlCentreAccess";
 import {verifiedProductIndex} from "../../../lib/products/public-catalog";
 import styles from "../control-centre.module.css";
 export const instant=false;
@@ -10,7 +11,9 @@ type Source={id:string;name:string;source_type:string;connector_key:string|null;
 function rights(s:Source|undefined){const m=s?.metadata;if(!m||typeof m!=="object"||Array.isArray(m))return false;const x=m as Record<string,unknown>;return x.usage_rights_confirmed===true&&typeof x.rights_evidence_ref==="string"&&x.rights_evidence_ref.length>=5;}
 export default async function ProductReadiness(){
  await connection();
- const db=await createClient();
+ // Require owner/admin access before using the service role to inspect unpublished identities.
+ await requireControlCentreAccess();
+ const db=createAdminClient();
  const [{data:p,error},{data:o,error:offersError},{data:sources,error:sourcesError},{data:published}]=await Promise.all([
   db.from("products").select("id,slug,canonical_title,brand,status,created_at").order("created_at",{ascending:false}).limit(70),
   db.from("offers").select("id,product_id,source_id,status,last_seen_at,match_confidence").limit(300),
