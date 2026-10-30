@@ -5,12 +5,7 @@ import {usePathname} from "next/navigation";
 import {useEffect,useRef,useState} from "react";
 import {orderedNavigation,type NavigationContent} from "../../lib/content/navigation";
 import styles from "./MegaNav.module.css";
-const CATEGORY_CLUSTERS=[
- {title:"Everyday shopping",description:"The practical essentials",hrefs:["/shopping","/tech","/home"]},
- {title:"Personal style",description:"Make it your own",hrefs:["/fashion","/beauty"]},
- {title:"Gifts and family",description:"Little things, big smiles",hrefs:["/gifts","/toys","/pets"]}
-] as const;
-
+import DepartmentExplorer from "../categories/DepartmentExplorer";
 export default function MegaNav({menuOpen,onNavigate,navigation}:{
  menuOpen:boolean;onNavigate:()=>void;navigation:NavigationContent
 }){
@@ -59,18 +54,7 @@ export default function MegaNav({menuOpen,onNavigate,navigation}:{
          <Link href={group.href} onClick={()=>{setExpanded(null);onNavigate()}}
            className={styles.viewAll}>View {group.label.toLowerCase()} <ChevronRight size={14}/></Link>
        </div>
-       {group.id==="categories"?<div className={styles.categoryColumns}>
-         {CATEGORY_CLUSTERS.map(cluster=>{
-           const available=group.links.filter(link=>cluster.hrefs.some(h=>h===link.href));
-           return <div className={styles.categoryColumn} key={cluster.title}>
-             <p>{cluster.title}</p><small>{cluster.description}</small>
-             {available.map(link=><Link key={link.href} href={link.href} className={styles.categoryLink}
-               onClick={()=>{setExpanded(null);onNavigate()}}>
-               <span><b>{link.label}</b><small>{link.description}</small></span><ChevronRight size={14}/>
-             </Link>)}
-           </div>;
-         })}
-       </div>:<div className={styles.linkGrid}>
+       {group.id==="categories"?<DepartmentExplorer variant="menu" onNavigate={()=>{setExpanded(null);onNavigate()}}/>:<div className={styles.linkGrid}>
         {group.links.map(link=><Link key={link.href} href={link.href}
          className={styles.menuLink} onClick={()=>{setExpanded(null);onNavigate()}}>
          <span><b>{link.label}</b><small>{link.description}</small></span>
