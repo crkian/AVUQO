@@ -38,7 +38,7 @@ export default function MegaNav({menuOpen,onNavigate,navigation}:{
    }}>
   {groups.map((group,index)=>{
    const active=pathname===group.href||group.links.some(link=>pathname===link.href);
-   return <div className={styles.group} key={group.id}>
+   return <div className={styles.group+(group.id==="categories"?" "+styles.categoryGroup:"")} key={group.id}>
      <div className={styles.groupHeading}>
        <Link href={group.href} className={styles.groupLink+(active?" "+styles.active:"")}
          onClick={()=>{setExpanded(null);onNavigate()}}

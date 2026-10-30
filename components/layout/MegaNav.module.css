@@ -49,3 +49,5 @@
 .categoryLink small{font-size:10px;color:#7d7388;line-height:1.45;white-space:normal}
 .categoryLink svg{flex-shrink:0}
 @media(max-width:1000px){.categoryColumns{grid-template-columns:1fr;gap:7px}.categoryColumn{padding:10px;background:#fff}}
+
+@media(min-width:1001px){.nav{position:relative}.categoryGroup{position:static}.wideDropdown{left:0;right:0;margin-inline:auto;width:min(920px,100%);max-width:100%}}
