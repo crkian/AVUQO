@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import Header from "../../components/layout/Header";
 import { createClient } from "../../lib/supabase/client";
 import { migrateLocalWatches } from "../../lib/watches/migrateLocalWatches";
+import { dealDestination } from "../../lib/avuqo/item-destination";
 
 type WatchRow = {
   id: string;
@@ -18,7 +19,7 @@ type WatchRow = {
 
 type WatchView = {
   rowId: string;
-  dealId: string;
+  dealHref: string | null;
   title: string;
   category: string;
   currentPrice: number;
@@ -43,7 +44,7 @@ function toWatchView(row: WatchRow): WatchView {
 
   return {
     rowId: row.id,
-    dealId: readString("dealId", row.watch_key.replace(/^deal:/, "")),
+    dealHref: dealDestination(readString("dealId", row.watch_key.replace(/^deal:/, ""))),
     title: readString("title", row.name),
     category: readString("category", "Watch"),
     currentPrice: readNumber("currentPrice"),
@@ -110,9 +111,9 @@ export default function WatchesPage() {
         <div className="shell">
           <div className="watch-hero-icon"><Bell size={28} /></div>
           <p className="kicker">AVUQO Watches</p>
-          <h1>Don’t keep checking.<br />AVUQO will.</h1>
+          <h1>Keep the items that matter.<br />In one place.</h1>
           <p>
-            Your Watches now live in your AVUQO account, ready to follow you across devices as the platform grows.
+            Your Watches are saved to your AVUQO account across devices. Automated price checks and notifications are not active yet.
           </p>
         </div>
       </section>
@@ -153,15 +154,15 @@ export default function WatchesPage() {
                       <p>{watch.merchant}</p>
                     </div>
                     <div className="watch-price">
-                      <strong>{watch.currentPrice ? money(watch.currentPrice) : "Tracking"}</strong>
-                      <span>{watch.typicalPrice ? `Typical ${money(watch.typicalPrice)}` : "Waiting for market data"}</span>
+                      <strong>{watch.currentPrice ? money(watch.currentPrice) : "Price unavailable"}</strong>
+                      <span>{watch.typicalPrice ? `Saved reference ${money(watch.typicalPrice)}` : "No verified reference price"}</span>
                     </div>
                     <div className="watch-score">
                       <strong>{watch.avuqoScore || "–"}</strong>
                       <span>AVUQO</span>
                     </div>
                     <div className="watch-item-actions">
-                      <Link href={`/deal/${watch.dealId}`}>View</Link>
+                      {watch.dealHref?<Link href={watch.dealHref}>View</Link>:<span>Link unavailable</span>}
                       <button type="button" onClick={() => removeWatch(watch.rowId)} aria-label={`Remove ${watch.title}`}>
                         <Trash2 size={17} />
                       </button>
