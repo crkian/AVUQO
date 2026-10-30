@@ -19,6 +19,7 @@ export const CONTROL_CENTRE_SECTIONS:AdminSection[]=[
   {href:"/control-centre/sources",label:"Connectors & sources",description:"Source permissions and data feeds"},
   {href:"/control-centre/feed-imports",label:"Private feed imports",description:"Staged Awin uploads, merchant rights and review"},
   {href:"/control-centre/product-previews",label:"Product preview gallery",description:"Private card and mobile design checks using staged imports"},
+  {href:"/control-centre/pilot-products",label:"First product drafts",description:"Eight selected real feed titles, not published offers"},
   {href:"/control-centre/source-readiness",label:"Source approvals",description:"Eligibility and usage rights"},
   {href:"/control-centre/product-readiness",label:"Product matching",description:"Product identity and verification"},
   {href:"/control-centre/pipeline",label:"Deal pipeline",description:"Ingestion and review"}]},
