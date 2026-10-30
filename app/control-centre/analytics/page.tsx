@@ -11,6 +11,7 @@ type Counts={events:Metric;clicks:Metric;conversions:Metric};
 const EMPTY:Metric={value:null,error:"Unavailable",latest:null};
 const ranges:Record<Range,number>={"7d":7,"30d":30,"90d":90};
 const formatter=new Intl.DateTimeFormat("en-GB",{dateStyle:"medium",timeStyle:"short",timeZone:"Europe/London"});
+const rollingStart=(days:number)=>new Date(Date.now()-days*86400000).toISOString();
 async function loadMetric(
  db:ReturnType<typeof createAdminClient>,table:"analytics_events"|"click_events"|"affiliate_conversions",
  since:string
@@ -32,7 +33,7 @@ export default async function AnalyticsDashboard({
  await requireControlCentreAccess();
  const params=await searchParams;
  const range:Range=params.range==="90d"?"90d":params.range==="30d"?"30d":"7d";
- const start=new Date(Date.now()-ranges[range]*86400000).toISOString();
+ const start=rollingStart(ranges[range]);
  let counts:Counts={events:EMPTY,clicks:EMPTY,conversions:EMPTY};
  try{
   const db=createAdminClient();
