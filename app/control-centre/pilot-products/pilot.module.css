@@ -43,3 +43,5 @@
 .brandTiles strong{font-size:17px;line-height:1.35}.brandTiles small{font-size:11px;color:#7b6a88}
 @media(max-width:900px){.brandTiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:550px){.brandTiles{grid-template-columns:1fr}}
+
+.sourceTitle{font-size:10px!important;line-height:1.5;color:#7d7382!important;background:#f5f1f9;padding:8px;border-radius:8px;overflow-wrap:anywhere}

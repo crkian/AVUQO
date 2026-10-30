@@ -5,7 +5,7 @@
  */
 export type PreviewTheme="confectionery"|"crafting"|"keyboards"|"petcare";
 export type PreviewConfig={
- slug:string;
+ slug:string; suggestedTitle:string;
  theme:PreviewTheme;
  brandSlug:string;
  categoryTitle:string;
@@ -29,7 +29,7 @@ export type BrandPreviewConfig={
 };
 export const PILOT_PREVIEWS:readonly PreviewConfig[]=[
  {
-  slug:"pilot-cadbury-heroes-pouch-300g",theme:"confectionery",brandSlug:"cadbury",
+  slug:"pilot-cadbury-heroes-pouch-300g",suggestedTitle:"Cadbury Heroes Pouch, 300g",theme:"confectionery",brandSlug:"cadbury",
   categoryTitle:"Chocolate & confectionery",categoryHref:"/gifts",
   eyebrow:"Chocolate gift and sharing inspiration",
   shortDescription:"A Cadbury Heroes pouch listed in the imported feed. Confirm packaging, contents and dates before displaying an offer.",
@@ -40,7 +40,7 @@ export const PILOT_PREVIEWS:readonly PreviewConfig[]=[
   checks:["Verify net weight and any pack variants","Check ingredient and allergen declarations from authorised packaging","Confirm best-before and storage information where applicable","Compare only current eligible merchant offers for the exact pack"]
  },
  {
-  slug:"pilot-cadbury-chocolate-gift-bag",theme:"confectionery",brandSlug:"cadbury",
+  slug:"pilot-cadbury-chocolate-gift-bag",suggestedTitle:"Cadbury Chocolate Gift Bag",theme:"confectionery",brandSlug:"cadbury",
   categoryTitle:"Chocolate & confectionery",categoryHref:"/gifts",
   eyebrow:"Confectionery and considered gifting",
   shortDescription:"A Cadbury gift bag title from the staged import. The exact selection, pack size and presentation have not been verified.",
@@ -51,7 +51,7 @@ export const PILOT_PREVIEWS:readonly PreviewConfig[]=[
   checks:["Verify the exact products and quantities included","Obtain authorised full ingredients and allergen details","Confirm gift packaging and any variation in contents","Check delivery timing and approved merchant source terms"]
  },
  {
-  slug:"pilot-craft-buddy-crystal-art-storage-bag",theme:"crafting",brandSlug:"craft-buddy",
+  slug:"pilot-craft-buddy-crystal-art-storage-bag",suggestedTitle:"Craft Buddy Crystal Art Storage Bag",theme:"crafting",brandSlug:"craft-buddy",
   categoryTitle:"Crafts, making & hobbies",categoryHref:"/categories/crafts",
   eyebrow:"Creative projects and useful organisation",
   shortDescription:"A Crystal Art storage bag record associated with Craft Buddy. Dimensions, materials and included accessories require confirmation.",
@@ -62,7 +62,7 @@ export const PILOT_PREVIEWS:readonly PreviewConfig[]=[
   checks:["Confirm measurements and intended use","Verify material, pockets and included accessories","Check whether items shown in promotional photography are included","Confirm colour or version before comparing retailers"]
  },
  {
-  slug:"pilot-craft-buddy-reindeer-3d-puzzle-kit",theme:"crafting",brandSlug:"craft-buddy",
+  slug:"pilot-craft-buddy-reindeer-3d-puzzle-kit",suggestedTitle:"Craft Buddy Reindeer 3D Puzzle Kit",theme:"crafting",brandSlug:"craft-buddy",
   categoryTitle:"Crafts, making & hobbies",categoryHref:"/categories/crafts",
   eyebrow:"Creative kits and seasonal projects",
   shortDescription:"A Reindeer 3D Puzzle Kit title in the staged Craft Buddy feed. Kit contents and suitability are not yet verified.",
@@ -73,7 +73,7 @@ export const PILOT_PREVIEWS:readonly PreviewConfig[]=[
   checks:["Verify the complete kit contents and instructions","Confirm age and supervision guidance","Check assembly requirements and any required tools","Validate the exact product version, dimensions and seasonal availability"]
  },
  {
-  slug:"pilot-akko-shiny-kitten-5108-v5",theme:"keyboards",brandSlug:"akko",
+  slug:"pilot-akko-shiny-kitten-5108-v5",suggestedTitle:"AKKO Shiny Kitten 5108 V5",theme:"keyboards",brandSlug:"akko",
   categoryTitle:"Keyboards & accessories",categoryHref:"/tech",
   eyebrow:"Technology and desk setups",
   shortDescription:"An AKKO Shiny Kitten 5108 V5 title in the feed. The switch, layout, connection and edition are still to be confirmed.",
@@ -84,7 +84,7 @@ export const PILOT_PREVIEWS:readonly PreviewConfig[]=[
   checks:["Confirm the SKU and exact model revision","Check keyboard layout, switch and keycap options","Verify wired or wireless features only from authorised specs","Confirm device compatibility, warranty and returns"]
  },
  {
-  slug:"pilot-monsgeek-mg75w-bun-wonderland",theme:"keyboards",brandSlug:"monsgeek",
+  slug:"pilot-monsgeek-mg75w-bun-wonderland",suggestedTitle:"MonsGeek MG75W Bun Wonderland",theme:"keyboards",brandSlug:"monsgeek",
   categoryTitle:"Keyboards & accessories",categoryHref:"/tech",
   eyebrow:"Technology and desk setups",
   shortDescription:"A MonsGeek MG75W Bun Wonderland product title from the feed. No configuration or performance claims have been verified.",
@@ -95,7 +95,7 @@ export const PILOT_PREVIEWS:readonly PreviewConfig[]=[
   checks:["Confirm full SKU and model name against source documents","Verify switch and layout information","Check device compatibility and any required software","Compare only approved merchant evidence and total prices"]
  },
  {
-  slug:"pilot-petlibro-polar-wet-food-feeder",theme:"petcare",brandSlug:"petlibro",
+  slug:"pilot-petlibro-polar-wet-food-feeder",suggestedTitle:"Petlibro Polar Wet Food Feeder",theme:"petcare",brandSlug:"petlibro",
   categoryTitle:"Pet feeding & care",categoryHref:"/pets",
   eyebrow:"Everyday care for your companions",
   shortDescription:"A Petlibro Polar Wet Food Feeder listing. Capacity, supported foods, cleaning guidance and power requirements remain unverified.",
@@ -106,7 +106,7 @@ export const PILOT_PREVIEWS:readonly PreviewConfig[]=[
   checks:["Validate the full model and food compatibility","Confirm capacity and cleaning instructions","Check power, controls and any needed accessories","Consult product guidance about safe food storage and maintenance"]
  },
  {
-  slug:"pilot-petlibro-dockstream-rfid-fountain",theme:"petcare",brandSlug:"petlibro",
+  slug:"pilot-petlibro-dockstream-rfid-fountain",suggestedTitle:"Petlibro Dockstream RFID Smart Fountain",theme:"petcare",brandSlug:"petlibro",
   categoryTitle:"Pet hydration & care",categoryHref:"/pets",
   eyebrow:"Everyday care for your companions",
   shortDescription:"A Petlibro Dockstream RFID Smart Fountain listing. Exact model, connectivity and replacement-filter details need validation.",

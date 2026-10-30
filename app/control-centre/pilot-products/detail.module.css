@@ -106,3 +106,5 @@
 @media(max-width:1050px){.productHero{grid-template-columns:1fr 1fr}.productArt{min-height:390px}.collectionGrid{grid-template-columns:1fr}}
 @media(max-width:800px){.productHero,.evidence,.fieldSheet{grid-template-columns:1fr}.productArt{min-height:330px}.brandedOpportunity{flex-direction:column;align-items:start}.promptGrid,.focusGrid{grid-template-columns:1fr}.sponsorColumns{grid-template-columns:1fr}}
 @media(max-width:600px){.headingRow{flex-direction:column}.productArt{min-height:265px}.artShape{width:130px;height:130px}.artShape span{font-size:76px}.photoCaption{font-size:11px}.thumbnails span{min-width:45px}.browserChrome{font-size:9px}.mockBody{gap:25px}.productCopy h2{font-size:30px}.collectionCard{grid-template-columns:100px 1fr}.collectionArt>span{font-size:35px}.collectionArt small{font-size:8px}.storyHero,.brandHero{padding:27px 20px}}
+
+.proposedTitle{font-size:10px;color:var(--tone);font-weight:850;margin:-7px 0 0;letter-spacing:.02em}

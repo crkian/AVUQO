@@ -76,7 +76,8 @@ export default async function PrivateProductPreview({params,searchParams}:Props)
      </div>
      <div className={styles.productCopy}>
       <p className={styles.productEyebrow}>{config.eyebrow}</p>
-      <h2>{product.canonical_title}</h2>
+      <h2>{config.suggestedTitle}</h2>
+      <p className={styles.proposedTitle}>Proposed page title · exact product identification pending</p>
       <div className={styles.metaPills}><span><Tag size={14}/> {product.brand??"Brand not recorded"}</span><span>{config.categoryTitle}</span><span>Draft identity</span></div>
       <p className={styles.lede}>{config.shortDescription}</p>
       <div className={styles.customerPrompt}><strong>Before you compare</strong><p>{config.contextQuestion}</p></div>
@@ -102,7 +103,8 @@ export default async function PrivateProductPreview({params,searchParams}:Props)
     <section className={styles.fieldSheet}>
      <div><p className={styles.productEyebrow}>Behind the design</p><h2>Imported data versus customer copy</h2><p>Make the wording decision here before approval. The product name below remains exactly as stored in the staging database.</p></div>
      <dl>
-      <div><dt>Recorded product title</dt><dd>{product.canonical_title}</dd></div>
+      <div><dt>Suggested customer-facing title</dt><dd>{config.suggestedTitle}</dd></div>
+      <div><dt>Original imported product title</dt><dd>{product.canonical_title}</dd></div>
       <div><dt>Recorded brand</dt><dd>{product.brand??"Not recorded"}</dd></div>
       <div><dt>Merchant SKU</dt><dd>{safeValue(spec.merchant_sku)}</dd></div>
       <div><dt>Source record ID</dt><dd>{safeValue(meta.source_record_id)}</dd></div>

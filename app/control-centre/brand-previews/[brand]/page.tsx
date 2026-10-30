@@ -5,7 +5,7 @@ import {notFound} from "next/navigation";
 import {ArrowLeft,ArrowRight,ShieldCheck,Store} from "lucide-react";
 import {requireControlCentreAccess} from "../../../../lib/auth/requireControlCentreAccess";
 import {createAdminClient} from "../../../../lib/supabase/admin";
-import {findBrandPreview,productsForBrand,privatePilotHref} from "../../../../lib/products/private-preview";
+import {findBrandPreview,findPilotPreview,productsForBrand,privatePilotHref} from "../../../../lib/products/private-preview";
 import styles from "../../pilot-products/detail.module.css";
 type Props={params:Promise<{brand:string}>};
 type BrandProduct={slug:string;canonical_title:string;brand:string|null;status:string};
@@ -54,7 +54,7 @@ export default async function BrandPreview({params}:Props){
      {records.error?<p role="alert">Private draft records are temporarily unavailable.</p>:<div className={styles.collectionGrid}>
       {products.map((p,i)=><Link key={p.slug} href={privatePilotHref(p.slug)} className={styles.collectionCard}>
        <div className={styles.collectionArt} aria-hidden="true"><span>Q</span><small>IMAGE RIGHTS PENDING</small></div>
-       <div><p>PRIVATE PRODUCT PREVIEW {i+1}</p><h3>{p.canonical_title}</h3><span>Inspect individual page <ArrowRight size={15}/></span></div>
+       <div><p>PRIVATE PRODUCT PREVIEW {i+1}</p><h3>{findPilotPreview(p.slug)?.suggestedTitle??p.canonical_title}</h3><span>Inspect individual page <ArrowRight size={15}/></span></div>
       </Link>)}</div>}
     </section>
     <section className={styles.sponsorPolicy}>

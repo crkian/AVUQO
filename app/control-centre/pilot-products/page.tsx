@@ -44,7 +44,8 @@ export default async function PilotProducts(){
      <div className={styles.copy}>
       <span className={styles.tag}>Private product draft</span>
       <p className={styles.brand}>{p.brand??"Brand unconfirmed"} · {names.get(p.category_id??"")??"Category mapping pending"}</p>
-      <h2>{p.canonical_title}</h2>
+      <h2>{config?.suggestedTitle??p.canonical_title}</h2>
+      {config&&config.suggestedTitle!==p.canonical_title&&<p className={styles.sourceTitle}>Original feed title: {p.canonical_title}</p>}
       {config&&<div className={styles.previewLinks}>
        <Link className={styles.detailButton} href={privatePilotHref(p.slug)}>Open full product page →</Link>
        <Link href={privatePilotHref(p.slug)+"?layout=story"}>Alternative editorial layout</Link>

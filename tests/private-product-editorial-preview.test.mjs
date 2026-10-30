@@ -7,6 +7,7 @@ test("all eight private pilots have unique individual preview layouts and story 
  for(const p of PILOT_PREVIEWS){
   assert.deepEqual(findPilotPreview(p.slug),p);
   assert.ok(p.storyHeadline.length>20);
+  assert.ok(p.suggestedTitle.length>10);
   assert.equal(p.prompts.length,3);
   assert.equal(p.checks.length,4);
   assert.match(privatePilotHref(p.slug),/^\/control-centre\/pilot-products\//);
@@ -28,4 +29,9 @@ test("paid or company-controlled destinations cannot affect independent AVUQO ou
  assert.equal(p.sponsorCanInfluenceAVUQOScore,false);
  assert.equal(p.sponsorCanInfluenceOrganicRank,false);
  assert.equal(p.liveAdServing,false);
+});
+
+test("imported title with stray punctuation has a clean proposed display label",()=>{
+ const item=findPilotPreview("pilot-craft-buddy-reindeer-3d-puzzle-kit");
+ assert.equal(item?.suggestedTitle,"Craft Buddy Reindeer 3D Puzzle Kit");
 });
