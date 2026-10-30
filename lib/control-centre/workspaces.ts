@@ -17,6 +17,7 @@ export const CONTROL_CENTRE_SECTIONS:AdminSection[]=[
   {href:"/control-centre/live-data",label:"Live-data status",description:"Readiness of verified feeds"},
   {href:"/control-centre/coverage",label:"Coverage",description:"Supported sector coverage"},
   {href:"/control-centre/sources",label:"Connectors & sources",description:"Source permissions and data feeds"},
+  {href:"/control-centre/feed-imports",label:"Private feed imports",description:"Staged Awin uploads, merchant rights and review"},
   {href:"/control-centre/source-readiness",label:"Source approvals",description:"Eligibility and usage rights"},
   {href:"/control-centre/product-readiness",label:"Product matching",description:"Product identity and verification"},
   {href:"/control-centre/pipeline",label:"Deal pipeline",description:"Ingestion and review"}]},
@@ -28,6 +29,7 @@ export const CONTROL_CENTRE_SECTIONS:AdminSection[]=[
  {id:"operations",label:"Operations & Trust",description:"Automation, exceptions and safeguards",links:[
   {href:"/control-centre/automation",label:"Autopilot & controls",description:"System switches and worker queues"},
   {href:"/control-centre/exceptions",label:"Exception queue",description:"Failures requiring attention"},
+  {href:"/control-centre/analytics",label:"Analytics & intelligence",description:"First-party measurement and reporting"},
   {href:"/control-centre/trust",label:"Trust & feedback",description:"Quality signals and independence"}]}
 ];
 export const allAdminLinks=()=>CONTROL_CENTRE_SECTIONS.flatMap(s=>s.links);
