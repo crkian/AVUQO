@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import Header from "../../components/layout/Header";
 import { createClient } from "../../lib/supabase/client";
 import { migrateLocalWatches } from "../../lib/watches/migrateLocalWatches";
+import { dealDestination } from "../../lib/avuqo/deal-links";
 
 type WatchRow = {
   id: string;
@@ -19,6 +20,7 @@ type WatchRow = {
 type WatchView = {
   rowId: string;
   dealId: string;
+  href: string | null;
   title: string;
   category: string;
   currentPrice: number;
@@ -44,6 +46,7 @@ function toWatchView(row: WatchRow): WatchView {
   return {
     rowId: row.id,
     dealId: readString("dealId", row.watch_key.replace(/^deal:/, "")),
+    href: dealDestination(readString("dealId", row.watch_key.replace(/^deal:/, ""))),
     title: readString("title", row.name),
     category: readString("category", "Watch"),
     currentPrice: readNumber("currentPrice"),
@@ -161,7 +164,7 @@ export default function WatchesPage() {
                       <span>AVUQO</span>
                     </div>
                     <div className="watch-item-actions">
-                      <Link href={`/deal/${watch.dealId}`}>View</Link>
+                      {watch.href ? <Link href={watch.href}>View</Link> : <span title="This watch has no supported destination">Unavailable</span>}
                       <button type="button" onClick={() => removeWatch(watch.rowId)} aria-label={`Remove ${watch.title}`}>
                         <Trash2 size={17} />
                       </button>
