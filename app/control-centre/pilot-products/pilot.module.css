@@ -25,3 +25,21 @@
 
 .visibleCount{display:inline-flex;justify-self:start;color:#514077;background:#f2edfb;border-radius:99px;padding:7px 12px;font-size:12px;font-weight:900;margin:0}
 .loadError{padding:16px 19px;border:1px solid #e6a5a5;border-radius:12px;background:#fff2f2;color:#812d2d;font-size:13px}
+
+.brandDirectory{display:grid;gap:13px;background:#fff;border:1px solid #e6dfee;border-radius:17px;padding:20px}
+.brandDirectory h2{font-size:20px;letter-spacing:-.03em;margin:0}
+.brandDirectory p{font-size:12px;color:#776d83;line-height:1.55;margin:7px 0 0}
+.brands{display:flex;gap:9px;flex-wrap:wrap}
+.brands>a{display:grid;gap:6px;min-width:125px;text-decoration:none;padding:12px 14px;border-radius:12px;background:#f1ecfa;color:#5c399b;font-size:12px;font-weight:900}
+.brands>a span{font-size:10px;color:#78638d;font-weight:700}
+.previewLinks{display:grid;gap:7px}
+.previewLinks a{color:#5a3ba0;font-size:11px;text-decoration:underline;font-weight:800}
+.previewLinks .detailButton{display:inline-flex;justify-content:center;align-items:center;text-align:center;text-decoration:none;color:#fff;background:#6546b7;border-radius:10px;padding:10px}
+.brandConceptLink{font-size:11px;color:#7054a0;text-decoration:underline;font-weight:850;line-height:1.45}
+
+.brandTiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.brandTiles a{display:grid;gap:10px;align-content:start;border:1px solid #e5dbed;border-radius:16px;background:#faf7fc;padding:19px;text-decoration:none;color:#342644}
+.brandTiles a>span{font-size:11px;text-transform:uppercase;color:#6243ac;font-weight:950;letter-spacing:.08em}
+.brandTiles strong{font-size:17px;line-height:1.35}.brandTiles small{font-size:11px;color:#7b6a88}
+@media(max-width:900px){.brandTiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:550px){.brandTiles{grid-template-columns:1fr}}
