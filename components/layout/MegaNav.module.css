@@ -51,3 +51,6 @@
 @media(max-width:1000px){.categoryColumns{grid-template-columns:1fr;gap:7px}.categoryColumn{padding:10px;background:#fff}}
 
 @media(min-width:1001px){.nav{position:relative}.categoryGroup{position:static}.wideDropdown{left:0;right:0;margin-inline:auto;width:min(920px,100%);max-width:100%}}
+
+@media(min-width:1001px){.wideDropdown{padding:10px!important}}
+@media(max-width:1000px){.wideDropdown{padding:4px!important}}
