@@ -30,6 +30,8 @@ jobs:
       - run: npm ci
       - name: Four-brand marketing policy tests
         run: node --experimental-strip-types --test tests/marketing-policy.test.mjs tests/marketing-publishing.test.mjs tests/marketing-home-automation.test.mjs tests/navigation-v2.test.mjs
+      - name: Saved and Watches link routing tests
+        run: node --experimental-strip-types --test tests/item-destination.test.mjs
       - name: Marketing-only lint
         run: npx eslint lib/marketing components/layout/MegaNav.tsx components/home app/control-centre/marketing app/api/internal/marketing
       - run: npm run lint
