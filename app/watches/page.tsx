@@ -4,8 +4,10 @@ import Link from "next/link";
 import { ArrowRight, Bell, LogIn, Trash2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import Header from "../../components/layout/Header";
+import Footer from "../../components/layout/Footer";
 import { createClient } from "../../lib/supabase/client";
 import { migrateLocalWatches } from "../../lib/watches/migrateLocalWatches";
+import { dealDestination } from "../../lib/avuqo/deal-links";
 
 type WatchRow = {
   id: string;
@@ -19,6 +21,7 @@ type WatchRow = {
 type WatchView = {
   rowId: string;
   dealId: string;
+  href: string | null;
   title: string;
   category: string;
   currentPrice: number;
@@ -44,6 +47,7 @@ function toWatchView(row: WatchRow): WatchView {
   return {
     rowId: row.id,
     dealId: readString("dealId", row.watch_key.replace(/^deal:/, "")),
+    href: dealDestination(readString("dealId", row.watch_key.replace(/^deal:/, ""))),
     title: readString("title", row.name),
     category: readString("category", "Watch"),
     currentPrice: readNumber("currentPrice"),
@@ -110,9 +114,9 @@ export default function WatchesPage() {
         <div className="shell">
           <div className="watch-hero-icon"><Bell size={28} /></div>
           <p className="kicker">AVUQO Watches</p>
-          <h1>Don’t keep checking.<br />AVUQO will.</h1>
+          <h1>Keep what’s worth watching.</h1>
           <p>
-            Your Watches now live in your AVUQO account, ready to follow you across devices as the platform grows.
+            Keep a private shortlist across devices. Automated price-change alerts are not active yet; confirm current offers before you buy.
           </p>
         </div>
       </section>
@@ -139,7 +143,7 @@ export default function WatchesPage() {
               <div className="watch-empty">
                 <div className="watch-empty-icon"><Bell size={28} /></div>
                 <h2>Nothing being watched yet.</h2>
-                <p>Open a deal and press Watch. AVUQO will save it to your account.</p>
+                <p>Open a verified offer and press Watch to keep it in your account.</p>
                 <Link href="/search" className="merchant-button watch-empty-button">Discover deals</Link>
               </div>
             ) : (
@@ -153,15 +157,15 @@ export default function WatchesPage() {
                       <p>{watch.merchant}</p>
                     </div>
                     <div className="watch-price">
-                      <strong>{watch.currentPrice ? money(watch.currentPrice) : "Tracking"}</strong>
-                      <span>{watch.typicalPrice ? `Typical ${money(watch.typicalPrice)}` : "Waiting for market data"}</span>
+                      <strong>{watch.currentPrice ? money(watch.currentPrice) : "Price unavailable"}</strong>
+                      <span>{watch.typicalPrice ? `Reference at watch time: ${money(watch.typicalPrice)}` : "Reference price unavailable"}</span><span>Stored snapshot, not a live quote</span>
                     </div>
                     <div className="watch-score">
                       <strong>{watch.avuqoScore || "–"}</strong>
                       <span>AVUQO</span>
                     </div>
                     <div className="watch-item-actions">
-                      <Link href={`/deal/${watch.dealId}`}>View</Link>
+                      {watch.href ? <Link href={watch.href}>View</Link> : <span title="This watch has no supported destination">Unavailable</span>}
                       <button type="button" onClick={() => removeWatch(watch.rowId)} aria-label={`Remove ${watch.title}`}>
                         <Trash2 size={17} />
                       </button>
@@ -173,6 +177,7 @@ export default function WatchesPage() {
           </>
         )}
       </section>
+      <Footer />
     </main>
   );
 }
