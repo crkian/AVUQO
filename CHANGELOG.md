@@ -19,13 +19,14 @@
 - CI (lint, build, tests, secret scanning) passed; Vercel production READY at `f81b34f99bf5f95e59aa18efa877ce0292996d7c`. Supabase migration `20261102162756_p0_01_event_write_integrity` applied successfully; effective anon/auth INSERT grants false, old INSERT policies absent, service role maintained. Historical seven clicks remain.
 - **Still requires:** direct REST negative test with real anon/auth roles and real authorised merchant-redirect smoke test; visitor analytics is still OFF.
 
-## [0.2.2] - P0-02 release candidate, not yet deployed
+## [0.2.2] - 2026-11-02 (P0-02 source-safety release, deployed)
 - Require current source usage, feed, GB territory and source-specific Awin advertiser approval evidence before external ingestion; recheck permissions and emergency controls during the run.
 - Fail closed on missing or failed global control reads; require current controls and rights for any eligible public offer, including already-published rows.
 - Show reasons for denied Awin runs and blocked source resumes in private Control Centre.
 - Include conditional data migration to pause the unapproved Awin registry row while preserving all 4,588 private staged records.
 - Add fail-closed rights, advertiser expiry, controls and integrity regression tests.
-- **Awaiting:** successful CI, Vercel deployment, reviewed migration and database acceptance. No actual Awin provider credentials or approvals supplied.
+- CI build, lint, regression tests and secret scanning passed. PR #40 merged at `f7dc24ccf0e3b3101570419d43b7d9b647707361`; Vercel production READY. Supabase migration `20261102170256_p0_02_pause_unapproved_awin` applied: Awin now paused/sync off with 4,588 staged rows intact, five unverified import runs and zero public Awin offers.
+- **Still awaiting:** actual advertiser/feed/image permission evidence and real negative/positive provider/owner acceptance checks; no Awin integration activated.
 
 Versions below refer to the Next.js application in `package.json`, not historical v0.8 planning documents. GitHub tags and production SHA are the definitive release record.
 

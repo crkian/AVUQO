@@ -2,9 +2,9 @@
 
 **Purpose:** The single GitHub starting point for AVUQO project work across chats, contributors and tools. GitHub `main` is the authority for deployed code. Private business data and API credentials never go here.
 
-**Next proposed patch: `0.2.2` (P0-02 rights and kill-switch, not yet deployed).**
+**Current software version: `0.2.2` (P0-02, PR #40 merged at `f7dc24ccf0e3b3101570419d43b7d9b647707361`, Vercel production READY).**
 
-**Software version on `main`:** `0.2.1` (PR #38 merged at `f81b34f99bf5f95e59aa18efa877ce0292996d7c`; Vercel production READY). Previous version: `0.2.0`. (PR #34 merged 2 November 2026); feature release READY at `18fe575458588be511ffc5762152eccee4798a53` (PR #35); documentation audit PR #36 subsequently deployed READY at `7563e14fb76d02621cdbafac6a2b8ab58311aea0`. Latest SHA must be rechecked in Vercel. Signed-in customer journey acceptance still pending.
+**Previous software version on `main`:** `0.2.1` (PR #38 merged at `f81b34f99bf5f95e59aa18efa877ce0292996d7c`; Vercel production READY). Previous version: `0.2.0`. (PR #34 merged 2 November 2026); feature release READY at `18fe575458588be511ffc5762152eccee4798a53` (PR #35); documentation audit PR #36 subsequently deployed READY at `7563e14fb76d02621cdbafac6a2b8ab58311aea0`. Latest SHA must be rechecked in Vercel. Signed-in customer journey acceptance still pending.
 **Previous software version:** `0.1.0`, commit `17a73a6fc20ecad2c892d45f2e2c95b82a6087ef`. The old `0.8` handover labels are historical product-plan labels, not the package's software version.
 **Release status:** v0.2.0 compiled and deployed READY, but end-to-end signed-in validation of wishlist, basket, named copy and email-app draft is still outstanding. Do not claim these user journeys are fully verified.
 **Source of truth:** [Original product specifications](./AVUQO_2026-10-30_SPEC_INTEGRATION_REGISTER.md), then current implementation in GitHub, then real database and production evidence. Claims need checks.
@@ -27,7 +27,7 @@ The database audit verified anonymous and signed-in INSERT grants on both `analy
 
 ## P0-02 Awin source-rights safety (release candidate)
 
-Current source registry misleadingly marks Awin active/sync enabled despite unconfigured credentials and missing source/advertiser usage, feed and image rights. Five private Awin imports contain 4,588 staged rows (including duplicate AKKO), all unverified; Awin live pipeline runs = 0. This release candidate requires exact advertiser-specific evidence, current territory/expiry, fail-closed source controls, and emergency-stop rechecks. The owner UI no longer invites unapproved Awin runs. A matching migration will pause Awin without deleting staged records once code has deployed. **No feed or public listing has been activated.** [Operator rollout and checks](./P0_02_AWIN_SOURCE_GATE_RUNBOOK.md).
+Current source registry misleadingly marks Awin active/sync enabled despite unconfigured credentials and missing source/advertiser usage, feed and image rights. Five private Awin imports contain 4,588 staged rows (including duplicate AKKO), all unverified; Awin live pipeline runs = 0. This release candidate requires exact advertiser-specific evidence, current territory/expiry, fail-closed source controls, and emergency-stop rechecks. The owner UI no longer invites unapproved Awin runs. The conditional Supabase migration `20261102170256_p0_02_pause_unapproved_awin` was applied successfully after the code deployed. Verified Awin `paused`, `sync_enabled=false`, no successful Awin sync, 4,588 staged records retained, five unverified import runs and zero published Awin offers. External advertiser permissions and real live-data acceptance remain outstanding. **No feed or public listing has been activated.** [Operator rollout and checks](./P0_02_AWIN_SOURCE_GATE_RUNBOOK.md).
 
 ## Feature delivery ledger
 
