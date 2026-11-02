@@ -75,6 +75,21 @@ Where sources conflict: preserve the original wording and mark a decision for th
 7. Some existing docs report PRs #20/#22/#23/#24 as open. Those are **historical**. Current open drafts are #21 and #25; PRs #20, #33, #34 and #35 were merged.
 8. Software version `0.2.0` is not the same as earlier “AVUQO v0.8” product planning labels.
 
+### Registered sources observed (not approved coverage)
+
+| Registry label | Category | Configuration at audit | What that means |
+|---|---|---|---|
+| AVUQO Demo Feed | Internal test | active / sync enabled / credential ready, no external rights | Must remain excluded from public verified offers |
+| Awin | Affiliate network | active / sync enabled / **not_configured**, rights absent | **Not ready:** configuration flag must not override rights gates |
+| eBay Partner Network | Affiliate network | paused / sync disabled / not_configured | Registry only, no coded eBay adapter or approved feed |
+| CJ Affiliate | Affiliate network | paused / sync disabled / not_configured | Registry only, no coded CJ adapter or approved feed |
+| impact.com | Affiliate network | paused / sync disabled / not_configured | Registry only, no coded impact adapter or approved feed |
+| Direct Merchant Feed | Direct feed | paused / sync disabled / not_configured | Placeholder for future approved direct merchants |
+| Booking.com | Travel | paused / sync disabled / not_configured | Travel prospect registration, no working approved feed |
+| Skyscanner | Travel | paused / sync disabled / not_configured | Travel prospect registration, no working approved feed |
+
+**Not yet registered as live connectors:** Webgains, Tradedoubler, Rakuten Advertising and Amazon Associates UK. The 8-network `lib/affiliate-networks/catalogue.ts` is an application/technical **plan**, not database authorisation. All eight source rows above have absent source/image rights flags in the queried metadata. A missing flag does not tell us whether a separate provider account was approved externally.
+
 ## 4. Decisions, unknowns and acceptance gaps
 
 - **Verified release != provider success:** GitHub CI and Vercel READY only prove a build was released; authentication, checkout, mailto clients, merchant rights and social posts require independent demonstrations.
