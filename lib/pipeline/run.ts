@@ -10,6 +10,7 @@ import type {
 import { normalizeOffer, slugify } from "./normalize";
 import { promotionPotential } from "./promotion";
 import { calculateAvuqoScore } from "./score";
+import { evaluateSourceControls, sourceIngestionFailures } from "./source-readiness";
 
 const now = () => new Date().toISOString();
 const numeric = (value: unknown, fallback = 0) => {
