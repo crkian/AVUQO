@@ -10,7 +10,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## AVUQO living project context (read before doing work)
 
-- Read `docs/PROJECT_STATUS.md`, `CHANGELOG.md` and `package.json` from the **current** GitHub branch. Current `main` and verified production data override dated snapshots.
+- Read `docs/PROJECT_STATUS.md`, `docs/ROADMAP.md`, `docs/SOURCE_TO_CODE_AUDIT_2026-11-02.md`, `CHANGELOG.md` and `package.json` from the **current** GitHub branch. Current `main` and verified production data override dated snapshots.
 - Check open PRs and branch ancestry before modifying `main`; never overwrite another branch's unique work.
 - Update `docs/PROJECT_STATUS.md` and `CHANGELOG.md` whenever a feature's status or release scope changes. Bump `package.json` and the lockfile together when creating a software release. Do not invent a deployed commit, version or live capability.
 - Distinguish draft, merged, and production-verified states. A successful preview is not a public release. Staged Awin products and future affiliates are not automatically licensed for public offer publication.
