@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
-import {House,Search,Compass,ShoppingBasket,UserRound} from "lucide-react";
+import {House,Search,Compass,Bookmark,UserRound} from "lucide-react";
 import {usePathname} from "next/navigation";
 import styles from "./MobileDock.module.css";
 const links=[
  {href:"/",label:"Home",Icon:House},
  {href:"/search",label:"Search",Icon:Search},
  {href:"/discover",label:"Discover",Icon:Compass},
- {href:"/basket",label:"Basket",Icon:ShoppingBasket},
+ {href:"/watches",label:"Watches",Icon:Bookmark},
  {href:"/account",label:"Account",Icon:UserRound}
 ];
 export default function MobileDock({signedIn}:{signedIn:boolean}){
