@@ -2,8 +2,8 @@
 
 Versions below refer to the Next.js application in `package.json`, not historical v0.8 planning documents. GitHub tags and production SHA are the definitive release record.
 
-## [0.2.0] - Unreleased, draft PR
-- Establish a living, versioned feature register and a mandatory check that future change PRs update the changelog/status.
+## [0.2.0] - 2026-11-02 (main, deployment READY; signed-in customer acceptance pending)
+- Merged through PR #34 at commit `79064ac4f24a73459c0506c4a18a4eeb9c07b2b4`, deployed to Vercel production with READY status.\n- Establish a living, versioned feature register and a mandatory check that future change PRs update the changelog/status.
 - Add personal wishlist and a single grouped planning basket for approved affiliate offers, using existing private Supabase list tables.
 - Allow the customer to save a basket into a named private list, copy the summary and launch an email draft in their own email application.
 - Explicitly keep checkout with retailers and label saved prices as captured snapshots. No automated email service or source feeds activated.

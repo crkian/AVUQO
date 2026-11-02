@@ -2,9 +2,9 @@
 
 **Purpose:** The single GitHub starting point for AVUQO project work across chats, contributors and tools. GitHub `main` is the authority for deployed code. Private business data and API credentials never go here.
 
-**Version on this branch:** `0.2.0` (proposed next release; not live until merged and production verified)
-**Last production-verified baseline:** `0.1.0`, commit `17a73a6fc20ecad2c892d45f2e2c95b82a6087ef` (2 Nov 2026 audit). The old `0.8` handover labels are historical product-plan labels, not the package's software version.
-**Release status:** This branch is draft; no new customer functionality may be described as live until deployed and verified.
+**Software version on `main`:** `0.2.0` (PR #34 merged 2 November 2026). Vercel production build READY at commit `79064ac4f24a73459c0506c4a18a4eeb9c07b2b4`; signed-in customer journey acceptance still pending.
+**Previous software version:** `0.1.0`, commit `17a73a6fc20ecad2c892d45f2e2c95b82a6087ef`. The old `0.8` handover labels are historical product-plan labels, not the package's software version.
+**Release status:** v0.2.0 compiled and deployed READY, but end-to-end signed-in validation of wishlist, basket, named copy and email-app draft is still outstanding. Do not claim these user journeys are fully verified.
 **Source of truth:** [Original product specifications](./AVUQO_2026-10-30_SPEC_INTEGRATION_REGISTER.md), then current implementation in GitHub, then real database and production evidence. Claims need checks.
 
 ## Feature delivery ledger
@@ -17,10 +17,10 @@
 | Affiliate promotion approval guard | Merged in PR #20 | Review underlying database authorization and role denial tests |
 | Saved / Watches / legacy routes | Basic features in `main`; PR #21 holds proposed fixes | Consolidate fixes and test customer journeys; no live alerts assumed |
 | Universal taxonomy and Control Centre explorer | Draft PR #25, not merged; inactive seed already staged historically | Reconcile old navigation against current `main`; no blind re-seeding |
-| Personal wishlist | **Proposed in this PR** | Signed-in RLS acceptance, product verification and production smoke test |
-| One account basket of eligible merchant offers | **Proposed in this PR** | Verify offer persistence, duplicate handling and expiry messaging |
-| Save basket as one named list | **Proposed in this PR** | Account ownership and RLS tests |
-| Email basket | **Proposed in this PR** | User-initiated email-app draft; automated delivery is NOT implemented |
+| Personal wishlist | Merged PR #34; deployment READY, user acceptance pending | Signed-in RLS acceptance, product verification and production smoke test |
+| One account basket of eligible merchant offers | Merged PR #34; deployment READY, user acceptance pending | Verify offer persistence, duplicate handling and expiry messaging |
+| Save basket as one named list | Merged PR #34; deployment READY, user acceptance pending | Account ownership and RLS tests |
+| Email basket | Merged PR #34: email-app draft UI, not automated sending | Test desktop/mobile email clients; automated delivery is NOT implemented |
 | Verified multi-network price comparisons | Not live for unapproved feeds | Permissioned offers, price freshness, exact matching |
 | First-party analytics / commission reconciliation | Partial framework; not a confirmed end-to-end revenue system | Consent, security, real attribution and settlement evidence |
 
