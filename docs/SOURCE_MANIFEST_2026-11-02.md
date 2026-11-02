@@ -2,7 +2,7 @@
 
 This is a provenance index for future AVUQO chats and engineers, not evidence that the original attachments are stored in GitHub. Read with the existing 25-workstream audit (SOURCE_TO_CODE_AUDIT_2026-11-02.md), the living ROADMAP.md and PROJECT_STATUS.md.
 
-**Scope: 9 exact user-provided assets** (2 PDFs, 4 Markdown, 2 text files and one image). SHA-256 records identify uploaded file bytes, not the status of any implemented feature.
+**Scope: 9 exact user-provided assets** (2 PDFs, 3 Markdown files, 3 text files and 1 image). SHA-256 records identify uploaded file bytes, not the status of any implemented feature.
 
 | ID | User-provided source | Source role | SHA-256 |
 |---|---|---|---|
