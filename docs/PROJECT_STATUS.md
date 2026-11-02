@@ -2,7 +2,8 @@
 
 **Purpose:** The single GitHub starting point for AVUQO project work across chats, contributors and tools. GitHub `main` is the authority for deployed code. Private business data and API credentials never go here.
 
-**Software version on `main`:** `0.2.0` (PR #34 merged 2 November 2026); feature release READY at `18fe575458588be511ffc5762152eccee4798a53` (PR #35); documentation audit PR #36 subsequently deployed READY at `7563e14fb76d02621cdbafac6a2b8ab58311aea0`. Latest SHA must be rechecked in Vercel. Signed-in customer journey acceptance still pending.
+**Software version in proposed P0-01 security release:** `0.2.1` (not on main until approved/merged; deployment and database privilege change must be independently verified).
+**Previously released version on `main`:** `0.2.0` (PR #34 merged 2 November 2026); feature release READY at `18fe575458588be511ffc5762152eccee4798a53` (PR #35); documentation audit PR #36 subsequently deployed READY at `7563e14fb76d02621cdbafac6a2b8ab58311aea0`. Latest SHA must be rechecked in Vercel. Signed-in customer journey acceptance still pending.
 **Previous software version:** `0.1.0`, commit `17a73a6fc20ecad2c892d45f2e2c95b82a6087ef`. The old `0.8` handover labels are historical product-plan labels, not the package's software version.
 **Release status:** v0.2.0 compiled and deployed READY, but end-to-end signed-in validation of wishlist, basket, named copy and email-app draft is still outstanding. Do not claim these user journeys are fully verified.
 **Source of truth:** [Original product specifications](./AVUQO_2026-10-30_SPEC_INTEGRATION_REGISTER.md), then current implementation in GitHub, then real database and production evidence. Claims need checks.
@@ -18,6 +19,10 @@
 - **Open drafts:** #21 customer Saved/Watches fixes and #25 universal taxonomy. Their work must be reconciled onto current `main` before merging, not blindly replayed.
 - **Source-specific omissions made explicit:** true natural-language search, transparent Preference Graph, timed Seasonal Calendar Engine and optional native/push experience remain separate requirements, not assumed delivered by related pages. Browser-saved affiliate prices are snapshots, not trusted server-verified prices.
 - **Acceptance still outstanding:** real signed-in Wishlist/Basket/Lists journey, negative cross-account access tests, live authorised merchant data, privacy/consent, and actual revenue/social provider reconciliation.
+
+## P0-01 event integrity implementation (release candidate)
+
+The database audit verified anonymous and signed-in INSERT grants on both `analytics_events` and `click_events`. PR implementation removes the existing unauthenticated/client write surface and pauses new merchant click recording while retaining verified redirects. The SQL migration `20261102153000_event_write_integrity.sql` must be applied and effective grants checked separately. **Status: code and migration prepared; not operationally complete without release/database and negative role checks.** Details: [P0-01 runbook](./P0_01_EVENT_INTEGRITY_RUNBOOK.md). Existing seven historical click rows are not certified conversions and must not be deleted by this release.
 
 ## Feature delivery ledger
 

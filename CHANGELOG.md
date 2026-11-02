@@ -12,6 +12,12 @@
 - Added `docs/ROADMAP.md` with prioritised P0–P4 work, explicit acceptance gates and preservation of PR #21/#25 dependencies.
 - Updated the living status, README and coding-agent entry point. **Documentation only: software remains v0.2.0; no migration, feed, credential or publication state changed.**
 
+## [0.2.1] - P0-01 security release candidate (not yet deployed)
+- Prevent direct client writes to `analytics_events` and `click_events` by withdrawing `anon`/`authenticated` grants and permissive INSERT policies in the reviewed migration.
+- Preserve verified outbound merchant redirects but pause recording new clicks until a purpose-specific consent-reviewed server intake exists.
+- Add negative regression tests and owner runbook; retain historical records and keep commission separate from clicks.
+- **Still requires:** successful CI, Vercel deployment, explicit Supabase migration, effective-grant verification and real redirect smoke tests. Does not enable visitor tracking.
+
 Versions below refer to the Next.js application in `package.json`, not historical v0.8 planning documents. GitHub tags and production SHA are the definitive release record.
 
 ## [0.2.0] - 2026-11-02 (main, deployment READY; signed-in customer acceptance pending)

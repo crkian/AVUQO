@@ -55,6 +55,8 @@ export function sanitizeAnalyticsProperties(input:unknown):Record<string,string|
 }
 export const MEASUREMENT_GATES=Object.freeze({
  clientCollectionEnabled:false,
+ merchantClickRecordingEnabled:false,
+ serverOnlyEventWrites:true,
  browserIdentityEnabled:false,
  advertisingMeasurementEnabled:false,
  revenueFromClicks:false,

@@ -1,7 +1,7 @@
 # AVUQO living delivery roadmap
 
 **Last evidence audit:** 2 November 2026 · [full source-to-code matrix](./SOURCE_TO_CODE_AUDIT_2026-11-02.md) · [original source manifest](./SOURCE_MANIFEST_2026-11-02.md) · [granular source gaps](./SOURCE_REQUIREMENT_GAPS_2026-11-02.md).
-**Software version:** `0.2.0` on `main` as audited; roadmap changes do **not** trigger a new application release version.
+**Software version:** currently live `0.2.0` at audit; P0-01 security fix proposes `0.2.1` on its feature branch. Do not call it deployed until code, migration and role checks are verified.
 **Evidence policy:** Features remain “proposed”, “code foundation”, “internally testable”, “deployed but unaccepted” or “customer/provider verified”. Never express speculative percentage completion, income, source approvals or live listings.
 **Owner policy:** Protect independent AVUQO Score, consumer trust, permissioned data, source separation and non-destructive deployment.
 
@@ -15,7 +15,7 @@
 
 | ID | Work | Current state | Action and required acceptance |
 |---|---|---|---|
-| P0-01 | Event/click integrity and consent | Anonymous INSERT policies found for `analytics_events` and `click_events`; analytics event collection is off; 7 historic clicks, 0 conversions | Inspect effective database grants and server/event ingestion. Add negative tests to prevent forged monetary attribution and protect privacy. Restrict write paths via reviewed migration if needed. Do not activate visitor analytics until consent/legal review. |
+| P0-01 | Event/click integrity and consent | Direct anon/auth INSERT grants and lax event INSERT policies confirmed; security patch and reversible rollout plan prepared in P0-01 feature PR; 7 historic clicks, 0 conversions | Code: retain verified /go redirect but pause click records; migration `20261102153000_event_write_integrity.sql`: revoke anon/auth/PUBLIC direct writes and remove lax event policies. Complete reviewed production rollout and re-query privileges, test cross-role direct POST denial and redirect behaviour. Keep historic events uncertified; visitor analytics remains off until consent/legal review. See [runbook](./P0_01_EVENT_INTEGRITY_RUNBOOK.md). |
 | P0-02 | Awin and source rights/kill-switch audit | Awin registry `active`, `sync_enabled=true` but `credential_status=not_configured`, rights flags missing; all 5 feed imports unverified | Require a consistent fail-closed readiness state, independently verify no automated unlicensed ingestion/publication, record evidence and hard-stop controls. **Do not infer source activation from a registry toggle.** |
 | P0-03 | Signed-in customer journey tests | Wishlist/basket/list functionality merged in v0.2.0, no observed customer data | Test own vs another account's access, list item ownership, duplicate adds, removed/expired offers, named basket copy/rollback, 18-item email-draft limit, mobile mailto and accessible keyboard interactions. Explicitly test browser-tampered/stale merchant, price and URL snapshots: account storage is not server-verified price evidence. |
 | P0-04 | Review legacy drafts safely | Open PRs #21 and #25 overlap earlier merged navigation/product work; #22–#24 closed but included in #25 ancestry | Reconcile unique functionality onto fresh `main`; test old routes/headers/categories, avoid applying historical category seeds twice. Close only when unique work is accounted for and retained. |
