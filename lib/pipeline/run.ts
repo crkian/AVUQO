@@ -10,6 +10,7 @@ import type {
 import { normalizeOffer, slugify } from "./normalize";
 import { promotionPotential } from "./promotion";
 import { calculateAvuqoScore } from "./score";
+import { evaluateSourceControls, sourceIngestionFailures } from "./source-readiness";
 
 const now = () => new Date().toISOString();
 const numeric = (value: unknown, fallback = 0) => {
@@ -39,16 +40,16 @@ async function event(
 }
 
 async function getControls(supabase: SupabaseClient) {
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("system_controls")
     .select("control_key,enabled")
     .in("control_key", ["source_ingestion", "deal_publishing", "global_emergency_stop"]);
 
-  const map = new Map<string, boolean>((data ?? []).map((row) => [row.control_key, Boolean(row.enabled)]));
+  const allowed = evaluateSourceControls(data, !!error);
   return {
-    sourceIngestion: map.get("source_ingestion") ?? true,
-    dealPublishing: map.get("deal_publishing") ?? true,
-    emergencyStop: map.get("global_emergency_stop") ?? false,
+    sourceIngestion: allowed.ingestion,
+    dealPublishing: allowed.publishing,
+    emergencyStop: allowed.emergencyStop,
   };
 }
 
@@ -566,8 +567,15 @@ export async function runDealIntelligencePipeline(
   if (controls.emergencyStop) throw new Error("Global emergency stop is enabled.");
   if (!controls.sourceIngestion) throw new Error("Source ingestion is disabled in AVUQO system controls.");
   if (!connector.configured()) throw new Error(`${connector.displayName} is not configured.`);
-  if (options.sourceKey !== "demo" && (source.status !== "active" || !source.sync_enabled)) {
-    throw new Error(`${source.name} is not active. Resume the source in Control Centre before ingestion.`);
+  // Registry activation is not permission to import data. Awin must have
+  // current, advertiser-matching evidence before the first external request.
+  const rightsContext = {
+    advertiserId: options.sourceKey === "awin" ? process.env.AWIN_ADVERTISER_ID : undefined,
+    connectorConfigured: connector.configured(),
+  };
+  if (options.sourceKey !== "demo") {
+    const failures = sourceIngestionFailures(source, rightsContext);
+    if (failures.length) throw new Error(`External source not approved: ${failures.join("; ")}`);
   }
 
   const { data: run, error: runError } = await supabase
@@ -601,6 +609,21 @@ export async function runDealIntelligencePipeline(
     summary.seen = rows.length;
 
     for (const raw of rows) {
+      // Stop newly queued work when an owner pauses a source or hits the
+      // emergency switch while the current network response is being processed.
+      if (options.sourceKey !== "demo") {
+        const currentControls = await getControls(supabase);
+        if (currentControls.emergencyStop || !currentControls.sourceIngestion) {
+          throw new Error("External import halted by the owner emergency/ingestion control.");
+        }
+        const { data: currentSource, error: sourceError } = await supabase
+          .from("sources")
+          .select("status,sync_enabled,credential_status,connector_key,source_type,metadata")
+          .eq("id", source.id).single();
+        if (sourceError || !currentSource) throw new Error("External source readiness could not be rechecked.");
+        const failures = sourceIngestionFailures(currentSource, rightsContext);
+        if (failures.length) throw new Error(`Source was paused or permissions changed: ${failures.join("; ")}`);
+      }
       try {
         const result = await processOffer(supabase, run.id, source, raw, controls.dealPublishing);
         summary.accepted += 1;

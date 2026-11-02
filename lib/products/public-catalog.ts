@@ -1,5 +1,6 @@
 import "server-only";
 import {createAdminClient} from "../supabase/admin";
+import {sourceEvidenceFailures, evaluateSourceControls} from "../pipeline/source-readiness";
 
 /** Public offer admission. Deny by default: imported, demo and stale rows are not commercial evidence. */
 export type PublicOffer={
@@ -13,10 +14,24 @@ export type PublicProduct={
 function metadata(raw:unknown):Record<string,unknown>{return raw&&typeof raw==="object"&&!Array.isArray(raw)?raw as Record<string,unknown>:{};}
 function isHttps(value:string|null){if(!value)return false;try{const u=new URL(value);return u.protocol==="https:"&&!u.username&&!u.password&&u.hostname.length>3;}catch{return false;}}
 function sourceReady(source:Record<string,unknown>|undefined):boolean{
- if(!source||source.status!=="active"||source.sync_enabled!==true||source.credential_status!=="ready"||!source.connector_key||source.connector_key==="demo"||source.source_type==="internal_test")return false;
+ if(!source || source.status!=="active" || source.sync_enabled!==true ||
+   !source.connector_key || source.connector_key==="demo" || source.source_type==="internal_test") return false;
  const rights=metadata(source.metadata);
- return rights.usage_rights_confirmed===true&&typeof rights.rights_evidence_ref==="string"&&rights.rights_evidence_ref.trim().length>=5;
+ if(rights.publication_permission!=="verified" || rights.price_evidence_status!=="verified") return false;
+ return sourceEvidenceFailures({
+   status:String(source.status),sync_enabled:source.sync_enabled===true,
+   credential_status:typeof source.credential_status==="string"?source.credential_status:null,
+   connector_key:String(source.connector_key),
+   source_type:typeof source.source_type==="string"?source.source_type:null,
+   metadata:source.metadata,
+ },{
+   advertiserId:source.connector_key==="awin"?process.env.AWIN_ADVERTISER_ID:undefined,
+   connectorConfigured:source.connector_key==="awin"
+     ?Boolean(process.env.AWIN_PUBLISHER_ID&&process.env.AWIN_ADVERTISER_ID&&process.env.AWIN_ACCESS_TOKEN)
+     :false,
+ }).length===0;
 }
+
 function offerFresh(row:Record<string,unknown>,now:number):boolean{
  if(row.status!=="active"||row.currency!=="GBP"||!(Number(row.price)>0)||!isHttps((row.affiliate_url||row.source_url) as string|null))return false;
  const checked=Date.parse(String(row.last_seen_at??""));if(!Number.isFinite(checked)||now-checked>7*24*3600_000||checked>now+3600_000)return false;
@@ -31,6 +46,12 @@ const SELECT_OFFER="id,product_id,source_id,price,total_price,currency,status,so
 export async function verifiedOffers(options:{productId?:string;offerId?:string;limit?:number}={}):Promise<PublicOffer[]>{
  try{
   const db=createAdminClient();
+  // An owner emergency stop or publication pause hides even previously
+  // published rows. Missing control rows or query errors fail closed.
+  const {data:flags,error:flagsError}=await db.from("system_controls")
+    .select("control_key,enabled")
+    .in("control_key",["global_emergency_stop","deal_publishing","source_ingestion"]);
+  if(!evaluateSourceControls(flags,!!flagsError).publishing)return [];
   const limit=Math.max(1,Math.min(options.limit??24,60));
   let q=db.from("published_deals").select(SELECT_DEAL).eq("status","published").order("updated_at",{ascending:false}).limit(Math.min(limit*10,500));
   if(options.productId)q=q.eq("product_id",options.productId);

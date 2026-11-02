@@ -13,9 +13,11 @@ test("product readiness also requires owner/admin before private reporting",()=>
  assert.ok(ready.indexOf("await requireControlCentreAccess()")>=0);
  assert.ok(ready.indexOf("await requireControlCentreAccess()")<ready.indexOf("createAdminClient()"));
 });
-test("the public catalogue remains unchanged and denies unverified draft publication",()=>{
+test("the public catalogue denies unverified draft publication through the shared source evidence gate",()=>{
  const source=readFileSync(new URL("../lib/products/public-catalog.ts",import.meta.url),"utf8");
  assert.match(source,/\.eq\("status","active"\)/);
- assert.match(source,/usage_rights_confirmed===true/);
+ const rights=readFileSync(new URL("../lib/pipeline/source-readiness.ts",import.meta.url),"utf8");
+ assert.match(source,/sourceEvidenceFailures\(/);
+ assert.match(rights,/meta\.usage_rights_confirmed !== true/);
  assert.match(source,/source\.connector_key==="demo"/);
 });

@@ -2,6 +2,7 @@ import { connection } from "next/server";
 
 import { createClient } from "../../../lib/supabase/server";
 import { setSourceStatus } from "../actions";
+import { sourceEvidenceFailures } from "../../../lib/pipeline/source-readiness";
 import styles from "../control-centre.module.css";
 
 type SourceRow = { id: string; name: string; source_type: string; status: string; reliability_score: number | null; connector_key: string | null; sync_enabled: boolean; credential_status: string | null; health_status: string | null; last_sync_at: string | null; last_successful_sync_at: string | null; metadata: unknown };
@@ -41,7 +42,10 @@ export default async function SourcesPage() {
           <table className={styles.table}>
             <thead><tr><th>Source</th><th>Connector</th><th>Reliability</th><th>Health</th><th>Credentials</th><th>Last success</th><th>Control</th></tr></thead>
             <tbody>
-              {(rows as SourceRow[]).map((row) => (
+              {(rows as SourceRow[]).map((row) => { const missing=sourceEvidenceFailures(row,{
+                        advertiserId:row.connector_key==="awin"?process.env.AWIN_ADVERTISER_ID:undefined,
+                        connectorConfigured:row.connector_key==="awin"?Boolean(process.env.AWIN_PUBLISHER_ID&&process.env.AWIN_ADVERTISER_ID&&process.env.AWIN_ACCESS_TOKEN):false
+                      });return (
                 <tr key={row.id}>
                   <td><b>{row.name}</b><br/><span>{row.source_type}</span></td>
                   <td>{row.connector_key ?? "custom"}</td>
@@ -52,19 +56,19 @@ export default async function SourcesPage() {
                   <td>
                     <div className={styles.actions}>
                       <form action={setSourceStatus.bind(null, row.id, row.status === "active" ? "paused" : "active")}>
-                        <button>{row.status === "active" ? "Pause" : "Resume"}</button>
+                        <button disabled={row.status !== "active" && missing.length > 0} title={missing.length ? missing.join("; ") : undefined}>{row.status === "active" ? "Pause" : missing.length ? "Await rights" : "Resume"}</button>
                       </form>
                     </div>
                   </td>
                 </tr>
-              ))}
+              );})}
             </tbody>
           </table>
         ) : <div className={styles.empty}>No sources configured yet.</div>}
       </section>
 
       <div className={styles.callout}>
-        <b>Connector-ready is not the same as connected.</b> AVUQO only runs a source when its server credentials exist, the registry row is active, sync is enabled and the global ingestion controls permit it.
+        <b>Connector-ready is not the same as connected.</b> AVUQO only runs a source when its server credentials exist, the exact source/advertiser rights are documented, the registry row is active, sync is enabled, and the global controls allow processing. A pause always remains available.
       </div>
     </>
   );

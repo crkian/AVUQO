@@ -1,6 +1,7 @@
 import { connection } from "next/server";
 
 import { connectorStatus } from "../../../lib/connectors/registry";
+import { sourceIngestionFailures } from "../../../lib/pipeline/source-readiness";
 import { createClient } from "../../../lib/supabase/server";
 import styles from "../control-centre.module.css";
 import { runAwinPipeline, runDemoPipeline } from "./actions";
@@ -49,6 +50,14 @@ export default async function PipelinePage() {
   const connectors = connectorStatus();
   const awin = connectors.find((item) => item.key === "awin");
   const backendReady = Boolean(process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY);
+  const {data:awinSource}=await supabase.from("sources")
+    .select("status,sync_enabled,credential_status,connector_key,source_type,metadata")
+    .eq("connector_key","awin").maybeSingle();
+  const awinIssues = awinSource ? sourceIngestionFailures(awinSource,{
+    advertiserId:process.env.AWIN_ADVERTISER_ID,
+    connectorConfigured:awin?.configured??false
+  }) : ["Awin source not registered"];
+  const awinReady = backendReady && awin?.configured && awinIssues.length===0;
 
   return (
     <>
@@ -96,14 +105,14 @@ export default async function PipelinePage() {
             <div className={styles.controlTop}>
               <div>
                 <h3>Awin Enhanced Feed</h3>
-                <p>Streams an approved advertiser feed through the same canonical AVUQO pipeline.</p>
+                <p>Only allowed after current feed permission, GB rights and specific advertiser approval are recorded. {awinIssues.length ? awinIssues.join("; ") : "Evidence checks passed; owner controls still apply."}</p>
               </div>
-              <span className={`${styles.pill} ${awin?.configured ? styles.good : styles.warn}`}>
-                {awin?.configured ? "Configured" : "Needs env"}
+              <span className={`${styles.pill} ${awinIssues.length===0 ? styles.good : styles.warn}`}>
+                {awinIssues.length===0 ? "Evidence-ready" : "Not approved"}
               </span>
             </div>
             <form action={runAwinPipeline} className={styles.pipelineAction}>
-              <button className={styles.primaryAction} disabled={!backendReady || !awin?.configured}>Run Awin pipeline</button>
+              <button className={styles.primaryAction} disabled={!awinReady}>Run Awin pipeline</button>
             </form>
           </article>
         </div>
