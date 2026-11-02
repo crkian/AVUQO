@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 import Header from "../../../components/layout/Header";
 import Footer from "../../../components/layout/Footer";
@@ -12,7 +12,7 @@ type ListRow={id:string;name:string;description:string|null;owner_id:string};
 type Item={id:string;title_override:string|null;url:string|null;snapshot:unknown;created_at:string};
 const UUID=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-export default function SavedListDetail() {
+function SavedListDetailClient() {
  const {id}=useParams<{id:string}>();
  const db=useMemo(()=>createClient(),[]);
  const [list,setList]=useState<ListRow|null>(null);
@@ -35,3 +35,5 @@ export default function SavedListDetail() {
  return <main><Header/><section className={styles.hero}><div className="shell"><p className="kicker">Your saved collection</p><h1>{list?.name??"Named list"}</h1><p>{list?.description??"A collection of AVUQO products and offers. Saved prices are historical snapshots."}</p><nav className={styles.links}><Link href="/lists">All named lists</Link><Link href="/basket">Comparison basket</Link><Link href="/wishlist">Wishlist</Link></nav></div></section>
  <section className={`shell ${styles.collection}`}>{loading?<p>Loading private items…</p>:list?<><div className={styles.heading}><h2>{items.length} saved items</h2><span>Prices may have changed</span></div><div className={styles.items}>{items.map(item=>{const shot=isSafeSnapshot(item.snapshot)?item.snapshot:null;const url=shot?safeProductUrl(shot.product_slug):null;return <article key={item.id} className={styles.item}><div className={styles.itemInfo}><h3>{item.title_override??"Saved item"}</h3><p>{shot?.merchant??"Seller not recorded"}</p></div><div className={styles.itemPrice}><strong>{shot?.price_gbp==null?"Price unavailable":`£${shot.price_gbp.toFixed(2)}`}</strong><small>Saved snapshot</small></div><div className={styles.itemActions}>{url?<Link href={url}>Recheck offer</Link>:<span>No current offer link</span>}</div></article>})}</div></>:<div className={styles.empty}><h2>Cannot open this list</h2><p>{message||"This list does not exist or cannot be accessed."}</p><Link href="/lists">Back to lists</Link></div>}{message&&list&&<p role="status">{message}</p>}</section><Footer/></main>
 }
+
+export default function SavedListDetail() { return <Suspense fallback={<main><p>Loading your private list…</p></main>}><SavedListDetailClient/></Suspense>; }
