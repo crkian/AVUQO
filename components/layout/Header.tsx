@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LogOut, Shield, Menu, X } from "lucide-react";
+import { LogOut, Shield, Menu, X, Heart, ShoppingBasket } from "lucide-react";
 import MegaNav from "./MegaNav";
 import MobileDock from "./MobileDock";
 import {DEFAULT_NAVIGATION,parseNavigation} from "../../lib/content/navigation";
@@ -106,6 +106,8 @@ export default function Header() {
           <span className="signin auth-loading">...</span>
         ) : email ? (
           <div className="auth-menu">
+            <Link href="/wishlist" title="My wishlist" aria-label="My wishlist"><Heart size={17}/></Link>
+            <Link href="/basket" title="My comparison basket" aria-label="My comparison basket"><ShoppingBasket size={17}/></Link>
             {admin && (
               <Link className="control-centre-link" href="/control-centre" title="Private Control Centre">
                 <Shield size={16} />
