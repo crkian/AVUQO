@@ -2,7 +2,7 @@
 
 ## Unreleased documentation / audit (2 November 2026)
 - Reviewed original master product and grocery PDFs, affiliate, content/Control Centre, analytics, unified source-of-truth and catalogue handovers and brand visual reference against current main, Vercel and read-only Supabase.
-- Added `docs/SOURCE_TO_CODE_AUDIT_2026-11-02.md` with source provenance, 23 workstream maturity assessments and data/rights caveats.
+- Added `docs/SOURCE_TO_CODE_AUDIT_2026-11-02.md` with source provenance, 25 workstream maturity assessments and data/rights caveats.
 - Added `docs/ROADMAP.md` with prioritised P0–P4 work, explicit acceptance gates and preservation of PR #21/#25 dependencies.
 - Updated the living status, README and coding-agent entry point. **Documentation only: software remains v0.2.0; no migration, feed, credential or publication state changed.**
 
