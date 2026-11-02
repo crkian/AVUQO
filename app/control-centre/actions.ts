@@ -64,7 +64,7 @@ export async function setSourceStatus(id: string, status: string) {
   if (status === "active") {
     if (role !== "owner") throw new Error("Only the owner may activate a connector");
     const { data: source, error: readError } = await supabase
-      .from("sources").select("id,credential_status,status,metadata,connector_key").eq("id", id).single();
+      .from("sources").select("id,credential_status,status,sync_enabled,source_type,metadata,connector_key").eq("id", id).single();
     if (readError || !source) throw new Error("Source not found");
     // A paused source may only be resumed when the exact current connector
     // and advertiser have their own evidence; a network-level flag is not enough.
