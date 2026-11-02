@@ -7,6 +7,7 @@ An evidence-led UK comparison and savings application. Current customer website:
 - **[Live project register](docs/PROJECT_STATUS.md):** feature status, release gates, open integration work, and what is NOT live.
 - **[Prioritised roadmap](docs/ROADMAP.md):** P0–P4 work IDs, dependencies, blockers and acceptance criteria.
 - **[Specification-to-code audit (2 Nov 2026)](docs/SOURCE_TO_CODE_AUDIT_2026-11-02.md):** source-by-source requirements, inspected code/data and measurable maturity.
+- **[Source manifest and requirement gaps](docs/SOURCE_MANIFEST_2026-11-02.md):** exact supplied source inventory and [specific uncovered requirements](docs/SOURCE_REQUIREMENT_GAPS_2026-11-02.md).
 - **[Changelog](CHANGELOG.md):** versioned customer and infrastructure changes.
 - **[Technical integration register](docs/AVUQO_2026-10-30_SPEC_INTEGRATION_REGISTER.md):** architectural decisions and earlier handover audit.
 - **[Contributor/assistant instructions](AGENTS.md):** read these before editing code.

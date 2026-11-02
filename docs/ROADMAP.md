@@ -1,6 +1,6 @@
 # AVUQO living delivery roadmap
 
-**Last evidence audit:** 2 November 2026 · [full source-to-code matrix](./SOURCE_TO_CODE_AUDIT_2026-11-02.md).
+**Last evidence audit:** 2 November 2026 · [full source-to-code matrix](./SOURCE_TO_CODE_AUDIT_2026-11-02.md) · [original source manifest](./SOURCE_MANIFEST_2026-11-02.md) · [granular source gaps](./SOURCE_REQUIREMENT_GAPS_2026-11-02.md).
 **Software version:** `0.2.0` on `main` as audited; roadmap changes do **not** trigger a new application release version.
 **Evidence policy:** Features remain “proposed”, “code foundation”, “internally testable”, “deployed but unaccepted” or “customer/provider verified”. Never express speculative percentage completion, income, source approvals or live listings.
 **Owner policy:** Protect independent AVUQO Score, consumer trust, permissioned data, source separation and non-destructive deployment.
@@ -17,7 +17,7 @@
 |---|---|---|---|
 | P0-01 | Event/click integrity and consent | Anonymous INSERT policies found for `analytics_events` and `click_events`; analytics event collection is off; 7 historic clicks, 0 conversions | Inspect effective database grants and server/event ingestion. Add negative tests to prevent forged monetary attribution and protect privacy. Restrict write paths via reviewed migration if needed. Do not activate visitor analytics until consent/legal review. |
 | P0-02 | Awin and source rights/kill-switch audit | Awin registry `active`, `sync_enabled=true` but `credential_status=not_configured`, rights flags missing; all 5 feed imports unverified | Require a consistent fail-closed readiness state, independently verify no automated unlicensed ingestion/publication, record evidence and hard-stop controls. **Do not infer source activation from a registry toggle.** |
-| P0-03 | Signed-in customer journey tests | Wishlist/basket/list functionality merged in v0.2.0, no observed customer data | Test own vs another account's access, list item ownership, duplicate adds, removed/expired offers, named basket copy/rollback, 18-item email-draft limit, mobile mailto and accessible keyboard interactions. |
+| P0-03 | Signed-in customer journey tests | Wishlist/basket/list functionality merged in v0.2.0, no observed customer data | Test own vs another account's access, list item ownership, duplicate adds, removed/expired offers, named basket copy/rollback, 18-item email-draft limit, mobile mailto and accessible keyboard interactions. Explicitly test browser-tampered/stale merchant, price and URL snapshots: account storage is not server-verified price evidence. |
 | P0-04 | Review legacy drafts safely | Open PRs #21 and #25 overlap earlier merged navigation/product work; #22–#24 closed but included in #25 ancestry | Reconcile unique functionality onto fresh `main`; test old routes/headers/categories, avoid applying historical category seeds twice. Close only when unique work is accounted for and retained. |
 | P0-05 | Release reliability and role security | Vercel READY + GitHub CI exist; admin RLS policies present | Test owner/admin/ordinary/anonymous routes, server action authorisation, SEO/cookie/affiliate disclosures, mobile accessibility, rollback and database restore. Require release SHA plus smoke-test checklist. |
 
@@ -31,6 +31,7 @@
 | P1-04 | Products, Deals, Search and Compare | Public pages and standalone illustrative contract cost calculator, no authorised multi-merchant dataset | Full result pagination/index, filters, relevant ranking, exact product links, user-readable confidence/price history and fair side-by-side **eligible** merchants. Validate before any public marketing of live coverage. |
 | P1-05 | Canonical taxonomy and navigation | 1,384 category rows, 8 active. PR #25 not merged | Reconcile hierarchies, data, navigation and source-mapping, keep inactive categories hidden without products, test search destinations. |
 | P1-06 | Revenue and affiliate redirect correctness | Verified redirect handler, 7 historical clicks; no conversions | Permissioned live click fixture, non-spoofable source attribution, network conversion imports, dedupe, adjusted/reversed/paid commission states and reconciled ledger. Payout must never enter AVUQO Score. |
+| P1-07 | Natural-language search and catalogue-scale result quality | Original S01 PDF pp. 5–7 asks for structured query intent, Best Value default, alternative sorts and domain-specific filters; current app/search/page.tsx matches words against only the first 60 verified products | Build a permission-aware indexed search, deterministic parsing and sort/filter contracts, result pagination and negative quality tests. Do not market NLP search or full-market coverage until proved. |
 
 ## Phase P2 | Grocery and retention evidence
 
@@ -41,6 +42,7 @@
 | P2-03 | Watches and notifications | Saved watch UI/DB exists, no verified outbound messages | Scheduled evaluator, threshold and stock-change policies, dedupe, subscription/opt-in, unsubscribe, retry/delivery records and owner disablement. |
 | P2-04 | Saved, wishlist, households and shareable lists | v0.2.0 code deployed, unaccepted customer journey; shared list tables exist | Complete P0-03, then sharing/invites, collaborators' roles, household budgets and privacy/guest migration without leaking lists or email addresses. |
 | P2-05 | Budget and spending goals | Strategic pillar specified, no complete customer budget engine | Design weekly/monthly and category budgets; saved plans vs actual reported spend; deliberate opt-in association with grocery baskets and watches. No bank-account connectivity without separate scope. |
+| P2-06 | Explainable Preference Graph and recommendation controls | S01 pp. 13–14 requires explicit + behavioural preferences, confidence/decay, household contexts and “This was for someone else”; current accounts expose simple preferences only | Decide consent/retention boundaries, build user-correctable preference graph, “Why am I seeing this?” explanation and dismissal/decay, then cross-account privacy and recommendation acceptance. No inferred sensitive data or unwarranted profiling. |
 
 ## Phase P3 | Content, acquisition, first-party intelligence
 
@@ -51,6 +53,7 @@
 | P3-03 | Independent Site Advertising | Private advertiser/campaign workflow, 0 campaigns, no public ads | Contract/placement/rights/consent and billing design; separate sponsored inventory, explicit disclosure and ranking firewall. |
 | P3-04 | First-party analytics and experiments | Event schema + private dashboard, 0 events | Only after P0-01: privacy/consent-gated SDK/API; dedupe and bot filters, metric dictionary, funnels/cohorts/retention; correct incomplete-data states and logged experiments. |
 | P3-05 | Reality Check, feedback and trust | URL intake, merchant lookup, no live remote verification | Safe allow-listed verification, permissions and factual responses; moderated feedback and claim disputes; no fake reviews or unjustified merchant reputations. |
+| P3-06 | Seasonal Calendar Engine | S01 p. 19 specifies dated seasonal modules and thresholds; Control Centre Seasonal page is currently only an editorial/review index with no scheduler | Add country/time-zone aware, owner-approved event rules, dry-run, source/creative rights, consent-aware notifications, expiration and reversible activation. Prove blackout/expired-event behaviour before auto-publish. |
 
 ## Phase P4 | Broader services, reliability and scale
 
@@ -60,6 +63,11 @@
 | P4-02 | Broadband, mobile, insurance, energy, motoring and services | Editorial sections and illustrative contract calculator | Licensed data and appropriate regulatory/legal basis; exact geography/coverage, contract costs, fees and exclusions. Expand one sector at a time. |
 | P4-03 | Autopilot, exception remediation and audit | Pipeline jobs, internal switches and Control Centre pages coded | Real provider monitoring, scheduled refresh/retries, cost controls, change audit, incident drills, owner-level emergency stop and demonstrated reversible releases. |
 | P4-04 | 10k → 100k → 1m+ eligible offer scale | Architecture ambition only; 4,588 staged raw records including duplicates | Measure ingestion throughput, queue backlog, canonical dedupe, query performance, refresh latency, source licence compliance and infrastructure cost before increasing volume. |
+| P4-05 | Mobile PWA and conditional native app / push | S01 pp. 9, 24 requires thumb-first app and push, but current code has only a web manifest and MobileDock; no native app or delivered push evidence | Test installability, offline/notifications/permission UX and browser/device support. Decide native after commercial and technical gate, then implement app/backend parity with opt-in push, quiet hours and unsubscribe tests. |
+
+## Requirements that must not disappear in broad workstream labels
+
+The uploaded 26-page product specification explicitly calls for natural-language intent search (P1-07), explainable and removable personalisation (P2-06), an event-driven seasonal calendar (P3-06), and a thumb-first mobile/PWA/push experience with native app conditional on commercial justification (P4-05). These are independently traceable acceptance gates, not proof of implemented features. Keep groceries' guest basket separate from the signed-in affiliate planning basket (G09). See SOURCE_REQUIREMENT_GAPS_2026-11-02.md for exact original page references and code findings.
 
 ## Action sequence for the next development session
 
