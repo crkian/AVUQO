@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 
 import { requireControlCentreAccess } from "../../lib/auth/requireControlCentreAccess";
 import { createClient } from "../../lib/supabase/server";
+import { sourceEvidenceFailures } from "../../lib/pipeline/source-readiness";
 
 const ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
@@ -65,12 +66,16 @@ export async function setSourceStatus(id: string, status: string) {
     const { data: source, error: readError } = await supabase
       .from("sources").select("id,credential_status,status,metadata,connector_key").eq("id", id).single();
     if (readError || !source) throw new Error("Source not found");
-    // Activation alone does not prove publication rights. Explicit source-specific approval required.
-    const metadata = source.metadata && typeof source.metadata === "object" && !Array.isArray(source.metadata)
-      ? source.metadata as Record<string, unknown> : {};
-    if (!source.connector_key || source.connector_key === "demo" || source.credential_status !== "ready" || metadata.usage_rights_confirmed !== true || typeof metadata.rights_evidence_ref !== "string" || metadata.rights_evidence_ref.length < 5) {
-      throw new Error("Confirm credentials and source-specific publishing rights before enabling ingestion");
-    }
+    // A paused source may only be resumed when the exact current connector
+    // and advertiser have their own evidence; a network-level flag is not enough.
+    const connectorConfigured = source.connector_key === "awin"
+      ? Boolean(process.env.AWIN_PUBLISHER_ID && process.env.AWIN_ADVERTISER_ID && process.env.AWIN_ACCESS_TOKEN)
+      : false;
+    const missing = sourceEvidenceFailures(source, {
+      advertiserId: source.connector_key === "awin" ? process.env.AWIN_ADVERTISER_ID : undefined,
+      connectorConfigured,
+    });
+    if (missing.length) throw new Error(`Cannot activate unapproved source: ${missing.join("; ")}`);
   }
   const { error } = await supabase.from("sources").update({
     status, sync_enabled: status === "active", updated_at: new Date().toISOString()
