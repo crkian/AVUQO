@@ -23,13 +23,19 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
+          fetch-depth: 0
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: '24'
           cache: npm
       - run: npm ci
+      - name: Enforce versioned project register
+        run: node scripts/check-project-register.mjs
+        env:
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
       - name: Four-brand marketing policy tests
-        run: node --experimental-strip-types --test tests/marketing-policy.test.mjs tests/marketing-publishing.test.mjs tests/marketing-home-automation.test.mjs tests/navigation-v2.test.mjs tests/control-centre-workspaces.test.mjs tests/affiliate-network-readiness.test.mjs tests/site-advertising-policy.test.mjs tests/analytics-contracts.test.mjs tests/private-product-previews.test.mjs tests/category-personality.test.mjs tests/browse-tree.test.mjs tests/private-pilot-access.test.mjs tests/private-product-editorial-preview.test.mjs
+        run: node --experimental-strip-types --test tests/marketing-policy.test.mjs tests/marketing-publishing.test.mjs tests/marketing-home-automation.test.mjs tests/navigation-v2.test.mjs tests/control-centre-workspaces.test.mjs tests/affiliate-network-readiness.test.mjs tests/collection-planning.test.mjs tests/project-register.test.mjs tests/site-advertising-policy.test.mjs tests/analytics-contracts.test.mjs tests/private-product-previews.test.mjs tests/category-personality.test.mjs tests/browse-tree.test.mjs tests/private-pilot-access.test.mjs tests/private-product-editorial-preview.test.mjs
       - name: Marketing-only lint
         run: npx eslint lib/marketing components/layout/MegaNav.tsx components/home app/control-centre/marketing app/api/internal/marketing
       - run: npm run lint
