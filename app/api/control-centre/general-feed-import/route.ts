@@ -54,6 +54,11 @@ export async function POST(request:NextRequest){
    .eq("id",runId).maybeSingle();
   if(runError||!run||run.created_by!==user.id||!joinedName(run.merchant_id)||run.permission_status!=="unverified"||!/^GENAWIN__[A-Za-z0-9_-]{1,30}__/.test(run.filename))
    return send({error:"Private import not found"},404);
+  // Membership can be revoked after start: fail closed for resume, writes and finish.
+  const {data:currentSource,error:currentSourceError}=await admin.from("sources")
+   .select("metadata").eq("connector_key","awin").maybeSingle();
+  if(currentSourceError||!currentSource||!joinedInSource(currentSource.metadata,run.merchant_id))
+   return send({error:"Advertiser is no longer verified as joined"},403);
   if(action==="status"){
    const {data:session,error}=await admin.from("large_feed_import_sessions")
     .select("next_sequence,committed_count,review_count,excluded_count,completed_at,source_digest")
