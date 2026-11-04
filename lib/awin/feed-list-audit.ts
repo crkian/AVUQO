@@ -56,3 +56,10 @@ export function inspectAwinFeedList(content:string,joinedIds:ReadonlySet<string>
   warning:"Feed inventory inspected without downloading or saving credential-bearing URLs. Awin active status does not prove merchant publication permission.",
   tooledUpRule:"Tooled-Up: only feeds with underlying filenames beginning awinnew may be used. Feed display names and IDs alone do not prove filename compliance. Prefer full range once; do not union overlapping brand/category feeds without deduplication."};
 }
+
+/** Retailer notice 4 Nov 2026: obsolete Tooled-Up feeds were deleted.
+ * Apply to a verified underlying filename, NOT a feed display label/ID or signed URL.
+ */
+export function currentTooledUpFilename(filename:string):boolean{
+ return /^awinnew(?:_brand_[a-z0-9]+(?:-[a-z0-9]+)*|_cat_[a-z0-9]+(?:-[a-z0-9]+)*)?\\.txt(?:\\.gz)?$/i.test(filename);
+}
