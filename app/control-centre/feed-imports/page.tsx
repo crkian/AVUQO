@@ -27,6 +27,11 @@ export default async function FeedImportsPage() {
       <p style={{fontSize:12,margin:0,color:"#74677f"}}>Open the private Product Preview Gallery to inspect staged product cards across merchants and mobile layouts. No prices or images are published.</p>
       <Link href="/control-centre/product-previews" style={{fontWeight:850,color:"#5838b2"}}>Open Product Preview Gallery →</Link>
     </div>
+    <section style={{padding:20,background:"#f7f2ec",border:"1px solid #e9dfe5",borderRadius:17,display:"grid",gap:8}}>
+     <strong style={{fontSize:20}}>All 16 accepted Awin programmes</strong>
+     <p style={{fontSize:13,lineHeight:1.65,margin:0,color:"#6f6675"}}>Review every joined advertiser, including large feeds, products, services and programmes without recorded feed data. None is excluded from the source register because of size. Downloads and public offers still require independent checks.</p>
+     <Link href="/control-centre/awin-programmes" style={{display:"inline-flex",alignItems:"center",minHeight:44,fontWeight:850,color:"#6043a3"}}>Open full Awin programme register →</Link>
+    </section>
     <div style={{padding:18,border:'1px solid #e7dff0',background:'#faf7ff',borderRadius:14,display:'grid',gap:7}}><strong>Large Awin catalogue: Tooled-Up</strong><p style={{margin:0,fontSize:13,color:'#74677f'}}>Import the 84,284-product full-range feed in resumable batches with private brand and model information. This is separate from the 2,500-row standard importer.</p><Link href="/control-centre/large-feed-import" style={{fontWeight:800}}>Open Tooled-Up large-feed importer →</Link></div>
     <section id="next-merchant-feeds" style={{display:"grid",gap:13,padding:20,border:"1px solid #e7dfe9",borderRadius:18,background:"#faf8f3"}}>
       <div><p style={{margin:0,color:"#85666c",fontSize:11,fontWeight:850,letterSpacing:1.2}}>JOINED AWIN · NEXT PRIVATE IMPORTS</p>
