@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LogOut, Shield, Menu, X, Heart, ShoppingBasket } from "lucide-react";
+import { LogOut, Shield, Menu, X, Heart, ShoppingBasket, Store } from "lucide-react";
 import MegaNav from "./MegaNav";
 import MobileDock from "./MobileDock";
 import {DEFAULT_NAVIGATION,parseNavigation} from "../../lib/content/navigation";
