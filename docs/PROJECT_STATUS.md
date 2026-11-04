@@ -33,6 +33,8 @@ Current source registry misleadingly marks Awin active/sync enabled despite unco
 
 ## Awin advertiser onboarding and per-offer publishing (v0.3.0 candidate)
 
+The owner release SQL function terminator was corrected in follow-up PR #45 before migration. Runtime code was deployed in PR #44, but the live database remains unchanged until the corrected reviewed migration is applied and verified. No advertiser has been activated.
+
 **Release candidate version:** `0.3.0` (not deployed, pending CI and migration).
 
 An owner-only Awin advertiser workflow is prepared in `/control-centre/awin-advertisers`. It records private programme drafts and owner permission references, tests a small feed response without writing products, runs the existing ingestion pipeline only after rights and credential checks, reviews a fresh priced offer and releases or pauses **one offer at a time** with an independent private approval record and audit. The Awin pipeline is now held-first; public admission requires exact approval/price/timestamp/Score consistency. Matching SQL: `20261104112500_awin_offer_owner_release.sql`. **Candidate only until CI, deployed code SHA, migration and provider evidence/acceptance are verified.** No real Awin advertiser has been authorised or published, and the existing 4,588 staged rows remain private. Details: [Awin release runbook](./AWIN_ADVERTISER_ONBOARDING_RELEASE.md).
