@@ -22,7 +22,7 @@ export default function GeneralAwinImport(){
   if(!file||!merchant||!feedId)return;
   setBusy(true);setMessage("");setDiagnosis(null);
   try{
-   if(!/\\.(csv|tsv)(\\.gz)?$/i.test(file.name))throw Error("Unsupported extension: use CSV, TSV or gzip-compressed variants");
+   if(!/\.(csv|tsv)(\.gz)?$/i.test(file.name))throw Error("Unsupported extension: use CSV, TSV or gzip-compressed variants");
    if(file.size>250*1024*1024)throw Error("Source file exceeds the 250 MB limit");
    if(file.name.toLowerCase().endsWith(".gz")&&!("DecompressionStream" in window))throw Error("This browser cannot inspect compressed files");
    const iterator=awinDelimitedRows(file)[Symbol.asyncIterator]();
