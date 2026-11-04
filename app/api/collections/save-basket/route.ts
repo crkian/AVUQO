@@ -4,7 +4,6 @@ import { createAdminClient } from "../../../../lib/supabase/admin";
 import { isSameOriginWrite, parseBasketName } from "../../../../lib/collections/requests";
 import { isSafeSnapshot, safeProductUrl } from "../../../../lib/collections/planning";
 
-export const runtime="nodejs";
 
 export async function POST(request: Request) {
   if (!isSameOriginWrite(request)) return NextResponse.json({error:"Invalid request origin or content type."},{status:403});
