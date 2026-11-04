@@ -97,7 +97,7 @@ export default function Header() {
           <Link href="/categories">Categories</Link><Link href="/travel">Travel</Link>
           <Link href="/about">More</Link>
         </nav>}>
-          <MegaNav navigation={navigation} menuOpen={menuOpen} onNavigate={() => setMenuOpen(false)} />
+          <MegaNav navigation={navigation} menuOpen={menuOpen} ownerPreview={admin} onNavigate={() => setMenuOpen(false)} />
         </Suspense>
         <button className="mobile-menu-toggle" type="button" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="avuqo-primary-nav" onClick={() => setMenuOpen(open => !open)}>{menuOpen ? <X size={23}/> : <Menu size={23}/>}</button>
 
