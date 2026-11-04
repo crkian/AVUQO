@@ -1,5 +1,11 @@
 # AVUQO software changelog
 
+## [0.3.1] - Read-only Awin programme diagnostic (release candidate, not deployed)
+- Add a signed-in owner/admin-only, opt-in read-only GET of the joined publisher programmes from the official Awin API, returning bounded IDs and names without exposing credentials.
+- Highlight the first two pilot programmes, Cadbury Gifts Direct (ID 736) and Petlibro UK Affiliate Program (ID 77952), **only when returned by the live joined API**. A missing match is not described as an approval.
+- Add CI regression tests covering auth-before-token access, GET-only use, bounded output and absent database writes.
+- Vercel Preview is READY with Deployment Protection SSO; owner-session/API response acceptance remains required **before merging or deploying**. No source status, publication rights, Awin feed or product data is changed.
+
 ## [0.3.0] - Awin advertiser onboarding and manual release (database acceptance pending)
 - **Proposed follow-up PR #48:** Add an access-restricted, manually invoked read-only Awin publisher joined-programmes diagnostic under `/control-centre/awin`. Reports at most 100 programme IDs/names or a generic error; does not expose the token, import products or grant publishing rights. Not accepted for production until successful CI and authenticated preview/provider verification.
 - PR #45 corrects the SQL PL/pgSQL terminator in the unapplied owner-release migration; migration must pass final review and production checks before applying. No provider approvals or offers were activated by this correction.
