@@ -2,6 +2,9 @@
 export type RawRow=Record<string,string>;
 export type Format="awin-csv"|"google-retail";
 const ownPublisher="3135746";
+// Service and contract feeds require a separate rights, term, pricing and category adapter.
+const serviceAdvertisers=new Set(["3496","23296","25022","36276","37738","115559","118401","128157"]);
+const serviceFeeds=new Set(["97136","97090"]);
 const get=(r:RawRow,...keys:string[])=>keys.map(k=>(r[k]??"").trim()).find(Boolean)??"";
 const safeHttps=(value:string)=>{try{const u=new URL(value);return u.protocol==="https:"&&!u.username&&!u.password&&u.href.length<=2048?u.href:null;}catch{return null;}};
 function ownTracking(value:string,merchant:string){
@@ -43,6 +46,8 @@ export function prepareGeneralBatch(merchant:string,feedId:string,header:string[
   const tracking=get(r,"aw_deep_link"),verified=ownTracking(tracking,merchant);
   const availability=get(r,format==="google-retail"?"availability":"stock_status","in_stock");
   const reasons:string[]=[];
+  const serviceOrContract=serviceAdvertisers.has(merchant)||serviceFeeds.has(feedId);
+  if(serviceOrContract)reasons.push("service_contract_adapter_pending");
   if(!title)reasons.push("missing_title");
   if(!price)reasons.push("invalid_or_zero_price");
   if(currency!=="GBP")reasons.push("unexpected_currency");
@@ -69,6 +74,7 @@ export function prepareGeneralBatch(merchant:string,feedId:string,header:string[
     image_present:Boolean(image),source_image_rights_confirmed:false,
     canonical_category_approved:false,category_classification_status:"needs_review",
     permission_status:"unverified",price_observation_kind:"private_import",
+    listing_kind:serviceOrContract?"service_or_contract":"physical_product",
     product_type_hint:format==="google-retail"?"google-retail":"awin-general"
    }
   };

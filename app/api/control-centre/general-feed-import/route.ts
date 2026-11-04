@@ -15,6 +15,7 @@ export async function POST(request:NextRequest){
   if(roleError||!role||!["owner","admin"].includes(role.role))return send({error:"Owner/admin required"},403);
   if(Number(request.headers.get("content-length")||0)>2_500_000)return send({error:"Batch too large"},413);
   const body=await request.json() as Record<string,unknown>;
+  if(JSON.stringify(body).length>2_500_000)return send({error:"Request body too large"},413);
   const action=body.action;
   const admin=createAdminClient();
   if(action==="start"){
@@ -24,7 +25,7 @@ export async function POST(request:NextRequest){
    const filename=String(body.filename??"");
    const digest=String(body.source_digest??"");
    const bytes=Number(body.file_size??0);
-   if(!merchantName||!/^[A-Za-z0-9_-]{1,30}$/.test(feedId)||!/^.{1,230}\.csv(?:\.gz)?$/i.test(filename)
+   if(!merchantName||!/^[A-Za-z0-9_-]{1,30}$/.test(feedId)||!/^.{1,230}\.(?:csv|tsv)(?:\.gz)?$/i.test(filename)
        ||!/^[a-f0-9]{64}$/.test(digest)||!Number.isSafeInteger(bytes)||bytes<1||bytes>250*1024*1024)
     return send({error:"Invalid advertiser, feed identifier or compressed/uncompressed CSV file"},400);
    const {data:source,error:sourceError}=await admin.from("sources").select("metadata")
@@ -53,6 +54,11 @@ export async function POST(request:NextRequest){
    .eq("id",runId).maybeSingle();
   if(runError||!run||run.created_by!==user.id||!joinedName(run.merchant_id)||run.permission_status!=="unverified"||!/^GENAWIN__[A-Za-z0-9_-]{1,30}__/.test(run.filename))
    return send({error:"Private import not found"},404);
+  // Membership can be revoked after start: fail closed for resume, writes and finish.
+  const {data:currentSource,error:currentSourceError}=await admin.from("sources")
+   .select("metadata").eq("connector_key","awin").maybeSingle();
+  if(currentSourceError||!currentSource||!joinedInSource(currentSource.metadata,run.merchant_id))
+   return send({error:"Advertiser is no longer verified as joined"},403);
   if(action==="status"){
    const {data:session,error}=await admin.from("large_feed_import_sessions")
     .select("next_sequence,committed_count,review_count,excluded_count,completed_at,source_digest")
