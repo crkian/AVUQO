@@ -1,5 +1,7 @@
 # AVUQO living project status
 
+**Proposed owner-only customer storefront rehearsal (PR #52, not deployed):** `/preview/products` reuses customer catalogue styling and read-only staged feed rows while requiring Control Centre owner/admin authorisation. It hides merchant images, labels staged prices as historical, disables buying links, and does not publish offers or enable scheduled Awin ingestion. Browser, mobile and role-denial acceptance remain open. Current software version stays `0.3.0`.
+
 **Purpose:** The single GitHub starting point for AVUQO project work across chats, contributors and tools. GitHub `main` is the authority for deployed code. Private business data and API credentials never go here.
 
 **Awin 16-programme intake, 4 Nov 2026:** User-reported signed-in v0.3.1 Preview diagnostic returned 16 joined programme IDs including Cadbury `736`, Petlibro `77952` and Craft Buddy `45747`. All 16 registered in the private, **paused and unapproved** Awin source; no provider approvals, rights expiry or publication added. Supabase still shows 0 Awin sync runs, 0 Awin offer releases and 0 public Awin offers. See [programme queue](./AWIN_JOINED_PROGRAMMES_2026-11-04.md). PR #48 diagnostic remains a draft pending signed-out/non-admin acceptance. The existing single-advertiser connector does **not** simultaneously support 16 feeds.
