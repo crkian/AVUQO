@@ -34,6 +34,7 @@ export default function PlanningCollectionPage({ kind }: { kind: PlanningCollect
   const [pending, setPending] = useState(false);
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
+  const [savedCopyHref, setSavedCopyHref] = useState<string | null>(null);
   const collection = COLLECTIONS[kind];
   const displays = items.map(itemDisplay);
 
@@ -71,24 +72,22 @@ export default function PlanningCollectionPage({ kind }: { kind: PlanningCollect
   async function saveBundle(event: FormEvent) {
     event.preventDefault();
     if (kind !== "basket" || !list || pending || name.trim().length < 3 || name.trim().length > 80 || !items.length) return;
-    setPending(true); setMessage("");
+    setPending(true); setMessage(""); setSavedCopyHref(null);
     try {
-      const {data: auth} = await db.auth.getUser();
-      if (!auth.user) throw new Error("Sign in required");
-      const {data: created,error: createError} = await db.from("shared_lists")
-        .insert({owner_id:auth.user.id,name:name.trim(),description:"Saved copy of my AVUQO comparison basket. Prices are historical snapshots.",list_type:"standard",visibility:"private"})
-        .select("id").single();
-      if (createError || !created) throw createError ?? new Error("Creation failed");
-      const data = items.map(item => ({
-        list_id: created.id, added_by: auth.user!.id, item_key:item.item_key,
-        title_override:item.title_override, url:itemDisplay(item).url, snapshot:item.snapshot,
-      }));
-      const {error: itemsError} = await db.from("shared_list_items").insert(data);
-      if (itemsError) {
-        await db.from("shared_lists").delete().eq("id", created.id).eq("owner_id", auth.user.id);
-        throw itemsError;
+      // The server reads the authenticated account's basket. Browser-edited item
+      // lists, merchant names and price snapshots are never accepted as inputs.
+      const response=await fetch("/api/collections/save-basket",{
+        method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({name:name.trim()})
+      });
+      const result=await response.json().catch(()=>({})) as {ok?:boolean;listId?:string;error?:string};
+      if (!response.ok || !result.ok || !result.listId) {
+        setMessage(result.error??"Could not save the whole basket.");
+        return;
       }
-      setName(""); setMessage("Saved as a private named list. View it under Lists.");
+      setName("");
+      setSavedCopyHref(`/lists/${result.listId}`);
+      setMessage("Saved a private named copy.");
     } catch { setMessage("Could not save the whole basket. Please try again."); }
     finally { setPending(false); }
   }
@@ -127,7 +126,7 @@ export default function PlanningCollectionPage({ kind }: { kind: PlanningCollect
             <form className={styles.saveForm} onSubmit={saveBundle}><label htmlFor="bundle-name">Save this basket as one named list</label><div><input id="bundle-name" required minLength={3} maxLength={80} value={name} onChange={e=>setName(e.target.value)} placeholder="e.g. Home office upgrade"/><button disabled={pending} type="submit"><FolderPlus size={17}/> Save group</button></div></form>
           </div>}
         </>}
-      {message && <p className={styles.notice} role="status">{message}</p>}
+      {message && <p className={styles.notice} role="status">{message} {savedCopyHref && <Link href={savedCopyHref}>Open saved list</Link>}</p>}
     </section><Footer/>
   </main>;
 }
