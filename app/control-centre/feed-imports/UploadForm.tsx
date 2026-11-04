@@ -15,7 +15,7 @@ export default function UploadForm() {
     } catch (error) { setMessage(error instanceof Error ? error.message : 'Upload error'); }
     finally { setBusy(false); }
   }
-  return <form action={upload} style={{ display: 'grid', gap: 12, padding: 20, background: 'white', borderRadius: 16 }}>
+  return <form id="standard-awin-upload" action={upload} style={{ display: 'grid', gap: 12, padding: 20, background: 'white', borderRadius: 16 }}>
     <label htmlFor="awin-advertiser"><strong>Joined Awin advertiser</strong></label>
     <select id="awin-advertiser" name="advertiser_id" required disabled={busy} defaultValue="" style={{ padding: 11, borderRadius: 9, border: '1px solid #dedce9' }}>
       <option value="" disabled>Choose the exact advertiser for this feed</option>

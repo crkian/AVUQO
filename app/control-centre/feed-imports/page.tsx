@@ -28,6 +28,25 @@ export default async function FeedImportsPage() {
       <Link href="/control-centre/product-previews" style={{fontWeight:850,color:"#5838b2"}}>Open Product Preview Gallery →</Link>
     </div>
     <div style={{padding:18,border:'1px solid #e7dff0',background:'#faf7ff',borderRadius:14,display:'grid',gap:7}}><strong>Large Awin catalogue: Tooled-Up</strong><p style={{margin:0,fontSize:13,color:'#74677f'}}>Import the 84,284-product full-range feed in resumable batches with private brand and model information. This is separate from the 2,500-row standard importer.</p><Link href="/control-centre/large-feed-import" style={{fontWeight:800}}>Open Tooled-Up large-feed importer →</Link></div>
+    <section id="next-merchant-feeds" style={{display:"grid",gap:13,padding:20,border:"1px solid #e7dfe9",borderRadius:18,background:"#faf8f3"}}>
+      <div><p style={{margin:0,color:"#85666c",fontSize:11,fontWeight:850,letterSpacing:1.2}}>JOINED AWIN · NEXT PRIVATE IMPORTS</p>
+       <h2 style={{fontSize:23,letterSpacing:"-.035em",margin:"8px 0"}}>More real product feeds to add</h2>
+       <p style={{fontSize:13,lineHeight:1.7,margin:0,color:"#726975"}}>Verified from the 4 November 2026 active feed inventory. These are source feed listings, not approved public products. Download the relevant CSV securely from your Awin publisher account, then import with the exact advertiser selected below.</p></div>
+      <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(min(100%,235px),1fr))",gap:12}}>
+        {[
+          {id:"31539",name:"Mozillion",feed:"74135",label:"SIM-free phones",count:224},
+          {id:"37738",name:"1pMobile",feed:"81201",label:"Mobile plans",count:10},
+          {id:"118401",name:"Compare Parking Prices UK",feed:"109353",label:"Parking comparison",count:60},
+          {id:"128157",name:"Lyca Mobile UK",feed:"116573",label:"Mobile plans",count:10},
+          {id:"31539",name:"Mozillion",feed:"97136",label:"SIM-only plans",count:33},
+          {id:"77952",name:"Petlibro UK",feed:"119009",label:"New hero SKU feed",count:19}
+        ].map(item=><article key={item.feed} style={{display:"grid",alignContent:"space-between",gap:9,background:"#fff",padding:16,border:"1px solid #eae4e8",borderRadius:14}}>
+         <div style={{display:"grid",gap:6}}><strong style={{fontSize:15}}>{item.name}</strong><span style={{color:"#756b79",fontSize:12}}>{item.label}</span><span style={{fontSize:12}}>Awin advertiser {item.id} · feed {item.feed}</span><span style={{fontWeight:800,fontSize:13}}>{item.count.toLocaleString("en-GB")} listed products</span></div>
+         <Link href="#standard-awin-upload" style={{display:"inline-flex",alignItems:"center",minHeight:44,fontSize:12,fontWeight:850,color:"#6043a3"}}>Stage downloaded CSV privately →</Link>
+        </article>)}
+      </div>
+      <p style={{margin:0,fontSize:12,lineHeight:1.6,color:"#766d78"}}>Large feeds need the scalable pipeline before import: Tyres UK feed 93988 (31,354 rows), Tyres Pneus Online UK feed 26513 (20,034 rows), and Mozillion pay-monthly feed 97090 (7,729 rows). Do not upload these into the 2,500-row importer. No source credentials, signed download URLs or image rights are stored here.</p>
+    </section>
     <UploadForm />
     {error && <p role="alert">Import history unavailable: {error.message}</p>}
     <section><h2 style={{ marginBottom: 12 }}>Import history</h2><div style={{ overflowX: 'auto', border: '1px solid #e3e2eb', borderRadius: 12, background: 'white' }}><table style={{ borderCollapse: 'collapse', width: '100%', minWidth: 680, fontSize: 14 }}><thead><tr>{['Date','Merchant','Received','Review','Excluded','Rights'].map(x => <th key={x} style={{ padding: 14, borderBottom: '1px solid #eee', textAlign: 'left', background: '#f7f6fb' }}>{x}</th>)}</tr></thead><tbody>{runs?.map(run => <tr key={run.id}><td style={{ padding: 12, borderBottom: '1px solid #eee' }}>{new Date(run.created_at).toLocaleString('en-GB')}</td><td style={{ padding: 12, borderBottom: '1px solid #eee' }}>{run.merchant_name}</td><td style={{ padding: 12, borderBottom: '1px solid #eee' }}>{run.total_count}</td><td style={{ padding: 12, borderBottom: '1px solid #eee' }}>{run.review_count}</td><td style={{ padding: 12, borderBottom: '1px solid #eee' }}>{run.excluded_count}</td><td style={{ padding: 12, borderBottom: '1px solid #eee' }}>{run.permission_status}</td></tr>)}</tbody></table></div></section>
