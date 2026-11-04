@@ -42,6 +42,7 @@ export default async function ProductPreviews({
    <p className={styles.kicker}>Sources &amp; Value / Private design testing</p>
    <h1>Product preview gallery</h1>
    <p>See how real staged import records would fit AVUQO&apos;s product cards. These are presentation tests only, not offers, verified prices, approved imagery or public catalogue pages.</p>
+   <p><Link href="/preview/products" style={{display:"inline-flex",padding:"12px 18px",borderRadius:12,background:"#60448d",color:"#fff",fontWeight:850,textDecoration:"none"}}>View these products in the customer storefront style →</Link></p>
    <div className={styles.warning}><strong>PRIVATE PREVIEW · NEVER PUBLISHED</strong>
     <span>All images use placeholders because merchant image rights have not been verified. Prices below are labelled as staged feed values, not live prices. Compare buttons, affiliate links, checkout and publishing are disabled.</span></div>
   </div>
