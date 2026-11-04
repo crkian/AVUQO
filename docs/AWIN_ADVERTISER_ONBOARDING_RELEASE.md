@@ -1,5 +1,7 @@
 # Awin advertiser onboarding and owner-approved publication
 
+**Current 16-programme intake:** [owner-observed joined programme queue, requirements and acceptance](./AWIN_JOINED_PROGRAMMES_2026-11-04.md). Do not apply one source-wide licence to all sixteen, and do not assume this single-ID connector can ingest them in parallel.
+
 **Current pilot register:** [Cadbury and Petlibro, 4 November 2026](./AWIN_CADBURY_PETLIBRO_PILOTS_2026-11-04.md). Both are private, paused, unapproved, with no public offers. The owner release SQL migration is applied after PR #45, and the release tables remain empty. The connector currently supports one configured advertiser ID at a time.
 
 **4 November 2026 original baseline:** The Awin source is paused and not credential-ready in Supabase. Historical Awin uploads contain 4,588 private, unverified rows across five uploads. A Vercel API token and publisher ID do **not** prove permission to publish any merchant. The advertiser environment variable was not present at the previous check.

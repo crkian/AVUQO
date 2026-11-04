@@ -1,5 +1,7 @@
 # First Awin advertiser pilots: Cadbury and Petlibro
 
+**Expanded joined programme register:** [all 16, including the next staged Craft Buddy](./AWIN_JOINED_PROGRAMMES_2026-11-04.md). Owner's signed-in read-only Awin diagnostic subsequently reported both Cadbury `736` and Petlibro `77952` as joined, confirming the precise IDs against the provider response on 4 November. This confirms membership but **not** data/image republication rights.
+
 **Recorded 4 November 2026.** This is an evidence-led onboarding register, not permission to publish.
 
 | Advertiser | Awin ID from private import | Private feed rows | Review | Explicit programme approval | Publication |
