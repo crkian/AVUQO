@@ -59,7 +59,8 @@ export function releaseIssues(input:ReleaseCheck):string[]{
  const confidence=Number(input.offer.match_confidence);
  if(!Number.isFinite(confidence)||confidence<(confidence>1?85:0.85))result.push("Product identity confidence too low");
  if(!["in_stock","low_stock"].includes(input.offer.stock_status))result.push("Stock is not affirmatively available");
- const url=input.offer.affiliate_url||input.offer.source_url;
+ const url=input.offer.affiliate_url;
+ if(!url)result.push("Approved Awin tracking link required");
  try{const u=new URL(url??"");if(u.protocol!=="https:"||u.username||u.password||u.hostname.length<4)result.push("No safe merchant destination");}catch{result.push("No valid merchant destination");}
  const now=input.now??Date.now(),checked=Date.parse(input.offer.last_seen_at),scored=Date.parse(input.score.calculated_at);
  if(!Number.isFinite(checked)||checked>now+300000||now-checked>48*3600000)result.push("Offer evidence stale or invalid");
