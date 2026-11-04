@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
-import Link from "next/link";
 import { Heart, ShoppingBasket, Trash2, Mail, Copy, FolderPlus } from "lucide-react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
@@ -35,6 +34,7 @@ export default function PlanningCollectionPage({ kind }: { kind: PlanningCollect
   const [pending, setPending] = useState(false);
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
+  const [savedCopyHref, setSavedCopyHref] = useState<string | null>(null);
   const collection = COLLECTIONS[kind];
   const displays = items.map(itemDisplay);
 
@@ -72,7 +72,7 @@ export default function PlanningCollectionPage({ kind }: { kind: PlanningCollect
   async function saveBundle(event: FormEvent) {
     event.preventDefault();
     if (kind !== "basket" || !list || pending || name.trim().length < 3 || name.trim().length > 80 || !items.length) return;
-    setPending(true); setMessage("");
+    setPending(true); setMessage(""); setSavedCopyHref(null);
     try {
       // The server reads the authenticated account's basket. Browser-edited item
       // lists, merchant names and price snapshots are never accepted as inputs.
@@ -86,7 +86,8 @@ export default function PlanningCollectionPage({ kind }: { kind: PlanningCollect
         return;
       }
       setName("");
-      setMessage("Saved a private named copy. Open it from your Lists page.");
+      setSavedCopyHref(`/lists/${result.listId}`);
+      setMessage("Saved a private named copy.");
     } catch { setMessage("Could not save the whole basket. Please try again."); }
     finally { setPending(false); }
   }
@@ -125,7 +126,7 @@ export default function PlanningCollectionPage({ kind }: { kind: PlanningCollect
             <form className={styles.saveForm} onSubmit={saveBundle}><label htmlFor="bundle-name">Save this basket as one named list</label><div><input id="bundle-name" required minLength={3} maxLength={80} value={name} onChange={e=>setName(e.target.value)} placeholder="e.g. Home office upgrade"/><button disabled={pending} type="submit"><FolderPlus size={17}/> Save group</button></div></form>
           </div>}
         </>}
-      {message && <p className={styles.notice} role="status">{message}</p>}
+      {message && <p className={styles.notice} role="status">{message} {savedCopyHref && <Link href={savedCopyHref}>Open saved list</Link>}</p>}
     </section><Footer/>
   </main>;
 }
