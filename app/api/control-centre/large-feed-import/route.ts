@@ -24,6 +24,8 @@ export async function POST(req:NextRequest){
   if(action==="start"){
    const filename=String(body.filename??"");
    const bytes=Number(body.file_size??0);
+   const sourceDigest=String(body.source_digest??'');
+   if(!/^[a-f0-9]{64}$/.test(sourceDigest))return send({error:'Compressed-file SHA256 is required'},400);
    if(!/^496-89987-en_GB-All_Products(?: \(\d+\))?\.csv\.gz$/i.test(filename))
     return send({error:"Select the Tooled-Up Awin All Products CSV.GZ (feed 89987)"},400);
    if(!Number.isSafeInteger(bytes)||bytes<1||bytes>150*1024*1024)
@@ -37,7 +39,7 @@ export async function POST(req:NextRequest){
     status:"importing",permission_status:"unverified"
    }).select("id").single();
    if(runError||!run)throw Error("Could not start private import: "+(runError?.message??"missing run"));
-   const {error:sessionError}=await admin.from("large_feed_import_sessions").insert({import_id:run.id});
+   const {error:sessionError}=await admin.from("large_feed_import_sessions").insert({import_id:run.id,source_digest:sourceDigest});
    if(sessionError){
     await admin.from("feed_import_runs").delete().eq("id",run.id);
     throw Error("Import session not ready: "+sessionError.message);
@@ -52,7 +54,7 @@ export async function POST(req:NextRequest){
    return send({error:"Tooled-Up import not found for this owner"},404);
   if(action==="status"){
    const {data:session,error}=await admin.from("large_feed_import_sessions")
-    .select("next_sequence,committed_count,review_count,excluded_count,completed_at")
+    .select("next_sequence,committed_count,review_count,excluded_count,completed_at,source_digest")
     .eq("import_id",runId).single();
    if(error||!session)return send({error:"Import session unavailable"},404);
    return send({status:run.status,...session});
