@@ -42,7 +42,7 @@ export default async function Page(){
    </table>
    {records.length===0&&<p style={{padding:16,color:"#655c70"}}>No automatic feed checks have been recorded. The current Awin source remains paused.</p>}
   </div>
-  <p style={{fontSize:13,color:"#736b7d"}}>Only metadata from Awin's feed list is stored. Signed download URLs and API keys are never returned by this screen. A marked update is not an import and does not withdraw or publish any product.</p>
+  <p style={{fontSize:13,color:"#736b7d"}}>Only metadata from Awin&apos;s feed list is stored. Signed download URLs and API keys are never returned by this screen. A marked update is not an import and does not withdraw or publish any product.</p>
   <Link href="/control-centre/feed-imports">Review private product imports</Link>
  </main>;
 }
