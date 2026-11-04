@@ -18,7 +18,7 @@ test("diagnostic is Awin's read-only joined programme endpoint and cannot publis
   assert.match(route, /\/programmes\?relationship=joined/);
   assert.match(route, /cache: "no-store"/);
   assert.match(route, /AbortSignal\.timeout\(8000\)/);
-  assert.match(route, /method: "POST"|method: "PUT"|\.from\("|\.rpc\(|\.insert\(|\.update\(/, "assertion placeholder");
+  assert.doesNotMatch(route, /method: "POST"|method: "PUT"|\.from\("|\.rpc\(|\.insert\(|\.update\(/);
 });
 
 
