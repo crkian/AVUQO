@@ -25,7 +25,7 @@ export async function POST(request:NextRequest){
    const filename=String(body.filename??"");
    const digest=String(body.source_digest??"");
    const bytes=Number(body.file_size??0);
-   if(!merchantName||!/^[A-Za-z0-9_-]{1,30}$/.test(feedId)||!/^.{1,230}\.csv(?:\.gz)?$/i.test(filename)
+   if(!merchantName||!/^[A-Za-z0-9_-]{1,30}$/.test(feedId)||!/^.{1,230}\.(?:csv|tsv)(?:\.gz)?$/i.test(filename)
        ||!/^[a-f0-9]{64}$/.test(digest)||!Number.isSafeInteger(bytes)||bytes<1||bytes>250*1024*1024)
     return send({error:"Invalid advertiser, feed identifier or compressed/uncompressed CSV file"},400);
    const {data:source,error:sourceError}=await admin.from("sources").select("metadata")
