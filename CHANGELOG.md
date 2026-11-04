@@ -1,5 +1,6 @@
 # AVUQO software changelog
 
+- **Unreleased Tooled-Up catalogue discovery:** Server-side 84,284-row private brand, tool department, keyword and EAN search with actual merchant category paths, 48-row pagination and historical-price sorting. Exact merchant-host images are private opt-in only. RLS-preserving RPCs and indexes; no public rights or feed activation.\n
 - **Unreleased private large-feed importer:** Resumable owner-only Tooled-Up 84k-product CSV.GZ staging with streamed decompression, 250-record atomic chunks, immutable file fingerprint, explicit retailer brand/manufacturer-source distinction and model/GTIN/EAN/MPN metadata. No automatic Awin fetch, public offers or images, and no guessed manufacturer legal identity. Requires accompanying SQL migration.
 
 - **Unreleased private category product pages:** Premium owner-only individual product detail pages with category-tailored attributes and review prompts; no public affiliate URLs, image licence assumptions, or live price claims.
