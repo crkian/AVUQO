@@ -5,8 +5,6 @@ import {createAdminClient} from "../../../../lib/supabase/admin";
 import {joinedInSource} from "../../../../lib/awin/joined-catalogue";
 import {MAX_CHUNK_ROWS,prepareTooledUpBatch} from "../../../../lib/feed-imports/tooled-up-large";
 
-export const runtime="nodejs";
-export const maxDuration=60;
 const send=(body:unknown,status=200)=>NextResponse.json(body,{status,headers:{"Cache-Control":"private, no-store"}});
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 export async function POST(req:NextRequest){
