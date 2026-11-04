@@ -36,7 +36,7 @@ export async function POST(request:NextRequest){
    // only with explicit row-by-row advertiser IDs and manual feed ID review.
    const {data:run,error}=await admin.from("feed_import_runs").insert({
     created_by:user.id,merchant_id:merchant,merchant_name:merchantName,
-    filename:filename.slice(0,255),status:"importing",permission_status:"unverified",
+    filename:("GENAWIN__"+feedId+"__"+filename).slice(0,255),status:"importing",permission_status:"unverified",
     total_count:0,review_count:0,excluded_count:0
    }).select("id").single();
    if(error||!run)return send({error:"Could not create private import"},503);
@@ -51,19 +51,20 @@ export async function POST(request:NextRequest){
   const {data:run,error:runError}=await admin.from("feed_import_runs")
    .select("id,created_by,status,merchant_id,filename,permission_status")
    .eq("id",runId).maybeSingle();
-  if(runError||!run||run.created_by!==user.id||!joinedName(run.merchant_id)||run.permission_status!=="unverified")
+  if(runError||!run||run.created_by!==user.id||!joinedName(run.merchant_id)||run.permission_status!=="unverified"||!/^GENAWIN__[A-Za-z0-9_-]{1,30}__/.test(run.filename))
    return send({error:"Private import not found"},404);
   if(action==="status"){
    const {data:session,error}=await admin.from("large_feed_import_sessions")
     .select("next_sequence,committed_count,review_count,excluded_count,completed_at,source_digest")
     .eq("import_id",runId).single();
    if(error||!session)return send({error:"Session unavailable"},404);
-   return send({status:run.status,advertiser_id:run.merchant_id,...session});
+   return send({status:run.status,advertiser_id:run.merchant_id,feed_id:run.filename.split("__")[1],...session});
   }
   if(action==="chunk"){
    if(run.status!=="importing")return send({error:"Import already closed"},409);
    const headers=body.headers,rows=body.rows,sequence=Number(body.sequence);
    const feedId=String(body.feed_id??"");
+   if(run.filename.split("__")[1]!==feedId)return send({error:"Feed identifier does not match session"},409);
    if(!Number.isSafeInteger(sequence)||sequence<0||!Array.isArray(headers)||!Array.isArray(rows)
       ||rows.length<1||rows.length>250||headers.some(v=>typeof v!=="string"||v.length>120)
       ||rows.some(r=>!Array.isArray(r)||r.some(v=>typeof v!=="string"||v.length>10000)))
