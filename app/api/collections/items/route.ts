@@ -5,7 +5,6 @@ import { safeProductUrl } from "../../../../lib/collections/planning";
 import { createClient } from "../../../../lib/supabase/server";
 import { createAdminClient } from "../../../../lib/supabase/admin";
 
-export const runtime = "nodejs";
 
 /** An account-scoped server save. Direct client inserts into planning lists are blocked by RLS. */
 export async function POST(request: Request) {
