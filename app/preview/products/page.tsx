@@ -55,7 +55,7 @@ export default async function OwnerStorefrontPreview({searchParams}:Props){
    <p className={catalogue.kicker}>AVUQO · Product display rehearsal</p>
    <h1>Explore products. <span>See how the shop will feel.</span></h1>
    <p>These cards use products from the private imported feed records, displayed in the same visual language as AVUQO&apos;s customer catalogue. Values are historical staged data, not current live deals.</p>
-   <Link href="/control-centre/product-previews" className={styles.return}><ArrowLeft size={16}/> Back to private review</Link>
+   <Link href="/preview/storefront" className={styles.return}><ArrowLeft size={16}/> Private shop homepage</Link>
   </div></section>
   <section className={`shell ${catalogue.section}`}>
    <nav className={styles.merchantBrowse} aria-label="Browse all staged products by retailer">
