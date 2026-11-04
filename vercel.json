@@ -3,6 +3,10 @@
     {
       "path": "/api/internal/marketing",
       "schedule": "0 9 * * *"
+    },
+    {
+      "path": "/api/internal/awin-feed-check",
+      "schedule": "17 6 * * *"
     }
   ]
 }
