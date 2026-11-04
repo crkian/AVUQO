@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '../../../../lib/supabase/server';
 import { parseAwinFeed, parseCraftBuddyGoogleFeed } from '../../../../lib/feed-imports/parse';
+import { suggestedDepartment } from '../../../../lib/feed-imports/preview-departments';
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,7 +24,18 @@ export async function POST(request: NextRequest) {
     const { data: run, error: runError } = await supabase.from('feed_import_runs').insert({ created_by: user.id, merchant_id: merchantId, merchant_name: merchantName, filename: file.name.slice(0,255), total_count: total, review_count: review, excluded_count: excluded, status: 'private_review', permission_status: 'unverified' }).select('id').single();
     if (runError || !run) throw new Error(runError?.message || 'Could not create import run');
     for (let i = 0; i < records.length; i += 200) {
-      const batch = records.slice(i, i + 200).map(r => ({ import_id: run.id, ...r }));
+      const batch = records.slice(i, i + 200).map(r => {
+        // Never overwrite the original merchant category. Store a provisional
+        // classification for owner review; canonical taxonomy IDs remain gated.
+        const proposed = suggestedDepartment(merchantName, r.title, r.category);
+        return { import_id: run.id, ...r, metadata: {
+          ...r.metadata, category_candidate: proposed,
+          category_classification_status: proposed === 'Needs classification' ? 'needs_review' : 'suggested',
+          category_classification_source: 'merchant_category_and_title_rules_v1',
+          source_merchant_category: r.category || null,
+          canonical_category_approved: false
+        } };
+      });
       const { error } = await supabase.from('feed_import_records').insert(batch);
       if (error) {
         await supabase.from('feed_import_records').delete().eq('import_id', run.id);

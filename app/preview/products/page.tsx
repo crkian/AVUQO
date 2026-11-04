@@ -66,7 +66,8 @@ export default async function OwnerStorefrontPreview({searchParams}:Props){
    {merchant&&selected.length>0&&<p className={styles.pageStatus}>Showing private review candidates from {selected[0].merchant_name}. Page {currentPage} of {Math.max(1,Math.ceil(groups[0].count/pageSize))}. Filters and comparison apply to the products displayed on this page.</p>}
    <PremiumDiscovery items={cards.map(({product,run})=>({
     id:product.id,title:product.title,merchant:run.merchant_name,
-    brand:product.brand,rawCategory:product.category,price:product.price,currency:product.currency
+    brand:product.brand,rawCategory:product.category,price:product.price,currency:product.currency,
+    imageUrl:product.image_url
    }))}/>
    {merchant&&selected.length>0&&groups[0].count>pageSize&&<nav className={styles.pagination} aria-label="Private product catalogue pages">
     {currentPage>1?<Link href={`/preview/products?merchant=${encodeURIComponent(merchant)}&page=${currentPage-1}`}>← Previous page</Link>:<span>First page</span>}
