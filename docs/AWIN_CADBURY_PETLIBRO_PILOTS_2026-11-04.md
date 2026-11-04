@@ -7,7 +7,7 @@
 | Cadbury Gifts Direct | `736` | 1,371 | All 1,371 pending | **Unverified** | **Disabled** |
 | Petlibro UK Affiliate Program | `77952` | 98 (49 review, 49 excluded) | 49 pending, 49 excluded | **Unverified** | **Disabled** |
 
-Both programme IDs originated in the historical private Awin feed import runs of 28 October, **not** a fresh authenticated joined-programmes check. They are preserved as unverified IDs to reconfirm in Awin.
+Both programme IDs originated in the historical private Awin feed import runs of 28 October. **New 4 November owner screenshots:** both programme names were visible in Awin's **Your Advertisers → Active** directory, each with **Product Feed = Yes** and green **Link Status**. These are useful programme-membership/feed-listing observations, but the screenshots did **not** display numeric advertiser IDs or the contractual feed/image/price republication terms; retain ID confirmation and rights checks. The directory does not itself authorise publishing.
 
 ## Recorded private state
 - Both programmes were added to `sources.metadata.awin_advertisers` as paused drafts, with `feed_permission_confirmed=false`, empty approval references and expiry dates, `import_advertiser_id_unverified=true`. The source remains `status=paused`, `sync_enabled=false`, `credential_status=not_configured`, and publication/price evidence remains pending.
