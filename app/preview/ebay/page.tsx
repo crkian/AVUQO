@@ -8,6 +8,7 @@ import {requireControlCentreAccess} from "../../../lib/auth/requireControlCentre
 import {ebayUkPrivateSearch} from "../../../lib/ebay/private-uk-browse";
 import EbayPrivateImages from "./EbayPrivateImages";
 import styles from "./ebay-private.module.css";
+export const instant=false;
 export const metadata:Metadata={title:"eBay UK private product pilot | AVUQO",robots:{index:false,follow:false}};
 export default async function Page({searchParams}:{searchParams:Promise<{q?:string}>}){
  await connection();
