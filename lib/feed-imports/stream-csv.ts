@@ -1,7 +1,7 @@
 /** Incremental CSV parser for giant Awin feeds, including quoted
  * newlines, escaped quotes spanning stream chunks and CRLF separators.
  */
-export async function* csvRowsFromChunks(chunks:AsyncIterable<string>):AsyncGenerator<string[]>{
+export async function* csvRowsFromChunks(chunks:AsyncIterable<string>,delimiter="," ):AsyncGenerator<string[]>{
  let cells:string[]=[],field="",quoted=false,quotePending=false,justClosed=false,atStart=true;
  for await(const chunk of chunks){
   for(let i=0;i<chunk.length;i++){
@@ -20,7 +20,7 @@ export async function* csvRowsFromChunks(chunks:AsyncIterable<string>):AsyncGene
     }
    }
    if(c==='"'&&field===""&&!justClosed)quoted=true;
-   else if(c===','){cells.push(field);field="";justClosed=false;}
+   else if(c===delimiter){cells.push(field);field="";justClosed=false;}
    else if(c==='\n'){
     cells.push(field.endsWith("\r")?field.slice(0,-1):field);
     if(cells.some(x=>x.length))yield cells;
@@ -44,4 +44,19 @@ export async function* gzipCsvRows(file:File){
   finally{reader.releaseLock();}
  }
  yield* csvRowsFromChunks(chunks());
+}
+
+/** Stream Awin comma/tab delimited text, optionally gzip-compressed, without whole-file decompression. */
+export async function* awinDelimitedRows(file:File){
+ const lower=file.name.toLowerCase();
+ if(!/\.(csv|tsv)(\.gz)?$/.test(lower))throw Error("Use CSV, TSV, CSV.GZ or TSV.GZ");
+ const delimiter=lower.includes(".tsv")?"\t":",";
+ const source=file.stream();
+ const bytes=lower.endsWith(".gz")?source.pipeThrough(new DecompressionStream("gzip")):source;
+ const reader=bytes.pipeThrough(new TextDecoderStream()).getReader();
+ async function* textChunks(){
+  try{for(;;){const {done,value}=await reader.read();if(done)break;yield value;}}
+  finally{reader.releaseLock();}
+ }
+ yield* csvRowsFromChunks(textChunks(),delimiter);
 }
