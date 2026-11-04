@@ -13,9 +13,9 @@ export default async function FeedImportsPage() {
   if (!role || !['admin', 'owner'].includes(role.role)) return <main><h1>Access denied</h1></main>;
 
   const { data: runs, error } = await supabase.from('feed_import_runs')
-    .select('id,created_at,filename,merchant_name,total_count,review_count,excluded_count,permission_status')
+    .select('id,created_at,filename,merchant_name,total_count,review_count,excluded_count,permission_status,status')
     .order('created_at', { ascending: false }).limit(10);
-  const latest = runs?.[0];
+  const latest = runs?.find(run => run.status === 'private_review');
   // Pilot limit is 2500 records; paginate at the API/db layer when this is expanded.
   const { data: records, error: recordsError } = latest ? await supabase.from('feed_import_records')
     .select('id,title,price,currency,status,reasons,merchant_product_id,brand,category,review_decision,review_notes,image_url')
@@ -27,6 +27,7 @@ export default async function FeedImportsPage() {
       <p style={{fontSize:12,margin:0,color:"#74677f"}}>Open the private Product Preview Gallery to inspect staged product cards across merchants and mobile layouts. No prices or images are published.</p>
       <Link href="/control-centre/product-previews" style={{fontWeight:850,color:"#5838b2"}}>Open Product Preview Gallery →</Link>
     </div>
+    <div style={{padding:18,border:'1px solid #e7dff0',background:'#faf7ff',borderRadius:14,display:'grid',gap:7}}><strong>Large Awin catalogue: Tooled-Up</strong><p style={{margin:0,fontSize:13,color:'#74677f'}}>Import the 84,284-product full-range feed in resumable batches with private brand and model information. This is separate from the 2,500-row standard importer.</p><Link href="/control-centre/large-feed-import" style={{fontWeight:800}}>Open Tooled-Up large-feed importer →</Link></div>
     <UploadForm />
     {error && <p role="alert">Import history unavailable: {error.message}</p>}
     <section><h2 style={{ marginBottom: 12 }}>Import history</h2><div style={{ overflowX: 'auto', border: '1px solid #e3e2eb', borderRadius: 12, background: 'white' }}><table style={{ borderCollapse: 'collapse', width: '100%', minWidth: 680, fontSize: 14 }}><thead><tr>{['Date','Merchant','Received','Review','Excluded','Rights'].map(x => <th key={x} style={{ padding: 14, borderBottom: '1px solid #eee', textAlign: 'left', background: '#f7f6fb' }}>{x}</th>)}</tr></thead><tbody>{runs?.map(run => <tr key={run.id}><td style={{ padding: 12, borderBottom: '1px solid #eee' }}>{new Date(run.created_at).toLocaleString('en-GB')}</td><td style={{ padding: 12, borderBottom: '1px solid #eee' }}>{run.merchant_name}</td><td style={{ padding: 12, borderBottom: '1px solid #eee' }}>{run.total_count}</td><td style={{ padding: 12, borderBottom: '1px solid #eee' }}>{run.review_count}</td><td style={{ padding: 12, borderBottom: '1px solid #eee' }}>{run.excluded_count}</td><td style={{ padding: 12, borderBottom: '1px solid #eee' }}>{run.permission_status}</td></tr>)}</tbody></table></div></section>
