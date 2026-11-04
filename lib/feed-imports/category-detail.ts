@@ -3,7 +3,33 @@ import {suggestedDepartment} from "./preview-departments.ts";
 export type CategoryDetail = {department:string;heading:string;guidance:string;facts:{label:string;value:string}[];missing:string[]};
 
 /** Private design-preview metadata only. Title-derived observations are never verified specifications. */
-export function categoryDetail(merchant:string,title:string,category:string|null,brand:string|null):CategoryDetail{
+export function categoryDetail(merchant:string,title:string,category:string|null,brand:string|null,source?:Record<string,unknown>):CategoryDetail{
+ if(/tooled[ -]?up/i.test(merchant)){
+  const field=(key:string)=>typeof source?.[key]==="string"&&String(source[key]).trim()?String(source[key]).trim():null;
+  const path=field("merchant_category_path");
+  const group=path?.split(" > ")[0]||category||"Tools & DIY";
+  const guidance:Record<string,{heading:string;checks:string[]}>= {
+   "Power Tool Accessories":{heading:"Accessory compatibility",checks:["Compatible tool makes and models","Bit size, shank and working material","Pack quantity and technical measurements"]},
+   "Power Tools":{heading:"Power tool specifications",checks:["Voltage and battery platform","Power or motor rating","Supplied accessories and warranty"]},
+   "Hand Tools":{heading:"Hand tool specifications",checks:["Tool size and working range","Material and finish","Pack quantity and warranty"]},
+   "Workwear":{heading:"Workwear fit and protection",checks:["Verified garment or footwear size","Material, fit and care instructions","Applicable safety or protection standard"]},
+   "Fixings & Fasteners":{heading:"Fastener dimensions",checks:["Diameter, length and thread","Material and finish","Pack quantity and compatibility"]},
+   "Garden Tools":{heading:"Garden tool specifications",checks:["Working width or capacity","Power source and compatibility","Dimensions and safety guidance"]},
+   "Automotive Tools":{heading:"Automotive tool compatibility",checks:["Vehicle or component compatibility","Connection, socket or fitting size","Applicable standards and warranty"]}
+  };
+  const chosen=guidance[group]??{heading:"Tool and equipment specifications",checks:["Verified dimensions and model compatibility","Materials and product specifications","Manufacturer warranty and instructions"]};
+  const facts=[
+   {label:"Retailer-supplied brand (unverified manufacturer)",value:field("manufacturer_brand")||brand},
+   {label:"Merchant category path",value:path},
+   {label:"EAN",value:field("ean")},
+   {label:"GTIN",value:field("gtin")},
+   {label:"MPN",value:field("mpn")},
+   {label:"Model (retailer feed)",value:field("model")},
+   {label:"Feed availability (not live)",value:field("availability")}
+  ].filter((x):x is {label:string;value:string}=>Boolean(x.value));
+  return {department:group,heading:chosen.heading,guidance:"Retailer-supplied attributes from the private historical feed are presented for review only. Verify the exact model, fit and current stock with the source before approval.",facts,missing:[...chosen.checks,"Current retailer price and delivery cost","Image and product content permission"]};
+ }
+
  const department=suggestedDepartment(merchant,title,category);
  const facts:{label:string;value:string}[]=[];
  const missing:string[]=[];
