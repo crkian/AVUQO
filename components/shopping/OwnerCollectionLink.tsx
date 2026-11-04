@@ -3,18 +3,17 @@ import Link from "next/link";
 import {useEffect,useState} from "react";
 import {createClient} from "../../lib/supabase/client";
 import styles from "./ShoppingDepartmentShelf.module.css";
-let cachedOwner=false;
 export default function OwnerCollectionLink({href,merchant}:{href:string;merchant:string}){
- const [allowed,setAllowed]=useState(cachedOwner);
+ const [allowed,setAllowed]=useState(false);
  useEffect(()=>{
   let active=true;
   const db=createClient();
   async function verify(){
    const {data:{user}}=await db.auth.getUser();
-   if(!user){cachedOwner=false;if(active)setAllowed(false);return;}
+   if(!user){if(active)setAllowed(false);return;}
    const {data}=await db.from("user_roles").select("role").eq("user_id",user.id).maybeSingle();
    const owner=data?.role==="owner"||data?.role==="admin";
-   cachedOwner=owner;if(active)setAllowed(owner);
+   if(active)setAllowed(owner);
   }
   void verify();
   const {data:listener}=db.auth.onAuthStateChange(()=>{void verify();});
