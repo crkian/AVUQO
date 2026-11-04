@@ -26,7 +26,7 @@ export default function GeneralAwinImport(){
    if(file.size>250*1024*1024)throw Error("Source file exceeds the 250 MB limit");
    if(file.name.toLowerCase().endsWith(".gz")&&!("DecompressionStream" in window))throw Error("This browser cannot inspect compressed files");
    const iterator=awinDelimitedRows(file)[Symbol.asyncIterator]();
-   let headers:string[]|null=null,format="",sample:string[][]=[];
+   let headers:string[]|null=null,format="";const sample:string[][]=[];
    try{
     for(let i=0;i<26;i++){
      const next=await iterator.next();if(next.done)break;
