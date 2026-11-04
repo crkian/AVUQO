@@ -66,7 +66,7 @@ test("public catalogue requires owner approval, unchanged price, score and time"
 test("Awin permissions and release actions require authenticated owner, not public clients",()=>{
  const a=text("app/control-centre/awin-advertisers/actions.ts");
  assert.match(a,/if\(actor\.role!=="owner"\)/);
- assert.match(a,/await db\.auth\.getUser\(\)/)===false; // required via central guard
+ assert.doesNotMatch(a,/await db\.auth\.getUser\(\)/); // Central trusted role guard.
  assert.match(a,/requireControlCentreAccess\(\)/);
  assert.match(a,/await awinConnector\.fetchOffers\(\{limit:3\}\)/);
  assert.match(a,/record_awin_owner_release/);
