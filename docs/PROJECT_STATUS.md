@@ -2,6 +2,8 @@
 
 **Purpose:** The single GitHub starting point for AVUQO project work across chats, contributors and tools. GitHub `main` is the authority for deployed code. Private business data and API credentials never go here.
 
+**Proposed private diagnostic patch: `0.3.1` (PR #48, not merged). Current production software remains `0.3.0`.**
+
 **Read-only Awin diagnostic (PR #48 candidate):** `/control-centre/awin` provides a user-initiated, server-side request for joined Awin programme IDs and names. It does not persist records, store/print the OAuth token, approve rights, activate sources, or publish offers. Pending preview authenticated-role and real-provider acceptance; code is on `feature/awin-readonly-diagnostics-20261104`, not verified on production. [Diagnostic scope](./awin-readonly-diagnostic-20261104.md).
 
 **Latest verified Awin onboarding (4 November 2026):** v0.3.0 owner-release code deployed READY; PR #45 SQL terminator fix merged at `18752f41287f30f82ba679c170e61b685520765e` and release migration applied. Cadbury (`736`, 1,371 private rows) and Petlibro (`77952`, 98 private rows) are **registered as unapproved, paused drafts**. Awin sync is disabled, zero public Awin offers. The connector currently uses one `AWIN_ADVERTISER_ID` at a time. [Pilot register](./AWIN_CADBURY_PETLIBRO_PILOTS_2026-11-04.md). Do not infer rights from the archived feeds or available token.
