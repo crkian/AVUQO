@@ -52,8 +52,11 @@ as $$
     and f.merchant_id='496' and f.status='private_review'
     and (nullif(p_brand,'') is null or r.brand=p_brand)
     and (nullif(p_department,'') is null or split_part(r.metadata->>'merchant_category_path',' > ',1)=p_department)
-    and (nullif(p_query,'') is null or r.title ilike '%'||replace(replace(left(p_query,80),'%','\\%'),'_','\\_')||'%' escape '\\'
-       or r.merchant_product_id ilike '%'||replace(replace(left(p_query,80),'%','\\%'),'_','\\_')||'%' escape '\\')
+    and (nullif(p_query,'') is null
+       or position(lower(left(p_query,80)) in lower(r.title))>0
+       or position(lower(left(p_query,80)) in lower(r.merchant_product_id))>0
+       or position(lower(left(p_query,80)) in lower(coalesce(r.metadata->>'ean','')))>0)
+
  )
  select permitted.*,count(*) over() as matching_total
  from permitted
