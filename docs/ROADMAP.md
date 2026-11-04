@@ -1,7 +1,7 @@
 # AVUQO living delivery roadmap
 
 **Last evidence audit:** 2 November 2026 · [full source-to-code matrix](./SOURCE_TO_CODE_AUDIT_2026-11-02.md) · [original source manifest](./SOURCE_MANIFEST_2026-11-02.md) · [granular source gaps](./SOURCE_REQUIREMENT_GAPS_2026-11-02.md).
-**Software version:** v0.2.3 deployed and P0-03 database migration verified 4 November 2026 (see P0-03 and [rollout](./P0_03_COLLECTIONS_ACCEPTANCE.md)). **Candidate v0.3.0** adds owner-gated Awin advertiser onboarding; not yet released.
+**Software version:** v0.3.0 deployed via PR #44; Awin owner-release SQL correction PR #45 deployed READY at `18752f41287f30f82ba679c170e61b685520765e` and release migration applied. Cadbury and Petlibro registered as **unapproved private pilots**. See [pilot register](./AWIN_CADBURY_PETLIBRO_PILOTS_2026-11-04.md).
 **Evidence policy:** Features remain “proposed”, “code foundation”, “internally testable”, “deployed but unaccepted” or “customer/provider verified”. Never express speculative percentage completion, income, source approvals or live listings.
 **Owner policy:** Protect independent AVUQO Score, consumer trust, permissioned data, source separation and non-destructive deployment.
 
