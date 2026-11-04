@@ -22,7 +22,7 @@ export default function UploadForm() {
       {joinedAwinAdvertisers.map(([id,name]) => <option value={id} key={id}>{name} (Awin {id})</option>)}
     </select>
     <p style={{fontSize:12,color:'#736b7c',margin:0}}>The file must contain this exact advertiser ID on every row. Joined membership only permits private staging here; it does not approve product data, imagery, or public listings.</p>
-    <label htmlFor="awin-upload"><strong>Choose that advertiser's Awin product CSV feed (.csv or .csv.gz)</strong></label>
+    <label htmlFor="awin-upload"><strong>Choose that advertiser&apos;s Awin product CSV feed (.csv or .csv.gz)</strong></label>
     <input id="awin-upload" type="file" name="file" accept=".csv,.gz,.csv.gz" required disabled={busy}/>
     <button type="submit" disabled={busy} style={{ background: '#5841e8', color: 'white', borderRadius: 8, padding: 12, cursor: 'pointer' }}>{busy ? 'Validating and saving…' : 'Import for private review'}</button>
     {message && <p role="status">{message}</p>}
