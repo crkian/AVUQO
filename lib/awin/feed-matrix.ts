@@ -26,7 +26,7 @@ export function buildAwinFeedMatrix(feeds:FeedMatrixItem[]){
 }
 /** Safe, credential-free CSV for private import planning. Never include Awin URL fields. */
 export function redactedFeedMatrixCsv(feeds:FeedMatrixItem[]){
- const quote=(s:string)=>JSON.stringify(s.replace(/^[=+@-]/,"'"));
+ const quote=(s:string)=>String.fromCharCode(34)+s.replace(/^[=+@-]/,"'").replaceAll(String.fromCharCode(34),'""')+String.fromCharCode(34);
  const fields=["Advertiser ID","Advertiser","Feed ID","Feed name","Feed format","Format family","Products listed","Last imported","Language"];
  return [fields.map(quote).join(","),...feeds.map(f=>[
   f.advertiserId,f.advertiserName,f.feedId,f.feedName,f.format,classifyFeedFormat(f.format),
