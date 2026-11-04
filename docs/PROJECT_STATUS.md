@@ -1,5 +1,7 @@
 # AVUQO living project status
 
+**Pending opt-in Awin metadata monitor (Nov 4, 2026):** Owner-only feed-update dashboard plus disabled-by-default daily Vercel cron, checking official Awin Product Feed List for last-imported changes among joined advertisers. Credentials remain server-only, signed URLs never stored, source stays paused. No automatic product feed downloads, retailer image rights or public offer releases. New migration required.
+
 **Tooled-Up private full-catalogue discovery (pending 4 Nov 2026):** Owner-only server-side search across 84,284 records, 313 brands and 32 departments, exact retailer category paths, EAN and source model fields, historical price sort, 48-row paging and private opt-in host-restricted image inspection. RLS-preserving SQL functions applied and tested. No public offers or automatic feeds.
 
 **Tooled-Up owner-only image visibility fix (pending, 4 Nov 2026):** Tooled-Up's 84,284 private records have image URLs hosted at `www.tooled-up.com`. The exact HTTPS host is added to opt-in private card/detail photo inspection only. The 100-page private preview cap is expanded so all 84,284 rows can be browsed in 48-item server-side pages. This does not permit public images or checkout, verify image URLs are reachable, or change source/offer rights.\n
