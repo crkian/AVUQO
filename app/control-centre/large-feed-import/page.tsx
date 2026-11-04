@@ -11,6 +11,7 @@ export default async function Page(){
   <header><p style={{fontWeight:800,color:"#6744a4",letterSpacing:1.4,fontSize:12}}>CONTROL CENTRE / PRIVATE FEED IMPORT</p>
   <h1 style={{fontSize:36,margin:"10px 0"}}>Tooled-Up large catalogue</h1>
   <p style={{color:"#6b6376",maxWidth:760,lineHeight:1.6}}>Import the full range safely in resumable batches, retaining retailer brand, product model, identifiers, category paths and stock labels. Every record remains private until a separate evidence-based publication review.</p></header>
+  <Link href="/preview/products/tooled-up" style={{display:"inline-block",fontWeight:800,color:"#6341a8"}}>Browse the 84,284 staged products by brand and category →</Link>
   <TooledUpLargeImport/>
   <Link href="/control-centre/feed-imports" style={{fontWeight:700}}>← Return to standard Awin imports</Link>
  </main>;
