@@ -67,7 +67,7 @@ export default async function Page(){
   <section className={styles.guidance}>
    <strong>Full-range ingestion approach</strong>
    <p>Use the existing CSV importer for feeds up to 2,500 rows. The 84,284-row Tooled-Up importer is presently merchant-specific and cannot be used for tyres or other advertisers. Bigger and specialised feeds require a generalised resumable importer with merchant validation, careful overlap deduplication and separate service/contract taxonomy. Feed credentials and authorised product usage must be verified before automation.</p>
-   <div className={styles.actions}><Link href="/control-centre/feed-imports#standard-awin-upload">Open private CSV importer</Link><Link href="/control-centre/feed-list-audit">Audit full Awin feed list</Link><Link href="/control-centre/awin-feed-updates">Check source freshness</Link></div>
+   <div className={styles.actions}><Link href="/control-centre/general-feed-import">Open general large-feed importer</Link><Link href="/control-centre/feed-imports#standard-awin-upload">Small CSV importer</Link><Link href="/control-centre/feed-list-audit">Audit full Awin feed list</Link><Link href="/control-centre/awin-feed-updates">Check source freshness</Link></div>
   </section>
   <section className={styles.programmes} aria-label="All accepted Awin programmes">
    {joined.map(p=><article className={styles.card} key={p.id}>
