@@ -51,11 +51,11 @@ create or replace function public.record_awin_owner_release(
  p_offer_id uuid,p_source_id uuid,p_advertiser_id text,
  p_status text,p_actor_id uuid,p_review_note text,
  p_reviewed_price numeric,p_reviewed_offer_at timestamptz,p_reviewed_score_at timestamptz
-) returns void language plpgsql security invoker set search_path='' as $
+) returns void language plpgsql security invoker set search_path='' as $$
 declare changed integer;
 begin
  if p_status not in ('approved','paused') or p_actor_id is null or
-    p_advertiser_id !~ '^[0-9]{2,12} or length(coalesce(p_review_note,''))>300 then
+    p_advertiser_id !~ '^[0-9]{2,12}$' or length(coalesce(p_review_note,''))>300 then
    raise exception 'Invalid owner release request';
  end if;
  if not exists(select 1 from public.offers o join public.sources s on s.id=o.source_id
@@ -110,7 +110,7 @@ begin
  values(p_offer_id,p_source_id,p_advertiser_id,
    case when p_status='approved' then 'published' else 'paused' end,
    p_actor_id,coalesce(p_review_note,''),p_reviewed_price,p_reviewed_offer_at);
-end $;
+end $$;
 
 revoke all on function public.record_awin_owner_release(
  uuid,uuid,text,text,uuid,text,numeric,timestamptz,timestamptz
