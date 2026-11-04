@@ -1,4 +1,4 @@
-import {joinedAwinAdvertisers} from "./joined-catalogue";
+import {joinedAwinAdvertisers} from "./joined-catalogue.ts";
 export type FeedMatrixItem={advertiserId:string;advertiserName:string;feedId:string;feedName:string;format:string;products:number;lastImported:string;language?:string};
 export type FeedType="Standard / legacy"|"Google / enhanced"|"Other / inspect";
 export function classifyFeedFormat(format:string):FeedType{
