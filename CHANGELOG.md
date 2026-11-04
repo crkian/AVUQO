@@ -1,5 +1,7 @@
 # AVUQO software changelog
 
+- **Unreleased category-specific product previews:** Authenticated owner-only individual product detail routes and customer-styled cards linking to them. Gifts, pet products, crafts, tech and prospective tyre fields have distinct factual checklists. Values found in old titles remain explicitly unverified; missing values are never invented, public products and automatic feed sync stay disabled.
+
 - **Unreleased owner image/category review:** opt-in owner-only loading of existing allowlisted HTTPS feed image URLs, and provisional department suggestions recorded in metadata during new private file imports, with missing classifications flagged for review. Original merchant categories are preserved; no canonical category approval, public product imagery, Awin activation or automatic feed sync is granted. All 16 joined advertisers remain paused.
 
 - **Unreleased owner catalogue browsing:** 48-item pages for private staged review candidates by retailer, plus accurately labelled Tyres UK and Tyres Pneus Online UK feed-pending notice. No public release, image publication, or live tyre import. Existing v0.3.0 unchanged.
