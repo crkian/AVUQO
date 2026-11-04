@@ -2,6 +2,8 @@
 
 **Purpose:** The single GitHub starting point for AVUQO project work across chats, contributors and tools. GitHub `main` is the authority for deployed code. Private business data and API credentials never go here.
 
+**Awin 16-programme intake, 4 Nov 2026:** User-reported signed-in v0.3.1 Preview diagnostic returned 16 joined programme IDs including Cadbury `736`, Petlibro `77952` and Craft Buddy `45747`. All 16 registered in the private, **paused and unapproved** Awin source; no provider approvals, rights expiry or publication added. Supabase still shows 0 Awin sync runs, 0 Awin offer releases and 0 public Awin offers. See [programme queue](./AWIN_JOINED_PROGRAMMES_2026-11-04.md). PR #48 diagnostic remains a draft pending signed-out/non-admin acceptance. The existing single-advertiser connector does **not** simultaneously support 16 feeds.
+
 **Latest verified Awin onboarding (4 November 2026):** v0.3.0 owner-release code deployed READY; PR #45 SQL terminator fix merged at `18752f41287f30f82ba679c170e61b685520765e` and release migration applied. Cadbury (`736`, 1,371 private rows) and Petlibro (`77952`, 98 private rows) are **registered as unapproved, paused drafts**. Awin sync is disabled, zero public Awin offers. The connector currently uses one `AWIN_ADVERTISER_ID` at a time. [Pilot register](./AWIN_CADBURY_PETLIBRO_PILOTS_2026-11-04.md). Do not infer rights from the archived feeds or available token.
 
 **Proposed customer safety patch: `0.2.3` on the P0-03 feature branch (not yet deployed).**
