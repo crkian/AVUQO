@@ -46,6 +46,7 @@ export default async function Page(){
     <nav className={styles.heroActions} aria-label="Private storefront actions">
      <Link className={styles.primaryLink} href="#departments">Explore departments</Link>
      <Link className={styles.secondaryLink} href="/preview/products">Open existing product gallery</Link>
+     <Link className={styles.secondaryLink} href="/preview/ebay">Explore eBay UK pilot</Link>
     </nav>
     <div className={styles.metrics}>
      <span><strong>{[...byMerchant.values()].reduce((n,r)=>n+r.total_count,0).toLocaleString("en-GB")}</strong> products in latest private merchant imports</span>
