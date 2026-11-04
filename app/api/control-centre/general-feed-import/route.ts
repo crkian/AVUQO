@@ -15,6 +15,7 @@ export async function POST(request:NextRequest){
   if(roleError||!role||!["owner","admin"].includes(role.role))return send({error:"Owner/admin required"},403);
   if(Number(request.headers.get("content-length")||0)>2_500_000)return send({error:"Batch too large"},413);
   const body=await request.json() as Record<string,unknown>;
+  if(JSON.stringify(body).length>2_500_000)return send({error:"Request body too large"},413);
   const action=body.action;
   const admin=createAdminClient();
   if(action==="start"){
