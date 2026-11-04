@@ -1,5 +1,7 @@
 # AVUQO living project status
 
+**Pending owner-only category product detail views (4 Nov 2026):** `/preview/products/[id]` uses authentic staged records and category-specific evidence checklists for gifts, pet, crafts, computing and future tyres. Private image opt-in only; all historical prices are labelled, missing specifications remain unverified, retailer checkout remains disabled. No public product rights or feed activation inferred.
+
 **Pending private Awin inventory review (4 Nov 2026):** Owner-only `datafeeds.csv` inspector lists active feed IDs, counts and source update timestamps for currently joined Awin advertisers, never returning or persisting signed download URLs. The owner's 952-entry list has 72 `active` feed entries across 11 joined advertisers. Tooled-Up's new daily feed rule requires the underlying filename to begin `awinnew`; Awin display names alone are insufficient. No automatic feed fetching, rights release or product publication activated.
 
 **Proposed owner-only customer storefront rehearsal (PR #52, not deployed):** `/preview/products` reuses customer catalogue styling and read-only staged feed rows while requiring Control Centre owner/admin authorisation. It hides merchant images, labels staged prices as historical, disables buying links, and does not publish offers or enable scheduled Awin ingestion. Browser, mobile and role-denial acceptance remain open. Current software version stays `0.3.0`.
