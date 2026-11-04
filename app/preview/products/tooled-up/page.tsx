@@ -1,6 +1,9 @@
 import type {Metadata} from "next";
 import {connection} from "next/server";
 import Link from "next/link";
+import Header from "../../../../components/layout/Header";
+import Footer from "../../../../components/layout/Footer";
+import styles from "./catalogue.module.css";
 import {requireControlCentreAccess} from "../../../../lib/auth/requireControlCentreAccess";
 import {createClient} from "../../../../lib/supabase/server";
 import TooledUpCards from "./TooledUpCards";
@@ -29,15 +32,15 @@ export default async function Page({searchParams}:{searchParams:Promise<Params>}
  const total=products.length?Number(products[0].matching_total):0;
  const pages=Math.ceil(total/48);
  const next=(change:Partial<Params>)=>link({...{brand,department,q,sort,page:String(page)},...change});
- return <main style={{background:"#f7f5f2",minHeight:"100vh",padding:"34px max(22px,calc((100vw - 1300px)/2)) 90px",color:"#222034"}}>
-  <nav style={{marginBottom:25}}><Link href="/preview/products">← Private merchant catalogues</Link></nav>
+ return <><Header/><main className={styles.page}><div className={styles.container}>
+  <nav className={styles.crumbs}><Link href="/preview/storefront">Private shop</Link><span>/</span><Link href="/preview/products">Retailer catalogues</Link><span>/</span><strong>Tooled-Up</strong></nav>
   <p style={{fontSize:12,fontWeight:800,color:"#755ab2",letterSpacing:1.4}}>OWNER-ONLY · HISTORICAL FEED DATA</p>
   <h1 style={{fontSize:"clamp(28px,4vw,46px)",margin:"8px 0 13px"}}>Explore Tooled-Up products</h1>
   <p style={{maxWidth:760,color:"#666273",lineHeight:1.7}}>Browse authentic privately staged tools by retailer-supplied brand and detailed department. Neither prices nor images are approved for public publication.</p>
   {(!run||runError)?<p role="alert">A completed private Tooled-Up import was not found.</p>:
   <>
    <p><strong>{Number(facets?.count||run.total_count).toLocaleString("en-GB")}</strong> products in the current completed private import. Brands are retailer-supplied, not verified legal manufacturers.</p>
-   <form method="GET" action="/preview/products/tooled-up" style={{background:"white",padding:20,borderRadius:16,border:"1px solid #e8e4ea",display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))",alignItems:"end",gap:13,margin:"24px 0"}}>
+   <form className={styles.filters} method="GET" action="/preview/products/tooled-up">
     <label style={{display:"grid",gap:7}}><strong>Search full catalogue</strong><input name="q" defaultValue={q} placeholder="Product, model or product ID" maxLength={80} style={{padding:12,border:"1px solid #cfc9d9",borderRadius:9}}/></label>
     <label style={{display:"grid",gap:7}}><strong>Brand / manufacturer label</strong><select name="brand" defaultValue={brand} style={{padding:12,border:"1px solid #cfc9d9",borderRadius:9}}>
      <option value="">All brands</option>{(facets?.brands||[]).map(f=><option key={f.value} value={f.value}>{f.value} ({f.count.toLocaleString("en-GB")})</option>)}
@@ -55,7 +58,7 @@ export default async function Page({searchParams}:{searchParams:Promise<Params>}
    {!facetResult.error&&!productResult.error&&<>
     <p style={{color:"#676174"}}>Showing {total===0?0:(page-1)*48+1}–{Math.min(page*48,total)} of {total.toLocaleString("en-GB")} matched products. Filters apply across the full staged catalogue.</p>
     <TooledUpCards items={products}/>
-    {pages>1&&<nav aria-label="Tooled-Up catalogue pages" style={{display:"flex",justifyContent:"space-between",gap:10,marginTop:28,flexWrap:"wrap"}}>
+    {pages>1&&<nav className={styles.pagination} aria-label="Tooled-Up catalogue pages">
      {page>1?<Link href={next({page:String(page-1)})}>← Previous 48</Link>:<span>First page</span>}
      <strong>Page {page} / {pages.toLocaleString("en-GB")}</strong>
      {page<pages?<Link href={next({page:String(page+1)})}>Next 48 →</Link>:<span>Last page</span>}
@@ -63,5 +66,5 @@ export default async function Page({searchParams}:{searchParams:Promise<Params>}
    </>}
   </>}
   <p style={{marginTop:38,fontSize:13,color:"#6f6876"}}>Private owner preview only. No affiliate checkout links, public product imagery, verified real-time prices, or permission to publish.</p>
- </main>;
+ </div></main><Footer/></>;
 }
