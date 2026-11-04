@@ -61,5 +61,5 @@ export function inspectAwinFeedList(content:string,joinedIds:ReadonlySet<string>
  * Apply to a verified underlying filename, NOT a feed display label/ID or signed URL.
  */
 export function currentTooledUpFilename(filename:string):boolean{
- return /^awinnew(?:_brand_[a-z0-9]+(?:-[a-z0-9]+)*|_cat_[a-z0-9]+(?:-[a-z0-9]+)*)?\\.txt(?:\\.gz)?$/i.test(filename);
+ return /^awinnew(?:_brand_[a-z0-9]+(?:-[a-z0-9]+)*|_cat_[a-z0-9]+(?:-[a-z0-9]+)*)?\.txt(?:\.gz)?$/i.test(filename);
 }
