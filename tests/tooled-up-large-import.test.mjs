@@ -5,7 +5,7 @@ import {csvRowsFromChunks} from "../lib/feed-imports/stream-csv.ts";
 import {prepareTooledUpBatch,prepareTooledUpRow} from "../lib/feed-imports/tooled-up-large.ts";
 const header=["merchant_id","merchant_product_id","aw_product_id","product_name","search_price","currency","brand_name","brand_id","model_number","ean","product_GTIN","mpn","stock_status","merchant_category","merchant_product_category_path","aw_deep_link","merchant_image_url"];
 const product=(id="234")=>[
- "496",id,"36655657825","Arrow HT50P Hammer Staple Tacker Gun","64.95","GBP","Arrow","123","HT50P","5012044012001","","HT50P","In Stock","Hammer Tackers","DIY > Hand Tools > Staplers","https://www.awin1.com/cread.php?awinmid=496&awinaffid=3135746&clickref=abc","https://images.example.com/hammer.jpg"
+ "496",id,"36655657825","Arrow HT50P Hammer Staple Tacker Gun","64.95","GBP","Arrow","123","HT50P","5012044012001","","HT50P","In Stock","Hammer Tackers","DIY > Hand Tools > Staplers","https://www.awin1.com/pclick.php?p=36655657825&a=3135746&m=496","https://images.example.com/hammer.jpg"
 ];
 test("large CSV parses streamed quoted commas, multiline fields and escaped quotes at chunk boundaries",async()=>{
  const chunks=['merchant_id,product_name,brand_name\r\n','496,"Hammer, ","Arrow"\r\n','496,"Another\nLine","Br','and ""A""', '"\r\n'];
@@ -37,7 +37,7 @@ test("cross-merchant and bad tracking cannot enter private review as eligible",(
  other.merchant_id="736";
  assert.throws(()=>prepareTooledUpRow(other),/another advertiser/);
  const wrong=Object.fromEntries(header.map((key,i)=>[key,product()[i]]));
- wrong.aw_deep_link="https://www.awin1.com/cread.php?awinmid=736&awinaffid=3135746";
+ wrong.aw_deep_link="https://www.awin1.com/pclick.php?p=36655657825&a=3135746&m=736";
  const result=prepareTooledUpRow(wrong);
  assert.equal(result.status,"excluded");
  assert.ok(result.reasons.includes("tracking_link_unverified"));
