@@ -6,8 +6,8 @@ import {useEffect,useRef,useState} from "react";
 import {orderedNavigation,type NavigationContent} from "../../lib/content/navigation";
 import styles from "./MegaNav.module.css";
 import DepartmentExplorer from "../categories/DepartmentExplorer";
-export default function MegaNav({menuOpen,onNavigate,navigation}:{
- menuOpen:boolean;onNavigate:()=>void;navigation:NavigationContent
+export default function MegaNav({menuOpen,onNavigate,navigation,ownerPreview=false}:{
+ menuOpen:boolean;onNavigate:()=>void;navigation:NavigationContent;ownerPreview?:boolean
 }){
  const [expanded,setExpanded]=useState<string|null>(null);
  const navRef=useRef<HTMLElement>(null);
@@ -54,7 +54,7 @@ export default function MegaNav({menuOpen,onNavigate,navigation}:{
          <Link href={group.href} onClick={()=>{setExpanded(null);onNavigate()}}
            className={styles.viewAll}>View {group.label.toLowerCase()} <ChevronRight size={14}/></Link>
        </div>
-       {group.id==="categories"?<DepartmentExplorer variant="menu" onNavigate={()=>{setExpanded(null);onNavigate()}}/>:<div className={styles.linkGrid}>
+       {group.id==="categories"?<><DepartmentExplorer variant="menu" onNavigate={()=>{setExpanded(null);onNavigate()}}/>{ownerPreview&&<Link className={styles.privateDepartment} href="/preview/storefront" onClick={()=>{setExpanded(null);onNavigate()}}>Owner-only: browse imported products by department <ChevronRight size={16}/></Link>}</>:<div className={styles.linkGrid}>
         {group.links.map(link=><Link key={link.href} href={link.href}
          className={styles.menuLink} onClick={()=>{setExpanded(null);onNavigate()}}>
          <span><b>{link.label}</b><small>{link.description}</small></span>
