@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
+import Link from "next/link";
 import { Heart, ShoppingBasket, Trash2, Mail, Copy, FolderPlus } from "lucide-react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
@@ -73,22 +74,19 @@ export default function PlanningCollectionPage({ kind }: { kind: PlanningCollect
     if (kind !== "basket" || !list || pending || name.trim().length < 3 || name.trim().length > 80 || !items.length) return;
     setPending(true); setMessage("");
     try {
-      const {data: auth} = await db.auth.getUser();
-      if (!auth.user) throw new Error("Sign in required");
-      const {data: created,error: createError} = await db.from("shared_lists")
-        .insert({owner_id:auth.user.id,name:name.trim(),description:"Saved copy of my AVUQO comparison basket. Prices are historical snapshots.",list_type:"standard",visibility:"private"})
-        .select("id").single();
-      if (createError || !created) throw createError ?? new Error("Creation failed");
-      const data = items.map(item => ({
-        list_id: created.id, added_by: auth.user!.id, item_key:item.item_key,
-        title_override:item.title_override, url:itemDisplay(item).url, snapshot:item.snapshot,
-      }));
-      const {error: itemsError} = await db.from("shared_list_items").insert(data);
-      if (itemsError) {
-        await db.from("shared_lists").delete().eq("id", created.id).eq("owner_id", auth.user.id);
-        throw itemsError;
+      // The server reads the authenticated account's basket. Browser-edited item
+      // lists, merchant names and price snapshots are never accepted as inputs.
+      const response=await fetch("/api/collections/save-basket",{
+        method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({name:name.trim()})
+      });
+      const result=await response.json().catch(()=>({})) as {ok?:boolean;listId?:string;error?:string};
+      if (!response.ok || !result.ok || !result.listId) {
+        setMessage(result.error??"Could not save the whole basket.");
+        return;
       }
-      setName(""); setMessage("Saved as a private named list. View it under Lists.");
+      setName("");
+      setMessage("Saved a private named copy. Open it from your Lists page.");
     } catch { setMessage("Could not save the whole basket. Please try again."); }
     finally { setPending(false); }
   }
