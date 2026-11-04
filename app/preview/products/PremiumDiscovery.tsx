@@ -8,7 +8,7 @@ import styles from "./premium-discovery.module.css";
 
 export type PreviewItem={id:string;title:string;merchant:string;brand:string|null;rawCategory:string|null;price:number|string|null;currency:string;imageUrl:string|null;};
 const toPrice=(n:number|string|null)=>n===null?Number.NaN:Number(n);
-const approvedPrivateHosts=new Set(["www.cadburygiftsdirect.co.uk","cdn.shopify.com"]);
+const approvedPrivateHosts=new Set(["www.cadburygiftsdirect.co.uk","cdn.shopify.com","www.tooled-up.com"]);
 function safePrivateImage(value:string|null){if(!value)return null;try{const u=new URL(value);return u.protocol==="https:"&&approvedPrivateHosts.has(u.hostname)&&!u.username&&!u.password?u.href:null;}catch{return null;}}
 type Sort="featured"|"low"|"high"|"name";
 export default function PremiumDiscovery({items}:{items:PreviewItem[]}){
