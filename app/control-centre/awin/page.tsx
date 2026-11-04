@@ -1,7 +1,7 @@
 import { connection } from "next/server";
 import { requireControlCentreAccess } from "../../../lib/auth/requireControlCentreAccess";
 
-export const dynamic = "force-dynamic";
+
 
 export default async function AwinPage({
   searchParams,
