@@ -12,7 +12,10 @@ function httpsUrl(text:string):string|null{
 function trackingIsOurs(url:string|null){
  if(!url)return false;
  const u=new URL(url);
- return (u.hostname==="www.awin1.com"||u.hostname==="awin1.com")&&u.searchParams.get("awinmid")==="496"&&u.searchParams.get("awinaffid")==="3135746";
+ return (u.hostname==="www.awin1.com"||u.hostname==="awin1.com")&&(
+  (u.pathname==="/pclick.php"&&u.searchParams.get("m")==="496"&&u.searchParams.get("a")==="3135746"&&Boolean(u.searchParams.get("p")))
+  ||(u.pathname==="/cread.php"&&u.searchParams.get("awinmid")==="496"&&u.searchParams.get("awinaffid")==="3135746")
+ );
 }
 export function prepareTooledUpRow(row:AwinRawRow){
  const merchant_id=trimmed(row,"merchant_id");
