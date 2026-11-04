@@ -186,6 +186,27 @@ export async function setAwinOfferRelease(form:FormData){
  if(!UUID.test(id)||!["approved","paused"].includes(decision)||note.length>300)
   throw Error("Invalid owner release decision");
  const {db,source}=await awin();
+ // Revocation must work even if product identity, Score, credentials, rights,
+ // source activation or global controls have already failed.
+ if(decision==="paused"){
+  const {data:offer,error:offerError}=await db.from("offers")
+   .select("id,price,last_seen_at").eq("id",id).eq("source_id",source.id).single();
+  if(offerError||!offer)throw Error("Awin offer does not exist");
+  const {data:review}=await db.from("awin_offer_release_reviews")
+   .select("advertiser_id").eq("offer_id",id).maybeSingle();
+  const advertiserId=review?.advertiser_id??envAdvertiser();
+  if(!advertiserIdValid(advertiserId))throw Error("Cannot identify the advertiser for this release");
+  const {data:score}=await db.from("deal_scores").select("calculated_at")
+   .eq("offer_id",id).maybeSingle();
+  const {error}=await db.rpc("record_awin_owner_release",{
+   p_offer_id:id,p_source_id:source.id,p_advertiser_id:advertiserId,
+   p_status:"paused",p_actor_id:user.id,p_review_note:note,
+   p_reviewed_price:Number(offer.price),p_reviewed_offer_at:offer.last_seen_at,
+   p_reviewed_score_at:score?.calculated_at??offer.last_seen_at,
+  });
+  if(error)throw Error("Owner revocation failed: "+error.message);
+  refresh();redirect(page+"?event=paused");
+ }
  const info=await evidenceAndOffer(db,source.id,id);
  const externalId=envAdvertiser();
  if(decision==="approved"){
