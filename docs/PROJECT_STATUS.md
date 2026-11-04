@@ -2,9 +2,9 @@
 
 **Purpose:** The single GitHub starting point for AVUQO project work across chats, contributors and tools. GitHub `main` is the authority for deployed code. Private business data and API credentials never go here.
 
-**Proposed customer safety patch: `0.2.3` on the P0-03 feature branch (not yet deployed).**
+**Software version `0.2.3` is deployed (PR #42, SHA `8ee40ecbc73c2e9b3a7c3cb2018a42c272aee32d`).** The P0-03 Supabase migration `20261104104248_p0_03_private_verified_collections` is applied. Customer two-account and mobile acceptance remains outstanding.
 
-**Current software version: `0.2.2` (P0-02, PR #40 merged at `f7dc24ccf0e3b3101570419d43b7d9b647707361`, Vercel production READY).**
+**Previous software version: `0.2.2` (P0-02, PR #40 merged at `f7dc24ccf0e3b3101570419d43b7d9b647707361`, Vercel production READY).**
 
 **Previous software version on `main`:** `0.2.1` (PR #38 merged at `f81b34f99bf5f95e59aa18efa877ce0292996d7c`; Vercel production READY). Previous version: `0.2.0`. (PR #34 merged 2 November 2026); feature release READY at `18fe575458588be511ffc5762152eccee4798a53` (PR #35); documentation audit PR #36 subsequently deployed READY at `7563e14fb76d02621cdbafac6a2b8ab58311aea0`. Latest SHA must be rechecked in Vercel. Signed-in customer journey acceptance still pending.
 **Previous software version:** `0.1.0`, commit `17a73a6fc20ecad2c892d45f2e2c95b82a6087ef`. The old `0.8` handover labels are historical product-plan labels, not the package's software version.
@@ -33,7 +33,7 @@ Current source registry misleadingly marks Awin active/sync enabled despite unco
 
 ## P0-03 private customer collections (release candidate)
 
-Existing personal Wishlist/Basket operations stored browser-provided prices and merchants without trusted server verification. The v0.2.3 candidate moves creation and named basket copying to authenticated server endpoints, validates current rights-approved offers, introduces unique list/item keys and adds restrictive owner-only RLS for planning collections. The migration is **not yet applied**; normal Saved/Watches/collaborative list routes are preserved. Customer data count was zero at audit. Full two-account, mobile email-app and approved-merchant acceptance is still pending. [P0-03 checklist](./P0_03_COLLECTIONS_ACCEPTANCE.md).
+Existing personal Wishlist/Basket operations stored browser-provided prices and merchants without trusted server verification. The v0.2.3 release moves creation and named basket copying to authenticated server endpoints, validates current rights-approved offers, introduces unique list/item keys and adds restrictive owner-only RLS for planning collections. The migration was applied after production READY. Database checks confirmed planning-list owner-only restrictive policies, both unique indexes and unchanged Saved/Watches ownership policies. All four customer collection tables remained at zero rows. Normal Saved/Watches/collaborative list routes are preserved. Customer data count was zero at audit. Full two-account, mobile email-app and approved-merchant acceptance is still pending. [P0-03 checklist](./P0_03_COLLECTIONS_ACCEPTANCE.md).
 
 ## Feature delivery ledger
 

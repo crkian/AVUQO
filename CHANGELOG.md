@@ -1,11 +1,11 @@
 # AVUQO software changelog
 
-## [0.2.3] - P0-03 release candidate (not deployed)
+## [0.2.3] - 2026-11-04 (P0-03 deployed; database integrity verified)
 - Replace browser-supplied wishlist/basket merchant, price, title and timestamps with authenticated server capture from current, rights-verified product/offer records.
 - Make one private basket and wishlist per account, deduplicate items at database level, and deny browser-side inserts/updates into personal planning lists using restrictive RLS.
 - Copy named baskets from the authenticated user's server-stored records, with complete-copy rollback on errors. Preserve ordinary collaborative lists and the separate Saved/Watches areas.
 - Strengthen historical snapshot validation, internal-only links, email text sanitization, and the 18-item email-draft overflow explanation. No automated email or merchant checkout.
-- Add P0-03 negative regression tests and two-account acceptance runbook. **Outstanding:** CI, production SHA, reviewed migration, actual signed-in cross-account/mobile/browser tests and licensed product fixtures.
+- Add P0-03 negative regression tests and two-account acceptance runbook. CI build, lint, tests and scan passed. PR #42 deployed READY at `8ee40ecbc73c2e9b3a7c3cb2018a42c272aee32d`. Supabase migration `20261104104248_p0_03_private_verified_collections` applied; restrictive policies and uniqueness indexes confirmed. **Outstanding:** actual two-account/mobile/browser acceptance, approved-offer fixture and legacy Saved/Watch link reconciliation.
 
 
 ## Unreleased documentation / audit addendum (2 November 2026)
