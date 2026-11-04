@@ -18,7 +18,7 @@ begin
  select * into v_session from public.large_feed_import_sessions where import_id=p_import_id for update;
  if not found then raise exception 'No import session';end if;
  select * into v_run from public.feed_import_runs where id=p_import_id;
- if v_run.status<>'importing' or v_session.completed_at is not null
+ if v_run.status<>'importing' or v_run.filename not like 'GENAWIN__%' or v_session.completed_at is not null
     or v_run.merchant_id !~ '^[0-9]{1,9}$'
     or v_run.permission_status<>'unverified' then raise exception 'Import not writable';end if;
  select * into v_existing from public.large_feed_import_chunks
@@ -80,7 +80,7 @@ begin
   if v_session.committed_count<>p_total then raise exception 'Completed total mismatch';end if;
   return jsonb_build_object('total',p_total,'review',v_session.review_count,'excluded',v_session.excluded_count);
  end if;
- if v_run.status<>'importing' or v_run.permission_status<>'unverified' then raise exception 'Not writable';end if;
+ if v_run.status<>'importing' or v_run.filename not like 'GENAWIN__%' or v_run.permission_status<>'unverified' then raise exception 'Not writable';end if;
  if p_total is null or p_total<1 or p_total>500000 or p_total<>v_session.committed_count
  then raise exception 'Import count mismatch';end if;
  update public.feed_import_runs set status='private_review',total_count=p_total,
