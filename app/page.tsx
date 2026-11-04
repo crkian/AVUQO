@@ -8,6 +8,7 @@ import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import LifestyleExplorer from "../components/lifestyle/LifestyleExplorer";
 import HomeCampaignCarousel from "../components/home/HomeCampaignCarousel";
+import OwnerStorefrontShortcut from "../components/home/OwnerStorefrontShortcut";
 import {loadHomeCampaigns} from "../lib/marketing/homepage";
 import styles from "./homepage-warm.module.css";
 
@@ -57,6 +58,7 @@ async function HomeContent() {
             <Link href="/travel">Travel</Link>
           </nav>
           <p className={styles.heroAside}>Compare carefully, check the evidence, and decide at your own pace.</p>
+          <OwnerStorefrontShortcut/>
         </div>
         <div className={styles.heroVisual}>
           <div className={styles.heroArt} style={{backgroundImage:`url("${lifestylePages.home.hero}")`}} role="img" aria-label="A welcoming, sunlit living room"/>
