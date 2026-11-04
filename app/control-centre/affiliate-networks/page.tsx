@@ -110,6 +110,7 @@ export default async function AffiliateNetworksPage() {
         </ol>
         <p>
           Register external sources as paused drafts in <Link href="/control-centre/source-readiness">Source approvals</Link>.
+          For Awin specifically, use the <Link href="/control-centre/awin-advertisers">advertiser onboarding and per-offer release workflow</Link>.
           Review existing imports in <Link href="/control-centre/feed-imports">Private feed imports</Link>.
           Monitor approved connections in <Link href="/control-centre/sources">Sources</Link>.
         </p>
