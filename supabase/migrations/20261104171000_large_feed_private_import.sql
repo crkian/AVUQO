@@ -1,4 +1,8 @@
 -- Private, resumable import: atomic, idempotent chunk inserts. No product publishing.
+-- Existing run status only allows private_review; an unfinished run must not appear complete.
+alter table public.feed_import_runs drop constraint if exists feed_import_runs_status_check;
+alter table public.feed_import_runs add constraint feed_import_runs_status_check
+ check(status in ('importing','private_review'));
 create table if not exists public.large_feed_import_sessions (
  import_id uuid primary key references public.feed_import_runs(id) on delete cascade,
  next_sequence integer not null default 0 check (next_sequence>=0),
