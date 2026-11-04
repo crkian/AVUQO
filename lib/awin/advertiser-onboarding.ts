@@ -1,4 +1,4 @@
-import {sourceEvidenceFailures, type ExternalSource} from "../pipeline/source-readiness";
+import {sourceEvidenceFailures, type ExternalSource} from "../pipeline/source-readiness.ts";
 
 export const UUID=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 export const advertiserIdValid=(value:unknown):value is string=>typeof value==="string"&&/^\d{2,12}$/.test(value);
