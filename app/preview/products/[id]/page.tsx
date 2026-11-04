@@ -23,8 +23,8 @@ export default async function Page({params}:Props){
  const {data,error}=await db.from("feed_import_records").select("id,import_id,title,brand,category,price,currency,image_url,status,merchant_product_id,metadata").eq("id",id).maybeSingle();
  if(error||!data)notFound();
  const row=data as Staged;
- const {data:run, error:runError}=await db.from("feed_import_runs").select("merchant_name,merchant_id,permission_status").eq("id",row.import_id).maybeSingle();
- if(runError||!run)notFound();
+ const {data:run, error:runError}=await db.from("feed_import_runs").select("merchant_name,merchant_id,permission_status,created_at,status").eq("id",row.import_id).maybeSingle();
+ if(runError||!run||run.status!=="private_review")notFound();
  const detail=categoryDetail(run.merchant_name,row.title,row.category,row.brand,row.metadata??undefined);
  return <main className={styles.page}>
   <Header/>
@@ -41,8 +41,9 @@ export default async function Page({params}:Props){
      {row.brand&&<p className={styles.brand}>{row.brand}</p>}
      <p className={styles.price}>{stagedPrice(row.price,row.currency)}</p>
      <p className={styles.historical}>Historical import value, not a verified live price. Any stock status or delivery charge shown in source details is a past feed observation, not current availability.</p>
+     <p className={styles.sourceDate}>Imported for private review: <strong>{new Date(run.created_at).toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric",timeZone:"UTC"})}</strong>. The product must be checked again before publication.</p>
      <div className={styles.disabled}>Retailer checkout unavailable until individual offer approval</div>
-     <div className={styles.provenance}><span>Imported merchant: <strong>{run.merchant_name}</strong></span><span>Original feed category: <strong>{row.category||"Not provided"}</strong></span><span>Validation: <strong>{row.status}</strong></span><span>Usage permission: <strong>{run.permission_status}</strong></span></div>
+     <div className={styles.provenance}><span>Imported merchant: <strong>{run.merchant_name}</strong></span><span>Original feed category: <strong>{row.category||"Not provided"}</strong></span><span>Validation: <strong>{row.status}</strong></span><span>Usage permission: <strong>{run.permission_status}</strong></span><span>Manufacturer identity: <strong>Unverified unless independently supported</strong></span></div>
     </section>
    </div>
    <div className={styles.sections}>
