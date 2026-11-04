@@ -1,5 +1,6 @@
 "use client";
 import {useMemo,useState} from "react";
+import Link from "next/link";
 import {ArrowUpDown,Search,SlidersHorizontal,X,Scale,ShieldCheck} from "lucide-react";
 import {stagedPrice} from "../../../lib/feed-imports/preview-selection";
 import {suggestedDepartment} from "../../../lib/feed-imports/preview-departments";
@@ -53,7 +54,7 @@ export default function PremiumDiscovery({items}:{items:PreviewItem[]}){
      <div className={styles.meta}><span>{item.merchant}</span><span>{item.rawCategory?"Feed category recorded":"Category suggested from title"}</span></div>
      <div className={styles.price}>{stagedPrice(item.price,item.currency)}</div>
      <span className={styles.historical}>Historical import · not a live offer</span>
-     <div className={styles.actions}><button type="button" aria-pressed={checked} disabled={!checked&&compare.length>=3} className={checked?styles.selectedCompare:styles.compare} onClick={()=>toggle(item.id)}><Scale size={16}/>{checked?"Selected to compare":"Add to preview comparison"}</button></div>
+     <div className={styles.actions}><Link className={styles.detailLink} href={`/preview/products/${item.id}`}>Explore category-specific product details</Link><button type="button" aria-pressed={checked} disabled={!checked&&compare.length>=3} className={checked?styles.selectedCompare:styles.compare} onClick={()=>toggle(item.id)}><Scale size={16}/>{checked?"Selected to compare":"Add to preview comparison"}</button></div>
     </div>
    </article>;
   })}</div>:<div className={styles.empty}><h3>No products match these filters.</h3><p>Try another department or search term.</p><button type="button" onClick={()=>{setSearch("");setDepartment("All departments");setMerchant("All retailers");}}>Show all products</button></div>}
