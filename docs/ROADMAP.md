@@ -2,6 +2,7 @@
 
 **Last evidence audit:** 2 November 2026 · [full source-to-code matrix](./SOURCE_TO_CODE_AUDIT_2026-11-02.md) · [original source manifest](./SOURCE_MANIFEST_2026-11-02.md) · [granular source gaps](./SOURCE_REQUIREMENT_GAPS_2026-11-02.md).
 **Software version:** v0.3.0 deployed via PR #44; Awin owner-release SQL correction PR #45 deployed READY at `18752f41287f30f82ba679c170e61b685520765e` and release migration applied. Cadbury and Petlibro registered as **unapproved private pilots**. See [pilot register](./AWIN_CADBURY_PETLIBRO_PILOTS_2026-11-04.md).
+**Next Awin verification:** PR #48 (v0.3.1 candidate) adds a private read-only joined-programmes API diagnostic to confirm Cadbury/Petlibro IDs. CI build/lint/static security tests do **not** replace an authenticated owner Preview session and actual Awin API response. Keep publishing paused until that check and individual permissions are documented.
 **Evidence policy:** Features remain “proposed”, “code foundation”, “internally testable”, “deployed but unaccepted” or “customer/provider verified”. Never express speculative percentage completion, income, source approvals or live listings.
 **Owner policy:** Protect independent AVUQO Score, consumer trust, permissioned data, source separation and non-destructive deployment.
 
