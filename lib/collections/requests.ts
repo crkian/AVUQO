@@ -24,6 +24,7 @@ export function parseBasketName(input: unknown): string | null {
   if (!input || typeof input !== "object" || Array.isArray(input)) return null;
   const value = (input as Record<string, unknown>).name;
   if (typeof value !== "string") return null;
+  if (/[\x00-\x1f\x7f]/.test(value)) return null;
   const normalized = value.trim().replace(/\s+/g, " ");
   return normalized.length >= 3 && normalized.length <= 80 && !/[\x00-\x1f\x7f]/.test(normalized) ? normalized : null;
 }
