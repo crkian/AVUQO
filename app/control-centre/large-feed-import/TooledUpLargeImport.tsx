@@ -24,8 +24,11 @@ export default function TooledUpLargeImport(){
    if(!("DecompressionStream" in window))throw Error("This browser cannot stream gzip. Use current Chrome, Edge or Firefox.");
    if(!/^496-89987-en_GB-All_Products(?: \(\d+\))?\.csv\.gz$/i.test(file.name))
     throw Error("Choose the Tooled-Up Awin All Products feed 89987 CSV.GZ");
+   const hashBytes=new Uint8Array(await crypto.subtle.digest('SHA-256',await file.arrayBuffer()));
+   const sourceDigest=Array.from(hashBytes,b=>b.toString(16).padStart(2,'0')).join('');
    const initial=current?await api({action:"status",run_id:current})
-    :await api({action:"start",filename:file.name,file_size:file.size});
+    :await api({action:"start",filename:file.name,file_size:file.size,source_digest:sourceDigest});
+   if(current&&initial.source_digest!==sourceDigest)throw Error('Resume requires the exact same compressed download (SHA256 mismatch).');
    if(!current){
     current=initial.run_id;setRunId(current);
    }
