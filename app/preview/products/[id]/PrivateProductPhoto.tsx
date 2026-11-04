@@ -1,7 +1,7 @@
 "use client";
 import {useState} from "react";
 import styles from "./detail.module.css";
-const allowed=new Set(["cdn.shopify.com","www.cadburygiftsdirect.co.uk"]);
+const allowed=new Set(["cdn.shopify.com","www.cadburygiftsdirect.co.uk","www.tooled-up.com"]);
 function safeImage(input:string|null){if(!input)return null;try{const u=new URL(input);return u.protocol==="https:"&&allowed.has(u.hostname)&&!u.username&&!u.password?u.href:null;}catch{return null;}}
 export default function PrivateProductPhoto({url,title}:{url:string|null;title:string}){
  const [visible,setVisible]=useState(false);

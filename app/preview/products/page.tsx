@@ -19,7 +19,7 @@ export default async function OwnerStorefrontPreview({searchParams}:Props){
  await connection();
  await requireControlCentreAccess();
  const {merchant,page:pageParam}=await searchParams;
- const currentPage=Math.max(1,Math.min(100,Number.parseInt(pageParam||"1",10)||1));
+ const currentPage=Math.max(1,Math.min(10000,Number.parseInt(pageParam||"1",10)||1));
  const pageSize=48;
  const db=await createClient();
  const {data:runs,error:runsError}=await db.from("feed_import_runs")
