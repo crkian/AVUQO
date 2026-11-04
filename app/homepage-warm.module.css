@@ -55,3 +55,12 @@
 .heroShortcuts a{display:inline-flex;min-height:34px;align-items:center;border:1px solid #e6dae8;border-radius:999px;padding:6px 12px;background:#fff8;color:#65409a;font-size:12px;font-weight:850}
 .heroShortcuts a:hover,.heroShortcuts a:focus-visible{background:#f0e7fa}
 @media(max-width:650px){.heroShortcuts{gap:6px}.heroShortcuts a{font-size:11px;padding:6px 9px}}
+
+/* Owner-only preview entry: visible exclusively after a verified role check. */
+.ownerPreview{margin-top:25px;padding:17px;display:flex;justify-content:space-between;align-items:center;gap:16px;background:#fff;border:1px solid #e6dced;border-radius:17px;box-shadow:0 12px 28px #4434660a}
+.ownerPreview>span{display:grid;grid-template-columns:auto 1fr;column-gap:10px;row-gap:3px;min-width:0;align-items:center}
+.ownerPreview>span svg{grid-row:1 / span 2;color:#6542a7}
+.ownerPreview strong{color:#3f3157;font-size:13px}
+.ownerPreview small{font-size:12px;color:#716978;line-height:1.5}
+.ownerPreview a{flex:none;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:9px 13px;border-radius:10px;background:#6245a5;color:white;font-size:12px;font-weight:850;text-decoration:none}
+@media(max-width:600px){.ownerPreview{align-items:stretch;flex-direction:column;padding:14px}.ownerPreview a{width:100%}}
