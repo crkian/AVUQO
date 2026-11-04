@@ -40,9 +40,9 @@ export default async function Page(){
   <div className={styles.privateBar}>OWNER-ONLY STOREFRONT REHEARSAL · NOT INDEXED · NO PUBLIC OFFERS</div>
   <section className={styles.hero}>
    <div className={styles.container}>
-    <p className={styles.eyebrow}>THE AVUQO PRIVATE SHOPPING EDIT</p>
-    <h1>Real imported products. <em>A better way to explore.</em></h1>
-    <p className={styles.lead}>This is the proposed customer journey before any retailer offers go live. Browse by department, inspect individual product pages and check the responsive shopping experience. Prices and images are unverified historical feed data.</p>
+    <p className={styles.eyebrow}>AVUQO SHOPPING / OWNER PREVIEW</p>
+    <h1>Explore the AVUQO shop. <em>With real products in review.</em></h1>
+    <p className={styles.lead}>Browse the same departments you see throughout AVUQO, then inspect the privately imported products and category-specific detail pages. Prices, photographs and availability are historical retailer observations awaiting approval.</p>
     <nav className={styles.heroActions} aria-label="Private storefront actions">
      <Link className={styles.primaryLink} href="#departments">Explore departments</Link>
      <Link className={styles.secondaryLink} href="/preview/products">Open existing product gallery</Link>
@@ -56,7 +56,7 @@ export default async function Page(){
   </section>
   <section className={styles.section} id="departments">
    <div className={styles.container}>
-    <div className={styles.sectionHead}><div><p className={styles.eyebrow}>SHOP BY DEPARTMENT · PRIVATE</p><h2>Collections that actually lead somewhere.</h2></div><p>Each section connects directly to its imported catalogue. No empty public product shelves or invented offers.</p></div>
+    <div className={styles.sectionHead}><div><p className={styles.eyebrow}>SHOP BY DEPARTMENT · PRIVATE</p><h2>Explore by department.</h2></div><p>Each section connects directly to its imported catalogue. No empty public product shelves or invented offers.</p></div>
     <div className={styles.departmentGrid}>
      {available.map(({label,description,merchant,href,tone})=><Link key={merchant} href={href} className={styles.department} data-tone={tone}>
       <span className={styles.departmentSymbol} aria-hidden="true">{label.slice(0,1)}</span>
@@ -67,13 +67,13 @@ export default async function Page(){
   </section>
   <section className={styles.featureSection}>
    <div className={styles.container}>
-    <div className={styles.sectionHead}><div><p className={styles.eyebrow}>THE PRODUCT GALLERY</p><h2>From department to detail.</h2></div><p>Photographs are switched off until you choose to review them. Manufacturer labels and prices remain retailer-supplied and unverified.</p></div>
+    <div className={styles.sectionHead}><div><p className={styles.eyebrow}>PRIVATE PRODUCT PREVIEW</p><h2>Explore the product details.</h2></div><p>Photographs are switched off until you choose to review them. Manufacturer labels and prices remain retailer-supplied and unverified.</p></div>
     {samples.length?<PrivateStorefrontImages items={samples}/>:<p>There are no completed private product samples yet.</p>}
     {(runsError||groups.some(g=>g.failed))&&<p className={styles.warning} role="alert">Some private inventory was unavailable. Check the Control Centre.</p>}
    </div>
   </section>
   <section className={styles.finalBand}><div className={styles.container}>
-   <h2>A clear path to the public shop.</h2>
+   <h2>Made for AVUQO, ready for review.</h2>
    <p>Category navigation and product pages can be rehearsed now. Publishing follows later, only with current prices, valid stock, verified image and text rights, and owner-approved offers.</p>
    <Link href="/control-centre/feed-imports">Review importer and permissions →</Link>
   </div></section>

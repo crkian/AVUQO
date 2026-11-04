@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Heart, ReceiptText, Search, ShieldCheck, Sparkles } from "lucide-react";
 import Header from "../layout/Header";
@@ -16,7 +16,7 @@ const links = [
   {href:"/toys",label:"Toys"},{href:"/pets",label:"Pets"},
   {href:"/christmas",label:"Christmas"}
 ];
-export default function LifestyleLanding({config}: {config:Landing}) {
+export default function LifestyleLanding({config,afterTrust}: {config:Landing;afterTrust?:ReactNode}) {
   const story=storyFor(config.slug);
   const theme = {"--accent":config.accent} as CSSProperties;
   return <main className={styles.page} style={theme} data-category={config.slug}>
@@ -50,6 +50,7 @@ export default function LifestyleLanding({config}: {config:Landing}) {
         <div><CheckCircle2 size={22}/><span><strong>Clear next steps</strong><small>Verify with the retailer</small></span></div>
       </div>
     </div>
+    {afterTrust}
     {story&&<CategoryMoments story={story}/>}
     <section className={`shell ${styles.section}`} id="explore">
       <div className={styles.sectionHeading}>

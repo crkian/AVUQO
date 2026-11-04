@@ -42,3 +42,27 @@
 @media(max-width:760px){.container{width:min(100% - 32px,1240px)}.hero{padding:48px 0 54px}.sectionHead{align-items:start;flex-direction:column;gap:13px}.sectionHead>p{max-width:600px}.departmentGrid{grid-template-columns:1fr}.department{min-height:145px}.productGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.metrics{margin-top:28px}.metrics span{flex:1;min-width:140px}.section,.featureSection{padding:55px 0}}
 @media(max-width:480px){.container{width:calc(100% - 28px)}.hero h1{font-size:clamp(36px,10vw,50px)}.heroActions{display:grid;grid-template-columns:1fr}.primaryLink,.secondaryLink{width:100%}.department{padding:17px;gap:14px;border-radius:17px}.departmentSymbol{width:62px;height:62px;border-radius:18px;font-size:36px}.departmentText strong{font-size:21px}.productGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.productCopy{padding:12px;gap:7px}.productCopy h3{font-size:13px}.productCopy strong{font-size:17px}.productMerchant{font-size:9px}.productArt img{padding:7px}.imageControls button{width:100%}.metrics span{flex:1 1 100%;min-width:0}.sectionHead h2{font-size:31px}}
 @media(prefers-reduced-motion:reduce){.department{transition:none}}
+
+/* Match AVUQO's established warm editorial surfaces and lifestyle typography. */
+.page{background:#faf8f3;color:#282b34}
+.hero{background:#f7f3ec;padding:clamp(44px,6vw,75px) 0 clamp(50px,7vw,85px)}
+.hero h1{max-width:900px;font-size:clamp(38px,5.3vw,68px);letter-spacing:-.057em;color:#302639}
+.hero h1 em{color:#6c508d}
+.lead{color:#6b646c;max-width:750px}
+.primaryLink{background:#6043a3}
+.secondaryLink{border-color:#e9e0dc;color:#59428c}
+.metrics span{border-color:#eee3dc;background:#fff}
+.metrics strong{color:#332b35}
+.section{background:#faf8f3}
+.featureSection{background:#f5f1ec}
+.sectionHead h2{color:#332b35}
+.department{border:1px solid #eae5df;border-radius:27px;box-shadow:0 8px 26px #31282a09}
+.department[data-tone="tools"]{background:#f5f0e9}
+.department[data-tone="gifts"]{background:#f6e8e8}
+.department[data-tone="pets"]{background:#eaf2e8}
+.department[data-tone="craft"]{background:#f7f0e5}
+.departmentSymbol{background:#ffffffb3;color:#684996}
+.productCard{border-color:#eae5df}
+.productCopy a,.departmentText>span{color:#59428c}
+.finalBand{background:#30283b}
+@media(max-width:600px){.hero{padding:38px 0 55px}.hero h1{font-size:clamp(35px,10vw,52px)}.container{width:calc(100% - 30px)}.department{min-height:0}.metrics span{min-width:0}}
