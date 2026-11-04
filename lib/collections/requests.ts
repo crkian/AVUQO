@@ -1,4 +1,4 @@
-import { safeProductUrl, type PlanningCollectionKind } from "./planning";
+import { safeProductUrl, type PlanningCollectionKind } from "./planning.ts";
 
 /** Parse only identifiers. Never trust client-supplied seller, price, title or capture time. */
 export type AddCollectionRequest = {
