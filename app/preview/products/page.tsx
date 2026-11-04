@@ -10,6 +10,7 @@ import {safePreviewSelection,stagedPrice,type StagedPreviewRow} from "../../../l
 import catalogue from "../../products/page.module.css";
 import styles from "./page.module.css";
 
+export const instant = false;
 export const metadata:Metadata={title:"Private product storefront preview | AVUQO",robots:{index:false,follow:false}};
 type Run={id:string;merchant_id:string;merchant_name:string;permission_status:string;created_at:string};
 type Props={searchParams:Promise<{merchant?:string}>};
