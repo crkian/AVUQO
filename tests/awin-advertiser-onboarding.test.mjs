@@ -77,7 +77,9 @@ test("database release function is transactional and inaccessible to anon/auth R
  assert.match(sql,/security invoker/i);
  assert.match(sql,/revoke all on public\.awin_offer_release_reviews, public\.awin_release_audit/i);
  assert.match(sql,/grant execute on function public\.record_awin_owner_release[\s\S]+to service_role/i);
- assert.match(sql,/reviewed_offer_at=p_reviewed_offer_at/);
+ assert.match(sql,/o\.last_seen_at=p_reviewed_offer_at/);
+ assert.match(sql,/as \$\$[\s\S]+end \$\$;/);
+ assert.match(sql,/p_advertiser_id !~ .*\[0-9\].*\$\x27/);
  assert.match(sql,/on conflict\(offer_id\)/);
  assert.match(sql,/insert into public\.awin_release_audit/);
  assert.doesNotMatch(sql,/truncate|delete from public\.offers/i);
