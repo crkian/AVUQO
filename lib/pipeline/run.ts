@@ -452,6 +452,7 @@ async function processOffer(
   const shouldPublish =
     source.connector_key !== "demo" &&
     dealPublishing &&
+    source.connector_key !== "awin" && // Every Awin offer requires separate owner release.
     publicationEligible &&
     score.score >= 60 &&
     score.confidence >= 55 &&
@@ -609,6 +610,16 @@ export async function runDealIntelligencePipeline(
     summary.seen = rows.length;
 
     for (const raw of rows) {
+      // Never normalise or score another advertiser under the approved Awin ID.
+      // The Awin adapter reads only the configured advertiser feed, but this
+      // second check protects against mixed or incorrectly labelled records.
+      if (options.sourceKey === "awin" &&
+          raw.merchantExternalId !== process.env.AWIN_ADVERTISER_ID) {
+        summary.rejected += 1;
+        await writeIngestionItem(supabase,run.id,source.id,raw,null,"rejected",
+          "Feed merchant ID does not match authorised Awin advertiser");
+        continue;
+      }
       // Stop newly queued work when an owner pauses a source or hits the
       // emergency switch while the current network response is being processed.
       if (options.sourceKey !== "demo") {

@@ -64,12 +64,44 @@ export async function verifiedOffers(options:{productId?:string;offerId?:string;
   if(!sourceIds.length)return [];
   const {data:sources,error:sourceError}=await db.from("sources").select("id,name,status,sync_enabled,credential_status,connector_key,source_type,metadata").in("id",sourceIds);
   if(sourceError||!sources?.length)return [];
+  // Awin requires a separate, owner-only per-offer release record in addition
+  // to a published row. Admins cannot forge this through REST.
+  const awinSourceIds=new Set(sources.filter(s=>s.connector_key==="awin").map(s=>s.id));
+  const awinOfferIds=offers.filter(o=>awinSourceIds.has(o.source_id)).map(o=>o.id);
+  let releaseMap=new Map<string,{
+   offer_id:string;source_id:string;advertiser_id:string;status:string;
+   reviewed_price:number;reviewed_offer_at:string;reviewed_score_at:string;
+  }>();
+  let scoreMap=new Map<string,{offer_id:string;score:number;confidence:number;calculated_at:string}>();
+  if(awinOfferIds.length){
+   const [{data:releases,error:releaseError},{data:scoreRows,error:scoreError}]=await Promise.all([
+    db.from("awin_offer_release_reviews")
+     .select("offer_id,source_id,advertiser_id,status,reviewed_price,reviewed_offer_at,reviewed_score_at")
+     .in("offer_id",awinOfferIds),
+    db.from("deal_scores").select("offer_id,score,confidence,calculated_at")
+     .in("offer_id",awinOfferIds)
+   ]);
+   if(releaseError||scoreError)return [];
+   releaseMap=new Map((releases??[]).map(r=>[r.offer_id,r]));
+   scoreMap=new Map((scoreRows??[]).map(r=>[r.offer_id,r]));
+  }
   const sourceMap=new Map(sources.map(s=>[s.id,s]));
   const offerMap=new Map(offers.map(o=>[o.id,o]));
   const now=Date.now();
   return published.flatMap(d=>{
    const offer=offerMap.get(d.offer_id);if(!offer)return [];
    const source=sourceMap.get(offer.source_id);if(!source||!sourceReady(source as Record<string,unknown>)||!offerFresh(offer as Record<string,unknown>,now))return [];
+   if(source.connector_key==="awin"){
+    const approval=releaseMap.get(offer.id),score=scoreMap.get(offer.id);
+    if(!approval||approval.status!=="approved"||approval.source_id!==source.id||
+      approval.advertiser_id!==process.env.AWIN_ADVERTISER_ID||
+      !score||score.score<60||score.confidence<55||
+      Date.parse(approval.reviewed_offer_at)!==Date.parse(offer.last_seen_at??"")||
+      Date.parse(approval.reviewed_score_at)!==Date.parse(score.calculated_at)||
+      Number(approval.reviewed_price)!==Number(offer.price)||
+      Number(d.current_price)!==Number(offer.price)||
+      !isHttps(offer.affiliate_url))return [];
+   }
    if(offer.product_id!==d.product_id||!(Number(d.current_price)>0)||!Number.isFinite(Number(d.avuqo_score)))return [];
    const rights=metadata(source.metadata);
    const imageAllowed=rights.image_rights_confirmed===true;
