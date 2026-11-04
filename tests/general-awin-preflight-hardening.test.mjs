@@ -13,7 +13,7 @@ test("new import preflight does not write to API and validates sample against ch
  assert.ok(ui.indexOf("async function check()") < ui.indexOf("async function start()"));
  assert.match(ui,/diagnosis\.fileKey!==fileKey\(file,merchant,feedId\)/);
  assert.match(ui,/Inspect actual feed columns/);
- assert.ok(ui.includes(String.raw`if(!/\\.(csv|tsv)(\\.gz)?$/i.test(file.name))`),"Preflight must accept actual .csv/.tsv file extensions");
+ assert.ok(ui.includes(String.raw`if(!/\.(csv|tsv)(\.gz)?$/i.test(file.name))`),"Preflight must accept actual .csv/.tsv file extensions");
  assert.match(ui,/sample, not a validation of the entire feed/);
 });
 test("TSV and compressed TSV are valid in both browser and server",()=>{
