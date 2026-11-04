@@ -1,32 +1,37 @@
-/** Incremental RFC-4180-ish CSV reader for browser decompression streams.
- * Handles quoted commas/newlines, escaped quotes and CRLF without buffering a
- * complete large feed in memory. Denies excessive field/row sizes.
+/** Incremental CSV parser for giant Awin feeds, including quoted
+ * newlines, escaped quotes spanning stream chunks and CRLF separators.
  */
 export async function* csvRowsFromChunks(chunks:AsyncIterable<string>):AsyncGenerator<string[]>{
- let cells:string[]=[],field="",quoted=false,justClosed=false,atStart=true;
+ let cells:string[]=[],field="",quoted=false,quotePending=false,justClosed=false,atStart=true;
  for await(const chunk of chunks){
   for(let i=0;i<chunk.length;i++){
-   let c=chunk[i];
+   const c=chunk[i];
    if(atStart){atStart=false;if(c==="\uFEFF")continue;}
    if(quoted){
-    if(c==='"'){
-     if(chunk[i+1]==='"'){field+='"';i++;}
-     else {quoted=false;justClosed=true;}
-    }else field+=c;
-   }else if(c==='"' && field==="" && !justClosed){quoted=true;}
+    if(quotePending){
+     if(c==='"'){field+='"';quotePending=false;continue;}
+     quoted=false;quotePending=false;justClosed=true;
+     // Process the delimiter after the closing quote below.
+    }else{
+     if(c==='"')quotePending=true;
+     else field+=c;
+     if(field.length>10000)throw Error("CSV field exceeds 10,000 characters");
+     continue;
+    }
+   }
+   if(c==='"'&&field===""&&!justClosed)quoted=true;
    else if(c===','){cells.push(field);field="";justClosed=false;}
    else if(c==='\n'){
     cells.push(field.endsWith("\r")?field.slice(0,-1):field);
     if(cells.some(x=>x.length))yield cells;
     cells=[];field="";justClosed=false;
-   }else if(c==='\r'){
-    // CR is stripped only when a record ends; preserve embedded quoted CR.
-    field+=c;
-   }else if(justClosed && c!==" "){throw Error("Unexpected character after CSV closing quote");}
-   else if(!justClosed)field+=c;
+   }else if(justClosed){
+    if(c!==" "&&c!=="\r")throw Error("Unexpected character after closing quote");
+   }else field+=c;
    if(field.length>10000||cells.length>120)throw Error("CSV field or row exceeds size limit");
   }
  }
+ if(quotePending){quoted=false;quotePending=false;justClosed=true;}
  if(quoted)throw Error("Incomplete quoted CSV field");
  if(field||cells.length){cells.push(field);if(cells.some(x=>x.length))yield cells;}
 }
