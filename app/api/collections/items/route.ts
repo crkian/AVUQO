@@ -55,7 +55,7 @@ export async function POST(request: Request) {
   }
 
   const itemKey=body.kind==="wishlist" ? `product:${body.productId}` : `offer:${body.offerId}`;
-  const {count,count:unused,error:countError}=await admin.from("shared_list_items")
+  const {count,error:countError}=await admin.from("shared_list_items")
     .select("id",{head:true,count:"exact"}).eq("list_id",list.id);
   if (countError) return NextResponse.json({error:"Could not check your collection."},{status:500});
   // Existing items remain idempotently saveable even when the collection is full.
