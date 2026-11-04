@@ -7,6 +7,7 @@ import {lifestyleOrder,lifestylePages} from "../../lib/lifestyle/landing-data";
 import {storyFor,storySearchHref} from "../../lib/lifestyle/category-story";
 import styles from "./page.module.css";
 import DepartmentExplorer from "../../components/categories/DepartmentExplorer";
+import ShoppingDepartmentShelf from "../../components/shopping/ShoppingDepartmentShelf";
 export const metadata:Metadata={
  title:"Explore Categories | AVUQO",
  description:"Find distinctive AVUQO departments, from technology and home to gifts and travel. Offers appear only after verification.",
@@ -39,6 +40,7 @@ export default function CategoriesPage(){return <main className={styles.page}>
   </div>
  </section>
  <section className={"shell "+styles.directorySection} aria-label="Full department browser"><DepartmentExplorer/></section>
+ <ShoppingDepartmentShelf compact/>
  <section className={"shell "+styles.section} aria-labelledby="department-title">
   <div className={styles.heading}><p className={styles.eyebrow}>Choose a department</p>
    <h2 id="department-title">A world for every way you shop.</h2>
