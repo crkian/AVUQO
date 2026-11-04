@@ -1,4 +1,4 @@
-import {suggestedDepartment} from "./preview-departments";
+import {suggestedDepartment} from "./preview-departments.ts";
 
 export type CategoryDetail = {department:string;heading:string;guidance:string;facts:{label:string;value:string}[];missing:string[]};
 
