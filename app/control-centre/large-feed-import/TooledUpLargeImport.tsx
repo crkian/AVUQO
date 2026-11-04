@@ -30,7 +30,7 @@ export default function TooledUpLargeImport(){
     current=initial.run_id;setRunId(current);
    }
    if(initial.status==="private_review")throw Error("This import is already complete. Choose a new run.");
-   let sequence=initial.next_sequence,committed=initial.committed;
+   let sequence=Number(initial.next_sequence),committed=Number(initial.committed_count??initial.committed??0);
    setProgress({run_id:current,committed,next_sequence:sequence,status:"importing"});
    let header:string[]|null=null,batch:string[][]=[],seen=0,index=0;
    async function commit(){
