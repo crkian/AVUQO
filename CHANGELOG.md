@@ -1,6 +1,7 @@
 # AVUQO software changelog
 
 ## [0.3.0] - Awin advertiser onboarding and manual release (database acceptance pending)
+- **Proposed follow-up PR #48:** Add an access-restricted, manually invoked read-only Awin publisher joined-programmes diagnostic under `/control-centre/awin`. Reports at most 100 programme IDs/names or a generic error; does not expose the token, import products or grant publishing rights. Not accepted for production until successful CI and authenticated preview/provider verification.
 - PR #45 corrects the SQL PL/pgSQL terminator in the unapplied owner-release migration; migration must pass final review and production checks before applying. No provider approvals or offers were activated by this correction.
 - Owner-only Control Centre workflow: advertiser ID registration, private draft, evidence/expiry attestation, restricted read-only Awin feed test, explicit source activation and pilot import, price-evidence review and one-offer publication/pausing.
 - Awin pipeline now **always holds** externally ingested offers for individual owner approval and rejects mixed programme IDs. No auto-publish on source flags.
