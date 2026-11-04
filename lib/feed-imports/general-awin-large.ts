@@ -35,7 +35,8 @@ export function prepareGeneralBatch(merchant:string,feedId:string,header:string[
   const rowMerchant=get(r,format==="google-retail"?"advertiser_id":"merchant_id");
   if(rowMerchant!==merchant)throw Error("Cross-advertiser row detected; import refused");
   const productId=get(r,format==="google-retail"?"id":"merchant_product_id");
-  if(!productId||productId.length>250||seen.has(productId))throw Error("Missing or duplicate product identity within batch");
+  if(!productId||productId.length>250)throw Error("Missing or invalid product identity within batch");
+  if(seen.has(productId))throw Error("Duplicate merchant product ID within batch");
   seen.add(productId);
   const title=get(r,format==="google-retail"?"title":"product_name").slice(0,500);
   const {currency,price}=parsePrice(get(r,format==="google-retail"?"price":"search_price"),format,get(r,"currency"));
