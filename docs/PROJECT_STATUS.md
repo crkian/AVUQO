@@ -1,5 +1,7 @@
 # AVUQO living project status
 
+**Pending private Awin inventory review (4 Nov 2026):** Owner-only `datafeeds.csv` inspector lists active feed IDs, counts and source update timestamps for currently joined Awin advertisers, never returning or persisting signed download URLs. The owner's 952-entry list has 72 `active` feed entries across 11 joined advertisers. Tooled-Up's new daily feed rule requires the underlying filename to begin `awinnew`; Awin display names alone are insufficient. No automatic feed fetching, rights release or product publication activated.
+
 **Proposed owner-only customer storefront rehearsal (PR #52, not deployed):** `/preview/products` reuses customer catalogue styling and read-only staged feed rows while requiring Control Centre owner/admin authorisation. It hides merchant images, labels staged prices as historical, disables buying links, and does not publish offers or enable scheduled Awin ingestion. Browser, mobile and role-denial acceptance remain open. Current software version stays `0.3.0`.
 
 **Proposed premium storefront browsing (PR pending, not deployed):** Owner-only `/preview/products` has provisional department suggestions, search, retailer filters, sorting and private comparison for existing staged records. Merchant feed category gaps remain 578/1,371 Cadbury, 98/98 Petlibro and 162/1,299 Craft Buddy; no canonical category assignments, licence verification, feed automation or public offers are changed. Current application version remains `0.3.0`.
