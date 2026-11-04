@@ -110,7 +110,7 @@ begin
  values(p_offer_id,p_source_id,p_advertiser_id,
    case when p_status='approved' then 'published' else 'paused' end,
    p_actor_id,coalesce(p_review_note,''),p_reviewed_price,p_reviewed_offer_at);
-end; $;
+end; $$;
 
 revoke all on function public.record_awin_owner_release(
  uuid,uuid,text,text,uuid,text,numeric,timestamptz,timestamptz
