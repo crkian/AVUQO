@@ -1,5 +1,6 @@
 import {csvRowsFromChunks} from "../feed-imports/stream-csv";
 import {candidateTyreSize,inspectTyreHeader} from "./tyre-feed-contract";
+import {inspectPrivateTyreRowEvidence} from "./tyre-row-evidence";
 
 const MAX_COMPRESSED=2_000_000,MAX_DECOMPRESSED=4_000_000;
 const MAX_ROWS=25;
@@ -45,6 +46,8 @@ export async function inspectTyreBoundedSample(
  let nonemptyCustomFields=0,missingTitle=0;
  const customStats:Record<string,{nonempty_rows:number;size_candidate_rows:number;numeric_rows:number}>={};
  let descriptionSizeCandidates=0,categorySizeCandidates=0;
+ let explicitGbp=0,nonGbpCurrency=0,descriptionOnlySize=0;
+ let sizeConflicts=0,blockedNonTyres=0;
  const ids=new Set<string>();let duplicateIds=0;
  const chunks=(async function*(){
   try{
@@ -74,6 +77,15 @@ export async function inspectTyreBoundedSample(
    if(candidateTyreSize(get("merchant_category"))||candidateTyreSize(get("merchant_product_category_path")))categorySizeCandidates++;
    const currency=get("currency");
    if(currency)explicitCurrency++;
+   if(currency.toUpperCase()==="GBP")explicitGbp++;
+   else if(currency)nonGbpCurrency++;
+   const evidence=inspectPrivateTyreRowEvidence({
+    title,description:get("description"),category:get("merchant_category"),
+    currency,price:get("search_price")
+   });
+   if(evidence.size_candidate&&!candidateTyreSize(title))descriptionOnlySize++;
+   if(evidence.size_conflict)sizeConflicts++;
+   if(evidence.blocked_non_tyre)blockedNonTyres++;
    const price=get("search_price");
    if(/^\d+(?:\.\d{1,2})?$/.test(price)&&Number(price)>0)positivePrices++;
    let rowHasCustom=false;
@@ -104,6 +116,11 @@ export async function inspectTyreBoundedSample(
   custom_column_evidence:customStats,
   rows_with_nonempty_custom_fields:nonemptyCustomFields,
   rows_with_explicit_currency:explicitCurrency,
+  rows_with_explicit_gbp:explicitGbp,
+  rows_with_other_explicit_currency:nonGbpCurrency,
+  description_or_category_only_size_candidates:descriptionOnlySize,
+  conflicting_size_candidate_rows:sizeConflicts,
+  obvious_non_tyre_item_rows:blockedNonTyres,
   rows_with_positive_numeric_prices:positivePrices,
   tyre_size_verified:false,custom_field_semantics_verified:false,
   currency_verified:false,rights_verified:false,ready_to_import:false,
