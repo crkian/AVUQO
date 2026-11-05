@@ -17,7 +17,14 @@ export function prepareTyresUkPrivateBatch(
   "description","search_price","currency","aw_deep_link"]){
   if(!headers.includes(field))throw Error("tyres_uk_required_field_missing");
  }
- const base=prepareGeneralBatch(advertiser,feedId,headers,rows);
+ const oversizedIndex=headers.indexOf("custom_6");
+ const sanitized=rows.map(row=>{
+  if(oversizedIndex<0||row[oversizedIndex].length<=10000)return row;
+  if(row[oversizedIndex].length>20000)throw Error("tyres_uk_custom_6_oversize");
+  const copy=[...row];copy[oversizedIndex]=copy[oversizedIndex].slice(0,10000);
+  return copy;
+ });
+ const base=prepareGeneralBatch(advertiser,feedId,headers,sanitized);
  const descriptionAt=headers.indexOf("description");
  const categoryAt=headers.indexOf("merchant_category");
  const deliveryAt=headers.indexOf("delivery_cost");
@@ -48,6 +55,7 @@ export function prepareTyresUkPrivateBatch(
    metadata:{
     ...record.metadata,
     tyre_adapter:"tyres_uk_private_v1",
+    oversized_custom_6_redacted:oversizedIndex>=0&&rows[index][oversizedIndex].length>10000,
     feed_advertiser_id:"12715",
     feed_id:"93988",
     retailer_category_raw:rawCategory.slice(0,500),
