@@ -29,3 +29,10 @@
 .card:nth-child(9) .photo{background-position-x:100%}
 @media(max-width:680px){.photo{height:53px}}
 @media(max-width:420px){.photo{height:49px}}
+
+/* Preserve the original screenshot sprite's natural aspect ratio. An SVG used
+   as a CSS background otherwise introduces horizontal pillarboxing when forced
+   to 900% x 100%, causing adjacent item cutouts to overlap. */
+.photo{background-size:900% auto;background-position-y:center;height:89px}
+@media(max-width:680px){.photo{height:53px}}
+@media(max-width:420px){.photo{height:48px}}
