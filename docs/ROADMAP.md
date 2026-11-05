@@ -6,6 +6,12 @@
 **Evidence policy:** Features remain “proposed”, “code foundation”, “internally testable”, “deployed but unaccepted” or “customer/provider verified”. Never express speculative percentage completion, income, source approvals or live listings.
 **Owner policy:** Protect independent AVUQO Score, consumer trust, permissioned data, source separation and non-destructive deployment.
 
+## Future backlog | UK registration-based vehicle finder
+
+**Status: deferred at owner's request (5 November 2026).** Build after current Awin catalogue and tyre specification work, not in the active sprint. Provisional owner journey: UK registration entered privately → authorised vehicle-data provider identifies make/model/year/variant → identify candidate manufacturer-approved tyre sizes → owner/customer confirms actual tyre sidewall or vehicle placard → filter AVUQO permitted, fresh tyre offers. Subsequent phases may cover batteries, wipers, engine oil, brakes and compatible parts. The DVLA vehicle enquiry response by itself does not prove tyre or parts fitment. Evaluate licensed plate-to-fitment providers, access fees and terms, accuracy by variant, registration privacy/retention, consent, provider quotas, service resilience and insurance/regulatory boundaries before implementation. Never store registrations in analytics URLs, logs or public catalogues; avoid asserting vehicle fitment from a plate alone.
+
+**Current priority instead:** Awin Tyres UK private technical attribute extraction and verification; source-specific load/speed, run-flat, season, delivery/fitting basis and manufacturer evidence. Existing imported rows stay private until individual rights and freshness gates are passed.
+
 ## 0. Release and source gate definitions
 
 **Done** for a customer feature requires: requirements traced to the original source, ownership/security tests, deterministic tests where possible, staging preview, successful build, live SHA recorded, mobile/browser acceptance and supportable source evidence. A source/feed is **live** only after publisher and merchant acceptance, rights, authorised credentials, fresh data, provenance, consent/attribution where applicable, incident disablement and owner release review.
