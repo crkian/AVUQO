@@ -91,8 +91,8 @@ export async function POST(request:NextRequest){
   .select("metadata,status,sync_enabled").eq("connector_key","awin").maybeSingle();
  if(sourceError||!source||!joinedInSource(source.metadata,advertiser))
   return reply({error:"Joined advertiser verification failed"},403);
- if(manualStage&&(source.status!=="paused"||source.sync_enabled!==false))
-  return reply({error:"Manual stage requires Awin publication source to remain paused"},409);
+ if(source.status!=="paused"||source.sync_enabled!==false)
+  return reply({error:"All Awin private imports require the publication source to remain paused"},409);
  // This worker can stage while the general Awin source is paused. It NEVER
  // changes source controls, publication permissions, offers or products.
  const {data:owner,error:ownerError}=await db.from("user_roles")
