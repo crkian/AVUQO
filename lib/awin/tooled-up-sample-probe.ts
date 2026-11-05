@@ -34,12 +34,15 @@ export async function inspectTooledUpBoundedSample(response:Response){
  const decoded=gz?bounded.pipeThrough(
   new DecompressionStream("gzip") as unknown as ReadableWritablePair<Uint8Array,Uint8Array>
  ):bounded;
+ const decoder=new TextDecoder("utf-8",{fatal:true});
  const textStream=decoded.pipeThrough(new TransformStream<Uint8Array,string>({
   transform(chunk,controller){
    uncompressedBytes+=chunk.byteLength;
    if(uncompressedBytes>4_000_000)throw Error("decompressed_probe_limit");
-   controller.enqueue(new TextDecoder("utf-8",{fatal:true}).decode(chunk));
-  }
+   const text=decoder.decode(chunk,{stream:true});
+   if(text)controller.enqueue(text);
+  },
+  flush(controller){const final=decoder.decode();if(final)controller.enqueue(final);}
  }));
  const reader=textStream.getReader();
  const parse=csvRowsFromChunks((async function*(){
