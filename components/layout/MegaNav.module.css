@@ -81,3 +81,12 @@
  .menuLink{min-height:48px!important}
 }
 @media(prefers-reduced-motion:reduce){.menuLink{transition:none}}
+
+/* Compact editorial primary navigation, designed for the new two-row header. */
+.groupLink{display:inline-flex!important;gap:6px;align-items:center;font-size:12px;padding:8px 1px 8px 7px!important}
+.groupLink svg{width:15px;height:15px;flex:none;color:#513d67}
+.groupLink.active svg{color:#5b35f5}
+.expand{min-width:22px;padding:0 2px}
+.expand svg{width:14px;height:14px}
+@media(min-width:1001px) and (max-width:1170px){.groupLink{gap:4px;font-size:11px;padding:8px 0 8px 4px!important}.groupLink svg{width:13px;height:13px}.expand{min-width:18px}}
+@media(max-width:1000px){.groupLink{font-size:15px;padding:12px 13px!important;gap:11px}.groupLink svg{width:18px;height:18px}.expand{min-width:50px}}
