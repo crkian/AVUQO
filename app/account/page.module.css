@@ -78,3 +78,17 @@
 
 /* Profile references use bold interface typography, unlike editorial category heroes. */
 .dashboardHero h1,.panelHeading h2,.overviewTile strong,.activityLinks strong{font-family:var(--avuqo-interface-font);font-weight:850;letter-spacing:-.038em}
+
+
+.preferenceSignIn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: #5a29b4;
+  color: white;
+  font-size: 13px;
+  font-weight: 800;
+}

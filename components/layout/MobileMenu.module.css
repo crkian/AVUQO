@@ -43,7 +43,7 @@
 }
 
 .panel { min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
-.links { display: grid; gap: 7px; padding: 14px 16px 24px; }
+.links { display: grid; grid-template-columns: minmax(0, 1fr); gap: 7px; padding: 14px 16px 24px; }
 .links h3 { margin: 12px 0 2px; font-size: 15px; }
 .links :is(a, button) {
   display: flex;

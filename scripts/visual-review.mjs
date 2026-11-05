@@ -159,6 +159,14 @@ try{
           await categories.press("Enter");
           await dialog.getByRole("button",{name:"Technology & Electronics"}).click();
           await dialog.getByRole("link",{name:"Audio & Hi-Fi"}).waitFor({state:"visible"});
+          const clipped=await dialog.getByRole("navigation").evaluate(nav=>{
+            const bounds=nav.getBoundingClientRect();
+            return [...nav.querySelectorAll("a,button")].some(item=>{
+              const rect=item.getBoundingClientRect();
+              return rect.left<bounds.left||rect.right>bounds.right||rect.height<44;
+            });
+          });
+          if(clipped)throw new Error("A drawer action is clipped or smaller than 44px");
           await page.screenshot({path:path.join(out,`menu-categories-${viewport.label}.jpg`),type:"jpeg",quality:82});
           await dialog.getByRole("button",{name:"Back to categories"}).click();
           await dialog.getByRole("button",{name:"Back to main menu"}).click();

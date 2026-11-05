@@ -15,7 +15,7 @@ export default function MobileDock({signedIn}:{signedIn:boolean}){
    {links.map(({href,label,Icon})=>{
     const actual=label==="Account"&&!signedIn?"/login?next=/account":href;
     const current=path===actual.split("?")[0];
-    const active=current||(href==="/lists"&&path.startsWith("/lists/"));
+    const active=current||path===href||(href==="/lists"&&path.startsWith("/lists/"));
     return <Link key={label} href={actual}
       aria-current={current?"page":active?"location":undefined}
       className={styles.item+(active?" "+styles.active:"")}>

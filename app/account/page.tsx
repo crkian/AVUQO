@@ -174,7 +174,7 @@ export default function AccountPage() {
         <section className={styles.preferencePanel} id="preferences" aria-labelledby="profile-heading">
           <div className={styles.panelHeading}><div><p className={styles.kicker}>In your hands</p><h2 id="profile-heading">Profile &amp; preferences</h2><p>Control the information you choose to save.</p></div></div>
           <p className={styles.profileStatus}>{loading ? "Checking your account…" : signedIn ? email : "Sign in to save preferences across devices."}</p>
-          <form className={styles.form} onSubmit={save}>
+          {signedIn ? <form className={styles.form} onSubmit={save}>
             <label>Display name
               <input value={name} onChange={event => setName(event.target.value)} disabled={!signedIn || loading} autoComplete="name"/>
             </label>
@@ -194,7 +194,7 @@ export default function AccountPage() {
             </label>
             <button type="submit" disabled={!signedIn || loading}>Save preferences</button>
             {message && <span className={styles.message} role="status">{message}</span>}
-          </form>
+          </form> : !loading && <Link className={styles.preferenceSignIn} href="/login?next=/account">Sign in to manage preferences <ArrowRight size={17} aria-hidden="true"/></Link>}
         </section>
       </div>
     </div>
