@@ -11,3 +11,22 @@ The shared Awin source is required to remain paused and sync-disabled when start
 Pneus Online UK (15236, feed 26513) remains separate because its 32-column feed has no explicit currency field and its 25-row sample found no title size patterns. A distinct source-specific adapter is necessary.
 
 Future release requires confirmed retailer permissions, full-feed validation, GBP/availability freshness, load and speed index, product-versus-wheel separation, delivery/fitting totals and accurate price comparison, plus individual owner release records.
+
+## Complete user-provided file audit (local, not Supabase)
+
+Full owner-supplied compressed Awin exports inspected locally on 5 November 2026. These files contain 86 CSV columns each, differing from the 37 and 32 columns returned by the live Awin header probes (which use the current feed-list URL). Do not assume the historic snapshots are byte-identical to the live downloads.
+
+| Measure | Tyres UK 12715:93988 | Pneus 15236:26513 |
+|---|---:|---:|
+| Original rows | 31,372 | 20,087 |
+| Rows with explicit GBP | 31,372 | 20,087 |
+| Positive numeric search_price | 31,372 | 20,087 |
+| Duplicate retailer product ID | 0 | 0 |
+| Publisher ID 3135746 present in tracking URL | 31,372 | 20,087 |
+| Description size regex candidates | 29,073 | 1,341 |
+| Rows with multiple size patterns across inspected fields | 0 | 106 |
+| Rows with field exceeding 10k characters | 26 | 0 |
+
+Tyres UK's 26 oversized fields are exclusively `custom_6` (maximum 16,422 characters); the owner importer permits up to 20k characters only for Tyres UK's `custom_6` field, and the private adapter truncates it to 10k before generic validation while setting an explicit redaction flag in private metadata. This field is not used to infer tyre specifications. Other advertiser fields retain the 10k cap. The original owner's compressed file remains unchanged on the owner's machine.
+
+The audit establishes historical file format only, not current live stock, price accuracy, images/retention rights or customer-facing availability. No product was added to Supabase during this local audit.
