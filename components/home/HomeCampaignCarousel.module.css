@@ -14,3 +14,17 @@
 .disclosure{font-size:11px;color:#786b7d;margin:10px 6px 0;line-height:1.5}
 @media(max-width:750px){.card{grid-template-columns:1fr}.art{display:none}.copy{padding:27px 25px 73px}.controls{left:22px;right:auto}.section{width:calc(100% - 28px)}}
 @media(prefers-reduced-motion:reduce){.card,.cta{transition:none}}
+
+/* Featured campaigns now belong to the same calm, photo-led shopping experience. */
+.section{margin-top:38px}
+.card{background:linear-gradient(115deg,#fff7ee,#f3e8f1);color:#302639;border:1px solid #e9e0dc;box-shadow:0 15px 38px rgba(45,31,54,.065);border-radius:30px}
+.eyebrow{color:#805777!important}
+.copy h2{font-family:Georgia,"Times New Roman",serif;color:#302639;letter-spacing:-.035em}
+.copy>p:not(.eyebrow){color:#6a5d68}
+.cta{background:linear-gradient(130deg,#6043a3,#3a20bd);color:white;border-radius:999px;min-height:44px}
+.art{background:radial-gradient(circle at 64% 40%,#edc9df 0%,transparent 46%),linear-gradient(130deg,#f7ece2,#e8dcea)}
+.art>span{color:#9a6fb633}
+.orbit{border-color:#b99dc854}
+.controls{background:#fffdf9;color:#503769}
+.controls button{background:#f3e9f5}
+@media(max-width:750px){.card{border-radius:24px}.copy{padding:26px 24px 72px}}
