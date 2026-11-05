@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { connection } from "next/server";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, CheckCircle2, HeartHandshake, ListChecks, Search, ShieldCheck, Sparkles, Eye, Scale, ReceiptText } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CheckCircle2, ListChecks, Search, ShieldCheck, Sparkles, Eye, Scale, ReceiptText } from "lucide-react";
 import { publishedEditorial } from "../lib/content/editorial";
 import { lifestylePages } from "../lib/lifestyle/landing-data";
 import Header from "../components/layout/Header";
@@ -53,14 +53,14 @@ async function HomeContent() {
   const [editorial,campaigns,products] = await Promise.all([publishedEditorial("home"),loadHomeCampaigns(),verifiedProductIndex(8)]);
   return <main className={styles.page}>
     <Header/>
-    <section className={`${styles.hero} ${moment ? styles.christmasHero : styles.storefrontHero}`} style={moment?undefined:{backgroundImage:`linear-gradient(90deg,rgba(251,247,242,.99),rgba(251,247,242,.93) 37%,rgba(251,247,242,.28) 80%),url("${lifestylePages.home.hero}")`}} aria-labelledby="home-title">
+    <section className={`${styles.hero} ${styles.storefrontHero}`} style={{backgroundImage:`linear-gradient(90deg,rgba(251,247,242,.98),rgba(251,247,242,.88) 35%,rgba(251,247,242,.16) 77%),url("${lifestylePages.home.hero}")`}} aria-labelledby="home-title">
       <div className={`shell ${styles.heroGrid}`}>
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}><Sparkles size={15}/>{moment ? moment.eyebrow : "Your place for better choices"}</p>
-          <h1 id="home-title">{moment ? <>Shop smarter.<br/><em>Make Christmas worth it.</em></> : <>Shop smarter.<br/><em>Find what’s worth it.</em></>}</h1>
+          <h1 id="home-title">Shop smarter.<br/><em>Find what’s worth it.</em></h1>
           <p className={styles.heroText}>{moment ? moment.summary : editorial.description}</p>
-          {!moment&&<div className={styles.storefrontHeroActions}><Link href="/products" className={styles.storefrontPrimary}>Start comparing <ArrowRight size={17}/></Link><Link href="/trust" className={styles.storefrontSecondary}>How AVUQO works</Link></div>}
-          {moment && <div className={styles.christmasHeroActions}><Link className={styles.christmasHeroLink} href="/christmas">{moment.actionLabel} <ArrowRight size={17}/></Link><Link className={styles.christmasSecondaryLink} href="/lists">Plan a gift list</Link></div>}
+          <div className={styles.storefrontHeroActions}><Link href="/products" className={styles.storefrontPrimary}>Start comparing <ArrowRight size={17}/></Link><Link href="/trust" className={styles.storefrontSecondary}>How AVUQO works</Link></div>
+          {moment&&<Link href="/christmas" className={styles.seasonalNudge}>Christmas is on its way. {moment.actionLabel} <ArrowRight size={15}/></Link>}
 
           <nav className={styles.heroShortcuts} aria-label="Quick ways to explore">
             <span>Start with</span>
