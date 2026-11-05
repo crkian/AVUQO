@@ -48,6 +48,20 @@ jobs:
           done
           cat visual-server.log
           exit 1
+      - name: Checkout approved design references (read only)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: design/warm-premium-visual-system-20261105
+          path: visual-design-reference
+          persist-credentials: false
+          sparse-checkout: |
+            docs/design/mockups
+          sparse-checkout-cone-mode: true
+      - name: Add original reference PNGs to visual review artifact
+        run: |
+          mkdir -p artifacts/visual-review/reference
+          cp visual-design-reference/docs/design/mockups/*.png artifacts/visual-review/reference/
+          cp visual-design-reference/docs/design/mockups/ASSET_MANIFEST.json artifacts/visual-review/reference/
       - name: Capture responsive screenshots
         run: node scripts/visual-review.mjs
       - name: Upload visual review screenshots
