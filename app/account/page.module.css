@@ -1,1 +1,44 @@
-.hero{padding:65px 0 28px}.hero h1{margin:7px 0 12px;font-size:clamp(44px,6vw,68px);letter-spacing:-.055em}.hero p:last-child{max-width:700px;color:#716d80;line-height:1.6}.grid{display:grid;grid-template-columns:1fr 1fr;gap:17px;padding:20px 0 70px}.card{padding:27px;border:1px solid #e7e3ec;border-radius:24px;background:#fff}.card h2{margin:0 0 8px;font-size:27px;letter-spacing:-.04em}.card>p{color:#716d80;font-size:13px;line-height:1.55}.form{display:grid;gap:13px;margin-top:20px}.form label{display:grid;gap:6px;color:#5a5565;font-size:11px;font-weight:800}.form input,.form select{height:46px;padding:0 12px;border:1px solid #e7e3ec;border-radius:12px;background:#fff}.form button{height:46px;border:0;border-radius:12px;color:#fff;background:linear-gradient(135deg,#5b35f5,#3478f6);font-weight:850}.message{font-size:12px;color:#087b5b}.links{display:grid;gap:8px;margin-top:18px}.links a{padding:13px;border-radius:12px;background:#f5f2fa;color:#4a388d;font-size:12px;font-weight:800}@media(max-width:760px){.grid{grid-template-columns:1fr}}
+/* My AVUQO customer account: warm editorial composition and functional forms. */
+.page{background:#faf8f3;color:#302639}
+.hero{position:relative;overflow:hidden;background:radial-gradient(circle at 85% 30%,#ebd7e8,transparent 39%),linear-gradient(115deg,#faf6f0,#f5ece8);padding:clamp(54px,7vw,95px) 0}
+.heroGrid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);align-items:center;gap:clamp(30px,6vw,85px)}
+.heroCopy{padding:18px 0;position:relative;z-index:1}
+.kicker{font-size:11px;letter-spacing:.13em;text-transform:uppercase;font-weight:850;color:#76518e;margin:0 0 17px}
+.heroCopy h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(43px,5.2vw,71px);letter-spacing:-.047em;line-height:1.08;margin:0 0 23px}
+.heroCopy h1 em{font-style:normal;color:#6043a3}
+.heroCopy>p:not(.kicker){max-width:610px;color:#655b65;line-height:1.76;font-size:17px;margin:0}
+.heroActions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:27px}
+.heroActions a{display:inline-flex;align-items:center;gap:9px;justify-content:center;min-height:47px;padding:12px 20px;border-radius:999px;color:white;background:linear-gradient(130deg,#6043a3,#3a20bd);font-size:14px;font-weight:800}
+.heroActions a.secondaryAction{background:#fff;color:#6043a3;border:1px solid #d8cae3}
+.heroArtwork{min-height:310px;display:grid;place-items:center;position:relative}
+.artCircle{position:absolute;width:290px;height:290px;border-radius:50%;background:radial-gradient(circle,#f8e6dd 20%,#e6cde8 100%);box-shadow:0 20px 60px rgba(58,34,71,.07)}
+.artMain{position:relative;transform:rotate(-6deg);display:flex;flex-direction:column;align-items:start;gap:14px;width:245px;min-height:195px;background:#fffdf9;border:1px solid #eaded8;border-radius:27px;padding:29px;color:#6043a3;box-shadow:0 22px 45px rgba(48,38,57,.12)}
+.artMain strong{font-family:Georgia,"Times New Roman",serif;color:#302639;font-size:25px}.artMain span{color:#716d80;font-size:14px}
+.artSmall{position:absolute;right:-3px;bottom:15px;display:flex;align-items:center;gap:9px;padding:15px;border:1px solid #e9dfe6;border-radius:18px;background:#fff;color:#885777;box-shadow:0 12px 34px rgba(48,38,57,.1)}
+.artSmall span{font-size:12px;font-weight:700}
+.content{padding:clamp(70px,8vw,110px) 0 50px}
+.sectionIntro{max-width:760px;margin:0 0 32px}
+.sectionIntro h2,.card h2,.accountNote h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(31px,4vw,48px);line-height:1.12;letter-spacing:-.035em;margin:0 0 15px}
+.sectionIntro>p:last-child{font-size:16px;line-height:1.7;color:#726973}
+.links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.toolCard{display:flex;flex-direction:column;align-items:start;gap:11px;min-height:218px;border-radius:25px;padding:25px;background:#fffdf9;border:1px solid #e9e0dc;box-shadow:0 9px 27px rgba(45,31,54,.045);transition:transform .17s ease,box-shadow .17s ease}
+.toolCard:hover{transform:translateY(-3px);box-shadow:0 16px 38px rgba(45,31,54,.09)}
+.toolCard[data-tone=rose]{background:#fcf4f5}.toolCard[data-tone=amber]{background:#fff8ec}.toolCard[data-tone=teal]{background:#f1f8f5}.toolCard[data-tone=blue]{background:#f3f5fc}.toolCard[data-tone=violet]{background:#f5f1fb}
+.toolIcon{display:grid;place-items:center;width:49px;height:49px;border-radius:16px;background:#fff;color:#6542a2}
+.toolCard strong{font-family:Georgia,"Times New Roman",serif;font-size:23px;letter-spacing:-.025em}
+.toolCard>span:not(.toolIcon):not(.toolArrow){color:#736974;font-size:14px;line-height:1.55}
+.toolArrow{display:inline-flex;align-items:center;gap:7px;color:#6043a3;font-size:13px;font-weight:800;margin-top:auto}
+.preferencesSection{display:grid;grid-template-columns:1.1fr .9fr;gap:25px;padding:30px 0 clamp(70px,8vw,120px)}
+.card,.accountNote{background:#fffdf9;border:1px solid #e9e0dc;border-radius:28px;padding:clamp(26px,3vw,40px);box-shadow:0 9px 28px rgba(45,31,54,.045)}
+.card>p:not(.kicker),.accountNote p:not(.kicker){color:#716d80;font-size:14px;line-height:1.7}
+.form{display:grid;gap:17px;margin-top:23px}
+.form label{display:grid;gap:8px;color:#534b57;font-size:13px;font-weight:800}
+.form input,.form select{height:48px;width:100%;padding:0 14px;background:#fff;border:1px solid #dcd1d8;border-radius:13px;font:inherit;color:#302639}
+.form button{height:48px;padding:0 24px;border:0;border-radius:14px;background:linear-gradient(130deg,#6043a3,#3a20bd);color:#fff;font-weight:850;justify-self:start}
+.form button:disabled{opacity:.45;cursor:default}
+.message{font-size:13px;color:#087b5b}
+.accountNote{background:linear-gradient(145deg,#f8eff5,#f5eae1);align-self:stretch;display:flex;flex-direction:column;justify-content:center}
+.accountNote a{display:inline-flex;align-items:center;gap:8px;color:#6043a3;font-weight:800;font-size:14px;margin-top:12px}
+@media(max-width:900px){.heroGrid,.preferencesSection{grid-template-columns:1fr}.heroArtwork{min-height:265px}.links{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.hero{padding:45px 0}.heroCopy h1{font-size:clamp(39px,10vw,55px)}.heroArtwork{min-height:215px}.artCircle{width:210px;height:210px}.artMain{width:210px;min-height:170px;padding:22px}.artSmall{right:0;bottom:0}.links{grid-template-columns:1fr;gap:13px}.toolCard{min-height:0;padding:22px}.content{padding:60px 0 25px}.preferencesSection{padding:25px 0 75px;gap:14px}}
+@media(prefers-reduced-motion:reduce){.toolCard{transition:none}.toolCard:hover{transform:none}}
