@@ -65,13 +65,14 @@ export async function POST(request:NextRequest){
  const secret=process.env.CRON_SECRET;
  if(!secret||secret.length<16||request.headers.get("authorization")!==`Bearer ${secret}`)
   return reply({error:"Unauthorized"},401);
- if(process.env.AWIN_AUTO_IMPORT_ENABLED!=="true")
+ const url=new URL(request.url);
+ const preflight=request.method==="POST"&&url.searchParams.get("mode")==="preflight";
+ if(!preflight&&process.env.AWIN_AUTO_IMPORT_ENABLED!=="true")
   return reply({status:"disabled",private_only:true,required_setting:"AWIN_AUTO_IMPORT_ENABLED"});
  const key=process.env.AWIN_DATAFEED_API_KEY??"";
  const publisher=process.env.AWIN_PUBLISHER_ID??"";
  if(!/^[A-Za-z0-9_-]{16,200}$/.test(key)||!/^[0-9]{3,15}$/.test(publisher))
   return reply({error:"Awin feed credentials not configured"},503);
- const url=new URL(request.url);
  const scheduled=request.method==="GET";
  const pilotKeys=["77952:103580","31539:74135"];
  const scheduledPair=pilotKeys[Math.floor(Date.now()/86400000)%pilotKeys.length];
@@ -140,6 +141,10 @@ export async function POST(request:NextRequest){
  }catch(e){return reply({error:"Feed preflight failed; nothing imported",reason:e instanceof Error?e.message:"unsupported_format"},422);}
  const name=joinedName(advertiser);
  if(!name)return reply({error:"Unrecognised advertiser"},403);
+ if(preflight)return reply({status:"preflight_passed",advertiser_id:advertiser,feed_id:feed,
+  source_format:identifyFormat(header!),columns:header!.length,rows:rows.length,
+  sample_headers:header!.filter(x=>/^(merchant_id|merchant_product_id|product_name|search_price|currency|stock_status|aw_deep_link|ean|gtin|mpn|advertiser_id|id|title|price|availability)$/i.test(x)).slice(0,20),
+  private_only:true,no_database_writes:true,no_publication:true});
  const runFilename=`GENAWIN__${feed}__${filename}`;
  const {data:prior,error:priorError}=await db.from("feed_import_runs")
   .select("id,status,created_by").eq("merchant_id",advertiser).eq("filename",runFilename)
