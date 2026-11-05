@@ -36,7 +36,7 @@ jobs:
       - name: Install screenshot runner and browser
         run: |
           npm install --no-save --no-package-lock playwright@1.58.2
-          npx playwright install --with-deps chromium
+          npx playwright install --only-shell chromium
       - name: Build the preview
         run: npm run build
       - name: Start local preview
