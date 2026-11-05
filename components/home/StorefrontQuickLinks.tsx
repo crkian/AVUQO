@@ -1,31 +1,32 @@
 import Link from "next/link";
-import {ArrowRight, Gift, House, Laptop, PawPrint, Plane, ShoppingBasket, Sparkles, Shirt} from "lucide-react";
-import {lifestylePages} from "../../lib/lifestyle/landing-data";
+import {Grid2X2} from "lucide-react";
 import styles from "./StorefrontQuickLinks.module.css";
 
-/** Editorial navigation only; no implied listing, merchant or price availability. */
+/** Category imagery is editorial, never a source claim for a specific retailer product. */
 const departments=[
- {href:"/tech",title:"Tech",image:lifestylePages.tech.tiles[0].image,icon:Laptop},
- {href:"/home",title:"Home & living",image:lifestylePages.home.hero,icon:House},
- {href:"/beauty",title:"Beauty",image:lifestylePages.beauty.hero,icon:Sparkles},
- {href:"/fashion",title:"Fashion",image:lifestylePages.fashion.hero,icon:Shirt},
- {href:"/gifts",title:"Gifts",image:lifestylePages.gifts.hero,icon:Gift},
- {href:"/groceries",title:"Groceries",image:"https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=650&q=80",icon:ShoppingBasket},
- {href:"/travel",title:"Travel",image:lifestylePages.travel.hero,icon:Plane},
- {href:"/pets",title:"Pets",image:"/illustrations/avuqo-pets-care.svg",icon:PawPrint},
+ {href:"/tech",title:"Electronics & Tech",image:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=480&q=80"},
+ {href:"/home",title:"Home & Garden",image:"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=480&q=80"},
+ {href:"/search?q=kitchen%20appliances",title:"Kitchen & Appliances",image:"https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=480&q=80"},
+ {href:"/fashion",title:"Fashion & Accessories",image:"https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=480&q=80"},
+ {href:"/beauty",title:"Health & Beauty",image:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=480&q=80"},
+ {href:"/toys",title:"Toys & Games",image:"https://images.unsplash.com/photo-1558060370-d644479cb6f7?auto=format&fit=crop&w=480&q=80"},
+ {href:"/pets",title:"Pets",image:"https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=480&q=80"},
+ {href:"/search?q=sports%20outdoors",title:"Sports & Outdoors",image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=480&q=80"},
+ {href:"/gifts",title:"Gifts & Occasions",image:"https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=480&q=80"},
 ] as const;
-
 export default function StorefrontQuickLinks(){
- return <section className={styles.section} aria-label="Explore AVUQO shopping departments">
-  <div className="shell">
-   <div className={styles.intro}><div><p className={styles.eyebrow}>Browse your world</p><h2>Find your next good thing.</h2></div><Link href="/categories">All departments <ArrowRight size={16}/></Link></div>
-   <div className={styles.grid}>
-    {departments.map(({href,title,image,icon:Icon})=><Link href={href} key={href} className={styles.card}>
-     <span className={styles.photo} style={{backgroundImage:`url("${image}")`}} aria-hidden="true"/>
-     <span className={styles.label}><Icon size={17} aria-hidden="true"/><strong>{title}</strong><ArrowRight size={14} aria-hidden="true"/></span>
-    </Link>)}
+ return <section className={styles.section} aria-label="Shop by department">
+   <div className="shell">
+    <nav className={styles.grid} aria-label="Popular shopping departments">
+      {departments.map(({href,title,image})=><Link href={href} key={href} className={styles.card}>
+        <span className={styles.photo} style={{backgroundImage:`url("${image}")`}} aria-hidden="true"/>
+        <strong>{title}</strong>
+      </Link>)}
+      <Link href="/categories" className={`${styles.card} ${styles.all}`}>
+        <span className={styles.allIcon}><Grid2X2 size={31} aria-hidden="true"/></span>
+        <strong>All Categories</strong>
+      </Link>
+    </nav>
    </div>
-   <p className={styles.note}>Images are category inspiration, not representations of verified retailer products.</p>
-  </div>
  </section>;
 }
