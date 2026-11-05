@@ -25,9 +25,10 @@ export default function LifestyleLanding({config,afterTrust}: {config:Landing;af
           {story&&<p className={styles.categoryPromise}>{story.strapline}</p>}
           <p>{config.intro}</p>
           <div className={styles.heroActions}>
-            <Link href="#explore" className={styles.cta}>Explore {config.slug==="home"?"home ideas":config.slug} <ArrowRight size={18}/></Link>
-            <Link href="/lists" className={styles.secondary}>Create a shortlist</Link>
+            <Link href="#explore" className={styles.cta}>Explore {config.slug==="home"?"Home & Living":config.slug==="tech"?"Tech":config.slug==="beauty"?"Beauty":config.slug} <ArrowRight size={18}/></Link>
+            <Link href="/trust" className={styles.secondary}>How AVUQO compares <ArrowRight size={16}/></Link>
           </div>
+          <p className={styles.heroEvidence}><ShieldCheck size={17} aria-hidden="true"/> Verified prices and offers are displayed only when reliable, authorised evidence exists.</p>
         </div>
       </div>
     </section>
