@@ -178,8 +178,9 @@ export const awinConnector: SourceConnector = {
     });
 
     if (!response.ok) {
-      const body = (await response.text()).slice(0, 500);
-      throw new Error(`Awin feed request failed (${response.status}): ${body || response.statusText}`);
+      // Provider response bodies may contain sensitive account or feed details.
+      // Keep diagnostics bounded to the HTTP status; never log the raw body.
+      throw new Error(`Awin feed request failed (HTTP ${response.status})`);
     }
 
     return readJsonLines(response, Math.max(1, Math.min(limit, 250)));
