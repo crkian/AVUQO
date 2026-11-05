@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Gift, Heart, ShoppingBag, Sparkles, Truck, House, Utensils, Gamepad2, Shirt, Plane, Users, Bookmark, CalendarDays, Coins, ShieldCheck } from "lucide-react";
+import { ArrowRight, Gift, Heart, ShoppingBag, Sparkles, Truck, House, Utensils, Gamepad2, Shirt, Plane, Users, Bookmark } from "lucide-react";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import GiftFinder from "./GiftFinder";
