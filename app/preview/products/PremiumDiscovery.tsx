@@ -6,7 +6,7 @@ import {stagedPrice} from "../../../lib/feed-imports/preview-selection";
 import {suggestedDepartment} from "../../../lib/feed-imports/preview-departments";
 import styles from "./premium-discovery.module.css";
 
-export type PreviewItem={id:string;title:string;merchant:string;brand:string|null;rawCategory:string|null;price:number|string|null;currency:string;imageUrl:string|null;};
+export type PreviewItem={id:string;title:string;merchant:string;brand:string|null;rawCategory:string|null;price:number|string|null;currency:string;imageUrl:string|null;tyreSize?:{width_mm:number;aspect_ratio:number;rim_inches:number}|null;};
 const toPrice=(n:number|string|null)=>n===null?Number.NaN:Number(n);
 const approvedPrivateHosts=new Set(["www.cadburygiftsdirect.co.uk","cdn.shopify.com","www.tooled-up.com"]);
 const privateTyreImageHosts=new Set(["static.tyres.net","images2.productserve.com"]);
@@ -20,7 +20,7 @@ function safePrivateImage(value:string|null,merchant:string){
  }catch{return null;}
 }
 type Sort="featured"|"low"|"high"|"name";
-export default function PremiumDiscovery({items}:{items:PreviewItem[]}){
+export default function PremiumDiscovery({items,externalFilters=false}:{items:PreviewItem[];externalFilters?:boolean}){
  const [search,setSearch]=useState(""),[department,setDepartment]=useState("All departments"),[merchant,setMerchant]=useState("All retailers"),[sort,setSort]=useState<Sort>("featured"),[compare,setCompare]=useState<string[]>([]);
  const [showImages,setShowImages]=useState(false);
  const enriched=useMemo(()=>items.map(item=>({...item,department:suggestedDepartment(item.merchant,item.title,item.rawCategory)})),[items]);
@@ -42,16 +42,17 @@ export default function PremiumDiscovery({items}:{items:PreviewItem[]}){
    <div className={styles.count}><strong>{shown.length}</strong><span>preview products</span></div>
   </section>
   <div className={styles.imageReview}><div><strong>Owner image inspection</strong><span>Images are loaded from retailer or feed image servers only when you opt in while signed in. External image hosts receive a request from your browser. This does not approve public use.</span></div><button type="button" aria-pressed={showImages} onClick={()=>setShowImages(v=>!v)}>{showImages?"Hide feed images":"Show imported images privately"}</button></div>
-  <div className={styles.departments} role="group" aria-label="Browse suggested departments">
+  {!externalFilters&&<div className={styles.departments} role="group" aria-label="Browse suggested departments">
    {departments.map(d=><button type="button" key={d} className={department===d?styles.selected:""} onClick={()=>setDepartment(d)}>{d}</button>)}
-  </div>
-  <div className={styles.toolbar}>
+  </div>}
+  {!externalFilters&&<div className={styles.toolbar}>
    <label className={styles.search}><Search size={18}/><span className={styles.sr}>Search preview products</span><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search products, brands and categories"/></label>
    <label className={styles.filter}><SlidersHorizontal size={17}/><span>Retailer</span><select value={merchant} onChange={e=>setMerchant(e.target.value)}>{merchants.map(m=><option key={m}>{m}</option>)}</select></label>
    <label className={styles.filter}><ArrowUpDown size={17}/><span>Sort</span><select value={sort} onChange={e=>setSort(e.target.value as Sort)}><option value="featured">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option><option value="name">Product name</option></select></label>
    {(search||department!=="All departments"||merchant!=="All retailers"||sort!=="featured")&&<button className={styles.reset} type="button" onClick={()=>{setSearch("");setDepartment("All departments");setMerchant("All retailers");setSort("featured");}}>Clear filters <X size={14}/></button>}
   </div>
-  <div className={styles.disclaimer}><ShieldCheck size={17}/> Private design preview. All prices are archived values; optional owner-only feed thumbnails are not approved public imagery. Nothing can be purchased or published.</div>
+  }
+  <div className={styles.disclaimer}><ShieldCheck size={17}/> Private design preview. All prices are archived values; optional owner-only feed thumbnails are not approved public imagery. Nothing can be purchased or published. {externalFilters?"Manufacturer and tyre-size menus query all staged records, while preview comparison stays on this page.":""}</div>
   {shown.length?<div className={styles.grid}>{shown.map(item=>{
    const checked=compare.includes(item.id);
    const image=showImages?safePrivateImage(item.imageUrl,item.merchant):null;
@@ -60,6 +61,7 @@ export default function PremiumDiscovery({items}:{items:PreviewItem[]}){
     <div className={styles.cardBody}>
      <span className={styles.brand}>{item.brand||item.merchant}</span>
      <h3>{item.title}</h3>
+     {item.tyreSize&&<div style={{background:"#f3ecf7",border:"1px solid #e2d5e9",borderRadius:8,padding:"8px 11px",fontWeight:800,fontSize:13,color:"#534065"}}>Size candidate: {item.tyreSize.width_mm}/{item.tyreSize.aspect_ratio} R{item.tyreSize.rim_inches}<small style={{display:"block",fontSize:10,fontWeight:500}}>Extracted from retailer text · fitment unverified</small></div>}
      <div className={styles.meta}><span>{item.merchant}</span><span>{item.rawCategory?"Feed category recorded":"Category suggested from title"}</span></div>
      <div className={styles.price}>{stagedPrice(item.price,item.currency)}</div>
      <span className={styles.historical}>Historical import · not a live offer</span>
