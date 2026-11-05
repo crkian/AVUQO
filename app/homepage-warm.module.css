@@ -227,3 +227,17 @@
  .heroIntelligenceInner ul{grid-template-columns:1fr 1fr;gap:13px}
  .reassuranceInner{justify-content:center}
 }
+
+/* Screenshot review correction: festive homepage now genuinely looks festive.
+   Separate photo and wash layers allow a right-weighted tree with legible text. */
+.page .hero.christmasHero{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;min-height:315px;padding:28px 0 35px;background:#fffaf6!important}
+.christmasHero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:url("https://images.unsplash.com/photo-1544428000-5b622c57fcd4?auto=format&fit=crop&w=1850&q=85") center 52%/cover no-repeat;transform:scaleX(-1)}
+.christmasHero::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(90deg,#fffaf6 0%,rgba(255,250,246,.98) 27%,rgba(255,250,246,.79) 45%,rgba(255,250,246,.08) 75%,transparent 100%)}
+.christmasHero .heroGrid{position:relative;z-index:1}
+.christmasHero .heroCopy h1{font-size:clamp(46px,5.4vw,72px);letter-spacing:-.05em;line-height:1.06}
+.christmasHero .heroText{font-size:16px;line-height:1.5}
+@media(max-width:680px){
+ .page .hero.christmasHero{display:block;min-height:0;padding:163px 0 42px}
+ .christmasHero::before{background-position:41% 45%}
+ .christmasHero::after{background:linear-gradient(0deg,#fffaf6 0%,rgba(255,250,246,.97) 49%,rgba(255,250,246,.25) 100%)}
+}
