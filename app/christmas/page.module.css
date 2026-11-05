@@ -77,3 +77,44 @@
 @media(max-width:1000px){.categoryRail{grid-template-columns:repeat(3,1fr)}.discoverySection{grid-template-columns:1fr}}
 @media(max-width:650px){.categoryRail{grid-template-columns:repeat(2,1fr);margin-top:0}.categoryLink{min-height:120px;padding:15px}.discoveryStories{grid-template-columns:repeat(2,1fr)}.discoveryStory{min-height:160px}.discoveryStory:last-child{grid-column:1/-1}.discoveryEditorial,.discoveryPlanning{padding:20px}}
 @media(prefers-reduced-motion:reduce){.categoryLink{transition:none}.categoryLink:hover{transform:none}}
+
+/* Faithful Christmas reference proportions: wide image hero and small illustrated departments. */
+.hero{min-height:365px}
+.heroLayout{padding:48px 0 60px}
+.heroCopy{max-width:620px}
+.hero h1{font-size:clamp(48px,6.4vw,79px);margin:8px 0 11px;line-height:1.03}
+.hero p:not(.eyebrow){max-width:540px;line-height:1.55;font-size:17px;color:#3b303d}
+.heroActions{margin-top:21px}
+.heroWash{background:linear-gradient(90deg,#fcf8f4 0%,rgba(252,248,244,.98) 26%,rgba(252,248,244,.83) 44%,rgba(252,248,244,.12) 72%,transparent 100%)}
+.categoryRail{margin-top:-19px;gap:8px}
+.categoryLink{
+  position:relative;isolation:isolate;overflow:hidden;min-height:105px;border-radius:18px;
+  padding:12px 11px;gap:4px;background-color:#fff9f5;
+  background-repeat:no-repeat;background-position:center right;background-size:cover;
+  box-shadow:0 8px 24px rgba(54,33,44,.095)
+}
+.categoryLink>*{position:relative;z-index:1}
+.categoryLink svg{width:23px;height:23px;color:#9f2d74}
+.categoryLink strong{font-size:15px}
+.categoryLink span{font-size:11px;max-width:120px;line-height:1.28;color:#3f3341}
+.categoryLink:nth-child(1){background-image:linear-gradient(90deg,#fff9f5 0%,rgba(255,249,245,.96) 40%,rgba(255,249,245,.3) 100%),url("https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=500&q=76")}
+.categoryLink:nth-child(2){background-image:linear-gradient(90deg,#fff9f5 0%,rgba(255,249,245,.95) 42%,rgba(255,249,245,.25) 100%),url("https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=500&q=76")}
+.categoryLink:nth-child(3){background-image:linear-gradient(90deg,#fff9f5 0%,rgba(255,249,245,.95) 42%,rgba(255,249,245,.25) 100%),url("https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=500&q=76")}
+.categoryLink:nth-child(4){background-image:linear-gradient(90deg,#fff9f5 0%,rgba(255,249,245,.95) 40%,rgba(255,249,245,.25) 100%),url("https://images.unsplash.com/photo-1558060370-d644479cb6f7?auto=format&fit=crop&w=500&q=76")}
+.categoryLink:nth-child(5){background-image:linear-gradient(90deg,#fff9f5 0%,rgba(255,249,245,.95) 42%,rgba(255,249,245,.25) 100%),url("https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=500&q=76")}
+.categoryLink:nth-child(6){background-image:linear-gradient(90deg,#fff9f5 0%,rgba(255,249,245,.95) 42%,rgba(255,249,245,.25) 100%),url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=500&q=76")}
+.discoverySection{margin-bottom:25px}
+.discoveryEditorial,.discoveryPlanning{padding:22px}
+.discoveryStories{gap:8px}
+.discoveryStory{min-height:165px}
+.planningLinks a{min-height:106px}
+@media(max-width:700px){
+  .hero{min-height:500px}
+  .heroLayout{padding:185px 0 39px}
+  .heroWash{background:linear-gradient(0deg,rgba(252,248,244,1) 0%,rgba(252,248,244,.96) 43%,rgba(252,248,244,.13) 100%)}
+  .hero h1{font-size:clamp(43px,10.5vw,63px)}
+  .hero p:not(.eyebrow){font-size:15px}
+  .categoryRail{margin-top:-4px}
+  .categoryLink{min-height:106px}
+}
+@media(min-width:701px) and (max-width:1000px){.categoryRail{grid-template-columns:repeat(3,1fr)}}
