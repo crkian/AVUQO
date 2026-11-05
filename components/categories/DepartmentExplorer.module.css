@@ -61,3 +61,24 @@
  .menu .list{max-height:200px}
  .menu .topics>div{grid-template-columns:1fr}
 }
+
+/* Editorial department explorer: warm rather than dashboard-purple. */
+.explorer{background:#fffdf9;border-color:#e9e0dc;border-radius:26px;box-shadow:0 15px 42px rgba(45,31,54,.065)}
+.kicker{color:#6043a3}
+.topBar h2,.detailCopy h3{color:#302639;letter-spacing:-.045em}
+.topBar p,.detailCopy p{color:#716975}
+.total{background:#f1e9f5}
+.filter{background:#fff;border-color:#e5dcd8;border-radius:15px}
+.list{background:#faf6f1;border-color:#eae1dc}
+.columns{border-color:#eae1dc}
+.selectButton{border-radius:12px;min-height:43px;color:#423747}
+.selectButton:hover,.selectButton:focus-visible{background:#f2e8ec}
+.selectButton[aria-pressed=true]{background:#eee1ef;color:#583a7b}
+.detail{background:#fffdf9}
+.illustration{border-radius:20px}
+.topics a{background:#fff;border-color:#eee5de;border-radius:13px;min-height:45px}
+.topics a:hover,.topics a:focus-visible{border-color:#b8a2d1;background:#fcf7ff}
+.guidance{background:#f7f3ee;color:#655c68}
+.menu{background:#fffdf9;box-shadow:none;border:0;border-radius:0}
+.menu .list{background:#faf6f1}
+@media(max-width:600px){.explorer{border-radius:20px}.topBar{padding:21px 18px 12px}.filter{margin:0 18px 16px}}
