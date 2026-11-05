@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 const giftBudgets = [
   { label: "Under £10", q: "Christmas gifts under £10", detail: "Small gifts, craft ideas and stocking fillers", image: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=700&q=80" },
   { label: "Under £25", q: "Christmas gifts under £25", detail: "Thoughtful presents without stretching the budget", image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=700&q=80" },
-  { label: "Under £50", q: "Christmas gifts under £50", detail: "Gifts worth considering for family and friends", image: "https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=700&q=80" },
+  { label: "Under £50", q: "Christmas gifts under £50", detail: "Gifts worth considering for family and friends", image: "https://images.unsplash.com/photo-1544428000-5b622c57fcd4?auto=format&fit=crop&w=700&q=80" },
   { label: "Make & create", q: "Christmas craft kits", detail: "Craft activities, decorations and handmade gifting", image: "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=700&q=80" },
 ];
 
@@ -33,7 +33,7 @@ const festivePaths = [
 ] as const;
 const festiveStories = [
  {href:"/gifts",title:"Gifts for everyone",copy:"A thoughtful place to start",image:"https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=900&q=80"},
- {href:"/home",title:"Festive home inspiration",copy:"Cosy, considered comforts",image:"https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=900&q=80"},
+ {href:"/home",title:"Festive home inspiration",copy:"Cosy, considered comforts",image:"https://images.unsplash.com/photo-1544428000-5b622c57fcd4?auto=format&fit=crop&w=900&q=80"},
  {href:"/groceries",title:"Food and festive planning",copy:"Lists and everyday essentials",image:"https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80"},
 ] as const;
 
