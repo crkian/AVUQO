@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import {useRouter} from "next/navigation";
 import { ArrowRight, Bell, Bookmark, Heart, ListChecks, Scale, ShoppingBasket } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
@@ -20,6 +21,7 @@ const journeys = [
 
 export default function AccountPage() {
   const supabase = useMemo(() => createClient(), []);
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [country, setCountry] = useState("GB");
@@ -55,7 +57,7 @@ export default function AccountPage() {
     event.preventDefault();
     const { data: auth } = await supabase.auth.getUser();
     if (!auth.user) {
-      location.href = "/login?next=/account";
+      router.push("/login?next=/account");
       return;
     }
     const { error } = await supabase.from("profiles").upsert({
@@ -133,7 +135,7 @@ export default function AccountPage() {
       <aside className={styles.accountNote}>
         <p className={styles.kicker}>Made for a clearer choice</p>
         <h2>Preferences should be yours to control.</h2>
-        <p>What you choose here is different from a temporary shopping mission. We won't claim to understand your tastes from imaginary activity or show made-up account statistics.</p>
+        <p>What you choose here is different from a temporary shopping mission. We won&apos;t claim to understand your tastes from imaginary activity or show made-up account statistics.</p>
         <Link href="/trust">Read our approach to trust <ArrowRight size={17}/></Link>
       </aside>
     </section>
