@@ -1,5 +1,5 @@
 import Link from "next/link";
-import {ArrowRight, Headphones, Heart, House, Laptop, Paintbrush, ShoppingBasket, Sparkles} from "lucide-react";
+import {ArrowRight, Gift, House, Laptop, PawPrint, Plane, ShoppingBasket, Sparkles, Shirt} from "lucide-react";
 import {lifestylePages} from "../../lib/lifestyle/landing-data";
 import styles from "./StorefrontQuickLinks.module.css";
 
@@ -8,11 +8,11 @@ const departments=[
  {href:"/tech",title:"Tech",image:lifestylePages.tech.tiles[0].image,icon:Laptop},
  {href:"/home",title:"Home & living",image:lifestylePages.home.hero,icon:House},
  {href:"/beauty",title:"Beauty",image:lifestylePages.beauty.hero,icon:Sparkles},
- {href:"/fashion",title:"Fashion",image:lifestylePages.fashion.hero,icon:Heart},
- {href:"/gifts",title:"Gifts",image:lifestylePages.gifts.hero,icon:Paintbrush},
+ {href:"/fashion",title:"Fashion",image:lifestylePages.fashion.hero,icon:Shirt},
+ {href:"/gifts",title:"Gifts",image:lifestylePages.gifts.hero,icon:Gift},
  {href:"/groceries",title:"Groceries",image:"https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=650&q=80",icon:ShoppingBasket},
- {href:"/travel",title:"Travel",image:lifestylePages.travel.hero,icon:Headphones},
- {href:"/pets",title:"Pets",image:lifestylePages.pets.hero,icon:Heart},
+ {href:"/travel",title:"Travel",image:lifestylePages.travel.hero,icon:Plane},
+ {href:"/pets",title:"Pets",image:lifestylePages.pets.hero,icon:PawPrint},
 ] as const;
 
 export default function StorefrontQuickLinks(){
