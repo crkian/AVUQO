@@ -3,6 +3,24 @@
 **Reference:** Draft design PR #83, `docs/design/mockups/`, contact sheet and 17 PNG references from the 5 November 2026 design pack  
 **Status:** Code implementation in review. Pixel-level visual acceptance and live-data acceptance are **not** yet claimed.
 
+## Staged completion tracker (5 November 2026)
+
+This checklist distinguishes **implemented** from **accepted**. "Exactly" means faithful layout, spacing, imagery, interaction and responsive behaviour where assets and factual data permit. It does **not** permit copying illustrative merchant or user information as if real.
+
+| Stage | Deliverable | Current state | Exit requirement |
+|---|---|---|---|
+| 1 | Inventory all 17 reference screens and map to real routes | **Implemented** | Reference images retained read-only and matched to route inventory |
+| 2 | Shared design system, desktop header/search, warm surfaces, navigation and mobile breakpoints | **Implemented, not visually accepted** | Approved AVUQO logo artwork and owner review of desktop/mobile shared chrome |
+| 3 | Homepage and Christmas-first annual date build-up, category pages, discovery and product grids | **Implemented, not visually accepted** | Side-by-side sign-off for hero photo crops, card sizes, responsive order and real-data variants |
+| 4 | My AVUQO, Saved, Watches, Lists, Wishlist, Basket and Groceries | **Implemented, not functionally accepted** | Signed-in CRUD and RLS tests on separately approved staging user, grocery coverage and list-share tests |
+| 5 | Product detail, evidence/scoring and retailer offer presentation | **Implemented under source-rights gates** | Approved non-production fixtures, variant/cost consistency and product photo rights checks |
+| 6 | Quality and screenshot release gates | **Automated baseline in place; latest head to be rechecked** | Lint, build, secret scan and visual workflow on the same commit; no route, overflow, landmark or search-navigation failures |
+| 7 | Final design comparison, cross-browser accessibility and release | **Not complete; owner sign-off required** | No unresolved visual differences deemed material, approved logo asset, factual merchant/customer content and explicit release approval |
+
+**Current new coverage:** Visual smoke checks now record visible headings, header/hero geometry, missing external images as warnings and real header-search navigation on desktop and mobile. These tests do not compare rendered pixels to the mockups.
+
+**Release blockers that cannot be invented by the implementation:** (1) the exact approved logo file, which is not established by the mockup collages or speculative redraws; (2) authorised current merchant/product assets and eligible data to populate verified cards; (3) signed-in staging accounts/data for functional acceptance; (4) human visual approval of the final screenshots. Never claim this is complete or deploy while these remain open.
+
 ## Binding design rules
 1. Follow the supplied mockup's **composition and hierarchy**: wide warm hero, two-row global shopping header, photographed categories, compact editorial panels, restrained gradients, large serif heading hierarchy, soft cards and clear purple actions.
 2. **Do not recreate a logo**. The user's original AVUQO brand asset must be supplied or identified and approved. The temporary Q-mark inherited from `main` remains unchanged, and a separately invented A-mark was explicitly removed.
