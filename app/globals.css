@@ -197,7 +197,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
  color:white
 }
 .avuqo-footer a:focus-visible,.header a:focus-visible{outline:3px solid #9256df;outline-offset:3px}
-@media(min-width:1050px){.shell{width:min(1320px,calc(100% - 56px))}}
+@media(min-width:1050px){.shell{width:min(1368px,calc(100% - 56px))}}
 @media(max-width:600px){.shell{width:min(100% - 28px,1320px)}}
 
 /* Reference fidelity: light, compact editorial footer on every customer page.
