@@ -42,7 +42,7 @@ export const lifestylePages: Record<string,Landing> = {
     featureTitle:"The best trip works on every level.",featureCopy:"Look beyond the first advertised price to the complete journey and the experience you actually want.",featureImage:image("photo-1476514525535-07fb3b4ae5f1",900)
   },
   home: {
-    slug:"home",eyebrow:"Home & living",headline:"A home that works.",highlight:"A price that fits.",accent:"#9c6746",
+    slug:"home",eyebrow:"Home & living",headline:"Home &",highlight:"Living.",accent:"#9c6746",
     intro:"Create a more comfortable home with thoughtful furniture, practical appliances and everyday essentials. Explore ideas without losing sight of running costs and longevity.",
     hero:image("photo-1600210492486-724fe5c67fb0"),heroPosition:"center 55%",
     tiles:[
@@ -57,19 +57,25 @@ export const lifestylePages: Record<string,Landing> = {
     featureTitle:"Make room for better decisions.",featureCopy:"Smart home shopping starts with practical needs, comfort, space and total ownership costs.",featureImage:image("photo-1600566753190-17f0baa2a6c3",900)
   },
   tech: {
-    slug:"tech",eyebrow:"Technology",headline:"Useful tech.",highlight:"Without the hype.",accent:"#cf6941",
-    intro:"Explore laptops, headphones, connected devices and home technology with an eye on real-world usefulness, compatibility and long-term cost.",
-    hero:image("photo-1498049794561-7780e7231661"),
+    slug:"tech", eyebrow:"Electronics & technology", headline:"Electronics &", highlight:"Tech.", accent:"#6043a3",
+    intro:"Useful devices for everyday life. Explore laptops, audio, gaming and smart-home ideas with clear guidance on compatibility, cost and long-term value.",
+    hero:image("photo-1498049794561-7780e7231661"),heroPosition:"center 52%",
     tiles:[
-      {title:"Laptops & computing",copy:"Choose for the way you actually work.",search:"laptops",image:image("photo-1496181133206-80ce9b88a853",700)},
-      {title:"Phones & accessories",copy:"Devices, contracts and everyday extras.",search:"smartphones",image:image("photo-1511707171634-5f897ff02aa9",700)},
-      {title:"Audio",copy:"Headphones, speakers and sound.",search:"headphones",image:image("photo-1505740420928-5e560c06d30e",700)},
-      {title:"Home tech",copy:"Connected comfort and smarter routines.",search:"smart home",image:image("photo-1558002038-1055907df827",700)},
-      {title:"TV & entertainment",copy:"Screens, streaming and setups.",search:"television",image:image("photo-1593359677879-a4bb92f829d1",700)},
-      {title:"Cameras & creativity",copy:"Tools for making memories.",search:"cameras",image:image("photo-1516035069371-29a1b244cc32",700)}
+      {title:"Laptops & PCs",copy:"Useful devices for work, study and everyday life.",search:"laptops",image:image("photo-1496181133206-80ce9b88a853",700)},
+      {title:"Phones & wearables",copy:"Choose features and contracts that fit.",search:"smartphones wearables",image:image("photo-1511707171634-5f897ff02aa9",700)},
+      {title:"Audio & Hi-Fi",copy:"Headphones, speakers and sound.",search:"headphones speakers",image:image("photo-1505740420928-5e560c06d30e",700)},
+      {title:"Gaming",copy:"Gaming gear and comfortable setups.",search:"gaming consoles accessories",image:image("photo-1493711662062-fa541adb3fc8",700)},
+      {title:"Photography & video",copy:"Capture and create with care.",search:"digital cameras",image:image("photo-1516035069371-29a1b244cc32",700)},
+      {title:"Smart home",copy:"Connected tools worth understanding.",search:"smart home",image:image("photo-1558002038-1055907df827",700)},
+      {title:"TV & home cinema",copy:"Screens, sound and entertainment.",search:"television home cinema",image:image("photo-1593359677879-a4bb92f829d1",700)},
+      {title:"PC components",copy:"Storage, parts and useful upgrades.",search:"computer components",image:image("photo-1518770660439-4636190af475",700)}
     ],
-    tips:[{title:"Check compatibility",copy:"Make sure it works with your existing devices and services."},{title:"Read subscription costs",copy:"Some devices have memberships, storage or service fees."},{title:"Look past specifications",copy:"Practical performance matters more than marketing numbers."}],
-    featureTitle:"Technology should earn its place.",featureCopy:"Discover features worth paying for, and those you can probably do without.",featureImage:image("photo-1519389950473-47ba0277781c",900)
+    tips:[
+      {title:"Compare like with like",copy:"Check the same model, memory, storage and included accessories."},
+      {title:"Understand compatibility",copy:"Make sure it works with your devices and services."},
+      {title:"Think long term",copy:"Consider subscriptions, repairs and ongoing running costs."}
+    ],
+    featureTitle:"Technology should earn its place.",featureCopy:"Know what matters to you first: the right specifications, total cost, compatibility and support.",featureImage:image("photo-1519389950473-47ba0277781c",900)
   },
   gifts: {
     slug:"gifts",eyebrow:"Thoughtful gifting",headline:"Give something good.",highlight:"Not just something new.",accent:"#d16a52",
@@ -102,7 +108,7 @@ export const lifestylePages: Record<string,Landing> = {
     featureTitle:"More play, more possibility.",featureCopy:"A great toy invites exploration and makes room for imagination.",featureImage:image("photo-1513364776144-60967b0f800f",900)
   },
   beauty: {
-    slug:"beauty",eyebrow:"Beauty & wellbeing",headline:"Feel good.",highlight:"Choose confidently.",accent:"#b36861",
+    slug:"beauty",eyebrow:"Beauty & wellbeing",headline:"Beauty.",highlight:"With care.",accent:"#b36861",
     intro:"Explore skincare, beauty tools and self-care ideas with clear thinking about ingredients, suitability and realistic value.",
     hero:image("photo-1596462502278-27bfdc403348"),
     tiles:[
