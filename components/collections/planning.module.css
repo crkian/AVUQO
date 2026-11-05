@@ -5,19 +5,19 @@
 .page .hero{padding:clamp(46px,6vw,82px) 0;border-bottom:1px solid #ebdfdc;background:
  radial-gradient(circle at 88% 22%,#eedce9,transparent 32%),
  radial-gradient(circle at 13% 82%,#f5eadb,transparent 36%),#faf8f3}
-.page .hero h1{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.042em;line-height:1.1;font-size:clamp(40px,5vw,64px);color:#302639}
+.page .hero h1{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);letter-spacing:-.042em;line-height:1.1;font-size:clamp(40px,5vw,64px);color:#302639}
 .page .hero p:not(.kicker){font-size:16px;max-width:780px}
 .page .links{margin-top:22px}
 .page .links a{display:inline-flex;align-items:center;justify-content:center;min-height:41px;padding:9px 15px;border:1px solid #e7dce7;border-radius:999px;background:#fffdf9;color:#62478b;font-weight:850}
 .page .links a:hover{background:#f4edf8;border-color:#bc9bd2}
 .page .collection{padding-top:clamp(33px,5vw,62px);padding-bottom:clamp(70px,8vw,110px)}
 .page .heading{margin-bottom:24px}
-.page .heading h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(29px,3.5vw,43px);letter-spacing:-.035em;line-height:1.14;margin:0}
+.page .heading h2{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:clamp(29px,3.5vw,43px);letter-spacing:-.035em;line-height:1.14;margin:0}
 .page .heading span{font-size:12px}
 .page .items{gap:12px}
 .page .item{grid-template-columns:95px minmax(190px,1fr) auto auto;gap:20px;min-height:128px;border:1px solid #e9e0dc;border-radius:23px;padding:17px;background:#fffdf9;box-shadow:0 9px 25px #3026390b}
 .itemVisual{display:grid;place-items:center;width:95px;height:91px;flex:none;border-radius:18px;background:linear-gradient(140deg,#f5e9ef,#f0eafa);color:#9369aa}
-.page .itemInfo h3{font-family:Georgia,"Times New Roman",serif;font-size:22px;letter-spacing:-.025em;line-height:1.2;margin:0 0 7px}
+.page .itemInfo h3{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:22px;letter-spacing:-.025em;line-height:1.2;margin:0 0 7px}
 .page .itemInfo p{font-size:13px;margin:0 0 7px}
 .page .itemInfo small{font-size:11px;line-height:1.5}
 .page .itemPrice strong{font-size:21px;letter-spacing:-.02em}
@@ -28,11 +28,11 @@
 .page .itemActions button:hover{background:#fbeef3}
 .page .empty{min-height:255px;background:linear-gradient(125deg,#fcf6f0,#f8f0f8);border-radius:26px;border-color:#eadfe5;padding:clamp(32px,5vw,65px)}
 .page .empty>svg{color:#8a51aa;width:38px;height:38px}
-.page .empty h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.03em;font-size:clamp(25px,3vw,33px)}
+.page .empty h2{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);letter-spacing:-.03em;font-size:clamp(25px,3vw,33px)}
 .page .emptyActions{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
 .page .secondaryLink{display:inline-flex;align-items:center;min-height:43px;padding:10px 16px;border:1px solid #d7c6df;border-radius:999px;background:#fff;color:#6043a3;font-size:13px;font-weight:850}
 .page .tools{margin-top:26px;padding:clamp(22px,3vw,37px);background:linear-gradient(120deg,#f8f0fa,#faf4ee);border:1px solid #e9dfec;border-radius:24px}
-.page .tools h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(26px,3vw,35px);letter-spacing:-.035em}
+.page .tools h2{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:clamp(26px,3vw,35px);letter-spacing:-.035em}
 .page .addButton{min-height:43px;padding:11px 17px;border:1px solid #baa0dc;border-radius:999px;background:#fffdf9;color:#613b9b;font-weight:850}
 .page .toolActions{margin-top:22px}
 .page .saveForm input{border-color:#d8c7df;border-radius:14px;min-height:47px}
