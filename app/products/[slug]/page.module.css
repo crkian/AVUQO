@@ -45,3 +45,16 @@
 .fashion .heroGrid{grid-template-columns:.72fr 1.28fr}.gifts .heroGrid{grid-template-columns:.78fr 1.22fr}
 .fashion .art,.gifts .art{border-radius:180px 180px 26px 26px;min-height:480px}
 @media(max-width:900px){.fashion .heroGrid,.gifts .heroGrid{grid-template-columns:1fr}.fashion .art,.gifts .art{min-height:310px;max-width:580px}}
+
+/* Exact product detail: preserve verified-offer gates, elevate editorial presentation. */
+.hero{background:linear-gradient(120deg,#fbf7f0,#f4ece6)}
+.copy h1,.heading h2,.templateHeading h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.04em}
+.copy h1{line-height:1.1}
+.art{border-color:#e9e0dc;border-radius:33px;box-shadow:0 18px 45px rgba(45,31,54,.055)}
+.topPrice{border-color:#e9e0dc;border-radius:25px;box-shadow:0 9px 28px rgba(45,31,54,.035)}
+.variant span{border:1px solid #ede4de;background:#fffdf9}
+.action,.retailer{background:#6043a3;min-height:45px}
+.action:hover,.retailer:hover{background:#3a20bd}
+.offerCard{border-color:#e9e0dc;border-radius:24px}
+.templateGrid>div{border-radius:27px}
+.highlightSpecs,.travelPanel,.carePanel,.homePanel,.motorPanel,.petsPanel,.generalPanel{border:1px solid #e9e0dc}
