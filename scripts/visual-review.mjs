@@ -110,5 +110,58 @@ try{
  }
 }finally{await browser.close();}
 await writeFile(path.join(out,"report.json"),JSON.stringify({origin,failures,total:report.length,pages:report},null,2));
+
+/* The design files are checked out separately by the visual-review workflow.
+   This offline HTML comparison keeps reference imagery out of the public app.
+   Concept screenshots include fictional products and are NOT live data. */
+const referenceMap=[
+ ["homepage","full-storefront-and-navigation-concept.png","Storefront, hero and shopping tools"],
+ ["christmas","seasonal-christmas.png","Christmas is the only active annual homepage campaign"],
+ ["technology","category-tech.png","Eight topics, buying guidance and public verified shelf"],
+ ["home-living","category-home-and-living.png","Home editorial photography and grid"],
+ ["beauty","category-beauty.png","Beauty category and verified shelf"],
+ ["account","account-profile-screen-crop.png","Private account overview; never fake metrics"],
+ ["saved","saved-items-screen-crop.png","Saved items; prices are historical snapshots"],
+ ["watches","watches-screen-crop.png","Watches do not imply live alerts"],
+ ["lists","shared-lists-screen-crop.png","Authenticated list records"],
+ ["easter","seasonal-easter.png","Dormant seasonal route"],
+ ["valentines","seasonal-valentines.png","Dormant seasonal route"],
+ ["black-friday","seasonal-black-friday.png","Dormant homepage campaign"],
+ ["sales","seasonal-sales.png","Standalone editorial season only"],
+ ["products","product-profile-page-set.png","Composition guide; no synthetic product data"],
+ ["groceries","homepage-groceries-travel-profile-reference.png","Composite guide for groceries"],
+ ["travel","homepage-groceries-travel-profile-reference.png","Composite guide for travel"],
+ ["discover","full-storefront-and-navigation-concept.png","General discovery composition"],
+];
+
+/** Paths below are fixed repository names, not user input. */
+const compareCards=referenceMap.map(([slug,reference,notes])=>`
+  <section class="comparison" id="${slug}">
+    <h2>${slug.replaceAll("-"," ")} <small>${notes}</small></h2>
+    <div class="panels">
+      <figure><figcaption>Approved design reference</figcaption><div class="image-area"><img loading="lazy" src="reference/${reference}" alt="Reference design for ${slug}"></div></figure>
+      <figure><figcaption>Rendered desktop (1440px)</figcaption><div class="image-area"><img loading="lazy" src="${slug}-desktop.png" alt="Rendered desktop for ${slug}"></div></figure>
+    </div>
+    <details><summary>View mobile screenshot (390px)</summary><img class="mobile" loading="lazy" src="${slug}-mobile.png" alt="Rendered mobile for ${slug}"></details>
+  </section>`).join("\n");
+
+const compareHtml=`<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>AVUQO visual implementation review</title>
+<style>
+:root{font-family:system-ui,"Segoe UI",Arial,sans-serif;color:#21132f;background:#f8f2ed}
+*{box-sizing:border-box}body{margin:0}.header{position:sticky;top:0;background:#fffdf9;padding:18px 24px;box-shadow:0 4px 22px #21132f1c;z-index:3}
+h1{margin:0;font-size:24px}p{max-width:980px;color:#55455f;line-height:1.5;font-size:13px}
+nav{display:flex;gap:7px;flex-wrap:wrap}nav a{padding:7px 11px;background:#f0e7f6;border-radius:999px;color:#613c9f;font-size:12px;text-decoration:none}
+main{padding:22px;max-width:1600px;margin:auto}.comparison{scroll-margin-top:160px;background:#fffdf9;border:1px solid #e6dce6;border-radius:18px;padding:18px;margin-bottom:24px}
+h2{margin:0 0 14px;text-transform:capitalize;font-size:20px}h2 small{font-weight:400;font-size:12px;color:#6f6073;display:block;margin-top:4px}
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:12px}figure{margin:0;min-width:0}figcaption{font-size:13px;font-weight:800;padding:10px}
+.image-area{height:66vh;overflow:auto;border:1px solid #e4dbe5;background:#eee8ec;border-radius:10px}.image-area img{display:block;width:100%;height:auto}
+summary{cursor:pointer;color:#6037a0;font-weight:700;padding:12px}.mobile{width:min(390px,100%);height:auto;display:block;border:1px solid #ded2e5;border-radius:8px}
+@media(max-width:820px){.panels{grid-template-columns:1fr}.image-area{height:55vh}.header{position:static}}
+</style></head><body><div class="header"><h1>AVUQO: original designs vs rendered pages</h1>
+<p>Offline comparison of GitHub CI screenshots with the 5 Nov 2026 design pack. Mockup figures and logos are illustrative, not verified stock, prices or live AVUQO account data. Visual likeness still needs owner approval.</p>
+<nav>${referenceMap.map(([slug])=>`<a href="#${slug}">${slug.replaceAll("-"," ")}</a>`).join("")}</nav></div><main>${compareCards}</main></body></html>`;
+await writeFile(path.join(out,"compare.html"),compareHtml);
+
 console.log(`Visual checks: ${report.length-failures}/${report.length} passed`);
 if(failures)process.exitCode=1;
