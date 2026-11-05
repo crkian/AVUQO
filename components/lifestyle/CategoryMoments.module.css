@@ -30,3 +30,19 @@
 @media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.card:last-child{grid-column:1/-1}.visual{height:135px}}
 @media(max-width:620px){.wrap{padding:45px 0}.grid{grid-template-columns:1fr}.card:last-child{grid-column:auto}.card{flex-direction:row}.visual{width:105px;height:auto;flex-shrink:0}.visual>b{font-size:54px}.copy{padding:16px}.copy h3{font-size:17px}.searchRow{align-items:flex-start;flex-direction:column}}
 @media(prefers-reduced-motion:reduce){.card{transition:none}}
+
+/* Mockup-aligned browse stories: warm split photo cards rather than abstract motifs. */
+.wrap{padding:35px 0 38px;background:#faf8f3;border-color:#e9e0dc}
+.heading h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.038em}
+.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.card{display:flex;flex-direction:row;align-items:stretch;min-height:203px;border-radius:22px;border-color:#e9e0dc;background:#fffaf7;box-shadow:0 8px 24px rgba(45,31,54,.045)}
+.visual{order:2;width:45%;min-height:203px;height:auto;background-color:#eaddd4;background-size:cover;background-position:center}
+.visual>span{padding:7px 9px;background:#fffdf9e6;border-radius:999px;top:11px;left:11px}
+.visual>b{display:none}
+.copy{order:1;width:55%;padding:19px 15px;gap:7px}
+.copy h3{font-family:Georgia,"Times New Roman",serif;font-size:22px;letter-spacing:-.025em}
+.copy p{font-size:12px}
+.action{margin-top:auto;padding-top:10px}
+.searchRow{background:linear-gradient(115deg,#f6eaf4,#fffaf7);border-color:#e7dce6}
+@media(max-width:950px){.grid{grid-template-columns:1fr 1fr}.card:last-child{grid-column:span 2}.visual{min-height:190px}}
+@media(max-width:620px){.grid{grid-template-columns:1fr}.card:last-child{grid-column:auto}.card{min-height:155px}.visual{width:42%;min-height:155px}.copy{width:58%;padding:17px}.copy h3{font-size:20px}.searchRow{margin-top:15px}}
