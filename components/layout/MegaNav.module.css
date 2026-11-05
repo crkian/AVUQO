@@ -58,3 +58,26 @@
 .privateDepartment{display:flex!important;align-items:center;justify-content:space-between;gap:10px;margin:9px 5px 4px;padding:13px 15px!important;background:#eee7f9;border:1px solid #dbc9ee;border-radius:12px;color:#4c3281!important;font-size:12px;font-weight:850;line-height:1.5;white-space:normal;text-decoration:none!important}
 .privateDepartment:hover,.privateDepartment:focus-visible{background:#e5d7f6;outline-offset:2px}
 @media(max-width:1000px){.privateDepartment{margin:10px 8px;min-height:48px;font-size:13px}}
+
+/* Premium warm customer menu, retaining CMS navigation and 25-department explorer. */
+.groupHeading{border-radius:14px}
+.groupHeading:hover,.groupHeading:focus-within{background:#f4ecef}
+.groupLink{color:#382d3f!important}
+.groupLink.active{color:#6043a3!important}
+.expand{color:#735d7b;border-radius:10px}
+.expand:hover,.expand:focus-visible{background:#eee5f3}
+.dropdown{border-color:#eae1db;border-radius:24px;background:#fffdf9;box-shadow:0 24px 65px rgba(45,31,54,.16)}
+.intro{border-color:#efe6df}
+.intro strong{color:#302639;font-size:18px}
+.intro span,.menuLink small{color:#6f6670}
+.viewAll{color:#6043a3!important}
+.menuLink{border-radius:14px;color:#423647!important;transition:background-color .16s ease}
+.menuLink:hover,.menuLink:focus-visible{background:#f8eff3}
+.privateDepartment{background:#f5eff9;border-color:#e3d5eb}
+@media(max-width:1000px){
+ .dropdown,.dropdown[hidden]{background:#faf8f3}
+ .group{border-color:#eee5df}
+ .groupLink{min-height:50px}
+ .menuLink{min-height:48px!important}
+}
+@media(prefers-reduced-motion:reduce){.menuLink{transition:none}}
