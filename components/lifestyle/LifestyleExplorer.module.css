@@ -35,14 +35,14 @@
 /* Homepage room explorer becomes a compact visual gallery, complementing quick departments. */
 .section{padding:clamp(39px,5vw,70px) 0}
 .heading{margin-bottom:23px}
-.heading h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(30px,4vw,47px);line-height:1.13;letter-spacing:-.04em}
+.heading h2{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:clamp(30px,4vw,47px);line-height:1.13;letter-spacing:-.04em}
 .heading p:last-child{font-size:15px;line-height:1.65;margin-top:11px}
 .grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
 .card,.card:first-child,.card:nth-child(2){grid-column:auto;min-height:215px;border-radius:21px}
 .card:after{background:linear-gradient(0deg,rgba(29,22,31,.86) 0%,rgba(29,22,31,.18) 77%,transparent)}
 .copy{left:18px;right:15px;bottom:16px}
 .copy .overline{font-size:9px;margin-bottom:7px}
-.copy h3{font-family:Georgia,"Times New Roman",serif;font-size:clamp(21px,2.2vw,27px);letter-spacing:-.02em}
+.copy h3{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:clamp(21px,2.2vw,27px);letter-spacing:-.02em}
 .copy p{font-size:12px;line-height:1.45;margin-bottom:10px}
 .copy .linkText{font-size:11px}
 .note{font-size:11px;margin-top:14px}
