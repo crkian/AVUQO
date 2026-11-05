@@ -12,7 +12,7 @@
 
 **Severity:** P0 = security/compliance/trust/correctness blocker; P1 = core customer/product functionality and commerce foundations; P2 = strategic first-party expansions; P3 = authorised scale/sector expansion. **Priority is not a promise of delivery date.**
 
-## Phase P0 | Preserve trust and make the deployed base verifiable
+> **5 Nov 2026 cross-cutting requirements:** [Shared Price, Availability, eBay & SEO](./PRICE_AVAILABILITY_EBAY_SEO_REQUIREMENTS_2026-11-05.md) defines planned offer freshness/status, safe customer messaging, eBay Browse listing/condition handling, opt-in Watch change alerts and canonical product metadata/structured-data/sitemap safeguards. Applies to **P1-02/03/04, P2-03, P3-01 and P0-05**; documentation only, not implemented, authorised or deployed.\n\n## Phase P0 | Preserve trust and make the deployed base verifiable
 
 | ID | Work | Current state | Action and required acceptance |
 |---|---|---|---|
