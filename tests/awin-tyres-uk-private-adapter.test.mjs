@@ -50,3 +50,14 @@ test("invalid affiliate attribution leaves staged row excluded",()=>{
  assert.equal(row.status,"excluded");
  assert.ok(row.reasons.includes("tracking_link_unverified"));
 });
+
+test("oversized Tyres UK custom_6 is bounded and recorded without cancelling private import",()=>{
+ const extended=[...header,"custom_6"];
+ const original=make();
+ const rows=[...original,"x".repeat(16422)];
+ const r=prepareTyresUkPrivateBatch("12715","93988",extended,[rows])[0];
+ assert.equal(r.status,"review");
+ assert.equal(r.metadata.oversized_custom_6_redacted,true);
+ assert.equal(r.metadata.release_approved,false);
+ assert.throws(()=>prepareTyresUkPrivateBatch("12715","93988",extended,[[...original,"x".repeat(20001)]]),/oversize/);
+});
