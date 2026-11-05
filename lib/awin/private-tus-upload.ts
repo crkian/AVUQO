@@ -57,7 +57,7 @@ export async function uploadPrivateAwinTus(
    signal:AbortSignal.timeout(60000),
    headers:{...auth,"Content-Type":"application/offset+octet-stream",
     "Upload-Offset":String(offset)},
-   body:Buffer.from(bytes.buffer,bytes.byteOffset+offset,end-offset)
+   body:Buffer.from(bytes.buffer,bytes.byteOffset+offset,end-offset) as unknown as BodyInit
   });
   if(response.status!==204)throw Error("private_tus_chunk_failed");
   const next=Number(response.headers.get("upload-offset"));
