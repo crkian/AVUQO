@@ -47,3 +47,170 @@
 /* Seasonal navigation and more breathing room for the 2026 collection */
 .seasonNav{background:#f2e8e4;border-radius:30px;padding:clamp(25px,4vw,46px);display:flex;gap:26px;justify-content:space-between;align-items:center}
 .seasonNav h2{margin:5px 0 12px;font-size:clamp(29px,4vw,44px);letter-spacing:-.045em}.seasonNav p:not(.kicker){color:#6e5e64;line-height:1.7;max-width:540px}.seasonNavLinks{display:grid;gap:10px;min-width:215px}.seasonNavLinks a{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;padding:14px 16px;border-radius:16px;font-size:13px;font-weight:800;color:#8a4b60}.grid{gap:22px}.grid3{gap:22px}.tile{border-radius:27px}.grid3 article{padding:29px;border-radius:27px}@media(max-width:750px){.seasonNav{flex-direction:column;align-items:stretch}.seasonNavLinks{min-width:0}.grid{gap:15px}}
+
+/* Warm festive editorial finish; keep the existing dedicated gift-finder and crafts. */
+.hero h1{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);letter-spacing:-.045em;line-height:1.065}
+.heroWash{background:linear-gradient(90deg,rgba(252,248,242,1) 0%,rgba(252,248,242,.98) 31%,rgba(252,248,242,.7) 56%,rgba(252,248,242,.10) 85%)}
+.tile,.grid3 article{background:#fffdf9;border-color:#e9ded9;box-shadow:0 10px 30px rgba(60,42,45,.045)}
+.tile{border-radius:27px}
+.spotlight{background:linear-gradient(125deg,#f6e9e7,#f5ecf3)}
+@media(max-width:700px){.heroWash{background:linear-gradient(90deg,rgba(252,248,242,.97),rgba(252,248,242,.75))}}
+
+/* Festive mockup architecture: six departments and two image-led discovery panels. */
+.hero h1 span{color:#5b35f5}
+.hero .primary{background:linear-gradient(130deg,#6043a3,#3a20bd)}
+.categoryRail{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:11px;margin-top:-33px;margin-bottom:28px;position:relative;z-index:2}
+.categoryLink{min-height:135px;display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:17px 15px;border:1px solid #e9dedb;border-radius:20px;background:#fffaf7;color:#302639;box-shadow:0 10px 26px rgba(54,33,44,.09);transition:transform .2s ease}
+.categoryLink:nth-child(even){background:#faf1ee}.categoryLink:hover{transform:translateY(-3px)}.categoryLink svg{color:#9e496d}
+.categoryLink strong{font-size:15px}.categoryLink span{font-size:12px;line-height:1.5;color:#6d626c}
+.discoverySection{display:grid;grid-template-columns:1.04fr .96fr;gap:17px;margin-bottom:40px}
+.discoveryEditorial,.discoveryPlanning{border-radius:27px;border:1px solid #e9e0dc;padding:clamp(22px,2.6vw,32px);background:#fffaf8}
+.discoveryPlanning{background:linear-gradient(135deg,#fcf5f7,#f4edf8)}
+.discoveryHeading{margin-bottom:18px}.discoveryHeading h2{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:clamp(27px,3vw,38px);letter-spacing:-.035em;margin:0 0 9px;line-height:1.14}
+.discoveryHeading>p:not(.kicker){font-size:14px;line-height:1.6;color:#6b606a;margin:0}
+.discoveryStories{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.discoveryStory{min-height:210px;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;border-radius:18px;padding:16px 13px;color:white;background-size:cover;background-position:center;text-shadow:0 1px 4px #0008}
+.discoveryStory strong{font-size:16px;line-height:1.2}.discoveryStory span{display:inline-flex;align-items:center;gap:5px;font-size:12px;line-height:1.45}
+.planningLinks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.planningLinks a{min-height:119px;display:flex;flex-direction:column;align-items:start;gap:8px;padding:17px;border:1px solid #eadfe9;border-radius:18px;background:#fff;color:#302639}
+.planningLinks a svg{color:#7750a4}.planningLinks a strong{font-size:16px}.planningLinks a span{font-size:12px;line-height:1.45;color:#746975}
+@media(max-width:1000px){.categoryRail{grid-template-columns:repeat(3,1fr)}.discoverySection{grid-template-columns:1fr}}
+@media(max-width:650px){.categoryRail{grid-template-columns:repeat(2,1fr);margin-top:0}.categoryLink{min-height:120px;padding:15px}.discoveryStories{grid-template-columns:repeat(2,1fr)}.discoveryStory{min-height:160px}.discoveryStory:last-child{grid-column:1/-1}.discoveryEditorial,.discoveryPlanning{padding:20px}}
+@media(prefers-reduced-motion:reduce){.categoryLink{transition:none}.categoryLink:hover{transform:none}}
+
+/* Faithful Christmas reference proportions: wide image hero and small illustrated departments. */
+.hero{min-height:365px}
+.heroLayout{padding:48px 0 60px}
+.heroCopy{max-width:620px}
+.hero h1{font-size:clamp(48px,6.4vw,79px);margin:8px 0 11px;line-height:1.03}
+.hero p:not(.eyebrow){max-width:540px;line-height:1.55;font-size:17px;color:#3b303d}
+.heroActions{margin-top:21px}
+.heroWash{background:linear-gradient(90deg,#fcf8f4 0%,rgba(252,248,244,.98) 26%,rgba(252,248,244,.83) 44%,rgba(252,248,244,.12) 72%,transparent 100%)}
+.categoryRail{margin-top:-19px;gap:8px}
+.categoryLink{
+  position:relative;isolation:isolate;overflow:hidden;min-height:105px;border-radius:18px;
+  padding:12px 11px;gap:4px;background-color:#fff9f5;
+  background-repeat:no-repeat;background-position:center right;background-size:cover;
+  box-shadow:0 8px 24px rgba(54,33,44,.095)
+}
+.categoryLink>*{position:relative;z-index:1}
+.categoryLink svg{width:23px;height:23px;color:#9f2d74}
+.categoryLink strong{font-size:15px}
+.categoryLink span{font-size:11px;max-width:120px;line-height:1.28;color:#3f3341}
+.categoryLink:nth-child(1){background-image:linear-gradient(90deg,#fff9f5 0%,rgba(255,249,245,.96) 40%,rgba(255,249,245,.3) 100%),url("https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=500&q=76")}
+.categoryLink:nth-child(2){background-image:linear-gradient(90deg,#fff9f5 0%,rgba(255,249,245,.95) 42%,rgba(255,249,245,.25) 100%),url("https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=500&q=76")}
+.categoryLink:nth-child(3){background-image:linear-gradient(90deg,#fff9f5 0%,rgba(255,249,245,.95) 42%,rgba(255,249,245,.25) 100%),url("https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=500&q=76")}
+.categoryLink:nth-child(4){background-image:linear-gradient(90deg,#fff9f5 0%,rgba(255,249,245,.95) 40%,rgba(255,249,245,.25) 100%),url("https://images.unsplash.com/photo-1558060370-d644479cb6f7?auto=format&fit=crop&w=500&q=76")}
+.categoryLink:nth-child(5){background-image:linear-gradient(90deg,#fff9f5 0%,rgba(255,249,245,.95) 42%,rgba(255,249,245,.25) 100%),url("https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=500&q=76")}
+.categoryLink:nth-child(6){background-image:linear-gradient(90deg,#fff9f5 0%,rgba(255,249,245,.95) 42%,rgba(255,249,245,.25) 100%),url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=500&q=76")}
+.discoverySection{margin-bottom:25px}
+.discoveryEditorial,.discoveryPlanning{padding:22px}
+.discoveryStories{gap:8px}
+.discoveryStory{min-height:165px}
+.planningLinks a{min-height:106px}
+@media(max-width:700px){
+  .hero{min-height:500px}
+  .heroLayout{padding:185px 0 39px}
+  .heroWash{background:linear-gradient(0deg,rgba(252,248,244,1) 0%,rgba(252,248,244,.96) 43%,rgba(252,248,244,.13) 100%)}
+  .hero h1{font-size:clamp(43px,10.5vw,63px)}
+  .hero p:not(.eyebrow){font-size:15px}
+  .categoryRail{margin-top:-4px}
+  .categoryLink{min-height:106px}
+}
+@media(min-width:701px) and (max-width:1000px){.categoryRail{grid-template-columns:repeat(3,1fr)}}
+
+/* DESIGN FIDELITY / CHRISTMAS: measured against the 1408x1024 concept.
+   Compact hero -> six image departments -> twin editorial panels -> verified finds. */
+.hero{min-height:285px!important;display:block!important}
+.heroPhoto{background-position:center 49%}
+.heroWash{background:linear-gradient(90deg,rgba(255,250,246,.99) 0%,rgba(255,250,246,.97) 25%,rgba(255,250,246,.77) 42%,rgba(255,250,246,.06) 72%,transparent 100%)}
+.heroLayout{padding:27px 0 31px!important;min-height:280px;display:flex;align-items:center}
+.heroCopy{max-width:620px;padding:8px 0!important}
+.hero h1{font-family:var(--avuqo-display-font);font-size:clamp(46px,4.5vw,62px)!important;line-height:1.06!important;letter-spacing:-.053em;font-weight:850;margin:4px 0 6px!important}
+.hero h1 span{color:#7021bd}
+.hero p:not(.eyebrow){font-size:16px!important;line-height:1.42!important;margin:7px 0 0!important;color:#31293b}
+.eyebrow{font-size:11px!important;letter-spacing:.08em!important;color:#803599!important;margin-bottom:5px}
+.heroActions{margin-top:18px!important;gap:10px!important}
+.heroActions a{padding:11px 18px!important;min-height:40px!important;font-size:13px!important}
+.primary{background:linear-gradient(125deg,#a82bf3,#5616b2)!important;color:#fff!important}
+.secondary{border-color:#a16bc7!important;color:#43276f!important;background:#fffefaed!important}
+.categoryRail{position:relative;margin-top:-10px!important;margin-bottom:13px!important;gap:7px}
+.categoryLink{min-height:95px!important;padding:10px 11px!important;border-radius:16px!important;gap:4px!important;box-shadow:0 5px 17px #3d273217}
+.categoryLink strong{font-size:14px!important;font-weight:850;letter-spacing:-.01em}
+.categoryLink span{font-size:11px!important;max-width:125px}
+.categoryLink svg{width:22px;height:22px}
+.discoverySection{gap:10px!important;margin-bottom:9px!important}
+.discoveryEditorial,.discoveryPlanning{padding:17px!important;border-radius:17px!important}
+.discoveryHeading{margin-bottom:10px!important}
+.discoveryHeading h2{font-size:clamp(24px,2.3vw,31px)!important;font-weight:850;margin:0 0 4px!important}
+.discoveryHeading>p:not(.kicker){font-size:12px!important;line-height:1.35!important}
+.discoveryStories{gap:7px!important}
+.discoveryStory{min-height:132px!important;border-radius:12px!important;padding:12px!important}
+.discoveryStory strong{font-size:14px!important}
+.discoveryStory span{font-size:10px!important}
+.planningLinks{gap:7px!important}
+.planningLinks a{min-height:90px!important;border-radius:12px!important;padding:11px!important;gap:5px!important}
+.planningLinks a svg{width:23px;height:23px}
+.planningLinks a strong{font-size:13px!important}
+.planningLinks a span{font-size:11px!important}
+.confidenceStrip{display:grid;grid-template-columns:1.28fr repeat(3,1fr);gap:0;align-items:center;margin-top:15px;margin-bottom:8px;padding:14px 17px;background:linear-gradient(110deg,#fbf0ea,#f7f0f9);border:1px solid #e9dce6;border-radius:17px}
+.confidenceIntro,.confidencePoint{display:flex;align-items:center;gap:11px;min-width:0;padding:6px 16px;border-right:1px solid #dfd0dd}
+.confidenceIntro{padding-left:5px}
+.confidencePoint:last-child{border-right:0}
+.confidenceIntro svg,.confidencePoint>svg{color:#7e2fc7;flex:none}
+.confidenceIntro strong{font-size:17px;font-weight:900;line-height:1.17;letter-spacing:-.015em}
+.confidencePoint span{display:grid;gap:3px}
+.confidencePoint strong{font-size:12px;line-height:1.25;font-weight:850}
+.confidencePoint small{font-size:10px;color:#6d6170;line-height:1.4}
+@media(max-width:1030px){.confidenceStrip{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:9px}.confidenceIntro,.confidencePoint{border-right:0}.confidenceIntro strong{font-size:16px}}
+@media(max-width:720px){
+ .hero{min-height:460px!important}
+ .heroLayout{min-height:460px;align-items:end;padding:156px 0 32px!important}
+ .heroWash{background:linear-gradient(0deg,rgba(255,250,246,1) 0%,rgba(255,250,246,.99) 36%,rgba(255,250,246,.43) 100%)}
+ .hero h1{font-size:clamp(43px,10.5vw,62px)!important}
+ .hero p:not(.eyebrow){font-size:15px!important}
+ .categoryRail{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .categoryLink{min-height:99px!important}
+ .discoverySection{grid-template-columns:1fr}
+ .discoveryStory{min-height:138px!important}
+ .confidenceStrip{grid-template-columns:1fr;padding:13px}
+ .confidenceIntro,.confidencePoint{padding:10px 8px;border-bottom:1px solid #e9dce6}
+ .confidencePoint:last-child{border-bottom:0}
+}
+@media(max-width:400px){.heroActions{flex-direction:column;align-items:stretch}.heroActions a{width:100%}.discoveryStories{grid-template-columns:repeat(2,minmax(0,1fr))}.discoveryStory:last-child{grid-column:1/-1}.hero{min-height:510px!important}.heroLayout{min-height:510px}}
+
+/* Screenshot review correction: the previous photography resolved to foliage,
+   not Christmas. This licensed free photograph shows a real decorated room. */
+.heroPhoto{
+ background-image:url("https://images.unsplash.com/photo-1544428000-5b622c57fcd4?auto=format&fit=crop&w=1850&q=85");
+ background-position:center 53%;
+ transform:scaleX(-1)
+}
+.heroWash{background:linear-gradient(90deg,#fffaf6 0%,rgba(255,250,246,.98) 25%,rgba(255,250,246,.82) 43%,rgba(255,250,246,.12) 72%,transparent 100%)}
+@media(max-width:720px){
+ .heroPhoto{background-position:35% 50%}
+ .heroWash{background:linear-gradient(0deg,#fffaf6 0%,rgba(255,250,246,.98) 34%,rgba(255,250,246,.28) 100%)}
+}
+
+.supportingSection {
+  padding-block: clamp(16px, 3vw, 32px);
+}
+
+@media (max-width: 400px) {
+  .heroActions {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .heroActions a {
+    flex: 1;
+    width: auto;
+    min-height: 44px !important;
+    padding-inline: 9px !important;
+  }
+
+  .hero,
+  .heroLayout {
+    min-height: 440px !important;
+  }
+}

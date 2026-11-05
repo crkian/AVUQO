@@ -6,7 +6,18 @@ test("shopping collections integrate into real published navigation destinations
  const shelf=read("components/shopping/ShoppingDepartmentShelf.tsx");
  const home=read("app/page.tsx"),categories=read("app/categories/page.tsx");
  const shopping=read("app/shopping/page.tsx"),landing=read("components/lifestyle/LifestyleLanding.tsx");
- for(const page of [home,categories,shopping])assert.match(page,/ShoppingDepartmentShelf/);
+ // The landing page uses the owner-approved compact ribbon/dashboard, while
+ // category and shopping directories still use the full editorial department shelf.
+ for(const page of [categories,shopping])assert.match(page,/ShoppingDepartmentShelf/);
+ assert.match(home,/StorefrontQuickLinks/);
+ assert.match(home,/HomeShoppingDashboard/);
+ const quickLinks=read("components/home/StorefrontQuickLinks.tsx");
+ const dashboard=read("components/home/HomeShoppingDashboard.tsx");
+ assert.match(quickLinks,/\/categories/);
+ assert.match(quickLinks,/\/pets/);
+ assert.match(dashboard,/\/groceries/);
+ assert.match(dashboard,/\/watches/);
+ assert.match(dashboard,/\/saved/);
  assert.match(landing,/\{afterTrust\}/);
  assert.match(shelf,/\/gifts/);
  assert.match(shelf,/\/pets/);

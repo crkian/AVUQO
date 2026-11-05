@@ -2,7 +2,7 @@ import Link from "next/link";
 import {ArrowRight,ArrowUpRight,Compass,Search,ShieldCheck} from "lucide-react";
 import {type CategoryStory,storySearchHref} from "../../lib/lifestyle/category-story";
 import styles from "./CategoryMoments.module.css";
-export default function CategoryMoments({story}:{story:CategoryStory}){
+export default function CategoryMoments({story,images=[]}:{story:CategoryStory;images?:readonly string[]}){
  return <section className={styles.wrap+" "+(styles[story.energy]??"")} aria-labelledby="category-story-title">
   <div className="shell">
    <div className={styles.heading}>
@@ -12,7 +12,7 @@ export default function CategoryMoments({story}:{story:CategoryStory}){
    </div>
    <div className={styles.grid}>
     {story.moments.map((item,i)=><Link key={item.title} className={styles.card} href={storySearchHref(item.query)}>
-      <div className={styles.visual} aria-hidden="true"><span>{["01","02","03"][i]}</span><b>{["✦","◇","◈"][i]}</b></div>
+      <div className={styles.visual} style={images[i]?{backgroundImage:`linear-gradient(90deg,rgba(36,25,42,.05),rgba(36,25,42,.1)),url("${images[i]}")`}:undefined} aria-hidden="true"><span>{["01","02","03"][i]}</span>{!images[i]&&<b>{["✦","◇","◈"][i]}</b>}</div>
       <div className={styles.copy}><small>{item.signal}</small><h3>{item.title}</h3><p>{item.description}</p>
        <span className={styles.action}>Explore ideas <ArrowUpRight size={16}/></span>
       </div>

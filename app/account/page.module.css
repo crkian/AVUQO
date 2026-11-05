@@ -1,1 +1,94 @@
-.hero{padding:65px 0 28px}.hero h1{margin:7px 0 12px;font-size:clamp(44px,6vw,68px);letter-spacing:-.055em}.hero p:last-child{max-width:700px;color:#716d80;line-height:1.6}.grid{display:grid;grid-template-columns:1fr 1fr;gap:17px;padding:20px 0 70px}.card{padding:27px;border:1px solid #e7e3ec;border-radius:24px;background:#fff}.card h2{margin:0 0 8px;font-size:27px;letter-spacing:-.04em}.card>p{color:#716d80;font-size:13px;line-height:1.55}.form{display:grid;gap:13px;margin-top:20px}.form label{display:grid;gap:6px;color:#5a5565;font-size:11px;font-weight:800}.form input,.form select{height:46px;padding:0 12px;border:1px solid #e7e3ec;border-radius:12px;background:#fff}.form button{height:46px;border:0;border-radius:12px;color:#fff;background:linear-gradient(135deg,#5b35f5,#3478f6);font-weight:850}.message{font-size:12px;color:#087b5b}.links{display:grid;gap:8px;margin-top:18px}.links a{padding:13px;border-radius:12px;background:#f5f2fa;color:#4a388d;font-size:12px;font-weight:800}@media(max-width:760px){.grid{grid-template-columns:1fr}}
+/* My AVUQO: reference-inspired compact banner, navigation rail and genuine shortcuts. */
+.page{background:#faf8f3;color:#17142b;min-height:100vh}
+.dashboardHero{margin:0 auto;background:linear-gradient(90deg,rgba(253,249,245,.98) 0%,rgba(253,249,245,.9) 36%,rgba(253,249,245,.18) 76%),url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1800&q=80") right 50%/cover no-repeat;border-bottom:1px solid #e9ded8}
+.dashboardHeroInner{display:flex;align-items:center;gap:25px;min-height:205px;padding:30px 0}
+.avatar{display:grid;place-items:center;width:92px;height:92px;flex:none;border:5px solid #fff;border-radius:50%;background:linear-gradient(145deg,#8d50d7,#f184b3);color:#fff;box-shadow:0 8px 32px #30263924;font-size:43px;font-weight:850}
+.kicker{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#7b4a88;font-weight:900;margin:0 0 9px}
+.dashboardHero h1{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:clamp(38px,5vw,58px);line-height:1.06;letter-spacing:-.044em;margin:0 0 9px}
+.dashboardHeroInner>div:last-child>p:last-child{font-size:17px;color:#574e57;margin:0;line-height:1.5}
+.dashboardLayout{display:grid;grid-template-columns:245px minmax(0,1fr);align-items:start;gap:21px;padding-top:27px;padding-bottom:90px}
+.sidebar{position:sticky;top:132px;background:#fffdf9;border:1px solid #e9e0dc;border-radius:25px;padding:11px;box-shadow:0 10px 30px rgba(45,31,54,.055)}
+.sidebar nav{display:grid;gap:4px}
+.sidebar a{display:flex;align-items:center;gap:14px;min-height:51px;border-radius:15px;padding:12px 14px;color:#302639;font-size:14px;font-weight:750;border-bottom:1px solid #f4eee9}
+.sidebar a:hover,.sidebar a:focus-visible{background:#f5edf7}
+.sidebar a svg:first-child{flex:none;color:#6c4a8d}
+.sidebar a svg:last-child{margin-left:auto;opacity:.52;flex:none}
+.sidebar .currentNav{background:linear-gradient(125deg,#7840e5,#5122b8);color:#fff;box-shadow:0 9px 19px #5b35f526}
+.sidebar .currentNav svg{color:#fff}.sidebar a:last-child{border-bottom:0}
+.dashboardMain{display:grid;gap:20px}
+.overviewPanel,.activityPanel,.preferencePanel{padding:clamp(23px,2.9vw,35px);border:1px solid #e9e0dc;border-radius:26px;background:#fffdf9;box-shadow:0 10px 30px rgba(45,31,54,.055)}
+.panelHeading{display:flex;align-items:start;justify-content:space-between;gap:15px;margin:0 0 24px}
+.panelHeading h2{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:clamp(27px,3vw,36px);line-height:1.12;letter-spacing:-.035em;margin:0}
+.panelHeading p:not(.kicker){color:#716d80;font-size:14px;line-height:1.5}
+.overviewGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.overviewTile{display:flex;flex-direction:column;gap:9px;min-height:205px;padding:20px 14px;border:1px solid #ece2dc;border-radius:19px;background:#fff;box-shadow:0 7px 18px #30263909;text-align:center;align-items:center;transition:transform .17s ease,border-color .17s ease}
+.overviewTile:hover{transform:translateY(-2px);border-color:#ba9ad0}
+.overviewTile svg{color:#7443ce;flex:none}
+.overviewTile strong{font-size:17px;letter-spacing:-.025em}
+.overviewTile small{font-size:12px;line-height:1.45;color:#6e6670}
+.overviewTile span{display:inline-flex;gap:5px;align-items:center;color:#6043a3;font-size:12px;font-weight:850;margin-top:auto}
+.overviewTile[data-tone=rose]{background:#fff8fa}.overviewTile[data-tone=amber]{background:#fffaf1}.overviewTile[data-tone=violet]{background:#f9f5ff}
+.overviewNote{font-size:12px;line-height:1.5;color:#837985;margin:18px 0 0}
+.activityPanel{background:#fffaf7}
+.activityLinks{display:grid;gap:9px}
+.activityLinks a{display:flex;align-items:center;gap:14px;padding:14px 17px;min-height:77px;background:#fff;border:1px solid #eee5df;border-radius:16px}
+.activityLinks a:hover,.activityLinks a:focus-visible{background:#f9f2fc;border-color:#cdb6dc}
+.activityLinks svg{flex:none;color:#733cc4}
+.activityLinks a>span{display:grid;gap:4px;flex:1}
+.activityLinks strong{font-size:15px}
+.activityLinks small{font-size:12px;color:#706876}
+.preferencePanel{scroll-margin-top:145px;background:linear-gradient(140deg,#fffdf9,#faf4f9)}
+.profileStatus{font-size:13px;color:#716d80;overflow-wrap:anywhere}
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:21px}
+.form label{display:grid;gap:7px;font-size:13px;font-weight:750;color:#554960}
+.form label:first-child{grid-column:1/-1}
+.form input,.form select{height:49px;padding:0 14px;min-width:0;font:inherit;color:#302639;background:#fff;border:1px solid #ddd1dc;border-radius:13px}
+.form button{justify-self:start;min-height:46px;padding:10px 23px;border:0;border-radius:13px;background:#6043a3;color:#fff;font-weight:850}
+.form button:hover:not(:disabled){background:#3a20bd}
+.form button:disabled{opacity:.5;cursor:default}
+.message{align-self:center;font-size:13px;color:#087b5b}
+@media(max-width:1000px){.dashboardLayout{grid-template-columns:190px minmax(0,1fr)}.sidebar a{font-size:12px;padding:10px}.overviewGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.overviewTile{min-height:175px}}
+@media(max-width:750px){.dashboardHeroInner{min-height:175px}.avatar{width:75px;height:75px;font-size:36px}.dashboardLayout{grid-template-columns:1fr;gap:16px;padding-top:17px}.sidebar{position:static;overflow:auto;padding:8px;border-radius:19px}.sidebar nav{display:flex;gap:6px;overflow-x:auto;scroll-snap-type:x proximity}.sidebar a{flex:none;min-height:47px;white-space:nowrap;border:0;padding:11px 13px;scroll-snap-align:start}.sidebar a svg:last-child{display:none}.dashboardMain{gap:14px}}
+@media(max-width:500px){.dashboardHeroInner{gap:14px;min-height:148px;padding:22px 0}.avatar{height:63px;width:63px;border-width:3px;font-size:28px}.dashboardHero h1{font-size:36px}.dashboardHeroInner>div:last-child>p:last-child{font-size:13px}.overviewPanel,.activityPanel,.preferencePanel{padding:20px;border-radius:21px}.overviewGrid{gap:9px}.overviewTile{min-height:170px;padding:15px 10px}.overviewTile strong{font-size:14px}.overviewTile small{font-size:11px}.form{grid-template-columns:1fr}.form label:first-child{grid-column:auto}.form button{width:100%}}
+@media(prefers-reduced-motion:reduce){.overviewTile{transition:none}.overviewTile:hover{transform:none}}
+
+/* Design-pack account parity: compact genuine metrics and private recent activity. */
+.dashboardHeroInner{min-height:178px}
+.dashboardHero{background:linear-gradient(90deg,rgba(253,249,245,.98) 0%,rgba(253,249,245,.91) 39%,rgba(253,249,245,.11) 77%),url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1800&q=80") right 47%/cover no-repeat}
+.dashboardLayout{gap:15px;padding-top:0;align-items:start}
+.sidebar{top:122px;border-radius:22px}
+.dashboardMain{margin-top:15px;gap:14px}
+.overviewPanel,.activityPanel,.preferencePanel{padding:clamp(20px,2.3vw,29px);border-radius:23px}
+.overviewTile{min-height:173px;padding:16px 11px;gap:6px;border-radius:18px}
+.overviewTile svg{width:24px;height:24px}
+.statNumber{display:block;font-size:clamp(20px,2.6vw,32px);letter-spacing:-.04em;line-height:1.12;font-weight:900;color:#302639}
+.overviewTile strong{font-size:14px}
+.overviewTile small{font-size:10px}
+.overviewTile span{font-size:11px}
+.navCount{display:inline-flex;align-items:center;justify-content:center;min-width:25px;height:23px;padding:3px 7px;border-radius:999px;background:#f0e6f8;color:#60349b;font-size:11px;font-weight:850;margin-left:auto}
+.sidebar a .navCount+svg{margin-left:0}
+.activityPanel{padding-bottom:26px}
+.activityLinks a{min-height:68px;padding:13px 17px}
+.activityLinks small{font-size:11px}
+.activityLinks a>span{min-width:0}
+.activityLinks strong{overflow-wrap:anywhere}
+@media(max-width:1000px){.overviewGrid{grid-template-columns:repeat(4,minmax(0,1fr))}.overviewTile{min-height:165px}.overviewTile strong{font-size:12px}.overviewTile small{font-size:10px}}
+@media(max-width:750px){.dashboardLayout{padding-top:12px}.dashboardMain{margin-top:0}.overviewGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.sidebar{border-radius:18px}.sidebar a .navCount{margin-left:0}}
+@media(max-width:520px){.dashboardHeroInner{min-height:170px}.dashboardLayout{gap:13px}.overviewTile{min-height:156px}.statNumber{font-size:25px}.overviewTile strong{font-size:13px}}
+
+/* Profile references use bold interface typography, unlike editorial category heroes. */
+.dashboardHero h1,.panelHeading h2,.overviewTile strong,.activityLinks strong{font-family:var(--avuqo-interface-font);font-weight:850;letter-spacing:-.038em}
+
+
+.preferenceSignIn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: #5a29b4;
+  color: white;
+  font-size: 13px;
+  font-weight: 800;
+}

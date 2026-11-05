@@ -64,3 +64,273 @@
 .ownerPreview small{font-size:12px;color:#716978;line-height:1.5}
 .ownerPreview a{flex:none;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:9px 13px;border-radius:10px;background:#6245a5;color:white;font-size:12px;font-weight:850;text-decoration:none}
 @media(max-width:600px){.ownerPreview{align-items:stretch;flex-direction:column;padding:14px}.ownerPreview a{width:100%}}
+
+/* Warm premium v1: styling follows the original homepage, not a dark control panel. */
+.page{background:var(--avuqo-canvas,#faf8f3)}
+.hero{background:radial-gradient(circle at 18% 8%,#fffaf6 0%,transparent 48%),#f7f3ec;padding-top:clamp(40px,5vw,76px)}
+.heroCopy h1,.storyHeading h2,.editorialCopy h2,.seasonHeading h2{
+  font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-weight:700;letter-spacing:-.045em
+}
+.heroCopy h1{color:#302639;line-height:1.055;max-width:730px}
+.heroText{color:#625b63;max-width:560px}
+.search{border-color:#e8ded6;border-radius:24px;box-shadow:0 17px 42px rgba(62,45,53,.09)}
+.search button{background:linear-gradient(130deg,#6043a3,#4d328f);border-radius:16px}
+.search button:hover{background:linear-gradient(130deg,#5b35f5,#3a20bd)}
+.heroArt{border-radius:160px 160px 32px 32px;box-shadow:0 27px 62px rgba(61,44,40,.16)}
+.heroCard{border-color:#eee3da;border-radius:22px}
+.heroShortcuts a{border-color:#e4d7e7;background:#fffcfa;color:#5c3a89}
+.reassurance{background:#fffdf9}
+.helpCard{border-color:#e9e1db;box-shadow:var(--avuqo-shadow,0 10px 32px #30263912);transition:transform .18s ease,box-shadow .18s ease}
+.helpCard:hover{transform:translateY(-3px);box-shadow:0 17px 44px rgba(45,31,54,.11)}
+.helpCard h3{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);letter-spacing:-.025em}
+.editorialBand{background:#f0e9e1}
+.editorialImage{border-radius:32px}
+.seasonSection{padding-bottom:clamp(80px,9vw,125px)}
+.seasonGrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.seasonCard{min-height:300px;border-radius:28px;box-shadow:0 10px 28px rgba(45,31,54,.055);border:1px solid #eaded9;transition:transform .18s ease,box-shadow .18s ease}
+.seasonCard:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(45,31,54,.1)}
+.seasonCard:focus-visible{outline-offset:4px}
+.seasonCard h3{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);letter-spacing:-.025em}
+.seasonCard img{width:29%}
+.blackFridayCard{background:linear-gradient(130deg,#efe5f0,#dcd1e3);color:#3f2b4f}
+.salesCard{background:linear-gradient(135deg,#fff0df,#f2d9c6);color:#7f4b35}
+.easterCard{background:linear-gradient(135deg,#f5edff,#f7e8ed);color:#6c5082}
+.valentinesCard{background:linear-gradient(135deg,#f9e8ef,#f4d9e1);color:#833b59}
+.seasonArt{align-self:flex-end;display:grid;place-items:center;width:80px;height:80px;flex:none;font-size:42px;border-radius:24px;background:#ffffff80;border:1px solid #ffffffbd}
+.trustBand{background:#302639}
+@media(max-width:1050px){.seasonGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.seasonGrid{grid-template-columns:1fr}.seasonCard{min-height:218px}.seasonArt{width:68px;height:68px;font-size:36px}}
+@media(prefers-reduced-motion:reduce){.seasonCard,.helpCard{transition:none}.seasonCard:hover,.helpCard:hover{transform:none}}
+
+/* Christmas is the only active dated homepage theme; future moments need approval. */
+.christmasHero{
+  min-height:490px;display:flex;align-items:center;position:relative;
+  background:linear-gradient(90deg,#fcf7f2 0%,rgba(252,247,242,.99) 26%,rgba(252,247,242,.87) 45%,rgba(252,247,242,.14) 79%,rgba(252,247,242,.02) 100%),
+  url("https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=1800&q=85") center 48%/cover no-repeat;
+  border-bottom:1px solid #eee1dc
+}
+.christmasHero .heroGrid{grid-template-columns:minmax(0,750px) 1fr}
+.christmasHero .heroCopy{grid-column:1}
+.christmasHero .heroVisual{display:none}
+.christmasHero .eyebrow{color:#9e496d}
+.christmasHero .heroCopy h1{font-size:clamp(48px,6.5vw,90px);color:#302639;max-width:720px}
+.christmasHero .heroText{max-width:560px;color:#4b3d43;font-weight:500}
+.christmasHero .search{background:#fffdfa}
+.christmasHeroLink{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:26px;min-height:47px;padding:12px 22px;border-radius:999px;background:linear-gradient(135deg,#5b35f5,#3a20bd);color:#fff;font-weight:850;font-size:14px;box-shadow:0 12px 25px #4e2a6830}
+.christmasHeroLink:hover{background:#3a20bd}
+@media(max-width:900px){.christmasHero{background-position:61% center}.christmasHero .heroGrid{grid-template-columns:minmax(0,670px)}}
+@media(max-width:680px){.christmasHero{background:linear-gradient(0deg,#fcf7f2 0%,rgba(252,247,242,.97) 51%,rgba(252,247,242,.42) 100%),url("https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=900&q=80") center top/cover no-repeat;display:block;min-height:0;padding:155px 0 55px}.christmasHero .heroCopy{padding:0}.christmasHero .heroCopy h1{font-size:clamp(43px,11vw,62px)}.christmasHero .heroText{font-size:16px}.christmasHeroLink{margin-top:18px}}
+
+/* Christmas landing: foreground the image and two simple actions; header owns desktop search. */
+.christmasHero{min-height:360px;padding:38px 0 46px}
+.christmasHero .heroCopy{padding:0}
+.christmasHero .heroCopy h1{font-size:clamp(46px,6.2vw,76px);line-height:1.03;margin:9px 0 14px}
+.christmasHero .heroText{max-width:525px;font-size:17px;line-height:1.58}
+.christmasHero .heroGrid{grid-template-columns:minmax(0,690px) 1fr}
+.christmasHeroActions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:23px}
+.christmasHero .christmasHeroLink{margin:0;min-height:45px}
+.christmasSecondaryLink{display:inline-flex;align-items:center;justify-content:center;min-height:45px;padding:10px 20px;border:1px solid #aa7bc8;color:#6043a3;border-radius:999px;background:#fffdfdcf;font-weight:800;font-size:14px}
+.christmasSecondaryLink:hover{background:#fff}
+@media(min-width:1001px){.christmasHero .search{display:none}.christmasHero .heroShortcuts{margin-top:18px}}
+@media(max-width:680px){.christmasHero{min-height:0;padding:163px 0 43px}.christmasHero .heroText{font-size:15px}.christmasHero .heroCopy h1{font-size:clamp(43px,11vw,62px)}.christmasHeroActions{gap:8px}.christmasHero .christmasHeroLink,.christmasSecondaryLink{width:100%}.christmasHero .search{margin-top:17px}.christmasHero .heroAside{font-size:12px}}
+
+/* Storefront v2 layout: put functional shopping first and reduce repeated oversized cards. */
+.page{background:#faf8f3}
+.page .hero:not(.christmasHero){padding:clamp(55px,6vw,85px) 0;background:
+ radial-gradient(circle at 93% 5%,#f2dce9 0%,transparent 32%),
+ radial-gradient(circle at 5% 95%,#f8ead8 0%,transparent 35%),#faf8f3}
+.page .hero:not(.christmasHero, .storefrontHero) .heroCopy h1{font-size:clamp(50px,6.1vw,79px);max-width:670px}
+.page .hero:not(.christmasHero) .heroArt{min-height:425px;border-radius:130px 130px 30px 30px}
+.page .hero:not(.christmasHero) .heroCard{border-radius:20px;box-shadow:0 18px 42px #30263915}
+.reassuranceInner{min-height:70px;justify-content:center;gap:clamp(15px,4vw,70px);padding:14px 0}
+.reassuranceInner span{font-size:12px}
+.storySection{padding:clamp(38px,5vw,66px) 0}
+.storyHeading{max-width:790px;margin-bottom:20px}
+.storyHeading h2{font-size:clamp(31px,3.9vw,47px)}
+.storyHeading>p:last-child{font-size:15px;line-height:1.65;margin-top:12px}
+.helpGrid{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.helpCard{min-height:247px;padding:22px 19px;border-radius:22px}
+.helpIcon{height:41px;width:41px;border-radius:13px;margin-bottom:13px}
+.helpCard h3{font-size:22px;letter-spacing:-.025em;margin-bottom:10px}
+.helpCard>p:not(.kicker){font-size:12px;line-height:1.55;margin-bottom:15px}
+.helpCard .kicker{margin-bottom:9px}
+.editorialBand{padding:clamp(45px,5vw,75px) 0}
+.editorialImage{min-height:330px;border-radius:27px}
+.editorialCopy h2{font-size:clamp(32px,4.3vw,49px)}
+.editorialCopy>p:not(.kicker){font-size:15px;line-height:1.7;margin:17px 0 22px}
+.trustBand{padding:clamp(44px,5.5vw,77px) 0}
+.trustInner h2{font-size:clamp(30px,4vw,49px)}
+.trustInner>div:last-child p{font-size:15px}
+@media(max-width:1050px){.helpGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.helpCard{min-height:205px}}
+@media(max-width:700px){.page .hero:not(.christmasHero){padding:39px 0 52px}.page .hero:not(.christmasHero) .heroArt{min-height:300px}.storySection{padding:46px 0}.helpGrid{gap:11px}.helpCard{min-height:210px;padding:17px}.helpCard h3{font-size:19px}.helpCard>a{font-size:11px}}
+@media(max-width:470px){.helpGrid{grid-template-columns:1fr}.helpCard{min-height:0}.storyHeading h2{font-size:34px}.reassuranceInner{gap:10px;justify-content:space-between}.reassuranceInner span{font-size:10px}}
+
+/* Storefront master reference: full-bleed photographic hero with an evidence
+   panel, compact photo departments, shopping dashboard and confidence strip. */
+.page .hero.storefrontHero{
+  position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;
+  min-height:410px;padding:clamp(42px,5.5vw,73px) 0;
+  background-color:#faf6f0;background-position:center 52%;background-size:cover;background-repeat:no-repeat;
+  border-bottom:1px solid #eee4de
+}
+.storefrontHero .heroGrid{width:100%;grid-template-columns:minmax(0,1.2fr) minmax(300px,.75fr);gap:clamp(30px,5vw,90px)}
+.storefrontHero .heroCopy{padding:0}
+.storefrontHero .heroCopy h1{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:clamp(48px,5.4vw,77px);letter-spacing:-.047em;line-height:1.06;max-width:695px;margin:0 0 18px}
+.storefrontHero .heroCopy h1 em{font-style:normal;color:#672ed8}
+.storefrontHero .eyebrow{color:#7f5496;font-size:11px;margin-bottom:11px}
+.storefrontHero .heroText{color:#3e3641;max-width:600px;font-size:clamp(15px,1.5vw,18px);line-height:1.65}
+.storefrontHero .heroShortcuts,.storefrontHero .heroAside{display:none}
+.storefrontHero .heroVisual{display:flex;align-items:center;justify-content:flex-end;padding:0}
+.storefrontHeroActions{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin-top:26px}
+.storefrontPrimary,.storefrontSecondary{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:47px;padding:12px 21px;border-radius:999px;font-size:13px;font-weight:850}
+.storefrontPrimary{background:linear-gradient(120deg,#8e42ed,#5521b9);color:white;box-shadow:0 9px 24px #4d208b2b}
+.storefrontPrimary:hover{background:#4a1bba}
+.storefrontSecondary{background:#fffefa;border:1px solid #9459bd;color:#50366c}
+.storefrontSecondary:hover{background:#f5eef9}
+.heroIntelligence{width:min(100%,340px);padding:clamp(18px,2.2vw,26px);border:1px solid #ebdedb;border-radius:24px;background:rgba(255,253,249,.96);box-shadow:0 20px 50px rgba(48,29,50,.14);backdrop-filter:blur(11px)}
+.heroIntelligence h2{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:clamp(21px,2.2vw,28px);letter-spacing:-.032em;line-height:1.14;margin:0 0 16px;color:#302639}
+.heroIntelligenceInner{display:grid;grid-template-columns:92px 1fr;gap:13px;align-items:center}
+.intelligenceRing{width:94px;height:94px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:7px solid #42b86f;border-top-color:#cc52e0;border-left-color:#7b34d3;border-radius:50%;background:#fff;color:#57349a;gap:3px}
+.intelligenceRing small{font-size:10px;font-weight:900;text-align:center;line-height:1.08}
+.heroIntelligenceInner ul{padding:0;margin:0;list-style:none;display:grid;gap:9px}
+.heroIntelligenceInner li{display:flex;align-items:start;gap:7px;font-size:11px;line-height:1.38;color:#302639;font-weight:750}
+.heroIntelligenceInner li svg{width:17px;height:17px;color:#087b5b;flex:none}
+.heroIntelligence>a{display:flex;justify-content:center;align-items:center;gap:8px;min-height:43px;padding:10px 12px;background:linear-gradient(120deg,#8137ec,#5421bd);color:#fff;border-radius:999px;margin-top:20px;font-size:12px;font-weight:850}
+.heroIntelligence>a:hover{background:#471aaf}
+.storefrontHero .ownerPreview{max-width:650px}
+.reassurance{background:linear-gradient(95deg,#f3e8f8,#fceef0);border-top:1px solid #ebddea;border-bottom:1px solid #ebddea}
+.reassuranceInner{min-height:60px;padding:11px 0;justify-content:space-between;gap:15px}
+.reassuranceInner span{font-size:12px;font-weight:850}
+.reassuranceInner svg{color:#7343ae;width:20px;height:20px}
+@media(max-width:900px){
+ .storefrontHero .heroGrid{grid-template-columns:minmax(0,1fr) minmax(260px,.8fr);gap:25px}
+ .storefrontHero .heroCopy h1{font-size:clamp(42px,5.8vw,61px)}
+ .heroIntelligence{padding:16px}
+ .heroIntelligenceInner{grid-template-columns:1fr;justify-items:center}
+ .heroIntelligenceInner ul{justify-self:stretch}
+}
+@media(max-width:700px){
+ .page .hero.storefrontHero{min-height:0;padding:150px 0 47px;background-position:55% top}
+ .storefrontHero .heroGrid{grid-template-columns:1fr}
+ .storefrontHero .heroCopy h1{font-size:clamp(41px,10.6vw,60px);line-height:1.06}
+ .storefrontHero .heroText{font-size:15px}
+ .storefrontHeroActions{margin-top:19px}
+ .storefrontHero .heroVisual{justify-content:center}
+ .heroIntelligence{width:min(100%,480px)}
+ .heroIntelligenceInner{grid-template-columns:94px 1fr;gap:15px}
+ .storefrontPrimary,.storefrontSecondary{flex:1;min-width:150px}
+}
+@media(max-width:450px){
+ .storefrontHero .heroCopy h1{font-size:clamp(40px,11vw,51px)}
+ .storefrontHeroActions{flex-direction:column;align-items:stretch}
+ .heroIntelligenceInner{grid-template-columns:1fr}
+ .heroIntelligenceInner ul{grid-template-columns:1fr 1fr;gap:13px}
+ .reassuranceInner{justify-content:center}
+}
+
+/* Screenshot review correction: festive homepage now genuinely looks festive.
+   Separate photo and wash layers allow a right-weighted tree with legible text. */
+.page .hero.christmasHero{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;min-height:315px;padding:28px 0 35px;background:#fffaf6!important}
+.christmasHero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:url("https://images.unsplash.com/photo-1544428000-5b622c57fcd4?auto=format&fit=crop&w=1850&q=85") center 52%/cover no-repeat;transform:scaleX(-1)}
+.christmasHero::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(90deg,#fffaf6 0%,rgba(255,250,246,.98) 27%,rgba(255,250,246,.79) 45%,rgba(255,250,246,.08) 75%,transparent 100%)}
+.christmasHero .heroGrid{position:relative;z-index:1}
+.christmasHero .heroCopy h1{font-size:clamp(46px,5.4vw,72px);letter-spacing:-.05em;line-height:1.06}
+.christmasHero .heroText{font-size:16px;line-height:1.5}
+@media(max-width:680px){
+ .page .hero.christmasHero{display:block;min-height:0;padding:163px 0 42px}
+ .christmasHero::before{background-position:41% 45%}
+ .christmasHero::after{background:linear-gradient(0deg,#fffaf6 0%,rgba(255,250,246,.97) 49%,rgba(255,250,246,.25) 100%)}
+}
+
+/* Owner-supplied storefront reference lock. This supersedes former seasonal
+   microsite layout: hero, department ribbon and comparison worktop stay together. */
+.page{background:#faf8f3}
+.page .hero.storefrontHero{
+ min-height:334px;padding:27px 0 30px;display:flex;align-items:center;
+ border-bottom:1px solid #ebdfd7;
+ background-color:#fff9f1;background-position:center 52%;background-size:cover
+}
+.storefrontHero .heroGrid{grid-template-columns:minmax(0,1.22fr) minmax(310px,.78fr);align-items:center;gap:clamp(22px,4vw,60px)}
+.storefrontHero .heroCopy{padding:5px 0}
+.storefrontHero .eyebrow{font-size:10px;margin-bottom:9px;color:#7a4d92}
+.storefrontHero .heroCopy h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(49px,4.9vw,70px);line-height:1;letter-spacing:-.055em;margin:0 0 15px;max-width:760px}
+.storefrontHero .heroCopy h1 em{color:#6b18c3}
+.storefrontHero .heroText{max-width:530px;font-size:clamp(15px,1.45vw,18px);line-height:1.42;color:#2c2835;font-weight:500}
+.storefrontHeroActions{margin-top:18px;gap:10px}
+.storefrontPrimary,.storefrontSecondary{min-height:42px;padding:10px 18px;font-size:13px}
+.storefrontHero .heroAside,.storefrontHero .heroShortcuts{display:none}
+.storefrontHero .heroVisual{display:flex!important;align-items:center;justify-content:flex-end;padding:0}
+.heroIntelligence{width:min(100%,355px);padding:19px 18px 18px;border:1px solid #e8d9d0;border-radius:20px;background:rgba(255,252,249,.965);box-shadow:0 13px 35px #30263920}
+.heroIntelligence h2{font-family:Georgia,"Times New Roman",serif;font-size:23px;font-weight:750;letter-spacing:-.035em;margin:0 0 12px}
+.heroIntelligenceInner{grid-template-columns:94px 1fr;gap:11px}
+.intelligenceRing{width:91px;height:91px;border-width:7px}
+.heroIntelligenceInner li{font-size:11px;line-height:1.25}
+.heroIntelligenceInner ul{gap:7px}
+.heroIntelligence>a{min-height:40px;margin-top:13px}
+.seasonalNudge{display:inline-flex;align-items:center;gap:7px;max-width:100%;padding:8px 13px;margin-top:10px;background:rgba(255,251,250,.87);border:1px solid #ecd8d9;border-radius:999px;color:#934669;font-size:12px;font-weight:850}
+.seasonalNudge:hover{background:#fff;color:#693b80}
+@media(max-width:950px){
+ .storefrontHero .heroGrid{grid-template-columns:minmax(0,1.1fr) minmax(265px,.8fr);gap:14px}
+ .storefrontHero .heroCopy h1{font-size:clamp(46px,5.3vw,62px)}
+ .heroIntelligence{padding:14px}
+ .heroIntelligenceInner{grid-template-columns:76px 1fr;gap:9px}
+ .intelligenceRing{width:76px;height:76px;border-width:6px}
+}
+@media(max-width:700px){
+ .page .hero.storefrontHero{min-height:0;padding:120px 0 28px;background-position:55% top}
+ .storefrontHero .heroGrid{grid-template-columns:1fr;gap:20px}
+ .storefrontHero .heroCopy h1{font-size:clamp(39px,10vw,58px)}
+ .storefrontHero .heroText{font-size:15px}
+ .storefrontHero .heroVisual{justify-content:flex-start}
+ .heroIntelligence{max-width:460px}
+ .heroIntelligenceInner{grid-template-columns:88px 1fr}
+ .intelligenceRing{width:88px;height:88px}
+ .storefrontHeroActions{flex-wrap:wrap}
+ .storefrontPrimary,.storefrontSecondary{flex:1;min-width:140px}
+}
+@media(max-width:450px){
+ .page .hero.storefrontHero{padding-top:100px}
+ .heroIntelligence{display:none}
+ .storefrontHeroActions{flex-direction:row;gap:7px}
+ .storefrontPrimary,.storefrontSecondary{padding:9px 11px;font-size:11px;min-width:0}
+}
+
+/* Annual Christmas build-up: October and early November should enrich the
+   master storefront, not replace it with an oversized Christmas microsite. */
+.christmasBuildUp{background:#faf8f3;padding:7px 0 15px}
+.christmasBuildUp>div{display:flex;align-items:center;justify-content:space-between;gap:22px;min-height:122px;padding:20px 32px;border:1px solid #e8dcd9;border-radius:23px;background:
+ linear-gradient(90deg,rgba(255,249,246,.99) 0%,rgba(255,249,246,.92) 42%,rgba(255,249,246,.2) 100%),
+ url("https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=1300&q=80") right center/cover no-repeat;
+ box-shadow:0 8px 26px #3026390c}
+.christmasBuildUp .kicker{font-size:10px;color:#a14c72;margin:0 0 6px}
+.christmasBuildUp h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em;font-size:27px;margin:0 0 4px}
+.christmasBuildUp p:not(.kicker){max-width:610px;font-size:12px;color:#4f414e;line-height:1.5;margin:0}
+.christmasBuildUp a{flex:none;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;min-height:43px;background:#6336b9;border-radius:999px;color:white;font-size:12px;font-weight:850}
+.christmasBuildUp a:hover{background:#462198}
+@media(max-width:700px){.christmasBuildUp>div{align-items:flex-start;flex-direction:column;padding:20px;background:linear-gradient(90deg,rgba(255,249,246,.96),rgba(255,249,246,.85)),url("https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=650&q=80") right center/cover}.christmasBuildUp h2{font-size:25px}.christmasBuildUp a{width:100%;justify-content:center}}
+
+/* Keep the hero copy on the same editorial grid as the 10 departments and
+   three-column worktop. The prior 100% width rule pushed the headline to x=0. */
+.storefrontHero .heroGrid{width:min(1368px,calc(100% - 56px));margin-inline:auto}
+@media(max-width:600px){.storefrontHero .heroGrid{width:calc(100% - 28px)}}
+
+.page .hero.storefrontHero {
+  background-image: linear-gradient(90deg, #fbf7f2 0%, #fbf7f2ed 30%, #fbf7f253 57%, transparent 78%), var(--storefront-photo);
+}
+
+@media (max-width: 700px) {
+  .page .hero.storefrontHero {
+    background-image: linear-gradient(0deg, #fbf7f2 0%, #fbf7f2 46%, #fbf7f2a8 69%, transparent 100%), var(--storefront-photo);
+    background-position: center, 64% top;
+  }
+
+  .storefrontPrimary,
+  .storefrontSecondary,
+  .seasonalNudge {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 450px) {
+  .storefrontHero .heroGrid { gap: 0; }
+}

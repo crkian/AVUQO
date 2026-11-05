@@ -1,0 +1,45 @@
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.card{min-width:0;background:#fffdf9;border:1px solid #e9e0dc;border-radius:22px;overflow:hidden;box-shadow:0 9px 28px rgba(45,31,54,.055);transition:transform .18s ease,box-shadow .18s ease}
+.card:hover{transform:translateY(-3px);box-shadow:0 17px 36px rgba(45,31,54,.12)}
+.productLink{display:flex;flex-direction:column;height:100%}
+.productLink:focus-visible{outline:3px solid #6043a3;outline-offset:-3px}
+.art{height:190px;display:grid;place-items:center;position:relative;background:linear-gradient(140deg,#f7f2ed,#f4edf7);overflow:hidden}
+.art img{display:block;max-width:93%;max-height:165px;width:auto;height:auto;object-fit:contain}
+.placeholder{display:grid;place-items:center;gap:8px;text-align:center;padding:17px;color:#b7a2c5}
+.placeholder span{font-size:11px;color:#817183;font-weight:700}
+.checked{position:absolute;bottom:10px;left:11px;display:inline-flex;align-items:center;gap:5px;border-radius:999px;background:rgba(255,253,249,.95);border:1px solid #e8dfda;padding:6px 9px;color:#087b5b;font-size:10px;font-weight:800;box-shadow:0 3px 13px #30263916}
+.copy{display:flex;flex:1;flex-direction:column;padding:17px 16px 18px}
+.brand{font-size:10px;color:#795c87;text-transform:uppercase;letter-spacing:.09em;font-weight:900;margin:0 0 7px}
+.copy h3{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:19px;color:#302639;line-height:1.23;letter-spacing:-.025em;margin:0 0 15px;overflow-wrap:anywhere}
+.valueRow{display:flex;justify-content:space-between;align-items:center;gap:9px;margin-top:auto}
+.valueRow>div:first-child{display:grid;gap:4px}
+.valueRow>div:first-child span{font-size:10px;line-height:1.4;color:#726875}
+.valueRow>div:first-child strong{font-size:22px;letter-spacing:-.03em;color:#17142b}
+.score{width:60px;height:60px;flex:none;display:flex;align-items:center;justify-content:center;gap:2px;flex-direction:column;border-radius:50%;border:3px solid #087b5b;background:#edf8f1;color:#087b5b}
+.score strong{font-size:20px;line-height:1}
+.score small{font-size:8px;text-align:center;line-height:1.1}
+.merchant{font-size:11px;line-height:1.45;color:#756e75;margin:10px 0 15px}
+.action{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:9px 11px;border:1px solid #b596d8;border-radius:999px;color:#603b94;font-size:12px;font-weight:850;text-align:center}
+.productLink:hover .action{background:#f5effb}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:780px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.copy{padding:15px 13px}.art{height:155px}.art img{max-height:135px}}
+@media(max-width:460px){.grid{grid-template-columns:1fr 1fr;gap:8px}.card{border-radius:16px}.art{height:130px}.art img{max-height:110px}.checked{font-size:9px;left:5px;bottom:5px;padding:4px 6px}.copy h3{font-size:15px}.copy{padding:13px 10px}.valueRow>div:first-child strong{font-size:18px}.score{width:44px;height:44px;border-width:2px}.score strong{font-size:16px}.score small{font-size:7px}.merchant{font-size:10px}.action{font-size:10px;padding:6px;min-height:36px}}
+@media(max-width:355px){.grid{grid-template-columns:1fr}.art{height:190px}}
+@media(prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
+
+/* Short, mockup-style four-up verified product selection used in department worlds. */
+.compact{gap:9px;grid-template-columns:repeat(4,minmax(0,1fr))}
+.compact .card{border-radius:18px}
+.compact .art{height:145px}
+.compact .art img{max-height:120px}
+.compact .copy{padding:13px 11px 15px}
+.compact .copy h3{font-size:15px;line-height:1.18;min-height:40px;margin-bottom:10px}
+.compact .brand{font-size:9px}
+.compact .valueRow>div:first-child strong{font-size:18px}
+.compact .valueRow>div:first-child span{font-size:9px}
+.compact .merchant{font-size:10px;margin:9px 0}
+.compact .score{width:46px;height:46px;border-width:2px}
+.compact .score strong{font-size:16px}.compact .score small{font-size:7px}
+.compact .action{font-size:10px;min-height:37px;padding:6px}
+@media(max-width:800px){.compact{grid-template-columns:repeat(2,minmax(0,1fr))}.compact .art{height:150px}}
+@media(max-width:420px){.compact{gap:7px}.compact .art{height:118px}.compact .copy h3{font-size:14px}}

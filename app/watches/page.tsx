@@ -1,178 +1,99 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Bell, LogIn, Trash2 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import {ArrowRight, Bell, Bookmark, Clock3, LogIn, Plus, Trash2} from "lucide-react";
+import {useEffect,useMemo,useState} from "react";
 import Header from "../../components/layout/Header";
-import { createClient } from "../../lib/supabase/client";
-import { migrateLocalWatches } from "../../lib/watches/migrateLocalWatches";
+import Footer from "../../components/layout/Footer";
+import {createClient} from "../../lib/supabase/client";
+import {migrateLocalWatches} from "../../lib/watches/migrateLocalWatches";
+import styles from "./page.module.css";
 
 type WatchRow = {
-  id: string;
-  name: string;
-  criteria: Record<string, unknown> | null;
-  watch_key: string;
-  status: string;
-  created_at: string;
+  id:string;
+  name:string;
+  criteria:Record<string,unknown>|null;
+  watch_key:string;
+  status:string;
+  created_at:string;
 };
-
 type WatchView = {
-  rowId: string;
-  dealId: string;
-  title: string;
-  category: string;
-  currentPrice: number;
-  typicalPrice: number;
-  avuqoScore: number;
-  merchant: string;
+  id:string;dealId:string|null;title:string;category:string;
+  merchant:string|null;createdAt:string;
 };
-
-const money = (value: number) =>
-  new Intl.NumberFormat("en-GB", {
-    style: "currency",
-    currency: "GBP",
-    maximumFractionDigits: 0,
-  }).format(value);
-
-function toWatchView(row: WatchRow): WatchView {
-  const criteria = row.criteria ?? {};
-  const readString = (key: string, fallback = "") =>
-    typeof criteria[key] === "string" ? (criteria[key] as string) : fallback;
-  const readNumber = (key: string) =>
-    typeof criteria[key] === "number" ? (criteria[key] as number) : 0;
-
-  return {
-    rowId: row.id,
-    dealId: readString("dealId", row.watch_key.replace(/^deal:/, "")),
-    title: readString("title", row.name),
-    category: readString("category", "Watch"),
-    currentPrice: readNumber("currentPrice"),
-    typicalPrice: readNumber("typicalPrice"),
-    avuqoScore: readNumber("avuqoScore"),
-    merchant: readString("merchant", "AVUQO source"),
-  };
+function toView(row:WatchRow):WatchView {
+  const criteria=row.criteria ?? {};
+  const text=(key:string)=>typeof criteria[key]==="string" ? String(criteria[key]) : null;
+  const id=text("dealId") ?? row.watch_key.replace(/^deal:/,"");
+  return {id:row.id,dealId:/^[a-z0-9-]{1,100}$/i.test(id)?id:null,
+    title:text("title") || row.name,category:text("category") || "Saved watch",
+    merchant:text("merchant"),createdAt:row.created_at};
 }
 
-export default function WatchesPage() {
-  const supabase = useMemo(() => createClient(), []);
-  const [watches, setWatches] = useState<WatchView[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [signedIn, setSignedIn] = useState(false);
+export default function WatchesPage(){
+  const db=useMemo(()=>createClient(),[]);
+  const [watches,setWatches]=useState<WatchView[]>([]);
+  const [loading,setLoading]=useState(true);
+  const [signedIn,setSignedIn]=useState(false);
+  const [message,setMessage]=useState("");
 
-  async function loadWatches() {
-    setLoading(true);
-    const { data: auth } = await supabase.auth.getUser();
-
-    if (!auth.user) {
-      setSignedIn(false);
-      setWatches([]);
+  useEffect(()=>{
+    let active=true;
+    const load=async()=>{
+      const {data:auth}=await db.auth.getUser();
+      if(!active)return;
+      if(!auth.user){setSignedIn(false);setWatches([]);setLoading(false);return;}
+      setSignedIn(true);
+      await migrateLocalWatches(db,auth.user.id);
+      const {data,error}=await db.from("watches")
+        .select("id,name,criteria,watch_key,status,created_at")
+        .eq("status","active").order("created_at",{ascending:false}).limit(200);
+      if(!active)return;
+      if(error)setMessage("Your Watches could not be loaded right now.");
+      else setWatches(((data??[]) as WatchRow[]).map(toView));
       setLoading(false);
-      return;
-    }
+    };
+    void load();
+    const {data:listener}=db.auth.onAuthStateChange(()=>{void load();});
+    return ()=>{active=false;listener.subscription.unsubscribe();};
+  },[db]);
 
-    setSignedIn(true);
-    await migrateLocalWatches(supabase, auth.user.id);
-
-    const { data, error } = await supabase
-      .from("watches")
-      .select("id,name,criteria,watch_key,status,created_at")
-      .eq("status", "active")
-      .order("created_at", { ascending: false });
-
-    if (!error && data) {
-      setWatches((data as WatchRow[]).map(toWatchView));
-    }
-
-    setLoading(false);
+  async function removeWatch(id:string){
+    const {error}=await db.from("watches").delete().eq("id",id);
+    if(error){setMessage("Could not remove this Watch. Please try again.");return;}
+    setWatches(current=>current.filter(watch=>watch.id!==id));
+    setMessage("Watch removed.");
   }
 
-  useEffect(() => {
-    const timer = window.setTimeout(() => { void loadWatches(); }, 0);
-
-    const { data: listener } = supabase.auth.onAuthStateChange(() => {
-      loadWatches();
-    });
-
-    return () => { window.clearTimeout(timer); listener.subscription.unsubscribe(); };
-  }, [supabase]);
-
-  async function removeWatch(rowId: string) {
-    const { error } = await supabase.from("watches").delete().eq("id", rowId);
-    if (!error) {
-      setWatches((current) => current.filter((watch) => watch.rowId !== rowId));
-    }
-  }
-
-  return (
-    <main>
-      <Header />
-      <section className="watches-hero">
-        <div className="shell">
-          <div className="watch-hero-icon"><Bell size={28} /></div>
-          <p className="kicker">AVUQO Watches</p>
-          <h1>Don’t keep checking.<br />AVUQO will.</h1>
-          <p>
-            Your Watches now live in your AVUQO account, ready to follow you across devices as the platform grows.
-          </p>
-        </div>
-      </section>
-
-      <section className="shell section">
-        {!signedIn && !loading ? (
-          <div className="watch-empty">
-            <div className="watch-empty-icon"><LogIn size={28} /></div>
-            <h2>Sign in to use Watches.</h2>
-            <p>Your Watches are private to your AVUQO account and protected by Supabase Row Level Security.</p>
-            <Link href="/login" className="merchant-button watch-empty-button">Sign in or create account</Link>
+  return <main className={styles.page}>
+    <Header/>
+    <section className="shell">
+      <div className={styles.panel}>
+        <div className={styles.heading}>
+          <span className={styles.headingIcon}><Bell size={34}/></span>
+          <div className={styles.headingCopy}><p className={styles.kicker}>Your AVUQO</p>
+            <h1>My Watches</h1>
+            <p>Keep the products you care about together. Recheck current retailer information whenever you return.</p>
           </div>
-        ) : (
-          <>
-            <div className="watch-page-header">
-              <div>
-                <p className="kicker">Your Watches</p>
-                <h2>{loading ? "Loading Watches..." : watches.length === 1 ? "1 active Watch" : `${watches.length} active Watches`}</h2>
+          <Link className={styles.addWatch} href="/search"><Plus size={18}/> Find a Watch</Link>
+        </div>
+        <div className={styles.summary}><span><Bookmark size={17}/> {loading?"Loading…":`${watches.length} active ${watches.length===1?"Watch":"Watches"}`}</span><span><Clock3 size={17}/> Saved records, not live price alerts</span></div>
+        {message&&<p className={styles.message} role="status">{message}</p>}
+        {loading ? <div className={styles.empty}>Loading Watches…</div>
+          : !signedIn ? <div className={styles.empty}><LogIn size={37}/><h2>Sign in to see your Watches.</h2><p>Your Watch records belong to your account.</p><Link href="/login?next=/watches">Sign in <ArrowRight size={16}/></Link></div>
+          : watches.length===0 ? <div className={styles.empty}><Bell size={37}/><h2>No Watches yet.</h2><p>Find something you would like to keep an eye on, then choose Watch on its detail page.</p><Link href="/search">Browse products <ArrowRight size={16}/></Link></div>
+          : <div className={styles.list}>{watches.map((watch,index)=><article className={styles.item} key={watch.id}>
+              <div className={styles.art} data-tone={index%3}><Bookmark size={35} aria-hidden="true"/></div>
+              <div className={styles.details}><p className={styles.category}>{watch.category}</p><h2>{watch.title}</h2>
+                <p>{watch.merchant??"Merchant not recorded"} · Added {new Date(watch.createdAt).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})}</p></div>
+              <span className={styles.status}><Bell size={17}/> On your watchlist</span>
+              <div className={styles.actions}>{watch.dealId?<Link href={`/deal/${watch.dealId}`}>View &amp; recheck <ArrowRight size={16}/></Link>:<span>Original deal unavailable</span>}
+                <button type="button" onClick={()=>void removeWatch(watch.id)} aria-label={`Remove ${watch.title}`}><Trash2 size={18}/></button>
               </div>
-              <Link href="/search" className="dark-button">Find something to watch <ArrowRight size={17} /></Link>
-            </div>
-
-            {!loading && watches.length === 0 ? (
-              <div className="watch-empty">
-                <div className="watch-empty-icon"><Bell size={28} /></div>
-                <h2>Nothing being watched yet.</h2>
-                <p>Open a deal and press Watch. AVUQO will save it to your account.</p>
-                <Link href="/search" className="merchant-button watch-empty-button">Discover deals</Link>
-              </div>
-            ) : (
-              <div className="watch-list">
-                {watches.map((watch) => (
-                  <article key={watch.rowId} className="watch-item">
-                    <div className="watch-product-art"><span>Q</span></div>
-                    <div className="watch-details">
-                      <span className="watch-category">{watch.category}</span>
-                      <h3>{watch.title}</h3>
-                      <p>{watch.merchant}</p>
-                    </div>
-                    <div className="watch-price">
-                      <strong>{watch.currentPrice ? money(watch.currentPrice) : "Tracking"}</strong>
-                      <span>{watch.typicalPrice ? `Typical ${money(watch.typicalPrice)}` : "Waiting for market data"}</span>
-                    </div>
-                    <div className="watch-score">
-                      <strong>{watch.avuqoScore || "–"}</strong>
-                      <span>AVUQO</span>
-                    </div>
-                    <div className="watch-item-actions">
-                      <Link href={`/deal/${watch.dealId}`}>View</Link>
-                      <button type="button" onClick={() => removeWatch(watch.rowId)} aria-label={`Remove ${watch.title}`}>
-                        <Trash2 size={17} />
-                      </button>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            )}
-          </>
-        )}
-      </section>
-    </main>
-  );
+            </article>)}</div>}
+        <p className={styles.note}>Adding a Watch saves a record, but does not yet activate automated price checks, email or push alerts. Historic criteria and prices are not live offers.</p>
+      </div>
+    </section>
+    <Footer/>
+  </main>;
 }

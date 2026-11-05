@@ -1,13 +1,15 @@
 "use client";
 import Link from "next/link";
-import {ChevronDown,ChevronRight} from "lucide-react";
+import {ChevronDown,ChevronRight,Compass,Tag,Scale,ShoppingBasket,LayoutGrid,Plane,MoreHorizontal} from "lucide-react";
 import {usePathname} from "next/navigation";
 import {useEffect,useRef,useState} from "react";
 import {orderedNavigation,type NavigationContent} from "../../lib/content/navigation";
 import styles from "./MegaNav.module.css";
 import DepartmentExplorer from "../categories/DepartmentExplorer";
-export default function MegaNav({menuOpen,onNavigate,navigation,ownerPreview=false}:{
- menuOpen:boolean;onNavigate:()=>void;navigation:NavigationContent;ownerPreview?:boolean
+const navIcons = { discover: Compass, deals: Tag, sales: Tag, compare: Scale, groceries: ShoppingBasket, categories: LayoutGrid, travel: Plane, more: MoreHorizontal } as const;
+
+export default function MegaNav({navigation,ownerPreview=false}:{
+ navigation:NavigationContent;ownerPreview?:boolean
 }){
  const [expanded,setExpanded]=useState<string|null>(null);
  const navRef=useRef<HTMLElement>(null);
@@ -26,18 +28,19 @@ export default function MegaNav({menuOpen,onNavigate,navigation,ownerPreview=fal
   };
  },[]);
  return <nav ref={navRef} id="avuqo-primary-nav" aria-label="Primary navigation"
-   className={styles.nav+" primary-nav "+(menuOpen?"is-open":"")}
+   className={styles.nav+" primary-nav"}
    onBlur={event=>{
      const next=event.relatedTarget;
      if(next instanceof Node&&!event.currentTarget.contains(next))setExpanded(null);
    }}>
   {groups.map((group,index)=>{
    const active=pathname===group.href||group.links.some(link=>pathname===link.href);
+   const Icon = navIcons[group.id as keyof typeof navIcons] ?? Compass;
    return <div className={styles.group+(group.id==="categories"?" "+styles.categoryGroup:"")} key={group.id}>
      <div className={styles.groupHeading}>
        <Link href={group.href} className={styles.groupLink+(active?" "+styles.active:"")}
-         onClick={()=>{setExpanded(null);onNavigate()}}
-         aria-current={pathname===group.href?"page":undefined}>{group.label}</Link>
+         onClick={()=>setExpanded(null)}
+         aria-current={pathname===group.href?"page":undefined}><Icon size={16} aria-hidden="true"/>{group.label}</Link>
        <button type="button" className={styles.expand}
          aria-label={"Show "+group.label+" submenu"}
          aria-expanded={expanded===group.id}
@@ -51,12 +54,12 @@ export default function MegaNav({menuOpen,onNavigate,navigation,ownerPreview=fal
        hidden={expanded!==group.id}>
        <div className={styles.intro}><strong>{group.label}</strong>
          <span>{group.intro}</span>
-         <Link href={group.href} onClick={()=>{setExpanded(null);onNavigate()}}
+         <Link href={group.href} onClick={()=>setExpanded(null)}
            className={styles.viewAll}>View {group.label.toLowerCase()} <ChevronRight size={14}/></Link>
        </div>
-       {group.id==="categories"?<><DepartmentExplorer variant="menu" onNavigate={()=>{setExpanded(null);onNavigate()}}/>{ownerPreview&&<Link className={styles.privateDepartment} href="/preview/storefront" onClick={()=>{setExpanded(null);onNavigate()}}>Owner-only: browse imported products by department <ChevronRight size={16}/></Link>}</>:<div className={styles.linkGrid}>
+       {group.id==="categories"?<><DepartmentExplorer variant="menu" onNavigate={()=>setExpanded(null)}/>{ownerPreview&&<Link className={styles.privateDepartment} href="/preview/storefront" onClick={()=>setExpanded(null)}>Owner-only: browse imported products by department <ChevronRight size={16}/></Link>}</>:<div className={styles.linkGrid}>
         {group.links.map(link=><Link key={link.href} href={link.href}
-         className={styles.menuLink} onClick={()=>{setExpanded(null);onNavigate()}}>
+         className={styles.menuLink} onClick={()=>setExpanded(null)}>
          <span><b>{link.label}</b><small>{link.description}</small></span>
          <ChevronRight size={15} aria-hidden="true"/>
         </Link>)}

@@ -3,7 +3,7 @@ import {connection} from "next/server";
 import Link from "next/link";
 import type {Metadata} from "next";
 import {notFound} from "next/navigation";
-import {ArrowLeft,ArrowRight,CheckCircle2,Clock3,ShieldCheck} from "lucide-react";
+import {ArrowRight,CheckCircle2,Clock3,ShieldCheck,Package,ChartNoAxesCombined} from "lucide-react";
 import Header from "../../../components/layout/Header";
 import Footer from "../../../components/layout/Footer";
 import AddToCollectionButton from "../../../components/collections/AddToCollectionButton";
@@ -28,14 +28,64 @@ async function ProductDetails({params}:Props){
  const presentation=chooseProductTemplate(product,offers);
  const specs=validatedSpecificationEntries(product.specifications,presentation.specPriority);
  const photo=best.published.image_url;
- return <div className={`${styles.productPage} ${styles[presentation.template]}`}><section className={styles.hero}><div className="shell"><Link className={styles.back} href="/products"><ArrowLeft size={17}/> All products</Link><div className={`${styles.heroGrid} ${presentation.imageShape==="wide"?styles.wideImage:presentation.imageShape==="portrait"?styles.portraitImage:""}`}>
- <div className={styles.art}>{photo?<img src={photo} alt={product.canonical_title} referrerPolicy="no-referrer"/>:<div className={styles.placeholder}><span>Q</span><small>Verified image not available</small></div>}</div>
+ const actualScore=typeof best.published.avuqo_score==="number"&&Number.isFinite(best.published.avuqo_score)&&best.published.avuqo_score>=0&&best.published.avuqo_score<=100?best.published.avuqo_score:null;
+ return <div className={`${styles.productPage} ${styles[presentation.template]}`}><section className={styles.hero} id="overview"><div className="shell"><nav className={styles.breadcrumb} aria-label="Breadcrumb"><Link href="/">Home</Link><span>/</span><Link href="/products">Products</Link><span>/</span><span aria-current="page">{product.canonical_title}</span></nav><div className={`${styles.heroGrid} ${presentation.imageShape==="wide"?styles.wideImage:presentation.imageShape==="portrait"?styles.portraitImage:""}`}>
+ <div className={styles.art}>{photo?<img src={photo} alt={product.canonical_title} referrerPolicy="no-referrer"/>:<div className={styles.placeholder}><Package size={49} aria-hidden="true"/><small>Verified product image not available</small></div>}</div>
  <div className={styles.copy}><p className={styles.kicker}>{presentation.eyebrow}</p><h1>{product.canonical_title}</h1>{(product.brand||product.model)&&<p className={styles.variant}>{product.brand&&<span>{product.brand}</span>}{product.model&&<span>{product.model}</span>}</p>}
  <p className={styles.intro}>{product.description||"Compare eligible retailer offers and understand what the price evidence can, and cannot, show."}</p>
  <div className={styles.topPrice}><span>Lowest eligible observed offer</span><strong>{gbp(Number(best.offer.total_price??best.offer.price))}</strong><small>From {best.published.merchant}. Check current price, delivery, stock and terms before buying.</small></div>
  <Link className={styles.action} href="#retailers">Compare retailers <ArrowRight size={18}/></Link><div style={{marginTop:14}}><AddToCollectionButton kind="wishlist" productId={product.id} productSlug={product.slug} offerId={best.offer.id}/></div><p className={styles.assurance}><ShieldCheck size={17}/> Verified-source display only. Independent of affiliate payout.</p></div>
+ <aside className={styles.evidenceSidebar} aria-label="Product evidence">
+  <div className={styles.evidenceCard}>
+   <p className={styles.kicker}>Published product evidence</p>
+   <h2>AVUQO Score</h2>
+   {actualScore!==null?<div className={styles.scoreDisplay}><div className={styles.scoreRing}><strong>{Number.isInteger(actualScore)?actualScore:actualScore.toFixed(1)}</strong></div><span>Published score from an eligible offer.<small>Check its current source context below.</small></span></div>:
+    <p className={styles.scorePending}>No publishable score is available for this exact product.</p>}
+   <h3>Compare with confidence.</h3>
+   <ul>
+    <li><CheckCircle2 size={18}/>Only eligible, checked retailer offers appear here.</li>
+    <li><CheckCircle2 size={18}/>We compare the costs supported by source records.</li>
+    <li><CheckCircle2 size={18}/>Commission does not decide the ordering.</li>
+   </ul>
+  </div>
+  <div className={styles.evidenceCard}>
+   <p className={styles.kicker}>What we can show</p>
+   <strong className={styles.evidenceCount}>{offers.length} eligible {offers.length===1?"offer":"offers"}</strong>
+   <p>Compare the current published records below. Confirm delivery, stock and checkout terms with each retailer.</p>
+   <Link href="#retailers">See retailer details <ArrowRight size={16}/></Link>
+  </div>
+
+ </aside>
  </div></div></section>
- <section className={`shell ${styles.templateSection}`} aria-label="Product-specific guidance">
+ <nav className={styles.productTabs} aria-label="On this product page"><div className="shell">
+   <a href="#overview">Overview</a><a href="#retailers">Compare prices</a><a href="#buying-guide">Buying guide</a><a href="#product-evidence">Evidence</a>
+ </div></nav>
+ <section className={`shell ${styles.comparisonSection}`} id="retailers" aria-label="Compare eligible retailer offers and price evidence">
+  <div className={styles.comparisonGrid}>
+    <article className={styles.comparisonCard}>
+      <div className={styles.comparisonHeading}><h2>Compare prices.</h2><span>{offers.length} eligible {offers.length===1?"offer":"offers"}</span></div>
+      <p className={styles.comparisonIntro}>Recently checked retailer records for this exact product. The displayed amount is not a checkout guarantee.</p>
+      <div className={styles.priceRows}>
+        {[...offers].sort((a,b)=>Number(a.offer.total_price??a.offer.price)-Number(b.offer.total_price??b.offer.price)).map(row=>
+          <div className={styles.priceRow} key={row.offer.id}>
+            <div><strong>{row.published.merchant}</strong><small>Checked {row.offer.last_seen_at?new Date(row.offer.last_seen_at).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"}):"date unavailable"}</small></div>
+            <div className={styles.priceAmount}><b>{gbp(Number(row.offer.total_price??row.offer.price))}</b><small>{row.offer.total_price!==null?"Reported total cost":"Delivery may be extra"}</small></div>
+            <Link href={`/go/${row.offer.id}`}>View offer <ArrowRight size={15} aria-hidden="true"/></Link>
+          </div>
+        )}
+      </div>
+      <p className={styles.comparisonDisclaimer}>Verify stock, delivery, fees and seller terms directly with the retailer before purchasing.</p>
+    </article>
+    <article className={styles.comparisonCard} id="product-evidence">
+      <div className={styles.comparisonHeading}><h2>Price evidence.</h2><span>Evidence first</span></div>
+      <div className={styles.historyEmpty}><ChartNoAxesCombined size={38} aria-hidden="true"/><strong>No verified multi-month trend yet.</strong>
+        <p>We won&apos;t draw a price-history line from one observed offer. Historical trends will appear when there is sufficient approved time-series evidence for this exact variant.</p>
+      </div>
+      <div className={styles.historyTip}><ShieldCheck size={19} aria-hidden="true"/><p>Offers are source-checked and filtered for freshness. A retailer&apos;s claimed saving isn&apos;t independently confirmed by this panel.</p></div>
+    </article>
+  </div>
+ </section>
+ <section className={`shell ${styles.templateSection}`} id="buying-guide" aria-label="Product-specific guidance">
   <div className={styles.templateHeading}><p className={styles.kicker}>Designed for this kind of purchase</p><h2>{presentation.sectionHeading}</h2><p>{presentation.sectionIntro}</p></div>
   <div className={styles.templateGrid}>
    {presentation.template==="tech"&&specs.length>0?<div className={styles.highlightSpecs}><p className={styles.kicker}>At a glance</p><h3>Technical details</h3><dl>{specs.slice(0,5).map(([key,val])=><div key={key}><dt>{key.replaceAll("_"," ")}</dt><dd>{val}</dd></div>)}</dl></div>:
@@ -50,9 +100,6 @@ async function ProductDetails({params}:Props){
     <div className={styles.generalPanel}><p className={styles.kicker}>Take a closer look</p><h3>What comes with it?</h3><p>Confirm the exact variant, included accessories and the retailer&apos;s terms before buying.</p></div>}
    <div className={styles.checkList}><h3>{presentation.practicalTitle}</h3><ul>{presentation.practicalPoints.map(point=><li key={point}><CheckCircle2 size={19}/><span>{point}</span></li>)}</ul></div>
   </div>
- </section>
- <section className={`shell ${styles.section}`} id="retailers"><div className={styles.heading}><p className={styles.kicker}>Worth comparing</p><h2>Retailer offers for this exact product.</h2><p>Only eligible, recently checked offers are shown. A lower headline price may have extra delivery costs.</p></div>
- <div className={styles.offerList}>{offers.map(x=><article key={x.offer.id} className={styles.offerCard}><div><h3>{x.published.merchant}</h3><p>Last checked {new Date(x.offer.last_seen_at!).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})} · {x.offer.stock_status==="in_stock"?"Availability reported": "Confirm availability with retailer"}</p></div><div className={styles.offerPrice}><strong>{gbp(Number(x.offer.total_price??x.offer.price))}</strong><span>{x.offer.total_price!==null?"Total reported offer cost":"Product price; delivery may be extra"}</span></div><AddToCollectionButton kind="basket" productId={product.id} productSlug={product.slug} offerId={x.offer.id}/><Link href={`/go/${x.offer.id}`} className={styles.retailer}>Visit retailer <ArrowRight size={16}/></Link></article>)}</div>
  </section>
  <section className={styles.infoBand}><div className={`shell ${styles.infoGrid}`}><article><ShieldCheck size={27}/><h3>Evidence before claims</h3><p>Merchant eligibility and source permissions are checked before an offer is displayed.</p></article><article><Clock3 size={27}/><h3>Freshness matters</h3><p>Stale and expired offers are excluded from this product comparison.</p></article><article><CheckCircle2 size={27}/><h3>Independent ranking</h3><p>Offers are ordered by displayed comparable costs, not affiliate commission.</p></article></div></section>
  {specs.length>0&&<section className={`shell ${styles.section}`}><div className={styles.heading}><p className={styles.kicker}>The details</p><h2>{presentation.groupHeading}</h2></div><dl className={styles.specs}>{specs.map(([k,v])=><div key={k}><dt>{k.replaceAll("_"," ")}</dt><dd>{String(v)}</dd></div>)}</dl></section>}

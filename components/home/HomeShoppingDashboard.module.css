@@ -1,0 +1,87 @@
+.section{padding:clamp(23px,3.5vw,48px) 0 clamp(36px,5vw,68px);background:#faf8f3;color:#302639}
+.heading{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:15px}
+.heading>div{max-width:750px}
+.kicker{display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:900;color:#864b99;margin:0 0 10px}
+.heading h2,.findsHeading h3,.tools h3,.groceryCopy h3{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.04em;line-height:1.1}
+.heading h2{font-size:clamp(27px,3.3vw,42px);margin:0}
+.heading>a{color:#633c9c;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:850;min-height:42px;white-space:nowrap}
+.grid{display:grid;grid-template-columns:minmax(0,1.03fr) minmax(0,1.18fr) minmax(230px,.7fr);gap:12px;align-items:stretch}
+.groceries,.finds,.tools{overflow:hidden;min-width:0;border:1px solid #eaded9;border-radius:23px;background:#fffdf9;box-shadow:0 9px 29px #3026390c}
+.groceries{position:relative;isolation:isolate;display:flex;flex-direction:column}
+.groceryPhoto{height:133px;background:linear-gradient(0deg,rgba(36,25,42,.1),rgba(36,25,42,0)),url("https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=82") center 55%/cover no-repeat}
+.groceryCopy{display:flex;flex:1;flex-direction:column;gap:10px;padding:18px}
+.groceryCopy .kicker{margin:0;color:#664c82}
+.groceryCopy h3{font-size:clamp(24px,2.5vw,31px);margin:0}
+.groceryCopy>p:not(.kicker){font-size:13px;line-height:1.55;color:#6f6570;margin:0}
+.groceryChecks{display:grid;gap:7px;margin:4px 0 9px}
+.groceryChecks span{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#4d434f}
+.groceryChecks svg{color:#087b5b;flex:none}
+.groceryCopy>a{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:auto;min-height:42px;padding:10px 16px;border:1px solid #a277d0;border-radius:999px;background:#fff;color:#6333ae;font-size:12px;font-weight:850}
+.groceryCopy>a:hover{background:#f4ebfa}
+.finds{padding:18px 17px 15px;display:flex;flex-direction:column}
+.findsHeading{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:13px}
+.findsHeading h3{font-size:clamp(21px,2.3vw,30px);margin:0}
+.findsHeading .kicker{margin-bottom:7px}
+.findsHeading>a{display:flex;align-items:center;gap:5px;color:#6839b4;font-size:11px;font-weight:850;white-space:nowrap}
+.findsGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;flex:1}
+.find{display:flex;flex-direction:column;gap:5px;border:1px solid #ede3df;border-radius:15px;background:#fff;min-width:0;overflow:hidden;padding-bottom:12px}
+.findPhoto{display:grid;place-items:center;min-height:155px;height:155px;background:linear-gradient(130deg,#f8eff6,#f7f1e9);color:#b398c3}
+.findPhoto img{max-height:144px;max-width:90%;object-fit:contain}
+.findPhoto[data-topic=tech]{background:url("https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=420&q=78") center/cover}
+.findPhoto[data-topic=home]{background:url("https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=420&q=78") center/cover}
+.findPhoto[data-topic=beauty]{background:url("https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=420&q=78") center/cover}
+.find strong{font-size:12px;line-height:1.28;padding:3px 10px 0;overflow-wrap:anywhere}
+.find>span:not(.findPhoto){font-size:13px;font-weight:850;padding:0 10px;color:#302639;margin-top:auto}
+.find small{font-size:9px;padding:0 10px;color:#7c707c;line-height:1.3}
+.findsDisclosure{display:flex;align-items:center;gap:6px;font-size:10px;line-height:1.4;color:#7c707c;margin:12px 0 0}
+.findsDisclosure svg{flex:none;color:#087b5b}
+.tools{display:flex;flex-direction:column;padding:19px 14px}
+.tools h3{font-size:26px;margin:0 0 15px}
+.tools nav{display:grid;gap:9px;flex:1}
+.tools nav a{display:flex;align-items:center;gap:8px;min-height:66px;padding:9px;border:1px solid #eee4e5;background:#fdf8f8;border-radius:15px}
+.tools nav a:hover{background:#f6eefa;border-color:#d9c1e6}
+.tools nav a>span:first-child{flex:none;display:grid;place-items:center;width:37px;height:37px;border-radius:11px;background:#f1e6f8;color:#7b3bc4}
+.tools nav a>span:nth-child(2){display:grid;gap:4px;min-width:0;flex:1}
+.tools nav a strong{font-size:12px;line-height:1.2}
+.tools nav a small{font-size:10px;line-height:1.4;color:#726775}
+.tools nav a>svg{flex:none;color:#a174b7}
+@media(max-width:1150px){.grid{grid-template-columns:1fr 1.2fr}.tools{grid-column:1/-1}.tools nav{grid-template-columns:repeat(4,minmax(0,1fr))}.tools h3{font-size:23px}.tools nav a{min-height:85px}}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.tools{grid-column:auto}.tools nav{grid-template-columns:repeat(2,minmax(0,1fr))}.findsGrid{gap:9px}.findPhoto{height:170px;min-height:170px}.heading{align-items:start;flex-direction:column;gap:6px}}
+@media(max-width:500px){.groceryPhoto{height:150px}.finds{padding:14px}.findPhoto{height:118px;min-height:118px}.find strong{font-size:11px;padding:4px 7px}.find>span:not(.findPhoto){font-size:11px;padding:0 7px}.find small{font-size:9px;padding:0 7px}.tools nav a{min-height:70px}}
+@media(max-width:360px){.findsGrid{grid-template-columns:1fr}.findPhoto{height:170px}.tools nav{grid-template-columns:1fr}}
+
+/* Mockup-aligned three-column shopping worktop. Content remains rights-gated and honest. */
+.section{padding:16px 0 29px}
+.heading{margin-bottom:10px}
+.heading h2{font-size:clamp(25px,2.8vw,35px)}
+.grid{grid-template-columns:minmax(0,1.07fr) minmax(0,1.21fr) minmax(218px,.73fr);gap:9px}
+.groceries,.finds,.tools{border-radius:17px;box-shadow:0 5px 17px #30263912}
+.groceryPhoto{height:105px;background-position:center 44%}
+.groceryCopy{gap:6px;padding:13px}
+.groceryCopy h3{font-size:clamp(19px,1.9vw,25px)}
+.groceryCopy>p:not(.kicker){font-size:11px;line-height:1.4}
+.groceryChecks{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin:3px 0 5px}
+.groceryChecks span{font-size:10px;line-height:1.3}
+.groceryCopy>a{min-height:36px;padding:8px 12px;font-size:11px}
+.finds{padding:12px}
+.findsHeading{margin-bottom:8px}
+.findsHeading h3{font-size:clamp(18px,2vw,25px)}
+.findsGrid{gap:6px}
+.find{gap:3px;border-radius:11px;padding-bottom:8px}
+.findPhoto{height:112px;min-height:112px}
+.findPhoto img{max-height:102px}
+.find strong{font-size:10px;padding:4px 7px 0}
+.find>span:not(.findPhoto){font-size:12px;padding:0 7px}
+.find small{font-size:9px;padding:0 7px}
+.findsDisclosure{font-size:9px;margin:7px 0 0}
+.tools{padding:12px}
+.tools .kicker{margin-bottom:4px}
+.tools h3{font-size:clamp(19px,2vw,24px);margin:0 0 9px}
+.tools nav{gap:6px}
+.tools nav a{min-height:56px;padding:6px;border-radius:11px}
+.tools nav a>span:first-child{width:30px;height:30px;border-radius:8px}
+.tools nav a strong{font-size:11px}
+.tools nav a small{font-size:9px}
+@media(max-width:1150px){.grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.tools{grid-column:1/-1}.tools nav{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.tools{grid-column:auto}.tools nav{grid-template-columns:repeat(2,minmax(0,1fr))}.findPhoto{height:135px;min-height:135px}.groceryPhoto{height:130px}}
+@media(max-width:500px){.findPhoto{height:115px;min-height:115px}.groceryChecks{grid-template-columns:1fr 1fr}}

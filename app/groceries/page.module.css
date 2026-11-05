@@ -31,3 +31,28 @@
 .result{padding:21px;border-radius:20px}
 @media(max-width:780px){.grid{gap:17px}.page{padding-top:36px;padding-bottom:76px}.hero{margin-bottom:23px}.panel{margin-bottom:16px}}
 @media(max-width:600px){.page{padding:25px 16px 65px}.hero{padding:28px 23px}.panel{padding:20px}.result{padding:17px}}
+
+/* Grocery worktop: welcoming photography and soft cards, unchanged comparison math. */
+.page{color:#302639}
+.hero{
+  position:relative;overflow:hidden;isolation:isolate;
+  background:linear-gradient(90deg,rgba(250,248,243,.99) 0%,rgba(250,248,243,.97) 55%,rgba(250,248,243,.68) 100%),
+    url("https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80") center right/cover no-repeat;
+  color:#302639;border:1px solid #e9e0dc;box-shadow:0 16px 45px rgba(45,31,54,.065);
+  border-radius:32px;padding:clamp(35px,5vw,65px);min-height:300px;display:flex;flex-direction:column;justify-content:center
+}
+.hero h1{font-family:Georgia,"Times New Roman",serif;line-height:1.1;font-weight:700;letter-spacing:-.044em;max-width:730px}
+.hero p{color:#625c61;opacity:1;max-width:710px;line-height:1.7}
+.eyebrow{color:#74587b}
+.panel{border-color:#e9e0dc;background:#fffdf9;box-shadow:0 12px 34px rgba(45,31,54,.05);border-radius:27px}
+.panel h2{font-family:Georgia,"Times New Roman",serif;font-size:27px;letter-spacing:-.025em}
+.page button{background:#6043a3;color:#fff;border-radius:13px;min-height:44px}
+.page button:hover:not(:disabled){background:#4c3281}
+.page .quickStart button,.suggestions button,.items button,.page .quiet{background:#f1ebf6;color:#4f367b;border:1px solid #e6dbe9}
+.page .quickStart button:hover,.suggestions button:hover,.items button:hover,.page .quiet:hover{background:#e9e0f1}
+.add input,.priceLabel input,.items input{border-color:#d9cfd7;border-radius:12px;background:#fff}
+.result{background:#faf7f2;border-color:#e9e1db;border-radius:21px}
+.notice{background:#f4eff8;color:#46334f!important;border-radius:16px}
+.winner{background:#f0f5ec;border-color:#497e5b;color:#284a38!important;border-radius:16px}
+.scroll th{background:#f4eee8}
+@media(max-width:600px){.hero{min-height:0;padding:30px 25px;border-radius:24px}.hero h1{font-size:clamp(32px,9vw,43px)}}
