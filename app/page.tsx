@@ -57,11 +57,11 @@ async function HomeContent() {
       <div className={`shell ${styles.heroGrid}`}>
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}><Sparkles size={15}/>{moment ? moment.eyebrow : "Your place for better choices"}</p>
-          <h1 id="home-title">{moment ? moment.headline : <>Shop smarter.<br/><em>Find what’s worth it.</em></>}</h1>
+          <h1 id="home-title">{moment ? <>Shop smarter.<br/><em>Make Christmas worth it.</em></> : <>Shop smarter.<br/><em>Find what’s worth it.</em></>}</h1>
           <p className={styles.heroText}>{moment ? moment.summary : editorial.description}</p>
           {!moment&&<div className={styles.storefrontHeroActions}><Link href="/products" className={styles.storefrontPrimary}>Start comparing <ArrowRight size={17}/></Link><Link href="/trust" className={styles.storefrontSecondary}>How AVUQO works</Link></div>}
           {moment && <div className={styles.christmasHeroActions}><Link className={styles.christmasHeroLink} href="/christmas">{moment.actionLabel} <ArrowRight size={17}/></Link><Link className={styles.christmasSecondaryLink} href="/lists">Plan a gift list</Link></div>}
-          {moment && <SearchForm/>}
+
           <nav className={styles.heroShortcuts} aria-label="Quick ways to explore">
             <span>Start with</span>
             <Link href="/sales">Deals &amp; Sales</Link>
@@ -73,10 +73,7 @@ async function HomeContent() {
           <OwnerStorefrontShortcut/>
         </div>
         <div className={styles.heroVisual}>
-          {moment?<>
-            <div className={styles.heroArt} style={{backgroundImage:'url("https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=1600&q=85")'}} role="img" aria-label="A warmly decorated Christmas living room"/>
-            <div className={styles.heroCard}><span className={styles.heroCardIcon}><HeartHandshake size={21}/></span><span><strong>Christmas, thoughtfully</strong><small>Ideas, lists and everyday value.</small></span></div>
-          </>:<aside className={styles.heroIntelligence} aria-label="Your AVUQO shopping intelligence">
+          <aside className={styles.heroIntelligence} aria-label="Your AVUQO shopping intelligence">
             <h2>Your Shopping Intelligence</h2>
             <div className={styles.heroIntelligenceInner}>
               <span className={styles.intelligenceRing}><ShieldCheck size={38}/><small>Evidence<br/>first</small></span>
@@ -88,19 +85,18 @@ async function HomeContent() {
               </ul>
             </div>
             <Link href="/products">Explore product comparisons <ArrowRight size={17}/></Link>
-          </aside>}
+          </aside>
         </div>
       </div>
     </section>
 
-    {moment ? <>
-      <ChristmasHomeFeature moment={moment}/>
-      <Suspense fallback={<section className="shell section">Checking festive product evidence…</section>}>
-        <ChristmasFestiveFinds/>
-      </Suspense>
-    </> : <>
+    {/* The storefront structure stays the same all year; only approved seasonal content changes. */}
     <StorefrontQuickLinks/>
     <HomeShoppingDashboard items={products}/>
+    {moment&&<ChristmasHomeFeature moment={moment}/>}
+    {moment&&<Suspense fallback={<section className="shell section">Checking festive product evidence…</section>}>
+      <ChristmasFestiveFinds/>
+    </Suspense>}
     <div className={styles.reassurance}>
       <div className={`shell ${styles.reassuranceInner}`}>
         <span><ShieldCheck size={19}/> Independent thinking</span>
@@ -170,7 +166,6 @@ async function HomeContent() {
         <div><p>Affiliate relationships can help fund AVUQO. They do not determine our independent scores, organic rankings or basket comparisons.</p><Link href="/trust">How we build trust <ArrowRight size={17}/></Link></div>
       </div>
     </section>
-    </>}
     <Footer/>
   </main>;
 }
