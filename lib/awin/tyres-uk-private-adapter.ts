@@ -1,5 +1,6 @@
 import {prepareGeneralBatch} from "../feed-imports/general-awin-large";
 import {inspectPrivateTyreRowEvidence} from "./tyre-row-evidence";
+import {candidateTyresUkTechnicalSpecs} from "./tyres-uk-technical-evidence";
 
 /**
  * Tyres UK (Awin 12715, feed 93988), PRIVATE owner-review staging only.
@@ -32,6 +33,7 @@ export function prepareTyresUkPrivateBatch(
  return base.map((record,index)=>{
   const description=rows[index][descriptionAt]??"";
   const rawCategory=categoryAt>=0?rows[index][categoryAt]??"":"";
+  const technical=candidateTyresUkTechnicalSpecs(Object.fromEntries(headers.map((key,col)=>[key,rows[index][col]??""])));
   const evidence=inspectPrivateTyreRowEvidence({
    title:record.title,description,category:rawCategory,
    currency:record.currency,price:record.price??""
@@ -64,6 +66,9 @@ export function prepareTyresUkPrivateBatch(
     tyre_size_source:evidence.size_candidate?"retailer_text_unverified":null,
     tyre_size_verified:false,
     tyre_size_conflict:evidence.size_conflict,
+    tyre_technical_spec_candidate:technical,
+    load_index_candidate:technical.load_index_candidate,
+    speed_rating_candidate:technical.speed_rating_candidate,
     load_index_verified:false,
     speed_rating_verified:false,
     season_verified:false,
