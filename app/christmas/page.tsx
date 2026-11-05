@@ -80,12 +80,6 @@ export default function ChristmasPage() {
     <Suspense fallback={<section className="shell section">Checking approved festive finds…</section>}>
       <ChristmasFestiveFinds/>
     </Suspense>
-    <section className={`shell ${styles.confidenceStrip}`} aria-label="Shopping confidently this Christmas">
-      <div className={styles.confidenceIntro}><Gift size={27} aria-hidden="true"/><strong>Shop with confidence this Christmas</strong></div>
-      <div className={styles.confidencePoint}><CalendarDays size={27} aria-hidden="true"/><span><strong>Check delivery dates</strong><small>Confirm dispatch and delivery terms directly with the retailer</small></span></div>
-      <div className={styles.confidencePoint}><Coins size={27} aria-hidden="true"/><span><strong>Know the total cost</strong><small>Compare delivery charges and any extra fees</small></span></div>
-      <div className={styles.confidencePoint}><ShieldCheck size={27} aria-hidden="true"/><span><strong>Find genuine value</strong><small>Only eligible, verified retailer records appear as offers</small></span></div>
-    </section>
     <section className="shell section" id="gift-ideas">
       <div className="section-title"><div><p className="kicker">Find your starting point</p><h2>Gifts for every budget.</h2><p>Browse ideas, then check current prices, availability and delivery charges with the retailer.</p></div></div>
       <div className={styles.grid}>{giftBudgets.map(item => <Link href={`/search?q=${encodeURIComponent(item.q)}`} className={styles.tile} key={item.label}><div className={styles.tilePhoto} style={{backgroundImage:`url("${item.image}")`}} aria-hidden="true"/><div className={styles.tileCopy}><Gift size={22}/><h3>{item.label}</h3><p>{item.detail}</p><span>Explore <ArrowRight size={15}/></span></div></Link>)}</div>
