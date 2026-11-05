@@ -7,6 +7,7 @@ import {csvRowsFromChunks} from "../../../../lib/feed-imports/stream-csv";
 import {identifyFormat,prepareGeneralBatch} from "../../../../lib/feed-imports/general-awin-large";
 import {approvedAwinDownloadUrl} from "../../../../lib/awin/approved-feed-url";
 import {normalizePilotAwinFeed} from "../../../../lib/awin/pilot-feed-normalizer";
+import {mozillionPhysicalFeedAllowed} from "../../../../lib/awin/mozillion-feed-types";
 
 
 /** Explicit physical-product pilot only. Never auto-fetch plan, parking, insurance,
@@ -107,6 +108,9 @@ export async function POST(request:NextRequest){
   row[idx("Membership Status")]?.trim().toLowerCase()==="active");
  if(matches.length!==1)return reply({error:"Selected active feed missing or ambiguous"},409);
  const feedRow=matches[0];
+ if(advertiser==="31539"&&!mozillionPhysicalFeedAllowed(advertiser,feed,
+   feedRow[idx("Feed Name")]??""))
+  return reply({error:"Mozillion non-handset or renamed feed blocked from physical import"},422);
  if(!/^(awin|standard)$/i.test(feedRow[idx("Datafeed Format")]?.trim()??""))
   return reply({error:"Feed format not supported by pilot"},422);
  let downloaded:Uint8Array,filename:string;
