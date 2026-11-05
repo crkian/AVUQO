@@ -8,17 +8,20 @@ import {requireControlCentreAccess} from "../../../lib/auth/requireControlCentre
 import {createClient} from "../../../lib/supabase/server";
 import {safePreviewSelection,type StagedPreviewRow} from "../../../lib/feed-imports/preview-selection";
 import PremiumDiscovery from "./PremiumDiscovery";
+import TyreAdvancedFilters,{type TyreFacetValues,type TyreFilterSelection} from "./TyreAdvancedFilters";
 import catalogue from "../../products/page.module.css";
 import styles from "./page.module.css";
 
 export const instant = false;
 export const metadata:Metadata={title:"Private product storefront preview | AVUQO",robots:{index:false,follow:false}};
 type Run={id:string;merchant_id:string;merchant_name:string;permission_status:string;created_at:string};
-type Props={searchParams:Promise<{merchant?:string;page?:string}>};
+type Props={searchParams:Promise<{merchant?:string;page?:string;brand?:string;width?:string;profile?:string;rim?:string;q?:string;min?:string;max?:string;sort?:string}>};
 export default async function OwnerStorefrontPreview({searchParams}:Props){
  await connection();
  await requireControlCentreAccess();
- const {merchant,page:pageParam}=await searchParams;
+ const params=await searchParams;
+ const {merchant,page:pageParam}=params;
+ const tyreMode=merchant==="12715";
  const currentPage=Math.max(1,Math.min(10000,Number.parseInt(pageParam||"1",10)||1));
  const pageSize=48;
  const db=await createClient();
@@ -41,15 +44,63 @@ export default async function OwnerStorefrontPreview({searchParams}:Props){
    .order("created_at",{ascending:false}).limit(1);
   selected=(matching??[]) as Run[];
  }
+ // Populate full-import filter menus through a private, owner-only RLS-protected
+ // aggregate function. All values remain unapproved for public tyre fitment.
+ let facets:TyreFacetValues={brands:[],widths:[],profiles:[],rims:[]};
+ if(tyreMode&&selected.length){
+  const {data}=await db.rpc("private_tyre_preview_facets",{p_import_id:selected[0].id});
+  if(data&&typeof data==="object"&&!Array.isArray(data)){
+   const obj=data as Record<string,unknown>;
+   const cleanInts=(key:string)=>Array.isArray(obj[key])?
+    (obj[key] as unknown[]).filter((x):x is number=>Number.isInteger(x)&&Number(x)>=10&&Number(x)<=400):[];
+   facets={
+    brands:Array.isArray(obj.brands)?obj.brands.filter((x):x is string=>typeof x==="string"&&x.length<=100):[],
+    widths:cleanInts("widths"),profiles:cleanInts("profiles"),rims:cleanInts("rims")
+   };
+  }
+ }
+ const selectedTyreFilters:TyreFilterSelection={
+  brand:facets.brands.includes(params.brand??"")?params.brand!:"",
+  width:facets.widths.some(x=>String(x)===params.width)?params.width!:"",
+  profile:facets.profiles.some(x=>String(x)===params.profile)?params.profile!:"",
+  rim:facets.rims.some(x=>String(x)===params.rim)?params.rim!:"",
+  q:(params.q??"").replace(/[^\p{L}\p{N} ._+\-/]/gu,"").slice(0,80).trim(),
+  min:/^\d{1,6}(?:\.\d{1,2})?$/.test(params.min??"")?params.min!:"",
+  max:/^\d{1,6}(?:\.\d{1,2})?$/.test(params.max??"")?params.max!:"",
+  sort:["name","price_low","price_high","newest"].includes(params.sort??"")?params.sort!:"name"
+ };
+ const tyrePageHref=(page:number)=>{
+  const url=new URLSearchParams({merchant:"12715",page:String(page)});
+  for(const [key,val] of Object.entries(selectedTyreFilters))
+   if(val&&!(key==="sort"&&val==="name"))url.set(key,val);
+  return "/preview/products?"+url.toString();
+ };
  const groups=await Promise.all(selected.map(async run=>{
   // Single-merchant mode browses the entire private review queue in pages.
   // The all-merchants landing remains a small, representative sample.
   const detailed=Boolean(merchant);
   let query=db.from("feed_import_records")
-   .select("id,merchant_product_id,title,price,currency,brand,category,status,review_decision,image_url",{count:detailed?"exact":undefined})
-   .eq("import_id",run.id).order("created_at",{ascending:true});
-  if(detailed)query=query.eq("status","review").range((currentPage-1)*pageSize,currentPage*pageSize-1);
-  else query=query.limit(120);
+   .select("id,merchant_product_id,title,price,currency,brand,category,status,review_decision,image_url,metadata",{count:detailed?"exact":undefined})
+   .eq("import_id",run.id);
+  if(detailed){
+   query=query.eq("status","review");
+   if(tyreMode){
+    const f=selectedTyreFilters;
+    if(f.brand)query=query.eq("brand",f.brand);
+    if(f.width)query=query.eq("metadata->tyre_size_candidate->>width_mm",f.width);
+    if(f.profile)query=query.eq("metadata->tyre_size_candidate->>aspect_ratio",f.profile);
+    if(f.rim)query=query.eq("metadata->tyre_size_candidate->>rim_inches",f.rim);
+    if(f.q)query=query.ilike("title","%"+f.q.replace(/[%_]/g,"")+"%");
+    if(f.min)query=query.gte("price",Number(f.min));
+    if(f.max)query=query.lte("price",Number(f.max));
+    if(f.sort==="price_low")query=query.order("price",{ascending:true});
+    else if(f.sort==="price_high")query=query.order("price",{ascending:false});
+    else if(f.sort==="newest")query=query.order("created_at",{ascending:false});
+    else query=query.order("title",{ascending:true});
+   }
+   query=query.order("id",{ascending:true}).range((currentPage-1)*pageSize,currentPage*pageSize-1);
+  }
+  else query=query.order("created_at",{ascending:true}).limit(120);
   const {data,error,count}=await query;
   const rows=error?[]:detailed
    ?(data??[]) as StagedPreviewRow[]
@@ -72,16 +123,18 @@ export default async function OwnerStorefrontPreview({searchParams}:Props){
     <div><Link aria-current={!merchant?"page":undefined} href="/preview/products">Highlights from all</Link>
     {uniqueRuns.map(run=><Link key={run.id} aria-current={merchant===run.merchant_id?"page":undefined} href={`/preview/products?merchant=${encodeURIComponent(run.merchant_id)}`}>{run.merchant_name}</Link>)}</div>
    </nav>
-   {merchant&&selected.length>0&&<p className={styles.pageStatus}>Showing private review candidates from {selected[0].merchant_name}. Page {currentPage} of {Math.max(1,Math.ceil(groups[0].count/pageSize))}. Filters and comparison apply to the products displayed on this page.</p>}
-   <PremiumDiscovery items={cards.map(({product,run})=>({
+   {merchant&&selected.length>0&&<p className={styles.pageStatus}>Showing private review candidates from {selected[0].merchant_name}. Page {currentPage} of {Math.max(1,Math.ceil(groups[0].count/pageSize))}. {tyreMode?"Advanced filters search the full imported tyre catalogue.":"Local filters and comparison apply to products displayed on this page."}</p>}
+   {tyreMode&&selected.length>0&&<TyreAdvancedFilters facets={facets} selected={selectedTyreFilters} resultCount={groups[0]?.count??0}/>}
+   <PremiumDiscovery externalFilters={tyreMode} items={cards.map(({product,run})=>({
     id:product.id,title:product.title,merchant:run.merchant_name,
     brand:product.brand,rawCategory:product.category,price:product.price,currency:product.currency,
-    imageUrl:product.image_url
+    imageUrl:product.image_url,
+    tyreSize:run.merchant_id==="12715"?(product as StagedPreviewRow & {metadata?:{tyre_size_candidate?:{width_mm:number;aspect_ratio:number;rim_inches:number}}}).metadata?.tyre_size_candidate??null:null
    }))}/>
    {merchant&&selected.length>0&&groups[0].count>pageSize&&<nav className={styles.pagination} aria-label="Private product catalogue pages">
-    {currentPage>1?<Link href={`/preview/products?merchant=${encodeURIComponent(merchant)}&page=${currentPage-1}`}>← Previous page</Link>:<span>First page</span>}
+    {currentPage>1?<Link href={tyreMode?tyrePageHref(currentPage-1):`/preview/products?merchant=${encodeURIComponent(merchant)}&page=${currentPage-1}`}>← Previous page</Link>:<span>First page</span>}
     <strong>Page {currentPage} / {Math.ceil(groups[0].count/pageSize)}</strong>
-    {currentPage*pageSize<groups[0].count?<Link href={`/preview/products?merchant=${encodeURIComponent(merchant)}&page=${currentPage+1}`}>Next 48 products →</Link>:<span>Last page</span>}
+    {currentPage*pageSize<groups[0].count?<Link href={tyreMode?tyrePageHref(currentPage+1):`/preview/products?merchant=${encodeURIComponent(merchant)}&page=${currentPage+1}`}>Next 48 products →</Link>:<span>Last page</span>}
    </nav>}
    <section className={styles.tyreReady} aria-label="Tyre advertiser onboarding">
      <span>COMING TO MOTORING · FEED REVIEW</span>
