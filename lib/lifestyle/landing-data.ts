@@ -59,7 +59,7 @@ export const lifestylePages: Record<string,Landing> = {
   tech: {
     slug:"tech", eyebrow:"Electronics & technology", headline:"Electronics &", highlight:"Tech.", accent:"#6043a3",
     intro:"Useful devices for everyday life. Explore laptops, audio, gaming and smart-home ideas with clear guidance on compatibility, cost and long-term value.",
-    hero:image("photo-1498049794561-7780e7231661"),heroPosition:"center 52%",
+    hero:image("photo-1552939262-125eef3f2ddb"),heroPosition:"center 52%",
     tiles:[
       {title:"Laptops & PCs",copy:"Useful devices for work, study and everyday life.",search:"laptops",image:image("photo-1496181133206-80ce9b88a853",700)},
       {title:"Phones & wearables",copy:"Choose features and contracts that fit.",search:"smartphones wearables",image:image("photo-1511707171634-5f897ff02aa9",700)},
