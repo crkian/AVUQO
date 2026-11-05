@@ -101,3 +101,22 @@
 @media(max-width:1050px){.seasonGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.seasonGrid{grid-template-columns:1fr}.seasonCard{min-height:218px}.seasonArt{width:68px;height:68px;font-size:36px}}
 @media(prefers-reduced-motion:reduce){.seasonCard,.helpCard{transition:none}.seasonCard:hover,.helpCard:hover{transform:none}}
+
+/* Christmas is the only active dated homepage theme; future moments need approval. */
+.christmasHero{
+  min-height:490px;display:flex;align-items:center;position:relative;
+  background:linear-gradient(90deg,#fcf7f2 0%,rgba(252,247,242,.99) 26%,rgba(252,247,242,.87) 45%,rgba(252,247,242,.14) 79%,rgba(252,247,242,.02) 100%),
+  url("https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=1800&q=85") center 48%/cover no-repeat;
+  border-bottom:1px solid #eee1dc
+}
+.christmasHero .heroGrid{grid-template-columns:minmax(0,750px) 1fr}
+.christmasHero .heroCopy{grid-column:1}
+.christmasHero .heroVisual{display:none}
+.christmasHero .eyebrow{color:#9e496d}
+.christmasHero .heroCopy h1{font-size:clamp(48px,6.5vw,90px);color:#302639;max-width:720px}
+.christmasHero .heroText{max-width:560px;color:#4b3d43;font-weight:500}
+.christmasHero .search{background:#fffdfa}
+.christmasHeroLink{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:26px;min-height:47px;padding:12px 22px;border-radius:999px;background:linear-gradient(135deg,#5b35f5,#3a20bd);color:#fff;font-weight:850;font-size:14px;box-shadow:0 12px 25px #4e2a6830}
+.christmasHeroLink:hover{background:#3a20bd}
+@media(max-width:900px){.christmasHero{background-position:61% center}.christmasHero .heroGrid{grid-template-columns:minmax(0,670px)}}
+@media(max-width:680px){.christmasHero{background:linear-gradient(0deg,#fcf7f2 0%,rgba(252,247,242,.97) 51%,rgba(252,247,242,.42) 100%),url("https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=900&q=80") center top/cover no-repeat;display:block;min-height:0;padding:155px 0 55px}.christmasHero .heroCopy{padding:0}.christmasHero .heroCopy h1{font-size:clamp(43px,11vw,62px)}.christmasHero .heroText{font-size:16px}.christmasHeroLink{margin-top:18px}}
