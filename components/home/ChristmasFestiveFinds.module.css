@@ -24,3 +24,18 @@
 @media(max-width:700px){.heading{flex-direction:column;align-items:start}.ideas{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.photo{height:125px}.confidence{grid-template-columns:1fr}.confidence>strong{grid-column:auto;font-size:20px}.confidence>div{border-left:0;border-bottom:1px solid #eadcdf}.confidence>div:last-child{border-bottom:0}.note{align-items:start}}
 @media(max-width:390px){.photo{height:100px}.idea strong{font-size:14px}}
 @media(prefers-reduced-motion:reduce){.idea{transition:none}.idea:hover{transform:none}}
+
+/* Faithful festive-product band: the example item artwork is never treated as a real offer. */
+.section{padding:22px 0 26px;background:#fffcfa}
+.heading{margin-bottom:12px}
+.heading h2{font-size:clamp(25px,2.8vw,34px);margin-bottom:5px}
+.heading p:not(.eyebrow){font-size:12px;line-height:1.45}
+.ideas{gap:9px}
+.idea{padding:7px 7px 11px;border-radius:15px}
+.photo{height:119px;border-radius:11px}
+.idea strong{font-family:var(--avuqo-interface-font);font-weight:850;font-size:14px;line-height:1.24}
+.confidence{margin-top:12px;min-height:71px;border-radius:15px}
+.confidence>strong{font-size:18px;padding:12px 15px}
+.confidence>div{padding:11px}
+.note{margin-top:10px}
+@media(max-width:700px){.ideas{grid-template-columns:repeat(2,minmax(0,1fr))}.photo{height:126px}.confidence>strong{font-size:18px}.confidence{margin-top:16px}}
