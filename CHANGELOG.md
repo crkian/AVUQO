@@ -1,5 +1,8 @@
 # AVUQO software changelog
 
+- **Unreleased warm premium customer UI (draft only):** Adopt cream/violet shared styling; refine header and category menus, Christmas page, category landings, product details, groceries, campaign carousel and the My AVUQO profile layout. The homepage uses a UK date-aware Christmas-only editorial build-up (15 October to 26 December) with an evergreen fallback; Easter and Valentine’s pages are built but not featured or scheduled. No merchant offer, data approval, automatic notification, production deployment or completed browser acceptance is implied.
+
+
 - **Unreleased Awin feed discovery matrix:** Owner feed inventory displays all 16 joined programmes, format-group counts and zero-feed programmes, plus a filtered credential-free metadata CSV copy. Does not download feeds or merge overlapping records.
 
 - **Awin import hardening:** Add before-upload feed dialect and row-inspection diagnostics, align TSV server acceptance, live joined-programme revalidation on resume, strong source feed-ID binding at DB layer, and service/contract feed quarantine. Existing physical Awin private imports unaffected. No public or automatic activation.
