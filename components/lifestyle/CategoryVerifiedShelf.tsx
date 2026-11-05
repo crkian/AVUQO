@@ -50,7 +50,7 @@ export default async function CategoryVerifiedShelf({config}:{config:Landing}){
         <aside className={styles.context} aria-label="How AVUQO evaluates shopping choices">
           <p className={styles.eyebrow}>Our approach</p>
           <h3>Why something might be <em>worth it.</em></h3>
-          <p className={styles.contextIntro}>There isn't one perfect buy. Good value comes from clear evidence and the features that matter to you.</p>
+          <p className={styles.contextIntro}>There isn&apos;t one perfect buy. Good value comes from clear evidence and the features that matter to you.</p>
           <div className={styles.promises}>{promises.map(({icon:Icon,title,text})=>
             <div key={title}><span><Icon size={20} aria-hidden="true"/></span><div><strong>{title}</strong><p>{text}</p></div></div>)}</div>
           <Link href="/trust">How AVUQO evaluates value <ArrowRight size={16}/></Link>
