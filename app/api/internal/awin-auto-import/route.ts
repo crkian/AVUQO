@@ -138,7 +138,19 @@ export async function POST(request:NextRequest){
    if(ids.has(identity))throw Error("duplicate_identity_across_batches");
    ids.add(identity);
   }
- }catch(e){return reply({error:"Feed preflight failed; nothing imported",reason:e instanceof Error?e.message:"unsupported_format"},422);}
+ }catch(e){
+  // Authenticated preflight may reveal safe COLUMN NAMES, never sample values,
+  // signed URLs, product data or free-form parser errors.
+  const safeHeaderNames=preflight&&header?header.slice(0,120).map(name=>
+   /^[A-Za-z][A-Za-z0-9_ -]{0,63}$/.test(name)?name:"[redacted]"
+  ):undefined;
+  const code=e instanceof Error&&e.message.startsWith("Unsupported feed format")
+   ?"unsupported_columns":"validation_failed";
+  return reply({error:"Feed preflight failed; nothing imported",
+   reason:code,
+   ...(preflight?{columns:header?.length??0,column_names:safeHeaderNames,
+      no_database_writes:true,no_publication:true}: {})},422);
+ }
  const name=joinedName(advertiser);
  if(!name)return reply({error:"Unrecognised advertiser"},403);
  if(preflight)return reply({status:"preflight_passed",advertiser_id:advertiser,feed_id:feed,
