@@ -71,7 +71,8 @@ export async function POST(request:NextRequest){
  // One manually authenticated, feed-specific staging action is independent
  // of the automatic scheduling flag. It cannot publish or activate cron.
  const manualStage=request.method==="POST"&&url.searchParams.get("mode")==="stage"&&
-  url.searchParams.get("advertiser_id")==="77952"&&url.searchParams.get("feed_id")==="103580";
+  (url.searchParams.get("advertiser_id")==="77952"&&url.searchParams.get("feed_id")==="103580"||
+   url.searchParams.get("advertiser_id")==="31539"&&url.searchParams.get("feed_id")==="74135");
  if(!preflight&&!manualStage&&process.env.AWIN_AUTO_IMPORT_ENABLED!=="true")
   return reply({status:"disabled",private_only:true,required_setting:"AWIN_AUTO_IMPORT_ENABLED"});
  const key=process.env.AWIN_DATAFEED_API_KEY??"";
