@@ -13,7 +13,7 @@ const paths=[
 ] as const;
 const stories=[
  {href:"/gifts",title:"Thoughtful gifts",copy:"Ideas for people you care about",photo:"https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=800&q=80"},
- {href:"/home",title:"Festive home",copy:"Create a welcoming space",photo:"https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=800&q=80"},
+ {href:"/home",title:"Festive home",copy:"Create a welcoming space",photo:"https://images.unsplash.com/photo-1544428000-5b622c57fcd4?auto=format&fit=crop&w=800&q=80"},
  {href:"/groceries",title:"Festive essentials",copy:"One useful shopping list",photo:"https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80"},
 ] as const;
 const plans=[
