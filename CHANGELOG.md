@@ -1,4 +1,7 @@
-# AVUQO software changelog\n\n- **Unreleased documentation (5 Nov 2026):** Specify shared price freshness/change, product and eBay listing availability/condition states, opt-in Watch alerts and safe, factual SEO metadata/structured-data/indexing contracts in `docs/PRICE_AVAILABILITY_EBAY_SEO_REQUIREMENTS_2026-11-05.md`. Cross-reference existing P1/P2/P3 roadmap. **No code, migration, provider activation, Watch delivery, public listing or software version change.**\n
+# AVUQO software changelog
+
+- **Unreleased documentation (5 Nov 2026):** Specify shared price freshness/change, product and eBay listing availability/condition states, opt-in Watch alerts and safe, factual SEO metadata/structured-data/indexing contracts in `docs/PRICE_AVAILABILITY_EBAY_SEO_REQUIREMENTS_2026-11-05.md`. Cross-reference existing P1/P2/P3 roadmap. **No code, migration, provider activation, Watch delivery, public listing or software version change.**
+
 
 - **Unreleased Awin feed discovery matrix:** Owner feed inventory displays all 16 joined programmes, format-group counts and zero-feed programmes, plus a filtered credential-free metadata CSV copy. Does not download feeds or merge overlapping records.
 
