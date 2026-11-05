@@ -93,8 +93,15 @@ async function HomeContent() {
     {/* The storefront structure stays the same all year; only approved seasonal content changes. */}
     <StorefrontQuickLinks/>
     <HomeShoppingDashboard items={products}/>
-    {moment&&<ChristmasHomeFeature moment={moment}/>}
-    {moment&&<Suspense fallback={<section className="shell section">Checking festive product evidence…</section>}>
+    {moment?.stage==="early"&&<section className={styles.christmasBuildUp} aria-label="Christmas build-up">
+      <div className="shell">
+        <div><p className={styles.kicker}>Christmas is coming</p><h2>Start with thoughtful ideas.</h2>
+          <p>Save gift inspiration and plan the little things, without the rush or invented seasonal deals.</p></div>
+        <Link href="/christmas">Explore Christmas inspiration <ArrowRight size={18}/></Link>
+      </div>
+    </section>}
+    {moment&&moment.stage!=="early"&&<ChristmasHomeFeature moment={moment}/>}
+    {moment?.stage==="near"&&<Suspense fallback={<section className="shell section">Checking festive product evidence…</section>}>
       <ChristmasFestiveFinds/>
     </Suspense>}
     <div className={styles.reassurance}>
