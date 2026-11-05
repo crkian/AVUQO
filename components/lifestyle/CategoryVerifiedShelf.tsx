@@ -43,7 +43,7 @@ export default async function CategoryVerifiedShelf({config}:{config:Landing}){
           <div className={styles.empty}>
             <span><Search size={32} aria-hidden="true"/></span>
             <h3>The right evidence comes first.</h3>
-            <p>Explore ${config.eyebrow.toLowerCase()} inspiration and independent buying questions now. Eligible retailer offers appear here once verified.</p>
+            <p>Explore {config.eyebrow.toLowerCase()} inspiration and independent buying questions now. Eligible retailer offers appear here once verified.</p>
             <Link href={`/search?q=${encodeURIComponent(config.tiles[0]?.search??config.slug)}`}>Explore ideas <ArrowRight size={16}/></Link>
           </div>}
         </div>
