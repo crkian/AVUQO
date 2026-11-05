@@ -121,18 +121,23 @@ export async function POST(request:NextRequest){
  }catch{return reply({error:"Unsupported or oversized compressed feed"},422);}
  let header:string[]|null=null;let rows:string[][]=[];
  let currencySource:"feed_column"|"petlibro_uk_programme_gbp"="feed_column";
+ let parseStage:"header"|"rows"|"normalize"|"validate"="header";
+ let detectedDelimiter:"comma"|"tab"="comma";
  try{
   const delimiter=csv.slice(0,1000).split("\n",1)[0].includes("\t")?"\t":",";
+  detectedDelimiter=delimiter==="\t"?"tab":"comma";
   for await(const row of parseRows(csv,delimiter)){
-   if(!header){header=row.map(v=>v.trim());}
+   if(!header){header=row.map(v=>v.trim());parseStage="rows";}
    else{
     if(row.length!==header.length)throw Error("invalid_fields");
     rows.push(row);if(rows.length>MAX_ROWS)throw Error("too_many_rows");
    }
   }
   if(!header||!rows.length)throw Error("empty_feed");
+  parseStage="normalize";
   const normalized=normalizePilotAwinFeed(advertiser,feed,header,rows);
   header=normalized.header;rows=normalized.rows;currencySource=normalized.currencySource;
+  parseStage="validate";
   // Validate *all* rows before a single write; unsupported feeds remain untouched.
   for(let i=0;i<rows.length;i+=250)prepareGeneralBatch(advertiser,feed,header,rows.slice(i,i+250));
   const ids=new Set<string>();
@@ -148,11 +153,21 @@ export async function POST(request:NextRequest){
   const safeHeaderNames=preflight&&header?header.slice(0,120).map(name=>
    /^[A-Za-z][A-Za-z0-9_ -]{0,63}$/.test(name)?name:"[redacted]"
   ):undefined;
-  const code=e instanceof Error&&e.message.startsWith("Unsupported feed format")
-   ?"unsupported_columns":"validation_failed";
+  const message=e instanceof Error?e.message:"";
+  const code=message.startsWith("Unsupported feed format")?"unsupported_columns":
+   message==="Incomplete quoted CSV field"?"unterminated_csv_quote":
+   message==="Unexpected character after closing quote"?"invalid_csv_quote":
+   message==="CSV field or row exceeds size limit"?"csv_field_or_column_limit":
+   message==="CSV field exceeds 10,000 characters"?"csv_field_size_limit":
+   message==="empty_feed"?"empty_feed":
+   message==="invalid_fields"?"inconsistent_row_columns":
+   message==="too_many_rows"?"row_limit":
+   "validation_failed";
   return reply({error:"Feed preflight failed; nothing imported",
    reason:code,
    ...(preflight?{columns:header?.length??0,column_names:safeHeaderNames,
+      diagnostic_stage:parseStage,detected_delimiter:detectedDelimiter,
+      parsed_rows:rows.length,
       no_database_writes:true,no_publication:true}: {})},422);
  }
  const name=joinedName(advertiser);
