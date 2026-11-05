@@ -79,6 +79,39 @@ try{
       entry.overflow=Math.max(0,metrics.documentWidth-metrics.viewportWidth);
       entry.links=metrics.links;
       entry.errors=consoleErrors.slice(0,5);
+      // Structural guardrails catch visual regressions that HTTP 200 alone misses.
+      // They are not a claim of pixel-exact similarity to the concept artwork.
+      const layout=await page.evaluate(()=>{
+        const header=document.querySelector("header.header");
+        const main=document.querySelector("main");
+        const hero=main?.querySelector("section");
+        const title=main?.querySelector("h1");
+        const rect=hero?.getBoundingClientRect();
+        return {
+          headerHeight:Math.round(header?.getBoundingClientRect().height??0),
+          heroHeight:Math.round(rect?.height??0),
+          headingVisible:!!title&&title.getBoundingClientRect().height>0,
+          hasHeader:!!header,
+          hasMain:!!main,
+          imageCount:document.images.length,
+          missingImages:[...document.images].filter(img=>img.complete&&img.naturalWidth===0)
+            .map(img=>img.currentSrc||img.src).slice(0,5),
+          categoryLinks:[...document.querySelectorAll("a[href]")]
+            .filter(link=>["/tech","/home","/beauty","/groceries"].includes(link.getAttribute("href"))).length,
+        };
+      });
+      entry.layout=layout;
+      entry.warnings=[];
+      if(layout.missingImages.length)entry.warnings.push(`Unloaded image resources: ${layout.missingImages.length}`);
+      if(!layout.hasMain||!layout.hasHeader||!layout.headingVisible)
+        entry.errors.push("Page landmarks missing or heading hidden");
+      if(viewport.label==="desktop" && layout.headerHeight>170)
+        entry.errors.push(`Desktop header too tall: ${layout.headerHeight}px`);
+      if(viewport.label==="desktop"&&["/","/christmas","/tech","/home","/beauty"].includes(pageInfo.url)
+         &&(layout.heroHeight<210||layout.heroHeight>760))
+        entry.errors.push(`Hero outside editorial reference envelope: ${layout.heroHeight}px`);
+      if(pageInfo.url==="/"&&layout.categoryLinks<3)
+        entry.errors.push("Homepage department journeys are missing");
       if(viewport.label==="mobile"&&pageInfo.url==="/"){
         const button=page.locator("button.mobile-menu-toggle"); // Stable element: accessible label changes on toggle.
         if(await button.count()){
@@ -97,7 +130,7 @@ try{
       }
       await page.screenshot({path:path.join(out,`${pageInfo.slug}-${viewport.label}.png`),
         fullPage:true,animations:"disabled"});
-      if(entry.status>=400 || !entry.h1 || entry.overflow>4 || entry.errors.some(error=>error.startsWith("Mobile menu"))){
+      if(entry.status>=400 || !entry.h1 || entry.overflow>4 || entry.errors.length>0){
         failures++;
         console.error("FAIL",JSON.stringify(entry));
       }else{
