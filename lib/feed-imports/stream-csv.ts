@@ -1,7 +1,8 @@
 /** Incremental CSV parser for giant Awin feeds, including quoted
  * newlines, escaped quotes spanning stream chunks and CRLF separators.
  */
-export async function* csvRowsFromChunks(chunks:AsyncIterable<string>,delimiter="," ):AsyncGenerator<string[]>{
+export async function* csvRowsFromChunks(chunks:AsyncIterable<string>,delimiter=",",maxColumns=120 ):AsyncGenerator<string[]>{
+ if(!Number.isInteger(maxColumns)||maxColumns<1||maxColumns>256)throw Error("Invalid CSV column bound");
  let cells:string[]=[],field="",quoted=false,quotePending=false,justClosed=false,atStart=true;
  for await(const chunk of chunks){
   for(let i=0;i<chunk.length;i++){
@@ -29,7 +30,7 @@ export async function* csvRowsFromChunks(chunks:AsyncIterable<string>,delimiter=
     if(c!==" "&&c!=="\r")throw Error("Unexpected character after closing quote");
    }else field+=c;
    if(field.length>10000)throw Error("CSV field exceeds 10,000 characters");
-   if(cells.length>120)throw Error("CSV column count exceeds 120");
+   if(cells.length>maxColumns)throw Error("CSV column count exceeds "+maxColumns);
   }
  }
  if(quotePending){quoted=false;quotePending=false;justClosed=true;}
