@@ -52,26 +52,48 @@ export async function GET(request:NextRequest){
   }
  }
  if(joined.size===0)return send({error:"No observed joined advertisers"},403);
- const controller=new AbortController();
- const timeout=setTimeout(()=>controller.abort(),25000);
- try{
-  // Fixed host, fixed API path; no redirects, arbitrary hosts or untrusted URLs.
-  const url=`https://productdata.awin.com/datafeed/list/apikey/${encodeURIComponent(key)}`;
-  const result=await fetch(url,{method:"GET",cache:"no-store",redirect:"error",signal:controller.signal,
+ // Retry through the documented publisher download endpoint if the productdata
+ // host times out, redirects, or returns a non-CSV payload. Neither endpoint
+ // accepts user-supplied hosts or redirect targets.
+ const publisher=process.env.AWIN_PUBLISHER_ID??"";
+ if(!/^[0-9]{3,15}$/.test(publisher))return send({error:"Awin publisher ID not configured"},503);
+ const candidates=[
+  `https://productdata.awin.com/datafeed/list/apikey/${encodeURIComponent(key)}`,
+  `https://ui.awin.com/productdata-darwin-download/publisher/${publisher}/${encodeURIComponent(key)}/1/feedList`
+ ];
+ let lastFailure:"network_or_timeout"|"upstream_http"|"invalid_inventory"="network_or_timeout";
+ let lastStatus:number|null=null;
+ for(const [index,url] of candidates.entries()){
+  const controller=new AbortController();
+  const timeout=setTimeout(()=>controller.abort(),12000);
+  try{
+   const result=await fetch(url,{method:"GET",cache:"no-store",redirect:"error",signal:controller.signal,
     headers:{Accept:"text/csv"}});
-  if(!result.ok)return send({error:"Awin feed list fetch failed",status_code:result.status},502);
-  const csv=await readLimitedCsv(result);
-  const report=inspectAwinFeedList(csv,joined);
-  if(report.invalidRows>0)return send({error:"Awin feed inventory contains malformed entries"},422);
-  const {data,error}=await admin.rpc("record_awin_feed_discovery",{
-   p_feeds:report.feeds,p_active:report.activeRows
-  });
-  if(error)return send({error:"Unable to record feed changes"},503);
-  return send({status:"checked",metadata_only:true,...data,
+   if(!result.ok){
+    lastFailure="upstream_http";
+    lastStatus=result.status;
+    continue;
+   }
+   const csv=await readLimitedCsv(result);
+   let report:ReturnType<typeof inspectAwinFeedList>;
+   try{report=inspectAwinFeedList(csv,joined);}
+   catch{lastFailure="invalid_inventory";continue;}
+   if(report.invalidRows>0)return send({error:"Awin feed inventory contains malformed entries"},422);
+   const {data,error}=await admin.rpc("record_awin_feed_discovery",{
+    p_feeds:report.feeds,p_active:report.activeRows
+   });
+   if(error)return send({error:"Unable to record feed changes"},503);
+   return send({status:"checked",metadata_only:true,...data,
     checked_advertisers:report.byMerchant.length,
+    provider_endpoint:index===0?"productdata":"publisher_download",
     no_product_downloads:true,no_publication:true});
- }catch{
-  // Never forward a thrown URL or upstream body, which may include API keys.
-  return send({error:"Awin metadata check unavailable"},502);
- }finally{clearTimeout(timeout);}
+  }catch{
+   lastFailure="network_or_timeout";
+   lastStatus=null;
+  }finally{clearTimeout(timeout);}
+ }
+ // Only reveal fixed error categories and HTTP status, never URLs or upstream
+ // response bodies containing credential-bearing links.
+ return send({error:"Awin feed inventory unavailable",failure_kind:lastFailure,
+  upstream_status:lastFailure==="upstream_http"?lastStatus:null},502);
 }
