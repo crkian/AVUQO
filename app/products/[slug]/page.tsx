@@ -34,6 +34,23 @@ async function ProductDetails({params}:Props){
  <p className={styles.intro}>{product.description||"Compare eligible retailer offers and understand what the price evidence can, and cannot, show."}</p>
  <div className={styles.topPrice}><span>Lowest eligible observed offer</span><strong>{gbp(Number(best.offer.total_price??best.offer.price))}</strong><small>From {best.published.merchant}. Check current price, delivery, stock and terms before buying.</small></div>
  <Link className={styles.action} href="#retailers">Compare retailers <ArrowRight size={18}/></Link><div style={{marginTop:14}}><AddToCollectionButton kind="wishlist" productId={product.id} productSlug={product.slug} offerId={best.offer.id}/></div><p className={styles.assurance}><ShieldCheck size={17}/> Verified-source display only. Independent of affiliate payout.</p></div>
+ <aside className={styles.evidenceSidebar} aria-label="Product evidence">
+  <div className={styles.evidenceCard}>
+   <p className={styles.kicker}>AVUQO evidence</p>
+   <h2>Compare with confidence.</h2>
+   <ul>
+    <li><CheckCircle2 size={18}/>Only eligible, checked retailer offers appear here.</li>
+    <li><CheckCircle2 size={18}/>We compare the costs supported by source records.</li>
+    <li><CheckCircle2 size={18}/>Commission does not decide the ordering.</li>
+   </ul>
+  </div>
+  <div className={styles.evidenceCard}>
+   <p className={styles.kicker}>What we can show</p>
+   <strong className={styles.evidenceCount}>{offers.length} eligible {offers.length===1?"offer":"offers"}</strong>
+   <p>Compare the current published records below. Confirm delivery, stock and checkout terms with each retailer.</p>
+   <Link href="#retailers">See retailer details <ArrowRight size={16}/></Link>
+  </div>
+ </aside>
  </div></div></section>
  <section className={`shell ${styles.templateSection}`} aria-label="Product-specific guidance">
   <div className={styles.templateHeading}><p className={styles.kicker}>Designed for this kind of purchase</p><h2>{presentation.sectionHeading}</h2><p>{presentation.sectionIntro}</p></div>
