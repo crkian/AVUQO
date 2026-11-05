@@ -24,7 +24,7 @@ export async function inspectAwinHeaderOnly(response:Response){
   },
   async cancel(){await rawReader.cancel().catch(()=>{});}
  });
- const decoded=gz?body.pipeThrough(new DecompressionStream("gzip")):body;
+ const decoded=gz?body.pipeThrough(new DecompressionStream("gzip") as unknown as ReadableWritablePair<Uint8Array,Uint8Array>):body;
  const reader=decoded.getReader();
  let text="",limitReached=false;
  try{
