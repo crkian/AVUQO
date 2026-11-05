@@ -57,7 +57,7 @@ export default function MobileMenu({ navigation, signedIn, ownerPreview }: {
 
   function renderLink(href: string, label: string) {
     return <Link key={href} href={href} onNavigate={close}
-      aria-current={pathname === href ? "page" : undefined}>
+      aria-current={pathname === href.split("?")[0] ? "page" : undefined}>
       {label}<ChevronRight size={17} aria-hidden="true"/>
     </Link>;
   }
@@ -92,15 +92,17 @@ export default function MobileMenu({ navigation, signedIn, ownerPreview }: {
               {selected.topics.map(topic => renderLink(topicHref(topic), topic))}
             </> : group?.id === "categories" ? <>
               {renderLink(group.href, "All categories")}
+              {group.links.filter(link => link.href === "/shopping").map(link => renderLink(link.href, link.label))}
               {BROWSE_DEPARTMENTS.map(item => <button type="button" key={item.slug}
                 onClick={() => setDepartment(item.slug)}>{item.name}<ChevronRight size={17} aria-hidden="true"/></button>)}
             </> : group ? <>
+              {!group.links.some(link => link.href === group.href) && renderLink(group.href, `View ${group.label}`)}
               {group.links.map(link => renderLink(link.href, link.label))}
             </> : <>
               {groups.map(item => <button type="button" key={item.id}
                 onClick={() => setSection(item.id)}>{item.label}<ChevronRight size={17} aria-hidden="true"/></button>)}
               <h3>My AVUQO</h3>
-              {renderLink(signedIn ? "/account" : "/login", signedIn ? "My account" : "Sign in")}
+              {renderLink(signedIn ? "/account" : "/login?next=/account", signedIn ? "My account" : "Sign in")}
               {renderLink("/saved", "Saved items")}
               {renderLink("/watches", "Watches")}
               {renderLink("/lists", "Lists")}

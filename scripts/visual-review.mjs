@@ -19,6 +19,7 @@ const viewports=[
  {label:"mobile-small",width:375,height:812},
  {label:"narrow",width:320,height:740},
 ];
+const selectedWidths=process.env.VISUAL_WIDTHS?.split(",").map(Number);
 const pages=[
  {slug:"homepage",url:"/"},
  {slug:"christmas",url:"/christmas"},
@@ -61,7 +62,7 @@ const browser=await chromium.launch({headless:true,executablePath:process.env.VI
 const report=[];
 let failures=0;
 try{
- for(const viewport of viewports){
+ for(const viewport of viewports.filter(item=>!selectedWidths||selectedWidths.includes(item.width))){
   const context=await browser.newContext({
     viewport:{width:viewport.width,height:viewport.height},
     colorScheme:"light",reducedMotion:"reduce",locale:"en-GB",
@@ -69,6 +70,7 @@ try{
   });
   for(const pageInfo of pages){
     const page=await context.newPage();
+    page.setDefaultTimeout(8000);
     const entry={route:pageInfo.url,viewport:viewport.label,width:viewport.width,
       status:0,h1:"",overflow:0,links:0,errors:[]};
     const consoleErrors=[];
@@ -89,11 +91,14 @@ try{
       }
       await page.locator("main h1").first().waitFor({state:"visible",timeout:12000});
       await page.evaluate(async () => {
-        for(let y=0;y<document.documentElement.scrollHeight;y+=Math.max(300,innerHeight-100)){
+        const end=document.documentElement.scrollHeight;
+        const step=Math.max(300,innerHeight-100);
+        for(let y=0;y<end;y+=step){
           window.scrollTo(0,y);
-          await new Promise(resolve=>requestAnimationFrame(resolve));
+          await new Promise(resolve=>setTimeout(resolve,20));
         }
-        await Promise.allSettled([...document.images].map(image=>image.decode()));
+        window.scrollTo(0,end);
+        await new Promise(resolve=>setTimeout(resolve,50));
         window.scrollTo(0,0);
       });
       entry.h1=(await page.locator("h1").first().textContent({timeout:6500}).catch(()=>""))?.trim()??"";
@@ -211,7 +216,7 @@ try{
   await context.close();
  }
 }finally{await browser.close();}
-await writeFile(path.join(out,"report.json"),JSON.stringify({origin,failures,total:report.length,pages:report},null,2));
+await writeFile(path.join(out,selectedWidths?`report-${selectedWidths.join("-")}.json`:"report.json"),JSON.stringify({origin,failures,total:report.length,pages:report},null,2));
 
 /* The design files are checked out separately by the visual-review workflow.
    This offline HTML comparison keeps reference imagery out of the public app.

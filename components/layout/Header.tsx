@@ -112,7 +112,7 @@ export default function Header() {
             </button>
           </div>
         ) : (
-          <Link className="signin" href="/login">Sign in</Link>
+          <Link className="signin" href="/login?next=/account">Sign in</Link>
         )}
         </div>
       </div>

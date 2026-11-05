@@ -13,8 +13,8 @@ export default function MobileDock({signedIn}:{signedIn:boolean}){
  const path=usePathname();
  return <nav className={styles.dock} aria-label="Mobile quick navigation">
    {links.map(({href,label,Icon})=>{
-    const actual=label==="Account"&&!signedIn?"/login":href;
-    const current=path===actual;
+    const actual=label==="Account"&&!signedIn?"/login?next=/account":href;
+    const current=path===actual.split("?")[0];
     const active=current||(href==="/lists"&&path.startsWith("/lists/"));
     return <Link key={label} href={actual}
       aria-current={current?"page":active?"location":undefined}
