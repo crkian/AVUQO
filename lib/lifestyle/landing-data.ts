@@ -48,10 +48,10 @@ export const lifestylePages: Record<string,Landing> = {
     tiles:[
       {title:"Furniture",copy:"Spaces worth staying in.",search:"furniture",image:image("photo-1616486338812-3dadae4b4ace",700)},
       {title:"Kitchen",copy:"Make daily cooking simpler.",search:"kitchen appliances",image:image("photo-1556911220-bff31c812dba",700)},
+      {title:"Bedding & comfort",copy:"Soft essentials for everyday life.",search:"bedding",image:image("photo-1616594039964-ae9021a400a0",700)},
       {title:"Lighting",copy:"Set the mood and use less energy.",search:"lighting",image:image("photo-1507473885765-e6ed057f782c",700)},
-      {title:"Garden & outdoors",copy:"Refresh your outdoor living.",search:"garden outdoor",image:image("photo-1416879595882-3373a0480b5b",700)},
-      {title:"Bedding & comfort",copy:"Small upgrades with everyday impact.",search:"bedding",image:image("photo-1616594039964-ae9021a400a0",700)},
-      {title:"Storage & organisation",copy:"Make the most of every room.",search:"home storage",image:image("photo-1600607687939-ce8a6c25118c",700)}
+      {title:"Cleaning & care",copy:"Practical ways to care for your home.",search:"home cleaning",image:image("photo-1584622650111-993a426fbf0a",700)},
+      {title:"Home safety",copy:"Consider devices that protect your space.",search:"smoke detectors home safety",image:image("photo-1600607687939-ce8a6c25118c",700)}
     ],
     tips:[{title:"Measure twice",copy:"Check dimensions, access and assembly before ordering large items."},{title:"Consider running costs",copy:"Energy usage and consumables can matter more than small upfront savings."},{title:"Plan for longevity",copy:"Materials, serviceability and warranty can affect long-term value."}],
     featureTitle:"Make room for better decisions.",featureCopy:"Smart home shopping starts with practical needs, comfort, space and total ownership costs.",featureImage:image("photo-1600566753190-17f0baa2a6c3",900)
@@ -113,11 +113,11 @@ export const lifestylePages: Record<string,Landing> = {
     hero:image("photo-1596462502278-27bfdc403348"),
     tiles:[
       {title:"Skincare",copy:"A routine that fits your needs.",search:"skincare",image:image("photo-1620916566398-39f1143ab7be",700)},
+      {title:"Makeup",copy:"Everyday essentials and colour.",search:"makeup",image:image("photo-1512496015851-a90fb38ba796",700)},
       {title:"Haircare",copy:"Care, styling and simple routines.",search:"haircare",image:image("photo-1526947425960-945c6e72858f",700)},
       {title:"Fragrance",copy:"Considered scents and gifts.",search:"fragrance",image:image("photo-1541643600914-78b084683601",700)},
-      {title:"Makeup",copy:"Everyday essentials and colour.",search:"makeup",image:image("photo-1512496015851-a90fb38ba796",700)},
-      {title:"Wellness gifts",copy:"Thoughtful relaxation ideas.",search:"wellness gifts",image:image("photo-1540555700478-4be289fbecef",700)},
-      {title:"Beauty accessories",copy:"Tools that help your routine.",search:"beauty tools",image:image("photo-1596755389378-c31d21fd1273",700)}
+      {title:"Nails",copy:"Colour, care and helpful tools.",search:"nail care",image:image("photo-1519014816548-bf5fe059798b",700)},
+      {title:"Beauty tools",copy:"Tools that help your routine.",search:"beauty tools",image:image("photo-1596755389378-c31d21fd1273",700)}
     ],
     tips:[{title:"Know your needs",copy:"Ingredients and skin suitability matter more than trends."},{title:"Check product size",copy:"Compare volume or quantity before judging value."},{title:"Shop responsibly",copy:"Buy from reliable sellers and check returns and expiry details."}],
     featureTitle:"Less noise. More everyday confidence.",featureCopy:"A simple, suitable routine can outperform a crowded shelf.",featureImage:image("photo-1620916566398-39f1143ab7be",900)
