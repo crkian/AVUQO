@@ -75,3 +75,6 @@
 @media(max-width:1000px){.overviewGrid{grid-template-columns:repeat(4,minmax(0,1fr))}.overviewTile{min-height:165px}.overviewTile strong{font-size:12px}.overviewTile small{font-size:10px}}
 @media(max-width:750px){.dashboardLayout{padding-top:12px}.dashboardMain{margin-top:0}.overviewGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.sidebar{border-radius:18px}.sidebar a .navCount{margin-left:0}}
 @media(max-width:520px){.dashboardHeroInner{min-height:170px}.dashboardLayout{gap:13px}.overviewTile{min-height:156px}.statNumber{font-size:25px}.overviewTile strong{font-size:13px}}
+
+/* Profile references use bold interface typography, unlike editorial category heroes. */
+.dashboardHero h1,.panelHeading h2,.overviewTile strong,.activityLinks strong{font-family:var(--avuqo-interface-font);font-weight:850;letter-spacing:-.038em}
