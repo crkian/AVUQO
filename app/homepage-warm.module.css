@@ -308,3 +308,8 @@
 .christmasBuildUp a{flex:none;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;min-height:43px;background:#6336b9;border-radius:999px;color:white;font-size:12px;font-weight:850}
 .christmasBuildUp a:hover{background:#462198}
 @media(max-width:700px){.christmasBuildUp>div{align-items:flex-start;flex-direction:column;padding:20px;background:linear-gradient(90deg,rgba(255,249,246,.96),rgba(255,249,246,.85)),url("https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=650&q=80") right center/cover}.christmasBuildUp h2{font-size:25px}.christmasBuildUp a{width:100%;justify-content:center}}
+
+/* Keep the hero copy on the same editorial grid as the 10 departments and
+   three-column worktop. The prior 100% width rule pushed the headline to x=0. */
+.storefrontHero .heroGrid{width:min(1368px,calc(100% - 56px));margin-inline:auto}
+@media(max-width:600px){.storefrontHero .heroGrid{width:calc(100% - 28px)}}
