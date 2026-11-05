@@ -177,3 +177,24 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
  .header .avuqo-header-layout>.primary-nav{gap:0}
  .avuqo-header-layout .header-actions .auth-menu{gap:5px}
 }
+
+/* VISUAL_REFERENCE_2026_11_05: approved mockups use clear modern display lettering,
+   warm paper backgrounds and confident violet actions. Branding remains unchanged. */
+:root {
+ --avuqo-display-font:"Avenir Next","Segoe UI",Arial,Helvetica,sans-serif;
+ --avuqo-reference-ink:#18122d;
+ --avuqo-reference-plum:#54258e;
+ --avuqo-reference-violet:#7220cf;
+ --avuqo-reference-paper:#fffcf8;
+ --avuqo-reference-rose:#f8eaf3;
+ --avuqo-reference-border:#ecdfe6;
+ --avuqo-reference-radius:18px;
+}
+.header .avuqo-header-layout>.header-search button,
+.search button[type=submit] {
+ background:linear-gradient(120deg,#a32df7,#5720c4);
+ color:white
+}
+.avuqo-footer a:focus-visible,.header a:focus-visible{outline:3px solid #9256df;outline-offset:3px}
+@media(min-width:1050px){.shell{width:min(1320px,calc(100% - 56px))}}
+@media(max-width:600px){.shell{width:min(100% - 28px,1320px)}}
