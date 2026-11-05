@@ -120,3 +120,16 @@
 .christmasHeroLink:hover{background:#3a20bd}
 @media(max-width:900px){.christmasHero{background-position:61% center}.christmasHero .heroGrid{grid-template-columns:minmax(0,670px)}}
 @media(max-width:680px){.christmasHero{background:linear-gradient(0deg,#fcf7f2 0%,rgba(252,247,242,.97) 51%,rgba(252,247,242,.42) 100%),url("https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=900&q=80") center top/cover no-repeat;display:block;min-height:0;padding:155px 0 55px}.christmasHero .heroCopy{padding:0}.christmasHero .heroCopy h1{font-size:clamp(43px,11vw,62px)}.christmasHero .heroText{font-size:16px}.christmasHeroLink{margin-top:18px}}
+
+/* Christmas landing: foreground the image and two simple actions; header owns desktop search. */
+.christmasHero{min-height:360px;padding:38px 0 46px}
+.christmasHero .heroCopy{padding:0}
+.christmasHero .heroCopy h1{font-size:clamp(46px,6.2vw,76px);line-height:1.03;margin:9px 0 14px}
+.christmasHero .heroText{max-width:525px;font-size:17px;line-height:1.58}
+.christmasHero .heroGrid{grid-template-columns:minmax(0,690px) 1fr}
+.christmasHeroActions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:23px}
+.christmasHero .christmasHeroLink{margin:0;min-height:45px}
+.christmasSecondaryLink{display:inline-flex;align-items:center;justify-content:center;min-height:45px;padding:10px 20px;border:1px solid #aa7bc8;color:#6043a3;border-radius:999px;background:#fffdfdcf;font-weight:800;font-size:14px}
+.christmasSecondaryLink:hover{background:#fff}
+@media(min-width:1001px){.christmasHero .search{display:none}.christmasHero .heroShortcuts{margin-top:18px}}
+@media(max-width:680px){.christmasHero{min-height:0;padding:163px 0 43px}.christmasHero .heroText{font-size:15px}.christmasHero .heroCopy h1{font-size:clamp(43px,11vw,62px)}.christmasHeroActions{gap:8px}.christmasHero .christmasHeroLink,.christmasSecondaryLink{width:100%}.christmasHero .search{margin-top:17px}.christmasHero .heroAside{font-size:12px}}
