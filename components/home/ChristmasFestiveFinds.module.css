@@ -1,0 +1,26 @@
+.section{padding:clamp(28px,4vw,53px) 0 clamp(33px,4.3vw,58px);background:#fffaf7;color:#302639}
+.heading{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:17px}
+.heading>div{max-width:870px}
+.eyebrow{display:flex;align-items:center;gap:6px;color:#96508e;text-transform:uppercase;font-size:10px;letter-spacing:.1em;font-weight:900;margin:0 0 8px}
+.heading h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(30px,3.4vw,43px);letter-spacing:-.044em;line-height:1.1;margin:0 0 9px}
+.heading p:not(.eyebrow){font-size:13px;line-height:1.6;color:#756a75;margin:0}
+.heading>a{display:flex;align-items:center;gap:7px;white-space:nowrap;min-height:44px;color:#6934ba;font-size:13px;font-weight:850}
+.ideas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.idea{display:flex;flex-direction:column;gap:8px;padding:9px 9px 13px;border:1px solid #eaddd7;border-radius:19px;background:#fff;box-shadow:0 9px 27px #3026390c;min-width:0;transition:transform .16s ease}
+.idea:hover{transform:translateY(-3px)}
+.photo{height:145px;width:100%;background-color:#f4ebe6;background-position:center;background-size:cover;border-radius:13px}
+.idea strong{font-family:Georgia,"Times New Roman",serif;font-size:17px;letter-spacing:-.018em;padding:2px 4px 0;line-height:1.19}
+.idea>span:last-child{display:inline-flex;align-items:center;gap:6px;color:#6934ba;font-size:11px;font-weight:850;padding:0 4px}
+.confidence{margin-top:18px;display:grid;grid-template-columns:1.1fr repeat(3,1fr);align-items:center;gap:0;border:1px solid #ecdbd9;border-radius:20px;min-height:82px;background:linear-gradient(115deg,#fff5eb,#f7ebf7);box-shadow:0 6px 19px #30263909}
+.confidence>strong{font-family:Georgia,"Times New Roman",serif;font-size:22px;line-height:1.13;letter-spacing:-.025em;padding:15px 20px}
+.confidence>div{display:flex;align-items:center;gap:9px;padding:14px;border-left:1px solid #e9dcdb}
+.confidence svg{color:#713aba;flex:none}
+.confidence span{display:grid;gap:4px}
+.confidence b{font-size:12px}
+.confidence small{font-size:10px;color:#655d67;line-height:1.38}
+.note{display:flex;align-items:center;gap:6px;color:#817783;font-size:11px;line-height:1.5;margin:13px 0 0}
+.note svg{flex:none;color:#9e496d}
+@media(max-width:1050px){.confidence{grid-template-columns:repeat(3,minmax(0,1fr))}.confidence>strong{grid-column:1/-1;border-bottom:1px solid #eadcdf}.confidence>div:first-of-type{border-left:0}}
+@media(max-width:700px){.heading{flex-direction:column;align-items:start}.ideas{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.photo{height:125px}.confidence{grid-template-columns:1fr}.confidence>strong{grid-column:auto;font-size:20px}.confidence>div{border-left:0;border-bottom:1px solid #eadcdf}.confidence>div:last-child{border-bottom:0}.note{align-items:start}}
+@media(max-width:390px){.photo{height:100px}.idea strong{font-size:14px}}
+@media(prefers-reduced-motion:reduce){.idea{transition:none}.idea:hover{transform:none}}
