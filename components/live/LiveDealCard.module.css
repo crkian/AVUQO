@@ -126,7 +126,7 @@
 .body{display:flex;flex-direction:column;flex:1;padding:19px}
 .kicker{display:inline-flex;align-items:center;gap:5px;color:#80599d;font-size:10px;line-height:1.5}
 .kicker svg{flex:none;color:#087b5b}
-.body h3{font-family:Georgia,"Times New Roman",serif;font-size:20px;letter-spacing:-.026em;line-height:1.22;color:#302639;min-height:0;margin:10px 0 15px}
+.body h3{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:20px;letter-spacing:-.026em;line-height:1.22;color:#302639;min-height:0;margin:10px 0 15px}
 .priceRow{align-items:start}
 .price strong{font-size:23px;color:#17142b}
 .price span{font-size:10px;color:#786c79}
