@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from "react";
+import { Suspense, type CSSProperties, type ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Heart, ReceiptText, Search, ShieldCheck, Sparkles } from "lucide-react";
 import Header from "../layout/Header";
@@ -6,26 +6,15 @@ import Footer from "../layout/Footer";
 import { type Landing } from "../../lib/lifestyle/landing-data";
 import {storyFor,storySearchHref} from "../../lib/lifestyle/category-story";
 import CategoryMoments from "./CategoryMoments";
+import CategoryVerifiedShelf from "./CategoryVerifiedShelf";
 import styles from "./LifestyleLanding.module.css";
 
 const photo = (image: string): CSSProperties => ({backgroundImage:`url("${image}")`});
-const links = [
-  {href:"/shopping",label:"Shopping"},{href:"/groceries",label:"Groceries"},{href:"/travel",label:"Travel"},
-  {href:"/home",label:"Home"},{href:"/tech",label:"Tech"},
-  {href:"/beauty",label:"Beauty"},{href:"/gifts",label:"Gifts"},
-  {href:"/toys",label:"Toys"},{href:"/pets",label:"Pets"},
-  {href:"/christmas",label:"Christmas"}
-];
 export default function LifestyleLanding({config,afterTrust}: {config:Landing;afterTrust?:ReactNode}) {
   const story=storyFor(config.slug);
   const theme = {"--accent":config.accent} as CSSProperties;
   return <main className={styles.page} style={theme} data-category={config.slug}>
     <Header />
-    <nav className={styles.subnav} aria-label="Explore shopping categories">
-      <div className={`shell ${styles.subnavLinks}`}>{links.map(item=>
-        <Link key={item.href} href={item.href} aria-current={item.href===`/${config.slug}`?"page":undefined}>{item.label}</Link>
-      )}<Link href="/categories">More categories <ArrowRight size={13}/></Link></div>
-    </nav>
     <section className={styles.hero} aria-labelledby="lifestyle-title">
       <div className={styles.heroPhoto} style={{...photo(config.hero),backgroundPosition:config.heroPosition??"center"}} aria-hidden="true"/>
       <div className={styles.heroWash} aria-hidden="true"/>
@@ -57,7 +46,7 @@ export default function LifestyleLanding({config,afterTrust}: {config:Landing;af
       </div>
     </div>
     {afterTrust}
-    {story&&<CategoryMoments story={story} images={config.tiles.map(tile=>tile.image)}/>}
+    
     <section className={`shell ${styles.section}`} id="explore">
       <div className={styles.sectionHeading}>
         <div><p className={styles.kicker}>Explore the possibilities</p><h2>{story?.browseLabel??"Find what matters to you."}</h2><p>Browse this category, then search for eligible products and independent guidance. Some searches may not yet have verified matches.</p></div>
@@ -71,7 +60,23 @@ export default function LifestyleLanding({config,afterTrust}: {config:Landing;af
       </div>
       <p className={styles.editorialNote}>Lifestyle photographs illustrate categories and are not representations of specific listed products. Search results are still evolving as retailer sources are verified.</p>
     </section>
-    <section className={styles.feature}>
+
+    <section className={`shell ${styles.guidanceSection}`} aria-labelledby={`guidance-title-${config.slug}`}>
+      <div className={styles.guidanceHeading}><h2 id={`guidance-title-${config.slug}`}>Shop smarter in ${config.slug==="tech"?"tech":config.slug}.</h2></div>
+      <div className={styles.guidanceGrid}>
+        {config.tips.map((tip,i)=><article key={tip.title} className={styles.guidanceCard}>
+          <span className={styles.guidanceSymbol}>{i===0?<ReceiptText size={25}/>:i===1?<ShieldCheck size={25}/>:<Heart size={25}/>}</span>
+          <div><h3>{tip.title}</h3><p>{tip.copy}</p></div>
+        </article>)}
+        <article className={styles.guidanceCard}><span className={styles.guidanceSymbol}><CheckCircle2 size={25}/></span>
+          <div><h3>Make it yours</h3><p>{story?.focus??"Choose the details that matter, then check the current evidence."}</p></div></article>
+      </div>
+    </section>
+    <Suspense fallback={<section className="shell section">Checking approved product evidence…</section>}>
+      <CategoryVerifiedShelf config={config}/>
+    </Suspense>
+    {story&&!["tech","home","beauty"].includes(config.slug)&&<CategoryMoments story={story} images={config.tiles.map(tile=>tile.image)}/>}
+    {!["tech","home","beauty"].includes(config.slug)&&<section className={styles.feature}>
       <div className={`shell ${styles.featureInner}`}>
         <div className={styles.featureText}>
           <p className={styles.kicker}>Worth considering</p><h2>{config.featureTitle}</h2>
@@ -80,11 +85,7 @@ export default function LifestyleLanding({config,afterTrust}: {config:Landing;af
         </div>
         <div className={styles.featurePhoto} style={photo(config.featureImage)} aria-hidden="true"/>
       </div>
-    </section>
-    <section className={`shell ${styles.section}`}>
-      <div className={styles.sectionHeading}><div><p className={styles.kicker}>A better buying checklist</p><h2>See past the price tag.</h2></div></div>
-      <div className={styles.tipGrid}>{config.tips.map((tip,i)=><article key={tip.title} className={styles.tip}><span>{String(i+1).padStart(2,"0")}</span><h3>{tip.title}</h3><p>{tip.copy}</p></article>)}</div>
-    </section>
+    </section>}
     <section className={`shell ${styles.searchWrap}`}>
       <div className={styles.searchPanel}><div><p className={styles.kicker}>Find what&apos;s worth it</p><h2>Know what you&apos;re looking for?</h2><p>Search AVUQO and refine your choices. Listings and offers are only live when independently validated.</p></div>
         <form action="/search" method="get" className={styles.searchForm}><Search size={20}/><input name="q" aria-label="Search AVUQO" placeholder={story?.searchPlaceholder??`Search ${config.slug} ideas…`} list={`category-suggestions-${config.slug}`} maxLength={120} required/>
