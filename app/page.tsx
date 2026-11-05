@@ -14,6 +14,7 @@ import OwnerStorefrontShortcut from "../components/home/OwnerStorefrontShortcut"
 import {loadHomeCampaigns} from "../lib/marketing/homepage";
 import { activeHomeSeasonalMoment } from "../lib/marketing/seasonal-calendar";
 import ChristmasHomeFeature from "../components/home/ChristmasHomeFeature";
+import ChristmasFestiveFinds from "../components/home/ChristmasFestiveFinds";
 import StorefrontQuickLinks from "../components/home/StorefrontQuickLinks";
 import StorefrontHighlights from "../components/home/StorefrontHighlights";
 import {verifiedProductIndex} from "../lib/products/public-catalog";
@@ -80,6 +81,12 @@ async function HomeContent() {
       </div>
     </section>
 
+    {moment ? <>
+      <ChristmasHomeFeature moment={moment}/>
+      <Suspense fallback={<section className="shell section">Checking festive product evidence…</section>}>
+        <ChristmasFestiveFinds/>
+      </Suspense>
+    </> : <>
     <div className={styles.reassurance}>
       <div className={`shell ${styles.reassuranceInner}`}>
         <span><ShieldCheck size={19}/> Independent thinking</span>
@@ -88,7 +95,7 @@ async function HomeContent() {
       </div>
     </div>
 
-    {moment ? <ChristmasHomeFeature moment={moment}/> : <StorefrontQuickLinks/>}
+    <StorefrontQuickLinks/>
     <StorefrontHighlights items={products}/>
     <section className={`shell ${styles.storySection}`} aria-labelledby="why-avuqo">
       <div className={styles.storyHeading}>
@@ -150,6 +157,7 @@ async function HomeContent() {
         <div><p>Affiliate relationships can help fund AVUQO. They do not determine our independent scores, organic rankings or basket comparisons.</p><Link href="/trust">How we build trust <ArrowRight size={17}/></Link></div>
       </div>
     </section>
+    </>}
     <Footer/>
   </main>;
 }
