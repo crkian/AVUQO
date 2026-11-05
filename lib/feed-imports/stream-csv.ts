@@ -1,8 +1,10 @@
 /** Incremental CSV parser for giant Awin feeds, including quoted
  * newlines, escaped quotes spanning stream chunks and CRLF separators.
  */
-export async function* csvRowsFromChunks(chunks:AsyncIterable<string>,delimiter=",",maxColumns=120 ):AsyncGenerator<string[]>{
+export async function* csvRowsFromChunks(chunks:AsyncIterable<string>,delimiter=",",maxColumns=120,maxFieldChars=10000 ):AsyncGenerator<string[]>{
  if(!Number.isInteger(maxColumns)||maxColumns<1||maxColumns>256)throw Error("Invalid CSV column bound");
+ if(!Number.isInteger(maxFieldChars)||maxFieldChars<10000||maxFieldChars>20000)
+  throw Error("Invalid CSV field bound");
  let cells:string[]=[],field="",quoted=false,quotePending=false,justClosed=false,atStart=true;
  for await(const chunk of chunks){
   for(let i=0;i<chunk.length;i++){
@@ -16,7 +18,7 @@ export async function* csvRowsFromChunks(chunks:AsyncIterable<string>,delimiter=
     }else{
      if(c==='"')quotePending=true;
      else field+=c;
-     if(field.length>10000)throw Error("CSV field exceeds 10,000 characters");
+     if(field.length>maxFieldChars)throw Error("CSV field exceeds 10,000 characters");
      continue;
     }
    }
@@ -29,7 +31,7 @@ export async function* csvRowsFromChunks(chunks:AsyncIterable<string>,delimiter=
    }else if(justClosed){
     if(c!==" "&&c!=="\r")throw Error("Unexpected character after closing quote");
    }else field+=c;
-   if(field.length>10000)throw Error("CSV field exceeds 10,000 characters");
+   if(field.length>maxFieldChars)throw Error("CSV field exceeds 10,000 characters");
    if(cells.length>maxColumns)throw Error("CSV column count exceeds "+maxColumns);
   }
  }
@@ -49,7 +51,7 @@ export async function* gzipCsvRows(file:File){
 }
 
 /** Stream Awin comma/tab delimited text, optionally gzip-compressed, without whole-file decompression. */
-export async function* awinDelimitedRows(file:File){
+export async function* awinDelimitedRows(file:File,maxFieldChars=10000){
  const lower=file.name.toLowerCase();
  if(!/\.(csv|tsv)(\.gz)?$/.test(lower))throw Error("Use CSV, TSV, CSV.GZ or TSV.GZ");
  const delimiter=lower.includes(".tsv")?"\t":",";
@@ -60,5 +62,5 @@ export async function* awinDelimitedRows(file:File){
   try{for(;;){const {done,value}=await reader.read();if(done)break;yield value;}}
   finally{reader.releaseLock();}
  }
- yield* csvRowsFromChunks(textChunks(),delimiter);
+ yield* csvRowsFromChunks(textChunks(),delimiter,120,maxFieldChars);
 }
