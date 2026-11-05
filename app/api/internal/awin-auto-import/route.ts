@@ -157,6 +157,7 @@ export async function POST(request:NextRequest){
   const code=message.startsWith("Unsupported feed format")?"unsupported_columns":
    message==="Incomplete quoted CSV field"?"unterminated_csv_quote":
    message==="Unexpected character after closing quote"?"invalid_csv_quote":
+   message==="CSV column count exceeds 120"?"csv_column_limit":
    message==="CSV field or row exceeds size limit"?"csv_field_or_column_limit":
    message==="CSV field exceeds 10,000 characters"?"csv_field_size_limit":
    message==="empty_feed"?"empty_feed":
