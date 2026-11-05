@@ -3,6 +3,7 @@ import {useRef,useState} from "react";
 import {joinedAwinAdvertisers} from "../../../lib/awin/joined-catalogue";
 import {awinDelimitedRows} from "../../../lib/feed-imports/stream-csv";
 import {identifyFormat,prepareGeneralBatch} from "../../../lib/feed-imports/general-awin-large";
+import {prepareTyresUkPrivateBatch} from "../../../lib/awin/tyres-uk-private-adapter";
 const ENDPOINT="/api/control-centre/general-feed-import",BATCH=250;
 type Progress={committed:number;next_sequence:number;status:string;run_id:string};
 type Diagnosis={format:string;headerCount:number;sampleCount:number;review:number;excluded:number;reasons:string[];fileKey:string};
@@ -35,7 +36,9 @@ export default function GeneralAwinImport(){
     }
    }finally{await iterator.return?.();}
    if(!headers||sample.length===0)throw Error("Feed has no sample product rows");
-   const converted=prepareGeneralBatch(merchant,feedId,headers,sample);
+   const converted=merchant==="12715"
+    ?prepareTyresUkPrivateBatch(merchant,feedId,headers,sample)
+    :prepareGeneralBatch(merchant,feedId,headers,sample);
    const reasons=[...new Set(converted.flatMap(x=>x.reasons))];
    setDiagnosis({format,headerCount:headers.length,sampleCount:sample.length,
     review:converted.filter(x=>x.status==="review").length,
@@ -106,6 +109,7 @@ export default function GeneralAwinImport(){
  }
  return <section style={{display:"grid",gap:15,background:"white",padding:"clamp(16px,3vw,26px)",border:"1px solid #e7dfe9",borderRadius:18,maxWidth:960}}>
   <h2 style={{margin:0,fontSize:26,letterSpacing:"-.035em"}}>Any joined Awin advertiser · large feed importer</h2>
+  {merchant==="12715"&&<p role="note" style={{margin:0,padding:12,borderRadius:10,background:"#f5f0ff",fontSize:13}}>Tyres UK requires exact feed ID <strong>93988</strong>. This privately stages GBP tyre candidates extracted from descriptions. Missing or conflicting fitment, accessories and invalid tracking are excluded. All tyre sizes and prices remain unverified for public publication.</p>}
   <p style={{margin:0,color:"#716979",lineHeight:1.65,fontSize:13}}>Supports standard Awin and Google-retail CSV layouts, including TSV, compressed or plain. Streams rows in 250-record batches and resumes by exact file fingerprint. Other retailer-specific/XML formats are deliberately rejected until an adapter is verified.</p>
   <label style={{display:"grid",gap:7}}><strong>Accepted Awin advertiser</strong>
    <select value={merchant} disabled={busy} required onChange={e=>{setMerchant(e.target.value);setRunId("");setDiagnosis(null);}} style={{minHeight:46,borderRadius:9,padding:10,border:"1px solid #d8cede"}}>
