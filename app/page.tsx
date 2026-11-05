@@ -90,10 +90,6 @@ async function HomeContent() {
 
     {moment ? <ChristmasHomeFeature moment={moment}/> : <StorefrontQuickLinks/>}
     <StorefrontHighlights items={products}/>
-    <HomeCampaignCarousel campaigns={campaigns}/>
-    <LifestyleExplorer/>
-    <ShoppingDepartmentShelf compact/>
-
     <section className={`shell ${styles.storySection}`} aria-labelledby="why-avuqo">
       <div className={styles.storyHeading}>
         <p className={styles.kicker}>More than a shopfront</p>
@@ -126,11 +122,15 @@ async function HomeContent() {
           <span className={styles.helpIcon}><Eye size={25}/></span>
           <p className={styles.kicker}>Stay curious</p>
           <h3>Keep an eye on what matters.</h3>
-          <p>Explore AVUQO Watches and the price-tracking tools available in your account.</p>
+          <p>Keep a Watch list of products you may want to revisit. Saved records do not mean automatic alerts are running.</p>
           <Link href="/watches">Explore Watches <ArrowRight size={17}/></Link>
         </article>
       </div>
     </section>
+
+    <HomeCampaignCarousel campaigns={campaigns}/>
+    <LifestyleExplorer/>
+    <ShoppingDepartmentShelf compact/>
 
     <section className={styles.editorialBand} aria-labelledby="reality-heading">
       <div className={`shell ${styles.editorialGrid}`}>
