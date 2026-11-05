@@ -1,5 +1,7 @@
 # AVUQO software changelog
 
+- **Unreleased visual review follow-up:** Streamline the home and Christmas storefronts, keep universal search visible on tablet and mobile, and capture responsive visual comparisons at four widths.
+
 - **Design fidelity and acceptance hardening (draft PR #93):** Match the warm reference with a compact light footer while retaining all site navigation, disclosures and privacy controls; verify 46 responsive views with header/heading landmarks, hero-height checks, broken-image warnings and an actual home-to-search interaction on desktop/mobile; change the Grocery hero to avoid unsupported all-supermarket coverage and best-price guarantees. The visual acceptance matrix now separates completed implementation from pending brand asset, approved data fixtures and human sign-off. No production promotion.
 
 - **Warm premium discovery and collection journey (draft PR #93, 5 Nov 2026):** Rework `/search` into a verified-product card gallery with clear zero-result states and photographic editorial department suggestions; rebuild `/discover` with image-led browsing and a Christmas promotion that appears only during the existing UK seasonal window (no permanent Black Friday homepage/discovery promotion); bring `/wishlist`, `/basket` and `/live` into the same premium design system. Reuse existing publication/image-rights gates and client-side account collection permissions. Fix the Saved JSX lint failure and remove unused experimental logo CSS. Unmerged, preview only; desktop/mobile visual acceptance and CI review still required.

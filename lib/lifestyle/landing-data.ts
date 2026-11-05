@@ -42,7 +42,7 @@ export const lifestylePages: Record<string,Landing> = {
     featureTitle:"The best trip works on every level.",featureCopy:"Look beyond the first advertised price to the complete journey and the experience you actually want.",featureImage:image("photo-1476514525535-07fb3b4ae5f1",900)
   },
   home: {
-    slug:"home",eyebrow:"Home & living",headline:"Home &",highlight:"Living.",accent:"#9c6746",
+    slug:"home",eyebrow:"Home & living",headline:"Home &",highlight:"Living",accent:"#9c6746",
     intro:"Create a more comfortable home with thoughtful furniture, practical appliances and everyday essentials. Explore ideas without losing sight of running costs and longevity.",
     hero:image("photo-1600210492486-724fe5c67fb0"),heroPosition:"center 55%",
     tiles:[
@@ -57,7 +57,7 @@ export const lifestylePages: Record<string,Landing> = {
     featureTitle:"Make room for better decisions.",featureCopy:"Smart home shopping starts with practical needs, comfort, space and total ownership costs.",featureImage:image("photo-1600566753190-17f0baa2a6c3",900)
   },
   tech: {
-    slug:"tech", eyebrow:"Electronics & technology", headline:"Electronics &", highlight:"Tech.", accent:"#6043a3",
+    slug:"tech", eyebrow:"Electronics & technology", headline:"Electronics &", highlight:"Tech", accent:"#6043a3",
     intro:"Useful devices for everyday life. Explore laptops, audio, gaming and smart-home ideas with clear guidance on compatibility, cost and long-term value.",
     hero:image("photo-1552939262-125eef3f2ddb"),heroPosition:"center 52%",
     tiles:[
@@ -108,7 +108,7 @@ export const lifestylePages: Record<string,Landing> = {
     featureTitle:"More play, more possibility.",featureCopy:"A great toy invites exploration and makes room for imagination.",featureImage:image("photo-1513364776144-60967b0f800f",900)
   },
   beauty: {
-    slug:"beauty",eyebrow:"Beauty & wellbeing",headline:"Beauty.",highlight:"With care.",accent:"#b36861",
+    slug:"beauty",eyebrow:"Beauty & wellbeing",headline:"Beauty",highlight:"",accent:"#b36861",
     intro:"Explore skincare, beauty tools and self-care ideas with clear thinking about ingredients, suitability and realistic value.",
     hero:image("photo-1596462502278-27bfdc403348"),
     tiles:[

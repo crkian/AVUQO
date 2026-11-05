@@ -11,7 +11,9 @@ const origin=process.env.VISUAL_BASE_URL??"http://127.0.0.1:3000";
 const out=process.env.VISUAL_OUTPUT_DIR??"artifacts/visual-review";
 const viewports=[
  {label:"desktop",width:1440,height:900},
+ {label:"tablet",width:768,height:1024},
  {label:"mobile",width:390,height:844},
+ {label:"narrow",width:320,height:740},
 ];
 const pages=[
  {slug:"homepage",url:"/"},
@@ -20,6 +22,8 @@ const pages=[
  {slug:"valentines",url:"/valentines"},
  {slug:"black-friday",url:"/black-friday"},
  {slug:"sales",url:"/sales"},
+ {slug:"live-deals",url:"/live"},
+ {slug:"compare",url:"/compare"},
  {slug:"technology",url:"/tech"},
  {slug:"home-living",url:"/home"},
  {slug:"beauty",url:"/beauty"},
@@ -42,7 +46,7 @@ const pages=[
 /* External source images may fail independently; record but don't present
    them as product evidence or mark product data as trusted by this smoke test. */
 await mkdir(out,{recursive:true});
-const browser=await chromium.launch({headless:true});
+const browser=await chromium.launch({headless:true,executablePath:process.env.VISUAL_CHROMIUM_PATH});
 const report=[];
 let failures=0;
 try{
@@ -112,7 +116,7 @@ try{
         entry.errors.push(`Hero outside editorial reference envelope: ${layout.heroHeight}px`);
       if(pageInfo.url==="/"&&layout.categoryLinks<3)
         entry.errors.push("Homepage department journeys are missing");
-      if(viewport.label==="mobile"&&pageInfo.url==="/"){
+      if(viewport.label!=="desktop"&&pageInfo.url==="/"){
         const button=page.locator("button.mobile-menu-toggle"); // Stable element: accessible label changes on toggle.
         if(await button.count()){
           await button.click();
@@ -131,22 +135,16 @@ try{
       await page.screenshot({path:path.join(out,`${pageInfo.slug}-${viewport.label}.png`),
         fullPage:true,animations:"disabled"});
       if(pageInfo.url==="/"){
-        // Desktop search is visible; mobile header search is intentionally hidden
-        // in favour of the mobile navigation. Verify the mobile route directly.
         try{
-          if(viewport.label==="desktop"){
-            const search=page.locator("form.header-search input[name=q]").first();
-            if(!await search.isVisible())throw new Error("Desktop search input not visible");
-            await search.fill("laptops");
-            await search.press("Enter");
-            await page.waitForURL(url=>url.pathname==="/search"&&url.searchParams.get("q")==="laptops",{timeout:12000});
-          }else{
-            await page.goto(origin+"/search?q=laptops",{waitUntil:"domcontentloaded",timeout:30000});
-          }
+          const search=page.locator("form.header-search input[name=q]").first();
+          if(!await search.isVisible())throw new Error("Header search input not visible");
+          await search.fill("laptops");
+          await search.press("Enter");
+          await page.waitForURL(url=>url.pathname==="/search"&&url.searchParams.get("q")==="laptops",{timeout:12000});
           const resultTitle=await page.locator("main h1").first().textContent({timeout:12000});
           if(!resultTitle?.toLowerCase().includes("laptops"))
             entry.errors.push("Search did not show the requested term");
-          else entry.searchNavigation=viewport.label==="desktop"?"form submit passed":"mobile search route passed";
+          else entry.searchNavigation="Header form submit passed";
         }catch(error){
           entry.errors.push("Search journey failed: "+(error instanceof Error?error.message.slice(0,150):String(error)));
         }
@@ -202,7 +200,7 @@ const compareCards=referenceMap.map(([slug,reference,notes])=>`
       <figure><figcaption>Approved design reference</figcaption><div class="image-area"><img loading="lazy" src="reference/${reference}" alt="Reference design for ${slug}"></div></figure>
       <figure><figcaption>Rendered desktop (1440px)</figcaption><div class="image-area"><img loading="lazy" src="${slug}-desktop.png" alt="Rendered desktop for ${slug}"></div></figure>
     </div>
-    <details><summary>View mobile screenshot (390px)</summary><img class="mobile" loading="lazy" src="${slug}-mobile.png" alt="Rendered mobile for ${slug}"></details>
+    ${viewports.slice(1).map(({label,width})=>`<details><summary>View ${label} screenshot (${width}px)</summary><img class="mobile" loading="lazy" src="${slug}-${label}.png" alt="Rendered ${label} for ${slug}"></details>`).join("")}
   </section>`).join("\n");
 
 const compareHtml=`<!doctype html><html lang="en"><head><meta charset="utf-8">

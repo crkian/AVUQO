@@ -275,3 +275,51 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 @media(max-width:1000px){.header .avuqo-header-layout>.avuqo-identity{min-width:0}}
 @media(max-width:420px){.header .avuqo-identity-image{width:145px;height:38px}}
 @media(max-width:350px){.header .avuqo-identity-image{width:128px;height:34px}}
+
+/* Keep search alongside the compact navigation instead of burying it in the dock. */
+@media (max-width: 1000px) {
+  html {
+    scroll-padding-top: 132px;
+  }
+
+  .header .avuqo-header-layout {
+    display: grid;
+    height: auto;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-rows: 54px auto;
+    gap: 0 8px;
+    padding: 2px 0 8px;
+  }
+
+  .header .avuqo-header-layout > .logo,
+  .header .avuqo-header-layout > .header-actions,
+  .header .avuqo-header-layout > .mobile-menu-toggle {
+    grid-row: 1;
+  }
+
+  .header .avuqo-header-layout > .header-actions {
+    grid-column: 2;
+  }
+
+  .header .avuqo-header-layout > .mobile-menu-toggle {
+    grid-column: 3;
+  }
+
+  .header .avuqo-header-layout > .header-search {
+    display: flex;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-self: center;
+    border-radius: 999px;
+    padding-block: 0;
+  }
+
+  .header .avuqo-header-layout > .header-search button {
+    min-height: 44px;
+    border-radius: 999px;
+  }
+
+  .header .avuqo-header-layout > .primary-nav {
+    max-height: calc(100dvh - 125px);
+  }
+}

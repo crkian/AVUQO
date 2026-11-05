@@ -1,10 +1,10 @@
 import Link from "next/link";
 import type {Metadata} from "next";
-import {ArrowRight,Compass,Search,ShieldCheck} from "lucide-react";
+import {ArrowRight,ShieldCheck} from "lucide-react";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import {lifestyleOrder,lifestylePages} from "../../lib/lifestyle/landing-data";
-import {storyFor,storySearchHref} from "../../lib/lifestyle/category-story";
+import {storyFor} from "../../lib/lifestyle/category-story";
 import styles from "./page.module.css";
 import DepartmentExplorer from "../../components/categories/DepartmentExplorer";
 import ShoppingDepartmentShelf from "../../components/shopping/ShoppingDepartmentShelf";
@@ -27,16 +27,8 @@ export default function CategoriesPage(){return <main className={styles.page}>
  <Header/>
  <section className={styles.hero}>
   <div className="shell">
-   <p className={styles.eyebrow}><Compass size={16}/> The AVUQO category atlas</p>
-   <h1>Every interest deserves <em>its own world.</em></h1>
-   <p>From useful technology to thoughtful gifts and life&apos;s bigger adventures, explore destinations with their own personality, questions and buying guidance.</p>
-   <form className={styles.search} action="/search" method="get" role="search">
-    <Search size={20}/><input name="q" maxLength={120} aria-label="Search AVUQO" placeholder="What would you like to discover?" required/><button>Search <ArrowRight size={16}/></button>
-   </form>
-   <nav aria-label="Search inspiration" className={styles.searchIdeas}><span>Try</span>
-    {["mechanical keyboard","storage ideas","creative gifts","skincare"].map(q=>
-     <Link href={storySearchHref(q)} key={q}>{q}</Link>)}
-   </nav>
+   <h1>All Categories</h1>
+   <p>Browse departments and find buying guides, comparisons and shopping ideas.</p>
   </div>
  </section>
  <section className={"shell "+styles.directorySection} aria-label="Full department browser"><DepartmentExplorer/></section>

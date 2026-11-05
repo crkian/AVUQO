@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Gift, Heart, ShoppingBag, Sparkles, Truck, House, Utensils, Gamepad2, Shirt, Plane, Users, Bookmark } from "lucide-react";
+import { ArrowRight, Gift, Heart, ShoppingBag, Sparkles, Truck, ShieldCheck, House, Utensils, Gamepad2, Shirt, Plane, Users, Bookmark } from "lucide-react";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import GiftFinder from "./GiftFinder";
@@ -47,7 +47,7 @@ export default function ChristmasPage() {
         <p className={styles.eyebrow}><Sparkles size={16} /> Thoughtful festive planning</p>
         <h1>Christmas at <span>AVUQO</span></h1>
         <p>Thoughtful gifting, festive home inspiration and useful planning, all in one place. Find what’s worth it this Christmas, without the pressure of an invented bargain.</p>
-        <div className={styles.heroActions}><Link className={styles.primary} href="#gift-ideas">Explore gift ideas <ArrowRight size={17}/></Link><Link className={styles.secondary} href="/lists">Plan a gift list</Link></div>
+        <div className={styles.heroActions}><Link className={styles.primary} href="#gift-finder-heading">Find gift ideas <ArrowRight size={17}/></Link><Link className={styles.secondary} href="/lists">Plan a gift list</Link></div>
         </div>
 
       </div>
@@ -60,7 +60,7 @@ export default function ChristmasPage() {
     </nav>
     <section className={`shell ${styles.discoverySection}`} aria-label="Christmas inspiration and planning">
       <article className={styles.discoveryEditorial}>
-        <div className={styles.discoveryHeading}><p className="kicker">Christmas discovery</p><h2>A season to remember.</h2><p>Thoughtful gifts, welcoming spaces and the little things that bring people together.</p></div>
+        <div className={styles.discoveryHeading}><h2>Christmas discovery</h2><p>Thoughtful gifts, welcoming spaces and the little things that bring people together.</p></div>
         <div className={styles.discoveryStories}>
           {festiveStories.map(item=><Link href={item.href} key={item.href} className={styles.discoveryStory} style={{backgroundImage:`linear-gradient(0deg,rgba(32,20,29,.75),transparent 72%),url("${item.image}")`}}>
             <strong>{item.title}</strong><span>{item.copy} <ArrowRight size={15}/></span>
@@ -68,7 +68,7 @@ export default function ChristmasPage() {
         </div>
       </article>
       <article className={styles.discoveryPlanning}>
-        <div className={styles.discoveryHeading}><p className="kicker">Plan Christmas smarter</p><h2>Make room for more joy.</h2><p>Useful shopping tools, without the rush.</p></div>
+        <div className={styles.discoveryHeading}><h2>Plan Christmas smarter</h2><p>Useful shopping tools, without the rush.</p></div>
         <div className={styles.planningLinks}>
           <Link href="/groceries"><Utensils size={26}/><strong>Groceries</strong><span>Plan your seasonal shop</span></Link>
           <Link href="/lists"><Users size={26}/><strong>Shared lists</strong><span>Get gift ideas together</span></Link>
@@ -80,23 +80,25 @@ export default function ChristmasPage() {
     <Suspense fallback={<section className="shell section">Checking approved festive finds…</section>}>
       <ChristmasFestiveFinds/>
     </Suspense>
-    <section className="shell section" id="gift-ideas">
+    <section className={`shell ${styles.confidenceStrip}`} aria-label="Christmas shopping guidance">
+      <div className={styles.confidenceIntro}><ShieldCheck size={25} aria-hidden="true"/><strong>Shop with confidence this Christmas</strong></div>
+      <div className={styles.confidencePoint}><Truck size={23} aria-hidden="true"/><span><strong>Check delivery dates</strong><small>Confirm stock and delivery deadlines.</small></span></div>
+      <div className={styles.confidencePoint}><ShoppingBag size={23} aria-hidden="true"/><span><strong>Know the total cost</strong><small>Include delivery, fees and minimum spend.</small></span></div>
+      <div className={styles.confidencePoint}><Heart size={23} aria-hidden="true"/><span><strong>Buy for the person</strong><small>Use a gift list to stay focused.</small></span></div>
+    </section>
+    <section className={`shell ${styles.supportingSection}`} id="gift-ideas">
       <div className="section-title"><div><p className="kicker">Find your starting point</p><h2>Gifts for every budget.</h2><p>Browse ideas, then check current prices, availability and delivery charges with the retailer.</p></div></div>
       <div className={styles.grid}>{giftBudgets.map(item => <Link href={`/search?q=${encodeURIComponent(item.q)}`} className={styles.tile} key={item.label}><div className={styles.tilePhoto} style={{backgroundImage:`url("${item.image}")`}} aria-hidden="true"/><div className={styles.tileCopy}><Gift size={22}/><h3>{item.label}</h3><p>{item.detail}</p><span>Explore <ArrowRight size={15}/></span></div></Link>)}</div>
     </section>
     <GiftFinder />
-    <section className="shell section">
+    <section className={`shell ${styles.supportingSection}`}>
       <div className={styles.spotlight}>
         <div><p className="kicker">Crafts & creative gifting</p><h2>Make something worth keeping.</h2><p>Explore crystal art, painting kits and hands-on creative gifts. AVUQO has an approved affiliate partnership with Craft Buddy Shop. Its product feed is being checked before individual items are published here.</p><Link className={styles.primary} href="/search?q=craft%20kits">Explore craft ideas <ArrowRight size={17}/></Link></div>
         <div className={styles.decoration} aria-hidden="true" />
       </div>
     </section>
     <Suspense fallback={<section className="shell section">Checking published Christmas offers…</section>}><PublishedChristmasCrafts /></Suspense>
-    <section className="shell section">
-      <div className="section-title"><div><p className="kicker">Shop with your eyes open</p><h2>What makes a festive deal worthwhile?</h2></div></div>
-      <div className={styles.grid3}><article><ShoppingBag size={24}/><h3>Check the full price</h3><p>Account for delivery, fees and any minimum spend before comparing offers.</p></article><article><Truck size={24}/><h3>Check delivery dates</h3><p>Confirm stock, dispatch and final delivery deadlines with the retailer.</p></article><article><Heart size={24}/><h3>Buy for the person</h3><p>Use a gift list to stay focused on what the recipient actually wants.</p></article></div>
-    </section>
-    <section className="shell section"><div className={styles.notice}><strong>Our transparency promise</strong><p>This is an editorial shopping guide, not a live multi-retailer Christmas price comparison. Product prices and stock are not shown until source data has been checked and approved for publication. AVUQO may earn commission from eligible affiliate links, but commission does not control organic rankings.</p></div></section>
+    <section className={`shell ${styles.supportingSection}`}><div className={styles.notice}><strong>Our transparency promise</strong><p>This is an editorial shopping guide, not a live multi-retailer Christmas price comparison. Product prices and stock are not shown until source data has been checked and approved for publication. AVUQO may earn commission from eligible affiliate links, but commission does not control organic rankings.</p></div></section>
     <Footer />
   </main>;
 }

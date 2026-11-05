@@ -1,5 +1,5 @@
 import Link from "next/link";
-import {ArrowRight, Bell, Bookmark, CheckCircle2, ListChecks, Package, Scale, ShoppingBasket, ShieldCheck} from "lucide-react";
+import {ArrowRight, Bell, Bookmark, CheckCircle2, ListChecks, Package, Plane, Scale, ShoppingBasket, ShieldCheck} from "lucide-react";
 import type {PublicOffer,PublicProduct} from "../../lib/products/public-catalog";
 import styles from "./HomeShoppingDashboard.module.css";
 export type DashboardEntry={product:PublicProduct;offers:PublicOffer[]};
@@ -8,7 +8,9 @@ const tools=[
  {href:"/watches",title:"Watches",desc:"Products to revisit",icon:Bell},
  {href:"/saved",title:"Saved items",desc:"Your favourite finds",icon:Bookmark},
  {href:"/lists",title:"Shared lists",desc:"Plan with others",icon:ListChecks},
- {href:"/reality-check",title:"Value insights",desc:"Think before buying",icon:Scale},
+ {href:"/compare",title:"Compare contracts",desc:"Check the total cost",icon:Scale},
+ {href:"/travel",title:"Travel",desc:"Plan your next trip",icon:Plane},
+ {href:"/reality-check",title:"Value insights",desc:"Think before buying",icon:ShieldCheck},
 ] as const;
 
 export default function HomeShoppingDashboard({items}:{items:DashboardEntry[]}){

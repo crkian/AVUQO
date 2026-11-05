@@ -139,7 +139,7 @@
 .page .hero:not(.christmasHero){padding:clamp(55px,6vw,85px) 0;background:
  radial-gradient(circle at 93% 5%,#f2dce9 0%,transparent 32%),
  radial-gradient(circle at 5% 95%,#f8ead8 0%,transparent 35%),#faf8f3}
-.page .hero:not(.christmasHero) .heroCopy h1{font-size:clamp(50px,6.1vw,79px);max-width:670px}
+.page .hero:not(.christmasHero, .storefrontHero) .heroCopy h1{font-size:clamp(50px,6.1vw,79px);max-width:670px}
 .page .hero:not(.christmasHero) .heroArt{min-height:425px;border-radius:130px 130px 30px 30px}
 .page .hero:not(.christmasHero) .heroCard{border-radius:20px;box-shadow:0 18px 42px #30263915}
 .reassuranceInner{min-height:70px;justify-content:center;gap:clamp(15px,4vw,70px);padding:14px 0}
@@ -253,7 +253,7 @@
 .storefrontHero .heroGrid{grid-template-columns:minmax(0,1.22fr) minmax(310px,.78fr);align-items:center;gap:clamp(22px,4vw,60px)}
 .storefrontHero .heroCopy{padding:5px 0}
 .storefrontHero .eyebrow{font-size:10px;margin-bottom:9px;color:#7a4d92}
-.storefrontHero .heroCopy h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(50px,5.5vw,79px);line-height:1;letter-spacing:-.055em;margin:0 0 15px;max-width:760px}
+.storefrontHero .heroCopy h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(49px,4.9vw,70px);line-height:1;letter-spacing:-.055em;margin:0 0 15px;max-width:760px}
 .storefrontHero .heroCopy h1 em{color:#6b18c3}
 .storefrontHero .heroText{max-width:530px;font-size:clamp(15px,1.45vw,18px);line-height:1.42;color:#2c2835;font-weight:500}
 .storefrontHeroActions{margin-top:18px;gap:10px}
@@ -313,3 +313,24 @@
    three-column worktop. The prior 100% width rule pushed the headline to x=0. */
 .storefrontHero .heroGrid{width:min(1368px,calc(100% - 56px));margin-inline:auto}
 @media(max-width:600px){.storefrontHero .heroGrid{width:calc(100% - 28px)}}
+
+.page .hero.storefrontHero {
+  background-image: linear-gradient(90deg, #fbf7f2 0%, #fbf7f2ed 30%, #fbf7f253 57%, transparent 78%), var(--storefront-photo);
+}
+
+@media (max-width: 700px) {
+  .page .hero.storefrontHero {
+    background-image: linear-gradient(0deg, #fbf7f2 0%, #fbf7f2 46%, #fbf7f2a8 69%, transparent 100%), var(--storefront-photo);
+    background-position: center, 64% top;
+  }
+
+  .storefrontPrimary,
+  .storefrontSecondary,
+  .seasonalNudge {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 450px) {
+  .storefrontHero .heroGrid { gap: 0; }
+}

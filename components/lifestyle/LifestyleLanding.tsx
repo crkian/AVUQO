@@ -39,7 +39,7 @@ export default function LifestyleLanding({config,afterTrust}: {config:Landing;af
       <div className={`shell ${styles.heroInner}`}>
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}><Sparkles size={15}/>{story?.identity??config.eyebrow}</p>
-          <h1 id="lifestyle-title">{config.headline}<span>{config.highlight}</span></h1>
+          <h1 id="lifestyle-title">{config.headline}{config.highlight && <>{" "}<span>{config.highlight}</span></>}</h1>
           {story&&<p className={styles.categoryPromise}>{story.strapline}</p>}
           <p>{config.intro}</p>
           <div className={styles.heroActions}>
