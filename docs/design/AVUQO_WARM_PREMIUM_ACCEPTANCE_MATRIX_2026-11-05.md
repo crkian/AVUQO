@@ -44,3 +44,17 @@
 Do not promote or merge until: (a) latest PR build and lint both pass, (b) desktop/mobile screenshot artifacts have been reviewed against the design pack, (c) actual logo asset is approved, (d) signed-in and product-driven screens have real-fixture acceptance, (e) owner explicitly accepts remaining differences, and (f) no mock data is presented as commerce evidence.
 
 **The implementation is not production deployed or user-accepted by virtue of passing CI.**
+
+## Image-by-image visual acceptance workflow
+
+Visual-review CI now checks out `design/warm-premium-visual-system-20261105` **read-only after the build** and includes the 17 approved design PNGs beside new render captures in the GitHub artifact. Open `compare.html` from that ZIP to review the 1440px design and rendered page side by side, then expand the 390px mobile capture. The reference images never enter the public application build, and the design-branch source is not executed.
+
+Apply these review rules to each page:
+- Compare the **first desktop viewport**: header height, hero photo crop and contrast, headline scale, button group, category-row count and spacing, card hierarchy, and page flow.
+- Compare mobile at **390px**: accessible hamburger, correct vertical stacking, no horizontal overflow, tappable navigation, readable prices and non-overlapping fixed elements.
+- An illustrative mockup product **must not** be copied into a public verified-offer card without a current, independently approved offer and image rights.
+- Mockup account counts, score gauges, charts, retailer logos and festive sale badges are **composition examples**, not acceptable test fixtures for production.
+- Dynamic product and authenticated user detail screens still require **reviewed non-production fixtures** and owner acceptance before they can be called faithful to the reference.
+- If the exact original AVUQO logo asset is unavailable, keep existing branding and mark brand fidelity **blocked**, not complete.
+
+The generated comparison is **not** a pixel-match assertion. The accepted outcome is a visually faithful real implementation, with honest substitutions where the reference includes unverified or fictional claims.
