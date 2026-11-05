@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type {CSSProperties} from "react";
-import {ArrowRight, Bookmark, CalendarDays, CheckCircle2, Gift, Heart, House, Laptop, ListChecks, Plane, Scale, ShieldCheck, ShoppingBasket, Sparkles, Shirt} from "lucide-react";
+import {ArrowRight, Bookmark, CalendarDays, CheckCircle2, Gift, House, Laptop, ListChecks, Plane, Scale, ShieldCheck, ShoppingBasket, Sparkles, Shirt} from "lucide-react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import {seasonal,type Season} from "../../lib/editorial/seasonal";
@@ -91,7 +91,7 @@ export default function SeasonalLanding({kind}:{kind:Season}){
         </Link>)}</div>
     </article>
     <article className={styles.planning}>
-      <p className={styles.kicker}>Plan ${name} smarter</p>
+      <p className={styles.kicker}>Plan {name} smarter</p>
       <h2>Make room for the good things.</h2>
       <p>Helpful tools to choose carefully, keep your list organised and avoid spending just because a season has a name.</p>
       <div className={styles.plannerGrid}>{planner.map(({href,label,summary,icon:Icon})=><Link href={href} key={href}>
