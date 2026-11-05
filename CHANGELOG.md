@@ -1,5 +1,7 @@
 # AVUQO software changelog
 
+- **Warm premium design refinement (draft PR #93):** Align shared header with the visual reference using an original AVUQO gradient A mark, icon-led first-row navigation and second-row desktop search; refine photographic Christmas and department cards; add eight Electronics & Tech categories and split-image shopping stories; reorganise My AVUQO into a welcome banner, genuine account overview and left navigation without invented counts; add a data-supported product evidence sidebar in place of synthetic scores and price charts. Reference mockups remain artistic guidance, not a source of publishable offers or brand statistics.
+
 - **Unreleased warm premium customer UI (draft only):** Adopt cream/violet shared styling; refine header and category menus, Christmas page, category landings, product details, groceries, campaign carousel and the My AVUQO profile layout. The homepage uses a UK date-aware Christmas-only editorial build-up (15 October to 26 December) with an evergreen fallback; Easter and Valentine’s pages are built but not featured or scheduled. No merchant offer, data approval, automatic notification, production deployment or completed browser acceptance is implied.
 
 
