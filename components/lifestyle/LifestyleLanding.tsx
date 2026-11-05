@@ -42,6 +42,12 @@ export default function LifestyleLanding({config,afterTrust}: {config:Landing;af
         </div>
       </div>
     </section>
+    <nav className={`shell ${styles.quickCategories}`} aria-label={`Explore ${config.slug} topics`}>
+      {config.tiles.map(tile=><Link href={`/search?q=${encodeURIComponent(tile.search)}`} key={tile.title} className={styles.quickCategory}>
+        <span className={styles.quickPhoto} style={photo(tile.image)} aria-hidden="true"/>
+        <span>{tile.title}</span>
+      </Link>)}
+    </nav>
     <div className={styles.trustWrap}>
       <div className={`shell ${styles.trustBar}`}>
         <div><ShieldCheck size={22}/><span><strong>Trust-first discovery</strong><small>Source quality matters</small></span></div>
