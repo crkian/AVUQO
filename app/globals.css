@@ -178,10 +178,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
  .avuqo-header-layout .header-actions .auth-menu{gap:5px}
 }
 
-/* VISUAL_REFERENCE_2026_11_05: approved mockups use clear modern display lettering,
+/* VISUAL_REFERENCE_2026_11_05: approved mockups pair expressive serif headlines with crisp sans-serif UI,
    warm paper backgrounds and confident violet actions. Branding remains unchanged. */
 :root {
- --avuqo-display-font:"Avenir Next","Segoe UI",Arial,Helvetica,sans-serif;
+ --avuqo-display-font:Georgia,"Times New Roman",serif;
+ --avuqo-interface-font:"Avenir Next","Segoe UI",Arial,Helvetica,sans-serif;
  --avuqo-reference-ink:#18122d;
  --avuqo-reference-plum:#54258e;
  --avuqo-reference-violet:#7220cf;
