@@ -33,14 +33,14 @@
 
 /* Mockup-aligned browse stories: warm split photo cards rather than abstract motifs. */
 .wrap{padding:35px 0 38px;background:#faf8f3;border-color:#e9e0dc}
-.heading h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.038em}
+.heading h2{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);letter-spacing:-.038em}
 .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .card{display:flex;flex-direction:row;align-items:stretch;min-height:203px;border-radius:22px;border-color:#e9e0dc;background:#fffaf7;box-shadow:0 8px 24px rgba(45,31,54,.045)}
 .visual{order:2;width:45%;min-height:203px;height:auto;background-color:#eaddd4;background-size:cover;background-position:center}
 .visual>span{padding:7px 9px;background:#fffdf9e6;border-radius:999px;top:11px;left:11px}
 .visual>b{display:none}
 .copy{order:1;width:55%;padding:19px 15px;gap:7px}
-.copy h3{font-family:Georgia,"Times New Roman",serif;font-size:22px;letter-spacing:-.025em}
+.copy h3{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:22px;letter-spacing:-.025em}
 .copy p{font-size:12px}
 .action{margin-top:auto;padding-top:10px}
 .searchRow{background:linear-gradient(115deg,#f6eaf4,#fffaf7);border-color:#e7dce6}
