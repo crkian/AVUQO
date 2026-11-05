@@ -69,7 +69,7 @@
 .page{background:var(--avuqo-canvas,#faf8f3)}
 .hero{background:radial-gradient(circle at 18% 8%,#fffaf6 0%,transparent 48%),#f7f3ec;padding-top:clamp(40px,5vw,76px)}
 .heroCopy h1,.storyHeading h2,.editorialCopy h2,.seasonHeading h2{
-  font-family:Georgia,"Times New Roman",serif;font-weight:700;letter-spacing:-.045em
+  font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-weight:700;letter-spacing:-.045em
 }
 .heroCopy h1{color:#302639;line-height:1.055;max-width:730px}
 .heroText{color:#625b63;max-width:560px}
@@ -82,7 +82,7 @@
 .reassurance{background:#fffdf9}
 .helpCard{border-color:#e9e1db;box-shadow:var(--avuqo-shadow,0 10px 32px #30263912);transition:transform .18s ease,box-shadow .18s ease}
 .helpCard:hover{transform:translateY(-3px);box-shadow:0 17px 44px rgba(45,31,54,.11)}
-.helpCard h3{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.025em}
+.helpCard h3{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);letter-spacing:-.025em}
 .editorialBand{background:#f0e9e1}
 .editorialImage{border-radius:32px}
 .seasonSection{padding-bottom:clamp(80px,9vw,125px)}
@@ -90,7 +90,7 @@
 .seasonCard{min-height:300px;border-radius:28px;box-shadow:0 10px 28px rgba(45,31,54,.055);border:1px solid #eaded9;transition:transform .18s ease,box-shadow .18s ease}
 .seasonCard:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(45,31,54,.1)}
 .seasonCard:focus-visible{outline-offset:4px}
-.seasonCard h3{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.025em}
+.seasonCard h3{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);letter-spacing:-.025em}
 .seasonCard img{width:29%}
 .blackFridayCard{background:linear-gradient(130deg,#efe5f0,#dcd1e3);color:#3f2b4f}
 .salesCard{background:linear-gradient(135deg,#fff0df,#f2d9c6);color:#7f4b35}
@@ -175,7 +175,7 @@
 }
 .storefrontHero .heroGrid{width:100%;grid-template-columns:minmax(0,1.2fr) minmax(300px,.75fr);gap:clamp(30px,5vw,90px)}
 .storefrontHero .heroCopy{padding:0}
-.storefrontHero .heroCopy h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(48px,5.4vw,77px);letter-spacing:-.047em;line-height:1.06;max-width:695px;margin:0 0 18px}
+.storefrontHero .heroCopy h1{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:clamp(48px,5.4vw,77px);letter-spacing:-.047em;line-height:1.06;max-width:695px;margin:0 0 18px}
 .storefrontHero .heroCopy h1 em{font-style:normal;color:#672ed8}
 .storefrontHero .eyebrow{color:#7f5496;font-size:11px;margin-bottom:11px}
 .storefrontHero .heroText{color:#3e3641;max-width:600px;font-size:clamp(15px,1.5vw,18px);line-height:1.65}
@@ -188,7 +188,7 @@
 .storefrontSecondary{background:#fffefa;border:1px solid #9459bd;color:#50366c}
 .storefrontSecondary:hover{background:#f5eef9}
 .heroIntelligence{width:min(100%,340px);padding:clamp(18px,2.2vw,26px);border:1px solid #ebdedb;border-radius:24px;background:rgba(255,253,249,.96);box-shadow:0 20px 50px rgba(48,29,50,.14);backdrop-filter:blur(11px)}
-.heroIntelligence h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(21px,2.2vw,28px);letter-spacing:-.032em;line-height:1.14;margin:0 0 16px;color:#302639}
+.heroIntelligence h2{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:clamp(21px,2.2vw,28px);letter-spacing:-.032em;line-height:1.14;margin:0 0 16px;color:#302639}
 .heroIntelligenceInner{display:grid;grid-template-columns:92px 1fr;gap:13px;align-items:center}
 .intelligenceRing{width:94px;height:94px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:7px solid #42b86f;border-top-color:#cc52e0;border-left-color:#7b34d3;border-radius:50%;background:#fff;color:#57349a;gap:3px}
 .intelligenceRing small{font-size:10px;font-weight:900;text-align:center;line-height:1.08}
