@@ -47,3 +47,29 @@
 
 .directorySection{padding-top:65px;padding-bottom:15px}
 @media(max-width:680px){.directorySection{padding-top:30px}}
+
+/* Warm premium v1 category atlas */
+.page{background:#faf8f3;color:#302639}
+.hero{
+  background:radial-gradient(circle at 85% 30%,rgba(230,208,224,.57),transparent 33%),
+    radial-gradient(circle at 19% 86%,rgba(241,220,191,.55),transparent 35%),
+    linear-gradient(120deg,#fbf7f0,#f7f1ed);
+  padding:clamp(58px,7vw,100px) 0
+}
+.hero h1,.heading h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.047em}
+.hero h1 em{color:#79528c}
+.hero>div>p:not(.eyebrow){color:#695f65;font-size:17px;line-height:1.75}
+.search{border-color:#e9e0dc;border-radius:23px;box-shadow:0 16px 42px rgba(45,31,54,.075)}
+.search button{background:#6043a3;border-radius:15px}
+.search button:hover{background:#3a20bd}
+.searchIdeas>a{background:#fffaf8;border-color:#e8dedb}
+.directorySection{padding-top:clamp(42px,6vw,76px)}
+.card{border-color:#e9e0dc;border-radius:27px;box-shadow:0 12px 32px rgba(45,31,54,.05)}
+.card:hover{box-shadow:0 20px 43px rgba(45,31,54,.105)}
+.photo{height:220px;background-color:#f0e4df}
+.cardCopy{padding:24px 25px 27px}
+.cardCopy h3{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.023em;font-size:25px}
+.more{background:#f3eee8}
+.moreCard{border-color:#e9e0dc;border-radius:24px;box-shadow:0 8px 24px rgba(45,31,54,.035)}
+@media(max-width:650px){.photo{height:170px}.cardCopy{padding:17px}.cardCopy h3{font-size:21px}}
+@media(max-width:450px){.photo{height:auto}}
