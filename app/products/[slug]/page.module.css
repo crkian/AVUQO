@@ -88,3 +88,63 @@
 @media(max-width:1150px){.productPage .heroGrid{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr)}.evidenceSidebar{grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr))}.productPage .art{min-height:360px}.productPage .copy h1{font-size:clamp(30px,4vw,48px)}}
 @media(max-width:750px){.productPage .heroGrid{grid-template-columns:1fr}.productPage .art{min-height:300px}.evidenceSidebar{grid-column:auto}.productPage .copy h1{font-size:clamp(33px,8vw,51px)}}
 @media(max-width:510px){.evidenceSidebar{grid-template-columns:1fr}.productPage .art{min-height:275px}.productPage .hero{padding:25px 0 45px}}
+
+/* Product detail blueprint, final storefront composition:
+   breadcrumb -> three-part hero -> evidence-backed retailer/pricing row -> buying guidance. */
+.productPage{background:#faf8f3;color:#302639}
+.productPage .hero{padding:clamp(19px,3vw,35px) 0 clamp(28px,4vw,51px);background:#fcf8f4}
+.breadcrumb{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:23px;font-size:12px;line-height:1.5;color:#746a75}
+.breadcrumb a{font-weight:750;color:#6743a0}
+.breadcrumb span:last-child{overflow-wrap:anywhere;max-width:390px}
+.productPage .heroGrid{grid-template-columns:minmax(0,1fr) minmax(0,1.04fr) minmax(230px,.75fr);gap:clamp(16px,2.1vw,29px);align-items:start}
+.productPage .art{min-height:400px;border-radius:23px;background:linear-gradient(145deg,#fffdfa,#f9f2ed);border-color:#eadfe0}
+.productPage .art img{max-height:370px;max-width:93%;object-fit:contain}
+.productPage .placeholder{display:grid;place-items:center;gap:10px;text-align:center;color:#ab8eba;padding:30px}
+.productPage .placeholder small{font-size:12px;color:#766e78}
+.productPage .copy h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(31px,3vw,46px);letter-spacing:-.045em;line-height:1.07;margin-top:8px}
+.productPage .intro{line-height:1.65;font-size:15px}
+.productPage .topPrice{padding:18px;border-radius:19px}
+.evidenceSidebar{gap:11px}
+.evidenceCard{border-radius:19px;padding:18px}
+.evidenceCard h2{font-size:23px;margin-bottom:14px}
+.evidenceCard h3{font-family:Georgia,"Times New Roman",serif;font-size:19px;line-height:1.19;letter-spacing:-.025em;margin:18px 0 12px}
+.scoreDisplay{display:flex;align-items:center;gap:12px;margin:7px 0}
+.scoreRing{height:92px;width:92px;flex:none;border:7px solid #41ae76;border-left-color:#5a38bb;border-top-color:#d04ac7;display:grid;place-items:center;border-radius:50%;background:#fff}
+.scoreRing strong{font-size:29px;letter-spacing:-.045em;color:#302639}
+.scoreDisplay>span{display:grid;gap:6px;font-size:12px;font-weight:800;line-height:1.4}
+.scoreDisplay small{font-size:10px;font-weight:500;color:#756b78;line-height:1.45}
+.scorePending{padding:17px;border-radius:14px;background:#f5f0ed;border:1px solid #e9e0dc;font-size:13px;color:#716673}
+.productTabs{background:#fffdf9;border-top:1px solid #eee2dc;border-bottom:1px solid #eee2dc}
+.productTabs>div{display:flex;align-items:center;gap:8px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+.productTabs a{min-width:max-content;display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:9px 21px;border-radius:999px;border:1px solid #e9e0dc;background:#fff;color:#554761;font-size:13px;font-weight:850}
+.productTabs a:first-child{background:#6043a3;color:#fff;border-color:#6043a3}
+.productTabs a:hover{border-color:#a580ce}
+.comparisonSection{padding:clamp(34px,5vw,60px) 0;scroll-margin-top:15px}
+.comparisonGrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.comparisonCard{min-width:0;padding:clamp(20px,2.8vw,33px);border:1px solid #e9e0dc;border-radius:26px;background:#fffdf9;box-shadow:0 10px 29px #3026390d}
+.comparisonHeading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.comparisonHeading h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(26px,3vw,36px);letter-spacing:-.041em;margin:0}
+.comparisonHeading>span{display:inline-flex;align-items:center;justify-content:center;padding:7px 11px;border-radius:999px;background:#e9f5ef;color:#087b5b;font-size:11px;font-weight:850;white-space:nowrap}
+.comparisonIntro{font-size:12px;color:#736a75;line-height:1.6;margin:0 0 16px}
+.priceRows{display:grid}
+.priceRow{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:14px;min-height:71px;border-top:1px solid #eee7e5;padding:10px 0}
+.priceRow>div{display:grid;gap:5px}
+.priceRow strong{font-size:14px;overflow-wrap:anywhere}
+.priceRow small{font-size:10px;color:#817480;line-height:1.35}
+.priceAmount{text-align:right}
+.priceAmount b{font-size:17px;color:#302639}
+.priceRow>a{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:9px 13px;border-radius:999px;border:1px solid #aa80dc;background:#fff;color:#6535b4;font-size:11px;font-weight:850;white-space:nowrap}
+.priceRow>a:hover{background:#f5edfa}
+.comparisonDisclaimer{font-size:11px;color:#786f7a;line-height:1.5;margin:17px 0 0}
+.historyEmpty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;min-height:240px;border-radius:19px;background:linear-gradient(145deg,#f8f0f8,#f8f3ed);text-align:center;padding:26px}
+.historyEmpty svg{color:#8053bb}
+.historyEmpty strong{font-family:Georgia,"Times New Roman",serif;font-size:21px;letter-spacing:-.025em}
+.historyEmpty p{max-width:380px;color:#706575;line-height:1.6;font-size:12px;margin:0}
+.historyTip{display:flex;align-items:start;gap:10px;margin-top:16px;border-top:1px solid #eee3e6;padding-top:17px}
+.historyTip svg{color:#087b5b;flex:none}
+.historyTip p{color:#6f6572;line-height:1.55;font-size:11px;margin:0}
+.productPage .templateSection{padding-top:clamp(28px,4vw,51px)}
+.productPage .section{padding-top:clamp(40px,5vw,68px)}
+@media(max-width:1150px){.productPage .heroGrid{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr)}.evidenceSidebar{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr}.comparisonGrid{gap:13px}.priceRow{grid-template-columns:minmax(0,1fr) auto}.priceRow>a{grid-column:1/-1}}
+@media(max-width:750px){.productPage .heroGrid{grid-template-columns:1fr}.evidenceSidebar{grid-template-columns:1fr}.productPage .art{min-height:285px}.comparisonGrid{grid-template-columns:1fr}.priceRow{grid-template-columns:minmax(0,1fr) auto auto}.priceRow>a{grid-column:auto}.comparisonCard{padding:22px}}
+@media(max-width:510px){.productPage .copy h1{font-size:clamp(32px,9vw,47px)}.productTabs a{padding:9px 14px;font-size:12px}.scoreDisplay{gap:16px}.priceRow{grid-template-columns:minmax(0,1fr) auto;gap:8px}.priceRow>a{grid-column:1/-1}.comparisonHeading{align-items:start;flex-direction:column}}
