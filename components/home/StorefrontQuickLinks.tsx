@@ -12,7 +12,7 @@ const departments=[
  {href:"/gifts",title:"Gifts",image:lifestylePages.gifts.hero,icon:Gift},
  {href:"/groceries",title:"Groceries",image:"https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=650&q=80",icon:ShoppingBasket},
  {href:"/travel",title:"Travel",image:lifestylePages.travel.hero,icon:Plane},
- {href:"/pets",title:"Pets",image:lifestylePages.pets.hero,icon:PawPrint},
+ {href:"/pets",title:"Pets",image:"/illustrations/avuqo-pets-care.svg",icon:PawPrint},
 ] as const;
 
 export default function StorefrontQuickLinks(){
