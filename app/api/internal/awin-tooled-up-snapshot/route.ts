@@ -5,6 +5,7 @@ import {joinedInSource} from "../../../../lib/awin/joined-catalogue";
 import {approvedAwinDownloadUrl} from "../../../../lib/awin/approved-feed-url";
 import {csvRowsFromChunks} from "../../../../lib/feed-imports/stream-csv";
 import {AWIN_PRIVATE_SNAPSHOT_BUCKET,privateAwinSnapshotKey} from "../../../../lib/awin/private-snapshot";
+import {uploadPrivateAwinTus} from "../../../../lib/awin/private-tus-upload";
 
 export const maxDuration=300;
 const ADVERTISER="496",FEED="89987";
@@ -128,8 +129,12 @@ export async function POST(request:NextRequest){
   return reply({error:"Awin source controls changed; upload refused"},409);
  // Never overwrite a content-addressed file. A duplicate upload may race;
  // in either case an independent private Storage read verifies actual bytes.
- const {error:uploadError}=await db.storage.from(AWIN_PRIVATE_SNAPSHOT_BUCKET)
-  .upload(objectKey,bytes!,{contentType:"application/gzip",cacheControl:"0",upsert:false});
+ let uploadError=false;
+ try{
+  const storageKey=process.env.SUPABASE_SECRET_KEY||process.env.SUPABASE_SERVICE_ROLE_KEY||"";
+  await uploadPrivateAwinTus(bytes!,objectKey,
+   process.env.NEXT_PUBLIC_SUPABASE_URL??"",storageKey);
+ }catch{uploadError=true;}
  try{
   const verified=await readBackDigest(db,objectKey);
   if(verified.sha256!==sha256||verified.size!==bytes!.byteLength)
