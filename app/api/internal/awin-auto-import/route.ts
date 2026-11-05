@@ -68,7 +68,11 @@ export async function POST(request:NextRequest){
   return reply({error:"Unauthorized"},401);
  const url=new URL(request.url);
  const preflight=request.method==="POST"&&url.searchParams.get("mode")==="preflight";
- if(!preflight&&process.env.AWIN_AUTO_IMPORT_ENABLED!=="true")
+ // One manually authenticated, feed-specific staging action is independent
+ // of the automatic scheduling flag. It cannot publish or activate cron.
+ const manualStage=request.method==="POST"&&url.searchParams.get("mode")==="stage"&&
+  url.searchParams.get("advertiser_id")==="77952"&&url.searchParams.get("feed_id")==="103580";
+ if(!preflight&&!manualStage&&process.env.AWIN_AUTO_IMPORT_ENABLED!=="true")
   return reply({status:"disabled",private_only:true,required_setting:"AWIN_AUTO_IMPORT_ENABLED"});
  const key=process.env.AWIN_DATAFEED_API_KEY??"";
  const publisher=process.env.AWIN_PUBLISHER_ID??"";
@@ -86,6 +90,8 @@ export async function POST(request:NextRequest){
   .select("metadata,status,sync_enabled").eq("connector_key","awin").maybeSingle();
  if(sourceError||!source||!joinedInSource(source.metadata,advertiser))
   return reply({error:"Joined advertiser verification failed"},403);
+ if(manualStage&&(source.status!=="paused"||source.sync_enabled!==false))
+  return reply({error:"Manual stage requires Awin publication source to remain paused"},409);
  // This worker can stage while the general Awin source is paused. It NEVER
  // changes source controls, publication permissions, offers or products.
  const {data:owner,error:ownerError}=await db.from("user_roles")
