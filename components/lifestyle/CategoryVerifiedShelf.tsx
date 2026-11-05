@@ -53,7 +53,7 @@ export default async function CategoryVerifiedShelf({config}:{config:Landing}){
           <p className={styles.contextIntro}>There isn't one perfect buy. Good value comes from clear evidence and the features that matter to you.</p>
           <div className={styles.promises}>{promises.map(({icon:Icon,title,text})=>
             <div key={title}><span><Icon size={20} aria-hidden="true"/></span><div><strong>{title}</strong><p>{text}</p></div></div>)}</div>
-          <Link href="/how-we-score">How AVUQO evaluates value <ArrowRight size={16}/></Link>
+          <Link href="/trust">How AVUQO evaluates value <ArrowRight size={16}/></Link>
         </aside>
       </div>
       <p className={styles.disclosure}>Photography in editorial sections is illustrative. Scores, availability and prices are shown only when supported by current approved evidence.</p>
