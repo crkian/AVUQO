@@ -8,8 +8,8 @@ export type VerifiedProductEntry={product:PublicProduct;offers:PublicOffer[]};
 const money=(value:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(value);
 function cost(row:PublicOffer){return Number(row.offer.total_price??row.offer.price);}
 
-export default function VerifiedProductCards({items}:{items:VerifiedProductEntry[]}){
-  return <div className={styles.grid}>
+export default function VerifiedProductCards({items,compact=false}:{items:VerifiedProductEntry[];compact?:boolean}){
+  return <div className={`${styles.grid} ${compact?styles.compact:""}`}>
     {items.map(({product,offers})=>{
       const sorted=[...offers].sort((a,b)=>cost(a)-cost(b));
       const best=sorted[0];
