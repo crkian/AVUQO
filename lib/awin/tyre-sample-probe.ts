@@ -43,6 +43,8 @@ export async function inspectTyreBoundedSample(
  let header:string[]|null=null,seen=0,missingIds=0,invalidMerchant=0;
  let titleSizeCandidates=0,explicitCurrency=0,positivePrices=0;
  let nonemptyCustomFields=0,missingTitle=0;
+ const customStats:Record<string,{nonempty_rows:number;size_candidate_rows:number;numeric_rows:number}>={};
+ let descriptionSizeCandidates=0,categorySizeCandidates=0;
  const ids=new Set<string>();let duplicateIds=0;
  const chunks=(async function*(){
   try{
@@ -68,12 +70,25 @@ export async function inspectTyreBoundedSample(
    const title=get("product_name");
    if(!title)missingTitle++;
    if(candidateTyreSize(title))titleSizeCandidates++;
+   if(candidateTyreSize(get("description")))descriptionSizeCandidates++;
+   if(candidateTyreSize(get("merchant_category"))||candidateTyreSize(get("merchant_product_category_path")))categorySizeCandidates++;
    const currency=get("currency");
    if(currency)explicitCurrency++;
    const price=get("search_price");
    if(/^\d+(?:\.\d{1,2})?$/.test(price)&&Number(price)>0)positivePrices++;
-   if(header.some((h,i)=>/^custom_\d+$/i.test(h)&&Boolean(row[i]?.trim())))
-    nonemptyCustomFields++;
+   let rowHasCustom=false;
+   for(let i=0;i<header.length;i++){
+    const name=header[i];
+    if(!/^custom_\d+$/i.test(name))continue;
+    const stats=customStats[name]??(customStats[name]={nonempty_rows:0,size_candidate_rows:0,numeric_rows:0});
+    const raw=row[i]?.trim()??"";
+    if(!raw)continue;
+    rowHasCustom=true;
+    stats.nonempty_rows++;
+    if(candidateTyreSize(raw))stats.size_candidate_rows++;
+    if(/^\d+(?:\.\d+)?$/.test(raw))stats.numeric_rows++;
+   }
+   if(rowHasCustom)nonemptyCustomFields++;
    if(seen===MAX_ROWS)break;
   }
  }finally{await parsed.return(undefined);}
@@ -84,6 +99,9 @@ export async function inspectTyreBoundedSample(
   invalid_merchant_rows:invalidMerchant,missing_product_id_rows:missingIds,
   duplicate_ids_in_sample:duplicateIds,missing_title_rows:missingTitle,
   title_size_candidate_rows:titleSizeCandidates,
+  description_size_candidate_rows:descriptionSizeCandidates,
+  category_size_candidate_rows:categorySizeCandidates,
+  custom_column_evidence:customStats,
   rows_with_nonempty_custom_fields:nonemptyCustomFields,
   rows_with_explicit_currency:explicitCurrency,
   rows_with_positive_numeric_prices:positivePrices,
