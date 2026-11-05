@@ -187,3 +187,50 @@
 .guidanceCard{min-height:89px;padding:13px 12px}
 @media(max-width:720px){.page .hero{min-height:410px}.page .heroInner{padding:145px 0 25px}.page .heroCopy h1{font-size:clamp(40px,10vw,54px)}.page .heroEvidence{font-size:10px!important}.quickCategories{margin-top:-6px}.page .section{padding:20px 0}.guidanceGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:500px){.guidanceGrid{grid-template-columns:1fr}}
+
+/* The user's real category cut-outs, not substitute stock images.
+   Each item uses one 106 × 80 cell of the matching reference sprite.
+   Fixed-size centred cells avoid squeezing or spilling into adjacent items. */
+.page[data-category="tech"] .quickCategories .quickPhoto,
+.page[data-category="home"] .quickCategories .quickPhoto,
+.page[data-category="beauty"] .quickCategories .quickPhoto{
+  display:block;flex:none;width:106px;max-width:100%;height:80px;margin:0 auto;
+  border-radius:8px;background-repeat:no-repeat!important;background-color:#fffaf6!important;
+  background-size:auto 80px!important;background-position-y:center!important;
+}
+.page[data-category="tech"] .quickCategories .quickPhoto{background-image:url("/branding/avuqo-tech-category-cutouts.svg")!important}
+.page[data-category="home"] .quickCategories .quickPhoto{background-image:url("/branding/avuqo-home-category-cutouts.svg")!important}
+.page[data-category="beauty"] .quickCategories .quickPhoto{background-image:url("/branding/avuqo-beauty-category-cutouts.svg")!important}
+.page[data-category="tech"] .quickCategory:nth-child(1) .quickPhoto{background-position-x:-0px!important}
+.page[data-category="tech"] .quickCategory:nth-child(2) .quickPhoto{background-position-x:-106px!important}
+.page[data-category="tech"] .quickCategory:nth-child(3) .quickPhoto{background-position-x:-212px!important}
+.page[data-category="tech"] .quickCategory:nth-child(4) .quickPhoto{background-position-x:-318px!important}
+.page[data-category="tech"] .quickCategory:nth-child(5) .quickPhoto{background-position-x:-424px!important}
+.page[data-category="tech"] .quickCategory:nth-child(6) .quickPhoto{background-position-x:-530px!important}
+.page[data-category="tech"] .quickCategory:nth-child(7) .quickPhoto{background-position-x:-636px!important}
+.page[data-category="tech"] .quickCategory:nth-child(8) .quickPhoto{background-position-x:-742px!important}
+.page[data-category="home"] .quickCategory:nth-child(1) .quickPhoto{background-position-x:-0px!important}
+.page[data-category="home"] .quickCategory:nth-child(2) .quickPhoto{background-position-x:-106px!important}
+.page[data-category="home"] .quickCategory:nth-child(3) .quickPhoto{background-position-x:-212px!important}
+.page[data-category="home"] .quickCategory:nth-child(4) .quickPhoto{background-position-x:-318px!important}
+.page[data-category="home"] .quickCategory:nth-child(5) .quickPhoto{background-position-x:-424px!important}
+.page[data-category="home"] .quickCategory:nth-child(6) .quickPhoto{background-position-x:-530px!important}
+.page[data-category="beauty"] .quickCategory:nth-child(1) .quickPhoto{background-position-x:-0px!important}
+.page[data-category="beauty"] .quickCategory:nth-child(2) .quickPhoto{background-position-x:-106px!important}
+.page[data-category="beauty"] .quickCategory:nth-child(3) .quickPhoto{background-position-x:-212px!important}
+.page[data-category="beauty"] .quickCategory:nth-child(4) .quickPhoto{background-position-x:-318px!important}
+.page[data-category="beauty"] .quickCategory:nth-child(5) .quickPhoto{background-position-x:-424px!important}
+.page[data-category="beauty"] .quickCategory:nth-child(6) .quickPhoto{background-position-x:-530px!important}
+
+.page[data-category="tech"] .quickCategory,
+.page[data-category="home"] .quickCategory,
+.page[data-category="beauty"] .quickCategory{
+ min-height:115px;justify-content:center;padding:6px 5px 8px;gap:2px;
+}
+@media(max-width:720px){
+ .page[data-category="tech"] .quickCategories .quickPhoto,
+ .page[data-category="home"] .quickCategories .quickPhoto,
+ .page[data-category="beauty"] .quickCategories .quickPhoto{
+   width:106px;max-width:100%;height:80px;background-size:auto 80px!important;
+ }
+}
