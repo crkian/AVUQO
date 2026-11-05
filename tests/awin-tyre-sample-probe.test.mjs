@@ -20,6 +20,8 @@ test("gzip sample reports counts without releasing row or custom values",async()
  assert.equal(r.source_columns,32);
  assert.equal(r.title_size_candidate_rows,2);
  assert.equal(r.rows_with_nonempty_custom_fields,2);
+ assert.deepEqual(r.custom_column_evidence.custom_1,{nonempty_rows:2,size_candidate_rows:0,numeric_rows:0});
+ assert.equal(r.description_size_candidate_rows,0);
  assert.equal(r.rows_with_explicit_currency,0);
  assert.equal(r.tyre_size_verified,false);
  assert.equal(r.ready_to_import,false);
@@ -31,4 +33,12 @@ test("bad merchant and duplicate IDs are counted without staging",async()=>{
  assert.equal(r.invalid_merchant_rows,1);
  assert.equal(r.duplicate_ids_in_sample,1);
  assert.equal(r.no_database_writes,true);
+});
+
+test("custom field tyre-size evidence counts remain aggregate and unverified",async()=>{
+ const bytes=gzipSync([header.join(","),data("one",{custom_2:"225/45 R17"}),data("two",{custom_2:"205/55 R16"})].join("\n")+"\n");
+ const r=await inspectTyreBoundedSample(new Response(bytes),"15236","26513");
+ assert.equal(r.custom_column_evidence.custom_2.size_candidate_rows,2);
+ assert.equal(r.tyre_size_verified,false);
+ assert.equal(JSON.stringify(r).includes("225/45"),false);
 });
