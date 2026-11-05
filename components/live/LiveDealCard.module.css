@@ -112,3 +112,27 @@
   font-weight: 850;
   text-decoration: none;
 }
+
+/* Warm premium public deals: only pre-admitted, source-checked offers. */
+.card{display:flex;flex-direction:column;border:1px solid #e9e0dc;border-radius:22px;background:#fffdf9;box-shadow:0 9px 27px #3026390d;transition:transform .18s ease,box-shadow .18s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 18px 38px #3026391a}
+.art{min-height:186px;background:linear-gradient(135deg,#f7f0ed,#efe9f4)}
+.art img{padding:13px}
+.noPhoto{display:grid;justify-items:center;gap:7px;text-align:center;padding:20px;color:#baa5c8}
+.noPhoto small{max-width:165px;font-size:11px;line-height:1.4;font-weight:750;color:#877987}
+.score{width:61px;height:61px;border-radius:50%;border:3px solid #087b5b;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;background:#edfaf3;color:#087b5b;box-shadow:0 8px 19px #30263913}
+.score strong{font-size:20px;line-height:1}
+.score small{font-size:8px;line-height:1.1;text-align:center}
+.body{display:flex;flex-direction:column;flex:1;padding:19px}
+.kicker{display:inline-flex;align-items:center;gap:5px;color:#80599d;font-size:10px;line-height:1.5}
+.kicker svg{flex:none;color:#087b5b}
+.body h3{font-family:Georgia,"Times New Roman",serif;font-size:20px;letter-spacing:-.026em;line-height:1.22;color:#302639;min-height:0;margin:10px 0 15px}
+.priceRow{align-items:start}
+.price strong{font-size:23px;color:#17142b}
+.price span{font-size:10px;color:#786c79}
+.saving{display:inline-flex;align-items:center;color:#087b5b;border-radius:999px;padding:7px 9px;background:#eaf5ee;font-size:10px}
+.reason{color:#736a75;line-height:1.55;font-size:12px;margin:12px 0 18px}
+.link{display:inline-flex;gap:8px;justify-content:center;align-items:center;min-height:43px;border-radius:999px;background:#6043a3;margin-top:auto;color:white;font-size:12px}
+.link:hover{background:#3a20bd}
+@media(max-width:520px){.body{padding:16px}.art{min-height:160px}.body h3{font-size:19px}}
+@media(prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
