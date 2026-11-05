@@ -49,3 +49,39 @@
 @media(max-width:760px){.grid{grid-template-columns:1fr}.tools{grid-column:auto}.tools nav{grid-template-columns:repeat(2,minmax(0,1fr))}.findsGrid{gap:9px}.findPhoto{height:170px;min-height:170px}.heading{align-items:start;flex-direction:column;gap:6px}}
 @media(max-width:500px){.groceryPhoto{height:150px}.finds{padding:14px}.findPhoto{height:118px;min-height:118px}.find strong{font-size:11px;padding:4px 7px}.find>span:not(.findPhoto){font-size:11px;padding:0 7px}.find small{font-size:9px;padding:0 7px}.tools nav a{min-height:70px}}
 @media(max-width:360px){.findsGrid{grid-template-columns:1fr}.findPhoto{height:170px}.tools nav{grid-template-columns:1fr}}
+
+/* Mockup-aligned three-column shopping worktop. Content remains rights-gated and honest. */
+.section{padding:16px 0 29px}
+.heading{margin-bottom:10px}
+.heading h2{font-size:clamp(25px,2.8vw,35px)}
+.grid{grid-template-columns:minmax(0,1.07fr) minmax(0,1.21fr) minmax(218px,.73fr);gap:9px}
+.groceries,.finds,.tools{border-radius:17px;box-shadow:0 5px 17px #30263912}
+.groceryPhoto{height:105px;background-position:center 44%}
+.groceryCopy{gap:6px;padding:13px}
+.groceryCopy h3{font-size:clamp(19px,1.9vw,25px)}
+.groceryCopy>p:not(.kicker){font-size:11px;line-height:1.4}
+.groceryChecks{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin:3px 0 5px}
+.groceryChecks span{font-size:10px;line-height:1.3}
+.groceryCopy>a{min-height:36px;padding:8px 12px;font-size:11px}
+.finds{padding:12px}
+.findsHeading{margin-bottom:8px}
+.findsHeading h3{font-size:clamp(18px,2vw,25px)}
+.findsGrid{gap:6px}
+.find{gap:3px;border-radius:11px;padding-bottom:8px}
+.findPhoto{height:112px;min-height:112px}
+.findPhoto img{max-height:102px}
+.find strong{font-size:10px;padding:4px 7px 0}
+.find>span:not(.findPhoto){font-size:12px;padding:0 7px}
+.find small{font-size:9px;padding:0 7px}
+.findsDisclosure{font-size:9px;margin:7px 0 0}
+.tools{padding:12px}
+.tools .kicker{margin-bottom:4px}
+.tools h3{font-size:clamp(19px,2vw,24px);margin:0 0 9px}
+.tools nav{gap:6px}
+.tools nav a{min-height:56px;padding:6px;border-radius:11px}
+.tools nav a>span:first-child{width:30px;height:30px;border-radius:8px}
+.tools nav a strong{font-size:11px}
+.tools nav a small{font-size:9px}
+@media(max-width:1150px){.grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.tools{grid-column:1/-1}.tools nav{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.tools{grid-column:auto}.tools nav{grid-template-columns:repeat(2,minmax(0,1fr))}.findPhoto{height:135px;min-height:135px}.groceryPhoto{height:130px}}
+@media(max-width:500px){.findPhoto{height:115px;min-height:115px}.groceryChecks{grid-template-columns:1fr 1fr}}
