@@ -9,7 +9,16 @@ import styles from "./premium-discovery.module.css";
 export type PreviewItem={id:string;title:string;merchant:string;brand:string|null;rawCategory:string|null;price:number|string|null;currency:string;imageUrl:string|null;};
 const toPrice=(n:number|string|null)=>n===null?Number.NaN:Number(n);
 const approvedPrivateHosts=new Set(["www.cadburygiftsdirect.co.uk","cdn.shopify.com","www.tooled-up.com"]);
-function safePrivateImage(value:string|null){if(!value)return null;try{const u=new URL(value);return u.protocol==="https:"&&approvedPrivateHosts.has(u.hostname)&&!u.username&&!u.password?u.href:null;}catch{return null;}}
+const privateTyreImageHosts=new Set(["static.tyres.net","images2.productserve.com"]);
+function safePrivateImage(value:string|null,merchant:string){
+ if(!value)return null;
+ try{
+  const u=new URL(value);
+  const hostAllowed=approvedPrivateHosts.has(u.hostname)||
+   (merchant==="Tyres UK"&&privateTyreImageHosts.has(u.hostname));
+  return u.protocol==="https:"&&hostAllowed&&!u.username&&!u.password&&u.port===""&&u.href.length<=2048?u.href:null;
+ }catch{return null;}
+}
 type Sort="featured"|"low"|"high"|"name";
 export default function PremiumDiscovery({items}:{items:PreviewItem[]}){
  const [search,setSearch]=useState(""),[department,setDepartment]=useState("All departments"),[merchant,setMerchant]=useState("All retailers"),[sort,setSort]=useState<Sort>("featured"),[compare,setCompare]=useState<string[]>([]);
@@ -32,7 +41,7 @@ export default function PremiumDiscovery({items}:{items:PreviewItem[]}){
    <div><span className={styles.eyebrow}>THE AVUQO EDIT</span><h2>Discover something worth a closer look.</h2><p>Browse a sample of imported products in the future shopping experience. Category labels are suggestions awaiting approval.</p></div>
    <div className={styles.count}><strong>{shown.length}</strong><span>preview products</span></div>
   </section>
-  <div className={styles.imageReview}><div><strong>Owner image inspection</strong><span>Existing feed images are only loaded in this signed-in private review, when you choose to display them. Images remain unverified for publication.</span></div><button type="button" aria-pressed={showImages} onClick={()=>setShowImages(v=>!v)}>{showImages?"Hide feed images":"Show imported images privately"}</button></div>
+  <div className={styles.imageReview}><div><strong>Owner image inspection</strong><span>Images are loaded from retailer or feed image servers only when you opt in while signed in. External image hosts receive a request from your browser. This does not approve public use.</span></div><button type="button" aria-pressed={showImages} onClick={()=>setShowImages(v=>!v)}>{showImages?"Hide feed images":"Show imported images privately"}</button></div>
   <div className={styles.departments} role="group" aria-label="Browse suggested departments">
    {departments.map(d=><button type="button" key={d} className={department===d?styles.selected:""} onClick={()=>setDepartment(d)}>{d}</button>)}
   </div>
@@ -45,7 +54,7 @@ export default function PremiumDiscovery({items}:{items:PreviewItem[]}){
   <div className={styles.disclaimer}><ShieldCheck size={17}/> Private design preview. All prices are archived values; optional owner-only feed thumbnails are not approved public imagery. Nothing can be purchased or published.</div>
   {shown.length?<div className={styles.grid}>{shown.map(item=>{
    const checked=compare.includes(item.id);
-   const image=showImages?safePrivateImage(item.imageUrl):null;
+   const image=showImages?safePrivateImage(item.imageUrl,item.merchant):null;
    return <article className={styles.card} key={item.id}>
     <div className={styles.image}>{image?<img src={image} alt={item.title} loading="lazy" referrerPolicy="no-referrer" className={styles.feedPhoto}/>:<><div className={styles.imageSymbol}>Q</div><span>{showImages?"Image unavailable or unsupported host":"Click above to inspect private feed images"}</span></> }<div className={styles.imageIndex}>{item.department==="Needs classification"?"CATEGORY REVIEW":item.department}</div></div>
     <div className={styles.cardBody}>
