@@ -119,38 +119,19 @@ export async function POST(request:NextRequest){
   digest=sourceDigest(plain);
   filename="AUTO__"+digest.slice(0,32)+".csv.gz";
  }catch{return reply({error:"Unsupported or oversized compressed feed"},422);}
- // The Mozillion product feed has >120 CSV columns. This is header
- // inspection only: never raise the 120-column production import limit.
- // Return sanitized NAMES, never data values or signed feed URLs.
- if(preflight&&advertiser==="31539"&&feed==="74135"){
-  const delimiter=csv.slice(0,1000).split("\n",1)[0].includes("\t")?"\t":",";
-  try{
-   const iterator=parseRows(csv,delimiter,256);
-   const first=await iterator.next();
-   await iterator.return(undefined);
-   if(first.done||!first.value.length)throw Error("empty_header");
-   const names=first.value.map(name=>{
-    const trimmed=name.trim();
-    return /^[A-Za-z][A-Za-z0-9_ -]{0,63}$/.test(trimmed)?trimmed:"[redacted]";
-   });
-   return reply({status:"header_inspection_only",advertiser_id:advertiser,feed_id:feed,
-    columns:names.length,column_names:names,normal_import_limit:120,
-    no_row_validation:true,no_database_writes:true,no_publication:true});
-  }catch{
-   return reply({error:"Mozillion header exceeds inspection bounds or is malformed",
-    reason:"header_inspection_failed",inspection_limit:256,
-    no_database_writes:true,no_publication:true},422);
-  }
- }
  let header:string[]|null=null;let rows:string[][]=[];
+ let rawColumnCount=0;
  let currencySource:"feed_column"|"petlibro_uk_programme_gbp"="feed_column";
  let parseStage:"header"|"rows"|"normalize"|"validate"="header";
  let detectedDelimiter:"comma"|"tab"="comma";
  try{
   const delimiter=csv.slice(0,1000).split("\n",1)[0].includes("\t")?"\t":",";
   detectedDelimiter=delimiter==="\t"?"tab":"comma";
-  for await(const row of parseRows(csv,delimiter)){
-   if(!header){header=row.map(v=>v.trim());parseStage="rows";}
+  // Only the approved Mozillion SIM-free feed may be parsed with up to 256
+  // raw columns. All rows are projected to <=120 validated fields before staging.
+  const rawColumnBound=advertiser==="31539"&&feed==="74135"?256:120;
+  for await(const row of parseRows(csv,delimiter,rawColumnBound)){
+   if(!header){header=row.map(v=>v.trim());rawColumnCount=header.length;parseStage="rows";}
    else{
     if(row.length!==header.length)throw Error("invalid_fields");
     rows.push(row);if(rows.length>MAX_ROWS)throw Error("too_many_rows");
@@ -180,7 +161,7 @@ export async function POST(request:NextRequest){
   const code=message.startsWith("Unsupported feed format")?"unsupported_columns":
    message==="Incomplete quoted CSV field"?"unterminated_csv_quote":
    message==="Unexpected character after closing quote"?"invalid_csv_quote":
-   message==="CSV column count exceeds 120"?"csv_column_limit":
+   (message==="CSV column count exceeds 120"||message==="CSV column count exceeds 256")?"csv_column_limit":
    message==="CSV field or row exceeds size limit"?"csv_field_or_column_limit":
    message==="CSV field exceeds 10,000 characters"?"csv_field_size_limit":
    message==="empty_feed"?"empty_feed":
@@ -197,7 +178,7 @@ export async function POST(request:NextRequest){
  const name=joinedName(advertiser);
  if(!name)return reply({error:"Unrecognised advertiser"},403);
  if(preflight)return reply({status:"preflight_passed",advertiser_id:advertiser,feed_id:feed,
-  source_format:identifyFormat(header!),columns:header!.length,rows:rows.length,
+  source_format:identifyFormat(header!),columns:header!.length,source_columns:rawColumnCount,rows:rows.length,
   currency_source:currencySource,source_currency_explicit:currencySource==="feed_column",
   sample_headers:header!.filter(x=>/^(merchant_id|merchant_product_id|product_name|search_price|currency|stock_status|aw_deep_link|ean|gtin|mpn|advertiser_id|id|title|price|availability)$/i.test(x)).slice(0,20),
   private_only:true,no_database_writes:true,no_publication:true});
