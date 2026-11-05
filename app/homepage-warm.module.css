@@ -164,3 +164,66 @@
 @media(max-width:1050px){.helpGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.helpCard{min-height:205px}}
 @media(max-width:700px){.page .hero:not(.christmasHero){padding:39px 0 52px}.page .hero:not(.christmasHero) .heroArt{min-height:300px}.storySection{padding:46px 0}.helpGrid{gap:11px}.helpCard{min-height:210px;padding:17px}.helpCard h3{font-size:19px}.helpCard>a{font-size:11px}}
 @media(max-width:470px){.helpGrid{grid-template-columns:1fr}.helpCard{min-height:0}.storyHeading h2{font-size:34px}.reassuranceInner{gap:10px;justify-content:space-between}.reassuranceInner span{font-size:10px}}
+
+/* Storefront master reference: full-bleed photographic hero with an evidence
+   panel, compact photo departments, shopping dashboard and confidence strip. */
+.page .hero.storefrontHero{
+  position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;
+  min-height:410px;padding:clamp(42px,5.5vw,73px) 0;
+  background-color:#faf6f0;background-position:center 52%;background-size:cover;background-repeat:no-repeat;
+  border-bottom:1px solid #eee4de
+}
+.storefrontHero .heroGrid{width:100%;grid-template-columns:minmax(0,1.2fr) minmax(300px,.75fr);gap:clamp(30px,5vw,90px)}
+.storefrontHero .heroCopy{padding:0}
+.storefrontHero .heroCopy h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(48px,5.4vw,77px);letter-spacing:-.047em;line-height:1.06;max-width:695px;margin:0 0 18px}
+.storefrontHero .heroCopy h1 em{font-style:normal;color:#672ed8}
+.storefrontHero .eyebrow{color:#7f5496;font-size:11px;margin-bottom:11px}
+.storefrontHero .heroText{color:#3e3641;max-width:600px;font-size:clamp(15px,1.5vw,18px);line-height:1.65}
+.storefrontHero .heroShortcuts,.storefrontHero .heroAside{display:none}
+.storefrontHero .heroVisual{display:flex;align-items:center;justify-content:flex-end;padding:0}
+.storefrontHeroActions{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin-top:26px}
+.storefrontPrimary,.storefrontSecondary{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:47px;padding:12px 21px;border-radius:999px;font-size:13px;font-weight:850}
+.storefrontPrimary{background:linear-gradient(120deg,#8e42ed,#5521b9);color:white;box-shadow:0 9px 24px #4d208b2b}
+.storefrontPrimary:hover{background:#4a1bba}
+.storefrontSecondary{background:#fffefa;border:1px solid #9459bd;color:#50366c}
+.storefrontSecondary:hover{background:#f5eef9}
+.heroIntelligence{width:min(100%,340px);padding:clamp(18px,2.2vw,26px);border:1px solid #ebdedb;border-radius:24px;background:rgba(255,253,249,.96);box-shadow:0 20px 50px rgba(48,29,50,.14);backdrop-filter:blur(11px)}
+.heroIntelligence h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(21px,2.2vw,28px);letter-spacing:-.032em;line-height:1.14;margin:0 0 16px;color:#302639}
+.heroIntelligenceInner{display:grid;grid-template-columns:92px 1fr;gap:13px;align-items:center}
+.intelligenceRing{width:94px;height:94px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:7px solid #42b86f;border-top-color:#cc52e0;border-left-color:#7b34d3;border-radius:50%;background:#fff;color:#57349a;gap:3px}
+.intelligenceRing small{font-size:10px;font-weight:900;text-align:center;line-height:1.08}
+.heroIntelligenceInner ul{padding:0;margin:0;list-style:none;display:grid;gap:9px}
+.heroIntelligenceInner li{display:flex;align-items:start;gap:7px;font-size:11px;line-height:1.38;color:#302639;font-weight:750}
+.heroIntelligenceInner li svg{width:17px;height:17px;color:#087b5b;flex:none}
+.heroIntelligence>a{display:flex;justify-content:center;align-items:center;gap:8px;min-height:43px;padding:10px 12px;background:linear-gradient(120deg,#8137ec,#5421bd);color:#fff;border-radius:999px;margin-top:20px;font-size:12px;font-weight:850}
+.heroIntelligence>a:hover{background:#471aaf}
+.storefrontHero .ownerPreview{max-width:650px}
+.reassurance{background:linear-gradient(95deg,#f3e8f8,#fceef0);border-top:1px solid #ebddea;border-bottom:1px solid #ebddea}
+.reassuranceInner{min-height:60px;padding:11px 0;justify-content:space-between;gap:15px}
+.reassuranceInner span{font-size:12px;font-weight:850}
+.reassuranceInner svg{color:#7343ae;width:20px;height:20px}
+@media(max-width:900px){
+ .storefrontHero .heroGrid{grid-template-columns:minmax(0,1fr) minmax(260px,.8fr);gap:25px}
+ .storefrontHero .heroCopy h1{font-size:clamp(42px,5.8vw,61px)}
+ .heroIntelligence{padding:16px}
+ .heroIntelligenceInner{grid-template-columns:1fr;justify-items:center}
+ .heroIntelligenceInner ul{justify-self:stretch}
+}
+@media(max-width:700px){
+ .page .hero.storefrontHero{min-height:0;padding:150px 0 47px;background-position:55% top}
+ .storefrontHero .heroGrid{grid-template-columns:1fr}
+ .storefrontHero .heroCopy h1{font-size:clamp(41px,10.6vw,60px);line-height:1.06}
+ .storefrontHero .heroText{font-size:15px}
+ .storefrontHeroActions{margin-top:19px}
+ .storefrontHero .heroVisual{justify-content:center}
+ .heroIntelligence{width:min(100%,480px)}
+ .heroIntelligenceInner{grid-template-columns:94px 1fr;gap:15px}
+ .storefrontPrimary,.storefrontSecondary{flex:1;min-width:150px}
+}
+@media(max-width:450px){
+ .storefrontHero .heroCopy h1{font-size:clamp(40px,11vw,51px)}
+ .storefrontHeroActions{flex-direction:column;align-items:stretch}
+ .heroIntelligenceInner{grid-template-columns:1fr}
+ .heroIntelligenceInner ul{grid-template-columns:1fr 1fr;gap:13px}
+ .reassuranceInner{justify-content:center}
+}
