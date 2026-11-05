@@ -4,6 +4,7 @@ import {joinedInSource} from "../../../../lib/awin/joined-catalogue";
 import {approvedAwinDownloadUrl} from "../../../../lib/awin/approved-feed-url";
 import {csvRowsFromChunks} from "../../../../lib/feed-imports/stream-csv";
 import {inspectAwinHeaderOnly} from "../../../../lib/awin/read-only-header-probe";
+import {inspectTooledUpBoundedSample} from "../../../../lib/awin/tooled-up-sample-probe";
 
 const reply=(body:unknown,status=200)=>NextResponse.json(body,{
  status,headers:{"Cache-Control":"private, no-store"}
@@ -66,6 +67,8 @@ export async function POST(request:NextRequest){
   if(rows.length!==1)return reply({error:"Unique active Tooled Up master feed not found"},409);
   const download=approvedAwinDownloadUrl(rows[0][at("URL")]??"",key,FEED);
   const res=await fetch(download,{cache:"no-store",redirect:"error",signal:AbortSignal.timeout(20000)});
+  const sample=new URL(request.url).searchParams.get("mode")==="sample";
+  if(sample)return reply(await inspectTooledUpBoundedSample(res));
   const inspected=await inspectAwinHeaderOnly(res);
   return reply({
    status:"header_inspection_only",advertiser_id:ADVERTISER,feed_id:FEED,
