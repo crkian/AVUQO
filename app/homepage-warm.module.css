@@ -64,3 +64,40 @@
 .ownerPreview small{font-size:12px;color:#716978;line-height:1.5}
 .ownerPreview a{flex:none;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:9px 13px;border-radius:10px;background:#6245a5;color:white;font-size:12px;font-weight:850;text-decoration:none}
 @media(max-width:600px){.ownerPreview{align-items:stretch;flex-direction:column;padding:14px}.ownerPreview a{width:100%}}
+
+/* Warm premium v1: styling follows the original homepage, not a dark control panel. */
+.page{background:var(--avuqo-canvas,#faf8f3)}
+.hero{background:radial-gradient(circle at 18% 8%,#fffaf6 0%,transparent 48%),#f7f3ec;padding-top:clamp(40px,5vw,76px)}
+.heroCopy h1,.storyHeading h2,.editorialCopy h2,.seasonHeading h2{
+  font-family:Georgia,"Times New Roman",serif;font-weight:700;letter-spacing:-.045em
+}
+.heroCopy h1{color:#302639;line-height:1.055;max-width:730px}
+.heroText{color:#625b63;max-width:560px}
+.search{border-color:#e8ded6;border-radius:24px;box-shadow:0 17px 42px rgba(62,45,53,.09)}
+.search button{background:linear-gradient(130deg,#6043a3,#4d328f);border-radius:16px}
+.search button:hover{background:linear-gradient(130deg,#5b35f5,#3a20bd)}
+.heroArt{border-radius:160px 160px 32px 32px;box-shadow:0 27px 62px rgba(61,44,40,.16)}
+.heroCard{border-color:#eee3da;border-radius:22px}
+.heroShortcuts a{border-color:#e4d7e7;background:#fffcfa;color:#5c3a89}
+.reassurance{background:#fffdf9}
+.helpCard{border-color:#e9e1db;box-shadow:var(--avuqo-shadow,0 10px 32px #30263912);transition:transform .18s ease,box-shadow .18s ease}
+.helpCard:hover{transform:translateY(-3px);box-shadow:0 17px 44px rgba(45,31,54,.11)}
+.helpCard h3{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.025em}
+.editorialBand{background:#f0e9e1}
+.editorialImage{border-radius:32px}
+.seasonSection{padding-bottom:clamp(80px,9vw,125px)}
+.seasonGrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.seasonCard{min-height:300px;border-radius:28px;box-shadow:0 10px 28px rgba(45,31,54,.055);border:1px solid #eaded9;transition:transform .18s ease,box-shadow .18s ease}
+.seasonCard:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(45,31,54,.1)}
+.seasonCard:focus-visible{outline-offset:4px}
+.seasonCard h3{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.025em}
+.seasonCard img{width:29%}
+.blackFridayCard{background:linear-gradient(130deg,#efe5f0,#dcd1e3);color:#3f2b4f}
+.salesCard{background:linear-gradient(135deg,#fff0df,#f2d9c6);color:#7f4b35}
+.easterCard{background:linear-gradient(135deg,#f5edff,#f7e8ed);color:#6c5082}
+.valentinesCard{background:linear-gradient(135deg,#f9e8ef,#f4d9e1);color:#833b59}
+.seasonArt{align-self:flex-end;display:grid;place-items:center;width:80px;height:80px;flex:none;font-size:42px;border-radius:24px;background:#ffffff80;border:1px solid #ffffffbd}
+.trustBand{background:#302639}
+@media(max-width:1050px){.seasonGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.seasonGrid{grid-template-columns:1fr}.seasonCard{min-height:218px}.seasonArt{width:68px;height:68px;font-size:36px}}
+@media(prefers-reduced-motion:reduce){.seasonCard,.helpCard{transition:none}.seasonCard:hover,.helpCard:hover{transform:none}}
