@@ -6,7 +6,7 @@
 
 ## Images included in the design ZIP
 
-All 12 full-resolution assets have a manifest of SHA-256 digests in `ASSET_MANIFEST.json` inside the ZIP. The first eight are individual high-fidelity page concepts, the final four are multi-page reference boards.
+All 12 full-resolution assets plus 5 enlarged single-screen crops have a manifest of SHA-256 digests in `ASSET_MANIFEST.json` inside the ZIP. The first eight are individual high-fidelity page concepts, the following four are multi-page reference boards and the final five are individual cropped screen references.
 
 | Target relative GitHub file | Screen / purpose | Design status |
 |---|---|---|
@@ -22,6 +22,18 @@ All 12 full-resolution assets have a manifest of SHA-256 digests in `ASSET_MANIF
 | `docs/design/mockups/product-profile-page-set.png` | Product detail, My AVUQO profile, Saved, Watches, Lists, mobile | Multi-screen design-board reference |
 | `docs/design/mockups/product-profile-watches-lists-reference.png` | Expanded product and profile, Watch and list concepts | Multi-screen design-board reference |
 | `docs/design/mockups/homepage-groceries-travel-profile-reference.png` | Broader site layout and warm interface system | Multi-screen design-board reference |
+
+### Individual product and account panels (cropped from the reference board)
+
+These five are enlarged crops from a single concept board, **not independently generated browser screenshots** and not evidence of live prices or account activity:
+
+| Target file | Screen |
+|---|---|
+| `docs/design/mockups/product-detail-screen-crop.png` | Exact product detail, retail offer and price history concept |
+| `docs/design/mockups/account-profile-screen-crop.png` | My AVUQO overview/profile concept |
+| `docs/design/mockups/watches-screen-crop.png` | Price Watches concept |
+| `docs/design/mockups/saved-items-screen-crop.png` | Saved products concept |
+| `docs/design/mockups/shared-lists-screen-crop.png` | Shared Lists concept |
 
 A contact sheet and this asset register are also in the ZIP.
 
