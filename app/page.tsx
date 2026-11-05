@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, CheckCircle2, HeartHandshake, ListChecks, Search, ShieldCheck, Sparkles, Eye, Scale, ReceiptText } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CheckCircle2, HeartHandshake, ListChecks, Search, ShieldCheck, Sparkles, Eye, Scale, ReceiptText, Heart, ShoppingBag, Tag, Flower2 } from "lucide-react";
 import { publishedEditorial } from "../lib/content/editorial";
 import { lifestylePages } from "../lib/lifestyle/landing-data";
 import Header from "../components/layout/Header";
@@ -146,6 +146,23 @@ async function HomeContent() {
         <Link className={`${styles.seasonCard} ${styles.christmasCard}`} href="/christmas">
           <div><p>Thoughtful festive planning</p><h3>Make the season feel special.</h3><span>Explore Christmas <ArrowRight size={17}/></span></div>
           <img src="/illustrations/avuqo-christmas-gifts.svg" alt="" loading="lazy"/>
+        </Link>
+
+        <Link className={`${styles.seasonCard} ${styles.blackFridayCard}`} href="/black-friday">
+          <div><p>Big sale season, clear decisions</p><h3>Look beyond the Black Friday label.</h3><span>Explore Black Friday <ArrowRight size={17}/></span></div>
+          <div className={styles.seasonArt} aria-hidden="true"><ShoppingBag size={42}/></div>
+        </Link>
+        <Link className={`${styles.seasonCard} ${styles.salesCard}`} href="/sales">
+          <div><p>Value all year round</p><h3>Find a better way to browse sales.</h3><span>Explore Sales <ArrowRight size={17}/></span></div>
+          <div className={styles.seasonArt} aria-hidden="true"><Tag size={42}/></div>
+        </Link>
+        <Link className={`${styles.seasonCard} ${styles.easterCard}`} href="/easter">
+          <div><p>Springtime inspiration</p><h3>Fresh ideas for Easter and beyond.</h3><span>Explore Easter <ArrowRight size={17}/></span></div>
+          <div className={styles.seasonArt} aria-hidden="true"><Flower2 size={42}/></div>
+        </Link>
+        <Link className={`${styles.seasonCard} ${styles.valentinesCard}`} href="/valentines">
+          <div><p>Thoughtful little gestures</p><h3>Give something with heart.</h3><span>Explore Valentine's <ArrowRight size={17}/></span></div>
+          <div className={styles.seasonArt} aria-hidden="true"><Heart size={42}/></div>
         </Link>
       </div>
     </section>
