@@ -6,6 +6,7 @@ import {joinedInSource,joinedName} from "../../../../lib/awin/joined-catalogue";
 import {csvRowsFromChunks} from "../../../../lib/feed-imports/stream-csv";
 import {identifyFormat,prepareGeneralBatch} from "../../../../lib/feed-imports/general-awin-large";
 import {approvedAwinDownloadUrl} from "../../../../lib/awin/approved-feed-url";
+import {normalizePilotAwinFeed} from "../../../../lib/awin/pilot-feed-normalizer";
 
 
 /** Explicit physical-product pilot only. Never auto-fetch plan, parking, insurance,
@@ -118,17 +119,20 @@ export async function POST(request:NextRequest){
   digest=sourceDigest(plain);
   filename="AUTO__"+digest.slice(0,32)+".csv.gz";
  }catch{return reply({error:"Unsupported or oversized compressed feed"},422);}
- let header:string[]|null=null;const rows:string[][]=[];
+ let header:string[]|null=null;let rows:string[][]=[];
+ let currencySource:"feed_column"|"petlibro_uk_programme_gbp"="feed_column";
  try{
   const delimiter=csv.slice(0,1000).split("\n",1)[0].includes("\t")?"\t":",";
   for await(const row of parseRows(csv,delimiter)){
-   if(!header){header=row.map(v=>v.trim());identifyFormat(header);}
+   if(!header){header=row.map(v=>v.trim());}
    else{
     if(row.length!==header.length)throw Error("invalid_fields");
     rows.push(row);if(rows.length>MAX_ROWS)throw Error("too_many_rows");
    }
   }
   if(!header||!rows.length)throw Error("empty_feed");
+  const normalized=normalizePilotAwinFeed(advertiser,feed,header,rows);
+  header=normalized.header;rows=normalized.rows;currencySource=normalized.currencySource;
   // Validate *all* rows before a single write; unsupported feeds remain untouched.
   for(let i=0;i<rows.length;i+=250)prepareGeneralBatch(advertiser,feed,header,rows.slice(i,i+250));
   const ids=new Set<string>();
@@ -155,6 +159,7 @@ export async function POST(request:NextRequest){
  if(!name)return reply({error:"Unrecognised advertiser"},403);
  if(preflight)return reply({status:"preflight_passed",advertiser_id:advertiser,feed_id:feed,
   source_format:identifyFormat(header!),columns:header!.length,rows:rows.length,
+  currency_source:currencySource,source_currency_explicit:currencySource==="feed_column",
   sample_headers:header!.filter(x=>/^(merchant_id|merchant_product_id|product_name|search_price|currency|stock_status|aw_deep_link|ean|gtin|mpn|advertiser_id|id|title|price|availability)$/i.test(x)).slice(0,20),
   private_only:true,no_database_writes:true,no_publication:true});
  const runFilename=`GENAWIN__${feed}__${filename}`;
@@ -187,7 +192,9 @@ export async function POST(request:NextRequest){
   const batch=rows.slice(i*250,(i+1)*250);
   const records=prepareGeneralBatch(advertiser,feed,header!,batch);
   // Explicit machine provenance, with human publication rights STILL unverified.
-  const staged=records.map(record=>({...record,metadata:{...record.metadata,import_actor:"awin_auto_import_worker"}}));
+  const staged=records.map(record=>({...record,metadata:{...record.metadata,
+   import_actor:"awin_auto_import_worker",currency_source:currencySource,
+   source_currency_explicit:currencySource==="feed_column"}}));
   const chunkDigest=createHash("sha256").update(JSON.stringify({headers:header,rows:batch,feedId:feed})).digest("hex");
   const {data:done,error}=await db.rpc("append_general_awin_feed_chunk",{
    p_import_id:runId,p_sequence:i,p_digest:chunkDigest,p_rows:staged
