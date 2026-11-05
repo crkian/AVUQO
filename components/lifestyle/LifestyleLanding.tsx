@@ -13,6 +13,24 @@ const photo = (image: string): CSSProperties => ({backgroundImage:`url("${image}
 export default function LifestyleLanding({config,afterTrust}: {config:Landing;afterTrust?:ReactNode}) {
   const story=storyFor(config.slug);
   const theme = {"--accent":config.accent} as CSSProperties;
+  // The browsing row is editorial, while the product-cutout ribbon above keeps
+  // the complete category taxonomy in the order of the approved mockups.
+  const browseTiles = config.slug==="tech" ? [
+    {...config.tiles[0],title:"Productivity & Laptops",copy:"Powerful, portable and reliable options for work, study and everyday life."},
+    {...config.tiles[2],title:"Audio & Headphones",copy:"Immersive sound for music, work and everything in between."},
+    {...config.tiles[5],title:"Smart Home",copy:"Make life easier, safer and more connected at home."},
+    {...config.tiles[3],title:"Gaming",copy:"Consoles, PCs and accessories for a more immersive play experience."},
+  ] : config.slug==="home" ? [
+    {...config.tiles[0],title:"Living Room",copy:"Comfort, style and practical pieces for everyday living."},
+    {...config.tiles[1],title:"Kitchen",copy:"Smart, durable essentials for cooking, prepping and dining."},
+    {...config.tiles[2],title:"Bedroom",copy:"Restful, comfortable and organised spaces for better living."},
+    {title:"Storage",copy:"Space-saving solutions to keep things organised.",search:"home storage",image:"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80"},
+  ] : config.slug==="beauty" ? [
+    {...config.tiles[0],title:"Skincare routines",copy:"Build a simple, effective routine for your skin goals."},
+    {...config.tiles[3],title:"Fragrance picks",copy:"Find scents for everyday wear and special moments."},
+    {...config.tiles[2],title:"Haircare essentials",copy:"Healthy hair, from cleansing to styling."},
+    {title:"Self-care gifts",copy:"Considered beauty and wellness gifts for any occasion.",search:"self care beauty gifts",image:"https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=900&q=80"},
+  ] : config.tiles.slice(0,4);
   return <main className={styles.page} style={theme} data-category={config.slug}>
     <Header />
     <section className={styles.hero} aria-labelledby="lifestyle-title">
@@ -50,11 +68,11 @@ export default function LifestyleLanding({config,afterTrust}: {config:Landing;af
     
     <section className={`shell ${styles.section}`} id="explore">
       <div className={styles.sectionHeading}>
-        <div><p className={styles.kicker}>Explore the possibilities</p><h2>{story?.browseLabel??"Find what matters to you."}</h2><p>Browse this category, then search for eligible products and independent guidance. Some searches may not yet have verified matches.</p></div>
+        <div><p className={styles.kicker}>Explore the possibilities</p><h2>{["tech","home","beauty"].includes(config.slug)?"Browse what matters":story?.browseLabel??"Find what matters to you."}</h2><p>Browse this category, then search for eligible products and independent guidance. Some searches may not yet have verified matches.</p></div>
         <Link href="/categories">All categories <ArrowRight size={17}/></Link>
       </div>
       <div className={styles.tileGrid}>
-        {config.tiles.slice(0,4).map(tile=><Link className={styles.tile} key={tile.title} href={`/search?q=${encodeURIComponent(tile.search)}`}>
+        {browseTiles.map(tile=><Link className={styles.tile} key={tile.title} href={`/search?q=${encodeURIComponent(tile.search)}`}>
           <div className={styles.tilePhoto} style={photo(tile.image)} aria-hidden="true"/>
           <div className={styles.tileBody}><h3>{tile.title}</h3><p>{tile.copy}</p><ArrowRight size={19} aria-hidden="true"/></div>
         </Link>)}
