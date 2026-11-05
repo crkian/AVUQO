@@ -14,6 +14,9 @@ import OwnerStorefrontShortcut from "../components/home/OwnerStorefrontShortcut"
 import {loadHomeCampaigns} from "../lib/marketing/homepage";
 import { activeHomeSeasonalMoment } from "../lib/marketing/seasonal-calendar";
 import ChristmasHomeFeature from "../components/home/ChristmasHomeFeature";
+import StorefrontQuickLinks from "../components/home/StorefrontQuickLinks";
+import StorefrontHighlights from "../components/home/StorefrontHighlights";
+import {verifiedProductIndex} from "../lib/products/public-catalog";
 import styles from "./homepage-warm.module.css";
 
 export const metadata: Metadata = {
@@ -46,7 +49,7 @@ function HeroPlaceholder() {
 async function HomeContent() {
   await connection();
   const moment = activeHomeSeasonalMoment();
-  const [editorial,campaigns] = await Promise.all([publishedEditorial("home"),loadHomeCampaigns()]);
+  const [editorial,campaigns,products] = await Promise.all([publishedEditorial("home"),loadHomeCampaigns(),verifiedProductIndex(8)]);
   return <main className={styles.page}>
     <Header/>
     <section className={`${styles.hero} ${moment ? styles.christmasHero : ""}`} aria-labelledby="home-title">
@@ -85,7 +88,8 @@ async function HomeContent() {
       </div>
     </div>
 
-    {moment && <ChristmasHomeFeature moment={moment}/>}
+    {moment ? <ChristmasHomeFeature moment={moment}/> : <StorefrontQuickLinks/>}
+    <StorefrontHighlights items={products}/>
     <HomeCampaignCarousel campaigns={campaigns}/>
     <LifestyleExplorer/>
     <ShoppingDepartmentShelf compact/>
