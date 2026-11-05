@@ -4,6 +4,7 @@ import {createClient} from "../../../../lib/supabase/server";
 import {createAdminClient} from "../../../../lib/supabase/admin";
 import {joinedInSource,joinedName} from "../../../../lib/awin/joined-catalogue";
 import {prepareGeneralBatch} from "../../../../lib/feed-imports/general-awin-large";
+import {prepareTyresUkPrivateBatch} from "../../../../lib/awin/tyres-uk-private-adapter";
 const send=(v:unknown,status=200)=>NextResponse.json(v,{status,headers:{"Cache-Control":"private,no-store"}});
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 export async function POST(request:NextRequest){
@@ -25,12 +26,15 @@ export async function POST(request:NextRequest){
    const filename=String(body.filename??"");
    const digest=String(body.source_digest??"");
    const bytes=Number(body.file_size??0);
+   if(merchant==="12715"&&feedId!=="93988")
+    return send({error:"Only the identified Tyres UK feed 93988 is supported"},403);
    if(!merchantName||!/^[A-Za-z0-9_-]{1,30}$/.test(feedId)||!/^.{1,230}\.(?:csv|tsv)(?:\.gz)?$/i.test(filename)
        ||!/^[a-f0-9]{64}$/.test(digest)||!Number.isSafeInteger(bytes)||bytes<1||bytes>250*1024*1024)
     return send({error:"Invalid advertiser, feed identifier or compressed/uncompressed CSV file"},400);
-   const {data:source,error:sourceError}=await admin.from("sources").select("metadata")
+   const {data:source,error:sourceError}=await admin.from("sources").select("metadata,status,sync_enabled")
     .eq("connector_key","awin").maybeSingle();
-   if(sourceError||!source||!joinedInSource(source.metadata,merchant))
+   if(sourceError||!source||!joinedInSource(source.metadata,merchant)||
+      (merchant==="12715"&&(source.status!=="paused"||source.sync_enabled!==false)))
     return send({error:"Joined advertiser not verified in the source registry"},403);
    // Strict file name ID binding for standard Awin downloadable exports:
    // advertiser-feed-locale-description.csv.gz. Other retailer naming is allowed
@@ -56,8 +60,9 @@ export async function POST(request:NextRequest){
    return send({error:"Private import not found"},404);
   // Membership can be revoked after start: fail closed for resume, writes and finish.
   const {data:currentSource,error:currentSourceError}=await admin.from("sources")
-   .select("metadata").eq("connector_key","awin").maybeSingle();
-  if(currentSourceError||!currentSource||!joinedInSource(currentSource.metadata,run.merchant_id))
+   .select("metadata,status,sync_enabled").eq("connector_key","awin").maybeSingle();
+  if(currentSourceError||!currentSource||!joinedInSource(currentSource.metadata,run.merchant_id)||
+     (run.merchant_id==="12715"&&(currentSource.status!=="paused"||currentSource.sync_enabled!==false)))
    return send({error:"Advertiser is no longer verified as joined"},403);
   if(action==="status"){
    const {data:session,error}=await admin.from("large_feed_import_sessions")
@@ -73,9 +78,12 @@ export async function POST(request:NextRequest){
    if(run.filename.split("__")[1]!==feedId)return send({error:"Feed identifier does not match session"},409);
    if(!Number.isSafeInteger(sequence)||sequence<0||!Array.isArray(headers)||!Array.isArray(rows)
       ||rows.length<1||rows.length>250||headers.some(v=>typeof v!=="string"||v.length>120)
-      ||rows.some(r=>!Array.isArray(r)||r.some(v=>typeof v!=="string"||v.length>10000)))
+      ||rows.some(r=>!Array.isArray(r)||r.some((v,i)=>typeof v!=="string"||
+       v.length>(run.merchant_id==="12715"&&headers[i]==="custom_6"?20000:10000))))
     return send({error:"Invalid chunk contents"},400);
-   const records=prepareGeneralBatch(run.merchant_id,feedId,headers as string[],rows as string[][]);
+   const records=run.merchant_id==="12715"
+    ?prepareTyresUkPrivateBatch(run.merchant_id,feedId,headers as string[],rows as string[][])
+    :prepareGeneralBatch(run.merchant_id,feedId,headers as string[],rows as string[][]);
    const digest=createHash("sha256").update(JSON.stringify({headers,rows,feedId})).digest("hex");
    const {data,error}=await admin.rpc("append_general_awin_feed_chunk",{
     p_import_id:runId,p_sequence:sequence,p_digest:digest,p_rows:records
