@@ -234,3 +234,5 @@
    width:106px;max-width:100%;height:80px;background-size:auto 80px!important;
  }
 }
+/* Clean source cutouts remove the tiny duplicate captions embedded in the initial Beauty strip. */
+.page[data-category="beauty"] .quickCategories .quickPhoto{background-image:url("/branding/avuqo-beauty-category-cutouts-clean.svg")!important}
