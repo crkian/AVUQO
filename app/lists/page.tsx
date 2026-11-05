@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import {useRouter} from "next/navigation";
-import {ArrowRight, Gift, House, ListChecks, Plane, Plus, ShoppingBasket, Users} from "lucide-react";
+import {ArrowRight, Gift, House, ListChecks, Plane, Plus, Users} from "lucide-react";
 import {useEffect,useMemo,useState} from "react";
 import type {FormEvent} from "react";
 import Header from "../../components/layout/Header";
@@ -100,7 +100,7 @@ export default function ListsPage(){
         {loading?<div className={styles.empty}>Loading lists…</div>
           : !signedIn?<div className={styles.empty}><Users size={37}/><h2>Sign in to organise your lists.</h2><p>Your lists are kept within your AVUQO account.</p><Link href="/login?next=/lists">Sign in <ArrowRight size={16}/></Link></div>
           : rows.length===0?<div className={styles.empty}><ListChecks size={37}/><h2>Create your first list.</h2><p>Perhaps Christmas gifts, a household plan or ideas for your next trip.</p><button type="button" onClick={()=>setShowForm(true)}>Create a list <Plus size={16}/></button></div>
-          : <div className={styles.list}>{rows.map((row,index)=>{
+          : <div className={styles.list}>{rows.map((row)=>{
               const Icon=iconFor(row.list_type);
               return <article className={styles.listRow} key={row.id}>
                 <div className={styles.art} data-tone={row.list_type}><Icon size={36} aria-hidden="true"/></div>
