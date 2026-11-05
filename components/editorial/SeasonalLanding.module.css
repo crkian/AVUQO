@@ -6,7 +6,7 @@
 .hero{position:relative;isolation:isolate;display:flex;align-items:center;min-height:340px;padding:clamp(45px,5.2vw,80px) 0;background-color:var(--wash);background-position:center 51%;background-size:cover;background-repeat:no-repeat}
 .hero>div{width:100%}
 .kicker{display:flex;align-items:center;gap:8px;color:var(--tone);font-size:10px;letter-spacing:.11em;text-transform:uppercase;font-weight:900;margin:0 0 10px}
-.hero h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(46px,6.1vw,82px);letter-spacing:-.05em;line-height:1.05;margin:0 0 11px;max-width:760px;color:#302639}
+.hero h1{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:clamp(46px,6.1vw,82px);letter-spacing:-.05em;line-height:1.05;margin:0 0 11px;max-width:760px;color:#302639}
 .hero h1 em{font-style:normal;color:#6832db}
 .lead{max-width:630px;color:#3d3340;font-size:clamp(15px,1.55vw,18px);line-height:1.55;margin:0}
 .heroActions{display:flex;align-items:center;flex-wrap:wrap;gap:11px;margin-top:23px}
@@ -30,13 +30,13 @@
 .editorial,.planning{min-width:0;padding:clamp(18px,2.5vw,28px);border:1px solid #eadfe0;border-radius:24px;background:#fffaf7;box-shadow:0 7px 24px #3026390b}
 .planning{background:linear-gradient(140deg,#f8eff9,#fbf0f3)}
 .titleBar{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:13px}
-.titleBar h2,.planning h2,.findsHeading h2,.tips h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.04em;line-height:1.08;color:#302639}
+.titleBar h2,.planning h2,.findsHeading h2,.tips h2{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);letter-spacing:-.04em;line-height:1.08;color:#302639}
 .titleBar h2,.planning h2{font-size:clamp(25px,2.9vw,36px);margin:0 0 7px}
 .titleBar p:not(.kicker),.planning>p:not(.kicker){font-size:12px;color:#635969;line-height:1.55;margin:0}
 .titleBar>a{color:#6931b0;font-size:11px;font-weight:850;white-space:nowrap;display:inline-flex;gap:6px;align-items:center;padding-bottom:4px}
 .storyGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .story{display:flex;flex-direction:column;justify-content:flex-end;gap:6px;min-height:175px;border-radius:16px;overflow:hidden;background-color:#decbd2;background-position:center;background-size:cover;padding:13px 12px;color:#fff;text-shadow:0 1px 5px #241b27a3}
-.story strong{font-family:Georgia,"Times New Roman",serif;font-size:16px;line-height:1.15}
+.story strong{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:16px;line-height:1.15}
 .story>span{font-size:11px;line-height:1.3}
 .story>small{display:inline-flex;gap:5px;align-items:center;font-size:10px;font-weight:850}
 .page[data-season=easter] .storyGrid{grid-template-columns:repeat(4,minmax(0,1fr))}
@@ -59,11 +59,11 @@
 .findGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
 .findGrid>a{min-width:0;display:flex;flex-direction:column;gap:7px;border:1px solid #eadfdb;border-radius:18px;background:#fff;padding:8px 8px 14px;box-shadow:0 8px 22px #3026390c}
 .findPhoto{display:block;width:100%;height:135px;border-radius:12px;background:#eadee2 center / cover no-repeat}
-.findGrid strong{font-family:Georgia,"Times New Roman",serif;font-size:17px;line-height:1.16;letter-spacing:-.024em;padding:0 5px}
+.findGrid strong{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:17px;line-height:1.16;letter-spacing:-.024em;padding:0 5px}
 .findGrid small{font-size:11px;line-height:1.4;color:#685e69;padding:0 5px;flex:1}
 .findGrid>a>span:last-child{display:inline-flex;align-items:center;gap:6px;color:#6333b0;font-size:11px;font-weight:850;padding:0 5px}
 .valueRibbon{display:grid;grid-template-columns:minmax(130px,1.12fr) repeat(3,minmax(0,1fr));gap:0;align-items:center;padding:11px 17px;background:linear-gradient(90deg,#fff2e9,#f6e9f7);border:1px solid #ecdedf;border-radius:19px;margin-top:2px;margin-bottom:21px}
-.valueRibbon>strong{font-family:Georgia,"Times New Roman",serif;font-size:22px;line-height:1.1;letter-spacing:-.026em;padding:7px 13px}
+.valueRibbon>strong{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:22px;line-height:1.1;letter-spacing:-.026em;padding:7px 13px}
 .valueRibbon>div{display:flex;align-items:center;gap:8px;padding:7px 13px;border-left:1px solid #ddcbd8}
 .valueRibbon svg{color:#7531cd;flex:none}
 .valueRibbon span{display:grid;gap:4px}
