@@ -2,7 +2,7 @@
  * Preview-only department suggestions. No canonical category IDs or public product
  * rights are assigned by this helper. Missing/conflicting classifications stay reviewable.
  */
-export type PreviewDepartment="Chocolate & gifts"|"Pet feeding"|"Pet hydration"|"Pet accessories"|"Arts & crafts"|"Home decorations"|"Toys & puzzles"|"Keyboards & computing"|"Mobile phones"|"Power tools & equipment"|"Hand tools"|"Gardening & outdoors"|"DIY & home improvement"|"Workwear & safety"|"Motoring maintenance"|"Home appliances & cleaning"|"Lighting & security"|"Needs classification";
+export type PreviewDepartment="Chocolate & gifts"|"Pet feeding"|"Pet hydration"|"Pet accessories"|"Arts & crafts"|"Home decorations"|"Toys & puzzles"|"Keyboards & computing"|"Mobile phones"|"Power tools & equipment"|"Hand tools"|"Gardening & outdoors"|"DIY & home improvement"|"Workwear & safety"|"Motoring maintenance"|"Tyres & wheels"|"Home appliances & cleaning"|"Lighting & security"|"Needs classification";
 export function suggestedDepartment(merchant:string,title:string,rawCategory:string|null):PreviewDepartment{
  const m=merchant.toLowerCase(),t=title.toLowerCase(),c=(rawCategory??"").toLowerCase();
  if(m.includes("petlibro")){
@@ -21,6 +21,7 @@ export function suggestedDepartment(merchant:string,title:string,rawCategory:str
   if(/craft|stencil|diamond art|crystal art|scrapbook|stamp|painting|card making/.test(c+" "+t))return "Arts & crafts";
   return "Needs classification";
  }
+ if(m==="tyres uk"||m.includes("tyres pneus"))return "Tyres & wheels";
  if(m.includes("mozillion")){
   if(/mobile phones|sim free phones|handset|smartphone/.test(c+" "+t))return "Mobile phones";
   return "Needs classification";
