@@ -26,7 +26,7 @@ export default function GeneralAwinImport(){
    if(!/\.(csv|tsv)(\.gz)?$/i.test(file.name))throw Error("Unsupported extension: use CSV, TSV or gzip-compressed variants");
    if(file.size>250*1024*1024)throw Error("Source file exceeds the 250 MB limit");
    if(file.name.toLowerCase().endsWith(".gz")&&!("DecompressionStream" in window))throw Error("This browser cannot inspect compressed files");
-   const iterator=awinDelimitedRows(file)[Symbol.asyncIterator]();
+   const iterator=awinDelimitedRows(file,merchant==="12715"?20000:10000)[Symbol.asyncIterator]();
    let headers:string[]|null=null,format="";const sample:string[][]=[];
    try{
     for(let i=0;i<26;i++){
@@ -86,7 +86,7 @@ export default function GeneralAwinImport(){
     index++;batch=[];
     setProgress({run_id:current,committed,next_sequence:sequence,status:"importing"});
    }
-   for await(const row of awinDelimitedRows(file)){
+   for await(const row of awinDelimitedRows(file,merchant==="12715"?20000:10000)){
     if(pause.current){setMessage("Paused after the last committed batch. Retain run ID and reselect the identical file to resume.");return;}
     if(!headers){
      headers=row.map(s=>s.trim());
