@@ -6,9 +6,7 @@ create table if not exists public.awin_private_snapshot_validations (
  feed_id text not null check (feed_id='89987'),
  bucket_id text not null default 'awin-bulk-private-snapshots'
    check (bucket_id='awin-bulk-private-snapshots'),
- object_key text not null check (
-   object_key ~ '^awin/496/89987/[a-f0-9]{64}\\.csv\\.gz$'
- ),
+ object_key text not null,
  snapshot_sha256 text not null check (snapshot_sha256 ~ '^[a-f0-9]{64}$'),
  actual_rows integer not null check (actual_rows between 1 and 500000),
  compressed_bytes bigint not null check (compressed_bytes between 1 and 262144000),
