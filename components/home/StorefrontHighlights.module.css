@@ -2,7 +2,7 @@
 .heading{display:flex;align-items:end;justify-content:space-between;gap:26px;margin-bottom:24px}
 .heading>div{max-width:790px}
 .eyebrow{font-size:11px;color:#8150a2;text-transform:uppercase;letter-spacing:.12em;font-weight:900;margin:0 0 10px}
-.heading h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(32px,4.1vw,51px);letter-spacing:-.045em;line-height:1.1;margin:0 0 12px}
+.heading h2{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:clamp(32px,4.1vw,51px);letter-spacing:-.045em;line-height:1.1;margin:0 0 12px}
 .heading p:last-child{font-size:15px;line-height:1.7;color:#736a72;margin:0}
 .heading>a{flex:none;display:inline-flex;align-items:center;gap:8px;min-height:44px;color:#6043a3;font-size:13px;font-weight:850}
 .editorialGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
@@ -11,7 +11,7 @@
 .photo{height:175px;background:#e5d9d0 center/cover no-repeat}
 .copy{display:flex;flex:1;flex-direction:column;padding:18px}
 .copy p{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:#805b9b;text-transform:uppercase;letter-spacing:.09em;font-weight:900;margin:0 0 7px}
-.copy h3{font-family:Georgia,"Times New Roman",serif;font-size:21px;letter-spacing:-.03em;line-height:1.16;margin:0 0 7px}
+.copy h3{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:21px;letter-spacing:-.03em;line-height:1.16;margin:0 0 7px}
 .copy>span{font-size:13px;color:#746c75;line-height:1.5;min-height:39px}
 .copy>strong{display:inline-flex;align-items:center;gap:7px;color:#6043a3;font-size:12px;margin-top:17px}
 .trust{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:24px;padding:17px 20px;border:1px solid #e5d8e8;border-radius:16px;background:linear-gradient(100deg,#f4eef9,#fffdf9)}
