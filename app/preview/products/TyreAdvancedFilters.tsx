@@ -60,7 +60,7 @@ export default function TyreAdvancedFilters({facets,selected,resultCount}:{
     </label>
    </div>
    <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(150px,1fr))",gap:12}}>
-    <label style={{...labelStyle,gridColumn:"span 2"}}>Search tyre model or name
+    <label style={labelStyle}>Search tyre model or name
      <input name="q" type="search" maxLength={80} defaultValue={selected.q} placeholder="e.g. Pilot Sport, AllSeasonContact" style={fieldStyle}/>
     </label>
     <label style={labelStyle}>Min historic price (£)
