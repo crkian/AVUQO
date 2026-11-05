@@ -14,11 +14,18 @@ const viewports=[
  {label:"mobile",width:390,height:844},
 ];
 const pages=[
- {slug:"home-christmas",url:"/"},
+ {slug:"homepage",url:"/"},
  {slug:"christmas",url:"/christmas"},
+ {slug:"easter",url:"/easter"},
+ {slug:"valentines",url:"/valentines"},
+ {slug:"black-friday",url:"/black-friday"},
+ {slug:"sales",url:"/sales"},
  {slug:"technology",url:"/tech"},
  {slug:"home-living",url:"/home"},
  {slug:"beauty",url:"/beauty"},
+ {slug:"fashion",url:"/fashion"},
+ {slug:"travel",url:"/travel"},
+ {slug:"shopping",url:"/shopping"},
  {slug:"categories",url:"/categories"},
  {slug:"products",url:"/products"},
  {slug:"search",url:"/search?q=laptops"},
@@ -66,9 +73,25 @@ try{
       entry.overflow=Math.max(0,metrics.documentWidth-metrics.viewportWidth);
       entry.links=metrics.links;
       entry.errors=consoleErrors.slice(0,5);
+      if(viewport.label==="mobile"&&pageInfo.url==="/"){
+        const button=page.getByRole("button",{name:"Open navigation"});
+        if(await button.count()){
+          await button.click();
+          const expanded=await button.getAttribute("aria-expanded");
+          if(expanded!=="true"){
+            entry.errors.push("Mobile menu did not open on click");
+          }
+          await button.click();
+          if(await button.getAttribute("aria-expanded")!=="false"){
+            entry.errors.push("Mobile menu did not close on click");
+          }
+        }else{
+          entry.errors.push("Mobile menu button missing");
+        }
+      }
       await page.screenshot({path:path.join(out,`${pageInfo.slug}-${viewport.label}.png`),
         fullPage:true,animations:"disabled"});
-      if(entry.status>=400 || !entry.h1 || entry.overflow>4){
+      if(entry.status>=400 || !entry.h1 || entry.overflow>4 || entry.errors.some(error=>error.startsWith("Mobile menu"))){
         failures++;
         console.error("FAIL",JSON.stringify(entry));
       }else{
