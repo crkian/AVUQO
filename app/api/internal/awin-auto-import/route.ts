@@ -123,7 +123,7 @@ export async function POST(request:NextRequest){
  // inspection only: never raise the 120-column production import limit.
  // Return sanitized NAMES, never data values or signed feed URLs.
  if(preflight&&advertiser==="31539"&&feed==="74135"){
-  const delimiter=csv.slice(0,1000).split("\\n",1)[0].includes("\\t")?"\\t":",";
+  const delimiter=csv.slice(0,1000).split("\n",1)[0].includes("\t")?"\t":",";
   try{
    const iterator=parseRows(csv,delimiter,256);
    const first=await iterator.next();
