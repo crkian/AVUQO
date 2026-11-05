@@ -62,7 +62,7 @@ export default function LifestyleLanding({config,afterTrust}: {config:Landing;af
     </section>
 
     <section className={`shell ${styles.guidanceSection}`} aria-labelledby={`guidance-title-${config.slug}`}>
-      <div className={styles.guidanceHeading}><h2 id={`guidance-title-${config.slug}`}>Shop smarter in ${config.slug==="tech"?"tech":config.slug}.</h2></div>
+      <div className={styles.guidanceHeading}><h2 id={`guidance-title-${config.slug}`}>Shop smarter in {config.slug==="tech"?"tech":config.slug}.</h2></div>
       <div className={styles.guidanceGrid}>
         {config.tips.map((tip,i)=><article key={tip.title} className={styles.guidanceCard}>
           <span className={styles.guidanceSymbol}>{i===0?<ReceiptText size={25}/>:i===1?<ShieldCheck size={25}/>:<Heart size={25}/>}</span>
