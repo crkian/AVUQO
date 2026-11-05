@@ -28,7 +28,8 @@ export async function* csvRowsFromChunks(chunks:AsyncIterable<string>,delimiter=
    }else if(justClosed){
     if(c!==" "&&c!=="\r")throw Error("Unexpected character after closing quote");
    }else field+=c;
-   if(field.length>10000||cells.length>120)throw Error("CSV field or row exceeds size limit");
+   if(field.length>10000)throw Error("CSV field exceeds 10,000 characters");
+   if(cells.length>120)throw Error("CSV column count exceeds 120");
   }
  }
  if(quotePending){quoted=false;quotePending=false;justClosed=true;}
