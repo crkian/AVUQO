@@ -26,3 +26,20 @@
 @media(max-width:460px){.grid{grid-template-columns:1fr 1fr;gap:8px}.card{border-radius:16px}.art{height:130px}.art img{max-height:110px}.checked{font-size:9px;left:5px;bottom:5px;padding:4px 6px}.copy h3{font-size:15px}.copy{padding:13px 10px}.valueRow>div:first-child strong{font-size:18px}.score{width:44px;height:44px;border-width:2px}.score strong{font-size:16px}.score small{font-size:7px}.merchant{font-size:10px}.action{font-size:10px;padding:6px;min-height:36px}}
 @media(max-width:355px){.grid{grid-template-columns:1fr}.art{height:190px}}
 @media(prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
+
+/* Short, mockup-style four-up verified product selection used in department worlds. */
+.compact{gap:9px;grid-template-columns:repeat(4,minmax(0,1fr))}
+.compact .card{border-radius:18px}
+.compact .art{height:145px}
+.compact .art img{max-height:120px}
+.compact .copy{padding:13px 11px 15px}
+.compact .copy h3{font-size:15px;line-height:1.18;min-height:40px;margin-bottom:10px}
+.compact .brand{font-size:9px}
+.compact .valueRow>div:first-child strong{font-size:18px}
+.compact .valueRow>div:first-child span{font-size:9px}
+.compact .merchant{font-size:10px;margin:9px 0}
+.compact .score{width:46px;height:46px;border-width:2px}
+.compact .score strong{font-size:16px}.compact .score small{font-size:7px}
+.compact .action{font-size:10px;min-height:37px;padding:6px}
+@media(max-width:800px){.compact{grid-template-columns:repeat(2,minmax(0,1fr))}.compact .art{height:150px}}
+@media(max-width:420px){.compact{gap:7px}.compact .art{height:118px}.compact .copy h3{font-size:14px}}
