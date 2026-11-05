@@ -199,3 +199,64 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .avuqo-footer a:focus-visible,.header a:focus-visible{outline:3px solid #9256df;outline-offset:3px}
 @media(min-width:1050px){.shell{width:min(1320px,calc(100% - 56px))}}
 @media(max-width:600px){.shell{width:min(100% - 28px,1320px)}}
+
+/* Reference fidelity: light, compact editorial footer on every customer page.
+   Preserve every legal link, privacy control, group and disclosure. */
+.avuqo-footer{
+  padding:29px 0 0;
+  background:#fffaf6;
+  color:#302639;
+  border-top:1px solid #e8dfe0;
+}
+.avuqo-footer__main{
+  display:grid;
+  grid-template-columns:minmax(180px,1.1fr) repeat(3,minmax(0,1fr));
+  gap:clamp(17px,2.5vw,38px);
+  padding-bottom:20px;
+  align-items:start;
+}
+.avuqo-footer__brand .logo{color:#211832;font-size:21px}
+.avuqo-footer__brand .q-mark{width:29px;height:29px;border-radius:10px;box-shadow:0 5px 14px #6043a32a}
+.avuqo-footer__brand p{max-width:240px;color:#6f6670;font-size:11px;line-height:1.5;margin:7px 0}
+.avuqo-footer__brand .avuqo-footer__motto{color:#392c44;font-size:14px;line-height:1.3;margin:10px 0 4px}
+.avuqo-footer__email{color:#6043a3;font-size:11px}
+.avuqo-footer__group h2{color:#5c4770;font-size:10px;letter-spacing:.095em;margin:5px 0 12px}
+.avuqo-footer__group ul{display:flex;flex-direction:column;gap:7px}
+.avuqo-footer__group a{color:#635d68;font-size:11px;line-height:1.4}
+.avuqo-footer a:hover,.avuqo-footer a:focus-visible{color:#6043a3}
+.avuqo-footer__disclosure{
+  padding:12px 0;
+  border-color:#ebdfde;
+  color:#6a5f6e;
+  font-size:10px;
+  line-height:1.5;
+}
+.avuqo-footer__disclosure strong{color:#3d3148}
+.avuqo-footer__disclosure a{color:#6043a3;font-weight:750}
+.avuqo-footer__bottom{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px 22px;
+  padding:12px 0 20px;
+  border-color:#ebdfde;
+  color:#746d78;
+  font-size:10px;
+  line-height:1.5;
+}
+@media(min-width:1051px){
+ .avuqo-footer__group ul{display:flex;flex-direction:row;flex-wrap:wrap;column-gap:11px;row-gap:7px}
+ .avuqo-footer__group li{max-width:100%}
+}
+@media(max-width:1050px){
+ .avuqo-footer__main{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+ .avuqo-footer__brand{grid-column:1/-1}
+ .avuqo-footer__group:last-child{grid-column:auto}
+}
+@media(max-width:680px){
+ .avuqo-footer{padding-top:25px}
+ .avuqo-footer__main{grid-template-columns:repeat(2,minmax(0,1fr));gap:23px 16px;padding-bottom:25px}
+ .avuqo-footer__brand{grid-column:1/-1}
+ .avuqo-footer__group:last-child{grid-column:1/-1}
+ .avuqo-footer__group ul{gap:11px}
+ .avuqo-footer__group a{font-size:12px}
+ .avuqo-footer__bottom{flex-direction:column;align-items:flex-start}
+}
