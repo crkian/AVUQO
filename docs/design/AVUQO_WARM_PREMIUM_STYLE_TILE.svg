@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="ttl desc">
+<title id="ttl">AVUQO warm premium visual design style tile</title>
+<desc id="desc">Editable SVG concept with cream website shell, editorial hero, navigation, helpful cards and the AVUQO warm palette. No product prices or performance claims are made.</desc>
+<defs>
+ <linearGradient id="page" x2="0" y2="1"><stop stop-color="#FFFDF9"/><stop offset="1" stop-color="#FAF8F3"/></linearGradient>
+ <linearGradient id="cta" x2="1" y2="1"><stop stop-color="#5B35F5"/><stop offset="1" stop-color="#3A20BD"/></linearGradient>
+ <linearGradient id="hero" x2="1" y2="0"><stop stop-color="#F7E6DC"/><stop offset=".58" stop-color="#F2E5DD"/><stop offset="1" stop-color="#E5D4EF"/></linearGradient>
+ <linearGradient id="wave" x1=".2" y1="0" x2=".8" y2="1"><stop stop-color="#D5B8E8"/><stop offset="1" stop-color="#A680D2"/></linearGradient>
+ <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#302639" flood-opacity=".11"/></filter>
+</defs>
+<rect width="1440" height="900" fill="url(#page)"/>
+<rect x="46" y="40" width="1348" height="640" rx="28" fill="#FFFFFF" stroke="#E9E0DC" filter="url(#shadow)"/>
+<path d="M46 102 H1394" stroke="#EEE8E3"/>
+<text x="81" y="84" font-family="Georgia,serif" font-size="31" font-weight="700" fill="#17142B">AVUQO</text>
+<text x="234" y="82" font-family="Arial,sans-serif" font-size="13" fill="#716D80">Find what's worth it.</text>
+<text x="660" y="80" font-family="Arial,sans-serif" font-size="15" fill="#17142B">Discover</text>
+<text x="756" y="80" font-family="Arial,sans-serif" font-size="15" fill="#17142B">Deals &amp; Sales</text>
+<text x="894" y="80" font-family="Arial,sans-serif" font-size="15" fill="#17142B">Compare</text>
+<text x="995" y="80" font-family="Arial,sans-serif" font-size="15" fill="#17142B">Groceries</text>
+<text x="1108" y="80" font-family="Arial,sans-serif" font-size="15" fill="#17142B">Categories</text>
+<text x="1226" y="80" font-family="Arial,sans-serif" font-size="15" fill="#17142B">Travel</text>
+<rect x="86" y="127" width="1268" height="290" rx="25" fill="url(#hero)"/>
+<path d="M897 127h432q25 0 25 25v240q0 25-25 25H897z" fill="#EDD9D2" opacity=".56"/>
+<ellipse cx="1158" cy="349" rx="183" ry="35" fill="#D2B9B0" opacity=".55"/>
+<rect x="1000" y="246" width="285" height="105" rx="29" fill="#EEE1D7" stroke="#E6CDC8" stroke-width="3"/>
+<rect x="1018" y="221" width="252" height="79" rx="30" fill="#F9F2EA"/>
+<path d="M1035 300v48M1250 300v48" stroke="#C9ADA1" stroke-width="8" stroke-linecap="round"/>
+<rect x="1140" y="187" width="90" height="61" rx="20" fill="#E6CBE7"/>
+<rect x="1256" y="173" width="65" height="171" rx="14" fill="#DAC2BC"/>
+<path d="M1288 173v-35" stroke="#C3A89D" stroke-width="5"/>
+<ellipse cx="1288" cy="133" rx="46" ry="16" fill="#F4E5CD"/>
+<circle cx="947" cy="228" r="49" fill="#E9D9B3"/>
+<path d="M947 182c-35-28-60 1-46 25M947 182c35-28 62 2 47 25" stroke="#91AD81" fill="none" stroke-width="8"/>
+<text x="128" y="196" font-family="Georgia,serif" font-size="24" fill="#6043A3">A warmer way to shop and compare</text>
+<text x="126" y="255" font-family="Georgia,serif" font-size="53" font-weight="700" fill="#17142B">Find what's</text>
+<text x="126" y="312" font-family="Georgia,serif" font-size="56" font-weight="700" fill="#5B35F5">worth it.</text>
+<text x="127" y="347" font-family="Arial,sans-serif" font-size="18" fill="#493D50">Shop thoughtfully. Compare clearly. Buy with confidence.</text>
+<rect x="128" y="367" width="204" height="40" rx="20" fill="url(#cta)"/>
+<text x="162" y="394" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#fff">Explore AVUQO →</text>
+<text x="88" y="461" font-family="Georgia,serif" font-size="29" font-weight="700" fill="#302639">Every interest deserves its own world.</text>
+<text x="89" y="489" font-family="Arial,sans-serif" font-size="14" fill="#716D80">A curated category browser, not an invented stocked catalogue.</text>
+<g font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#17142B">
+<rect x="86" y="512" width="240" height="122" rx="20" fill="#F7F3EC" stroke="#E9E0DC"/>
+<circle cx="135" cy="566" r="28" fill="#DED3F1"/><text x="172" y="565">Technology</text><text x="172" y="593" font-size="14" font-weight="400" fill="#716D80">Explore devices</text>
+<rect x="344" y="512" width="240" height="122" rx="20" fill="#FFF0DC" stroke="#E9E0DC"/>
+<circle cx="394" cy="566" r="28" fill="#E2C6A8"/><text x="430" y="565">Home &amp; living</text><text x="430" y="593" font-size="14" font-weight="400" fill="#716D80">A more considered home</text>
+<rect x="602" y="512" width="240" height="122" rx="20" fill="#F9E8EF" stroke="#E9E0DC"/>
+<circle cx="652" cy="566" r="28" fill="#E8C2D0"/><text x="690" y="565">Beauty</text><text x="690" y="593" font-size="14" font-weight="400" fill="#716D80">Care and choice</text>
+<rect x="860" y="512" width="240" height="122" rx="20" fill="#E6F5F2" stroke="#E9E0DC"/>
+<circle cx="910" cy="566" r="28" fill="#B7DCD3"/><text x="946" y="565">Groceries</text><text x="946" y="593" font-size="14" font-weight="400" fill="#716D80">Build a useful list</text>
+<rect x="1118" y="512" width="235" height="122" rx="20" fill="#F4E9F9" stroke="#E9E0DC"/>
+<circle cx="1166" cy="566" r="28" fill="url(#wave)"/><text x="1205" y="565">Explore all</text><text x="1205" y="593" font-size="14" font-weight="400" fill="#716D80">25 departments</text>
+</g>
+<text x="54" y="728" font-family="Georgia,serif" font-weight="700" font-size="28" fill="#17142B">The AVUQO colour story</text>
+<text x="54" y="753" font-family="Arial,sans-serif" font-size="15" fill="#716D80">A warm editorial canvas, with violet used carefully where it matters.</text>
+<g font-family="Arial,sans-serif" font-size="15" fill="#302639">
+<rect x="54" y="778" width="135" height="61" rx="10" fill="#FAF8F3" stroke="#E7E3EC"/><text x="58" y="861">Warm ivory</text>
+<rect x="207" y="778" width="135" height="61" rx="10" fill="#17142B"/><text x="207" y="861">Deep navy</text>
+<rect x="359" y="778" width="135" height="61" rx="10" fill="#5B35F5"/><text x="359" y="861">AVUQO violet</text>
+<rect x="511" y="778" width="135" height="61" rx="10" fill="#3478F6"/><text x="511" y="861">Electric blue</text>
+<rect x="663" y="778" width="135" height="61" rx="10" fill="#F9E8EF" stroke="#E7E3EC"/><text x="663" y="861">Soft rose</text>
+<rect x="815" y="778" width="135" height="61" rx="10" fill="#FFF0DC" stroke="#E7E3EC"/><text x="815" y="861">Butter wash</text>
+<rect x="967" y="778" width="135" height="61" rx="10" fill="#E6F5F2" stroke="#E7E3EC"/><text x="967" y="861">Teal wash</text>
+<rect x="1119" y="778" width="135" height="61" rx="10" fill="#087B5B"/><text x="1119" y="861">Evidence green</text>
+</g><text x="54" y="887" font-family="Arial,sans-serif" font-size="12" fill="#716D80">Design concept only. No example product offer, price, score or metric is evidence of real availability.</text>
+</svg>

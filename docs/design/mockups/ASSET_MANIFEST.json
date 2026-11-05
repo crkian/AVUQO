@@ -1,0 +1,160 @@
+{
+  "version": "2026-11-05",
+  "repo": "crkian/AVUQO",
+  "branch": "design/warm-premium-visual-system-20261105",
+  "assets": [
+    {
+      "name": "seasonal-christmas.png",
+      "role": "seasonal christmas",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 2396651,
+      "sha256": "0e7cb3185fdcbaaeebeb1b2674657c0b316749e381bceedf7c4dd8817ef950fc",
+      "status": "CONCEPT ONLY \u2014 never publish offers from this image"
+    },
+    {
+      "name": "seasonal-black-friday.png",
+      "role": "seasonal black friday",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 2260850,
+      "sha256": "924b747760cf4b5db7c36f2ab6343008dcdd3a51b708acaf6b50121568a595c0",
+      "status": "CONCEPT ONLY \u2014 never publish offers from this image"
+    },
+    {
+      "name": "seasonal-easter.png",
+      "role": "seasonal easter",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 2470555,
+      "sha256": "8a7ede15e32923dfee1691e59df1d00b310e361975a28d496db38007c032d6b7",
+      "status": "CONCEPT ONLY \u2014 never publish offers from this image"
+    },
+    {
+      "name": "seasonal-valentines.png",
+      "role": "seasonal valentines",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 2334813,
+      "sha256": "6aa0e11f575f593f8c33050e9a0aa2db0ccd8b345991ccfb24a5ef5706d14313",
+      "status": "CONCEPT ONLY \u2014 never publish offers from this image"
+    },
+    {
+      "name": "seasonal-sales.png",
+      "role": "seasonal sales",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 2213456,
+      "sha256": "606413dc33891a46f6f69d03e9df200067d1167213bdcb6123f3cd8875d94608",
+      "status": "CONCEPT ONLY \u2014 never publish offers from this image"
+    },
+    {
+      "name": "category-tech.png",
+      "role": "category tech",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 2154282,
+      "sha256": "529053b5ed54ccf58f1b9c5698bf8e04c311051a89d20c3a58c46d7698ae250d",
+      "status": "CONCEPT ONLY \u2014 never publish offers from this image"
+    },
+    {
+      "name": "category-home-and-living.png",
+      "role": "category home and living",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 2210001,
+      "sha256": "1f98e64e87930b04bbd890dba7297c7409e165d8c32dc2dda0ffbc40b97c7c47",
+      "status": "CONCEPT ONLY \u2014 never publish offers from this image"
+    },
+    {
+      "name": "category-beauty.png",
+      "role": "category beauty",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 2149939,
+      "sha256": "af740cda6489e95bcbbaab4ddf892359d1befb12982f4e2fb13f317f3adb0868",
+      "status": "CONCEPT ONLY \u2014 never publish offers from this image"
+    },
+    {
+      "name": "full-storefront-and-navigation-concept.png",
+      "role": "full storefront and navigation concept",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2159113,
+      "sha256": "3561b30ace173f09188b70708b2cddc19d7d27c1913ebea5538d49d1ca1980ee",
+      "status": "CONCEPT ONLY \u2014 never publish offers from this image"
+    },
+    {
+      "name": "product-profile-page-set.png",
+      "role": "product profile page set",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2138119,
+      "sha256": "3cb82d7e2980ffbe82cfb3e115d25e9e6a5a2efbccb155848c5ed7a636c552fd",
+      "status": "CONCEPT ONLY \u2014 never publish offers from this image"
+    },
+    {
+      "name": "product-profile-watches-lists-reference.png",
+      "role": "product profile watches lists reference",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2270873,
+      "sha256": "4be663cf959f2dc354b09cfa635b7d2da2b51f29e681d6eaeaed7a450b39c139",
+      "status": "CONCEPT ONLY \u2014 never publish offers from this image"
+    },
+    {
+      "name": "homepage-groceries-travel-profile-reference.png",
+      "role": "homepage groceries travel profile reference",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2269442,
+      "sha256": "67d9b3f82a9314564fb8a143c105c813f4e36433ef91a984e45f6eb01aa19025",
+      "status": "CONCEPT ONLY \u2014 never publish offers from this image"
+    },
+    {
+      "name": "product-detail-screen-crop.png",
+      "role": "cropped design-board reference for product detail screen crop",
+      "width": 1350,
+      "height": 1210,
+      "bytes": 1218550,
+      "sha256": "7ae0771468ed391816d33d4acf153860a04525e504190f7bf701ba664ba7fc13",
+      "status": "CONCEPT CROP ONLY, enlarged 2x, not a real browser capture or verified data"
+    },
+    {
+      "name": "account-profile-screen-crop.png",
+      "role": "cropped design-board reference for account profile screen crop",
+      "width": 940,
+      "height": 694,
+      "bytes": 549515,
+      "sha256": "cc082b83c5651a036a6bfa051e83fb33ef9119b8198da94e209707110552861d",
+      "status": "CONCEPT CROP ONLY, enlarged 2x, not a real browser capture or verified data"
+    },
+    {
+      "name": "watches-screen-crop.png",
+      "role": "cropped design-board reference for watches screen crop",
+      "width": 768,
+      "height": 694,
+      "bytes": 345862,
+      "sha256": "5ab30dc6f8c7fccd678face98fba8bc934a0920ff31e5ecae618f47ce97b0fca",
+      "status": "CONCEPT CROP ONLY, enlarged 2x, not a real browser capture or verified data"
+    },
+    {
+      "name": "saved-items-screen-crop.png",
+      "role": "cropped design-board reference for saved items screen crop",
+      "width": 940,
+      "height": 514,
+      "bytes": 368678,
+      "sha256": "4a42d55d80414650a8bf8ddac70e8bd7904d83b7a5b93ccfe204de50e1488cf1",
+      "status": "CONCEPT CROP ONLY, enlarged 2x, not a real browser capture or verified data"
+    },
+    {
+      "name": "shared-lists-screen-crop.png",
+      "role": "cropped design-board reference for shared lists screen crop",
+      "width": 768,
+      "height": 514,
+      "bytes": 295192,
+      "sha256": "f8c1b5377c83c4fc9ebd07cddb521e9ec9064c6303af8dd240b9ca90f7c73c1a",
+      "status": "CONCEPT CROP ONLY, enlarged 2x, not a real browser capture or verified data"
+    }
+  ]
+}
