@@ -1,11 +1,13 @@
 "use client";
 import Link from "next/link";
-import {ChevronDown,ChevronRight} from "lucide-react";
+import {ChevronDown,ChevronRight,Compass,Tag,Scale,ShoppingBasket,LayoutGrid,Plane,MoreHorizontal} from "lucide-react";
 import {usePathname} from "next/navigation";
 import {useEffect,useRef,useState} from "react";
 import {orderedNavigation,type NavigationContent} from "../../lib/content/navigation";
 import styles from "./MegaNav.module.css";
 import DepartmentExplorer from "../categories/DepartmentExplorer";
+const navIcons = { discover: Compass, deals: Tag, sales: Tag, compare: Scale, groceries: ShoppingBasket, categories: LayoutGrid, travel: Plane, more: MoreHorizontal } as const;
+
 export default function MegaNav({menuOpen,onNavigate,navigation,ownerPreview=false}:{
  menuOpen:boolean;onNavigate:()=>void;navigation:NavigationContent;ownerPreview?:boolean
 }){
@@ -33,11 +35,12 @@ export default function MegaNav({menuOpen,onNavigate,navigation,ownerPreview=fal
    }}>
   {groups.map((group,index)=>{
    const active=pathname===group.href||group.links.some(link=>pathname===link.href);
+   const Icon = navIcons[group.id as keyof typeof navIcons] ?? Compass;
    return <div className={styles.group+(group.id==="categories"?" "+styles.categoryGroup:"")} key={group.id}>
      <div className={styles.groupHeading}>
        <Link href={group.href} className={styles.groupLink+(active?" "+styles.active:"")}
          onClick={()=>{setExpanded(null);onNavigate()}}
-         aria-current={pathname===group.href?"page":undefined}>{group.label}</Link>
+         aria-current={pathname===group.href?"page":undefined}><Icon size={16} aria-hidden="true"/>{group.label}</Link>
        <button type="button" className={styles.expand}
          aria-label={"Show "+group.label+" submenu"}
          aria-expanded={expanded===group.id}
