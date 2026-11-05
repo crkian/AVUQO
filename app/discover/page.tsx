@@ -27,11 +27,10 @@ const discoveries=[
  {title:"Fashion",copy:"Find what fits and think about cost per wear.",href:"/fashion",image:lifestylePages.fashion.hero,tag:"Thoughtful style"},
 ] as const;
 
-export default async function DiscoverPage(){
+async function DiscoverContent(){
   await connection();
   const christmas=activeHomeSeasonalMoment();
-  return <main className={styles.page}>
-    <Header/>
+  return <>
     <section className={styles.hero} aria-labelledby="discover-heading">
       <div className="shell">
         <p className={styles.kicker}><Sparkles size={15} aria-hidden="true"/> Welcome to AVUQO Discover</p>
@@ -72,6 +71,15 @@ export default async function DiscoverPage(){
         <p className={styles.provenance}>No example prices, unpublished merchant feeds or unapproved affiliate offers are used as live deals. <Link href="/trust">How AVUQO builds trust</Link>.</p>
       </div>
     </section>
+  </>;
+}
+
+export default function DiscoverPage(){
+  return <main className={styles.page}>
+    <Header/>
+    <Suspense fallback={<section className="shell section">Exploring AVUQO&apos;s shopping worlds…</section>}>
+      <DiscoverContent/>
+    </Suspense>
     <Footer/>
   </main>;
 }
