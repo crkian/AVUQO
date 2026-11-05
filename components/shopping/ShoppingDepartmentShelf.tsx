@@ -10,7 +10,7 @@ const collections=[
  {title:"Pets & care",description:"Feeding, hydration and products for your companions.",href:"/pets",ownerHref:"/preview/products?merchant=77952",image:"/illustrations/avuqo-pets-care.svg",merchant:"Petlibro"},
  {title:"Crafts & creativity",description:"Creative projects, kits and the joy of making.",href:"/search?q=craft%20kits",ownerHref:"/preview/products?merchant=45747",image:lifestylePages.shopping.hero,merchant:"Craft Buddy"},
  {title:"Technology & phones",description:"Devices, mobile plans and practical technology choices.",href:"/tech",ownerHref:"/preview/products?merchant=31539",image:lifestylePages.tech.hero,merchant:"Mozillion"},
- {title:"Motoring & services",description:"Tyres, journeys and the full cost of getting around.",href:"/motoring",ownerHref:"/control-centre/feed-imports#next-merchant-feeds",image:lifestylePages.shopping.featureImage,merchant:"Tyres UK"}
+ {title:"Motoring & services",description:"Tyres, journeys and the full cost of getting around.",href:"/motoring",ownerHref:"/control-centre/general-feed-import",image:lifestylePages.shopping.featureImage,merchant:"Tyres UK"}
 ] as const;
 export default function ShoppingDepartmentShelf({compact=false}:{compact?:boolean}){
  return <section className={compact?`${styles.section} ${styles.compact}`:styles.section} aria-labelledby={compact?"avuqo-shop-categories-compact":"avuqo-shop-categories"}>
