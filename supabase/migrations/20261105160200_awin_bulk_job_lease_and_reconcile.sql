@@ -34,26 +34,29 @@ begin
    and status='paused' and sync_enabled=false
  ) then raise exception 'Awin publication source must remain paused'; end if;
  select * into r from public.feed_import_runs where id=j.private_import_id for update;
- if not found or r.merchant_id<>j.advertiser_id
+ if r.id is null or r.merchant_id<>j.advertiser_id
     or r.filename not like ('GENAWIN__'||j.feed_id||'__%')
     or r.status<>'importing' or r.permission_status<>'unverified'
  then raise exception 'Private import identity/status mismatch'; end if;
  select * into s from public.large_feed_import_sessions
  where import_id=j.private_import_id for update;
- if not found or s.completed_at is not null
+ if s.import_id is null or s.completed_at is not null
     or s.source_digest<>j.snapshot_sha256
-    or s.next_sequence<>j.next_sequence
-    or s.committed_count<>j.committed_rows
+    or s.next_sequence<j.next_sequence
+    or s.committed_count<j.committed_rows
+    or s.committed_count>j.validated_total
+    or s.committed_count>250*s.next_sequence
  then raise exception 'Private import checkpoint mismatch'; end if;
  v_token:=gen_random_uuid();
  update public.awin_bulk_import_jobs
  set state='running', lease_token=v_token,
+     next_sequence=s.next_sequence,committed_rows=s.committed_count,
      lease_expires_at=now()+make_interval(secs=>p_lease_seconds),
      attempt_count=attempt_count+1,updated_at=now(),
      last_failure_code=null
  where id=p_job_id;
  return jsonb_build_object('job_id',p_job_id,'lease_token',v_token,
-   'next_sequence',j.next_sequence,'committed_rows',j.committed_rows,
+   'next_sequence',s.next_sequence,'committed_rows',s.committed_count,
    'private_only',true);
 end
 $function$;
@@ -85,7 +88,7 @@ begin
  select * into r from public.feed_import_runs where id=j.private_import_id for update;
  select * into s from public.large_feed_import_sessions
   where import_id=j.private_import_id for update;
- if not found or s.source_digest<>j.snapshot_sha256
+ if r.id is null or s.import_id is null or s.source_digest<>j.snapshot_sha256
     or r.merchant_id<>j.advertiser_id
     or r.permission_status<>'unverified'
     or r.filename not like ('GENAWIN__'||j.feed_id||'__%')
