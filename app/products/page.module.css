@@ -4,7 +4,7 @@
 .hero{position:relative;overflow:hidden;padding:clamp(54px,7vw,93px) 0;background:
  linear-gradient(90deg,rgba(250,248,243,.99) 0%,rgba(250,248,243,.97) 44%,rgba(250,248,243,.57) 74%,rgba(250,248,243,.2) 100%),
  url("https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=1600&q=85") center 45%/cover no-repeat}
-.hero h1,.heading h2,.empty h3{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.043em}
+.hero h1,.heading h2,.empty h3{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);letter-spacing:-.043em}
 .hero h1{font-size:clamp(46px,5.8vw,79px);max-width:820px;line-height:1.07;margin:0 0 17px;color:#302639}
 .hero h1 span{color:#6043a3}
 .hero p:not(.kicker){max-width:630px;color:#554956;font-size:17px;line-height:1.65}
