@@ -36,7 +36,7 @@ test("bad merchant and duplicate IDs are counted without staging",async()=>{
 });
 
 test("custom field tyre-size evidence counts remain aggregate and unverified",async()=>{
- const bytes=gzipSync([header.join(","),data("one",{custom_2:"225/45 R17"}),data("two",{custom_2:"205/55 R16"})].join("\\n")+"\\n");
+ const bytes=gzipSync([header.join(","),data("one",{custom_2:"225/45 R17"}),data("two",{custom_2:"205/55 R16"})].join("\n")+"\n");
  const r=await inspectTyreBoundedSample(new Response(bytes),"15236","26513");
  assert.equal(r.custom_column_evidence.custom_2.size_candidate_rows,2);
  assert.equal(r.tyre_size_verified,false);
