@@ -57,14 +57,14 @@ export default function LifestyleLanding({config,afterTrust}: {config:Landing;af
       </div>
     </div>
     {afterTrust}
-    {story&&<CategoryMoments story={story}/>}
+    {story&&<CategoryMoments story={story} images={config.tiles.map(tile=>tile.image)}/>}
     <section className={`shell ${styles.section}`} id="explore">
       <div className={styles.sectionHeading}>
         <div><p className={styles.kicker}>Explore the possibilities</p><h2>{story?.browseLabel??"Find what matters to you."}</h2><p>Browse this category, then search for eligible products and independent guidance. Some searches may not yet have verified matches.</p></div>
         <Link href="/categories">All categories <ArrowRight size={17}/></Link>
       </div>
       <div className={styles.tileGrid}>
-        {config.tiles.map(tile=><Link className={styles.tile} key={tile.title} href={`/search?q=${encodeURIComponent(tile.search)}`}>
+        {config.tiles.slice(0,4).map(tile=><Link className={styles.tile} key={tile.title} href={`/search?q=${encodeURIComponent(tile.search)}`}>
           <div className={styles.tilePhoto} style={photo(tile.image)} aria-hidden="true"/>
           <div className={styles.tileBody}><h3>{tile.title}</h3><p>{tile.copy}</p><ArrowRight size={19} aria-hidden="true"/></div>
         </Link>)}
