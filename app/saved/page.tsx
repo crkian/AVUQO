@@ -99,7 +99,7 @@ export default function SavedPage() {
                 </div>
               </article>;
             })}</div>}
-        <p className={styles.disclaimer}>Saved titles, merchants and prices are historical snapshots. They do not verify today's price, stock, product image or AVUQO Score.</p>
+        <p className={styles.disclaimer}>Saved titles, merchants and prices are historical snapshots. They do not verify today&apos;s price, stock, product image or AVUQO Score.</p>
       </div>
     </section>
     <Footer/>
