@@ -159,3 +159,30 @@ body{background:var(--avuqo-canvas)}
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #7958df;outline-offset:3px}
 @media(max-width:1000px){.header .avuqo-header-layout>.primary-nav{background:var(--avuqo-surface-warm);border-color:var(--avuqo-border-warm)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}}
+
+/* Design pack alignment: two-row desktop navigation, gradient A mark and a full-width search bar. */
+.header .logo{gap:9px;text-decoration:none}
+.header .brand-symbol,.avuqo-footer .brand-symbol{width:43px;height:43px;display:block;flex:none;max-width:none}
+.header .brand-wordmark,.avuqo-footer .brand-wordmark{display:flex;align-items:flex-start;flex-direction:column;gap:0;line-height:1.05}
+.header .brand-wordmark strong,.avuqo-footer .brand-wordmark strong{color:#17142b;letter-spacing:-.065em;font-size:25px;font-weight:900}
+.header .brand-wordmark small,.avuqo-footer .brand-wordmark small{color:#6043a3;letter-spacing:-.015em;font-size:10px;font-weight:800;white-space:nowrap}
+.avuqo-footer .brand-wordmark strong{color:#fff}.avuqo-footer .brand-wordmark small{color:#e5d1f5}
+@media(min-width:1001px){
+ .header .avuqo-header-layout{grid-template-columns:minmax(142px,auto) minmax(0,1fr) minmax(145px,auto);grid-template-rows:53px 48px;gap:4px 14px;min-height:116px;padding:3px 0 9px}
+ .header .avuqo-header-layout>.logo{grid-column:1;grid-row:1;justify-self:start}
+ .header .avuqo-header-layout>.primary-nav{grid-column:2;grid-row:1;justify-self:stretch;justify-content:center!important;gap:1px;width:100%;min-width:0}
+ .header .avuqo-header-layout>.primary-nav .group{min-width:0;flex:0 1 auto}
+ .header .avuqo-header-layout>.header-search{grid-column:1/-1;grid-row:2;justify-self:center;max-width:895px;width:min(100%,895px);min-height:43px;border-radius:999px;padding:3px 5px 3px 16px}
+ .header .avuqo-header-layout>.header-search input{font-size:14px}
+ .header .avuqo-header-layout>.header-search button{min-width:110px;min-height:36px;border-radius:999px}
+ .header .avuqo-header-layout>.header-actions{grid-column:3;grid-row:1;justify-self:end}
+}
+@media(max-width:1170px) and (min-width:1001px){
+ .header .avuqo-header-layout{column-gap:7px}
+ .header .brand-wordmark strong{font-size:22px}
+ .header .brand-symbol{width:37px;height:37px}
+ .header .avuqo-header-layout>.primary-nav{gap:0}
+ .avuqo-header-layout .header-actions .auth-menu{gap:5px}
+}
+@media(max-width:650px){.header .brand-wordmark strong{font-size:22px}.header .brand-wordmark small{font-size:9px}.header .brand-symbol{width:34px;height:34px}.header .logo{gap:5px}}
+@media(max-width:380px){.header .brand-wordmark small{display:none}.header .brand-wordmark strong{font-size:19px}.header .brand-symbol{width:29px;height:29px}}
