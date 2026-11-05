@@ -294,3 +294,17 @@
  .storefrontHeroActions{flex-direction:row;gap:7px}
  .storefrontPrimary,.storefrontSecondary{padding:9px 11px;font-size:11px;min-width:0}
 }
+
+/* Annual Christmas build-up: October and early November should enrich the
+   master storefront, not replace it with an oversized Christmas microsite. */
+.christmasBuildUp{background:#faf8f3;padding:7px 0 15px}
+.christmasBuildUp>div{display:flex;align-items:center;justify-content:space-between;gap:22px;min-height:122px;padding:20px 32px;border:1px solid #e8dcd9;border-radius:23px;background:
+ linear-gradient(90deg,rgba(255,249,246,.99) 0%,rgba(255,249,246,.92) 42%,rgba(255,249,246,.2) 100%),
+ url("https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=1300&q=80") right center/cover no-repeat;
+ box-shadow:0 8px 26px #3026390c}
+.christmasBuildUp .kicker{font-size:10px;color:#a14c72;margin:0 0 6px}
+.christmasBuildUp h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em;font-size:27px;margin:0 0 4px}
+.christmasBuildUp p:not(.kicker){max-width:610px;font-size:12px;color:#4f414e;line-height:1.5;margin:0}
+.christmasBuildUp a{flex:none;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;min-height:43px;background:#6336b9;border-radius:999px;color:white;font-size:12px;font-weight:850}
+.christmasBuildUp a:hover{background:#462198}
+@media(max-width:700px){.christmasBuildUp>div{align-items:flex-start;flex-direction:column;padding:20px;background:linear-gradient(90deg,rgba(255,249,246,.96),rgba(255,249,246,.85)),url("https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=650&q=80") right center/cover}.christmasBuildUp h2{font-size:25px}.christmasBuildUp a{width:100%;justify-content:center}}
