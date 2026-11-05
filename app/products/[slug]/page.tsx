@@ -3,7 +3,7 @@ import {connection} from "next/server";
 import Link from "next/link";
 import type {Metadata} from "next";
 import {notFound} from "next/navigation";
-import {ArrowLeft,ArrowRight,CheckCircle2,Clock3,ShieldCheck,Package,ChartNoAxesCombined} from "lucide-react";
+import {ArrowRight,CheckCircle2,Clock3,ShieldCheck,Package,ChartNoAxesCombined} from "lucide-react";
 import Header from "../../../components/layout/Header";
 import Footer from "../../../components/layout/Footer";
 import AddToCollectionButton from "../../../components/collections/AddToCollectionButton";
@@ -79,9 +79,9 @@ async function ProductDetails({params}:Props){
     <article className={styles.comparisonCard} id="product-evidence">
       <div className={styles.comparisonHeading}><h2>Price evidence.</h2><span>Evidence first</span></div>
       <div className={styles.historyEmpty}><ChartNoAxesCombined size={38} aria-hidden="true"/><strong>No verified multi-month trend yet.</strong>
-        <p>We won't draw a price-history line from one observed offer. Historical trends will appear when there is sufficient approved time-series evidence for this exact variant.</p>
+        <p>We won&apos;t draw a price-history line from one observed offer. Historical trends will appear when there is sufficient approved time-series evidence for this exact variant.</p>
       </div>
-      <div className={styles.historyTip}><ShieldCheck size={19} aria-hidden="true"/><p>Offers are source-checked and filtered for freshness. A retailer's claimed saving isn't independently confirmed by this panel.</p></div>
+      <div className={styles.historyTip}><ShieldCheck size={19} aria-hidden="true"/><p>Offers are source-checked and filtered for freshness. A retailer&apos;s claimed saving isn&apos;t independently confirmed by this panel.</p></div>
     </article>
   </div>
  </section>
