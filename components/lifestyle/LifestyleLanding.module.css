@@ -90,3 +90,34 @@
 @media(max-width:720px){.quickCategories{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:-20px}.quickCategory{min-height:132px;padding:9px;border-radius:17px}.quickPhoto{height:72px;border-radius:12px}.quickCategory>span:last-child{font-size:11px}.page .heroWash{background:linear-gradient(0deg,#fbf7f1 0%,rgba(251,247,241,.94) 40%,rgba(251,247,241,.2) 100%)}}
 @media(max-width:450px){.quickCategories{grid-template-columns:repeat(2,minmax(0,1fr))}.quickPhoto{height:88px}}
 @media(prefers-reduced-motion:reduce){.quickCategory{transition:none}.quickCategory:hover{transform:none}}
+
+/* Editorial department composition matched to the visual reference pack. */
+.page .hero{min-height:420px}
+.page .heroInner{padding:52px 0 60px}
+.page .heroCopy{max-width:590px}
+.page .heroCopy h1{font-size:clamp(47px,5.7vw,76px);line-height:1.045;margin:14px 0 14px}
+.page .heroCopy>p:not(.eyebrow){line-height:1.6;color:#433b43}
+.page .cta{background:linear-gradient(125deg,#6a35ee,#4b20b1);color:white}
+.page .cta:hover{background:#3a20bd}
+.page .secondary{border-color:#ac85c8;color:#51356f}
+.quickCategories{grid-template-columns:repeat(6,minmax(0,1fr));gap:9px;margin-top:-26px;margin-bottom:25px}
+.quickCategory{min-height:136px;padding:9px;border-radius:20px;gap:8px}
+.quickPhoto{height:92px;border-radius:14px}
+.quickCategory>span:last-child{font-size:12px}
+.page[data-category=tech] .quickCategories{grid-template-columns:repeat(8,minmax(0,1fr))}
+.page[data-category=tech] .quickCategory{min-height:137px}
+.page .trustWrap{background:#f6eff7;border-bottom-color:#ebe0e7}
+.page .trustBar{padding:18px 0}
+.page .trustBar strong{color:#302639}
+.page .section{padding-top:50px;padding-bottom:55px}
+.page .tileGrid{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.page .tile{display:flex;flex-direction:row-reverse;min-height:178px;border-radius:19px}
+.page .tilePhoto{width:45%;height:auto;flex:none;background-position:center}
+.page .tileBody{width:55%;min-height:178px;padding:20px 12px}
+.page .tileBody h3{font-family:Georgia,"Times New Roman",serif;font-size:19px;line-height:1.15}
+.page .tileBody p{font-size:12px}
+.page .tileBody svg{position:static;display:block;margin-top:11px}
+.page .feature{background:#f2eae6}
+@media(max-width:1150px){.page .tileGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.page[data-category=tech] .quickCategories{grid-template-columns:repeat(4,minmax(0,1fr))}.quickCategories{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:720px){.page .hero{min-height:485px}.page .heroInner{padding:170px 0 45px}.page .heroCopy h1{font-size:clamp(43px,10.6vw,61px)}.page .heroCopy>p:not(.eyebrow){font-size:15px}.quickCategories{margin-top:-16px;margin-bottom:19px}.page .tileGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.page .tile{flex-direction:column}.page .tilePhoto{width:100%;height:140px}.page .tileBody{width:100%;min-height:152px}}
+@media(max-width:450px){.quickCategories,.page[data-category=tech] .quickCategories{grid-template-columns:repeat(2,minmax(0,1fr))}.page .tileGrid{grid-template-columns:1fr}.page .tile{flex-direction:row-reverse}.page .tilePhoto{width:42%;height:auto}.page .tileBody{width:58%;min-height:145px}.page .tileBody h3{font-size:18px}}
