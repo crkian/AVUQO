@@ -241,3 +241,56 @@
  .christmasHero::before{background-position:41% 45%}
  .christmasHero::after{background:linear-gradient(0deg,#fffaf6 0%,rgba(255,250,246,.97) 49%,rgba(255,250,246,.25) 100%)}
 }
+
+/* Owner-supplied storefront reference lock. This supersedes former seasonal
+   microsite layout: hero, department ribbon and comparison worktop stay together. */
+.page{background:#faf8f3}
+.page .hero.storefrontHero{
+ min-height:334px;padding:27px 0 30px;display:flex;align-items:center;
+ border-bottom:1px solid #ebdfd7;
+ background-color:#fff9f1;background-position:center 52%;background-size:cover
+}
+.storefrontHero .heroGrid{grid-template-columns:minmax(0,1.22fr) minmax(310px,.78fr);align-items:center;gap:clamp(22px,4vw,60px)}
+.storefrontHero .heroCopy{padding:5px 0}
+.storefrontHero .eyebrow{font-size:10px;margin-bottom:9px;color:#7a4d92}
+.storefrontHero .heroCopy h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(50px,5.5vw,79px);line-height:1;letter-spacing:-.055em;margin:0 0 15px;max-width:760px}
+.storefrontHero .heroCopy h1 em{color:#6b18c3}
+.storefrontHero .heroText{max-width:530px;font-size:clamp(15px,1.45vw,18px);line-height:1.42;color:#2c2835;font-weight:500}
+.storefrontHeroActions{margin-top:18px;gap:10px}
+.storefrontPrimary,.storefrontSecondary{min-height:42px;padding:10px 18px;font-size:13px}
+.storefrontHero .heroAside,.storefrontHero .heroShortcuts{display:none}
+.storefrontHero .heroVisual{display:flex!important;align-items:center;justify-content:flex-end;padding:0}
+.heroIntelligence{width:min(100%,355px);padding:19px 18px 18px;border:1px solid #e8d9d0;border-radius:20px;background:rgba(255,252,249,.965);box-shadow:0 13px 35px #30263920}
+.heroIntelligence h2{font-family:Georgia,"Times New Roman",serif;font-size:23px;font-weight:750;letter-spacing:-.035em;margin:0 0 12px}
+.heroIntelligenceInner{grid-template-columns:94px 1fr;gap:11px}
+.intelligenceRing{width:91px;height:91px;border-width:7px}
+.heroIntelligenceInner li{font-size:11px;line-height:1.25}
+.heroIntelligenceInner ul{gap:7px}
+.heroIntelligence>a{min-height:40px;margin-top:13px}
+.seasonalNudge{display:inline-flex;align-items:center;gap:7px;max-width:100%;padding:8px 13px;margin-top:10px;background:rgba(255,251,250,.87);border:1px solid #ecd8d9;border-radius:999px;color:#934669;font-size:12px;font-weight:850}
+.seasonalNudge:hover{background:#fff;color:#693b80}
+@media(max-width:950px){
+ .storefrontHero .heroGrid{grid-template-columns:minmax(0,1.1fr) minmax(265px,.8fr);gap:14px}
+ .storefrontHero .heroCopy h1{font-size:clamp(46px,5.3vw,62px)}
+ .heroIntelligence{padding:14px}
+ .heroIntelligenceInner{grid-template-columns:76px 1fr;gap:9px}
+ .intelligenceRing{width:76px;height:76px;border-width:6px}
+}
+@media(max-width:700px){
+ .page .hero.storefrontHero{min-height:0;padding:120px 0 28px;background-position:55% top}
+ .storefrontHero .heroGrid{grid-template-columns:1fr;gap:20px}
+ .storefrontHero .heroCopy h1{font-size:clamp(39px,10vw,58px)}
+ .storefrontHero .heroText{font-size:15px}
+ .storefrontHero .heroVisual{justify-content:flex-start}
+ .heroIntelligence{max-width:460px}
+ .heroIntelligenceInner{grid-template-columns:88px 1fr}
+ .intelligenceRing{width:88px;height:88px}
+ .storefrontHeroActions{flex-wrap:wrap}
+ .storefrontPrimary,.storefrontSecondary{flex:1;min-width:140px}
+}
+@media(max-width:450px){
+ .page .hero.storefrontHero{padding-top:100px}
+ .heroIntelligence{display:none}
+ .storefrontHeroActions{flex-direction:row;gap:7px}
+ .storefrontPrimary,.storefrontSecondary{padding:9px 11px;font-size:11px;min-width:0}
+}
