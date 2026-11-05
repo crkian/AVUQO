@@ -1,0 +1,65 @@
+.dialog {
+  inset: 0 0 0 auto;
+  width: min(100%, 420px);
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: #fffaf5;
+  color: #181230;
+}
+
+.dialog::backdrop { background: rgb(22 15 39 / 48%); }
+
+.drawer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 16px;
+  border-bottom: 1px solid #eee4dc;
+}
+
+.top h2 { flex: 1; min-width: 0; margin: 0; font-size: 20px; line-height: 1.2; }
+.top h2:focus { outline: none; }
+.top button {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #e9dfeb;
+  border-radius: 12px;
+  background: white;
+  color: #50219b;
+}
+
+.panel { min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.links { display: grid; gap: 7px; padding: 14px 16px 24px; }
+.links h3 { margin: 12px 0 2px; font-size: 15px; }
+.links :is(a, button) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 48px;
+  padding: 9px 13px;
+  border: 1px solid #eee3dd;
+  border-radius: 12px;
+  background: #fff;
+  color: inherit;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.links svg { flex: none; color: #6b26b7; }
+.links [aria-current="page"] { color: #5921ac; background: #f3e9ff; border-color: #ddc8f5; }

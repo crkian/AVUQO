@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { LogOut, Shield, Menu, X, Heart, ShoppingBasket, Store } from "lucide-react";
+import { LogOut, Shield, Heart, ShoppingBasket, UserRound } from "lucide-react";
 import MegaNav from "./MegaNav";
+import MobileMenu from "./MobileMenu";
 import MobileDock from "./MobileDock";
 import {DEFAULT_NAVIGATION,parseNavigation} from "../../lib/content/navigation";
 import {Search as SearchIcon} from "lucide-react";
@@ -14,7 +15,6 @@ export default function Header() {
   const [email, setEmail] = useState<string | null>(null);
   const [admin, setAdmin] = useState(false);
   const [ready, setReady] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [navigation, setNavigation] = useState(DEFAULT_NAVIGATION);
   useEffect(()=>{
     let active=true;
@@ -57,15 +57,6 @@ export default function Header() {
     };
   }, [supabase]);
 
-  useEffect(() => {
-    if (!menuOpen) return;
-    function onEscape(event: KeyboardEvent) {
-      if (event.key === "Escape") setMenuOpen(false);
-    }
-    window.addEventListener("keydown", onEscape);
-    return () => window.removeEventListener("keydown", onEscape);
-  }, [menuOpen]);
-
   async function signOut() {
     await supabase.auth.signOut();
     window.location.href = "/";
@@ -94,9 +85,11 @@ export default function Header() {
           <Link href="/categories">Categories</Link><Link href="/travel">Travel</Link>
           <Link href="/about">More</Link>
         </nav>}>
-          <MegaNav navigation={navigation} menuOpen={menuOpen} ownerPreview={admin} onNavigate={() => setMenuOpen(false)} />
+          <MegaNav navigation={navigation} ownerPreview={admin}/>
         </Suspense>
-        <button className="mobile-menu-toggle" type="button" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="avuqo-primary-nav" onClick={() => setMenuOpen(open => !open)}>{menuOpen ? <X size={23}/> : <Menu size={23}/>}</button>
+        <Suspense fallback={null}>
+          <MobileMenu navigation={navigation} signedIn={!!email} ownerPreview={admin}/>
+        </Suspense>
 
         <div className="header-actions">
         {!ready ? (
@@ -110,8 +103,8 @@ export default function Header() {
                 <Shield size={16} />
               </Link>
             )}
-            <Link className="auth-email" href="/account" title={email}>
-              Account
+            <Link className="auth-email" href="/account" aria-label="My AVUQO">
+              <UserRound size={19} aria-hidden="true"/><span>Account</span>
             </Link>
             <button className="signout-button" type="button" aria-label="Sign out" title="Sign out" onClick={signOut}>
               <LogOut size={16} />

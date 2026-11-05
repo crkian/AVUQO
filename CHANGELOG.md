@@ -1,5 +1,7 @@
 # AVUQO software changelog
 
+- **Draft mobile navigation and full public route checks:** Rebuild compact navigation as a modal with department and topic drill-down, keyboard Back and Escape, and focus restoration. Align the mobile dock to Home, Saved, Lists and Account. Expand responsive capture to seven widths and all static public pages and category guides.
+
 - **Unreleased visual review follow-up:** Streamline the home and Christmas storefronts, keep universal search visible on tablet and mobile, and capture responsive visual comparisons at four widths.
 
 - **Design fidelity and acceptance hardening (draft PR #93):** Match the warm reference with a compact light footer while retaining all site navigation, disclosures and privacy controls; verify 46 responsive views with header/heading landmarks, hero-height checks, broken-image warnings and an actual home-to-search interaction on desktop/mobile; change the Grocery hero to avoid unsupported all-supermarket coverage and best-price guarantees. The visual acceptance matrix now separates completed implementation from pending brand asset, approved data fixtures and human sign-off. No production promotion.

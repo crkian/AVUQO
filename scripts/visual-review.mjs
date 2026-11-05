@@ -4,15 +4,19 @@
  * Results are artifacts for owner visual acceptance against docs/design/mockups.
  */
 import {chromium} from "playwright";
-import {mkdir,writeFile} from "node:fs/promises";
+import {mkdir,readdir,writeFile} from "node:fs/promises";
 import path from "node:path";
+import {BROWSE_DEPARTMENTS,departmentHref} from "../lib/categories/browse-tree.ts";
 
 const origin=process.env.VISUAL_BASE_URL??"http://127.0.0.1:3000";
 const out=process.env.VISUAL_OUTPUT_DIR??"artifacts/visual-review";
 const viewports=[
  {label:"desktop",width:1440,height:900},
+ {label:"landscape",width:1024,height:768},
  {label:"tablet",width:768,height:1024},
+ {label:"mobile-large",width:430,height:932},
  {label:"mobile",width:390,height:844},
+ {label:"mobile-small",width:375,height:812},
  {label:"narrow",width:320,height:740},
 ];
 const pages=[
@@ -43,6 +47,13 @@ const pages=[
  {slug:"basket",url:"/basket"},
 ];
 
+const publicPages=(await readdir("app",{recursive:true}))
+  .filter(file=>file.endsWith("/page.tsx")&&!file.includes("[")&&!/^(control-centre|preview)\//.test(file))
+  .map(file=>"/"+file.slice(0,-"/page.tsx".length)).sort();
+for (const url of [...publicPages,...BROWSE_DEPARTMENTS.map(departmentHref)]) {
+  if (!pages.some(page=>page.url.split("?")[0]===url)) pages.push({slug:url.slice(1).replaceAll("/","-"),url});
+}
+
 /* External source images may fail independently; record but don't present
    them as product evidence or mark product data as trusted by this smoke test. */
 await mkdir(out,{recursive:true});
@@ -54,13 +65,16 @@ try{
   const context=await browser.newContext({
     viewport:{width:viewport.width,height:viewport.height},
     colorScheme:"light",reducedMotion:"reduce",locale:"en-GB",
-    deviceScaleFactor:1,
+    deviceScaleFactor:1,hasTouch:viewport.width<=768,
   });
   for(const pageInfo of pages){
     const page=await context.newPage();
     const entry={route:pageInfo.url,viewport:viewport.label,width:viewport.width,
       status:0,h1:"",overflow:0,links:0,errors:[]};
     const consoleErrors=[];
+    const failedImages=new Set();
+    page.on("requestfailed",request=>{if(request.resourceType()==="image")failedImages.add(request.url())});
+    page.on("response",response=>{if(response.status()>=400&&response.request().resourceType()==="image")failedImages.add(response.url())});
     page.on("pageerror",error=>consoleErrors.push(error.message.slice(0,250)));
     try{
       const response=await page.goto(origin+pageInfo.url,{
@@ -73,7 +87,15 @@ try{
       if(await rejectConsent.count()){
         await rejectConsent.click({timeout:3000}).catch(()=>{});
       }
-      await page.waitForTimeout(650);
+      await page.locator("main h1").first().waitFor({state:"visible",timeout:12000});
+      await page.evaluate(async () => {
+        for(let y=0;y<document.documentElement.scrollHeight;y+=Math.max(300,innerHeight-100)){
+          window.scrollTo(0,y);
+          await new Promise(resolve=>requestAnimationFrame(resolve));
+        }
+        await Promise.allSettled([...document.images].map(image=>image.decode()));
+        window.scrollTo(0,0);
+      });
       entry.h1=(await page.locator("h1").first().textContent({timeout:6500}).catch(()=>""))?.trim()??"";
       const metrics=await page.evaluate(()=>({
         documentWidth:document.documentElement.scrollWidth,
@@ -107,7 +129,7 @@ try{
       entry.layout=layout;
       entry.warnings=[];
       if(layout.missingImages.length)entry.warnings.push(`Unloaded image resources: ${layout.missingImages.length}`);
-      if(!layout.hasMain||!layout.hasHeader||!layout.headingVisible)
+      if(!layout.hasMain||(!layout.hasHeader&&pageInfo.url!=="/unauthorized")||!layout.headingVisible)
         entry.errors.push("Page landmarks missing or heading hidden");
       if(viewport.label==="desktop" && layout.headerHeight>170)
         entry.errors.push(`Desktop header too tall: ${layout.headerHeight}px`);
@@ -116,24 +138,46 @@ try{
         entry.errors.push(`Hero outside editorial reference envelope: ${layout.heroHeight}px`);
       if(pageInfo.url==="/"&&layout.categoryLinks<3)
         entry.errors.push("Homepage department journeys are missing");
-      if(viewport.label!=="desktop"&&pageInfo.url==="/"){
-        const button=page.locator("button.mobile-menu-toggle"); // Stable element: accessible label changes on toggle.
-        if(await button.count()){
-          await button.click();
-          const expanded=await button.getAttribute("aria-expanded");
-          if(expanded!=="true"){
-            entry.errors.push("Mobile menu did not open on click");
+      await page.screenshot({path:path.join(out,`${pageInfo.slug}-${viewport.label}.jpg`),
+        fullPage:true,animations:"disabled",type:"jpeg",quality:78,timeout:20000});
+      entry.failedImages=[...failedImages];
+      entry.errors.push(...consoleErrors.filter(error=>!entry.errors.includes(error)));
+      if(viewport.width<=1000&&pageInfo.url==="/"){
+        try {
+          const trigger=page.getByRole("button",{name:"Open navigation"});
+          if(viewport.width<=768)await trigger.tap();
+          else await trigger.click();
+          const dialog=page.getByRole("dialog");
+          await dialog.waitFor({state:"visible"});
+          const categories=dialog.getByRole("button",{name:"Categories"});
+          await categories.focus();
+          await categories.press("Enter");
+          await dialog.getByRole("button",{name:"Technology & Electronics"}).click();
+          await dialog.getByRole("link",{name:"Audio & Hi-Fi"}).waitFor({state:"visible"});
+          await page.screenshot({path:path.join(out,`menu-categories-${viewport.label}.jpg`),type:"jpeg",quality:82});
+          await dialog.getByRole("button",{name:"Back to categories"}).click();
+          await dialog.getByRole("button",{name:"Back to main menu"}).click();
+          if(!await dialog.getByRole("link",{name:"Watches"}).isVisible())throw new Error("Watches missing");
+          if(await page.evaluate(()=>document.activeElement?.id)!=="avuqo-mobile-title")throw new Error("Focus not in menu");
+          await page.keyboard.press("Escape");
+          await dialog.waitFor({state:"hidden"});
+          if(!await trigger.evaluate(element=>element===document.activeElement))throw new Error("Focus did not return to trigger");
+          if(await trigger.getAttribute("aria-expanded")!=="false")throw new Error("Trigger remained expanded");
+          if(viewport.width<=760){
+            const dock=page.getByRole("navigation",{name:"Mobile quick navigation"});
+            const labels=await dock.getByRole("link").allTextContents();
+            if(labels.join(",")!=="Home,Saved,Lists,Account")throw new Error("Unexpected mobile dock links");
+            if(await dock.getByRole("link",{name:"Home"}).getAttribute("aria-current")!=="page")throw new Error("Home not marked current");
+            await dock.getByRole("link",{name:"Saved"}).click();
+            await page.waitForURL(url=>url.pathname==="/saved");
+            await page.goBack();
+            await page.waitForURL(url=>url.pathname==="/");
           }
-          await button.click();
-          if(await button.getAttribute("aria-expanded")!=="false"){
-            entry.errors.push("Mobile menu did not close on click");
-          }
-        }else{
-          entry.errors.push("Mobile menu button missing");
+          entry.mobileMenu="Menu drill-down, Back, Escape, focus return and available dock verified";
+        } catch(error) {
+          entry.errors.push("Mobile navigation: "+(error instanceof Error?error.message.slice(0,210):String(error)));
         }
       }
-      await page.screenshot({path:path.join(out,`${pageInfo.slug}-${viewport.label}.png`),
-        fullPage:true,animations:"disabled"});
       if(pageInfo.url==="/"){
         try{
           const search=page.locator("form.header-search input[name=q]").first();
@@ -149,7 +193,7 @@ try{
           entry.errors.push("Search journey failed: "+(error instanceof Error?error.message.slice(0,150):String(error)));
         }
       }
-      if(entry.status>=400 || !entry.h1 || entry.overflow>4 || entry.errors.length>0){
+      if(entry.status>=400 || entry.status===0 || !entry.h1 || entry.overflow>4 || entry.errors.length>0){
         failures++;
         console.error("FAIL",JSON.stringify(entry));
       }else{
@@ -198,9 +242,9 @@ const compareCards=referenceMap.map(([slug,reference,notes])=>`
     <h2>${slug.replaceAll("-"," ")} <small>${notes}</small></h2>
     <div class="panels">
       <figure><figcaption>Approved design reference</figcaption><div class="image-area"><img loading="lazy" src="reference/${reference}" alt="Reference design for ${slug}"></div></figure>
-      <figure><figcaption>Rendered desktop (1440px)</figcaption><div class="image-area"><img loading="lazy" src="${slug}-desktop.png" alt="Rendered desktop for ${slug}"></div></figure>
+      <figure><figcaption>Rendered desktop (1440px)</figcaption><div class="image-area"><img loading="lazy" src="${slug}-desktop.jpg" alt="Rendered desktop for ${slug}"></div></figure>
     </div>
-    ${viewports.slice(1).map(({label,width})=>`<details><summary>View ${label} screenshot (${width}px)</summary><img class="mobile" loading="lazy" src="${slug}-${label}.png" alt="Rendered ${label} for ${slug}"></details>`).join("")}
+    ${viewports.slice(1).map(({label,width})=>`<details><summary>View ${label} screenshot (${width}px)</summary><img class="mobile" loading="lazy" src="${slug}-${label}.jpg" alt="Rendered ${label} for ${slug}"></details>`).join("")}
   </section>`).join("\n");
 
 const compareHtml=`<!doctype html><html lang="en"><head><meta charset="utf-8">

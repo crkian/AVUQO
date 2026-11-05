@@ -319,7 +319,21 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
     border-radius: 999px;
   }
 
-  .header .avuqo-header-layout > .primary-nav {
-    max-height: calc(100dvh - 125px);
+  html:has(#avuqo-mobile-navigation[open]) { overflow: hidden; }
+
+  .header .avuqo-header-layout > .primary-nav { display: none; }
+
+  .avuqo-header-layout .header-actions .auth-menu > :is(a, button) { min-width: 44px; min-height: 44px; }
+  .avuqo-header-layout .header-actions .auth-menu > a:not(.auth-email) { display: none; }
+  .avuqo-header-layout .header-actions .auth-menu > .auth-email {
+    display: grid;
+    place-items: center;
+    border: 1px solid #e9dfeb;
+    border-radius: 12px;
   }
+  .avuqo-header-layout .header-actions .auth-email span { display: none; }
+}
+
+@media (max-width: 760px) {
+  html { scroll-padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
 }
