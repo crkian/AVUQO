@@ -55,7 +55,7 @@ async function HomeContent() {
           <p className={styles.eyebrow}><Sparkles size={15}/>{moment ? moment.eyebrow : "Your place for better choices"}</p>
           <h1 id="home-title">{moment ? moment.headline : editorial.headline}</h1>
           <p className={styles.heroText}>{moment ? moment.summary : editorial.description}</p>
-          {moment && <Link className={styles.christmasHeroLink} href="/christmas">{moment.actionLabel} <ArrowRight size={17}/></Link>}
+          {moment && <div className={styles.christmasHeroActions}><Link className={styles.christmasHeroLink} href="/christmas">{moment.actionLabel} <ArrowRight size={17}/></Link><Link className={styles.christmasSecondaryLink} href="/lists">Plan a gift list</Link></div>}
           <SearchForm/>
           <nav className={styles.heroShortcuts} aria-label="Quick ways to explore">
             <span>Start with</span>
