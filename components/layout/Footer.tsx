@@ -31,7 +31,7 @@ export default function Footer() {
       <div className="shell">
         <div className="avuqo-footer__main">
           <div className="avuqo-footer__brand">
-            <Link className="logo" href="/" aria-label="AVUQO homepage"><span className="q-mark">Q</span> AVUQO</Link>
+            <Link className="logo" href="/" aria-label="AVUQO homepage"><img className="brand-symbol" src="/branding/avuqo-a-mark.svg" alt="" width="42" height="42"/><span className="brand-wordmark"><strong>AVUQO</strong><small>Find what&apos;s worth it.</small></span></Link>
             <p className="avuqo-footer__motto">{content.motto}</p>
             <p>{content.description}</p>
             {hasContact && <a className="avuqo-footer__email" href={`mailto:${contact}`}>{contact}</a>}
