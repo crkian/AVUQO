@@ -63,6 +63,12 @@ try{
         waitUntil:"domcontentloaded",timeout:40000,
       });
       entry.status=response?.status()??0;
+      // Keep consent functional on the real website. Dismiss optional cookies
+      // in this isolated screenshot context so the page layout remains visible.
+      const rejectConsent=page.getByRole("button",{name:"Reject optional"});
+      if(await rejectConsent.count()){
+        await rejectConsent.click({timeout:3000}).catch(()=>{});
+      }
       await page.waitForTimeout(650);
       entry.h1=(await page.locator("h1").first().textContent({timeout:6500}).catch(()=>""))?.trim()??"";
       const metrics=await page.evaluate(()=>({
