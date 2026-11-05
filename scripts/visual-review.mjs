@@ -74,7 +74,7 @@ try{
       entry.links=metrics.links;
       entry.errors=consoleErrors.slice(0,5);
       if(viewport.label==="mobile"&&pageInfo.url==="/"){
-        const button=page.getByRole("button",{name:"Open navigation"});
+        const button=page.locator("button.mobile-menu-toggle"); // Stable element: accessible label changes on toggle.
         if(await button.count()){
           await button.click();
           const expanded=await button.getAttribute("aria-expanded");
