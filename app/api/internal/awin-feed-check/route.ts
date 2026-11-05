@@ -56,7 +56,7 @@ export async function GET(request:NextRequest){
  // host times out, redirects, or returns a non-CSV payload. Neither endpoint
  // accepts user-supplied hosts or redirect targets.
  const publisher=process.env.AWIN_PUBLISHER_ID??"";
- if(!/^\\d{3,15}$/.test(publisher))return send({error:"Awin publisher ID not configured"},503);
+ if(!/^[0-9]{3,15}$/.test(publisher))return send({error:"Awin publisher ID not configured"},503);
  const candidates=[
   `https://productdata.awin.com/datafeed/list/apikey/${encodeURIComponent(key)}`,
   `https://ui.awin.com/productdata-darwin-download/publisher/${publisher}/${encodeURIComponent(key)}/1/feedList`
