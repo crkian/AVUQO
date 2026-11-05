@@ -36,8 +36,8 @@ async function boundedResponse(response:Response,max:number){
  return bytes;
 }
 
-async function* parseRows(text:string,delimiter=","){
- yield* csvRowsFromChunks((async function*(){yield text;})(),delimiter);
+async function* parseRows(text:string,delimiter=",",maxColumns=120){
+ yield* csvRowsFromChunks((async function*(){yield text;})(),delimiter,maxColumns);
 }
 async function getInventory(key:string,publisher:string){
  const urls=[
@@ -119,6 +119,29 @@ export async function POST(request:NextRequest){
   digest=sourceDigest(plain);
   filename="AUTO__"+digest.slice(0,32)+".csv.gz";
  }catch{return reply({error:"Unsupported or oversized compressed feed"},422);}
+ // The Mozillion product feed has >120 CSV columns. This is header
+ // inspection only: never raise the 120-column production import limit.
+ // Return sanitized NAMES, never data values or signed feed URLs.
+ if(preflight&&advertiser==="31539"&&feed==="74135"){
+  const delimiter=csv.slice(0,1000).split("\\n",1)[0].includes("\\t")?"\\t":",";
+  try{
+   const iterator=parseRows(csv,delimiter,256);
+   const first=await iterator.next();
+   await iterator.return(undefined);
+   if(first.done||!first.value.length)throw Error("empty_header");
+   const names=first.value.map(name=>{
+    const trimmed=name.trim();
+    return /^[A-Za-z][A-Za-z0-9_ -]{0,63}$/.test(trimmed)?trimmed:"[redacted]";
+   });
+   return reply({status:"header_inspection_only",advertiser_id:advertiser,feed_id:feed,
+    columns:names.length,column_names:names,normal_import_limit:120,
+    no_row_validation:true,no_database_writes:true,no_publication:true});
+  }catch{
+   return reply({error:"Mozillion header exceeds inspection bounds or is malformed",
+    reason:"header_inspection_failed",inspection_limit:256,
+    no_database_writes:true,no_publication:true},422);
+  }
+ }
  let header:string[]|null=null;let rows:string[][]=[];
  let currencySource:"feed_column"|"petlibro_uk_programme_gbp"="feed_column";
  let parseStage:"header"|"rows"|"normalize"|"validate"="header";
