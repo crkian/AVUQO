@@ -1,7 +1,8 @@
 import { Suspense } from "react";
+import { connection } from "next/server";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, CheckCircle2, HeartHandshake, ListChecks, Search, ShieldCheck, Sparkles, Eye, Scale, ReceiptText, Heart, ShoppingBag, Tag, Flower2 } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CheckCircle2, HeartHandshake, ListChecks, Search, ShieldCheck, Sparkles, Eye, Scale, ReceiptText } from "lucide-react";
 import { publishedEditorial } from "../lib/content/editorial";
 import { lifestylePages } from "../lib/lifestyle/landing-data";
 import Header from "../components/layout/Header";
@@ -11,6 +12,8 @@ import ShoppingDepartmentShelf from "../components/shopping/ShoppingDepartmentSh
 import HomeCampaignCarousel from "../components/home/HomeCampaignCarousel";
 import OwnerStorefrontShortcut from "../components/home/OwnerStorefrontShortcut";
 import {loadHomeCampaigns} from "../lib/marketing/homepage";
+import { activeHomeSeasonalMoment } from "../lib/marketing/seasonal-calendar";
+import ChristmasHomeFeature from "../components/home/ChristmasHomeFeature";
 import styles from "./homepage-warm.module.css";
 
 export const metadata: Metadata = {
@@ -41,15 +44,18 @@ function HeroPlaceholder() {
 }
 
 async function HomeContent() {
+  await connection();
+  const moment = activeHomeSeasonalMoment();
   const [editorial,campaigns] = await Promise.all([publishedEditorial("home"),loadHomeCampaigns()]);
   return <main className={styles.page}>
     <Header/>
-    <section className={styles.hero} aria-labelledby="home-title">
+    <section className={`${styles.hero} ${moment ? styles.christmasHero : ""}`} aria-labelledby="home-title">
       <div className={`shell ${styles.heroGrid}`}>
         <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}><Sparkles size={15}/> Your place for better choices</p>
-          <h1 id="home-title">{editorial.headline}</h1>
-          <p className={styles.heroText}>{editorial.description}</p>
+          <p className={styles.eyebrow}><Sparkles size={15}/>{moment ? moment.eyebrow : "Your place for better choices"}</p>
+          <h1 id="home-title">{moment ? moment.headline : editorial.headline}</h1>
+          <p className={styles.heroText}>{moment ? moment.summary : editorial.description}</p>
+          {moment && <Link className={styles.christmasHeroLink} href="/christmas">{moment.actionLabel} <ArrowRight size={17}/></Link>}
           <SearchForm/>
           <nav className={styles.heroShortcuts} aria-label="Quick ways to explore">
             <span>Start with</span>
@@ -58,14 +64,14 @@ async function HomeContent() {
             <Link href="/groceries">Groceries</Link>
             <Link href="/travel">Travel</Link>
           </nav>
-          <p className={styles.heroAside}>Compare carefully, check the evidence, and decide at your own pace.</p>
+          <p className={styles.heroAside}>{moment ? "Find what’s worth it this Christmas, without invented deals or pressure." : "Compare carefully, check the evidence, and decide at your own pace."}</p>
           <OwnerStorefrontShortcut/>
         </div>
         <div className={styles.heroVisual}>
-          <div className={styles.heroArt} style={{backgroundImage:`url("${lifestylePages.home.hero}")`}} role="img" aria-label="A welcoming, sunlit living room"/>
+          <div className={styles.heroArt} style={{backgroundImage:`url("${moment ? "https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=1600&q=85" : lifestylePages.home.hero}")`}} role="img" aria-label={moment ? "A warmly decorated Christmas living room" : "A welcoming, sunlit living room"}/>
           <div className={styles.heroCard}>
             <span className={styles.heroCardIcon}><HeartHandshake size={21}/></span>
-            <span><strong>Good choices begin here</strong><small>Clear thinking, everyday value.</small></span>
+            <span><strong>{moment ? "Christmas, thoughtfully" : "Good choices begin here"}</strong><small>{moment ? "Ideas, lists and everyday value." : "Clear thinking, everyday value."}</small></span>
           </div>
         </div>
       </div>
@@ -79,6 +85,7 @@ async function HomeContent() {
       </div>
     </div>
 
+    {moment && <ChristmasHomeFeature moment={moment}/>}
     <HomeCampaignCarousel campaigns={campaigns}/>
     <LifestyleExplorer/>
     <ShoppingDepartmentShelf compact/>
@@ -130,40 +137,6 @@ async function HomeContent() {
           <p>Before you decide, consider the real price, product fit, ongoing costs and what the evidence can actually tell you.</p>
           <Link className={styles.softButton} href="/reality-check">Explore Reality Check <ArrowUpRight size={18}/></Link>
         </div>
-      </div>
-    </section>
-
-    <section className={`shell ${styles.seasonSection}`} aria-labelledby="season-heading">
-      <div className={styles.seasonHeading}>
-        <p className={styles.kicker}>Little corners to explore</p>
-        <h2 id="season-heading">Something for every season of life.</h2>
-      </div>
-      <div className={styles.seasonGrid}>
-        <Link className={`${styles.seasonCard} ${styles.petsCard}`} href="/pets">
-          <div><p>For the animals in our lives</p><h3>Care for your companions.</h3><span>Explore Pets <ArrowRight size={17}/></span></div>
-          <img src="/illustrations/avuqo-pets-care.svg" alt="" loading="lazy"/>
-        </Link>
-        <Link className={`${styles.seasonCard} ${styles.christmasCard}`} href="/christmas">
-          <div><p>Thoughtful festive planning</p><h3>Make the season feel special.</h3><span>Explore Christmas <ArrowRight size={17}/></span></div>
-          <img src="/illustrations/avuqo-christmas-gifts.svg" alt="" loading="lazy"/>
-        </Link>
-
-        <Link className={`${styles.seasonCard} ${styles.blackFridayCard}`} href="/black-friday">
-          <div><p>Big sale season, clear decisions</p><h3>Look beyond the Black Friday label.</h3><span>Explore Black Friday <ArrowRight size={17}/></span></div>
-          <div className={styles.seasonArt} aria-hidden="true"><ShoppingBag size={42}/></div>
-        </Link>
-        <Link className={`${styles.seasonCard} ${styles.salesCard}`} href="/sales">
-          <div><p>Value all year round</p><h3>Find a better way to browse sales.</h3><span>Explore Sales <ArrowRight size={17}/></span></div>
-          <div className={styles.seasonArt} aria-hidden="true"><Tag size={42}/></div>
-        </Link>
-        <Link className={`${styles.seasonCard} ${styles.easterCard}`} href="/easter">
-          <div><p>Springtime inspiration</p><h3>Fresh ideas for Easter and beyond.</h3><span>Explore Easter <ArrowRight size={17}/></span></div>
-          <div className={styles.seasonArt} aria-hidden="true"><Flower2 size={42}/></div>
-        </Link>
-        <Link className={`${styles.seasonCard} ${styles.valentinesCard}`} href="/valentines">
-          <div><p>Thoughtful little gestures</p><h3>Give something with heart.</h3><span>Explore Valentine's <ArrowRight size={17}/></span></div>
-          <div className={styles.seasonArt} aria-hidden="true"><Heart size={42}/></div>
-        </Link>
       </div>
     </section>
 
