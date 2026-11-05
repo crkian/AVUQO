@@ -58,3 +58,33 @@
 .offerCard{border-color:#e9e0dc;border-radius:24px}
 .templateGrid>div{border-radius:27px}
 .highlightSpecs,.travelPanel,.carePanel,.homePanel,.motorPanel,.petsPanel,.generalPanel{border:1px solid #e9e0dc}
+
+/* Evidence-backed three-column product layout follows the approved detail mockup.
+   No synthetic score, review count, price-history graph or Buy/Wait recommendation. */
+.productPage .hero{padding:clamp(30px,4vw,50px) 0 clamp(45px,5vw,73px);background:linear-gradient(125deg,#fcf8f3,#f5eee9)}
+.productPage .back{margin-bottom:25px;color:#6043a3}
+.productPage .heroGrid{display:grid;grid-template-columns:minmax(0,1.03fr) minmax(0,1fr) minmax(218px,.79fr);gap:clamp(17px,2vw,30px);align-items:start}
+.productPage .art{min-height:420px;max-width:none;border:1px solid #e9e0dc;border-radius:25px;background:#fffdf9;box-shadow:0 12px 31px rgba(45,31,54,.075)}
+.productPage .art img{max-width:96%;max-height:385px}
+.productPage .copy h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(28px,3.2vw,44px);letter-spacing:-.035em;line-height:1.1}
+.productPage .intro{font-size:15px;line-height:1.65}
+.productPage .topPrice{padding:19px;margin:16px 0}
+.productPage .topPrice strong{font-size:clamp(30px,3vw,41px)}
+.productPage .action{min-height:44px;padding:12px 18px}
+.productPage .assurance{line-height:1.55}
+.evidenceSidebar{display:grid;gap:13px;align-self:stretch}
+.evidenceCard{padding:22px 19px;border:1px solid #e8ded9;background:#fffdf9;border-radius:23px;box-shadow:0 8px 26px rgba(45,31,54,.065)}
+.evidenceCard .kicker{margin:0 0 10px;color:#7750a4}
+.evidenceCard h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(21px,2.2vw,28px);line-height:1.12;letter-spacing:-.03em;margin:0 0 16px}
+.evidenceCard ul{list-style:none;padding:0;margin:0;display:grid;gap:13px}
+.evidenceCard li{display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:1.5;color:#4e4550}
+.evidenceCard li svg{flex:none;color:#087b5b;margin-top:1px}
+.evidenceCard p:not(.kicker){font-size:12px;line-height:1.65;color:#6e6570}
+.evidenceCount{display:block;font-size:23px;color:#302639;letter-spacing:-.035em;margin-bottom:5px}
+.evidenceCard a{display:inline-flex;align-items:center;gap:6px;color:#6043a3;font-weight:850;font-size:12px}
+.productPage .templateSection{padding-top:55px}
+.productPage .section{padding-top:65px;padding-bottom:70px}
+.productPage .offerCard{border-radius:21px;background:#fffdf9}
+@media(max-width:1150px){.productPage .heroGrid{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr)}.evidenceSidebar{grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr))}.productPage .art{min-height:360px}.productPage .copy h1{font-size:clamp(30px,4vw,48px)}}
+@media(max-width:750px){.productPage .heroGrid{grid-template-columns:1fr}.productPage .art{min-height:300px}.evidenceSidebar{grid-column:auto}.productPage .copy h1{font-size:clamp(33px,8vw,51px)}}
+@media(max-width:510px){.evidenceSidebar{grid-template-columns:1fr}.productPage .art{min-height:275px}.productPage .hero{padding:25px 0 45px}}
