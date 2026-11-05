@@ -5,7 +5,6 @@ import {AWIN_PRIVATE_SNAPSHOT_BUCKET,privateAwinSnapshotKey} from "../../../../l
 import {validateTooledUpGzipStream} from "../../../../lib/awin/tooled-up-full-stream-validator";
 import {privateTooledUpValidationRow} from "../../../../lib/awin/private-validation-report";
 
-export const runtime="nodejs";
 export const maxDuration=300;
 const send=(v:unknown,status=200)=>NextResponse.json(v,{status,headers:{"Cache-Control":"private, no-store"}});
 const SHA=/^[a-f0-9]{64}$/;
