@@ -260,3 +260,18 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
  .avuqo-footer__group a{font-size:12px}
  .avuqo-footer__bottom{flex-direction:column;align-items:flex-start}
 }
+
+/* Visual lock: original gradient AVUQO identity as printed in the owner's reference.
+   Temporary raster extraction, not a newly designed or approved vector master. */
+.header .avuqo-identity,.avuqo-footer .avuqo-identity{display:inline-flex;align-items:center;gap:0;line-height:1;letter-spacing:0;flex:none}
+.header .avuqo-identity-image,.avuqo-footer .avuqo-identity-image{display:block;width:168px;height:44px;max-width:none;object-fit:contain}
+.header .avuqo-header-layout>.avuqo-identity{min-width:168px}
+@media(min-width:1001px){
+ .header .avuqo-header-layout{grid-template-columns:168px minmax(0,1fr) minmax(110px,auto);grid-template-rows:51px 47px;min-height:108px;padding:2px 0 7px;gap:2px 12px}
+ .header .avuqo-header-layout>.primary-nav{justify-content:center!important}
+ .header .avuqo-header-layout>.header-search{max-width:870px;min-height:43px}
+ .header .avuqo-header-layout>.header-actions{justify-self:end}
+}
+@media(max-width:1000px){.header .avuqo-header-layout>.avuqo-identity{min-width:0}}
+@media(max-width:420px){.header .avuqo-identity-image{width:145px;height:38px}}
+@media(max-width:350px){.header .avuqo-identity-image{width:128px;height:34px}}
