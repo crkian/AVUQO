@@ -78,7 +78,8 @@ export async function POST(request:NextRequest){
    if(run.filename.split("__")[1]!==feedId)return send({error:"Feed identifier does not match session"},409);
    if(!Number.isSafeInteger(sequence)||sequence<0||!Array.isArray(headers)||!Array.isArray(rows)
       ||rows.length<1||rows.length>250||headers.some(v=>typeof v!=="string"||v.length>120)
-      ||rows.some(r=>!Array.isArray(r)||r.some(v=>typeof v!=="string"||v.length>10000)))
+      ||rows.some(r=>!Array.isArray(r)||r.some((v,i)=>typeof v!=="string"||
+       v.length>(run.merchant_id==="12715"&&headers[i]==="custom_6"?20000:10000))))
     return send({error:"Invalid chunk contents"},400);
    const records=run.merchant_id==="12715"
     ?prepareTyresUkPrivateBatch(run.merchant_id,feedId,headers as string[],rows as string[][])
