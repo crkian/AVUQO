@@ -130,6 +130,23 @@ try{
       }
       await page.screenshot({path:path.join(out,`${pageInfo.slug}-${viewport.label}.png`),
         fullPage:true,animations:"disabled"});
+      if(pageInfo.url==="/"){
+        // Exercise a real cross-page flow after capturing the homepage.
+        // This is read-only; it must never create shopping or account records.
+        const search=page.locator("form.header-search input[name=q]").first();
+        if(await search.count()){
+          await search.fill("laptops");
+          await search.press("Enter");
+          try{
+            await page.waitForURL(url=>url.pathname==="/search"&&url.searchParams.get("q")==="laptops", {timeout:12000});
+            const resultTitle=await page.locator("main h1").first().textContent({timeout:12000});
+            if(!resultTitle?.toLowerCase().includes("laptops"))entry.errors.push("Global search did not show query results");
+            else entry.searchNavigation="passed";
+          }catch{
+            entry.errors.push("Global search failed to navigate to /search?q=laptops");
+          }
+        }else entry.errors.push("Global search input is missing");
+      }
       if(entry.status>=400 || !entry.h1 || entry.overflow>4 || entry.errors.length>0){
         failures++;
         console.error("FAIL",JSON.stringify(entry));
