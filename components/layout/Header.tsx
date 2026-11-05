@@ -75,9 +75,9 @@ export default function Header() {
     <>
     <header className="header">
       <div className="shell nav avuqo-header-layout">
-        <Link className="logo" href="/">
-          <span className="q-mark">Q</span>
-          AVUQO
+        <Link className="logo" href="/" aria-label="AVUQO homepage">
+          <img className="brand-symbol" src="/branding/avuqo-a-mark.svg" alt="" width="42" height="42"/>
+          <span className="brand-wordmark"><strong>AVUQO</strong><small>Find what&apos;s worth it.</small></span>
         </Link>
 
         <form className="header-search" action="/search" method="get" role="search">
