@@ -29,9 +29,18 @@ export default async function OwnerStorefrontPreview({searchParams}:Props){
  for(const run of (runs??[]) as Run[]){
   const key=run.merchant_id||run.merchant_name;
   if(!seen.has(key)){seen.add(key);uniqueRuns.push(run);}
-  if(uniqueRuns.length===6)break;
+  if(uniqueRuns.length===12)break;
  }
- const selected=merchant?uniqueRuns.filter(run=>run.merchant_id===merchant):uniqueRuns;
+ // A selected merchant must not disappear from preview merely because newer
+ // imports from other retailers displaced it from the recent-run sample.
+ let selected=merchant?uniqueRuns.filter(run=>run.merchant_id===merchant):uniqueRuns;
+ if(merchant&&!selected.length&&/^\d{1,9}$/.test(merchant)){
+  const {data:matching}=await db.from("feed_import_runs")
+   .select("id,merchant_id,merchant_name,permission_status,created_at")
+   .eq("merchant_id",merchant).eq("status","private_review")
+   .order("created_at",{ascending:false}).limit(1);
+  selected=(matching??[]) as Run[];
+ }
  const groups=await Promise.all(selected.map(async run=>{
   // Single-merchant mode browses the entire private review queue in pages.
   // The all-merchants landing remains a small, representative sample.
@@ -77,7 +86,7 @@ export default async function OwnerStorefrontPreview({searchParams}:Props){
    <section className={styles.tyreReady} aria-label="Tyre advertiser onboarding">
      <span>COMING TO MOTORING · FEED REVIEW</span>
      <h2>Tyres deserve a proper comparison.</h2>
-     <p>Tyres UK (Awin 12715) and Tyres Pneus Online UK (Awin 15236) are joined programmes. No tyre products have been imported or approved yet. We will need verified size, load rating, speed rating and fitted or delivered price before displaying offers.</p>
+     <p>Tyres UK now has 31,372 imported records in private staging, including 28,990 private review candidates. No tyre products are publicly approved. Tyres Pneus Online UK remains in private feed validation. Size, load rating, speed rating and fitted or delivered prices still require verification before public offers.</p>
      <Link href="/motoring">Explore AVUQO Motoring</Link>
    </section>
    {(runsError||groups.some(group=>group.error))&&<p role="alert" className={styles.warning}>Some private feed records could not be loaded.</p>}
