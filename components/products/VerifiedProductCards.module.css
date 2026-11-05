@@ -10,7 +10,7 @@
 .checked{position:absolute;bottom:10px;left:11px;display:inline-flex;align-items:center;gap:5px;border-radius:999px;background:rgba(255,253,249,.95);border:1px solid #e8dfda;padding:6px 9px;color:#087b5b;font-size:10px;font-weight:800;box-shadow:0 3px 13px #30263916}
 .copy{display:flex;flex:1;flex-direction:column;padding:17px 16px 18px}
 .brand{font-size:10px;color:#795c87;text-transform:uppercase;letter-spacing:.09em;font-weight:900;margin:0 0 7px}
-.copy h3{font-family:Georgia,"Times New Roman",serif;font-size:19px;color:#302639;line-height:1.23;letter-spacing:-.025em;margin:0 0 15px;overflow-wrap:anywhere}
+.copy h3{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:19px;color:#302639;line-height:1.23;letter-spacing:-.025em;margin:0 0 15px;overflow-wrap:anywhere}
 .valueRow{display:flex;justify-content:space-between;align-items:center;gap:9px;margin-top:auto}
 .valueRow>div:first-child{display:grid;gap:4px}
 .valueRow>div:first-child span{font-size:10px;line-height:1.4;color:#726875}
