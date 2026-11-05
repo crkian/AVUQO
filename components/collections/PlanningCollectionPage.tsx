@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
-import { Heart, ShoppingBasket, Trash2, Mail, Copy, FolderPlus } from "lucide-react";
+import { Heart, ShoppingBasket, Trash2, Mail, Copy, FolderPlus, Package, ArrowRight } from "lucide-react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import { createClient } from "../../lib/supabase/client";
@@ -95,7 +95,7 @@ export default function PlanningCollectionPage({ kind }: { kind: PlanningCollect
   const emailBody = basketEmailBody(displays.map(item => ({title:item.title,merchant:item.merchant,price:item.price,url:item.url ?? ""})), "https://www.avuqo.com");
   const mailto = `mailto:?subject=${encodeURIComponent("My AVUQO comparison basket")}&body=${encodeURIComponent(emailBody)}`;
 
-  return <main>
+  return <main className={styles.page}>
     <Header/>
     <section className={styles.hero}><div className="shell">
       <p className="kicker">Your AVUQO account</p>
@@ -110,9 +110,9 @@ export default function PlanningCollectionPage({ kind }: { kind: PlanningCollect
         <div className={styles.empty}><Heart/><h2>Sign in to save your selections</h2><p>Your wishlist and basket stay private to your account.</p><Link className={styles.addButton} href={`/login?next=${encodeURIComponent(collection.route)}`}>Sign in</Link></div> :
         <>
           <div className={styles.heading}><h2>{displays.length} saved {displays.length === 1 ? "item" : "items"}</h2><span>Saved as one private {kind === "basket" ? "basket" : "wishlist"}</span></div>
-          {displays.length === 0 ? <div className={styles.empty}><ShoppingBasket/><h2>No items yet</h2><p>Add eligible offers from a verified AVUQO product page.</p><Link className={styles.addButton} href="/products">Browse verified products</Link></div> :
+          {displays.length === 0 ? <div className={styles.empty}><ShoppingBasket/><h2>No items yet</h2><p>Add eligible offers from a verified AVUQO product page.</p><div className={styles.emptyActions}><Link className={styles.addButton} href="/products">Browse verified products <ArrowRight size={16}/></Link><Link className={styles.secondaryLink} href="/categories">Explore categories</Link></div></div> :
           <div className={styles.items}>{displays.map(row => <article key={row.id} className={styles.item}>
-            <div className={styles.itemInfo}><h3>{row.title}</h3><p>{row.merchant}</p><small>{row.capturedAt ? `Price captured ${new Date(row.capturedAt).toLocaleDateString("en-GB")}` : "Original price date unavailable"}</small></div>
+            <div className={styles.itemVisual} aria-hidden="true"><Package size={34}/></div><div className={styles.itemInfo}><h3>{row.title}</h3><p>{row.merchant}</p><small>{row.capturedAt ? `Price captured ${new Date(row.capturedAt).toLocaleDateString("en-GB")}` : "Original price date unavailable"}</small></div>
             <div className={styles.itemPrice}><strong>{row.price === null ? "Price unavailable" : `£${row.price.toFixed(2)}`}</strong><small>Saved snapshot</small></div>
             <div className={styles.itemActions}>{row.url ? <Link href={row.url}>Recheck offer</Link> : <span>Offer link unavailable</span>}<button aria-label={`Remove ${row.title}`} type="button" disabled={pending} onClick={() => void remove(row.id)}><Trash2 size={17}/></button></div>
           </article>)}</div>}
