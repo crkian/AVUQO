@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import {useRouter} from "next/navigation";
-import { ArrowRight, Bell, Bookmark, Heart, ListChecks, Scale, ShoppingBasket } from "lucide-react";
+import { ArrowRight, Bell, Bookmark, Heart, ListChecks, Scale, ShoppingBasket, LayoutDashboard, SlidersHorizontal } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import Footer from "../../components/layout/Footer";
@@ -69,76 +69,78 @@ export default function AccountPage() {
     setMessage(error ? error.message : "Your preferences have been saved.");
   }
 
+  const greeting = signedIn ? (name.trim() || email.split("@")[0] || "there") : "you";
+  const avatarLetter = signedIn ? greeting.charAt(0).toUpperCase() : "A";
+
   return <main className={styles.page}>
     <Header/>
-    <section className={styles.hero}>
-      <div className={`shell ${styles.heroGrid}`}>
-        <div className={styles.heroCopy}>
-          <p className={styles.kicker}>Your AVUQO</p>
-          <h1>A little space for <em>what matters to you.</em></h1>
-          <p>Keep your ideas close, plan the next purchase and make every choice at your own pace. Your personal shopping tools belong in one welcoming place.</p>
-          <div className={styles.heroActions}>
-            <Link href="/saved">Explore your saved items <ArrowRight size={17}/></Link>
-            {!loading && !signedIn && <Link href="/login?next=/account" className={styles.secondaryAction}>Sign in to your space</Link>}
-          </div>
-        </div>
-        <div className={styles.heroArtwork} aria-hidden="true">
-          <div className={styles.artCircle}/>
-          <div className={styles.artMain}><Bookmark size={34}/><strong>The good things</strong><span>All in one place</span></div>
-          <div className={styles.artSmall}><Heart size={27}/><span>Find what’s worth it.</span></div>
+    <section className={styles.dashboardHero} aria-labelledby="my-avuqo-title">
+      <div className={`shell ${styles.dashboardHeroInner}`}>
+        <div className={styles.avatar} aria-hidden="true">{avatarLetter}</div>
+        <div>
+          <p className={styles.kicker}>Your personal shopping space</p>
+          <h1 id="my-avuqo-title">My AVUQO</h1>
+          <p>{loading ? "Opening your shopping space…" : signedIn ? `Welcome back, ${greeting}.` : "Welcome. Sign in to keep your shopping ideas together."}</p>
         </div>
       </div>
     </section>
-    <section className={`shell ${styles.content}`}>
-      <div className={styles.sectionIntro}>
-        <p className={styles.kicker}>A thoughtful shopping space</p>
-        <h2>All your useful tools, together.</h2>
-        <p>Explore the features available now. Saved records and Watches are not a promise of automated alerts or verified savings.</p>
-      </div>
-      <div className={styles.links}>
-        {journeys.map(({href,label,description,icon:Icon,tone}) =>
-          <Link key={href} href={href} className={styles.toolCard} data-tone={tone}>
-            <span className={styles.toolIcon}><Icon size={25} aria-hidden="true"/></span>
-            <strong>{label}</strong><span>{description}</span>
-            <span className={styles.toolArrow}>Explore <ArrowRight size={16} aria-hidden="true"/></span>
-          </Link>
-        )}
-      </div>
-    </section>
-    <section className={`shell ${styles.preferencesSection}`} aria-labelledby="profile-heading">
-      <article className={styles.card}>
-        <p className={styles.kicker}>Your choices</p>
-        <h2 id="profile-heading">Profile &amp; preferences</h2>
-        <p>{loading ? "Checking your account…" : signedIn ? email : "Sign in to save your preferences across devices."}</p>
-        <form className={styles.form} onSubmit={save}>
-          <label>Display name
-            <input value={name} onChange={event => setName(event.target.value)} disabled={!signedIn || loading} autoComplete="name"/>
-          </label>
-          <label>Home market
-            <select value={country} onChange={event => setCountry(event.target.value)} disabled={!signedIn || loading}>
-              <option value="GB">United Kingdom</option>
-              <option value="US">United States</option>
-              <option value="IE">Ireland</option>
-            </select>
-          </label>
-          <label>Shopping style
-            <select value={budget} onChange={event => setBudget(event.target.value)} disabled={!signedIn || loading}>
-              <option value="value-first">Value first</option>
-              <option value="balanced">Balanced</option>
-              <option value="premium">Premium when worth it</option>
-            </select>
-          </label>
-          <button type="submit" disabled={!signedIn || loading}>Save preferences</button>
-          {message && <span className={styles.message} role="status">{message}</span>}
-        </form>
-      </article>
-      <aside className={styles.accountNote}>
-        <p className={styles.kicker}>Made for a clearer choice</p>
-        <h2>Preferences should be yours to control.</h2>
-        <p>What you choose here is different from a temporary shopping mission. We won&apos;t claim to understand your tastes from imaginary activity or show made-up account statistics.</p>
-        <Link href="/trust">Read our approach to trust <ArrowRight size={17}/></Link>
+    <div className={`shell ${styles.dashboardLayout}`}>
+      <aside className={styles.sidebar}>
+        <nav aria-label="My AVUQO sections">
+          <Link className={styles.currentNav} href="/account" aria-current="page"><LayoutDashboard size={19} aria-hidden="true"/>Overview <ArrowRight size={17}/></Link>
+          {journeys.map(({href,label,icon:Icon})=><Link key={href} href={href}><Icon size={19} aria-hidden="true"/>{label}<ArrowRight size={15}/></Link>)}
+          <a href="#preferences"><SlidersHorizontal size={19} aria-hidden="true"/>Preferences <ArrowRight size={15}/></a>
+        </nav>
       </aside>
-    </section>
+      <div className={styles.dashboardMain}>
+        <section className={styles.overviewPanel} aria-labelledby="account-overview">
+          <div className={styles.panelHeading}>
+            <div><p className={styles.kicker}>Your overview</p><h2 id="account-overview">The good things, all together.</h2></div>
+          </div>
+          <div className={styles.overviewGrid}>
+            {journeys.slice(0,4).map(({href,label,description,icon:Icon,tone})=>
+              <Link href={href} key={href} className={styles.overviewTile} data-tone={tone}>
+                <Icon size={27} aria-hidden="true"/><strong>{label}</strong><small>{description}</small><span>Open <ArrowRight size={15}/></span>
+              </Link>
+            )}
+          </div>
+          <p className={styles.overviewNote}>These are shortcuts to your actual account tools. No invented counts, price alerts or spending estimates are shown.</p>
+        </section>
+        <section className={styles.activityPanel} aria-labelledby="continue-heading">
+          <div className={styles.panelHeading}><div><p className={styles.kicker}>Pick up where you left off</p><h2 id="continue-heading">Ready when you are.</h2></div></div>
+          <div className={styles.activityLinks}>
+            <Link href="/groceries"><ShoppingBasket size={23} aria-hidden="true"/><span><strong>Plan the weekly shop</strong><small>Explore your supermarket basket</small></span><ArrowRight size={18} aria-hidden="true"/></Link>
+            <Link href="/lists"><ListChecks size={23} aria-hidden="true"/><span><strong>Organise a shared list</strong><small>Bring household plans and gift ideas together</small></span><ArrowRight size={18} aria-hidden="true"/></Link>
+            <Link href="/reality-check"><Scale size={23} aria-hidden="true"/><span><strong>Check the real value</strong><small>Make sense of price claims before deciding</small></span><ArrowRight size={18} aria-hidden="true"/></Link>
+          </div>
+        </section>
+        <section className={styles.preferencePanel} id="preferences" aria-labelledby="profile-heading">
+          <div className={styles.panelHeading}><div><p className={styles.kicker}>In your hands</p><h2 id="profile-heading">Profile &amp; preferences</h2><p>Control the information you choose to save.</p></div></div>
+          <p className={styles.profileStatus}>{loading ? "Checking your account…" : signedIn ? email : "Sign in to save preferences across devices."}</p>
+          <form className={styles.form} onSubmit={save}>
+            <label>Display name
+              <input value={name} onChange={event => setName(event.target.value)} disabled={!signedIn || loading} autoComplete="name"/>
+            </label>
+            <label>Home market
+              <select value={country} onChange={event => setCountry(event.target.value)} disabled={!signedIn || loading}>
+                <option value="GB">United Kingdom</option>
+                <option value="US">United States</option>
+                <option value="IE">Ireland</option>
+              </select>
+            </label>
+            <label>Shopping style
+              <select value={budget} onChange={event => setBudget(event.target.value)} disabled={!signedIn || loading}>
+                <option value="value-first">Value first</option>
+                <option value="balanced">Balanced</option>
+                <option value="premium">Premium when worth it</option>
+              </select>
+            </label>
+            <button type="submit" disabled={!signedIn || loading}>Save preferences</button>
+            {message && <span className={styles.message} role="status">{message}</span>}
+          </form>
+        </section>
+      </div>
+    </div>
     <Footer/>
   </main>;
 }
