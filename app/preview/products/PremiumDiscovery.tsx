@@ -6,7 +6,7 @@ import {stagedPrice} from "../../../lib/feed-imports/preview-selection";
 import {suggestedDepartment} from "../../../lib/feed-imports/preview-departments";
 import styles from "./premium-discovery.module.css";
 
-export type PreviewItem={id:string;title:string;merchant:string;brand:string|null;rawCategory:string|null;price:number|string|null;currency:string;imageUrl:string|null;tyreSize?:{width_mm:number;aspect_ratio:number;rim_inches:number}|null;};
+export type PreviewItem={id:string;title:string;merchant:string;brand:string|null;rawCategory:string|null;price:number|string|null;currency:string;imageUrl:string|null;tyreSize?:{width_mm:number;aspect_ratio:number;rim_inches:number}|null;loadCandidate?:string|null;speedCandidate?:string|null;};
 const toPrice=(n:number|string|null)=>n===null?Number.NaN:Number(n);
 const approvedPrivateHosts=new Set(["www.cadburygiftsdirect.co.uk","cdn.shopify.com","www.tooled-up.com"]);
 const privateTyreImageHosts=new Set(["static.tyres.net","images2.productserve.com"]);
@@ -62,6 +62,7 @@ export default function PremiumDiscovery({items,externalFilters=false}:{items:Pr
      <span className={styles.brand}>{item.brand||item.merchant}</span>
      <h3>{item.title}</h3>
      {item.tyreSize&&<div style={{background:"#f3ecf7",border:"1px solid #e2d5e9",borderRadius:8,padding:"8px 11px",fontWeight:800,fontSize:13,color:"#534065"}}>Size candidate: {item.tyreSize.width_mm}/{item.tyreSize.aspect_ratio} R{item.tyreSize.rim_inches}<small style={{display:"block",fontSize:10,fontWeight:500}}>Extracted from retailer text · fitment unverified</small></div>}
+     {(item.loadCandidate||item.speedCandidate)&&<div style={{fontSize:12,color:"#634b72"}}>Candidate ratings: {item.loadCandidate||"?"} load / {item.speedCandidate||"?"} speed · not fitment verified</div>}
      <div className={styles.meta}><span>{item.merchant}</span><span>{item.rawCategory?"Feed category recorded":"Category suggested from title"}</span></div>
      <div className={styles.price}>{stagedPrice(item.price,item.currency)}</div>
      <span className={styles.historical}>Historical import · not a live offer</span>
