@@ -96,7 +96,7 @@ export default function TyreEnrichmentForm(){
    {busy&&<button type="button" onClick={()=>stop.current=true} style={{padding:"12px 18px",background:"white",border:"1px solid #d5c7de",borderRadius:10}}>Pause after batch</button>}
   </div>
   <p role="status" style={{margin:0,lineHeight:1.6}}>{state}</p>
-  {busy&&<p>Read {progress.read.toLocaleString("en-GB")} rows; ${progress.eligible.toLocaleString("en-GB")} candidates, ${progress.updated.toLocaleString("en-GB")} updated.</p>}
+  {busy&&<p>Read {progress.read.toLocaleString("en-GB")} rows; {progress.eligible.toLocaleString("en-GB")} candidates, {progress.updated.toLocaleString("en-GB")} updated.</p>}
   {status&&<small style={{color:"#71667a"}}>Existing imported records: {status.imported.toLocaleString("en-GB")}. Enriched review records: {status.enriched_review_records.toLocaleString("en-GB")}. All publication and permission flags remain unchanged.</small>}
  </section>;
 }
