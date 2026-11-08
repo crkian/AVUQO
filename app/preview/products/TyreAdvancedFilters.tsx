@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 export type TyreFacetValues={
- brands:string[];widths:number[];profiles:number[];rims:number[];
+ brands:string[];widths:number[];profiles:number[];rims:number[];loads:string[];speeds:string[];
 };
 export type TyreFilterSelection={
- brand:string;width:string;profile:string;rim:string;q:string;
+ brand:string;width:string;profile:string;rim:string;load:string;speed:string;q:string;
  min:string;max:string;sort:string;
 };
 const fieldStyle={
@@ -24,7 +24,7 @@ export default function TyreAdvancedFilters({facets,selected,resultCount}:{
   <div style={{display:"flex",justifyContent:"space-between",gap:15,alignItems:"start",flexWrap:"wrap",marginBottom:19}}>
    <div><span style={{fontSize:11,fontWeight:850,letterSpacing:1.3,color:"#725783"}}>MOTORING · PRIVATE TYRE FINDER</span>
     <h2 style={{margin:"7px 0",fontSize:26,letterSpacing:"-.035em"}}>Find tyres by exact specifications</h2>
-    <p style={{margin:0,fontSize:13,lineHeight:1.6,color:"#766c79"}}>Searches the full imported review catalogue, not just the visible page. Manufacturer is feed-supplied; tyre sizes are unverified text-derived candidates.</p>
+    <p style={{margin:0,fontSize:13,lineHeight:1.6,color:"#766c79"}}>Searches the full imported review catalogue, not just the visible page. Manufacturer is feed-supplied; tyre sizes and load/speed indexes are unverified source-derived candidates.</p>
    </div>
    <div style={{padding:"12px 16px",borderRadius:12,background:"white",border:"1px solid #e6dbe8"}}>
     <strong style={{display:"block",fontSize:24}}>{resultCount.toLocaleString("en-GB")}</strong>
@@ -60,6 +60,18 @@ export default function TyreAdvancedFilters({facets,selected,resultCount}:{
     </label>
    </div>
    <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(150px,1fr))",gap:12}}>
+    <label style={labelStyle}>Load index (candidate)
+     <select name="load" defaultValue={selected.load} style={fieldStyle}>
+      <option value="">Any load index</option>
+      {facets.loads.map(x=><option key={x} value={x}>{x}</option>)}
+     </select>
+    </label>
+    <label style={labelStyle}>Speed rating (candidate)
+     <select name="speed" defaultValue={selected.speed} style={fieldStyle}>
+      <option value="">Any speed rating</option>
+      {facets.speeds.map(x=><option key={x} value={x}>{x}</option>)}
+     </select>
+    </label>
     <label style={labelStyle}>Search tyre model or name
      <input name="q" type="search" maxLength={80} defaultValue={selected.q} placeholder="e.g. Pilot Sport, AllSeasonContact" style={fieldStyle}/>
     </label>

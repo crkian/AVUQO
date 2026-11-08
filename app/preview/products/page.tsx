@@ -15,7 +15,7 @@ import styles from "./page.module.css";
 export const instant = false;
 export const metadata:Metadata={title:"Private product storefront preview | AVUQO",robots:{index:false,follow:false}};
 type Run={id:string;merchant_id:string;merchant_name:string;permission_status:string;created_at:string};
-type Props={searchParams:Promise<{merchant?:string;page?:string;brand?:string;width?:string;profile?:string;rim?:string;q?:string;min?:string;max?:string;sort?:string}>};
+type Props={searchParams:Promise<{merchant?:string;page?:string;brand?:string;width?:string;profile?:string;rim?:string;load?:string;speed?:string;q?:string;min?:string;max?:string;sort?:string}>};
 export default async function OwnerStorefrontPreview({searchParams}:Props){
  await connection();
  await requireControlCentreAccess();
@@ -46,7 +46,7 @@ export default async function OwnerStorefrontPreview({searchParams}:Props){
  }
  // Populate full-import filter menus through a private, owner-only RLS-protected
  // aggregate function. All values remain unapproved for public tyre fitment.
- let facets:TyreFacetValues={brands:[],widths:[],profiles:[],rims:[]};
+ let facets:TyreFacetValues={brands:[],widths:[],profiles:[],rims:[],loads:[],speeds:[]};
  if(tyreMode&&selected.length){
   const {data}=await db.rpc("private_tyre_preview_facets",{p_import_id:selected[0].id});
   if(data&&typeof data==="object"&&!Array.isArray(data)){
@@ -54,9 +54,18 @@ export default async function OwnerStorefrontPreview({searchParams}:Props){
    const cleanInts=(key:string)=>Array.isArray(obj[key])?
     (obj[key] as unknown[]).filter((x):x is number=>Number.isInteger(x)&&Number(x)>=10&&Number(x)<=400):[];
    facets={
+    loads:[],speeds:[],
     brands:Array.isArray(obj.brands)?obj.brands.filter((x):x is string=>typeof x==="string"&&x.length<=100):[],
     widths:cleanInts("widths"),profiles:cleanInts("profiles"),rims:cleanInts("rims")
    };
+  }
+ }
+ if(tyreMode&&selected.length){
+  const {data}=await db.rpc("private_tyre_technical_facets",{p_import_id:selected[0].id});
+  if(data&&typeof data==="object"&&!Array.isArray(data)){
+   const obj=data as Record<string,unknown>;
+   facets.loads=Array.isArray(obj.loads)?obj.loads.filter((x):x is string=>typeof x==="string"&&/^\d{2,3}(\/\d{2,3})?$/.test(x)):[];
+   facets.speeds=Array.isArray(obj.speeds)?obj.speeds.filter((x):x is string=>typeof x==="string"&&/^[A-Z]$/.test(x)):[];
   }
  }
  const selectedTyreFilters:TyreFilterSelection={
@@ -64,6 +73,8 @@ export default async function OwnerStorefrontPreview({searchParams}:Props){
   width:facets.widths.some(x=>String(x)===params.width)?params.width!:"",
   profile:facets.profiles.some(x=>String(x)===params.profile)?params.profile!:"",
   rim:facets.rims.some(x=>String(x)===params.rim)?params.rim!:"",
+  load:facets.loads.includes(params.load??"")?params.load!:"",
+  speed:facets.speeds.includes(params.speed??"")?params.speed!:"",
   q:(params.q??"").replace(/[^\p{L}\p{N} ._+\-/]/gu,"").slice(0,80).trim(),
   min:/^\d{1,6}(?:\.\d{1,2})?$/.test(params.min??"")?params.min!:"",
   max:/^\d{1,6}(?:\.\d{1,2})?$/.test(params.max??"")?params.max!:"",
@@ -90,6 +101,8 @@ export default async function OwnerStorefrontPreview({searchParams}:Props){
     if(f.width)query=query.eq("metadata->tyre_size_candidate->>width_mm",f.width);
     if(f.profile)query=query.eq("metadata->tyre_size_candidate->>aspect_ratio",f.profile);
     if(f.rim)query=query.eq("metadata->tyre_size_candidate->>rim_inches",f.rim);
+    if(f.load)query=query.eq("metadata->>load_index_candidate",f.load);
+    if(f.speed)query=query.eq("metadata->>speed_rating_candidate",f.speed);
     if(f.q)query=query.ilike("title","%"+f.q.replace(/[%_]/g,"")+"%");
     if(f.min)query=query.gte("price",Number(f.min));
     if(f.max)query=query.lte("price",Number(f.max));
@@ -124,11 +137,14 @@ export default async function OwnerStorefrontPreview({searchParams}:Props){
     {uniqueRuns.map(run=><Link key={run.id} aria-current={merchant===run.merchant_id?"page":undefined} href={`/preview/products?merchant=${encodeURIComponent(run.merchant_id)}`}>{run.merchant_name}</Link>)}</div>
    </nav>
    {merchant&&selected.length>0&&<p className={styles.pageStatus}>Showing private review candidates from {selected[0].merchant_name}. Page {currentPage} of {Math.max(1,Math.ceil(groups[0].count/pageSize))}. {tyreMode?"Advanced filters search the full imported tyre catalogue.":"Local filters and comparison apply to products displayed on this page."}</p>}
+   {tyreMode&&selected.length>0&&<p><Link href="/control-centre/tyre-spec-enrichment">Enrich existing Tyres UK load and speed specifications privately</Link></p>}
    {tyreMode&&selected.length>0&&<TyreAdvancedFilters facets={facets} selected={selectedTyreFilters} resultCount={groups[0]?.count??0}/>}
    <PremiumDiscovery externalFilters={tyreMode} items={cards.map(({product,run})=>({
     id:product.id,title:product.title,merchant:run.merchant_name,
     brand:product.brand,rawCategory:product.category,price:product.price,currency:product.currency,
     imageUrl:product.image_url,
+    loadCandidate:run.merchant_id==="12715"?(product as StagedPreviewRow & {metadata?:{load_index_candidate?:string}}).metadata?.load_index_candidate??null:null,
+    speedCandidate:run.merchant_id==="12715"?(product as StagedPreviewRow & {metadata?:{speed_rating_candidate?:string}}).metadata?.speed_rating_candidate??null:null,
     tyreSize:run.merchant_id==="12715"?(product as StagedPreviewRow & {metadata?:{tyre_size_candidate?:{width_mm:number;aspect_ratio:number;rim_inches:number}}}).metadata?.tyre_size_candidate??null:null
    }))}/>
    {merchant&&selected.length>0&&groups[0].count>pageSize&&<nav className={styles.pagination} aria-label="Private product catalogue pages">
