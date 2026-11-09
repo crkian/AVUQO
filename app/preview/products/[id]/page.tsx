@@ -10,6 +10,7 @@ import {categoryDetail} from "../../../../lib/feed-imports/category-detail";
 import {stagedPrice} from "../../../../lib/feed-imports/preview-selection";
 import PrivateProductPhoto from "./PrivateProductPhoto";
 import TyreProductDetail from "./TyreProductDetail";
+import {tyreEvidence} from "../../../../lib/tyres/catalogue";
 import styles from "./detail.module.css";
 export const instant=false;
 export const metadata:Metadata={title:"Private category product detail | AVUQO",robots:{index:false,follow:false}};
@@ -28,7 +29,8 @@ export default async function Page({params}:Props){
  if(runError||!run||run.status!=="private_review")notFound();
  const detail=categoryDetail(run.merchant_name,row.title,row.category,row.brand,row.metadata??undefined);
  const isTyre=run.merchant_id==="12715";
- return <main className={styles.page}>
+ const tyre=isTyre?tyreEvidence(row.metadata):null;
+ return <main className={isTyre?styles.tyrePage:styles.page}>
   <Header/>
   <div className={styles.private}>{isTyre?"PRIVATE TYRE PRODUCT · FITMENT UNVERIFIED":"PRIVATE PRODUCT PREVIEW · NO PUBLIC OFFER · OWNER ACCESS"}</div>
   <div className={styles.shell}>
@@ -38,10 +40,20 @@ export default async function Page({params}:Props){
    <div className={styles.layout}>
     <PrivateProductPhoto url={row.image_url} title={row.title} merchant={run.merchant_name}/>
     <section className={styles.copy}>
+     {isTyre&&<div className={styles.tyreProductStatus}>AVUQO TYRES / OWNER REVIEW ONLY</div>}
      <p className={styles.eyebrow}>{detail.department} · {run.merchant_name}</p>
      <h1>{row.title}</h1>
      {row.brand&&<p className={styles.brand}>{row.brand}</p>}
-     <p className={styles.price}>{stagedPrice(row.price,row.currency)}</p>
+     {tyre&&<div className={styles.tyreFactsSummary}>
+      {tyre.size&&<span>{tyre.size} <small>size candidate</small></span>}
+      {tyre.load&&<span>Load {tyre.load} <small>unverified</small></span>}
+      {tyre.speed&&<span>Speed {tyre.speed} <small>unverified</small></span>}
+      {!tyre.size&&<span>Tyre size needs review</span>}
+     </div>}
+     <div className={isTyre?styles.tyrePriceBox:styles.normalPriceBox}>
+      {isTyre&&<span className={styles.archiveLabel}>HISTORICAL SUPPLIER PRICE · NOT A LIVE QUOTE</span>}
+      <p className={styles.price}>{stagedPrice(row.price,row.currency)}</p>
+     </div>
      <p className={styles.historical}>Historical import value, not a verified live price. Any stock status or delivery charge shown in source details is a past feed observation, not current availability.</p>
      <p className={styles.sourceDate}>Imported for private review: <strong>{new Date(run.created_at).toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric",timeZone:"UTC"})}</strong>. The product must be checked again before publication.</p>
      <div className={styles.disabled}>Retailer checkout unavailable until individual offer approval</div>
