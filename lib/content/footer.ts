@@ -24,7 +24,7 @@ export function parseFooter(raw: unknown): FooterContent {
       typeof item.disclosure !== "string" || item.disclosure.length > 600 ||
       !Array.isArray(item.groups) || item.groups.length > 5 ||
       !item.groups.every(g => g && typeof g.heading === "string" && g.heading.length <= 80 &&
-        Array.isArray(g.links) && g.links.length <= 12 && g.links.every(l =>
+        Array.isArray(g.links) && g.links.length <= 15 && g.links.every(l =>
           l && typeof l.label === "string" && l.label.length <= 80 && typeof l.href === "string" &&
           /^\/[a-z0-9/\-]*$/.test(l.href)))) return DEFAULT_FOOTER;
   return item as FooterContent;
