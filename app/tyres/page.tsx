@@ -4,7 +4,7 @@ import {ArrowRight,ArrowUpRight,CheckCircle2,Gauge,ShieldCheck,SlidersHorizontal
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import TyreWheelVisual from "./TyreWheelVisual";
-import {tyreCollections,tyreBrandNames,tyreBrandSlug} from "../../lib/tyres/catalogue";
+import {tyreCollections,tyreBrandSlug} from "../../lib/tyres/catalogue";
 import styles from "./tyres.module.css";
 
 export const metadata:Metadata={
