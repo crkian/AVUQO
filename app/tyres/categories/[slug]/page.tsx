@@ -28,7 +28,7 @@ export default async function Category({params}:Props){
   <section className={styles.section}><div className={styles.headingRow}><div><p className={styles.kicker}>What matters</p><h2>Get the specification right</h2></div></div>
   <div className={styles.infoGrid}>
    <div className={styles.info}><b>Size and suitability</b><p>Check the vehicle-approved size and specification before considering products in this category.</p></div>
-   <div className={styles.info}><b>Evidence for this type</b><p>{category.readiness}. We do not guess a tyre's season, run-flat features or vehicle suitability from its product name.</p></div>
+   <div className={styles.info}><b>Evidence for this type</b><p>{category.readiness}. We do not guess a tyre&apos;s season, run-flat features or vehicle suitability from its product name.</p></div>
    <div className={styles.info}><b>Total payable cost</b><p>Compare only genuine, currently available products with fitting and delivery terms clearly explained.</p></div>
   </div></section>
   <aside className={styles.notice}>This is an editorial guide, not a populated live product category. Imported Awin products and historic prices remain private until validated and permissioned.</aside>
