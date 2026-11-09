@@ -1,5 +1,23 @@
 # AVUQO software changelog
 
+
+## [0.3.1] - 2026-11-09 (tyre showroom release candidate, production verification pending)
+
+- Launch an editorial premium AVUQO Tyres showroom using original first-party vector artwork, refined plum/coral branding, responsive design and accessible native tyre size controls.
+- Add an educational tyre size journey, noindex manufacturer directory and tyre-type buying guides. The size tool explains dimensions; it does not claim vehicle-fitment or live tyre prices.
+- Build an owner-only real-feed tyre showroom with full private manufacturer and size search, tyre-specific product evidence and image opt-in; protect all staged supplier records behind the existing owner/admin gate.
+- Extend only the existing verified-offer product pipeline with a tyre-specific template. Safety-critical technical specifications are hidden unless an explicit canonical verification flag is present.
+- Keep all historical supplier tyre offers, images, rights decisions, prices, registration lookup and fitment approval private or deferred. No supplier source activated, no database migration, and no automatic feed import enabled.
+- Include responsive, public/private isolation and technical-candidate regression tests. Vercel preview and post-merge production acceptance must be verified independently.
+
+## Unreleased
+
+
+- **Approved-product tyre template (draft):** Public canonical `/products/[slug]` chooses a tyre-specific buying experience only for a product classified in a verified tyre category; specification fields remain hidden unless an explicit `tyre_specs_verified` flag is recorded. No staged tyre data becomes a public offer.
+
+- **Draft tyre showroom and manufacturer/category pages (9 Nov):** Create responsible public tyre buying hub plus noindex manufacturer/tyre-type guides; build owner-only exact-size and full brand browse, tyre-specific product panels, historical price labels and private images behind opt-in. No public feed products, fitment, fresh offers or merchant permissions activated.
+
+
 - **Unreleased Awin feed discovery matrix:** Owner feed inventory displays all 16 joined programmes, format-group counts and zero-feed programmes, plus a filtered credential-free metadata CSV copy. Does not download feeds or merge overlapping records.
 
 - **Awin import hardening:** Add before-upload feed dialect and row-inspection diagnostics, align TSV server acceptance, live joined-programme revalidation on resume, strong source feed-ID binding at DB layer, and service/contract feed quarantine. Existing physical Awin private imports unaffected. No public or automatic activation.

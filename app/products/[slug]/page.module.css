@@ -45,3 +45,8 @@
 .fashion .heroGrid{grid-template-columns:.72fr 1.28fr}.gifts .heroGrid{grid-template-columns:.78fr 1.22fr}
 .fashion .art,.gifts .art{border-radius:180px 180px 26px 26px;min-height:480px}
 @media(max-width:900px){.fashion .heroGrid,.gifts .heroGrid{grid-template-columns:1fr}.fashion .art,.gifts .art{min-height:310px;max-width:580px}}
+
+/* A distinct tyre product presentation is activated only by approved public offers. */
+.tyres{--product-tone:#5d4575;--product-bg:#f0ebf2;--product-soft:#e6dcec}
+.tyres .art{background:radial-gradient(circle at center,#fff 0 30%,#d4c6d9 31% 36%,#f7f3f8 37% 100%)}
+.tyres .motorPanel{background:var(--product-soft)}

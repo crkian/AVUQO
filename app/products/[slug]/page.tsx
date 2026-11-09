@@ -12,6 +12,8 @@ import {chooseProductTemplate,validatedSpecificationEntries} from "../../../lib/
 import styles from "./page.module.css";
 type Props={params:Promise<{slug:string}>};
 const gbp=(n:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(n);
+const approvedTyreSpecKeys=new Set(["tyre_width_mm","tyre_profile","tyre_rim_inches","load_index",
+ "speed_rating","season","run_flat","xl","wet_grip","noise_db","fuel_efficiency"]);
 export async function generateMetadata({params}:Props):Promise<Metadata>{
  await connection();
  const {slug}=await params;const record=await verifiedProduct(slug);
@@ -26,13 +28,24 @@ async function ProductDetails({params}:Props){
  const {product,offers}=entry;
  const best=[...offers].sort((a,b)=>Number(a.offer.total_price??a.offer.price)-Number(b.offer.total_price??b.offer.price))[0];
  const presentation=chooseProductTemplate(product,offers);
- const specs=validatedSpecificationEntries(product.specifications,presentation.specPriority);
+ const candidateSpecs=validatedSpecificationEntries(product.specifications,presentation.specPriority);
+ const specRecord=product.specifications&&typeof product.specifications==="object"&&!Array.isArray(product.specifications)
+  ?product.specifications as Record<string,unknown>:{};
+ // Approved offers are necessary but not sufficient to validate safety-critical tyre specifications.
+ // Keep unverified technical fields off customer pages until an explicit specification evidence gate passes.
+ const specs=presentation.template==="tyres"
+  ?specRecord.tyre_specs_verified===true
+   ?candidateSpecs.filter(([key])=>approvedTyreSpecKeys.has(key.toLowerCase().replaceAll(" ","_")))
+   :[]
+  :candidateSpecs;
  const photo=best.published.image_url;
  return <div className={`${styles.productPage} ${styles[presentation.template]}`}><section className={styles.hero}><div className="shell"><Link className={styles.back} href="/products"><ArrowLeft size={17}/> All products</Link><div className={`${styles.heroGrid} ${presentation.imageShape==="wide"?styles.wideImage:presentation.imageShape==="portrait"?styles.portraitImage:""}`}>
  <div className={styles.art}>{photo?<img src={photo} alt={product.canonical_title} referrerPolicy="no-referrer"/>:<div className={styles.placeholder}><span>Q</span><small>Verified image not available</small></div>}</div>
  <div className={styles.copy}><p className={styles.kicker}>{presentation.eyebrow}</p><h1>{product.canonical_title}</h1>{(product.brand||product.model)&&<p className={styles.variant}>{product.brand&&<span>{product.brand}</span>}{product.model&&<span>{product.model}</span>}</p>}
  <p className={styles.intro}>{product.description||"Compare eligible retailer offers and understand what the price evidence can, and cannot, show."}</p>
- <div className={styles.topPrice}><span>Lowest eligible observed offer</span><strong>{gbp(Number(best.offer.total_price??best.offer.price))}</strong><small>From {best.published.merchant}. Check current price, delivery, stock and terms before buying.</small></div>
+ <div className={styles.topPrice}><span>{presentation.template==="tyres"?"Lowest eligible tyre offer · fitting may be extra":"Lowest eligible observed offer"}</span><strong>{gbp(Number(best.offer.total_price??best.offer.price))}</strong><small>From {best.published.merchant}. {presentation.template==="tyres"
+ ?"Confirm approved vehicle fitment, load and speed rating, current stock and the full fitted or delivered total directly with the retailer."
+ :"Check current price, delivery, stock and terms before buying."}</small></div>
  <Link className={styles.action} href="#retailers">Compare retailers <ArrowRight size={18}/></Link><div style={{marginTop:14}}><AddToCollectionButton kind="wishlist" productId={product.id} productSlug={product.slug} offerId={best.offer.id}/></div><p className={styles.assurance}><ShieldCheck size={17}/> Verified-source display only. Independent of affiliate payout.</p></div>
  </div></div></section>
  <section className={`shell ${styles.templateSection}`} aria-label="Product-specific guidance">
@@ -43,6 +56,7 @@ async function ProductDetails({params}:Props){
     presentation.template==="travel"?<div className={styles.travelPanel}><p className={styles.kicker}>Travel changes with the dates</p><h3>Check the trip, not just the price.</h3><p>Availability and inclusion details need to match the exact dates and travellers before you book.</p><Link href="/travel">Explore travel guidance <ArrowRight size={17}/></Link></div>:
     presentation.template==="beauty"?<div className={styles.carePanel}><p className={styles.kicker}>The finer details</p><h3>Ingredients and suitability matter.</h3><p>Use the retailer&apos;s complete product label and care advice, especially when formulations or sizes vary.</p></div>:
     presentation.template==="home"?<div className={styles.homePanel}><p className={styles.kicker}>Made for your space</p><h3>Measure twice, choose once.</h3><p>Fit, care, delivery and everyday use often matter longer than a temporary price reduction.</p></div>:
+    presentation.template==="tyres"?<div className={styles.motorPanel}><p className={styles.kicker}>Fitment comes first</p><h3>The exact tyre matters.</h3><p>Check your vehicle&apos;s approved size, load and speed requirements. A product name or a supplier feed is never a fitment guarantee. Confirm any extra fitting or disposal charges.</p><Link href="/tyres">Explore tyre buying guidance <ArrowRight size={17}/></Link></div>:
     presentation.template==="motoring"?<div className={styles.motorPanel}><p className={styles.kicker}>Ownership matters</p><h3>Plan the full running cost.</h3><p>Fuel, charging, maintenance and insurance are separate from the purchase price.</p><Link href="/motoring">Explore motoring <ArrowRight size={17}/></Link></div>:
     presentation.template==="fashion"?<div className={styles.fashionPanel}><p className={styles.kicker}>Find your fit</p><h3>Wear it your way.</h3><p>Colour, fit, material and care details deserve space alongside the price.</p></div>:
     presentation.template==="gifts"?<div className={styles.giftsPanel}><p className={styles.kicker}>Make it meaningful</p><h3>Who are you choosing for?</h3><p>Think about the person, the occasion and whether the product can arrive when needed.</p></div>:

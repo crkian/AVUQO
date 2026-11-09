@@ -137,6 +137,7 @@ export default async function OwnerStorefrontPreview({searchParams}:Props){
     {uniqueRuns.map(run=><Link key={run.id} aria-current={merchant===run.merchant_id?"page":undefined} href={`/preview/products?merchant=${encodeURIComponent(run.merchant_id)}`}>{run.merchant_name}</Link>)}</div>
    </nav>
    {merchant&&selected.length>0&&<p className={styles.pageStatus}>Showing private review candidates from {selected[0].merchant_name}. Page {currentPage} of {Math.max(1,Math.ceil(groups[0].count/pageSize))}. {tyreMode?"Advanced filters search the full imported tyre catalogue.":"Local filters and comparison apply to products displayed on this page."}</p>}
+   {tyreMode&&selected.length>0&&<p><Link href="/preview/tyres">Explore the private tyre showroom: brands, sizes and single-product design →</Link></p>}
    {tyreMode&&selected.length>0&&<p><Link href="/control-centre/tyre-spec-enrichment">Enrich existing Tyres UK load and speed specifications privately</Link></p>}
    {tyreMode&&selected.length>0&&<TyreAdvancedFilters facets={facets} selected={selectedTyreFilters} resultCount={groups[0]?.count??0}/>}
    <PremiumDiscovery externalFilters={tyreMode} items={cards.map(({product,run})=>({
