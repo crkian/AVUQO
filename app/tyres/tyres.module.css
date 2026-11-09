@@ -1,4 +1,4 @@
-.page{min-height:100vh;background:#fcfaf8;color:#292333}
+.page{--tyre-midnight:#191221;--tyre-deep-plum:#301d3c;--tyre-ivory:#f7f4f1;--tyre-coral:#ffcec2;--tyre-lavender-pink:#f1b4c8;min-height:100vh;background:#fcfaf8;color:#292333}
 .shell{max-width:1240px;margin:0 auto;padding:0 24px}
 .hero{position:relative;overflow:hidden;background:linear-gradient(115deg,#20172c 0%,#3b2559 58%,#63376f 100%);color:#fff;padding:clamp(58px,7vw,108px) 0}
 .heroGrid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);align-items:center;gap:50px}
@@ -59,18 +59,18 @@
 
 /* Tyres flagship: original art, dimensional finder, editorial showroom.
    Strong contrast and large tap targets are intentional. */
-.studioHero{background:#191221;color:#fff;min-height:650px;position:relative;isolation:isolate;overflow:hidden}
-.heroTexture{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 79% 28%,#64467699 0%,transparent 40%),radial-gradient(ellipse at 15% 80%,#4e324851 0%,transparent 58%),linear-gradient(115deg,#1e1728 10%,#301d3c 66%,#201829 100%);z-index:-1}
+.studioHero{background:var(--tyre-midnight);color:#fff;min-height:650px;position:relative;isolation:isolate;overflow:hidden}
+.heroTexture{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 79% 28%,#64467699 0%,transparent 40%),radial-gradient(ellipse at 15% 80%,#4e324851 0%,transparent 58%),linear-gradient(115deg,#1e1728 10%,var(--tyre-deep-plum) 66%,#201829 100%);z-index:-1}
 .heroTexture:after{content:"";position:absolute;inset:0;opacity:.12;background:repeating-linear-gradient(137deg,transparent 0 35px,#ffffff0c 36px 37px,transparent 38px 86px)}
 .studioGrid{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(290px,.94fr);gap:clamp(10px,4vw,60px);align-items:center;padding-top:58px;padding-bottom:75px}
 .studioCopy{position:relative;z-index:2}
 .studioEyebrow{font-size:11px;font-weight:850;letter-spacing:.19em;color:#eac2ea;display:flex;align-items:center;gap:11px;margin:0 0 22px}
 .eyebrowDash{width:33px;height:2px;background:#f6a693;display:inline-block}
 .studioCopy h1{font-size:clamp(48px,5.7vw,83px);line-height:1.075;letter-spacing:-.065em;font-weight:850;margin:0 0 24px;max-width:710px}
-.studioCopy h1 span{color:#f1b4c8}
+.studioCopy h1 span{color:var(--tyre-lavender-pink)}
 .studioLead{max-width:535px;color:#ebe0f0;line-height:1.8;font-size:clamp(15px,1.55vw,18px);margin:0}
 .premiumButton,.lightButton,.darkButton{display:inline-flex;align-items:center;gap:12px;justify-content:center;min-height:51px;padding:13px 19px;border-radius:13px;font-weight:850;font-size:13px;text-decoration:none}
-.premiumButton{background:#ffcec2;color:#241324;border:1px solid #ffcec2}
+.premiumButton{background:var(--tyre-coral);color:#241324;border:1px solid var(--tyre-coral)}
 .premiumButton:hover{background:#fff4ee}
 .lightButton{border:1px solid #bda5c2;color:#fff;background:#ffffff09}
 .lightButton:hover{background:#ffffff19}
@@ -84,7 +84,7 @@
 .visualCaption{position:absolute;bottom:16px;left:15px;color:#dcc9dd;font-weight:800;font-size:10px;letter-spacing:.15em}
 .visualRingLabel{position:absolute;right:0;top:24px;border:1px solid #dfbdd15c;border-radius:999px;color:#e9dbe8;padding:10px 13px;letter-spacing:.13em;font-size:9px;font-weight:750}
 .heroBottomLine{height:5px;background:linear-gradient(90deg,#f3ab9a 0%,#9c6f9d 55%,#37223b 100%)}
-.finderSection{background:#f7f4f1;position:relative;z-index:3;scroll-margin-top:90px}
+.finderSection{background:var(--tyre-ivory);position:relative;z-index:3;scroll-margin-top:90px}
 .finderCard{background:#fff;margin-top:-39px;border:1px solid #e3d9e4;border-radius:24px;box-shadow:0 22px 48px #35213f18;display:grid;grid-template-columns:1fr 1.55fr;gap:22px 26px;align-items:center;padding:clamp(22px,3vw,34px);position:relative}
 .pill{display:inline-block;border-radius:999px;background:#f2e7ee;color:#68415d;font-size:10px;letter-spacing:.13em;font-weight:900;padding:7px 10px}
 .finderIntro h2{font-size:clamp(23px,2.5vw,34px);letter-spacing:-.05em;margin:12px 0 7px;color:#271c31}
@@ -97,7 +97,7 @@
 .sizeForm button:hover{background:#6a427f}
 .finderFootnote{grid-column:1/-1;display:flex;gap:9px;align-items:start;font-size:11px;line-height:1.6;color:#786e7b;margin:0}
 .finderFootnote svg{flex:none;color:#7e5a7a}
-.featureStrip{background:#f7f4f1;padding:30px 0 35px;border-bottom:1px solid #e8e1e5}
+.featureStrip{background:var(--tyre-ivory);padding:30px 0 35px;border-bottom:1px solid #e8e1e5}
 .featureStripGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:23px}
 .featureStripGrid>div{display:flex;gap:13px;align-items:center;border-right:1px solid #e3d8e2;min-width:0}
 .featureStripGrid>div:last-child{border:0}
