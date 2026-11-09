@@ -1,4 +1,5 @@
 import type {Metadata} from "next";
+import {Suspense} from "react";
 import Link from "next/link";
 import {connection} from "next/server";
 import Header from "../../../components/layout/Header";
@@ -12,7 +13,7 @@ export const metadata:Metadata={
  description:"Understand tyre width, profile, rim diameter, load and speed ratings before choosing new tyres.",
  alternates:{canonical:"/tyres/sizes"}
 };
-export default async function SizeGuide({searchParams}:Props){
+async function SizeGuideContent({searchParams}:Props){
  await connection();
  const q=await searchParams;
  const width=tyreSizeQuery(q.width,125,385),profile=tyreSizeQuery(q.profile,20,95);
@@ -55,4 +56,9 @@ export default async function SizeGuide({searchParams}:Props){
    <aside className={styles.notice}><strong>Important:</strong> Consult the vehicle handbook, tyre placard or a qualified tyre fitting professional before purchasing. AVUQO is preparing commercial tyre comparisons, but has no verified live tyre offers or vehicle-fitment recommendations yet.</aside>
    <p style={{marginTop:25}}><Link className={styles.textLink} href="/tyres/brands">Explore tyre manufacturers →</Link></p>
   </div><Footer/></main>;
+}
+export default function Page({searchParams}:Props){
+ return <Suspense fallback={<main className={styles.page}><Header/><div className={styles.shell+" "+styles.main}>Preparing tyre size guide…</div><Footer/></main>}>
+  <SizeGuideContent searchParams={searchParams}/>
+ </Suspense>;
 }
