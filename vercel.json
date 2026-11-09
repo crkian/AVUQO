@@ -11,6 +11,10 @@
     {
       "path": "/api/internal/awin-auto-import",
       "schedule": "5 7 * * *"
+    },
+    {
+      "path": "/api/internal/awin-tyre-auto-enrich",
+      "schedule": "35 7 * * *"
     }
   ]
 }
