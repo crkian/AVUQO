@@ -39,8 +39,13 @@ export async function POST(request:NextRequest){
     .eq("import_id",RUN).eq("status","review")
     .not("metadata->>load_index_candidate","is",null);
    if(error)return send({error:"Private enrichment status unavailable"},503);
+   const {data:jobs}=await db.from("awin_tyres_spec_enrichment_jobs")
+    .select("state,source_row_count,next_row,candidate_count,updated_count,skipped_count,updated_at")
+    .eq("target_import_id",RUN).order("created_at",{ascending:false}).limit(1);
    return send({status:"private_enrichment_ready",imported:run.total_count,
     enriched_review_records:count??0,source_digest:importSession.source_digest,
+    automatic_enabled:process.env.AWIN_TYRE_AUTO_ENRICH_ENABLED==="true",
+    automatic_job:jobs?.[0]??null,
     private_only:true,no_publication:true});
   }
   if(action!=="chunk"||typeof body.source_digest!=="string"||
