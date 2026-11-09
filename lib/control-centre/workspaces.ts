@@ -6,6 +6,7 @@ export const CONTROL_CENTRE_SECTIONS:AdminSection[]=[
   {href:"/control-centre",label:"Command overview",description:"Workspaces, health and exceptions"},
   {href:"/control-centre/release-readiness",label:"Release readiness",description:"Operational gaps and launch gates"}]},
  {id:"website",label:"Website & Experience",description:"Content, journeys and publishing",links:[
+  {href:"/control-centre/marketplace",label:"Marketplace & category operations",description:"25 departments, journeys and publication readiness"},
   {href:"/control-centre/content",label:"Website content",description:"Footer and public copy"},
   {href:"/control-centre/content/navigation",label:"Menu & submenus",description:"Draft, preview, publish and restore"},
   {href:"/control-centre/content/pages",label:"Page editor & SEO",description:"Selected editorial and search metadata"},
@@ -14,6 +15,7 @@ export const CONTROL_CENTRE_SECTIONS:AdminSection[]=[
   {href:"/control-centre/groceries",label:"Grocery catalogue",description:"Products and supermarket directory"},
   {href:"/control-centre/groceries/price-evidence",label:"Grocery price evidence",description:"Review source records and freshness"}]},
  {id:"data",label:"Sources & Value",description:"Merchants, prices and data quality",links:[
+  {href:"/control-centre/source-atlas",label:"All-source atlas",description:"Every connector, feed import, evidence gate and content state"},
   {href:"/control-centre/live-data",label:"Live-data status",description:"Readiness of verified feeds"},
   {href:"/control-centre/coverage",label:"Coverage",description:"Supported sector coverage"},
   {href:"/control-centre/sources",label:"Connectors & sources",description:"Source permissions and data feeds"},
