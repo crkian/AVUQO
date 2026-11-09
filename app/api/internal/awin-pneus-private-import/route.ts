@@ -222,8 +222,10 @@ async function processSnapshot(db:Admin,job:Job,started:number){
   return {status:checkpoint?.state,job_id:job.id,committed:progress,
    total:job.validated_total,private_only:true,no_publication:true};
  }finally{
-  if(!released)await db.rpc("reconcile_private_awin_bulk_job",
-   {p_job_id:job.id,p_lease_token:token,p_release:true}).catch(()=>{});
+  if(!released){try{
+   await db.rpc("reconcile_private_awin_bulk_job",
+    {p_job_id:job.id,p_lease_token:token,p_release:true});
+  }catch{/* keep failure non-public, next invocation retries lease safely */}}
  }
 }
 export async function GET(request:NextRequest){
