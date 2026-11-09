@@ -70,3 +70,13 @@ test("unattributed marketplaces are not counted as distinct independent sellers"
  {sourceKind:"direct",underlyingSellerId:"retailer-B"}
  ]),2);
 });
+
+test("retailer ranking prefers direct quote over a mirrored marketplace offer",()=>{
+ const marketplace={...quote,offerId:"market-mirror",sourcePlatform:"Tyre marketplace",
+  sourceKind:"marketplace",unitPricePence:9000};
+ const ranked=rankComparableQuotes([marketplace,quote]);
+ assert.equal(ranked.length,1);
+ assert.equal(ranked[0].offer.offerId,"A1");
+ const unattributed={...marketplace,underlyingSellerId:null};
+ assert.equal(rankComparableQuotes([unattributed]).length,0);
+});
