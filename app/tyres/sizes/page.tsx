@@ -1,5 +1,6 @@
 import type {Metadata} from "next";
 import Link from "next/link";
+import {connection} from "next/server";
 import Header from "../../../components/layout/Header";
 import Footer from "../../../components/layout/Footer";
 import {tyreSizeQuery} from "../../../lib/tyres/catalogue";
@@ -12,6 +13,7 @@ export const metadata:Metadata={
  alternates:{canonical:"/tyres/sizes"}
 };
 export default async function SizeGuide({searchParams}:Props){
+ await connection();
  const q=await searchParams;
  const width=tyreSizeQuery(q.width,125,385),profile=tyreSizeQuery(q.profile,20,95);
  const rim=tyreSizeQuery(q.rim,10,26);
