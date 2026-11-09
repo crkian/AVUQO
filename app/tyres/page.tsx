@@ -115,10 +115,10 @@ export default function TyresPage(){
    </section>
 
    <section className={styles.section}>
-    <div className={styles.headingRow}><div><p className={styles.kicker}>OUR STANDARD / 05</p><h2>Trust isn't an add-on.<br/><span className={styles.softHeading}>It's where we start.</span></h2></div></div>
+    <div className={styles.headingRow}><div><p className={styles.kicker}>OUR STANDARD / 05</p><h2>Trust isn&apos;t an add-on.<br/><span className={styles.softHeading}>It&apos;s where we start.</span></h2></div></div>
     <div className={styles.infoGrid}>
      <div className={styles.info}><CheckCircle2 size={25}/><b>Fitment before deals</b><p>Check your vehicle handbook or tyre placard and confirm the correct size, load and speed requirements before choosing.</p></div>
-     <div className={styles.info}><CheckCircle2 size={25}/><b>One real price</b><p>When retailer comparisons launch, we'll explain whether offers include fitting, delivery, disposal and other applicable costs.</p></div>
+     <div className={styles.info}><CheckCircle2 size={25}/><b>One real price</b><p>When retailer comparisons launch, we&apos;ll explain whether offers include fitting, delivery, disposal and other applicable costs.</p></div>
      <div className={styles.info}><CheckCircle2 size={25}/><b>Evidence before claims</b><p>Specifications, stock, imagery and availability need verified sources. Historical imports never become live offers by default.</p></div>
     </div>
    </section>
