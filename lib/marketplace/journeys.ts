@@ -1,4 +1,4 @@
-import {type BrowseDepartment,BROWSE_DEPARTMENTS,departmentHref} from "../categories/browse-tree";
+import {type BrowseDepartment,BROWSE_DEPARTMENTS,departmentHref} from "../categories/browse-tree.ts";
 
 export type MarketplaceJourney="explore"|"shop"|"compare"|"whos-who";
 export const MARKETPLACE_JOURNEYS=[
