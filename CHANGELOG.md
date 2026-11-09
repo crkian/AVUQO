@@ -1,5 +1,14 @@
 # AVUQO software changelog
 
+## [0.4.0] - 2026-11-09 (unified marketplace + Source Atlas release candidate)
+
+- Unify public AVUQO Explore, Shop, Compare and Who's Who journeys across the homepage, all 25 editorial category families, existing specialist category pages and mobile navigation.
+- Build premium Marketplace homepage, Who's Who business discovery with approved-public-offer gate, sector-specific comparison hub and missing editorial category detail routes.
+- Add owner-only read-only Marketplace Operations and Source Atlas dashboards covering 25 taxonomy roots, all source connectors, supplier private imports, catalogue/evidence states, grocery and travel records, system controls and content publication state.
+- Preserve source-rights, private-feed and live offer verification gates, existing Control Centre management actions, legal rules and pricing independence. No data migrations or new feed activation.
+- See docs/AVUQO_UNIFIED_MARKETPLACE_SOURCE_ATLAS_V0_4_0.md for complete 9 November source audit, acceptance checklist and unimplemented dependencies.
+
+
 - **Unreleased draft: Pneus Online UK second-tyre private importer (9 Nov 2026):** Secret-authenticated, daily rights-gated Awin feed snapshot worker and owner phone-facing status page, reusing private storage and resumable 250-row checkpoints; CI source-gate and merchant-identity tests. Disabled by default and blocked by missing actual feed permission evidence. No Awin products or offers imported, no publication rights granted.
 
 

@@ -18,6 +18,8 @@ const makeTitle=(slug:string)=>({
  shopping:"Shopping",motoring:"Motoring",travel:"Travel",gifts:"Gifts",beauty:"Beauty",fashion:"Fashion"
 } as Record<string,string>)[slug]??slug;
 const journeys=[
+ {label:"AVUQO Marketplace",href:"/marketplace",summary:"Explore, shop, compare and discover across all categories.",symbol:"◇"},
+ {label:"Who\u0027s Who",href:"/whos-who",summary:"Meet makers and discover eligible retailers without being forced to compare.",symbol:"◎"},
  {label:"Groceries",href:"/groceries",summary:"Build your basket and see which supermarket prices are supported.",symbol:"⌗"},
  {label:"Pets",href:"/pets",summary:"Care essentials, feeders, fountains and thoughtful pet products.",symbol:"♧"},
  {label:"Christmas",href:"/christmas",summary:"Seasonal inspiration, gifts and considered festive planning.",symbol:"✳"},

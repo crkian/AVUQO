@@ -8,6 +8,8 @@ const group=(id:string,label:string,href:string,intro:string,order:number,items:
 export const DEFAULT_NAVIGATION:NavigationContent={schemaVersion:2,groups:[
  group("discover","Discover","/discover","Start with the discoveries that matter.",0,[
   ["Explore AVUQO","/discover","Browse departments and useful guides"],
+  ["The Marketplace","/marketplace","Explore, shop, compare or meet the specialists"],
+  ["Who\u0027s Who","/whos-who","Meet makers and eligible retailers across categories"],
   ["How good is the deal?","/reality-check","Check what the evidence really tells us"],
   ["Your Watches","/watches","Keep track of items that matter"],
   ["Saved items","/saved","Pick up where you left off"]]),
@@ -17,6 +19,7 @@ export const DEFAULT_NAVIGATION:NavigationContent={schemaVersion:2,groups:[
   ["Christmas","/christmas","Plan gifts and seasonal spending"],
   ["Product guides","/products","Examine eligible, verified product listings"]]),
  group("compare","Compare","/compare","Understand the full price before you decide.",2,[
+  ["Choose your comparison","/marketplace/compare","Products, grocery baskets, tyres, contracts and travel"],
   ["Compare contracts","/compare","Compare total costs and terms"],
   ["Product guides","/products","Compare available eligible offers"],
   ["Broadband","/broadband","Understand the contract, not just the monthly fee"],

@@ -6,6 +6,7 @@ import Footer from "../layout/Footer";
 import { type Landing } from "../../lib/lifestyle/landing-data";
 import {storyFor,storySearchHref} from "../../lib/lifestyle/category-story";
 import CategoryMoments from "./CategoryMoments";
+import CategoryJourneys from "../marketplace/CategoryJourneys";
 import styles from "./LifestyleLanding.module.css";
 
 const photo = (image: string): CSSProperties => ({backgroundImage:`url("${image}")`});
@@ -51,6 +52,7 @@ export default function LifestyleLanding({config,afterTrust}: {config:Landing;af
       </div>
     </div>
     {afterTrust}
+    <CategoryJourneys slug={config.slug}/>
     {story&&<CategoryMoments story={story}/>}
     <section className={`shell ${styles.section}`} id="explore">
       <div className={styles.sectionHeading}>

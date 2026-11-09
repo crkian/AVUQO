@@ -4,6 +4,7 @@ import Link from "next/link";
 import { LogOut, Shield, Menu, X, Heart, ShoppingBasket, Store } from "lucide-react";
 import MegaNav from "./MegaNav";
 import MobileDock from "./MobileDock";
+import MarketplaceRibbon from "../marketplace/MarketplaceRibbon";
 import {DEFAULT_NAVIGATION,parseNavigation} from "../../lib/content/navigation";
 import {Search as SearchIcon} from "lucide-react";
 import { Suspense, useEffect, useMemo, useState } from "react";
@@ -127,6 +128,7 @@ export default function Header() {
         </div>
       </div>
     </header>
+    <Suspense fallback={null}><MarketplaceRibbon/></Suspense>
     <Suspense fallback={null}><MobileDock signedIn={!!email}/></Suspense>
     </>
   );

@@ -19,6 +19,8 @@ export default async function ReleaseReadiness(){
  ]);
  const count=(n:number|null,err:unknown)=>err?"Unavailable":n===null?"Not checked":String(n);
  const checks:Check[]=[
+  {name:"Unified marketplace journeys",status:"available",detail:"Explore, Shop, Compare and Who\u0027s Who are connected across 25 editorial departments. Commercial catalogue activation remains separate.",href:"/control-centre/marketplace"},
+  {name:"All-source operational review",status:"restricted",detail:"Read-only Source Atlas covers connector states, private imports and retail/catalogue records. This does not grant feed, image or publishing rights.",href:"/control-centre/source-atlas"},
   {name:"Website menu and publishing",status:nav.error?"unknown":"available",
    detail:nav.error?"Content CMS cannot be read":nav.data?"Version "+nav.data.version+" is published":"Vetted built-in menu is public; owner has not published edits",
    href:"/control-centre/content/navigation"},

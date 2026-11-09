@@ -31,7 +31,7 @@ export default async function ControlCentreHome(){
   <div className={styles.pageHead}><div>
    <p className={styles.eyebrow}>Owner operations · AVUQO</p><h1>Control Centre</h1>
    <p className={styles.sub}>One organised place to manage the website, data, advertising, marketing and trust. Each workspace shows what is live, what needs review and what is deliberately disabled.</p>
-  </div><Link href="/control-centre/release-readiness" className={styles.overviewAction}>View release readiness →</Link></div>
+  </div><div style={{display:"flex",gap:9,flexWrap:"wrap"}}><Link href="/control-centre/marketplace" className={styles.overviewAction}>Marketplace operations →</Link><Link href="/control-centre/source-atlas" className={styles.overviewAction}>All sources →</Link><Link href="/control-centre/release-readiness" className={styles.overviewAction}>Release readiness →</Link></div></div>
   <section className={styles.overviewWorkspaceGrid} aria-label="Operational workspaces">
    {CONTROL_CENTRE_SECTIONS.filter(x=>x.id!=="home").map(group=><article key={group.id}>
     <h2>{group.label}</h2><p>{group.description}</p>
