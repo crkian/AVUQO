@@ -1,5 +1,8 @@
 # AVUQO software changelog
 
+- **Unreleased / draft PR #117, Tyres UK server-side auto-enrichment:** Add opt-in CRON_SECRET-protected current Awin snapshot staging, private immutable storage, lease/checkpoint-based 250-row processing, strict unverified technical evidence matching, owner progress and a collapsed original-file recovery path. The new job/migration and `AWIN_TYRE_AUTO_ENRICH_ENABLED` remain unapplied/disabled until review and acceptance; no prices, source permissions or public offers change.
+
+
 - **Unreleased Awin feed discovery matrix:** Owner feed inventory displays all 16 joined programmes, format-group counts and zero-feed programmes, plus a filtered credential-free metadata CSV copy. Does not download feeds or merge overlapping records.
 
 - **Awin import hardening:** Add before-upload feed dialect and row-inspection diagnostics, align TSV server acceptance, live joined-programme revalidation on resume, strong source feed-ID binding at DB layer, and service/contract feed quarantine. Existing physical Awin private imports unaffected. No public or automatic activation.
