@@ -1,4 +1,4 @@
-import {candidateTyresUkTechnicalSpecs} from "./tyres-uk-technical-evidence";
+import {candidateTyresUkTechnicalSpecs} from "./tyres-uk-technical-evidence.ts";
 
 export const TYRES_UK_IMPORT_ID="8ea807f1-7050-4dfb-af51-e08dc7c7bbd5";
 export const TYRES_UK_ADVERTISER="12715";
