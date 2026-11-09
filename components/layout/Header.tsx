@@ -128,7 +128,7 @@ export default function Header() {
         </div>
       </div>
     </header>
-    <MarketplaceRibbon/>
+    <Suspense fallback={null}><MarketplaceRibbon/></Suspense>
     <Suspense fallback={null}><MobileDock signedIn={!!email}/></Suspense>
     </>
   );
