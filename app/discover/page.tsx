@@ -8,6 +8,8 @@ import LiveDealRail from "../../components/live/LiveDealRail";
 import styles from "./page.module.css";
 export const metadata:Metadata={title:"Discover worthwhile choices",description:"Thoughtful shopping, seasonal guides and only approved, fresh retailer offers from AVUQO.",alternates:{canonical:"/discover"}};
 const rooms=[
+ {title:"The AVUQO Marketplace",copy:"Explore, shop, compare or meet the names behind every department.",url:"/marketplace"},
+ {title:"Who\u0027s Who",copy:"Discover manufacturers, specialists and approved retailers across categories.",url:"/whos-who"},
  {title:"Individual products",copy:"Exact variants and verified retailer evidence, when approved.",url:"/products"},
  {title:"Black Friday",copy:"Plan the 2026 sales without the discount noise.",url:"/black-friday"},
  {title:"Christmas",copy:"Thoughtful gifting, lists and seasonal inspiration.",url:"/christmas"},
