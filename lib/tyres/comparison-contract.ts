@@ -100,13 +100,22 @@ export function comparableTotal(quote:TyrePriceQuote):ComparableQuote{
 
 /** These quotes may be sorted against each other only if their full scope matches. */
 export function rankComparableQuotes(quotes:readonly TyrePriceQuote[]){
- const priced=quotes.map(q=>({offer:q,result:comparableTotal(q)}))
+ const priced=quotes.filter(q=>Boolean(q.underlyingSellerId?.trim()))
+  .map(q=>({offer:q,result:comparableTotal(q)}))
   .filter((e):e is {offer:TyrePriceQuote;result:Extract<ComparableQuote,{status:"complete"}>}=>e.result.status==="complete");
  if(priced.length===0)return [];
  const scope=priced[0].result.scope;
  // Mixed scopes cannot share a "cheapest" ranking.
  if(priced.some(e=>e.result.scope!==scope))return [];
- return priced.sort((a,b)=>a.result.totalPence-b.result.totalPence);
+ const sellers=new Map<string,(typeof priced)[number]>();
+ for(const entry of priced){
+  const id=normalized(entry.offer.underlyingSellerId!);
+  const previous=sellers.get(id);
+  if(!previous||entry.offer.sourceKind==="direct"&&previous.offer.sourceKind==="marketplace"||
+   entry.offer.sourceKind===previous.offer.sourceKind&&
+    entry.result.totalPence<previous.result.totalPence)sellers.set(id,entry);
+ }
+ return [...sellers.values()].sort((a,b)=>a.result.totalPence-b.result.totalPence);
 }
 
 /** Unattributed marketplace platforms are not independent known sellers. */
