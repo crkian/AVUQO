@@ -1,14 +1,14 @@
 # AVUQO software changelog
 
 
-## [0.3.1] - 2026-11-09 (tyre showroom release candidate, production verification pending)
+## [0.3.1] - 2026-11-09 (production deployment READY; manual mobile acceptance pending)
 
 - Launch an editorial premium AVUQO Tyres showroom using original first-party vector artwork, refined plum/coral branding, responsive design and accessible native tyre size controls.
 - Add an educational tyre size journey, noindex manufacturer directory and tyre-type buying guides. The size tool explains dimensions; it does not claim vehicle-fitment or live tyre prices.
 - Build an owner-only real-feed tyre showroom with full private manufacturer and size search, tyre-specific product evidence and image opt-in; protect all staged supplier records behind the existing owner/admin gate.
 - Extend only the existing verified-offer product pipeline with a tyre-specific template. Safety-critical technical specifications are hidden unless an explicit canonical verification flag is present.
 - Keep all historical supplier tyre offers, images, rights decisions, prices, registration lookup and fitment approval private or deferred. No supplier source activated, no database migration, and no automatic feed import enabled.
-- Include responsive, public/private isolation and technical-candidate regression tests. Vercel preview and post-merge production acceptance must be verified independently.
+- Include responsive, public/private isolation and technical-candidate regression tests. GitHub CI and Vercel preview passed. Production deployment `dpl_Dank3dPU1mk8kudb83BAq3wpAb9R` on main merge `b15a0209` is READY and aliased to www.avuqo.com. Manual signed-in/mobile acceptance is still pending.
 
 ## Unreleased
 
