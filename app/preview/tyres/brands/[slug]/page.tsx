@@ -42,7 +42,7 @@ export default async function BrandPreview({params,searchParams}:Props){
    <section className={styles.section}><div className={styles.headingRow}><div><p className={styles.kicker}>Entire private dataset</p>
     <h2>{error?"Unable to load":total.toLocaleString("en-GB")+" matching records"}</h2>
     <p className={styles.sub}>Showing {brand} product names exactly as supplied. Prices are historical import values and specifications are unverified candidates.</p></div></div>
-    {error?<p role="alert" className={styles.notice}>Unable to load the brand's private catalogue.</p>:<TyreCards rows={(data??[]) as PrivateTyreCardRow[]}/>}
+    {error?<p role="alert" className={styles.notice}>Unable to load the brand&apos;s private catalogue.</p>:<TyreCards rows={(data??[]) as PrivateTyreCardRow[]}/>}
     {total>size&&<nav className={styles.headingRow} aria-label="Private manufacturer product pages" style={{marginTop:24}}>
      <span>Page {page} of {limit}</span><div style={{display:"flex",gap:15}}>
       {page>1&&<Link className={styles.textLink} href={`?page=${page-1}`}>← Previous</Link>}
