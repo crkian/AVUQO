@@ -10,7 +10,6 @@ import {checkedTyreHeader,currentTyreCandidate,rowDictionary,
 } from "../../../../lib/awin/tyres-uk-server-candidates";
 
 /** Cron-only, disabled by default. No browser credentials, products or public offers. */
-export const runtime="nodejs";
 export const maxDuration=60;
 const BUCKET="awin-bulk-private-snapshots";
 const MAX_LIST=2_500_000,MAX_GZIP=25*1024*1024,MAX_PLAIN=180*1024*1024;
