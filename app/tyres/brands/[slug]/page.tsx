@@ -20,7 +20,7 @@ export default async function BrandGuide({params}:Props){
  </div></section>
  <div className={`${styles.shell} ${styles.main}`}>
   <nav className={styles.breadcrumb}><Link href="/tyres">Tyres</Link><span>/</span><Link href="/tyres/brands">Manufacturers</Link><span>/</span>{name}</nav>
-  <section className={styles.section}><div className={styles.headingRow}><div><p className={styles.kicker}>Before comparing</p><h2>Find the right {name} model</h2><p className={styles.sub}>Similar model names can cover several sizes, load ratings, speed ratings or construction variants. Check the full marking and the vehicle manufacturer's guidance.</p></div></div>
+  <section className={styles.section}><div className={styles.headingRow}><div><p className={styles.kicker}>Before comparing</p><h2>Find the right {name} model</h2><p className={styles.sub}>Similar model names can cover several sizes, load ratings, speed ratings or construction variants. Check the full marking and the vehicle manufacturer&apos;s guidance.</p></div></div>
    <div className={styles.infoGrid}>
     <div className={styles.info}><b>Match the exact size</b><p>Start with the manufacturer-approved width, aspect ratio and wheel diameter for your vehicle.</p></div>
     <div className={styles.info}><b>Check every variant</b><p>Confirm the load and speed rating and any XL, run-flat or seasonal specification for the specific tyre.</p></div>
