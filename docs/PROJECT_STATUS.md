@@ -1,5 +1,8 @@
 # AVUQO living project status
 
+**9 Nov 2026, second tyre retailer private worker DRAFT (not imported):** Tyres Pneus Online UK advertiser 15236/feed 26513 is joined and observed (~19,591 listed products) but has feed_permission_confirmed=false and no feed_import_runs. A disabled-by-default, secret-only scheduled worker has been prepared to fetch and privately archive an immutable fingerprinted feed, validate 100% of source rows, then use existing leased 250-row resumable general-Awin private-import RPCs. A mobile owner-only status page shows rights and import progress. No products, prices, source permissions or publication flags changed. Worker and proof of permission remain separate gates; exact live feed schema is untested. See docs/tyres/PNEUS_ONLINE_PRIVATE_IMPORT_RUNBOOK_V1.md.
+
+
 **9 Nov 2026 — Tyres V1 design/comparison contract DRAFT:** Established docs/tyres/AVUQO_TYRES_DESIGN_COMPARISON_CONTRACT_V1.md as the fixed AVUQO Tyres visual and multi-retailer comparison architecture. Added pure fail-closed exact tyre variant and comparable delivered/fitted price models with regression tests. Second joined Awin tyre programme Tyres Pneus Online UK (15236/feed 26513) identified but no private import; both tyre programme feed-permission flags remain unconfirmed, Awin paused. Existing Tyres UK 28,990 review rows have unverified size but zero load/speed candidates; cannot publish exact matching/comparison yet. No source activation, migration, public product, price or offer created. Implementation remains an unmerged PR pending CI and review.
 
 
