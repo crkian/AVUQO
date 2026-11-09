@@ -1,5 +1,8 @@
 # AVUQO software changelog
 
+- **Unreleased draft: AVUQO Tyres V1 comparison contract (9 Nov 2026):** Freeze premium tyre design palette and page rules, document safe second tyre supplier (Tyres Pneus Online UK) private-first onboarding, exact variant identity, provenance, marketplace deduplication, and full-cost delivery/fitting comparisons. Add pure TypeScript admission helpers and negative evidence tests only; no feed imports, public prices or activation.
+
+
 
 ## [0.3.1] - 2026-11-09 (production deployment READY; manual mobile acceptance pending)
 
