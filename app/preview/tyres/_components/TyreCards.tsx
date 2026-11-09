@@ -1,6 +1,6 @@
 import Link from "next/link";
 import {stagedPrice} from "../../../../lib/feed-imports/preview-selection";
-import {tyreBrandSlug,tyreEvidence} from "../../../../lib/tyres/catalogue";
+import {tyreEvidence} from "../../../../lib/tyres/catalogue";
 import styles from "../../../tyres/tyres.module.css";
 export type PrivateTyreCardRow={
  id:string;title:string;brand:string|null;price:number|string|null;
