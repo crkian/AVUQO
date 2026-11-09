@@ -15,6 +15,7 @@ import {PNEUS_ADVERTISER_ID,PNEUS_FEED_ID,PNEUS_NAME,PNEUS_PRIVATE_BUCKET,
  * Uses a snapshot and the existing leased 250-row bulk journal.
  * Never publishes, updates a historical price, activates a source or returns feed rows.
  */
+export const maxDuration=60;
 const MAX_LIST_BYTES=2_500_000,DEADLINE_MS=42_000,MAX_INVENTORY_ROWS=5000;
 const response=(body:unknown,status=200)=>NextResponse.json(body,{status,
  headers:{"Cache-Control":"private,no-store"}});
