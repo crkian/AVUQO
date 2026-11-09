@@ -4,7 +4,9 @@ import {awinDelimitedRows} from "../../../lib/feed-imports/stream-csv";
 import {candidateTyresUkTechnicalSpecs} from "../../../lib/awin/tyres-uk-technical-evidence";
 
 const API="/api/control-centre/tyre-spec-enrichment";
-type Status={source_digest:string;imported:number;enriched_review_records:number};
+type Status={source_digest:string;imported:number;enriched_review_records:number;
+ automatic_enabled?:boolean;automatic_job?:{state:string;source_row_count:number;next_row:number;
+ candidate_count:number;updated_count:number;skipped_count:number;updated_at:string}|null};
 async function call(payload:Record<string,unknown>){
  const result=await fetch(API,{method:"POST",cache:"no-store",
   headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
@@ -85,18 +87,50 @@ export default function TyreEnrichmentForm(){
   finally{setBusy(false);}
  }
  return <section style={{display:"grid",gap:15,background:"white",padding:22,border:"1px solid #e5dce9",borderRadius:18,maxWidth:850}}>
-  <h2 style={{margin:0,fontSize:24}}>Enrich existing Tyres UK specifications</h2>
-  <p style={{margin:0,color:"#6f6475",lineHeight:1.6}}>This reads your original Awin file locally, checks its fingerprint against the completed import, and updates only private review metadata. It does not reimport products, change prices, approve fitment or publish anything.</p>
-  <button type="button" disabled={busy} onClick={inspect} style={{padding:12,borderRadius:10,border:"1px solid #d5c7de",background:"white"}}>Check current private enrichment status</button>
-  <label style={{display:"grid",gap:8}}>Original Tyres UK CSV.GZ (feed 93988)
-   <input type="file" accept=".csv.gz" disabled={busy} onChange={e=>setFile(e.target.files?.[0]??null)}/>
-  </label>
-  <div style={{display:"flex",gap:12,flexWrap:"wrap"}}>
-   <button type="button" disabled={busy||!file} onClick={enrich} style={{padding:"12px 18px",background:"#583775",color:"white",border:0,borderRadius:10,fontWeight:800}}>Enrich existing private records</button>
-   {busy&&<button type="button" onClick={()=>stop.current=true} style={{padding:"12px 18px",background:"white",border:"1px solid #d5c7de",borderRadius:10}}>Pause after batch</button>}
-  </div>
+  <h2 style={{margin:0,fontSize:24}}>Automatic tyre specification enrichment</h2>
+  <p style={{margin:0,color:"#6f6475",lineHeight:1.6}}>
+   AVUQO can check current Awin feed snapshots on its server and enrich only existing private review records.
+   No phone uploads are needed once the automatic worker has been tested and enabled.
+   Prices, product approvals and public publication remain unchanged.
+  </p>
+  <button type="button" disabled={busy} onClick={inspect}
+   style={{padding:12,borderRadius:10,border:"1px solid #d5c7de",background:"white"}}>
+   Refresh automatic enrichment status
+  </button>
+  {status&&<div style={{display:"grid",gap:7,padding:14,borderRadius:12,background:"#f7f4fa",lineHeight:1.5}}>
+   <strong>Automatic worker: {status.automatic_enabled?"Enabled":"Not enabled yet"}</strong>
+   {status.automatic_job
+    ?<span>Last snapshot: {status.automatic_job.state}. Scanned {status.automatic_job.next_row.toLocaleString("en-GB")} of {status.automatic_job.source_row_count.toLocaleString("en-GB")} rows; {status.automatic_job.updated_count.toLocaleString("en-GB")} private records enriched by the automatic worker.</span>
+    :<span>No automatic enrichment snapshot has been processed yet.</span>}
+   <small>Private imported records: {status.imported.toLocaleString("en-GB")}.
+    Records with load-index candidates: {status.enriched_review_records.toLocaleString("en-GB")}.
+    No publication or permission flags changed.</small>
+  </div>}
+  <details style={{borderTop:"1px solid #e5dce9",paddingTop:14}}>
+   <summary style={{fontWeight:700,cursor:"pointer"}}>Manual recovery: use the exact original Awin file</summary>
+   <div style={{display:"grid",gap:15,paddingTop:14}}>
+    <p style={{margin:0,lineHeight:1.5,color:"#6f6475"}}>
+     This legacy recovery method only accepts the exact file used for the completed 5 November import.
+     A newer feed will be rejected, even if its filename looks right.
+    </p>
+    <label style={{display:"grid",gap:8}}>Original Tyres UK CSV.GZ (feed 93988)
+     <input type="file" accept=".csv.gz" disabled={busy} onChange={e=>setFile(e.target.files?.[0]??null)}/>
+    </label>
+    <div style={{display:"flex",gap:12,flexWrap:"wrap"}}>
+     <button type="button" disabled={busy||!file} onClick={enrich}
+      style={{padding:"12px 18px",background:"#583775",color:"white",border:0,borderRadius:10,fontWeight:800}}>
+      Enrich from exact original file
+     </button>
+     {busy&&<button type="button" onClick={()=>stop.current=true}
+      style={{padding:"12px 18px",background:"white",border:"1px solid #d5c7de"}}>
+      Pause after batch
+     </button>}
+    </div>
+    {busy&&<p>Read {progress.read.toLocaleString("en-GB")} rows;
+     {progress.eligible.toLocaleString("en-GB")} candidates,
+     {progress.updated.toLocaleString("en-GB")} updated.</p>}
+   </div>
+  </details>
   <p role="status" style={{margin:0,lineHeight:1.6}}>{state}</p>
-  {busy&&<p>Read {progress.read.toLocaleString("en-GB")} rows; {progress.eligible.toLocaleString("en-GB")} candidates, {progress.updated.toLocaleString("en-GB")} updated.</p>}
-  {status&&<small style={{color:"#71667a"}}>Existing imported records: {status.imported.toLocaleString("en-GB")}. Enriched review records: {status.enriched_review_records.toLocaleString("en-GB")}. All publication and permission flags remain unchanged.</small>}
  </section>;
 }
