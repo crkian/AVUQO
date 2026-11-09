@@ -6,6 +6,7 @@ import Header from "../../../components/layout/Header";
 import Footer from "../../../components/layout/Footer";
 import {BROWSE_DEPARTMENTS,departmentBySlug,departmentHref,topicHref} from "../../../lib/categories/browse-tree";
 import styles from "./department.module.css";
+import CategoryJourneys from "../../../components/marketplace/CategoryJourneys";
 type Params={params:Promise<{department:string}>};
 export function generateStaticParams(){
  return BROWSE_DEPARTMENTS.filter(d=>!d.landing).map(d=>({department:d.slug}));
@@ -42,6 +43,7 @@ export default async function DepartmentPage({params}:Params){
     </div>
    </div>
   </section>
+  <CategoryJourneys slug={item.slug}/>
   <section className={"shell "+styles.section} aria-labelledby="subcategories">
    <div className={styles.heading}>
     <div><p className={styles.kicker}>Find your next direction</p>
