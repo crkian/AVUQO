@@ -55,7 +55,7 @@ export default function WhosWho(){return <main className={styles.page}><Header/>
  </section>
  <section className={styles.shell+" "+styles.section}>
   <div className={styles.sectionHeading}><div><p className={styles.kicker}>Featured specialist directory</p><h2>Get to know tyre manufacturers.</h2>
-   <p className={styles.sub}>AVUQO Tyres already has a dedicated editorial maker directory. It is not a guarantee of authorised live products or a manufacturer's endorsement.</p></div>
+   <p className={styles.sub}>AVUQO Tyres already has a dedicated editorial maker directory. It is not a guarantee of authorised live products or a manufacturer&apos;s endorsement.</p></div>
    <Link href="/tyres/brands" className={styles.textLink}>Discover tyre brands <ArrowRight size={17}/></Link></div>
   <div className={styles.steps}><article className={styles.step}><span>01 / MAKERS</span><h3>Manufacturer guides</h3><p>Explore product lines, materials, features and the specifications worth checking before purchase.</p></article>
   <article className={styles.step}><span>02 / SELLERS</span><h3>Retailer profiles</h3><p>Only sellers evidenced by eligible offers appear as active AVUQO shopping partners.</p></article>
