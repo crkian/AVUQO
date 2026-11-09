@@ -92,7 +92,7 @@ export default async function PneusOnboardingPage(){
   <section style={panel}>
    <span style={field}>Before comparison goes live</span>
    <h2 style={{margin:0,fontSize:24}}>Exact tyre matches, then genuine full prices</h2>
-   <p style={sub}>Once private staging is permitted, we will inspect the second retailer's actual schema and match only
+   <p style={sub}>Once private staging is permitted, we will inspect the second retailer&apos;s actual schema and match only
     complete variants, including load, speed, run-flat, XL and OE specification. Fitted and delivered
     offers remain separate until compulsory fees and availability are verified.</p>
    <p style={{...sub,fontWeight:700}}>Nothing on this page enables Awin, grants image rights,
