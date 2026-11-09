@@ -8,12 +8,14 @@ import styles from "../../tyres.module.css";
 type Props={params:Promise<{slug:string}>};
 export function generateStaticParams(){return tyreCollections.map(c=>({slug:c.slug}));}
 export async function generateMetadata({params}:Props):Promise<Metadata>{
- const cat=tyreCollections.find(c=>c.slug===(await params).slug);
+ const {slug}=await params;
+ const cat=tyreCollections.find(c=>c.slug===slug);
  return {title:cat?`${cat.title} buying guide | AVUQO`:"Tyre type | AVUQO",
   robots:{index:false,follow:true}};
 }
 export default async function Category({params}:Props){
- const category=tyreCollections.find(c=>c.slug===(await params).slug);
+ const {slug}=await params;
+ const category=tyreCollections.find(c=>c.slug===slug);
  if(!category)notFound();
  return <main className={styles.page}><Header/>
  <section className={styles.hero}><div className={styles.shell}>
