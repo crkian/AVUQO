@@ -42,7 +42,7 @@ export default async function PrivateSizeFinder({searchParams}:Props){
   <div className={styles.privateBar}>OWNER-ONLY SIZE SEARCH · Size information is supplier-derived and is not a vehicle-fitment approval</div>
   <section className={styles.hero}><div className={styles.shell}><span className={styles.eyebrow}>Tyre size explorer</span>
    <h1>Find the size.<br/><em>Inspect the evidence.</em></h1>
-   <p>Search the complete private Tyres UK catalogue using width, profile and rim diameter. Confirm your vehicle's approved tyre specification separately.</p>
+   <p>Search the complete private Tyres UK catalogue using width, profile and rim diameter. Confirm your vehicle&apos;s approved tyre specification separately.</p>
   </div></section>
   <div className={`${styles.shell} ${styles.main}`}>
    <nav className={styles.breadcrumb}><Link href="/preview/tyres">Tyres showroom</Link><span>/</span><span>Search by size</span></nav>
