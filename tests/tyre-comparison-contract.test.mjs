@@ -59,6 +59,8 @@ test("delivery-only prices never rank against fitted quotes",()=>{
  assert.equal(ranked[0].offer.offerId,"C3");
  // Mixed scope rows are handled separately by product UI, not one cheapest badge.
  assert.equal(rankComparableQuotes([delivery]).length,1);
+ assert.equal(rankComparableQuotes([quote,delivery]).length,0);
+ assert.equal(rankComparableQuotes([quote,{...quote,locationKey:"LS2"}]).length,0);
 });
 test("unattributed marketplaces are not counted as distinct independent sellers",()=>{
  assert.equal(independentSellerCount([
