@@ -10,6 +10,7 @@ import LifestyleExplorer from "../components/lifestyle/LifestyleExplorer";
 import ShoppingDepartmentShelf from "../components/shopping/ShoppingDepartmentShelf";
 import HomeCampaignCarousel from "../components/home/HomeCampaignCarousel";
 import OwnerStorefrontShortcut from "../components/home/OwnerStorefrontShortcut";
+import CategoryJourneys from "../components/marketplace/CategoryJourneys";
 import {loadHomeCampaigns} from "../lib/marketing/homepage";
 import styles from "./homepage-warm.module.css";
 
@@ -54,7 +55,9 @@ async function HomeContent() {
           <nav className={styles.heroShortcuts} aria-label="Quick ways to explore">
             <span>Start with</span>
             <Link href="/sales">Deals &amp; Sales</Link>
-            <Link href="/compare">Compare</Link>
+            <Link href="/marketplace">Marketplace</Link>
+            <Link href="/whos-who">Who&apos;s Who</Link>
+            <Link href="/marketplace/compare">Compare</Link>
             <Link href="/groceries">Groceries</Link>
             <Link href="/travel">Travel</Link>
           </nav>
@@ -79,6 +82,7 @@ async function HomeContent() {
       </div>
     </div>
 
+    <CategoryJourneys slug="shopping"/>
     <HomeCampaignCarousel campaigns={campaigns}/>
     <LifestyleExplorer/>
     <ShoppingDepartmentShelf compact/>
