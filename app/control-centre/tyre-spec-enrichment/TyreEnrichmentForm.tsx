@@ -17,7 +17,7 @@ async function call(payload:Record<string,unknown>){
 export default function TyreEnrichmentForm(){
  const [file,setFile]=useState<File|null>(null);
  const [status,setStatus]=useState<Status|null>(null);
- const [state,setState]=useState("Choose the original Tyres UK Awin CSV.GZ file.");
+ const [state,setState]=useState("Refresh status to see private automatic enrichment progress.");
  const [busy,setBusy]=useState(false);
  const [progress,setProgress]=useState({read:0,eligible:0,updated:0,skipped:0});
  const stop=useRef(false);
