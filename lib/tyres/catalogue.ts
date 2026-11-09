@@ -13,6 +13,13 @@ export const tyreCollections=[
  {title:"Performance tyres",slug:"performance",description:"Compare performance models without assuming a speed rating or fitment.",readiness:"Independent ratings required"}
 ] as const;
 
+export const tyreBrandNames=[
+ "BF Goodrich","Bridgestone","Continental","Dunlop","Falken","Firestone",
+ "Goodyear","Hankook","Kleber","Kumho","Maxxis","Michelin",
+ "Nankang","Nexen","Nokian","Pirelli","Toyo","Uniroyal",
+ "Vredestein","Yokohama"
+] as const;
+
 export function tyreBrandSlug(brand:string){
  return brand.trim().normalize("NFKD").replace(/[\u0300-\u036f]/g,"")
   .toLowerCase().replace(/&/g,"-and-").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,80);
