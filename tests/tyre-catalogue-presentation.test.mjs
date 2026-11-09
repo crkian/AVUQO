@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import {chooseProductTemplate} from "../lib/products/templates.ts";
 import {tyreBrandSlug,resolveTyreBrand,tyreEvidence,tyreSizeHref,
  tyreSizeQuery,tyreCollections,tyreBrandNames} from "../lib/tyres/catalogue.ts";
 test("brand slugs are predictable, stable and cannot silently merge collisions",()=>{
@@ -37,4 +38,13 @@ test("size finder accepts only bounded numeric dimensions",()=>{
  assert.equal(tyreSizeQuery("120",125,385),"");
  assert.equal(tyreSizeQuery("235;drop table",125,385),"");
  assert.equal(tyreSizeQuery("19",10,26),"19");
+});
+
+test("only classified tyre products select tyre-specific public customer template",()=>{
+ const classified={product_type:"tyres",canonical_title:"Example tyre"};
+ const offer={published:{category:"Motoring > Tyres"}};
+ const presentation=chooseProductTemplate(classified,[offer]);
+ assert.equal(presentation.template,"tyres");
+ assert.ok(presentation.practicalPoints.some(x=>/load\/speed/.test(x)));
+ assert.equal(chooseProductTemplate({product_type:"automotive",canonical_title:"Vehicle service"},[{published:{category:"Car care"}}]).template,"motoring");
 });
