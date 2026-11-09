@@ -1,5 +1,8 @@
 # AVUQO software changelog
 
+- **Draft tyre showroom and manufacturer/category pages (9 Nov):** Create responsible public tyre buying hub plus noindex manufacturer/tyre-type guides; build owner-only exact-size and full brand browse, tyre-specific product panels, historical price labels and private images behind opt-in. No public feed products, fitment, fresh offers or merchant permissions activated.
+
+
 - **Unreleased Awin feed discovery matrix:** Owner feed inventory displays all 16 joined programmes, format-group counts and zero-feed programmes, plus a filtered credential-free metadata CSV copy. Does not download feeds or merge overlapping records.
 
 - **Awin import hardening:** Add before-upload feed dialect and row-inspection diagnostics, align TSV server acceptance, live joined-programme revalidation on resume, strong source feed-ID binding at DB layer, and service/contract feed quarantine. Existing physical Awin private imports unaffected. No public or automatic activation.
