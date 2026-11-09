@@ -7,7 +7,7 @@ create table if not exists public.awin_tyres_spec_enrichment_jobs (
  advertiser_id text not null default '12715' check (advertiser_id='12715'),
  feed_id text not null default '93988' check (feed_id='93988'),
  source_digest text not null check (source_digest ~ '^[a-f0-9]{64}$'),
- snapshot_object_key text not null check (snapshot_object_key ~ '^tyre-spec/12715/93988/[a-f0-9]{64}\\.csv\\.gz$'),
+ snapshot_object_key text not null check (snapshot_object_key ~ '^tyre-spec/12715/93988/[a-f0-9]{64}\.csv\.gz$'),
  source_row_count integer not null check (source_row_count between 1 and 100000),
  next_row integer not null default 0 check (next_row>=0),
  candidate_count integer not null default 0 check (candidate_count>=0),
@@ -86,7 +86,7 @@ begin
   where jsonb_typeof(e)<>'object'
    or coalesce(e->>'merchant_product_id','') !~ '^[A-Za-z0-9_-]{1,120}$'
    or length(coalesce(e->>'title','')) not between 1 and 500
-   or coalesce(e->>'price','') !~ '^[0-9]{1,7}(\\.[0-9]{1,2})?$'
+   or coalesce(e->>'price','') !~ '^[0-9]{1,7}(\.[0-9]{1,2})?$'
    or (e->>'price')::numeric<=0
    or coalesce(e->>'width_mm','') !~ '^[1-3][0-9]{2}$'
    or coalesce(e->>'aspect_ratio','') !~ '^[0-9]{2}$'
