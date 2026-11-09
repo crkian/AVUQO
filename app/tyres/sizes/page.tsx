@@ -48,7 +48,7 @@ async function SizeGuideContent({searchParams}:Props){
    <section className={styles.section}>
     <div className={styles.headingRow}><div><p className={styles.kicker}>Beyond the size</p><h2>Check the full specification.</h2></div></div>
     <div className={styles.infoGrid}>
-     <article className={styles.info}><b>Load index</b><p>The numerical load rating must meet the vehicle manufacturer's requirements for the specified axle and fitment.</p></article>
+     <article className={styles.info}><b>Load index</b><p>The numerical load rating must meet the vehicle manufacturer&apos;s requirements for the specified axle and fitment.</p></article>
      <article className={styles.info}><b>Speed rating</b><p>The speed symbol is a rated capability, not a recommendation to drive at that speed. Confirm vehicle requirements.</p></article>
      <article className={styles.info}><b>Special variants</b><p>Winter and all-season markings, reinforced/XL, run-flat and other variants can matter even when the nominal size matches.</p></article>
     </div>
