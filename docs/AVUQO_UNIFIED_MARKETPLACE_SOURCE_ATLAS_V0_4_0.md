@@ -25,7 +25,7 @@ Four universal routes shown across every category page:
 3. **Compare** at `/marketplace/compare`: correct sector-specific tools, not a fabricated universal ranking. Products, groceries, tyres, contract calculator, travel and insurance each disclose their current evidence limitations.
 4. **Who's Who** at `/whos-who`: educational department/manufacturer directory, and verified retailer/brand records only if already present in the eligible public product pipeline. Never imply affiliation from an editorial profile or source name.
 
-All existing category landings share the four-journey component and original Header/Footer. `/categories/[slug]` fills missing editorial routes for those of the 25 families without bespoke landing pages; unknown slugs fail with 404. These placeholders have `noindex` and only link to specialist tools or searches. Existing Tyres, Groceries, Watches, Saved, Lists, Travel, Search, Deal and Contract work is preserved.
+All existing category landings share the four-journey component and original Header/Footer. The existing `/categories/[department]` pages serve families without bespoke landing pages, now with the common marketplace journey; unknown slugs fail with 404. Existing department routes retain their established SEO behaviour pending a separate owner-approved metadata review, and only link to existing specialist tools or searches. Existing Tyres, Groceries, Watches, Saved, Lists, Travel, Search, Deal and Contract work is preserved.
 
 Navigation is updated in safe built-in defaults plus a globally visible marketplace ribbon. Site content editor remains the only write pathway for published navigation/footer changes. No silent CMS data overwrite.
 
