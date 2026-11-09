@@ -149,8 +149,17 @@ export async function GET(request:NextRequest){
     const rows=await scanSnapshot(content);
     const path="tyre-spec/12715/93988/"+contentDigest+".csv.gz";
     const {error:uploadError}=await db.storage.from(BUCKET).upload(path,Buffer.from(compressed),
-     {contentType:"application/gzip",cacheControl:"private",upsert:false});
-    if(uploadError)return reply({error:"Private snapshot could not be stored"},503);
+     {contentType:"application/gzip",upsert:false});
+    if(uploadError){
+     // Recover from a prior successful immutable upload whose job insert failed.
+     if(String(uploadError.statusCode??"")!=="409")
+      return reply({error:"Private snapshot could not be stored"},503);
+     const {data:existing,error:existingError}=await db.storage.from(BUCKET).download(path);
+     if(existingError||!existing)return reply({error:"Private snapshot collision unavailable"},409);
+     const verified=expandedSnapshot(new Uint8Array(await existing.arrayBuffer()));
+     if(verified.contentDigest!==contentDigest)
+      return reply({error:"Private snapshot collision fingerprint mismatch"},409);
+    }
     const {data:created,error:insertError}=await db.from("awin_tyres_spec_enrichment_jobs")
      .insert({target_import_id:TYRES_UK_IMPORT_ID,source_digest:contentDigest,
       snapshot_object_key:path,source_row_count:rows})
