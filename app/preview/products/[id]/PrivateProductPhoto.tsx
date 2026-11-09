@@ -1,6 +1,7 @@
 "use client";
 import {useState} from "react";
 import styles from "./detail.module.css";
+import TyreWheelVisual from "../../../tyres/TyreWheelVisual";
 const allowed=new Set(["cdn.shopify.com","www.cadburygiftsdirect.co.uk","www.tooled-up.com"]);
 const tyreHosts=new Set(["static.tyres.net","images2.productserve.com"]);
 function safeImage(input:string|null,merchant:string){if(!input)return null;try{
@@ -13,7 +14,11 @@ export default function PrivateProductPhoto({url,title,merchant=""}:{url:string|
  const [broken,setBroken]=useState(false);
  const image=visible&&!broken?safeImage(url,merchant):null;
  return <div className={styles.photobox}>
-  {image?<img src={image} alt={title} loading="lazy" referrerPolicy="no-referrer" onError={()=>setBroken(true)} className={styles.productPhoto}/>:<div className={styles.placeholder}><strong>Q</strong><span>{visible?"Image unavailable from recognised feed host":"Merchant photograph hidden until requested"}</span></div>}
+  {image?<img src={image} alt={title} loading="lazy" referrerPolicy="no-referrer" onError={()=>setBroken(true)} className={styles.productPhoto}/>
+  :merchant==="Tyres UK"?<div className={styles.tyrePlaceholder}><TyreWheelVisual small/>
+    <span>{visible?"Supplier photo unavailable · Original AVUQO illustration":"Original AVUQO illustration · Supplier photo hidden"}</span>
+   </div>
+  :<div className={styles.placeholder}><strong>Q</strong><span>{visible?"Image unavailable from recognised feed host":"Merchant photograph hidden until requested"}</span></div>}
   <button type="button" aria-pressed={visible} onClick={()=>{setVisible(x=>!x);setBroken(false);}}>{visible?"Hide private image":"View private feed image"}</button>
   <small>Owner-only inspection · Image reuse rights not confirmed</small>
  </div>;
