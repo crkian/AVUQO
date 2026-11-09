@@ -1,5 +1,7 @@
 # AVUQO living project status
 
+**Tyre-specific verified-offer product template (draft):** Existing public `/products/[slug]` now uses a distinct tyre specification and fitment checklist only when an eligible, currently verified commercial offer exists. Safety-related specifications are hidden unless `tyre_specs_verified` is explicitly true in the canonical product record; even then no vehicle compatibility is guaranteed. No feed permission or publication settings changed.
+
 **9 November 2026, draft Tyres showroom and category architecture (NOT production published):** Premium public /tyres landing, tyre-type guides and noindex manufacturer guide routes are prepared with no live supplier offers; owner-only /preview/tyres uses the actual Tyres UK private 28,990 review records for full-catalogue brand browsing, size finder and single-product technical evidence panels. Only source-derived unverified size/load/speed candidates display, no guessed season, run-flat, vehicle match or fitted price. Original catalogue and rights remain unchanged. Public Car tyres taxonomy category is still inactive and no seller-feed images or prices are published. Requires CI, preview/mobile acceptance, technical validation, merchant rights and exact source freshness before a customer-facing commercial catalogue release.
 
 
