@@ -29,8 +29,8 @@ export function compareTyreVariants(a:TyreVariant,b:TyreVariant):VariantMatch{
   !meaningful(a.speedRating)||!meaningful(b.speedRating))return "insufficient_evidence";
  if(!validLoad(a.loadIndex!)||!validLoad(b.loadIndex!)||
   !validSpeed(a.speedRating!)||!validSpeed(b.speedRating!))return "insufficient_evidence";
- if(!Number.isInteger(a.widthMm)||!Number.isInteger(a.aspectRatio)||!Number.isInteger(a.rimInches)||
-    !Number.isInteger(b.widthMm)||!Number.isInteger(b.aspectRatio)||!Number.isInteger(b.rimInches)||
+ if(!Number.isInteger(Number(a.widthMm))||!Number.isInteger(Number(a.aspectRatio))||!Number.isInteger(Number(a.rimInches))||
+    !Number.isInteger(Number(b.widthMm))||!Number.isInteger(Number(b.aspectRatio))||!Number.isInteger(Number(b.rimInches))||
     Number(a.widthMm)<125||Number(a.widthMm)>385||
     Number(a.aspectRatio)<20||Number(a.aspectRatio)>95||
     Number(a.rimInches)<10||Number(a.rimInches)>26)return "insufficient_evidence";
@@ -104,8 +104,9 @@ export function rankComparableQuotes(quotes:readonly TyrePriceQuote[]){
   .filter((e):e is {offer:TyrePriceQuote;result:Extract<ComparableQuote,{status:"complete"}>}=>e.result.status==="complete");
  if(priced.length===0)return [];
  const scope=priced[0].result.scope;
- return priced.filter(e=>e.result.scope===scope)
-  .sort((a,b)=>a.result.totalPence-b.result.totalPence);
+ // Mixed scopes cannot share a "cheapest" ranking.
+ if(priced.some(e=>e.result.scope!==scope))return [];
+ return priced.sort((a,b)=>a.result.totalPence-b.result.totalPence);
 }
 
 /** Unattributed marketplace platforms are not independent known sellers. */
