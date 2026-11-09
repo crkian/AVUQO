@@ -19,7 +19,7 @@ test("all 25 existing departments are routed and unique without catalogue activa
  }
  assert.equal(marketplaceDepartmentBySlug("unsafe/slug"),undefined);
  assert.equal(marketplaceDepartmentBySlug("__proto__"),undefined);
- assert.match(read("app/categories/[slug]/page.tsx"),/if\(!d\|\|d.landing\)notFound\(\)/);
+ assert.match(read("app/categories/[department]/page.tsx"),/if\(!item\|\|item.landing\)notFound\(\)/);
 });
 test("every department exposes legitimate, independent buying journeys",()=>{
  assert.deepEqual(MARKETPLACE_JOURNEYS.map(x=>x.id),["explore","shop","compare","whos-who"]);
