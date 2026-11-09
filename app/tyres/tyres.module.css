@@ -172,3 +172,15 @@
 }
 @media(max-width:370px){.collectionGrid,.featuredBrands{grid-template-columns:1fr}.collectionCard{min-height:0}}
 @media(prefers-reduced-motion:reduce){.collectionCard{transition:none}.collectionCard:hover{transform:none}}
+
+
+/* Category guide covers share the showroom's evidence-first visual identity. */
+.categoryHero{position:relative;background:#291b34;color:#fff;overflow:hidden;isolation:isolate}
+.categoryHeroInner{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(210px,.7fr);gap:45px;align-items:center;padding-top:65px;padding-bottom:70px}
+.categoryHeroInner h1{font-size:clamp(44px,5.6vw,77px);line-height:1.08;letter-spacing:-.06em;margin:16px 0 20px}
+.categoryHeroInner h1 span{color:#f0b6c9}
+.categoryHeroInner p:not(.studioEyebrow){color:#e5dbe9;line-height:1.75;max-width:530px;font-size:16px;margin-bottom:25px}
+.categoryHalo{display:grid;place-items:center;aspect-ratio:1;border:28px solid #22182c;border-radius:50%;box-shadow:inset 0 0 0 18px #715d7a,0 0 0 2px #bca6c64d,0 0 0 24px #9f7da324;transform:rotate(-18deg);max-width:300px;margin:auto;width:100%;background:radial-gradient(circle,#624d74 0%,#2b1d37 75%)}
+.categoryHalo span{font-weight:900;font-size:clamp(64px,10vw,130px);color:#f3b6d0;letter-spacing:-.09em}
+@media(max-width:800px){.categoryHeroInner{grid-template-columns:1fr;padding-top:48px;padding-bottom:48px}.categoryHalo{display:none}}
+@media(max-width:600px){.categoryHeroInner h1{font-size:clamp(40px,9.5vw,55px)}}
