@@ -155,14 +155,22 @@ async function stageSnapshot(db:Admin,key:string,publisher:string){
  if(runError||!run)throw Error("private_run_creation_failed");
  const {error:sessionError}=await db.from("large_feed_import_sessions")
   .insert({import_id:run.id,source_digest:digest});
- if(sessionError)throw Error("private_import_session_failed");
+ if(sessionError){
+  await db.from("feed_import_runs").delete().eq("id",run.id);
+  throw Error("private_import_session_failed");
+ }
  const {data:job,error:jobError}=await db.from("awin_bulk_import_jobs").insert({
   advertiser_id:PNEUS_ADVERTISER_ID,feed_id:PNEUS_FEED_ID,
   state:"snapshot_ready",snapshot_sha256:digest,snapshot_object_key:path,
   observed_rows:stats.count,validated_total:stats.count,
   chunk_size:PNEUS_BATCH_SIZE,private_import_id:run.id
  }).select("id").single();
- if(jobError||!job)throw Error("private_bulk_job_creation_failed");
+ if(jobError||!job){
+  // Do not leave an orphaned import if competing cron invocations raced.
+  await db.from("large_feed_import_sessions").delete().eq("import_id",run.id);
+  await db.from("feed_import_runs").delete().eq("id",run.id);
+  throw Error("private_bulk_job_creation_failed");
+ }
  return {status:"snapshot_ready",job_id:job.id,records:stats.count,review:stats.review,excluded:stats.excluded};
 }
 async function processSnapshot(db:Admin,job:Job,started:number){
@@ -176,6 +184,7 @@ async function processSnapshot(db:Admin,job:Job,started:number){
   const {data:blob,error:storageError}=await db.storage.from(PNEUS_PRIVATE_BUCKET)
    .download(job.snapshot_object_key);
   if(storageError||!blob)throw Error("snapshot_unavailable");
+  if(blob.size>PNEUS_MAX_DOWNLOADED)throw Error("snapshot_size_limit");
   const bytes=new Uint8Array(await blob.arrayBuffer());
   const {plain,digest}=expand(bytes);
   if(digest!==job.snapshot_sha256)throw Error("snapshot_digest_mismatch");
