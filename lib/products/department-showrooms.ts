@@ -1,4 +1,5 @@
 import {BROWSE_DEPARTMENTS,type BrowseDepartment} from "../categories/browse-tree.ts";
+import {lifestylePages} from "../lifestyle/landing-data";
 import type {PublicOffer,PublicProduct} from "./public-catalog";
 
 /** Consumer and owner templates, never a claim that any department has live offers. */
@@ -44,7 +45,7 @@ const ART:Record<ProductFamily,string>={
 export const DEPARTMENT_BLUEPRINTS:readonly DepartmentBlueprint[]=BROWSE_DEPARTMENTS.map(d=>{
  const f=FOCUS[d.slug];if(!f)throw Error("Missing AVUQO department blueprint: "+d.slug);
  return {slug:d.slug,name:d.name,focus:f.focus,family:f.family,checklist:f.checklist,
-   visual:ART[f.family],aliases:[d.slug,d.name,...f.aliases??[]]};
+   visual:lifestylePages[d.slug]?.hero??ART[f.family],aliases:[d.slug,d.name,...(f.aliases??[])]};
 });
 export function departmentBlueprint(slug:string):DepartmentBlueprint|undefined{
  return DEPARTMENT_BLUEPRINTS.find(d=>d.slug===slug);
