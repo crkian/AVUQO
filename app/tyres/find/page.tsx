@@ -11,6 +11,7 @@ import {eligibleTyreProducts,matchTyreSize,parseTyreSize,tyreSpecLabel,comparabl
 import styles from "../tyre-comparison.module.css";
 import {tyreBrandNames,tyreBrandSlug,resolveTyreBrand} from "../../../lib/tyres/catalogue";
 type Query={width?:string;profile?:string;rim?:string;brand?:string};
+export const instant=false;
 export const metadata:Metadata={
  title:"Find exact tyre variants | AVUQO",
  description:"Search approved tyre product variants by size and compare only current authorised product offers. Fitment must be confirmed separately.",
