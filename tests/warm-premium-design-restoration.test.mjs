@@ -75,3 +75,23 @@ test("project compass, screenshot index and branch provenance are durable",()=>{
   "1000033112.png","1000033113.png","1000033114.png","1000033115.png",
   "1000033116.png","1000033117.png"])assert.ok(visuals.includes(file),file);
 });
+
+test("restored Saved, Watches and Lists use scoped account records and avoid mock price claims",()=>{
+ const saved=read("app/saved/page.tsx");
+ const watches=read("app/watches/page.tsx");
+ const lists=read("app/lists/page.tsx");
+ assert.match(saved,/db\.auth\.getUser\(\)/);
+ assert.match(saved,/db\.from\("saved_items"\)/);
+ assert.match(saved,/Price when saved, not a live quote/);
+ assert.match(saved,/historical snapshots/);
+ assert.match(watches,/db\.auth\.getUser\(\)/);
+ assert.match(watches,/db\.from\("watches"\)/);
+ assert.match(watches,/does not yet activate automated price checks/);
+ assert.doesNotMatch(watches,/AVUQO will\./);
+ assert.match(lists,/db\.auth\.getUser\(\)/);
+ assert.match(lists,/db\.from\("shared_lists"\)/);
+ assert.match(lists,/sharing depends on account permissions/i);
+ for(const path of ["app/saved/page.module.css","app/watches/page.module.css","app/lists/page.module.css"]){
+  assert.match(read(path),/background:#faf8f3/);
+ }
+});
