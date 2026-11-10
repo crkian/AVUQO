@@ -13,6 +13,7 @@ import {verifiedTyreSpec,tyreSpecLabel,comparableTyreOffers,validTyreQuantity,pr
 import styles from "../../tyre-comparison.module.css";
 type Props={params:Promise<{slug:string}>;searchParams:Promise<{quantity?:string}>};
 const money=(value:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(value);
+export const instant=false;
 export async function generateMetadata({params}:Props):Promise<Metadata>{
  await connection();
  const {slug}=await params;
