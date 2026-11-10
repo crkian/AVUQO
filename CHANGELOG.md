@@ -1,5 +1,17 @@
 # AVUQO software changelog
 
+## [0.5.0] - 2026-11-10 (marketing, tyre and all-category product readiness release candidate)
+
+- Complete 25 distinctive warm-premium category-specific product shopfronts at `/categories/[department]/products`, opening safely without fake offers and automatically admitting real approved products through the unchanged public supplier-rights/freshness gate. Link them from Marketplace Shop and the main /products directory.
+- Add departmental buying-guidance panels to existing canonical individual product pages, with exact source-category assignment and truthful instructions for 25 product families.
+- Complete the plum tyre customer system with `/tyres/find` exact size/manufacturer finder, `/tyres/compare` two-model comparator, `/tyres/products/[slug]` exact product page and 1/2/4 tyre unit-price subtotals with no fabricated fitter/fitment quote. Integrate these destinations into the existing showroom, brand, type and size guides.
+- Add protected read-only `/control-centre/tyres` for source, private import, technical verification, product admission and retailer-release review.
+- Reuse four-brand marketing studio, AI-reviewed creative, draft automation, owner approvals and Buffer delivery gates; create `/control-centre/marketing/readiness` for explicit live per-brand facts, channels, emergency stop, provider reconciliation and Pinterest/email integration gaps. No new social account connection or unattended publication.
+- Add `/advertise` premium enquiry/integrity guide with no rate card, payment or delivery implication; connect to existing private site-advertising owner workflow.
+- Add new source/variant/independence safety tests, preserve original v0.4.1 warm-premium design and the permanent GitHub Compass, and document remaining source/rights/provider dependencies in `docs/AVUQO_V050_MARKETING_TYRES_ALL_CATEGORY_RELEASE.md`.
+- **Safety:** no migrations, database writes, commercial source activation, fake product prices/scores/reviews, ad serving, automatic email, Pinterest/social publishing or vehicle-fitment approvals. CI/preview/production validation still required before claiming a live release.
+
+
 ## [0.4.1] - 2026-11-10 (production verified; manual signed-in visual acceptance pending)
 
 - Bring original approved Warm Premium AVUQO design identity, page blueprints, full token file, image register and screenshot manifest from its unmerged design branch into the current source of truth. Index all ten new user screenshots and other uploaded design/source files.
