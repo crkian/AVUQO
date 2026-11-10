@@ -1,5 +1,5 @@
 import {BROWSE_DEPARTMENTS,type BrowseDepartment} from "../categories/browse-tree.ts";
-import {lifestylePages} from "../lifestyle/landing-data";
+import {lifestylePages} from "../lifestyle/landing-data.ts";
 import type {PublicOffer,PublicProduct} from "./public-catalog";
 
 /** Consumer and owner templates, never a claim that any department has live offers. */
