@@ -42,10 +42,28 @@ const ART:Record<ProductFamily,string>={
  travel:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1300&q=80",
  safety:"https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1300&q=80"
 };
+/* Reuse existing AVUQO editorial photographs, not supplier product imagery. */
+const DEPARTMENT_ART:Record<string,string|undefined>={
+ "baby-nursery":lifestylePages.toys?.tiles[0]?.image,
+ "books-media":lifestylePages.tech?.tiles[0]?.image,
+ "business-industrial":lifestylePages.tech?.tiles[1]?.image,
+ "connectivity-utilities":lifestylePages.tech?.tiles[1]?.image,
+ crafts:lifestylePages.gifts?.tiles[1]?.image,
+ "diy-building":lifestylePages.home?.tiles[1]?.image,
+ "garden-outdoors":lifestylePages.home?.featureImage,
+ "health-wellbeing":lifestylePages.beauty?.tiles[0]?.image,
+ "home-services":lifestylePages.home?.tiles[0]?.image,
+ "insurance-finance":lifestylePages.motoring?.tiles[1]?.image,
+ "learning-education":lifestylePages.toys?.tiles[1]?.image,
+ "musical-instruments":lifestylePages.tech?.tiles[2]?.image,
+ "office-stationery":lifestylePages.tech?.tiles[0]?.image,
+ "sports-fitness":lifestylePages.motoring?.tiles[0]?.image,
+ "grocery-food":lifestylePages.shopping?.tiles[2]?.image
+};
 export const DEPARTMENT_BLUEPRINTS:readonly DepartmentBlueprint[]=BROWSE_DEPARTMENTS.map(d=>{
  const f=FOCUS[d.slug];if(!f)throw Error("Missing AVUQO department blueprint: "+d.slug);
  return {slug:d.slug,name:d.name,focus:f.focus,family:f.family,checklist:f.checklist,
-   visual:lifestylePages[d.slug]?.hero??ART[f.family],aliases:[d.slug,d.name,...(f.aliases??[])]};
+   visual:lifestylePages[d.slug]?.hero??DEPARTMENT_ART[d.slug]??ART[f.family],aliases:[d.slug,d.name,...(f.aliases??[])]};
 });
 export function departmentBlueprint(slug:string):DepartmentBlueprint|undefined{
  return DEPARTMENT_BLUEPRINTS.find(d=>d.slug===slug);
