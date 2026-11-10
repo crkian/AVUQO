@@ -1,6 +1,6 @@
 # AVUQO DESIGN REFERENCE INDEX · 10 November 2026
 
-**This file is the permanent cross-chat index for the user's uploaded mockups and the original warm-premium design pack.** These are *design references*, not screenshots of current production or evidence of real prices/scores.
+**This file is the permanent cross-chat index for the user's 16 newly uploaded visual mockups and the original warm-premium design pack.** These are *design references*, not screenshots of current production or evidence of real prices/scores.
 
 ## The original approved visual direction
 
@@ -30,6 +30,12 @@ Now copied into the working design-restoration branch:
 | `1000033116.png` | Full design overview | Header, home, product detail, seasonal pages, groceries, travel, account, owner Control Centre, mobile and full style palette |
 | `1000033117.png` | Home storefront + categories | Main warm-photo shopping home with intelligence panel, product cards, department mega menu and groceries/price planning |
 | `file_00000000c30c81f4b1db6a04908c02f9.png` | Three logo/visual identity explorations | Original design direction considered premium/discovery; not licence to replace the existing brand with every option |
+| `1000033105.png` | My Saved Items product-card grid | Warm four-column saved cards, real account snapshots, clearly historical prices, working view/remove controls; no invented products |
+| `1000033106.png` | Full homepage, events, categories and mobile design composite | Main storefront photo-led hero, seasonal destinations, 25-category navigation, groceries and genuine approved offers, mobile shopping journeys |
+| `1000033107.png` | Black Friday full-page design | Premium photographic hero, six sale departments, source-verified offers and price-history guidance; do not reproduce the mockup's sample prices |
+| `1000033108.png` | Product-detail page large-format reference | Authorised product photos, explicit evidence-led AVUQO Score, seller/variant verification, complete price comparisons and *real* price-history observations |
+| `1000033109.png` | Composite product, My AVUQO, Watches, Saved, Lists and seasonal pages | Consistent account and product components reused with safe disclosure, genuine watch/list data and distinct seasonal photography |
+| `1000033118.png` | Sales & Seasonal Savings full-page design | Navy-violet warm editorial sale layout, category discovery, comparison/planning tools and approved-only offer cards |
 | `1000033055.jpg` | Android tyre-spec fingerprint rejection | Historical operational defect; source-file verification blocks unrelated import files. Not a design mockup |
 
 Other original reference filenames still preserved on the design branch:
