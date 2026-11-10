@@ -132,3 +132,7 @@ button,a,input,select,textarea{touch-action:manipulation}
 @media(max-width:760px){
  body{padding-bottom:calc(70px + env(safe-area-inset-bottom))}
 }
+
+/* Non-invasive shared AVUQO design tokens restored from the original warm-premium design spec.
+   Existing components retain their current layout until individually reviewed. */
+:root{--avuqo-canvas:#faf8f3;--avuqo-cream:#f7f3ec;--avuqo-surface:#ffffff;--avuqo-surface-warm:#fffdf9;--avuqo-ink:#17142b;--avuqo-editorial-ink:#302639;--avuqo-muted:#716d80;--avuqo-violet:#5b35f5;--avuqo-violet-dark:#3a20bd;--avuqo-blue:#3478f6;--avuqo-border:#e7e3ec;--avuqo-warm-border:#e9e0dc;--avuqo-positive:#087b5b;--avuqo-card-radius:22px;--avuqo-feature-radius:26px;--avuqo-display-font:Georgia,'Times New Roman',serif}
