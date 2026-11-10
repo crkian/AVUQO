@@ -15,3 +15,13 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Update `docs/PROJECT_STATUS.md` and `CHANGELOG.md` whenever a feature's status or release scope changes. Bump `package.json` and the lockfile together when creating a software release. Do not invent a deployed commit, version or live capability.
 - Distinguish draft, merged, and production-verified states. A successful preview is not a public release. Staged Awin products and future affiliates are not automatically licensed for public offer publication.
 - No raw API credentials or private user/customer data in Git. Keep marketing, source activation and outbound email disabled until verified and approved.
+
+## Permanent warm-premium visual and cross-chat handover (10 November 2026)
+
+- **Always read `docs/AVUQO_PROJECT_COMPASS.md` first**, then the dated project status, live `main` and release evidence. The Compass indexes all original uploaded PDF/markdown specifications, user screenshot mockups, branch audit, source rights, seasonal plan, self-advertising and automation decisions.
+- Read `docs/design/AVUQO_WARM_PREMIUM_VISUAL_IDENTITY_2026-11-05.md`, `docs/design/avuqo-warm-tokens.v1.json`, `docs/design/AVUQO_PAGE_BLUEPRINTS_AND_DESIGN_COVERAGE_2026-11-05.md` and `docs/design/AVUQO_VISUAL_REFERENCE_INDEX_2026-11-10.md` before changing any customer-facing design.
+- **Do not drift away from the approved look:** warm ivory/cream pages, navy text, violet/indigo controls, high-quality category photography, inviting seasonal heroes, carefully spaced cards, My AVUQO personal tools. Tyres can have a dark-plum specialist theme but must share the brand.
+- The old `design/warm-premium-visual-system-20261105` and `feature/warm-premium-experience-v1-20261105` branches hold original assets and unmerged UI. They are divergent from production; **selectively port**, never wholesale merge.
+- Original screenshots contain illustrative AVUQO Scores, product prices, drops, reviews, budgets and advertiser logos. These are **not verified production data** and must never be silently treated as valid offers or customer metrics.
+- Reuse existing `/control-centre/site-advertising`, `/control-centre/marketing`, `/control-centre/seasonal` and `/control-centre/source-atlas`. Independent editorial content, paid campaigns, social promotion and affiliate links have different approval gates. Respect kill switches.
+- In every new coding session, fetch this file and the Compass from current GitHub. This handover is durable documentation, **not automatic conversational memory**. Update both project status and Compass after verified releases and clearly identify any work still in a branch.
