@@ -5,6 +5,7 @@ import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import GiftFinder from "./GiftFinder";
 import PublishedChristmasCrafts from "./PublishedChristmasCrafts";
+import ChristmasHomeFeature from "../../components/home/ChristmasHomeFeature";
 import { Suspense } from "react";
 import styles from "./page.module.css";
 
@@ -36,6 +37,7 @@ export default function ChristmasPage() {
 
       </div>
     </section>
+    <ChristmasHomeFeature moment={{cardTitle:"Thoughtful gifting, festive discoveries",cardSummary:"Browse beautiful seasonal ideas, then use AVUQO lists, saved items and verified price evidence to plan with confidence."}}/>
     <section className="shell section" id="gift-ideas">
       <div className="section-title"><div><p className="kicker">Find your starting point</p><h2>Gifts for every budget.</h2><p>Browse ideas, then check current prices, availability and delivery charges with the retailer.</p></div></div>
       <div className={styles.grid}>{giftBudgets.map(item => <Link href={`/search?q=${encodeURIComponent(item.q)}`} className={styles.tile} key={item.label}><div className={styles.tilePhoto} style={{backgroundImage:`url("${item.image}")`}} aria-hidden="true"/><div className={styles.tileCopy}><Gift size={22}/><h3>{item.label}</h3><p>{item.detail}</p><span>Explore <ArrowRight size={15}/></span></div></Link>)}</div>
