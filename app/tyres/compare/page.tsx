@@ -10,6 +10,7 @@ import {verifiedProductIndex} from "../../../lib/products/public-catalog";
 import {eligibleTyreProducts,tyreSpecLabel,comparableTyreOffers,type TyreResult} from "../../../lib/tyres/verified-comparison";
 import styles from "../tyre-comparison.module.css";
 type Query={left?:string;right?:string};
+export const instant=false;
 export const metadata:Metadata={title:"Compare verified tyres | AVUQO",description:"Compare exact approved tyre variants by technical specification and verified unit product prices. Full fitted quotes require separate evidence.",alternates:{canonical:"/tyres/compare"},robots:{index:false,follow:true}};
 const price=(n:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(n);
 function cell(row:TyreResult|null,field:keyof TyreResult["spec"]){
