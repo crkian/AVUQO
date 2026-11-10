@@ -24,6 +24,7 @@ export default async function Category({params}:Props){
      <h1>{category.title}<br/><span>Know the difference.</span></h1>
      <p>{category.description}</p>
      <Link className={styles.premiumButton} href="/tyres/sizes">Understand tyre sizes <ArrowRight size={18}/></Link>
+     <Link className={styles.lightButton} href="/tyres/find">Browse eligible variants <ArrowRight size={18}/></Link>
     </div>
     <div className={styles.categoryHalo} aria-hidden="true"><span>{String(index).padStart(2,"0")}</span></div>
    </div>
@@ -42,8 +43,8 @@ export default async function Category({params}:Props){
    </section>
    <section className={styles.storySection}>
     <div className={styles.storyMark}><span>THE DETAIL MATTERS</span><strong>RIGHT<span>.</span> FIT</strong><div className={styles.numberExplainer}><span>SIZE</span><span>RATING</span><span>TYPE</span></div></div>
-    <div className={styles.storyCopy}><p className={styles.kicker}>PROPERLY CONSIDERED</p><h2>Every detail.<br/><em>Before every deal.</em></h2><p>AVUQO is preparing tyre-specific product and retailer comparison experiences, but the source evidence must be complete before recommending a listing or price.</p>
-     <Link className={styles.darkButton} href="/tyres/brands">Explore manufacturers <ArrowRight size={17}/></Link></div>
+    <div className={styles.storyCopy}><p className={styles.kicker}>PROPERLY CONSIDERED</p><h2>Every detail.<br/><em>Before every deal.</em></h2><p>AVUQO now has a verified-variant product finder, exact single-tyre pages and technical model comparisons. Only source-cleared real products can appear in them.</p>
+     <Link className={styles.darkButton} href="/tyres/find">Find eligible tyre models <ArrowRight size={17}/></Link></div>
    </section>
    <aside className={styles.notice}><strong>Current availability:</strong> This is an editorial buying guide. No historical or unapproved Tyres UK supplier product is published here. No live tyre offer or vehicle compatibility result is implied.</aside>
   </div><Footer/></main>;
