@@ -30,6 +30,7 @@ export const CONTROL_CENTRE_SECTIONS:AdminSection[]=[
   {href:"/control-centre/site-advertising",label:"Site advertising",description:"Third-party advertisers and on-site campaigns"},
   {href:"/control-centre/brand-previews",label:"Company-area previews",description:"Private concept pages for five merchant brands"},
   {href:"/control-centre/marketing",label:"Brand social marketing",description:"Our four brands on social platforms"},
+  {href:"/control-centre/marketing/readiness",label:"Marketing launch readiness",description:"Real owner preflight, channels, drafts, creative rights and auto-posting gates"},
   {href:"/control-centre/affiliate-networks",label:"Affiliate networks",description:"Eight-network application and connector readiness"},
   {href:"/control-centre/awin-advertisers",label:"Awin advertiser release",description:"Register, approve rights, test and publish one offer"},
   {href:"/control-centre/promotions",label:"Affiliate promotion",description:"Eligible merchant promotion engine"},
