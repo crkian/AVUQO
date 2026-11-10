@@ -9,6 +9,8 @@ import Footer from "../components/layout/Footer";
 import LifestyleExplorer from "../components/lifestyle/LifestyleExplorer";
 import ShoppingDepartmentShelf from "../components/shopping/ShoppingDepartmentShelf";
 import HomeCampaignCarousel from "../components/home/HomeCampaignCarousel";
+import HomeSeasonalSpotlight from "../components/home/HomeSeasonalSpotlight";
+import {editorialSpotlight} from "../lib/editorial/seasonal-schedule";
 import OwnerStorefrontShortcut from "../components/home/OwnerStorefrontShortcut";
 import CategoryJourneys from "../components/marketplace/CategoryJourneys";
 import {loadHomeCampaigns} from "../lib/marketing/homepage";
@@ -83,6 +85,7 @@ async function HomeContent() {
     </div>
 
     <CategoryJourneys slug="shopping"/>
+    <HomeSeasonalSpotlight spotlight={editorialSpotlight(new Date())}/>
     <HomeCampaignCarousel campaigns={campaigns}/>
     <LifestyleExplorer/>
     <ShoppingDepartmentShelf compact/>
