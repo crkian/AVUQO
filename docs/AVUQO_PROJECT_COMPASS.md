@@ -14,7 +14,7 @@
 
 AVUQO, **Find what's worth it**, is a premium, welcoming UK discovery/shopping/comparison and household intelligence platform. Organic AVUQO Score, prices, rankings, baskets and buy/wait advice are independent of commission or sponsorship. No fictitious retailer rights, ratings, stock, discounts, complete baskets, fitment, experiences, review scores, seasonal product offers or user account counts.
 
-**Visual system is locked:** warm-premium ivory/navy/violet site with big image-led editorial heroes, photographic subcategory tiles, personal dashboard, thoughtfully styled real product detail; seasonal images and category themes as contextual variations. The user's uploaded 10 large screen mockups and the full original design branch are indexed at `docs/design/AVUQO_VISUAL_REFERENCE_INDEX_2026-11-10.md`. The screenshots are visual concepts, not real merchant screenshots. **Do not redesign into a generic marketplace card grid or dark trading app.**
+**Visual system is locked:** warm-premium ivory/navy/violet site with big image-led editorial heroes, photographic subcategory tiles, personal dashboard, thoughtfully styled real product detail; seasonal images and category themes as contextual variations. The user's uploaded 16 warm-premium screen mockups and the full original design branch are indexed at `docs/design/AVUQO_VISUAL_REFERENCE_INDEX_2026-11-10.md`. The screenshots are visual concepts, not real merchant screenshots. **Do not redesign into a generic marketplace card grid or dark trading app.**
 
 ## Original user-uploaded source documents
 
