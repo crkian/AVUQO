@@ -17,6 +17,7 @@ export const CONTROL_CENTRE_SECTIONS:AdminSection[]=[
   {href:"/control-centre/groceries/price-evidence",label:"Grocery price evidence",description:"Review source records and freshness"}]},
  {id:"data",label:"Sources & Value",description:"Merchants, prices and data quality",links:[
   {href:"/control-centre/source-atlas",label:"All-source atlas",description:"Every connector, feed import, evidence gate and content state"},
+  {href:"/control-centre/tyres",label:"Tyre marketplace pipeline",description:"Two supplier reviews, technical enrichment and public variant readiness"},
   {href:"/control-centre/live-data",label:"Live-data status",description:"Readiness of verified feeds"},
   {href:"/control-centre/coverage",label:"Coverage",description:"Supported sector coverage"},
   {href:"/control-centre/sources",label:"Connectors & sources",description:"Source permissions and data feeds"},
