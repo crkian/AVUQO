@@ -30,6 +30,8 @@ export default async function MarketplaceOperations(){
    <div className={styles.links}><Link href="/marketplace">Public marketplace</Link>
     <Link href="/whos-who">Who&apos;s Who</Link>
     <Link href="/control-centre/source-atlas">All sources</Link>
+    <Link href="/control-centre/tyres">Tyre pipeline</Link>
+    <Link href="/control-centre/marketing/readiness">Marketing readiness</Link>
     <Link href="/control-centre/content/navigation">Menu editor</Link>
     <Link href="/control-centre/release-readiness">Release readiness</Link></div>
   </header>
@@ -50,9 +52,10 @@ export default async function MarketplaceOperations(){
   </section>
   <section className={styles.panel}><div className={styles.panelHead}><h2>All category destinations</h2>
    <p>These are the 25 curated editorial routes. Database category switches have not been changed.</p></div>
-   <div className={styles.tableWrap}><table className={styles.table}><thead><tr><th>Department</th><th>Public editorial route</th><th>Taxonomy</th><th>Available topics</th></tr></thead>
+   <div className={styles.tableWrap}><table className={styles.table}><thead><tr><th>Department</th><th>Public editorial route</th><th>Product showroom</th><th>Taxonomy</th><th>Available topics</th></tr></thead>
     <tbody>{BROWSE_DEPARTMENTS.map(d=><tr key={d.slug}><td><strong>{d.name}</strong></td>
      <td><Link href={departmentHref(d)} target="_blank">{departmentHref(d)}</Link></td>
+     <td><Link href={"/categories/"+d.slug+"/products"} target="_blank">Verified shelf →</Link></td>
      <td><span className={styles.status+" "+(known.get(d.slug)?.is_active?styles.active:styles.paused)}>
       {roots.error||!known.has(d.slug)?"Not verified":known.get(d.slug)?.is_active?"Active root":"Inactive root"}</span></td>
      <td>{d.topics.length}</td>
