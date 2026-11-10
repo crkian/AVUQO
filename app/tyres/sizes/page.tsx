@@ -34,6 +34,7 @@ async function SizeGuideContent({searchParams}:Props){
       <p className={styles.sub}>{specified?"This is the size you entered, not a verified vehicle match.":"An illustrative example of a standard radial tyre marking."}</p>
      </div>
      <Link href="/tyres" className={styles.cta}>Choose another size</Link>
+     {specified&&<Link href={"/tyres/find?width="+width+"&profile="+profile+"&rim="+rim} className={styles.cta}>Find verified exact variants →</Link>}
     </div>
    </section>
    <section className={styles.section}>
@@ -53,7 +54,7 @@ async function SizeGuideContent({searchParams}:Props){
      <article className={styles.info}><b>Special variants</b><p>Winter and all-season markings, reinforced/XL, run-flat and other variants can matter even when the nominal size matches.</p></article>
     </div>
    </section>
-   <aside className={styles.notice}><strong>Important:</strong> Consult the vehicle handbook, tyre placard or a qualified tyre fitting professional before purchasing. AVUQO is preparing commercial tyre comparisons, but has no verified live tyre offers or vehicle-fitment recommendations yet.</aside>
+   <aside className={styles.notice}><strong>Important:</strong> Consult the vehicle handbook, tyre placard or a qualified tyre fitting professional before purchasing. The approved-product finder is available, but private imported products never become public without separate rights and technical checks. AVUQO does not certify vehicle fitment or installed prices.</aside>
    <p style={{marginTop:25}}><Link className={styles.textLink} href="/tyres/brands">Explore tyre manufacturers →</Link></p>
   </div><Footer/></main>;
 }
