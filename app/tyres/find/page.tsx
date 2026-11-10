@@ -9,7 +9,8 @@ import TyreWheelVisual from "../TyreWheelVisual";
 import {verifiedProductIndex} from "../../../lib/products/public-catalog";
 import {eligibleTyreProducts,matchTyreSize,parseTyreSize,tyreSpecLabel,comparableTyreOffers} from "../../../lib/tyres/verified-comparison";
 import styles from "../tyre-comparison.module.css";
-type Query={width?:string;profile?:string;rim?:string};
+import {tyreBrandNames,tyreBrandSlug,resolveTyreBrand} from "../../../lib/tyres/catalogue";
+type Query={width?:string;profile?:string;rim?:string;brand?:string};
 export const metadata:Metadata={
  title:"Find exact tyre variants | AVUQO",
  description:"Search approved tyre product variants by size and compare only current authorised product offers. Fitment must be confirmed separately.",
@@ -23,7 +24,10 @@ const money=(v:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency
 async function Results({query}:{query:Query}){
  await connection();
  const size=parseTyreSize(query);
- const ready=eligibleTyreProducts(await verifiedProductIndex(120)).filter(x=>matchTyreSize(x.spec,size));
+ const brand=query.brand?resolveTyreBrand(query.brand,tyreBrandNames):null;
+ const ready=eligibleTyreProducts(await verifiedProductIndex(120))
+  .filter(x=>matchTyreSize(x.spec,size))
+  .filter(x=>!query.brand||!!brand&&tyreBrandSlug(x.product.brand??"")===tyreBrandSlug(brand));
  const hasInput=!!(query.width||query.profile||query.rim);
  const invalid=hasInput&&!size;
  return <section className={"shell "+styles.section} id="verified-tyres" aria-labelledby="tyre-result-title">
@@ -70,6 +74,7 @@ export default async function Page({searchParams}:{searchParams:Promise<Query>})
     <label>Width <small>mm</small><select name="width" defaultValue={q.width??""}><option value="">All widths</option>{widths.map(x=><option key={x} value={x}>{x}</option>)}</select></label>
     <label>Profile <small>%</small><select name="profile" defaultValue={q.profile??""}><option value="">All profiles</option>{profiles.map(x=><option key={x} value={x}>{x}</option>)}</select></label>
     <label>Rim <small>inches</small><select name="rim" defaultValue={q.rim??""}><option value="">All rims</option>{rims.map(x=><option key={x} value={x}>R{x}</option>)}</select></label>
+    <label>Manufacturer<select name="brand" defaultValue={q.brand??""}><option value="">All manufacturers</option>{tyreBrandNames.map(x=><option key={x} value={tyreBrandSlug(x)}>{x}</option>)}</select></label>
     <button type="submit"><Search size={17}/> Find eligible tyres</button>
    </form><p><ShieldCheck size={15}/> A matching size is not a vehicle-fitment approval. Check the placard/handbook plus load and speed requirements.</p>
   </section>
