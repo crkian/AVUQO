@@ -70,7 +70,7 @@ test("project compass, screenshot index and branch provenance are durable",()=>{
  assert.match(readme,/AVUQO_PROJECT_COMPASS\.md/);
  assert.match(compass,/124 named branches/);
  assert.match(compass,/site-advertising/);
- assert.match(compass,/automatic conversational memory/i);
+ assert.match(compass,/not as a guarantee of cross-chat assistant memory/i);
  for(const file of ["1000033119.png","1000033120.png","1000033121.png","1000033110.png",
   "1000033112.png","1000033113.png","1000033114.png","1000033115.png",
   "1000033116.png","1000033117.png"])assert.ok(visuals.includes(file),file);
