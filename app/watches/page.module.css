@@ -1,0 +1,38 @@
+.page{background:#faf8f3;color:#302639;min-height:100vh}
+.panel{margin:clamp(25px,4vw,55px) 0 clamp(60px,7vw,100px);padding:clamp(20px,3vw,37px);border:1px solid #e9dfdc;background:#fffdf9;border-radius:30px;box-shadow:0 13px 40px #3026390b}
+.heading{display:flex;align-items:center;gap:18px;margin-bottom:26px}
+.headingIcon{display:grid;place-items:center;width:61px;height:61px;border-radius:21px;color:#7835d8;background:#f4eafa;flex:none}
+.headingCopy{flex:1}
+.kicker{margin:0 0 6px;color:#7c5890;font-size:11px;letter-spacing:.11em;font-weight:900;text-transform:uppercase}
+.heading h1{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:clamp(35px,4.4vw,54px);letter-spacing:-.04em;line-height:1.06;margin:0 0 9px}
+.headingCopy>p:last-child{margin:0;color:#716673;font-size:15px;line-height:1.6}
+.addWatch{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:45px;border:0;border-radius:999px;background:linear-gradient(120deg,#7940ed,#5123b9);color:white;padding:12px 21px;font-weight:850;font-size:13px;white-space:nowrap}
+.summary{display:flex;align-items:center;gap:16px;flex-wrap:wrap;border:1px solid #ece2de;background:#fbf7f3;border-radius:15px;padding:13px 17px;margin-bottom:19px}
+.summary span{display:inline-flex;align-items:center;gap:7px;color:#66576d;font-size:12px;font-weight:750}
+.summary svg{color:#7750a4}
+.list{display:grid;gap:12px}
+.item{display:grid;grid-template-columns:97px minmax(0,1fr) minmax(170px,auto) auto;gap:19px;align-items:center;background:#fff;border:1px solid #e9e0dc;border-radius:22px;padding:16px 19px;box-shadow:0 6px 19px #30263909}
+.art{width:97px;height:86px;display:grid;place-items:center;border-radius:16px;background:linear-gradient(145deg,#f5e8ed,#ede6fb);color:#8858b3}
+.art[data-tone="1"]{background:linear-gradient(145deg,#f6eadc,#f1ebeb);color:#a58b78}
+.art[data-tone="2"]{background:linear-gradient(145deg,#e8f2ef,#edeaf6);color:#608d87}
+.details{min-width:0}
+.category{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#7450a6;font-weight:900;margin:0 0 7px}
+.details h2{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:clamp(19px,2.2vw,24px);letter-spacing:-.025em;line-height:1.24;margin:0 0 6px;overflow-wrap:anywhere}
+.details>p:last-child{font-size:12px;line-height:1.5;color:#706773;margin:0}
+.status{display:inline-flex;align-items:center;gap:7px;justify-self:end;font-size:12px;color:#69518b;background:#f5edf9;border:1px solid #e9dcea;padding:9px 11px;border-radius:999px;white-space:nowrap}
+.status svg{flex:none;color:#7b38cc}
+.actions{display:flex;gap:8px;justify-content:end;align-items:center}
+.actions a,.empty a{min-height:40px;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 15px;color:#5a31c2;border:1px solid #b58be6;border-radius:999px;font-size:12px;font-weight:850;white-space:nowrap;background:white}
+.actions span{font-size:11px;color:#716d80;line-height:1.35}
+.actions button{width:41px;height:41px;border-radius:50%;border:1px solid #eadfeb;background:#fff;color:#835779;display:grid;place-items:center;flex:none}
+.actions button:hover{background:#f9e8ef}
+.empty{min-height:260px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:13px;border:1px solid #e9e0dc;background:#faf6f2;border-radius:24px;padding:40px 25px;text-align:center;color:#706675}
+.empty>svg{color:#8d53b8}.empty h2{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:29px;color:#302639;margin:0}.empty p{line-height:1.6;margin:0 0 9px}
+.note{margin:23px 0 0;font-size:12px;color:#817582;line-height:1.6}
+.message{font-size:13px;background:#f2ebf6;color:#543e69;border-radius:12px;padding:12px 15px}
+@media(max-width:1100px){.item{grid-template-columns:83px minmax(0,1fr) auto;gap:13px}.art{width:83px;height:83px}.status{grid-column:2;justify-self:start}.actions{grid-row:1 / span 2;grid-column:3;flex-direction:column;align-items:stretch}}
+@media(max-width:740px){.heading{flex-wrap:wrap}.addWatch{margin-left:auto}.item{grid-template-columns:70px minmax(0,1fr);padding:14px}.art{width:70px;height:72px}.status{grid-column:2;grid-row:auto}.actions{grid-row:auto;grid-column:1/-1;justify-content:space-between;flex-direction:row}.actions a{flex:1}.panel{border-radius:22px}}
+@media(max-width:480px){.heading h1{font-size:38px}.headingIcon{width:49px;height:49px}.addWatch{width:100%;margin:0}.summary{gap:11px}.status{white-space:normal}.item{gap:12px}}
+
+/* Watch-list composition: clear product naming and compact app headings. */
+.heading h1,.details h2,.empty h2{font-family:var(--avuqo-interface-font);font-weight:850;letter-spacing:-.04em}

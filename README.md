@@ -4,6 +4,10 @@ An evidence-led UK comparison and savings application. Current customer website:
 
 ## Start here
 
+- **[AVUQO Project Compass](docs/AVUQO_PROJECT_COMPASS.md):** mandatory cross-chat handover for the original sources, the warm-premium design, branch audits, deployment history, owner advertising/automation and the next verified milestone.
+- **[Approved design reference screenshots](docs/design/AVUQO_VISUAL_REFERENCE_INDEX_2026-11-10.md):** original uploaded account, seasonal, beauty, home, lists, watches, product and mobile concepts.
+- **[Warm-premium design specification](docs/design/AVUQO_WARM_PREMIUM_VISUAL_IDENTITY_2026-11-05.md):** locked visual baseline and tokens.
+
 - **[Live project register](docs/PROJECT_STATUS.md):** feature status, release gates, open integration work, and what is NOT live.
 - **[Prioritised roadmap](docs/ROADMAP.md):** P0–P4 work IDs, dependencies, blockers and acceptance criteria.
 - **[Specification-to-code audit (2 Nov 2026)](docs/SOURCE_TO_CODE_AUDIT_2026-11-02.md):** source-by-source requirements, inspected code/data and measurable maturity.

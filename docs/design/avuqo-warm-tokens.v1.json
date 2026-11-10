@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "AVUQO warm premium visual tokens (proposed)",
+  "version": "1.0.0",
+  "status": "Reference only. Test AA contrast and use real data for any pricing, scoring or savings.",
+  "colors": {
+    "canvas": "#FAF8F3",
+    "cream": "#F7F3EC",
+    "surface": "#FFFFFF",
+    "warmSurface": "#FFFDF9",
+    "ink": "#17142B",
+    "editorialInk": "#302639",
+    "muted": "#716D80",
+    "violet": "#5B35F5",
+    "violetDark": "#3A20BD",
+    "blue": "#3478F6",
+    "plum": "#6043A3",
+    "border": "#E7E3EC",
+    "borderWarm": "#E9E0DC",
+    "positive": "#087B5B",
+    "roseWash": "#F9E8EF",
+    "butterWash": "#FFF0DC",
+    "tealWash": "#E6F5F2"
+  },
+  "radii": {
+    "input": 12,
+    "button": 16,
+    "card": 22,
+    "featureCard": 26,
+    "hero": 32,
+    "pill": 999
+  },
+  "shadow": {
+    "card": "0 10px 32px rgba(45,31,54,.07)",
+    "floating": "0 22px 60px rgba(45,31,54,.12)"
+  },
+  "layout": {
+    "shellMaxWidthPx": 1180,
+    "mobileMinimumTargetPx": 44,
+    "heroColumns": "1fr 0.95fr",
+    "spaceUnitPx": 4
+  },
+  "typography": {
+    "currentBodyFallback": "Arial, Helvetica, sans-serif",
+    "proposedBody": "Inter, Arial, sans-serif",
+    "proposedEditorial": "Fraunces, Georgia, serif",
+    "requiresFontLicenseReview": true
+  },
+  "seasonal": {
+    "christmas": {
+      "cranberry": "#A43B54",
+      "fir": "#2F6851",
+      "gold": "#C59656"
+    },
+    "blackFriday": {
+      "midnight": "#211B2F",
+      "plum": "#6D3F88"
+    },
+    "easter": {
+      "lilac": "#CBAEE8",
+      "blush": "#F7DCE9",
+      "daffodil": "#F6DC8A"
+    },
+    "valentines": {
+      "rose": "#C04470",
+      "wine": "#873C58"
+    },
+    "sales": {
+      "terracotta": "#A36549",
+      "peach": "#F9EEE4"
+    },
+    "summer": {
+      "sea": "#438EAE",
+      "sage": "#DCEBDD"
+    }
+  }
+}
