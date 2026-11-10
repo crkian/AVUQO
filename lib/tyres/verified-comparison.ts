@@ -1,5 +1,5 @@
 import type {PublicOffer,PublicProduct} from "../products/public-catalog";
-import {chooseProductTemplate} from "../products/templates";
+import {chooseProductTemplate} from "../products/templates.ts";
 
 /** Verified technical records are distinct from private feed candidates and fitment approval. */
 export type VerifiedTyreSpec={
