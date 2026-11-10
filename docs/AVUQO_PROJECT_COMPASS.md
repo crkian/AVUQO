@@ -45,7 +45,7 @@ All 124 names were enumerated; don't treat 124 branches as 124 unfinished featur
 - `feature/tyres-uk-server-auto-enrichment-v2-20261109`, PR #117: rights-gated private tyre automation prepared separately; not automatically permissioned or public.
 - Other `awin-*`, source/security and category branches are historical incremental changes; inspect current main/migrations first.
 - v0.3.1 tyre design PR #118, private Pneus worker PR #121, unified marketplace PR #122 were verified merged to main in prior chat. Latest production v0.4.0 deployment reported READY at commit `a33e243ed4ee89b28cf526938487272395332f2a` (VERIFY LIVE before repeating).
-- **This restoration work:** `chore/restore-design-spec-project-compass-20261110` carries the visual source docs, seasonal reimplementation and handover. It is **not production until CI, preview and merge**.
+- **Selected personal UIs:** Saved, Watches and Lists layouts are selectively ported with RLS-scoped records, historic-price disclosures and no false price-alert automation promises.\n- **This restoration work:** `chore/restore-design-spec-project-compass-20261110` carries the visual source docs, seasonal reimplementation and handover. It is **not production until CI, preview and merge**.
 
 ## Features and admin that already exist (never duplicate)
 
