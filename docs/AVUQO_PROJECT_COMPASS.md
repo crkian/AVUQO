@@ -1,6 +1,10 @@
 # AVUQO PROJECT COMPASS · START HERE IN EVERY NEW CHAT
 
-**Last reconciled: 10 November 2026.** Project: `crkian/AVUQO`, Supabase `tfoukwcruaamrtgxzshh`, Vercel `avuqo`, public site `https://www.avuqo.com`. This is an evolving operational handover, **not** an instruction to trust a stale commit or to assume production is healthy without checking.
+**Last reconciled: 10 November 2026, after v0.4.1 production verification.** Project: `crkian/AVUQO`, Supabase `tfoukwcruaamrtgxzshh`, Vercel `avuqo`, public site `https://www.avuqo.com`. This is an evolving operational handover, **not** an instruction to trust a stale commit or to assume production is healthy without checking.
+
+## Verified latest production release
+
+**AVUQO `0.4.1` RESTORED WARM-PREMIUM DESIGN PRODUCTION RELEASE (10 Nov 2026):** PR #123 merged at `36c8a6f4325b873044f13ba9ea39f8823a83612a` and Vercel production `dpl_29DGCrLWzMAbT7FRimMBLWFx4U9k` reported READY, assigned to `www.avuqo.com` (apex redirects to www). GitHub lint/regression/build and secret scan passed on final reviewed PR head. Production HTTP 200 verified for homepage, Christmas, Easter, Valentine's, Black Friday, Sales, Account, Saved, Watches, Lists; signed-out Design System and Seasonal Control Centre URLs display sign-in verification, not owner data. Vercel reported no runtime errors in inspected route/time window. **The original warm-premium source documents and all 16 user screenshot references are indexed in `docs/design/AVUQO_VISUAL_REFERENCE_INDEX_2026-11-10.md`; root `AGENTS.md` points to `docs/AVUQO_PROJECT_COMPASS.md` for every future coding session.** Safe UK seasonal editorial rotation, image-led seasonal pages, genuine My AVUQO overview and restored Saved/Watches/Lists layouts are deployed. No feed/ads/social worker activation or migrations. **Still open:** authenticated owner-browser and physical 360px/desktop visual acceptance, full pixel parity of homepage/category/product screenshots, real merchant licence and quote/score evidence, production alert/advertiser automation. Do not label those completed.
 
 ## First actions for any new AVUQO development conversation
 
@@ -45,7 +49,7 @@ All 124 names were enumerated; don't treat 124 branches as 124 unfinished featur
 - `feature/tyres-uk-server-auto-enrichment-v2-20261109`, PR #117: rights-gated private tyre automation prepared separately; not automatically permissioned or public.
 - Other `awin-*`, source/security and category branches are historical incremental changes; inspect current main/migrations first.
 - v0.3.1 tyre design PR #118, private Pneus worker PR #121, unified marketplace PR #122 were verified merged to main in prior chat. Latest production v0.4.0 deployment reported READY at commit `a33e243ed4ee89b28cf526938487272395332f2a` (VERIFY LIVE before repeating).
-- **Selected personal UIs:** Saved, Watches and Lists layouts are selectively ported with RLS-scoped records, historic-price disclosures and no false price-alert automation promises.\n- **This restoration work:** `chore/restore-design-spec-project-compass-20261110` carries the visual source docs, seasonal reimplementation and handover. It is **not production until CI, preview and merge**.
+- **Selected personal UIs:** Saved, Watches and Lists layouts are selectively ported with RLS-scoped records, historic-price disclosures and no false price-alert automation promises.\n- **Restored and released:** `chore/restore-design-spec-project-compass-20261110` merged through PR #123 into production at `36c8a6f4`. Follow-up branch `docs/record-warm-premium-v041-production-20261110` records the verified state.
 
 ## Features and admin that already exist (never duplicate)
 

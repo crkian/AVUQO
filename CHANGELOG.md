@@ -1,6 +1,6 @@
 # AVUQO software changelog
 
-## [0.4.1] - 2026-11-10 (warm-premium source-of-truth restoration; release candidate)
+## [0.4.1] - 2026-11-10 (production verified; manual signed-in visual acceptance pending)
 
 - Bring original approved Warm Premium AVUQO design identity, page blueprints, full token file, image register and screenshot manifest from its unmerged design branch into the current source of truth. Index all ten new user screenshots and other uploaded design/source files.
 - Create permanent root `AGENTS.md` guidance, `docs/AVUQO_PROJECT_COMPASS.md` and README start-here links so future GitHub-connected chats can inspect context and branch/release state before coding.
@@ -10,7 +10,7 @@
 - Restore original warm-premium Saved, Watches and Lists layouts using existing RLS-scoped account records. Show saved prices as historic snapshots; Watches do not promise unverified automated email or price-drop alerts.
 - Add owner seasonal status and read-only Design System reference page, both in the existing Control Centre, with links to current site-advertising, marketing, source and approval workspaces.
 - Add GitHub CI regression tests and sitemap/footer links; no new migrations, source activation, retailer-image rights, ads, social post scheduling, pricing claims or account surveillance.
-- **Remaining acceptance:** CI, Vercel preview, signed-in/mobile visual review and exact production deployment SHA before release is called live. Full visual parity for each category and user tool remains ongoing separate work.
+- **Verified production:** GitHub PR #123 merged at `36c8a6f4`, Vercel `dpl_29DGCrLWzMAbT7FRimMBLWFx4U9k` READY and aliased to www.avuqo.com; public route HTTP checks successful and signed-out admin access-guard verified. **Still open:** authenticated owner-browser and physical mobile/desktop visual QA and full screenshot-to-implementation parity.
 
 
 ## [0.4.0] - 2026-11-09 (unified marketplace + Source Atlas release candidate)
