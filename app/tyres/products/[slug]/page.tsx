@@ -10,7 +10,6 @@ import TyreWheelVisual from "../../TyreWheelVisual";
 import {verifiedProduct} from "../../../../lib/products/public-catalog";
 import {chooseProductTemplate} from "../../../../lib/products/templates";
 import {verifiedTyreSpec,tyreSpecLabel,comparableTyreOffers,validTyreQuantity,productUnitSubtotal} from "../../../../lib/tyres/verified-comparison";
-import {tyreBrandSlug} from "../../../../lib/tyres/catalogue";
 import styles from "../../tyre-comparison.module.css";
 type Props={params:Promise<{slug:string}>;searchParams:Promise<{quantity?:string}>};
 const money=(value:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(value);
