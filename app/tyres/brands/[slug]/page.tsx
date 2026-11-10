@@ -28,6 +28,7 @@ export default async function BrandGuide({params}:Props){
      <div className={styles.heroActions}>
       <Link href="/tyres/sizes" className={styles.premiumButton}>Understand my tyre size <ArrowRight size={17}/></Link>
       <Link href="/tyres/brands" className={styles.lightButton}>All tyre makers <ArrowUpRight size={17}/></Link>
+      <Link href={"/tyres/find?brand="+tyreBrandSlug(name)} className={styles.lightButton}>Approved models <ArrowRight size={17}/></Link>
      </div>
     </div>
     <div className={styles.visualStage}><div className={styles.visualHalo}/><TyreWheelVisual small/></div>
@@ -47,11 +48,11 @@ export default async function BrandGuide({params}:Props){
     </div>
    </section>
    <aside className={styles.comingSoon}>
-    <span className={styles.pill}>PRODUCT COMPARISON IN PREPARATION</span>
-    <div><h2>{name} product ranges will appear when verified.</h2>
-     <p>AVUQO does not currently display permissioned live {name} tyre offers on this page. We will only publish product-level specifications, photos and prices when the necessary evidence is confirmed.</p>
+    <span className={styles.pill}>VERIFIED PRODUCT GATE</span>
+    <div><h2>See whether an exact {name} model is approved.</h2>
+     <p>The dedicated product finder only admits exact model variants with verified safety fields, current prices and source rights. No manufacturer endorsement, installed quotation or vehicle fitment is inferred.</p>
     </div>
-    <Link href="/tyres"><ShieldCheck size={17}/> Tyre showroom</Link>
+    <Link href={"/tyres/find?brand="+tyreBrandSlug(name)}><ShieldCheck size={17}/> View verified {name} models</Link>
    </aside>
   </div><Footer/></main>;
 }
