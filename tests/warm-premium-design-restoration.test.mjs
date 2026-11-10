@@ -73,7 +73,7 @@ test("project compass, screenshot index and branch provenance are durable",()=>{
  assert.match(compass,/not as a guarantee of cross-chat assistant memory/i);
  for(const file of ["1000033119.png","1000033120.png","1000033121.png","1000033110.png",
   "1000033112.png","1000033113.png","1000033114.png","1000033115.png",
-  "1000033116.png","1000033117.png"])assert.ok(visuals.includes(file),file);
+  "1000033116.png","1000033117.png","1000033105.png","1000033106.png","1000033107.png","1000033108.png","1000033109.png","1000033118.png"])assert.ok(visuals.includes(file),file);
 });
 
 test("restored Saved, Watches and Lists use scoped account records and avoid mock price claims",()=>{
