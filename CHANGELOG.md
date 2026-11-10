@@ -1,5 +1,17 @@
 # AVUQO software changelog
 
+## [0.4.1] - 2026-11-10 (warm-premium source-of-truth restoration; release candidate)
+
+- Bring original approved Warm Premium AVUQO design identity, page blueprints, full token file, image register and screenshot manifest from its unmerged design branch into the current source of truth. Index all ten new user screenshots and other uploaded design/source files.
+- Create permanent root `AGENTS.md` guidance, `docs/AVUQO_PROJECT_COMPASS.md` and README start-here links so future GitHub-connected chats can inspect context and branch/release state before coding.
+- Restore a full photographic seasonal editorial system and missing Easter/Valentine's pages, retain current Christmas gift-finder plus privately approved Crafts products, and reintroduce festive discovery/planning panels.
+- Add automated UK-calendar seasonal homepage inspiration (Black Friday, Christmas, Valentine's, Easter and January sales). This updates only editorial stories and links, **never public product offers or advertising**.
+- Add warm user-first My AVUQO account overview with real signed-in Saved/Watches/Lists counts, never fictional screenshot numbers. Preserve existing preferences update functionality.
+- Add owner seasonal status and read-only Design System reference page, both in the existing Control Centre, with links to current site-advertising, marketing, source and approval workspaces.
+- Add GitHub CI regression tests and sitemap/footer links; no new migrations, source activation, retailer-image rights, ads, social post scheduling, pricing claims or account surveillance.
+- **Remaining acceptance:** CI, Vercel preview, signed-in/mobile visual review and exact production deployment SHA before release is called live. Full visual parity for each category and user tool remains ongoing separate work.
+
+
 ## [0.4.0] - 2026-11-09 (unified marketplace + Source Atlas release candidate)
 
 - Unify public AVUQO Explore, Shop, Compare and Who's Who journeys across the homepage, all 25 editorial category families, existing specialist category pages and mobile navigation.
