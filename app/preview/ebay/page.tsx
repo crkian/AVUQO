@@ -44,7 +44,7 @@ export default async function Page({searchParams}:{searchParams:Promise<{q?:stri
     {readiness.environment==="sandbox"?
      <p>Use the Sandbox App ID and Cert ID from your eBay keyset as Vercel server-only <code>EBAY_SANDBOX_CLIENT_ID</code> and <code>EBAY_SANDBOX_CLIENT_SECRET</code>. Sandbox results are test data, not real offers. No credentials belong in chat, GitHub or a public form.</p>:
      <p>Production API search requires <code>EBAY_CLIENT_ID</code>, <code>EBAY_CLIENT_SECRET</code>, <code>EBAY_BROWSE_ENVIRONMENT=production</code> and explicit verified Buy API permission recorded by <code>EBAY_BROWSE_PRODUCTION_APPROVED=true</code>. Never use Sandbox keys in Production or set the approval flag before eBay has approved the application.</p>}
-    <p>eBay's production Browse API requires separate access review via EPN. A developer keyset and affiliate membership alone do not grant that permission. No automatic imports, affiliate checkout or public product publication can occur here.</p>
+    <p>eBay&apos;s production Browse API requires separate access review via EPN. A developer keyset and affiliate membership alone do not grant that permission. No automatic imports, affiliate checkout or public product publication can occur here.</p>
     <Link href="/control-centre/retailers">See Awin and eBay onboarding together →</Link>
    </div>
    {!readiness.ready&&readiness.environment==="production"&&readiness.credentialsConfigured&&<p className={styles.error} role="status">Production keyset exists, but approval for restricted eBay Browse access is not recorded. Private search remains disabled.</p>}
