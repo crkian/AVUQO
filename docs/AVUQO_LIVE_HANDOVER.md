@@ -1,3 +1,7 @@
+## Product and My AVUQO layout release VERIFIED · 13 November 2026
+
+PR #171 merged at app SHA `29454fd87952e66a1e02815ef26d3db46887ce5c`; Vercel `dpl_4vN5FNZght94Uje3YV5AX4wrV8dG` reports production READY, with `www.avuqo.com` and `avuqo.com` aliases. Production-domain `GET /`, `/products`, and `/account` returned HTTP 200 and the exact `data-dpl-id`. Eligible retailer offers moved nearer product overview and My AVUQO guest/signed-in layouts were refined. GitHub quality Build and Lint, secrets scanning, and Vercel preview passed on PR head `ba025186be1b63cf5020555c3b8ebf39bb51e144`. No merchant permissions, price-source gates, API or database migration changed. Signed-in account saving, a real eligible product-offer comparison, and desktop/mobile visual pixel acceptance remain unverified. Continue private feed/marketing automation with existing paused-source and social-publish guards intact.
+
 ## Product comparison and My AVUQO candidate · 13 November 2026
 
 Production starting point was `78a17cfc6daef5d3913c6956825b83264c94155d`. The candidate brings retailer comparisons closer to product details and gives My AVUQO distinct guest and signed-in layouts. Catalogue evidence gates and account access controls stay in place. Browser acceptance for private account features depends on an authenticated session.
