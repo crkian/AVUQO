@@ -329,3 +329,8 @@ Versions below refer to the Next.js application in `package.json`, not historica
 - Version previously recorded in the application's package metadata.
 - Main already includes private Awin staged imports, a Control Centre, eight-network affiliate-readiness planning (PR #33), and promotion approval improvements (PR #20).
 - Production baseline verified at `17a73a6fc20ecad2c892d45f2e2c95b82a6087ef`. Earlier project documentation may call the product v0.8; that is a separate historical planning label.
+
+
+### 2026-11-13 — Tyres UK dormant job journal released, lease review staged
+- Released PR #157 as production READY app commit `f57ba2452f5fa4dd6d75ccb2bd3be681353458a8` and controlled Supabase RLS journal; no jobs or automatic worker activated.
+- Started a separate **draft-only** review of service-role private lease claim/renew functions, guarded by paused-source checks and a blocked journal default. No production schema or worker change from this draft. Migration history version discrepancy is documented for reconciliation.
