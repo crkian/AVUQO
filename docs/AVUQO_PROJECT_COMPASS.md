@@ -1,3 +1,7 @@
+## Verified marketing homepage fact-gate release · 13 November 2026
+
+PR #173 released at `1fcad1afd007544a2f4a2669b4d20c45d0226d19`, Vercel `dpl_22XM7ti5pdEDcgCnprCyfF7WMfYb` READY, live homepage exact SHA HTTP 200. Current approved AVUQO fact eligibility is checked in server-only code for every customer-visible custom home placement, preserving public limited-column RLS and evergreen fallback. Owner approve/resume is gated and Control Centre shows withheld state. Marketing publishing/AI are still disabled with emergency stop ON; no live approved campaigns or offers were fabricated. Finish real owner-created campaign test when approved evidence exists, and continue separate Awin import and editorial scheduling work.
+
 ## Marketing homepage source-claim gate · 13 November 2026 (candidate)
 
 `fix/marketing-home-campaign-live-evidence-20261113` adds current private evidence checks to approved public homepage editorial placements and paused-campaign resume. Public column-limited RLS remains intact, evergreen fallback remains on stale/missing claims, owner Control Centre gets accurate withheld status. Marketing publishing/AI remain OFF with emergency stop ON and no campaigns/facts were present during live DB read. Release gating and tests: `docs/MARKETING_HOME_CURRENT_EVIDENCE_RELEASE_2026-11-13.md`. No supplier/feed/publication changes and not yet production verified.

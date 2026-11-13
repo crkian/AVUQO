@@ -1,3 +1,7 @@
+## 13 November 2026 · Marketing homepage claim integrity VERIFIED live
+
+- PR #173 deployed app `1fcad1afd007544a2f4a2669b4d20c45d0226d19`, Vercel READY `dpl_22XM7ti5pdEDcgCnprCyfF7WMfYb` with public homepage status 200 on the same release. Withdrawn, wrong-brand, missing, invalid or expired marketing facts can no longer qualify custom homepage placements; owner-only resume rechecks evidence. No source/product/AI/social publishing/scheduler activation.
+
 ## Unreleased · Marketing homepage time-window and source-claim integrity
 
 - Re-check each custom homepage campaign's private approved supporting claim during the server-rendered rotation; drop expired, revoked, wrong-brand or missing fact claims without exposing private fields.

@@ -1,3 +1,7 @@
+## VERIFIED MARKETING HOME CLAIM GATE · 13 November 2026
+
+PR #173 merged app SHA `1fcad1afd007544a2f4a2669b4d20c45d0226d19`; Vercel `dpl_22XM7ti5pdEDcgCnprCyfF7WMfYb` READY with `www.avuqo.com` alias; public homepage HTTP 200 with matching deployment. Build/lint/evidence and secrets tests passed. Public homepage now rechecks private current approved AVUQO fact eligibility for custom campaigns and falls back to safe editorial; owner resume and dashboard also respect revoked/expired facts. Live marketing system still disabled with emergency stop ON and zero campaigns. Actual owner campaign publishing acceptance remains pending.
+
 ## Marketing homepage current-fact safeguards · candidate · 13 November 2026
 
 - Public homepage campaigns now require a second server-side, private evidence check at request time: fact must still be AVUQO-specific, approved and unexpired. Existing public RLS and column-limited SELECT stay intact.
