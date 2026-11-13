@@ -1,38 +1,14 @@
-/* Header-adjacent product cut-out navigation, following the supplied storefront composition. */
-.section{padding:0 0 13px;background:#faf8f3;position:relative;z-index:2}
-.grid{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:7px;margin-top:-2px;padding:8px 10px 10px;background:#fffaf6;border:1px solid #eee2dc;border-radius:20px;box-shadow:0 12px 30px #30263915}
-.card{min-width:0;min-height:120px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;padding:9px 4px 11px;background:linear-gradient(140deg,#fffaf6,#fcf4ef);border:1px solid #eee6df;border-radius:13px;color:#17142b;text-align:center;transition:transform .16s ease,border-color .16s ease}
+/* Photo-led category tiles on the public homepage; no nonexistent sprite assets. */
+.section{padding:0 0 16px;background:#faf8f3;position:relative;z-index:2}
+.grid{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:8px;padding:10px;background:#fffaf6;border:1px solid #eee2dc;border-radius:20px;box-shadow:0 12px 30px #30263915}
+.card{min-width:0;display:flex;align-items:center;flex-direction:column;gap:9px;padding:7px 5px 12px;background:#fffaf6;border:1px solid #eee6df;border-radius:14px;color:#17142b;text-align:center;transition:transform .16s ease,border-color .16s ease;overflow:hidden}
 .card:hover{transform:translateY(-2px);border-color:#bca4d3}
 .card:focus-visible{outline:3px solid #7940de;outline-offset:2px}
-.photo{width:100%;height:75px;background-color:#f6f1ed;background-position:center;background-size:cover;border-radius:9px}
-.card strong{font-size:11px;line-height:1.13;letter-spacing:-.017em;max-width:109px;font-weight:850}
-.all{background:#fffdf9}
-.allIcon{height:75px;width:100%;display:grid;place-items:center;color:#7a2bc3}
-@media(max-width:1100px){.grid{grid-template-columns:repeat(5,minmax(0,1fr))}.card{min-height:120px}.photo,.allIcon{height:85px}}
-@media(max-width:680px){.section{padding-bottom:9px}.grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;padding:6px;border-radius:14px}.card{min-height:88px;padding:5px 3px;border-radius:9px}.photo,.allIcon{height:53px}.card strong{font-size:9px;line-height:1.2}}
-@media(max-width:420px){.grid{grid-template-columns:repeat(5,minmax(0,1fr))}.photo,.allIcon{height:48px}.card strong{font-size:8px}}
+.photo{display:block;aspect-ratio:1.25/1;width:100%;min-height:82px;background-color:#f4eee8;background-position:center;background-size:cover;background-repeat:no-repeat;border-radius:9px}
+.card strong{font-size:11px;line-height:1.25;letter-spacing:-.017em;font-weight:850;min-height:28px;display:flex;align-items:center;justify-content:center}
+.all{background:#fffdf9;justify-content:center}
+.allIcon{display:grid;place-items:center;aspect-ratio:1.25/1;width:100%;min-height:82px;color:#7a2bc3}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(5,minmax(0,1fr))}.photo,.allIcon{min-height:96px}}
+@media(max-width:680px){.section{padding-bottom:9px}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;padding:7px;border-radius:14px}.card{padding:5px 4px 9px;border-radius:10px}.photo,.allIcon{min-height:75px}.card strong{font-size:10px;min-height:25px}}
+@media(max-width:420px){.photo,.allIcon{min-height:65px}.card strong{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
-
-/* Owner's actual product cutouts, cropped from the supplied image,
-   never individually attributed to a live merchant offer. */
-.photo{height:77px;max-width:100%;background-image:url("/branding/avuqo-department-reference-sprite.svg");
- background-color:#fff9f5;background-size:900% 100%;background-repeat:no-repeat;
- background-position-y:center;border-radius:9px}
-.card:nth-child(1) .photo{background-position-x:0%}
-.card:nth-child(2) .photo{background-position-x:12.5%}
-.card:nth-child(3) .photo{background-position-x:25%}
-.card:nth-child(4) .photo{background-position-x:37.5%}
-.card:nth-child(5) .photo{background-position-x:50%}
-.card:nth-child(6) .photo{background-position-x:62.5%}
-.card:nth-child(7) .photo{background-position-x:75%}
-.card:nth-child(8) .photo{background-position-x:87.5%}
-.card:nth-child(9) .photo{background-position-x:100%}
-@media(max-width:680px){.photo{height:53px}}
-@media(max-width:420px){.photo{height:49px}}
-
-/* Preserve the original screenshot sprite's natural aspect ratio. An SVG used
-   as a CSS background otherwise introduces horizontal pillarboxing when forced
-   to 900% x 100%, causing adjacent item cutouts to overlap. */
-.photo{background-size:900% auto;background-position-y:center;height:89px}
-@media(max-width:680px){.photo{height:53px}}
-@media(max-width:420px){.photo{height:48px}}

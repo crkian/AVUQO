@@ -1,4 +1,10 @@
 
+## Unreleased · Homepage screenshot corrections
+- Correct blank department image tiles caused by an absent sprite asset: use editorial category photography rather than licensed merchant products.
+- Remove duplicate seasonal homepage banner while keeping the automatic UK-date Black Friday/Christmas/Easter main hero.
+- Adjust hero headline scale, content alignment and responsive layout; keep existing evidence-first panel and CTAs.
+- Remove private storefront CTA from the public homepage composition; owner-only navigation/control-centre access remains.
+
 ## 13 November 2026 · Production screenshot QA mechanism deployed
 - PR #138 merged with production READY commit `08459b492fa8c9497b94cee933d9fa08dec0f01c`, alias `www.avuqo.com`.
 - Public desktop/mobile screenshot audit for 28 production routes enabled via GitHub Actions; no customer code, data or permissions modified.

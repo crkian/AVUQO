@@ -48,7 +48,7 @@ test("real homepage and Control Centre are wired to schedule without publishing 
  assert.match(home,/const season=editorialSpotlight\(new Date\(\)\)/);
  assert.match(home,/season\?\.image/);
  assert.match(home,/season\?\.href/);
- assert.match(home,/<HomeSeasonalSpotlight spotlight=\{season\}/);
+ assert.doesNotMatch(home,/<HomeSeasonalSpotlight/); // Main seasonal hero owns the single campaign lead.
  assert.match(calendar,/annualSeasonalWindows\(y\)/);
  assert.match(calendar,/UK editorial schedule/);
  assert.match(file("app/control-centre/layout.tsx"),/requireControlCentreAccess/);

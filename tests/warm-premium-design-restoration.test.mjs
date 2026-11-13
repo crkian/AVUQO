@@ -42,7 +42,7 @@ test("Christmas gift finder and published-offer gates survive seasonal visual re
  assert.match(christmas,/<PublishedChristmasCrafts\s*\/>/);
  const page=read("app/page.tsx");
  assert.match(page,/const season=editorialSpotlight\(new Date\(\)\)/);
- assert.match(page,/<HomeSeasonalSpotlight spotlight=\{season\}/);
+ assert.doesNotMatch(page,/<HomeSeasonalSpotlight/); // Main seasonal hero owns the single campaign lead.
  assert.match(page,/season\?\.image/);
 });
 test("owner seasonal operations are protected and are not a source activation worker",()=>{
