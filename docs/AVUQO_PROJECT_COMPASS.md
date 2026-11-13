@@ -1,3 +1,7 @@
+## Marketing homepage source-claim gate · 13 November 2026 (candidate)
+
+`fix/marketing-home-campaign-live-evidence-20261113` adds current private evidence checks to approved public homepage editorial placements and paused-campaign resume. Public column-limited RLS remains intact, evergreen fallback remains on stale/missing claims, owner Control Centre gets accurate withheld status. Marketing publishing/AI remain OFF with emergency stop ON and no campaigns/facts were present during live DB read. Release gating and tests: `docs/MARKETING_HOME_CURRENT_EVIDENCE_RELEASE_2026-11-13.md`. No supplier/feed/publication changes and not yet production verified.
+
 ## Seasonal artwork verified · 13 November 2026
 
 PR #169 is READY on the production domain at `3caf3f6f8800addca8436edf9d0979566e02ef45` (`dpl_5SwnUJNdTUQDBcZRtUFUsqaJauM6`). Christmas, Easter, Valentine’s and Sales now use dedicated, unbranded local WebP artwork, shared with their existing homepage themes. Signed-out production browser checks confirmed the expected hero and no horizontal overflow on all four pages at 1348 and 449 CSS pixels. Build, lint, secrets and date-rotation checks passed. Christmas gift planning and evidence gates remain intact.
