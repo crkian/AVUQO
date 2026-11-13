@@ -7,7 +7,7 @@ test("owner-only retailer page shows merchant restrictions without new approval 
  assert.ok(page.indexOf("await requireControlCentreAccess()")>=0);
  assert.ok(page.indexOf("await requireControlCentreAccess()")<page.indexOf("createAdminClient()"));
  for(const s of ["Cadbury Gifts Direct · 736","Petlibro UK · 77952","Sale-category","Branded PPC","Channel Islands and Gibraltar","commission figures conflicted","Public feed/images: not approved by this evidence","/control-centre/source-readiness"])assert.ok(page.includes(s),s);
- assert.doesNotMatch(page,/\\.update\\(\\{.*feed_permission_confirmed/);
+ assert.ok(!page.includes(".update({feed_permission_confirmed"),"The owner page must not grant feed rights");
 });
 test("terms review preserves provenance, unverified image/feed rights and commercial gate",()=>{
  const doc=load("docs/AWIN_CADBURY_PETLIBRO_TERMS_REVIEW_2026-11-04.md");
