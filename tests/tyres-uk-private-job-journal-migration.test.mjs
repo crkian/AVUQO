@@ -3,7 +3,7 @@ import test from "node:test";
 import {readFileSync} from "node:fs";
 
 const read=p=>readFileSync(new URL("../"+p,import.meta.url),"utf8");
-const sql=read("supabase/migrations/20261113210500_tyres_uk_private_job_journal_only.sql");
+const sql=read("supabase/migrations/20261113210500_tyres_uk_private_job_journal_only.sql")\n .split("\\n").filter(line=>!line.trim().startsWith("--")).join("\\n");
 
 test("snapshot job migration is additive, empty, default blocked and never trusts old 93988 feed",()=>{
  assert.match(sql,/create table public\.awin_tyres_spec_enrichment_jobs \(/);
