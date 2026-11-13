@@ -40,6 +40,7 @@ try{
  for(const [device,viewport] of Object.entries(VIEWPORTS)){
   const page=await browser.newPage();
   await page.setViewport(viewport);
+  await page.setCacheEnabled(false);
   await page.setDefaultNavigationTimeout(40000);
   await page.setExtraHTTPHeaders({"DNT":"1"});
   for(const path of PUBLIC_ROUTES){
@@ -82,7 +83,7 @@ try{
   await page.close();
  }
 }finally{await browser.close();}
-const issues=results.filter(r=>r.status!==200||!r.h1||r.overflowPx>8||r.brokenImages>0||r.renderError);
+const issues=results.filter(r=>(r.status!==200&&r.status!==304)||!r.h1||r.overflowPx>8||r.brokenImages>0||r.renderError);
 const deploymentIds=[...new Set(results.map(r=>r.deployment).filter(Boolean))];
 const report=[
  "# AVUQO production visual audit",

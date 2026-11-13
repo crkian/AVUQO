@@ -8,6 +8,10 @@ test("production audit covers actual public shopping, seasonal, tyre and account
    assert.ok(js.includes('"' +p+'"'),"Missing route "+p);
  assert.match(js,/width:1440,height:900/);
  assert.match(js,/width:390,height:844/);
+ assert.match(js,/width:768,height:1024/);
+ assert.match(js,/width:360,height:800/);
+ assert.match(js,/setCacheEnabled\(false\)/);
+ assert.match(js,/r.status!==200&&r.status!==304/);
  assert.match(js,/overflowPx/);
  assert.match(js,/brokenImages/);
  assert.match(js,/report\.json/);

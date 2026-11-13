@@ -1,3 +1,11 @@
+## Verified Saved, Watches and Lists release · 13 November 2026
+
+PR #164 is READY on the custom domain at `41932649077862ce8ce1d226bcd957dba3616612`, deployment `dpl_8tTvq2WhzbvkDYiEMre98iV7fqv1`. GitHub quality and secret checks passed. Saved, Watches and Lists recognise live-offer IDs and preserve historical demonstration links. No database migration or customer-data rewrite was used. Superseded PR #21 closed after its fix and historical delivery plan reached main.
+
+Public screenshot audit run [43508505598](https://github.com/crkian/AVUQO/actions/runs/43508505598) captured 31 public routes at 1440, 768, 390 and 360 pixels. The 66 flags were cached HTTP 304 responses; the run reported no document overflow, broken image elements, browser render errors or other failing statuses. The follow-up bypasses the browser cache and accepts valid revalidation responses with rendered content. Direct production browser check at 337 CSS pixels confirmed visible search, successful submission, no document overflow and menu dismissal with Escape. The test was signed out. Actual product and merchant images, offers and automated alert delivery remain gated.
+
+Next production work: replace generic seasonal/category photography with approved editorial assets and refine category/product/account composition. Keep #83 as design source, #93 for remaining selective design work, #25 for taxonomy review, and #117/#158 for controlled private tyre validation. No new marketing campaign, social posting, supplier auto-import or feed publication approval was applied. Existing Pneus schedule remains 08:41 UTC daily.
+
 ## Mobile search release verified · 13 November 2026
 
 PR #163 is READY on the custom domain at `9093cbc9d9f4b814beea5cb82b432896879a4e98`, deployment `dpl_CSmkg3D9G2BZht1MzRj6wFgpHDnQ`. GitHub quality and secret checks passed. Existing production screenshot audit run 43508505598 now covers four widths. Superseded PRs #48 and #85 closed after their unique evidence and requirements reached main.
