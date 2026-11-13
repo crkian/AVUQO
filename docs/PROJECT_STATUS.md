@@ -1,3 +1,7 @@
+# CANDIDATE · TOOLED-UP READ-ONLY GBP PROGRAMME CURRENCY PROOF, 13 NOV 2026
+
+Selectively port old PR #102 to current main. Awin Publisher API `GET /publishers/{publisherId}/programmes?relationship=joined` includes `currencyCode`. Protected manual API endpoint tests numeric ID 496 and GBP, with server-only secrets, historic joined membership plus paused and sync-disabled source. No database writes, no feed/import/publication approval. Historical feed 496:89987 **must not be treated as currently available**; active feed ID and product prices require separate evidence, as do image publication rights. CI, production READY and old PR disposition pending. Details `docs/tooled-up-awin-programme-currency.md`.
+
 # VERIFIED CADBURY/PETLIBRO AWIN TERMS RELEASE · 13 NOVEMBER 2026
 
 PR #149 merged and verified production READY SHA `b6b6a93f7da3837f02d004cade0ec1fee52715a8`, Vercel `dpl_2L3ihuCwwJX5UYBGrL5naFBxDemm`, `www.avuqo.com` alias. Historic PR #51 CLOSED as superseded. Existing owner-only retailer onboarding now describes previously reviewed programme restrictions and links to source-rights evidence review. Cadbury sales commission exclusions and brand PPC; Petlibro territory, PPC/CSS and conflicting rates. Original emails/PDFs **not re-examined** for this release; merchant image/feed republication rights are NOT verified, no source status/approval flag changed, no public offers. Next #102 Tooled Up GBP proof.

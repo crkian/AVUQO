@@ -10,6 +10,10 @@ PR #136 **deployed to production**, feature SHA `da22e97c6fdad31d23e6c972e0a3923
 
 PR #149 is production READY on `www.avuqo.com`, app SHA `b6b6a93f7da3837f02d004cade0ec1fee52715a8` / Vercel `dpl_2L3ihuCwwJX5UYBGrL5naFBxDemm`. Old PR #51 CLOSED as superseded. Historic terms summary from 4 Nov owner-supplied emails/PDFs added to current main; private Retailers page shows Cadbury and Petlibro restrictions, an evidence checklist and **explicit no-permission status**. Original underlying documents were not freshly reopened, no approval/offer/media rights toggles, feed activation or customer catalogue changes. Next audit old PR #102 Tooled-Up GBP evidence.
 
+## Tooled-Up Awin programme currency evidence candidate · 13 November 2026
+
+Historical PR #102's narrow GBP check was ported onto fresh `main` branch `feature/tooled-up-readonly-gbp-verification-current-main-20261113`, with modern fail-closed protections. It reads joined advertiser ID 496 `currencyCode` using server-side Awin Publisher API; only exact unique GBP gives positive **programme currency evidence**. Old feed 496:89987 is historical/deleted and not authorised for current price ingestion by this check. Internal endpoint requires existing long `CRON_SECRET`, paused sync-off Awin source and historic joined membership, performs no writes and never auto-authorises public offers or imagery. No live credential test or actual Awin response claimed. Reference `docs/tooled-up-awin-programme-currency.md`; production merge and Vercel readiness are separate gates.
+
 
 ## Cadbury/Petlibro Awin restrictions candidate · 13 November 2026
 
