@@ -188,3 +188,7 @@ Tyres UK (Awin 12715/feed 93988): 31,372 staged records (28,990 review), dimensi
 Append date, branch/PR, preview checks, migration (if any), production commit/deployment, safety gates, verified features, unresolved blockers and next smallest deliverable. Mark differences between design reference, implemented branch, deployed page and real operational data. **Never say an entire system is finished simply because some pages render.**
 
 **For the owner on a new chat:** say *“Read `AGENTS.md` and `docs/AVUQO_PROJECT_COMPASS.md` in the current AVUQO GitHub repo, then continue the next verified milestone without redesigning the warm-premium look.”* This works as a durable repository handover, not as a guarantee of cross-chat assistant memory.
+
+
+### 13 November 2026: dormant Tyres UK journal shipped, lease review in draft
+PR #157 production READY app SHA `f57ba2452f5fa4dd6d75ccb2bd3be681353458a8` (Vercel `dpl_HJcyAeNgHBKyStJ8m7wbkNGabNuc`). Connected Supabase has service-only, empty, blocked-by-default Tyres UK job table; Awin paused/sync off. The applied migration's Supabase version `20261113202720` differs from repository filename version `20261113210500`; reconcile before local schema replay. Separate draft `feature/tyres-uk-private-lease-primitives-review-20261113` implements only claim/renew candidates and tests, not a running worker, queue, scheduler or supplier access. Keep PR #117 open, current source rights unapproved and Pneus cron unchanged. Detailed acceptance in `docs/TYRES_UK_LEASE_ONLY_REVIEW_2026-11-13.md`.
