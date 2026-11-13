@@ -12,6 +12,10 @@ PR #149 is production READY on `www.avuqo.com`, app SHA `b6b6a93f7da3837f02d004c
 
 Historical PR #117's automatic private snapshot worker is NOT safe to merge wholesale without its SQL migration, storage/lease audit and correct merged Vercel cron. As checked on 13 Nov, live Supabase has **no `awin_tyres_spec_enrichment_jobs` table**, and Awin is **paused/sync off**. The current selective code change ports only pure `checkedTyreHeader`, `rowDictionary` and `currentTyreCandidate` checks from the old branch. It never returns historical or current prices as offers, never marks load/speed or fitment verified, and does not schedule any task. The real private Control Centre explains worker-disabled status. Legacy PR #117 remains **open** pending explicit safety/migration/runtime acceptance. Do not enable `AWIN_TYRE_AUTO_ENRICH_ENABLED` or overwrite the existing Pneus schedule.
 
+## VERIFIED Tyres UK safe candidate-only release · 13 Nov 2026
+
+PR #153 deployed app SHA `7c8619352d5458a1c1ce69c3dc5f4960a813a3d2` READY at `www.avuqo.com`, Vercel `dpl_G5W4w3GCFbjnqnAikP8UJSKWVBCK`. It selectively ports source-header, row-matching, identity/GBP-validation and corroborated technical candidate logic from stale PR #117, omitting any price from returned candidates and not claiming verified load, speed, tyre fitment or publication. Control Centre tells owner automatic worker NOT ENABLED. No SQL migration, auto-enrich API route, cron, environment flag or source activation implemented; database lacks old job table. PR #117 stays open pending rigorous migration/storage/atomic-lease review and current Awin feed proof. Existing Pneus cron and private original-file manual recovery preserved.
+
 
 ## Verified Tooled-Up programme-only currency inspection release · 13 Nov 2026
 

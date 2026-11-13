@@ -1,3 +1,9 @@
+## 13 November 2026 · Tyres UK private candidate validator deployed
+
+- PR #153 merged and Vercel production READY SHA `7c8619352d5458a1c1ce69c3dc5f4960a813a3d2`, domain `www.avuqo.com`.
+- Strict source schema and description-matched technical candidate extraction, returning no price or publication approval; owner tyre Control Centre states automatic worker not enabled.
+- Full old PR #117 migration/worker remains unmerged/disabled; Awin source paused, no cron added, existing Pneus schedule unchanged. No new public products or feed/photo rights.
+
 ## Unreleased · Private Tyres UK current-snapshot candidate validation
 
 - Selectively port the safe, pure current-feed schema and description-cross-checked technical candidate logic from old PR #117 to current main; candidate output excludes prices and all fitment/publication approvals.
