@@ -1,3 +1,10 @@
+## 13 November 2026 · Awin numbered private CSV importing deployed
+
+- PR #147 merged with Vercel READY app SHA `ba25af858c203df11713c4496276b2d38d4caa22` on `www.avuqo.com`. Historical PR #58 closed as superseded.
+- Handle Chrome/Windows duplicate-numbered Craft Buddy Google-format Awin CSV names for parser selection without guessing advertiser identity from filename.
+- Show distinct errors for invalid `.csv`/`.csv.gz` extension, upload over 8 MB, empty file.
+- Retain owner/admin and verified joined-advertiser selection, row-by-row merchant identity, private-only import and unverified publication status; no feed imported or products published.
+
 ## Unreleased · Awin numbered CSV owner-upload safety and clarity
 
 - Support Chrome/Windows ` (1)`, ` (2)`, ` (10)` duplicate suffixes for correctly selecting the Craft Buddy Google-format Awin parser; general extension acceptance already covered numbered Cadbury/Petlibro filenames.
