@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_2L3ihuCwwJX5UYBGrL5naFBxDemm",
-    "verified_ready_sha": "b6b6a93f7da3837f02d004cade0ec1fee52715a8",
+    "deployment_id": "dpl_HU1PbTyE3oRrCYujGSPZZRFUPNHZ",
+    "verified_ready_sha": "36b2840a159db2d274c38837dcdef9dc02333aac",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #149 historical Awin Cadbury/Petlibro terms and owner-only restriction display production READY on www.avuqo.com, 2026-11-13; newer docs-only deploy may advance SHA, recheck Vercel.",
+    "verification": "Tooled-Up read-only programme currency inspection PR #151 merged, Vercel production READY on www.avuqo.com on 2026-11-13. Later docs-only deploys can advance HEAD; always recheck.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -153,6 +153,10 @@
     {
       "pr": 149,
       "scope": "Cadbury/Petlibro Awin historical terms and owner-only permissions guide, no source activation; old PR #51 closed"
+    },
+    {
+      "pr": 151,
+      "scope": "Tooled-Up programme-only currency check; old PR #102 closed, no current feed permission or product approval"
     }
   ],
   "closed_unmerged_recent": [
@@ -168,7 +172,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Finish PR #102 currency-inspection port CI and deployment, close obsolete #102 after verification; separately confirm current Tooled-Up Awin feed IDs and commercial image/price permissions before private staging or public publishing."
+      "task": "Verify current Tooled-Up joined programme currency using owner-only secret-protected diagnostics; independently discover replacement current Awin feed identifiers (old 89987 unverified), then validate fresh GBP prices and written feed/image usage rights before any private staging or publication. Triage PR #117 private tyre worker next if merchant evidence cannot proceed."
     },
     {
       "priority": 2,
@@ -306,7 +310,6 @@
       83,
       85,
       93,
-      102,
       117
     ]
   },
@@ -339,14 +342,16 @@
     "source_rights_approved": false,
     "public_images_offers_enabled": false
   },
-  "current_candidate": {
-    "branch": "feature/tooled-up-readonly-gbp-verification-current-main-20261113",
-    "legacy_pr": 102,
-    "status": "candidate_pending_ci_and_production",
-    "scope": "Tooled-Up advertiser 496 read-only joined programme currencyCode GET, protected internal endpoint, no database writes",
-    "historical_feed_89987": "unverified/stale; do not assume available or licensed",
-    "programme_currency_live_result": "not checked against live Awin account",
-    "feed_publication_image_rights": "not verified; fail closed",
-    "documentation": "docs/tooled-up-awin-programme-currency.md"
+  "last_tooled_up_currency_release": {
+    "pr": 151,
+    "release_sha": "36b2840a159db2d274c38837dcdef9dc02333aac",
+    "deployment_id": "dpl_HU1PbTyE3oRrCYujGSPZZRFUPNHZ",
+    "production_ready": true,
+    "superseded_closed_pr": 102,
+    "scope": "Secure read-only Awin joined advertiser ID 496 currencyCode inspection, no database writes, source remains paused",
+    "actual_merchant_currency_checked": false,
+    "current_feed_id_verified": false,
+    "old_feed_89987_current_status": "obsolete/historical; not validated",
+    "public_image_price_offer_rights_verified": false
   }
 }
