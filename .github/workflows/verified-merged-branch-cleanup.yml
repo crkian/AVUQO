@@ -1,0 +1,79 @@
+name: AVUQO verified merged-branch cleanup
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/verified-merged-branch-cleanup.yml
+  workflow_dispatch:
+    inputs:
+      execute:
+        description: "Delete eligible verified merged branches (false is dry run)"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: read
+
+concurrency:
+  group: avuqo-verified-merged-branch-cleanup
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Prune only PR #127-142 branch heads that exactly match their merged PR
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            // Curated only. Do not touch unmatched historical code, originals, private pilots or open PR branches.
+            const candidatePRs = Array.from({length: 16}, (_,i) => i + 127);
+            const execute = context.eventName === 'push' || String(context.payload.inputs?.execute) === 'true';
+            const opened = await github.paginate(github.rest.pulls.list, {owner, repo, state:'open', per_page:100});
+            let deleted = 0, eligible = 0;
+            const report = [];
+            for (const number of candidatePRs) {
+              const {data: pr} = await github.rest.pulls.get({owner,repo,pull_number:number});
+              const name = pr.head.ref;
+              let reason = '';
+              if (!pr.merged || pr.state !== 'closed' || pr.base.ref !== 'main') reason = 'PR not merged into main';
+              else if (pr.head.repo?.full_name !== `${owner}/${repo}`) reason = 'branch from other repository';
+              else if (!name || name === 'main' || name === 'master' || name.startsWith('design/warm-premium-visual-system') || name.startsWith('feature/warm-premium-experience')) reason = 'protected/historical reference';
+              else if (opened.some(other => other.head.ref === name && other.head.repo?.full_name === `${owner}/${repo}`)) reason = 'branch has open PR';
+              let sha;
+              if (!reason) {
+                try {
+                  const result=await github.rest.git.getRef({owner,repo,ref:`heads/${name}`});
+                  sha=result.data.object.sha;
+                } catch(err) {
+                  reason = err.status === 404 ? 'already deleted' : `ref lookup failed: ${err.status}`;
+                }
+              }
+              if (!reason && sha !== pr.head.sha) reason='branch moved since merge: protect extra commits';
+              if (!reason) {
+                const {data: info}=await github.rest.repos.getBranch({owner,repo,branch:name});
+                if(info.protected) reason = 'branch protected';
+              }
+              if (!reason) {
+                eligible++;
+                if (execute) {
+                  try {
+                    await github.rest.git.deleteRef({owner,repo,ref:`heads/${name}`});
+                    deleted++;
+                    reason='DELETED: exact merged PR head SHA verified';
+                  } catch(err) {reason=`not deleted: GitHub ${err.status} ${err.message}`;}
+                } else reason='ELIGIBLE: dry-run only';
+              }
+              report.push(`| #${number} | \`${name}\` | ${reason} |`);
+            }
+            await core.summary.addHeading('AVUQO merged branch cleanup')
+              .addRaw(`Mode: ${execute?'DELETE':'DRY RUN'}. Candidates: ${candidatePRs.length}, eligible: ${eligible}, deleted: ${deleted}.\n\n`)
+              .addRaw('| PR | Branch | Outcome |\n|---|---|---|\n'+report.join('\n')).write();
+            console.log(JSON.stringify({execute,eligible,deleted,report},null,2));
+            if(execute && deleted !== eligible)core.warning('Some eligible branches could not be deleted; see workflow summary.');
