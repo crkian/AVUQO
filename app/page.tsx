@@ -50,7 +50,7 @@ async function HomeContent() {
           <p className={styles.heroText}>{season?.summary??editorial.description}</p>
           <div className={styles.fullStorefrontActions}>
             <Link href={season?.href??"/marketplace/compare"} className={styles.fullStorefrontPrimary}>{season?.cta??"Start comparing"} <ArrowRight size={17}/></Link>
-            <Link href="/marketplace/compare" className={styles.fullStorefrontSecondary}>Compare products <ArrowRight size={17}/></Link>
+            <Link href={season ? "/marketplace/compare" : "/trust"} className={styles.fullStorefrontSecondary}>{season ? "Compare products" : "How AVUQO works"} <ArrowRight size={17}/></Link>
           </div>
         </div>
         <div className={styles.heroVisual}>
@@ -71,13 +71,8 @@ async function HomeContent() {
       </div>
     </section>
 
-    <section aria-label="Explore the complete AVUQO website" style={{background:"#fff",borderBottom:"1px solid #eee7df"}}>
-      <div className="shell" style={{display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:16,paddingTop:19,paddingBottom:19}}>
-        <p style={{margin:0,fontWeight:750,color:"#4b4059"}}>Want to see everything we&apos;re building?</p>
-        <Link href="/explore-avuqo" style={{display:"inline-flex",alignItems:"center",gap:8,color:"#6043a3",fontWeight:850}}>Explore the whole AVUQO website <ArrowRight size={17} aria-hidden="true"/></Link>
-      </div>
-    </section>
     <StorefrontQuickLinks/>
+    <HomeShoppingDashboard items={products}/>
     <div className={styles.reassurance}>
       <div className={`shell ${styles.reassuranceInner}`}>
         <span><ShieldCheck size={19}/> Independent thinking</span>
@@ -113,11 +108,13 @@ async function HomeContent() {
       </div>
     </section>
 
-    <HomeShoppingDashboard items={products}/>
     <CategoryJourneys slug="shopping"/>
     <HomeCampaignCarousel campaigns={campaigns}/>
     <LifestyleExplorer/>
     <ShoppingDepartmentShelf compact/>
+    <div className={`shell ${styles.tourLink}`}>
+      <Link href="/explore-avuqo" className={styles.softButton}>Explore the whole AVUQO website <ArrowRight size={17} aria-hidden="true"/></Link>
+    </div>
 
     <section className={`shell ${styles.storySection}`} aria-labelledby="why-avuqo">
       <div className={styles.storyHeading}>

@@ -1,3 +1,7 @@
+## Unreleased · Warm-premium storefront and mobile shortcuts
+
+- Restore the faceted gradient AVUQO mark in the shared header and footer, move categories and shopping tools directly below the homepage hero, and add Saved and Lists to the mobile dock. The full-site tour remains linked from the homepage.
+
 ## Unreleased · Dormant private Tyres UK snapshot-job schema foundation
 
 - Stage additive service-role-only, RLS-enabled `awin_tyres_spec_enrichment_jobs` journal with `blocked` default, explicitly provided feed ID, content-addressed source digest/path and no old-93988 auto approval.
