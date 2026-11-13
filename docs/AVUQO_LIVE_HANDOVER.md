@@ -1,3 +1,7 @@
+## VERIFIED AWIN HTTP ERROR SECURITY RELEASE · 13 November 2026
+
+Merged **PR #146** safely reimplements stale PR #50's provider HTTP error redaction on current main. Real production SHA `3f8574c9520b7cb2c57cc8279e14bae4e5c38334` Vercel READY with `www.avuqo.com` alias, deployment `dpl_Cue4UGzwMXxoLPdSahM9jru1Mfzh`. `lib/connectors/awin.ts` no longer reads/quotes failed Awin provider response bodies or `statusText`; it throws only a numeric HTTP status. CI regression tests and secret scanner passed. **Old PR #50 CLOSED, not merged** because its branch conflicted with current main. No Awin sources activated or offers/images published. Next: compare PR #58 numbered Awin CSV filename/owner import errors to current main, selectively port missing code, test and release, then close obsolete PR. The new handover-only commit may generate a later production SHA; always recheck Vercel.
+
 ## Awin response redaction correction · 13 Nov 2026 (candidate)
 
 PR #50 on a stale branch identified a genuine production error-leak: `lib/connectors/awin.ts` included up to 500 chars from unsuccessful Awin provider response in thrown exceptions. Candidate `fix/awin-http-error-redaction-current-main-20261113` ports the narrow fix to current main: error text is HTTP numeric status only; never read response body or untrusted status text. Preserves Awin endpoint, authorisation, parser, limits and all source-publication gates, no feed activation. Old PR #50 is unmergeable and should be closed *after* validated replacement deployment. See `tests/awin-http-error-redaction.test.mjs`.
