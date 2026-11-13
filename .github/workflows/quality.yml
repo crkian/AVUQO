@@ -40,6 +40,8 @@ jobs:
         run: node --experimental-strip-types --test tests/ebay-sandbox-awin-onboarding.test.mjs
       - name: Tyres UK dormant private job journal migration safety tests
         run: node --test tests/tyres-uk-private-job-journal-migration.test.mjs
+      - name: Tyres UK private lease-only SQL safety tests
+        run: node --test tests/tyres-uk-private-lease-primitives.test.mjs
       - name: Tyres UK private worker preflight no-write security tests
         run: node --test tests/tyres-uk-worker-preflight.test.mjs
       - name: Tyres UK current snapshot candidate-only validation tests
