@@ -2,6 +2,10 @@
 
 **Last reconciled: 13 November 2026, after v0.5.1 production verification.** Project: `crkian/AVUQO`, Supabase `tfoukwcruaamrtgxzshh`, Vercel `avuqo`, public site `https://www.avuqo.com`. This is an evolving operational handover, **not** an instruction to trust a stale commit or to assume production is healthy without checking.
 
+## Original full visual version FOUND · 13 November 2026
+
+The original rich AVUQO visual concept PNGs and `ASSET_MANIFEST.json` exist on `design/warm-premium-visual-system-20261105` under `docs/design/mockups/` (the PNGs were missing on `main` when checked). Original coded home exists on `feature/warm-premium-experience-v1-20261105`: `app/page.tsx`, `HomeShoppingDashboard`, `StorefrontQuickLinks` and complete styles. Restore these selectively to current production, never overwrite newer safety features by merging the historical branch wholesale. `docs/AVUQO_FULL_STOREFRONT_RECOVERY_2026-11-13.md` tracks what was brought forward and remaining graphical fidelity. Customer website must use real `/` and other public routes, not only `/preview/*`; no fictional product prices/scores may be transferred from mockup pixels.
+
 ## Next production direction · 13 November 2026
 
 The owner has explicitly chosen **one AVUQO catalogue for Compare + Discover Bargains**, and requires the warm-premium editorial look from the original mockups on **real production pages, not only preview routes**. The delivery source is `docs/AVUQO_LIVE_PRODUCTION_PARTNER_AND_DESIGN_BACKLOG_2026-11-13.md`, including actual reference design paths in `docs/design/`, a prioritised dropshipping/affiliate/holiday/golf-travel/insurance partner pipeline, image and data-rights gates, and real-domain production acceptance. Current mockups are design references and include fictional prices/score badges that must not be copied into public claims. External provider API offering does not mean AVUQO has access. eBay Production approval pending; Awin private-imported images/offers remain rights gated.
