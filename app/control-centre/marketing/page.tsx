@@ -76,6 +76,12 @@ export default async function MarketingPage({
   const jobs = (extended[2].data??[]) as Job[];
   const placementClock=new Date();
   const homePlacements=(extended[3].data??[]) as HomePlacement[];
+  const homeFactResult=tab==="homepage"&&homePlacements.length
+   ? await db.from("marketing_facts").select("id,brand_slug,status,expires_at")
+      .in("id",[...new Set(homePlacements.map(p=>p.fact_id))])
+   : {data:[],error:null};
+  const homeFactById=new Map((homeFactResult.data??[]).map(f=>[f.id,f]));
+
   const editorialRules=(extended[4].data??[]) as EditorialRule[];
   const brandRules=editorialRules.filter(r=>r.brand_slug===brand);
   const myAssets=assets.filter(a=>a.brand_slug===brand);
@@ -92,7 +98,7 @@ export default async function MarketingPage({
     } catch {return [asset.id,""] as const;}
   }));
   const previewById=new Map<string,string>(previewEntries);
-  const problem = results.find(result=>result.error)?.error || extended.find(result=>result.error)?.error;
+  const problem = results.find(result=>result.error)?.error || extended.find(result=>result.error)?.error || homeFactResult.error;
   const brands = (results[0].data??[]) as Brand[];
   const facts = (results[1].data??[]) as Fact[];
   const posts = (results[2].data??[]) as Post[];
@@ -174,7 +180,9 @@ export default async function MarketingPage({
       <section className={styles.panel}><h2>Review and rotate</h2>
         <div className={styles.list}>{homePlacements.length?homePlacements.map(p=>
           <article key={p.id} className={styles.item}>
-            <span className={styles.status}>{homePlacementState(p.status,p.starts_at,p.ends_at,placementClock)}</span>
+            <span className={styles.status}>{p.status==="approved"&&!currentAvuqoHomeFact(homeFactById.get(p.fact_id),placementClock)
+               ?"withheld · supporting fact is not current"
+               :homePlacementState(p.status,p.starts_at,p.ends_at,placementClock)}</span>
             {p.sponsored&&<span className={styles.pill}>Sponsored · Advertisement</span>}
             <h3>{p.title}</h3><p>{p.summary}</p>
             <p className={styles.meta}>{p.href} · Priority {p.priority} · UTC {p.starts_at.slice(0,16)} to {p.ends_at.slice(0,16)}</p>
@@ -187,7 +195,7 @@ export default async function MarketingPage({
                 <input type="hidden" name="placement_id" value={p.id}/><input type="hidden" name="decision" value="pause"/>
                 <button type="submit">Pause this campaign</button>
               </form>}
-              {p.status==="paused"&&Date.parse(p.ends_at)>placementClock.getTime()&&<form action={reviewHomePlacement}>
+              {p.status==="paused"&&Date.parse(p.ends_at)>placementClock.getTime()&&currentAvuqoHomeFact(homeFactById.get(p.fact_id),placementClock)&&<form action={reviewHomePlacement}>
                 <input type="hidden" name="placement_id" value={p.id}/><input type="hidden" name="decision" value="resume"/>
                 <button type="submit">Resume this campaign</button>
               </form>}
