@@ -27,6 +27,27 @@ export function validPublicCampaign(value:Record<string,unknown>):HomeCampaign|n
  return {id:String(value.id),title:value.title,summary:value.summary,
   ctaLabel:value.cta_label,href:value.href,sponsored:value.sponsored};
 }
+/**
+ * Match public-only placement fields against private placement-to-fact links.
+ * Never return facts, private ids, or an unapproved/expired claim to a visitor.
+ */
+export function homeCampaignsWithCurrentFacts(
+ publicRows:Record<string,unknown>[],
+ privateLinks:{id:string;fact_id:string}[],
+ privateFacts:HomeFactEvidence[],
+ now:Date
+):HomeCampaign[] {
+ const factById=new Map(privateFacts.map(f=>[f.id,f]));
+ const linkedFactByPlacement=new Map(privateLinks.map(link=>[link.id,link.fact_id]));
+ return publicRows.flatMap(row=>{
+  if(typeof row.id!=="string")return [];
+  const factId=linkedFactByPlacement.get(row.id);
+  if(!factId||!currentAvuqoHomeFact(factById.get(factId),now))return [];
+  const campaign=validPublicCampaign(row);
+  return campaign?[campaign]:[];
+ });
+}
+
 export const EDITORIAL_ROTATION:HomeCampaign[]=[
  DEFAULT_CAMPAIGN,
  {id:"groceries",title:"Make the weekly shop clearer.",
