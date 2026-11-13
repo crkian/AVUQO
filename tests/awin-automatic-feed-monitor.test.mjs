@@ -32,3 +32,12 @@ test("cron schedule is once per day and monitor has a private viewer",()=>{
  assert.match(view,/robots:\{index:false,follow:false\}/);
  assert.match(view,/No automatic feed checks have been recorded/);
 });
+
+test("empty Awin inventories never record a successful check and POST needs an explicit import mode",()=>{
+ const monitor=readFileSync("app/api/internal/awin-feed-check/route.ts","utf8");
+ assert.ok(monitor.indexOf("report.rowsInspected===0||report.feeds.length===0")>0);
+ assert.ok(monitor.indexOf("report.feeds.length===0")<monitor.indexOf('admin.rpc("record_awin_feed_discovery"'));
+ const importer=readFileSync("app/api/internal/awin-auto-import/route.ts","utf8");
+ assert.ok(importer.indexOf('request.method==="POST"&&!preflight&&!manualStage')>0);
+ assert.ok(importer.indexOf('request.method==="POST"&&!preflight&&!manualStage')<importer.indexOf("await getInventory"));
+});

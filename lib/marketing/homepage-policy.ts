@@ -25,3 +25,11 @@ export const EDITORIAL_ROTATION:HomeCampaign[]=[
   summary:"Explore the true costs of broadband, mobile and other everyday contracts using your figures.",
   ctaLabel:"Compare contracts",href:"/compare",sponsored:false}
 ];
+
+export function homePlacementState(status:string, startsAt:string, endsAt:string, now:Date):string {
+ if(status!=="approved")return status;
+ const starts=Date.parse(startsAt),ends=Date.parse(endsAt);
+ if(!Number.isFinite(starts)||!Number.isFinite(ends)||ends<=starts)return "invalid dates";
+ if(now.getTime()>=ends)return "ended";
+ return now.getTime()<starts ? "scheduled" : "live";
+}

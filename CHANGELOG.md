@@ -1,3 +1,8 @@
+## Unreleased · Campaign timing and Awin monitoring
+
+- Fix anonymous homepage campaign ordering under the existing column grants, show scheduled/live/ended placements in the Control Centre, and link the UK seasonal calendar.
+- Reject empty Awin inventories, require an explicit mode on manual import requests, and show full refresh counts, last-seen dates and stale-check status in the private monitor.
+
 ## Unreleased · Warm-premium storefront and mobile shortcuts
 
 - Restore the faceted gradient AVUQO mark in the shared header and footer, move categories and shopping tools directly below the homepage hero, and add Saved and Lists to the mobile dock. The full-site tour remains linked from the homepage.

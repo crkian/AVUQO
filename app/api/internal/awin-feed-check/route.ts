@@ -79,6 +79,10 @@ export async function GET(request:NextRequest){
    try{report=inspectAwinFeedList(csv,joined);}
    catch{lastFailure="invalid_inventory";continue;}
    if(report.invalidRows>0)return send({error:"Awin feed inventory contains malformed entries"},422);
+   if(report.rowsInspected===0||report.feeds.length===0){
+    lastFailure="invalid_inventory";
+    continue;
+   }
    const {data,error}=await admin.rpc("record_awin_feed_discovery",{
     p_feeds:report.feeds,p_active:report.activeRows
    });

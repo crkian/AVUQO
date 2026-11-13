@@ -1,3 +1,7 @@
+## Campaign scheduling and private Awin monitor candidate · 13 November 2026
+
+Homepage editorial placement delivery uses publicly readable sort fields. The existing owner review stays in place. The Awin monitor distinguishes an empty response from a successful check, and the importer requires explicit preflight or approved staging mode for POST. No change to schedules, switches, source rights or data.
+
 ## Warm-premium storefront candidate · 13 November 2026
 
 Shared brand mark recovered from design PR #93. Homepage department links and shopping dashboard now lead the content after the date-aware hero, and the mobile dock includes Saved and Lists. Existing public-offer admission and provider schedules are outside this release.
