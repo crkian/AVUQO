@@ -1,6 +1,6 @@
 import {createClient} from "../supabase/server";
 import {createAdminClient} from "../supabase/admin";
-import {EDITORIAL_ROTATION,validPublicCampaign,currentAvuqoHomeFact,type HomeCampaign} from "./homepage-policy";
+import {EDITORIAL_ROTATION,homeCampaignsWithCurrentFacts,type HomeCampaign} from "./homepage-policy";
 export {EDITORIAL_ROTATION,DEFAULT_CAMPAIGN,validPublicCampaign} from "./homepage-policy";
 export type {HomeCampaign} from "./homepage-policy";
 
@@ -36,13 +36,7 @@ export async function loadHomeCampaigns():Promise<HomeCampaign[]> {
    .select("id,brand_slug,status,expires_at")
    .in("id",factIds).eq("brand_slug","avuqo").eq("status","approved");
   if(factError||!facts)return EDITORIAL_ROTATION;
-  const factById=new Map(facts.map(f=>[f.id,f]));
-  const linkedFactByPlacement=new Map(links.map(link=>[link.id,link.fact_id]));
-  const clock=new Date(now);
-  const accepted=data.filter(row=>{
-   const factId=linkedFactByPlacement.get(row.id);
-   return !!factId&&currentAvuqoHomeFact(factById.get(factId),clock);
-  }).map(r=>validPublicCampaign(r)).filter((r):r is HomeCampaign=>!!r);
+  const accepted=homeCampaignsWithCurrentFacts(data,links,facts,new Date(now));
   return accepted.length?accepted:EDITORIAL_ROTATION;
  }catch{return EDITORIAL_ROTATION}
 }
