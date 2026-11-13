@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="900" viewBox="0 0 1500 900" role="img" aria-labelledby="title description">
+<title id="title">AVUQO individual product and My AVUQO profile layouts</title>
+<desc id="description">Editable two-panel SVG layout reference using warm cream, AVUQO violet and honest no-verified-offers and empty account states.</desc>
+<defs>
+<linearGradient id="bg" x2="1" y2="1"><stop stop-color="#FAF8F3"/><stop offset="1" stop-color="#F4EBF1"/></linearGradient>
+<linearGradient id="purple" x2="1" y2="1"><stop stop-color="#5B35F5"/><stop offset="1" stop-color="#3A20BD"/></linearGradient>
+<linearGradient id="pale" x2="0" y2="1"><stop stop-color="#F6EDE6"/><stop offset="1" stop-color="#F9F4ED"/></linearGradient>
+<filter id="sh"><feDropShadow dx="0" dy="7" stdDeviation="8" flood-color="#302639" flood-opacity=".1"/></filter>
+</defs>
+<rect width="1500" height="900" fill="url(#bg)"/>
+<text x="49" y="55" fill="#17142B" font-family="Georgia,serif" font-size="34" font-weight="700">Product confidence + personal shopping, with warmth.</text>
+<text x="50" y="84" fill="#716D80" font-family="Arial,sans-serif" font-size="16">Two core page blueprints • design-only • empty and uncertain data shown honestly</text>
+<rect x="45" y="117" width="902" height="723" rx="27" fill="#fff" stroke="#E9E0DC" filter="url(#sh)"/>
+<rect x="970" y="117" width="486" height="723" rx="27" fill="#fff" stroke="#E9E0DC" filter="url(#sh)"/>
+<text x="73" y="165" fill="#17142B" font-family="Georgia,serif" font-size="25" font-weight="700">AVUQO</text>
+<text x="227" y="163" fill="#716D80" font-family="Arial,sans-serif" font-size="15">Discover    Deals &amp; Sales    Compare    Groceries    Categories</text>
+<path d="M70 184H920" stroke="#E9E0DC"/>
+<text x="72" y="216" fill="#716D80" font-family="Arial,sans-serif" font-size="13">Home › Products › Example exact variant</text>
+<text x="72" y="257" fill="#17142B" font-family="Georgia,serif" font-weight="700" font-size="34">Individual product page</text>
+<text x="73" y="284" fill="#716D80" font-family="Arial,sans-serif" font-size="15">Compare the same model, condition and variant. The facts before the purchase.</text>
+<rect x="72" y="305" width="368" height="298" rx="21" fill="url(#pale)" stroke="#E9E0DC"/>
+<ellipse cx="257" cy="559" rx="105" ry="18" fill="#E3D7D0"/>
+<path d="M188 476V415a68 68 0 0 1 136 0v61" fill="none" stroke="#392E40" stroke-width="24" stroke-linecap="round"/>
+<rect x="170" y="462" width="47" height="84" rx="20" fill="#372D3D"/><rect x="298" y="462" width="47" height="84" rx="20" fill="#372D3D"/>
+<rect x="179" y="473" width="23" height="61" rx="11" fill="#5E5268"/><rect x="314" y="473" width="23" height="61" rx="11" fill="#5E5268"/>
+<text x="96" y="330" fill="#716D80" font-family="Arial,sans-serif" font-size="13">Product photo • rights-checked before use</text>
+<text x="468" y="352" fill="#17142B" font-family="Georgia,serif" font-size="31" font-weight="700">Exact product title</text>
+<text x="470" y="382" fill="#716D80" font-family="Arial,sans-serif" font-size="15">Brand · Model · Variant · Condition</text>
+<rect x="467" y="401" width="194" height="35" rx="16" fill="#F2EDF9"/>
+<text x="481" y="425" fill="#5B35F5" font-family="Arial,sans-serif" font-size="15" font-weight="700">Score not yet available</text>
+<g fill="#17142B" font-family="Arial,sans-serif" font-size="16">
+<text x="475" y="479">✓ Confirm exact model details</text><text x="475" y="512">✓ See published specifications</text><text x="475" y="545">✓ Compare only eligible merchants</text>
+</g>
+<rect x="466" y="561" width="194" height="41" rx="20" fill="url(#purple)"/>
+<text x="498" y="589" fill="#fff" font-family="Arial,sans-serif" font-size="15" font-weight="700">Save to shortlist</text>
+<rect x="671" y="561" width="230" height="41" rx="20" fill="#fff" stroke="#A98BD9" stroke-width="2"/>
+<text x="712" y="589" fill="#5B35F5" font-family="Arial,sans-serif" font-size="15" font-weight="700">Explore Watches</text>
+<rect x="72" y="629" width="827" height="167" rx="21" fill="#FFFCF8" stroke="#E9E0DC"/>
+<text x="96" y="667" fill="#17142B" font-family="Georgia,serif" font-size="26" font-weight="700">Retailer comparison</text>
+<text x="97" y="699" fill="#716D80" font-family="Arial,sans-serif" font-size="17">No verified offers for this exact variant yet.</text>
+<text x="97" y="729" fill="#716D80" font-family="Arial,sans-serif" font-size="15">When evidence is available, show total payable price, source and last check.</text>
+<rect x="96" y="748" width="248" height="30" rx="14" fill="#F3EBFA"/><text x="111" y="770" fill="#5B35F5" font-family="Arial,sans-serif" font-weight="700" font-size="14">Specifications and alternatives</text>
+<text x="994" y="165" fill="#17142B" font-family="Georgia,serif" font-size="25" font-weight="700">AVUQO</text>
+<path d="M990 184H1436" stroke="#E9E0DC"/>
+<rect x="994" y="212" width="438" height="130" rx="21" fill="url(#pale)"/>
+<text x="1017" y="252" fill="#5B35F5" font-family="Arial,sans-serif" font-size="14" font-weight="700">MY AVUQO</text>
+<text x="1017" y="289" fill="#17142B" font-family="Georgia,serif" font-size="28" font-weight="700">Your shopping space</text>
+<text x="1018" y="316" fill="#716D80" font-family="Arial,sans-serif" font-size="14">Save, watch, plan and compare at your pace.</text>
+<text x="995" y="380" fill="#17142B" font-family="Georgia,serif" font-size="23" font-weight="700">Quick destinations</text>
+<g font-family="Arial,sans-serif" font-size="16">
+<rect x="995" y="402" width="211" height="110" rx="19" fill="#F9E8EF" stroke="#E9E0DC"/>
+<text x="1016" y="438" fill="#5B35F5" font-weight="700">♡ Saved items</text><text x="1016" y="465" fill="#716D80" font-size="14">Build a thoughtful</text><text x="1016" y="485" fill="#716D80" font-size="14">shortlist.</text>
+<rect x="1221" y="402" width="211" height="110" rx="19" fill="#E6F5F2" stroke="#E9E0DC"/>
+<text x="1241" y="438" fill="#5B35F5" font-weight="700">◌ Watches</text><text x="1241" y="465" fill="#716D80" font-size="14">Track what matters.</text><text x="1241" y="485" fill="#716D80" font-size="14">Alerts not assumed.</text>
+<rect x="995" y="528" width="211" height="110" rx="19" fill="#FFF0DC" stroke="#E9E0DC"/>
+<text x="1016" y="564" fill="#5B35F5" font-weight="700">☷ Shared Lists</text><text x="1016" y="591" fill="#716D80" font-size="14">Create a useful plan.</text><text x="1016" y="611" fill="#716D80" font-size="14">Collaborate when enabled.</text>
+<rect x="1221" y="528" width="211" height="110" rx="19" fill="#F2EDF9" stroke="#E9E0DC"/>
+<text x="1241" y="564" fill="#5B35F5" font-weight="700">⚙ Preferences</text><text x="1241" y="591" fill="#716D80" font-size="14">Your choices,</text><text x="1241" y="611" fill="#716D80" font-size="14">privacy and settings.</text>
+</g>
+<rect x="995" y="659" width="437" height="133" rx="20" fill="#FFFCF8" stroke="#E9E0DC"/>
+<text x="1017" y="698" fill="#17142B" font-family="Georgia,serif" font-weight="700" font-size="23">No activity yet?</text>
+<text x="1017" y="728" fill="#716D80" font-family="Arial,sans-serif" font-size="15">Your account should show real data, not fake</text>
+<text x="1017" y="751" fill="#716D80" font-family="Arial,sans-serif" font-size="15">counts or invented savings.</text>
+<text x="50" y="873" fill="#716D80" font-family="Arial,sans-serif" font-size="14">Design-only vector blueprint. AI-generated product/account collage PNGs are in the separate high-resolution design ZIP.</text>
+</svg>
