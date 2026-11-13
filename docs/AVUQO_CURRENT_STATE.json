@@ -152,7 +152,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Manual desktop/mobile screenshot visual audit of 28 verified HTTP routes against recovered AVUQO design boards, including dynamic Black Friday hero; correct any image crops or responsive problems. Authenticated personal/Control Centre flows require owner testing."
+      "task": "Run first GitHub Actions public desktop/mobile screenshot audit for 28 production routes and review PNG evidence against original design references, fixing only verified issues; do not claim pixel-complete before visual review."
     },
     {
       "priority": 2,
@@ -206,5 +206,13 @@
     "private_owner_calendar_route": "/control-centre/seasonal-calendar",
     "production_route_audit": "28 HTTP 200 routes with shared branding; no visual screenshot QA",
     "reference": "docs/AVUQO_AUTOMATIC_UK_SEASONAL_CALENDAR_AND_PAGE_AUDIT_2026-11-13.md"
+  },
+  "current_candidate": {
+    "branch": "feature/production-visual-audit-20261113",
+    "scope": "Production-only public visual audit, 28 routes x 1440×900 and 390×844 Chrome screenshots and layout diagnostics, recurring weekly via GitHub Actions",
+    "status": "candidate_not_yet_verified_on_production",
+    "release_document": "docs/AVUQO_PRODUCTION_SCREENSHOT_QA_2026-11-13.md",
+    "no_privacy_risk": "unauthenticated only; no /control-centre, /preview, credentials or supplier integration changes",
+    "visual_approval": "await screenshot artifact and actual image inspection"
   }
 }
