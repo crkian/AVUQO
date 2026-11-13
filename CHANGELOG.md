@@ -1,3 +1,8 @@
+## 13 November 2026 · Sitewide warm-premium design verified on production
+- PR #134 merged; Vercel application release `45da7456b66f6fa21d25753c39e497203f26c7ed` READY on `www.avuqo.com`, deployment `dpl_9fAgyrGS1Nz2Fh8Q7nyFjmVpEvG5`.
+- Shared branded A-lockup and tagline, navigation/mobile/footer, category, public product index/detail, seasonal and travel/lifestyle presentation updated on real routes. Existing public offer and image-rights checks remain unchanged.
+- Owner reference screenshot acceptance remains a distinct uncompleted check; no Awin/eBay/tyre live-price/source publication is asserted. The final exact Vercel SHA may change when this handover-only record deploys.
+
 
 ## Unreleased · Live website visual completion pass
 - Complete warm-premium AVUQO shared header, mobile navigation and footer brand lockup without altering auth, search or Control Centre access.

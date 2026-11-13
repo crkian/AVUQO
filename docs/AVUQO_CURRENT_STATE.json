@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_9AM8Hx9BPW2uHi9ZbswAQykbTaij",
-    "verified_ready_sha": "ab055f73acce9a478075c61aecb0b7b248d101d3",
+    "deployment_id": "dpl_9fAgyrGS1Nz2Fh8Q7nyFjmVpEvG5",
+    "verified_ready_sha": "45da7456b66f6fa21d25753c39e497203f26c7ed",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "Vercel deployment READY and alias confirmed on 2026-11-13",
+    "verification": "Vercel deployment READY and www.avuqo.com alias confirmed after design PR #134, 2026-11-13; a later handover-only deployment may have a newer SHA. Always check Vercel.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -129,6 +129,10 @@
     {
       "pr": 132,
       "scope": "photo-led homepage and shopping intelligence panel"
+    },
+    {
+      "pr": 134,
+      "scope": "Sitewide warm-premium customer-facing design pass: shared branding, nav, category/product/seasonal/travel visuals; approved images only"
     }
   ],
   "closed_unmerged_recent": [
@@ -144,7 +148,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Finish sitewide warm-premium design branch, verify CI and Vercel READY on www.avuqo.com, then manually compare real desktop and mobile screenshots to archived references."
+      "task": "Owner desktop/mobile screenshot acceptance against original warm-premium concept after PR #134 (feature production SHA 45da745); resolve any actual visual discrepancies and preserve current source/auth/tyre functions."
     },
     {
       "priority": 2,
@@ -179,12 +183,13 @@
     "backlog": "docs/AVUQO_LIVE_PRODUCTION_PARTNER_AND_DESIGN_BACKLOG_2026-11-13.md",
     "design": "docs/design/AVUQO_WARM_PREMIUM_VISUAL_IDENTITY_2026-11-05.md"
   },
-  "current_candidate": {
-    "branch": "feature/restore-header-branding-production-20261113",
-    "scope": "Shared production AVUQO brand lockup, nav, mobile dock, categories, image-rights-gated public product cards, product detail, seasonal and travel/lifestyle warm-premium visual system.",
-    "status": "candidate_not_yet_verified_on_production",
-    "acceptance": "PR CI, secret scan, merge, Vercel READY on exact SHA, owner screenshot review",
-    "scope_doc": "docs/AVUQO_PRODUCTION_VISUAL_COMPLETION_PASS_2026-11-13.md",
-    "warning": "Candidate does not activate Awin/eBay/tyre offers, grant image rights, or replace Control Centre/auth logic."
+  "last_completed_visual_pass": {
+    "pr": 134,
+    "app_release_commit": "45da7456b66f6fa21d25753c39e497203f26c7ed",
+    "production_verified_ready": true,
+    "scope": "Warm-premium shared header/logo/navigation/mobile/footer, categories, verified-image public catalogue, product detail, seasonal pages, travel/lifestyle customer pages",
+    "manual_screenshot_qa": "pending owner desktop/mobile review",
+    "gates": "No Awin/eBay/tyre permission, API or commercial-release change",
+    "scope_doc": "docs/AVUQO_PRODUCTION_VISUAL_COMPLETION_PASS_2026-11-13.md"
   }
 }

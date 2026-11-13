@@ -1,6 +1,10 @@
 # AVUQO PROJECT COMPASS · START HERE IN EVERY NEW CHAT
 
 **Last reconciled: 13 November 2026, after v0.5.1 production verification.** Project: `crkian/AVUQO`, Supabase `tfoukwcruaamrtgxzshh`, Vercel `avuqo`, public site `https://www.avuqo.com`. This is an evolving operational handover, **not** an instruction to trust a stale commit or to assume production is healthy without checking.
+## VERIFIED SHARED DESIGN RELEASE · 13 November 2026
+
+PR #134 has now **merged and deployed**. Production feature SHA `45da7456b66f6fa21d25753c39e497203f26c7ed` was observed READY on `www.avuqo.com` with Vercel deployment `dpl_9fAgyrGS1Nz2Fh8Q7nyFjmVpEvG5`. Shared AVUQO branding and responsive chrome, real categories, rights-gated public product images and product details, seasonal and lifestyle/travel visual treatment are part of the site. **Not a claim of full pixel-perfect screenshot matching or newly approved retail feeds.** Owner desktop/mobile screenshot review is still required, and any correction must use current `main` rather than wholesale merging old branches. See live handover and structured JSON for current state; subsequent docs-only production deployments can carry newer SHAs.
+
 
 ## Current production design completion candidate · 13 November 2026
 
