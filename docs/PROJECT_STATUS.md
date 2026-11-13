@@ -1,3 +1,7 @@
+# VERIFIED TOOLED-UP AWIN PROGRAMME CURRENCY CODE RELEASE · 13 NOVEMBER 2026
+
+Merged PR #151, Vercel production READY SHA `36b2840a159db2d274c38837dcdef9dc02333aac`, deployment `dpl_HU1PbTyE3oRrCYujGSPZZRFUPNHZ` on `www.avuqo.com`. Superseded old PR #102 CLOSED. Read-only, secret-protected current Awin joined-programme `currencyCode` inspection for advertiser 496, requires Awin paused/sync disabled, no writes and no image or product authorisation. Historic feed 496:89987 remains unverified/possibly retired. **No live owner API currency outcome or replacement feed ID confirmed.** Next owner evidence of GBP and new Tooled-Up feed rights, then PR #117 if appropriate.
+
 # CANDIDATE · TOOLED-UP READ-ONLY GBP PROGRAMME CURRENCY PROOF, 13 NOV 2026
 
 Selectively port old PR #102 to current main. Awin Publisher API `GET /publishers/{publisherId}/programmes?relationship=joined` includes `currencyCode`. Protected manual API endpoint tests numeric ID 496 and GBP, with server-only secrets, historic joined membership plus paused and sync-disabled source. No database writes, no feed/import/publication approval. Historical feed 496:89987 **must not be treated as currently available**; active feed ID and product prices require separate evidence, as do image publication rights. CI, production READY and old PR disposition pending. Details `docs/tooled-up-awin-programme-currency.md`.

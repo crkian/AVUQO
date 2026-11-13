@@ -1,3 +1,9 @@
+## 13 November 2026 · Tooled-Up Awin joined-programme currency diagnostic deployed
+
+- PR #151 merged; protected, read-only `/api/internal/awin-tooled-up-currency` with Awin source paused/joined guard and exact advertiser 496 `currencyCode`; Vercel READY `36b2840a159db2d274c38837dcdef9dc02333aac` on `www.avuqo.com`.
+- Old PR #102 closed as superseded; historic 496:89987 feed ID not assumed current, and **no live Awin currency response has been observed**.
+- All product, image and feed rights remain unverified and publication disabled; no DB writes, source changes or importer activation. Tests/secret scan passed.
+
 ## Unreleased · Tooled-Up Awin GBP programme currency verification
 
 - Port old PR #102's protected, read-only joined-programme `currencyCode` inspection to current main without reactivating deleted historical Tooled-Up feed IDs.
