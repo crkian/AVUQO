@@ -88,7 +88,7 @@ export default async function MarketingReadiness(){
    <div className={styles.warning}><ShieldCheck size={18}/> A schedule does not equal distribution. Marketing never bypasses source/image rights, affiliate disclosure, third-party platform rules, consent or independent product scoring.</div>
   </section>
   <section className={styles.panel}><div className={styles.heading}><div><p className={styles.kicker}>PINTEREST FIRST / CHANNEL ROADMAP</p><h2>One premium style. Content suited to the platform.</h2>
-   <p>The owner's original marketing specification calls for Pinterest vertical discovery graphics, factual captions, an AVUQO landing page and independent attribution. Pinterest is not yet a verified connector in this application's marketing channel schema, so scheduling is not falsely presented as active.</p></div></div>
+   <p>The owner&apos;s original marketing specification calls for Pinterest vertical discovery graphics, factual captions, an AVUQO landing page and independent attribution. Pinterest is not yet a verified connector in this application&apos;s marketing channel schema, so scheduling is not falsely presented as active.</p></div></div>
    <div className={styles.channelGrid}>{MARKETING_CHANNEL_ROADMAP.map(x=><article key={x.name}><h3>{x.name}</h3><span>{x.state}</span><p>{x.purpose}</p></article>)}</div>
    <div className={styles.warning}><ShieldAlert size={18}/> Next external dependency: an explicitly approved Pinterest account/integration, platform/affiliate permissions, original reusable creative, verified deal landing pages and consent-aware attribution. Connecting those is not accomplished by creating a draft.</div>
   </section>
