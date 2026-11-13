@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_Cue4UGzwMXxoLPdSahM9jru1Mfzh",
-    "verified_ready_sha": "3f8574c9520b7cb2c57cc8279e14bae4e5c38334",
+    "deployment_id": "dpl_EBxNpctsyr6Vswy9WeCjNdAcHhWd",
+    "verified_ready_sha": "ba25af858c203df11713c4496276b2d38d4caa22",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #146 Awin HTTP status only error-redaction code verified Vercel production READY and www.avuqo.com aliases, 2026-11-13. Recheck latest deploy after docs-only updates.",
+    "verification": "PR #147 Awin numbered private CSV filename/error fix, production READY with www.avuqo.com aliases on 13 Nov 2026. Later docs-only releases change current HEAD: always recheck.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -145,6 +145,10 @@
     {
       "pr": 140,
       "scope": "Correct broken category image sprite, repeated seasonal banner, huge hero, owner-only prompt in homepage; source integrations protected"
+    },
+    {
+      "pr": 147,
+      "scope": "Current-main Awin numbered CSV private import and clear upload validation errors; PR #58 superseded closed"
     }
   ],
   "closed_unmerged_recent": [
@@ -160,7 +164,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Complete current-main Awin numbered-file import PR (CI/Vercel), close obsolete #58 only after live verification, then evaluate PR #51 permissions and PR #102 Tooled-Up currency; no public merchant offers without evidence."
+      "task": "Audit remaining PR #51 Cadbury/Petlibro programme restrictions and image rights, then PR #102 Tooled-Up GBP currency proof. Port only safe missing work to current main, test/production deploy; no public offer publication before explicit permission and freshness verification."
     },
     {
       "priority": 2,
@@ -235,15 +239,6 @@
     "screenshot_review": "User supplied pre-fix desktop screenshots; post-release browser image loading and mobile screenshots pending",
     "document": "docs/AVUQO_HOMEPAGE_OWNER_SCREENSHOT_CORRECTIONS_2026-11-13.md"
   },
-  "current_candidate": {
-    "branch": "fix/awin-numbered-csv-private-import-current-main-20261113",
-    "legacy_pr": 58,
-    "status": "candidate_not_yet_verified_on_production",
-    "scope": "Normalize numbered (1)/(2)/(10) Craft Buddy Awin CSV filenames only for format parsing; separate invalid-extension, oversize, empty-file errors",
-    "preserved_security": "Owner/admin auth, explicit joined advertiser_id, joinedInSource registry, per-row matching and private_review/unverified; no inferred advertiser from filename",
-    "no_provider_upload": "No new Awin feed has been downloaded/imported; no rights approval",
-    "verification": "CI, Vercel READY, then close PR #58 only when replacement deployed"
-  },
   "branch_cleanup_audit": {
     "observed_date": "2026-11-13",
     "observed_original_branch_count": 143,
@@ -305,7 +300,6 @@
       25,
       48,
       51,
-      58,
       83,
       85,
       93,
@@ -320,5 +314,15 @@
     "scope": "Awin provider error redaction; only numeric HTTP status, no provider raw response or statusText",
     "supersedes_closed_pr": 50,
     "provider_activation": false
+  },
+  "last_awin_private_import_release": {
+    "pr": 147,
+    "release_sha": "ba25af858c203df11713c4496276b2d38d4caa22",
+    "deployment_id": "dpl_EBxNpctsyr6Vswy9WeCjNdAcHhWd",
+    "production_ready": true,
+    "superseded_closed_pr": 58,
+    "scope": "Chrome duplicate suffixes Craft Buddy Google CSV parser only; separate invalid extension, oversized and empty uploads; preserve joined explicit advertiser and per-row IDs",
+    "no_provider_upload": true,
+    "public_offers_unverified": true
   }
 }
