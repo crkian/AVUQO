@@ -1,3 +1,7 @@
+## Warm-premium storefront candidate · 13 November 2026
+
+Shared brand mark recovered from design PR #93. Homepage department links and shopping dashboard now lead the content after the date-aware hero, and the mobile dock includes Saved and Lists. Existing public-offer admission and provider schedules are outside this release.
+
 # TYRES UK DORMANT JOB JOURNAL CANDIDATE · 13 NOV 2026
 
 Old PR #117 snapshot-job table missing from live Supabase; private bucket exists and Awin is paused/sync disabled. A narrow additive job-journal SQL migration with RLS, service-role-only grant, `blocked` default state and explicit feed ID rather than historical 93988 is staged in `supabase/migrations/20261113210500_tyres_uk_private_job_journal_only.sql`. It does not install worker RPCs, schedule cron, insert data or enable any feeds. Dedicated migration safety test is in CI. Must apply reviewed SQL using migration tooling and verify actual live table permissions/zero rows after tests, before calling it complete. PR #117 full worker remains OPEN; details `docs/TYRES_UK_DORMANT_SNAPSHOT_JOURNAL_RELEASE_2026-11-13.md`.
