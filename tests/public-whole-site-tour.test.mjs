@@ -7,7 +7,7 @@ const home=read("app/page.tsx");
 const sitemap=read("app/sitemap.ts");
 test("whole-site tour is a discoverable public route and sitemap entry",()=>{
  assert.match(home,/href="\/explore-avuqo"/);
- assert.match(sitemap,/"/explore-avuqo"/);
+ assert.ok(sitemap.includes('"/explore-avuqo"'));
  assert.match(page,/canonical:"\/explore-avuqo"/);
  assert.match(page,/export default function ExploreAvuqoPage/);
 });
