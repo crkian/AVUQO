@@ -1,3 +1,8 @@
+## Unreleased · Product comparison and My AVUQO
+
+- Move verified retailer offers directly below the product overview and show an approved photo from an eligible offer when available.
+- Give My AVUQO a clear sign-in path and a more compact overview. Keep preferences and planning tools together for signed-in visitors.
+
 ## 13 November 2026 · Seasonal artwork deployed
 
 - Add original locally hosted Christmas, Easter, Valentine’s and Sales hero artwork and reuse it in the corresponding homepage themes. Refine the Christmas mobile hero and preserve gift planning tools.
