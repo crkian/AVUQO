@@ -74,3 +74,5 @@ If working tree has unrelated edits, do not discard them; inspect `git status` a
 ## Production editorial artwork · 13 November 2026
 
 The generated, unbranded hero images in `public/editorial/` are AVUQO editorial illustrations. `black-friday.webp` is shared by the November homepage and Black Friday page. `electronics.webp`, `home-living.webp` and `beauty.webp` are department artwork. None represents a specific merchant listing or grants publication rights.
+
+The Christmas, Easter, Valentine’s and Sales landing pages and homepage themes use four original generated WebP photographs from `public/editorial/`. Their shared paths are defined in `lib/editorial/seasonal-art.ts`. The scenes use unbranded editorial subjects.

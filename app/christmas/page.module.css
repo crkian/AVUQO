@@ -12,7 +12,7 @@
 
 /* Photographic Christmas art direction */
 .hero{position:relative;display:flex;align-items:center;min-height:570px;padding:0;background:#fbf4ed}
-.heroPhoto{position:absolute;inset:0;background:url("https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=1800&q=82") center 45%/cover no-repeat}
+.heroPhoto{position:absolute;inset:0;background-position:center 52%;background-size:cover;background-repeat:no-repeat}
 .heroWash{position:absolute;inset:0;background:linear-gradient(90deg,#fcf7f2 0%,rgba(252,247,242,.98) 25%,rgba(252,247,242,.83) 43%,rgba(252,247,242,.18) 72%,transparent 90%)}
 .heroLayout{position:relative;z-index:1;display:block;padding:85px 0}
 .heroCopy{max-width:590px}
@@ -47,3 +47,20 @@
 /* Seasonal navigation and more breathing room for the 2026 collection */
 .seasonNav{background:#f2e8e4;border-radius:30px;padding:clamp(25px,4vw,46px);display:flex;gap:26px;justify-content:space-between;align-items:center}
 .seasonNav h2{margin:5px 0 12px;font-size:clamp(29px,4vw,44px);letter-spacing:-.045em}.seasonNav p:not(.kicker){color:#6e5e64;line-height:1.7;max-width:540px}.seasonNavLinks{display:grid;gap:10px;min-width:215px}.seasonNavLinks a{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;padding:14px 16px;border-radius:16px;font-size:13px;font-weight:800;color:#8a4b60}.grid{gap:22px}.grid3{gap:22px}.tile{border-radius:27px}.grid3 article{padding:29px;border-radius:27px}@media(max-width:750px){.seasonNav{flex-direction:column;align-items:stretch}.seasonNavLinks{min-width:0}.grid{gap:15px}}
+
+
+.hero h1 span{display:inline}
+@media(min-width:701px){
+ .hero{min-height:440px}
+ .heroLayout{padding-block:62px}
+ .hero h1{font-size:clamp(45px,5.4vw,74px)}
+}
+@media(max-width:700px){
+ .hero{min-height:0}
+ .heroPhoto,.heroWash{inset:0 0 auto;height:clamp(175px,39vw,275px)}
+ .heroPhoto{background-position:68% 53%}
+ .heroWash{background:linear-gradient(0deg,#fcf7f2,transparent 65%)}
+ .hero{background:#fcf7f2}
+ .heroLayout{padding:clamp(145px,33vw,230px) 0 34px}
+ .hero h1{font-size:clamp(38px,9vw,57px)}
+}

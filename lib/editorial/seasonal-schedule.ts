@@ -2,6 +2,7 @@
  * Editorial-only homepage themes, driven by the UK civil-date calendar.
  * This never changes merchant offers, sponsored approvals, rankings or prices.
  */
+import {seasonalArt} from "./seasonal-art.ts";
 import {editorialMomentForDate,annualSeasonalWindows} from "./seasonal-date.mjs";
 import type {SeasonalMoment} from "./seasonal-date.mjs";
 export {editorialMomentForDate,annualSeasonalWindows};
@@ -12,11 +13,11 @@ export type EditorialSpotlight={
 };
 const image=(id:string)=>"https://images.unsplash.com/"+id+"?auto=format&fit=crop&w=1600&q=80";
 const S:Record<EditorialMoment,EditorialSpotlight>={
- "black-friday":{id:"black-friday",name:"Black Friday",title:"Black Friday at AVUQO",summary:"Find what is worth it this Black Friday. Explore thoughtfully and check real price evidence before deciding.",href:"/black-friday",cta:"Explore Black Friday",secondaryHref:"/christmas",secondaryLabel:"Plan Christmas",image:"/editorial/black-friday.webp"},
- christmas:{id:"christmas",name:"Christmas",title:"Christmas at AVUQO",summary:"Thoughtful gifts, festive home inspiration, shopping lists and practical planning for the season.",href:"/christmas",cta:"Explore Christmas",secondaryHref:"/lists",secondaryLabel:"Plan a gift list",image:image("photo-1512389142860-9c449e58a543")},
- valentines:{id:"valentines",name:"Valentine’s",title:"Valentine’s at AVUQO",summary:"Find inspiration for thoughtful gifts, date-night plans and experiences, without invented discounts.",href:"/valentines",cta:"Explore Valentine’s",secondaryHref:"/lists",secondaryLabel:"Plan a gift",image:image("photo-1518199266791-5375a83190b7")},
- easter:{id:"easter",name:"Easter",title:"Easter at AVUQO",summary:"Spring gifts, Easter baking, family activities and ideas that are worth sharing.",href:"/easter",cta:"Explore Easter",secondaryHref:"/groceries",secondaryLabel:"Plan Easter groceries",image:image("photo-1457089328109-e5d9bd499191")},
- sales:{id:"sales",name:"Winter sales",title:"Shop smarter in the sales",summary:"Discover what matters, compare the total cost, and question discounts that lack real price evidence.",href:"/sales",cta:"Explore seasonal sales",secondaryHref:"/marketplace/compare",secondaryLabel:"Compare products",image:image("photo-1441986300917-64674bd600d8")},
+ "black-friday":{id:"black-friday",name:"Black Friday",title:"Black Friday at AVUQO",summary:"Find what is worth it this Black Friday. Explore thoughtfully and check real price evidence before deciding.",href:"/black-friday",cta:"Explore Black Friday",secondaryHref:"/christmas",secondaryLabel:"Plan Christmas",image:seasonalArt["black-friday"]},
+ christmas:{id:"christmas",name:"Christmas",title:"Christmas at AVUQO",summary:"Thoughtful gifts, festive home inspiration, shopping lists and practical planning for the season.",href:"/christmas",cta:"Explore Christmas",secondaryHref:"/lists",secondaryLabel:"Plan a gift list",image:seasonalArt.christmas},
+ valentines:{id:"valentines",name:"Valentine’s",title:"Valentine’s at AVUQO",summary:"Find inspiration for thoughtful gifts, date-night plans and experiences, without invented discounts.",href:"/valentines",cta:"Explore Valentine’s",secondaryHref:"/lists",secondaryLabel:"Plan a gift",image:seasonalArt.valentines},
+ easter:{id:"easter",name:"Easter",title:"Easter at AVUQO",summary:"Spring gifts, Easter baking, family activities and ideas that are worth sharing.",href:"/easter",cta:"Explore Easter",secondaryHref:"/groceries",secondaryLabel:"Plan Easter groceries",image:seasonalArt.easter},
+ sales:{id:"sales",name:"Winter sales",title:"Shop smarter in the sales",summary:"Discover what matters, compare the total cost, and question discounts that lack real price evidence.",href:"/sales",cta:"Explore seasonal sales",secondaryHref:"/marketplace/compare",secondaryLabel:"Compare products",image:seasonalArt.sales},
  spring:{id:"spring",name:"Spring",title:"A fresh start at AVUQO",summary:"Find spring home inspiration, thoughtful gifts and useful ideas for the lighter days ahead.",href:"/home",cta:"Explore spring ideas",secondaryHref:"/categories",secondaryLabel:"Browse categories",image:image("photo-1490750967868-88aa4486c946")},
  summer:{id:"summer",name:"Summer",title:"Summer at AVUQO",summary:"Explore holidays, outdoor living, family adventures and seasonal essentials with value in mind.",href:"/travel",cta:"Explore summer travel",secondaryHref:"/home",secondaryLabel:"Outdoor living ideas",image:image("photo-1507525428034-b723cf961d3e")},
  autumn:{id:"autumn",name:"Autumn",title:"Autumn at AVUQO",summary:"Warm up your home, prepare for cooler days and discover practical things worth considering.",href:"/home",cta:"Explore home ideas",secondaryHref:"/categories",secondaryLabel:"Browse categories",image:image("photo-1473448912268-2022ce9509d8")},

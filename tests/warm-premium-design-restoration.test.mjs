@@ -4,6 +4,7 @@ import {readFileSync} from "node:fs";
 import {editorialMomentForDate,editorialSpotlight,SEASONAL_DESTINATIONS}
  from "../lib/editorial/seasonal-schedule.ts";
 import {seasonal} from "../lib/editorial/seasonal.ts";
+import {seasonalArt} from "../lib/editorial/seasonal-art.ts";
 const read=path=>readFileSync(path,"utf8");
 const date=x=>new Date(x);
 
@@ -17,7 +18,12 @@ test("UK editorial calendar rotates without creating an advertiser or product of
  assert.equal(editorialMomentForDate(date("2027-08-10T12:00:00Z")),"summer");
  assert.equal(editorialMomentForDate(date("invalid")),null);
  assert.equal(editorialSpotlight(date("2026-11-15T12:00:00Z"))?.href,"/black-friday");
- assert.equal(editorialSpotlight(date("2026-11-15T12:00:00Z"))?.image,seasonal["black-friday"].photo);
+ for(const [id,day] of Object.entries({"black-friday":"2026-11-15",christmas:"2026-12-24",sales:"2027-01-10",valentines:"2027-02-14",easter:"2027-03-28"})){
+  assert.equal(editorialSpotlight(date(day+"T12:00:00Z"))?.image,seasonalArt[id]);
+  if(id==="christmas")assert.match(read("app/christmas/page.tsx"),/seasonalArt\.christmas/);
+  else assert.equal(seasonal[id].photo,seasonalArt[id]);
+  assert.equal(readFileSync("public"+seasonalArt[id]).toString("ascii",8,12),"WEBP");
+ }
  assert.equal(editorialSpotlight(date("2026-12-24T12:00:00Z"))?.href,"/christmas");
  assert.ok(SEASONAL_DESTINATIONS.length>=10,"Year-round editorial calendar should cover major UK dates and evergreen periods");
 });

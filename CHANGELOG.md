@@ -1,3 +1,7 @@
+## Unreleased · Seasonal artwork
+
+- Add original locally hosted Christmas, Easter, Valentine’s and Sales hero artwork and reuse it in the corresponding homepage themes. Refine the Christmas mobile hero and preserve gift planning tools.
+
 ## 13 November 2026 · Editorial hero refresh deployed
 
 PR #167, production `50a3e9d3a1fdc2b7457683f2688667b6df0cb2a6`.
