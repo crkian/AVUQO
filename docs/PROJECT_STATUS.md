@@ -1,3 +1,7 @@
+# GITHUB PRODUCTION-FIRST BRANCH CLEANUP CANDIDATE · 13 November 2026
+
+GitHub branch inventory: 143 original branches, 11 open PRs (all non-mergeable against current `main`), and known 16 merged PR #127–142 heads. Curated action `.github/workflows/verified-merged-branch-cleanup.yml` checks exact frozen merged PR HEAD, branch protected status, and active PR refs before deleting the 16 known safe candidates; intended to trigger only on first merge into `main`. The remaining historical branches require separate provenance/unique-code review. **No deletion has been verified at candidate stage.** See `docs/AVUQO_BRANCH_AUDIT_AND_SAFE_PRUNING_2026-11-13.md` for every branch and safeguards. User requested production-first execution while reducing unneeded branches. No Awin/eBay/tyre or customer data changes.
+
 
 **Streaming old-homepage flash candidate (13 Nov 2026):** Owner screenshots show generic living-room hero before correct Black Friday homepage. `app/page.tsx` Suspense explicitly rendered obsolete HeroPlaceholder before server data resolved. Replaced only fallback with neutral branded layout pending CI/production. No seasonal date logic, category photos, Awin/eBay/tyre/source rights or auth changes. Verify `www.avuqo.com` exact SHA; actual browser transition signoff pending.
 
