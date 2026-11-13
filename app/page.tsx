@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, CheckCircle2, HeartHandshake, ListChecks, Search, ShieldCheck, Sparkles, Eye, Scale, ReceiptText } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CheckCircle2, ListChecks, Search, ShieldCheck, Sparkles, Eye, Scale, ReceiptText } from "lucide-react";
 import { publishedEditorial } from "../lib/content/editorial";
 import { lifestylePages } from "../lib/lifestyle/landing-data";
 import Header from "../components/layout/Header";
@@ -50,31 +50,33 @@ async function HomeContent() {
   const [editorial,campaigns,products] = await Promise.all([publishedEditorial("home"),loadHomeCampaigns(),verifiedProductIndex(8)]);
   return <main className={styles.page}>
     <Header/>
-    <section className={styles.hero} aria-labelledby="home-title">
+    <section className={`${styles.hero} ${styles.fullStorefrontHero}`} aria-labelledby="home-title">
+      <div className={styles.fullStorefrontPhoto} style={{backgroundImage:`url("${lifestylePages.home.hero}")`}} aria-hidden="true"/>
       <div className={`shell ${styles.heroGrid}`}>
         <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}><Sparkles size={15}/> Your place for better choices</p>
-          <h1 id="home-title">{editorial.headline}</h1>
+          <p className={styles.eyebrow}><Sparkles size={15}/> Discover more. Compare better.</p>
+          <h1 id="home-title">Shop smarter.<br/><em>Find what&apos;s worth it.</em></h1>
           <p className={styles.heroText}>{editorial.description}</p>
-          <SearchForm/>
-          <nav className={styles.heroShortcuts} aria-label="Quick ways to explore">
-            <span>Start with</span>
-            <Link href="/sales">Deals &amp; Sales</Link>
-            <Link href="/marketplace">Marketplace</Link>
-            <Link href="/whos-who">Who&apos;s Who</Link>
-            <Link href="/marketplace/compare">Compare</Link>
-            <Link href="/groceries">Groceries</Link>
-            <Link href="/travel">Travel</Link>
-          </nav>
-          <p className={styles.heroAside}>Compare carefully, check the evidence, and decide at your own pace.</p>
+          <div className={styles.fullStorefrontActions}>
+            <Link href="/marketplace/compare" className={styles.fullStorefrontPrimary}>Start comparing <ArrowRight size={17}/></Link>
+            <Link href="/sales" className={styles.fullStorefrontSecondary}>Discover deals <ArrowRight size={17}/></Link>
+          </div>
           <OwnerStorefrontShortcut/>
         </div>
         <div className={styles.heroVisual}>
-          <div className={styles.heroArt} style={{backgroundImage:`url("${lifestylePages.home.hero}")`}} role="img" aria-label="A welcoming, sunlit living room"/>
-          <div className={styles.heroCard}>
-            <span className={styles.heroCardIcon}><HeartHandshake size={21}/></span>
-            <span><strong>Good choices begin here</strong><small>Clear thinking, everyday value.</small></span>
-          </div>
+          <aside className={styles.fullStorefrontIntelligence} aria-label="How AVUQO helps you shop">
+            <h2>Your shopping intelligence</h2>
+            <div className={styles.fullStorefrontIntelligenceBody}>
+              <div className={styles.fullStorefrontEvidence}><ShieldCheck size={30}/><span>Evidence<br/>first</span></div>
+              <ul>
+                <li><CheckCircle2 size={17}/> Compare like-for-like products</li>
+                <li><CheckCircle2 size={17}/> See eligible retailer prices</li>
+                <li><CheckCircle2 size={17}/> Consider delivery and total cost</li>
+                <li><CheckCircle2 size={17}/> Independent shopping guidance</li>
+              </ul>
+            </div>
+            <Link href="/products">Explore product guides <ArrowRight size={17}/></Link>
+          </aside>
         </div>
       </div>
     </section>
