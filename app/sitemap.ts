@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const routes = [
     "",
-    "/discover", "/marketplace", "/marketplace/compare", "/whos-who",
+    "/explore-avuqo", "/discover", "/marketplace", "/marketplace/compare", "/whos-who",
     "/products", "/shopping", "/groceries", "/home", "/tech", "/travel", "/motoring", "/tyres", "/tyres/sizes", "/insurance", "/broadband", "/services", "/pets", "/gifts", "/beauty", "/christmas", "/black-friday", "/sales", "/easter", "/valentines",
     "/categories",
     "/search",
