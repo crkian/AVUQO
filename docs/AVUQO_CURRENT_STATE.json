@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_5SwnUJNdTUQDBcZRtUFUsqaJauM6",
-    "verified_ready_sha": "3caf3f6f8800addca8436edf9d0979566e02ef45",
+    "deployment_id": "dpl_4vN5FNZght94Uje3YV5AX4wrV8dG",
+    "verified_ready_sha": "29454fd87952e66a1e02815ef26d3db46887ce5c",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #169 READY on the custom domain. Four seasonal guides checked in production at 1348 and 449 CSS pixels.",
+    "verification": "PR #171 product/account design, actual Vercel production READY and live domain /,/products,/account HTTP 200 at matching data-dpl-id. Signed-in account flows and actual eligible-offer visual acceptance still pending.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -427,5 +427,19 @@
     "captured": 124,
     "flagged_captures": 0,
     "authenticated_qa": "pending"
+  },
+  "last_product_account_design_release": {
+    "pr": 171,
+    "app_commit": "29454fd87952e66a1e02815ef26d3db46887ce5c",
+    "production_deployment": "dpl_4vN5FNZght94Uje3YV5AX4wrV8dG",
+    "verified_production_ready": true,
+    "verified_public_routes": [
+      "/",
+      "/products",
+      "/account"
+    ],
+    "signed_in_account_acceptance": "pending",
+    "approved_offer_image_visual_acceptance": "pending",
+    "no_provider_or_automation_activation": true
   }
 }

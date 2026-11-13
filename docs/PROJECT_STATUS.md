@@ -1,3 +1,7 @@
+## Verified product/account production visual release · 13 Nov 2026
+
+PR #171 app SHA `29454fd87952e66a1e02815ef26d3db46887ce5c`, Vercel `dpl_4vN5FNZght94Uje3YV5AX4wrV8dG` READY with aliases; homepage/products/account HTTP 200 and matching deployment ID. Build, lint, secrets and Vercel preview passed. No source approval, product publication or account permission changes; authenticated journeys and exact-variant eligible-product visual comparison need further browser acceptance.
+
 ## Product comparison and My AVUQO candidate · 13 November 2026
 
 Move verified retailer comparisons ahead of buying guidance. Show only images from eligible offers. My AVUQO uses real account counts and presents an explicit guest sign-in link. No merchant publication or account access rules change.

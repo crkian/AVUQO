@@ -1,3 +1,7 @@
+## 13 November 2026 · Product and My AVUQO design VERIFIED live
+
+- PR #171 merged at `29454fd87952e66a1e02815ef26d3db46887ce5c` and deployed Vercel READY (`dpl_4vN5FNZght94Uje3YV5AX4wrV8dG`) with live homepage/products/account all HTTP 200. Refines eligible-offer comparison order, merchant image fallback and guest/signed-in account layouts. No source, approval, price, or automation activation change.
+
 ## Unreleased · Product comparison and My AVUQO
 
 - Move verified retailer offers directly below the product overview and show an approved photo from an eligible offer when available.
