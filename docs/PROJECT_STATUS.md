@@ -1,3 +1,7 @@
+# VERIFIED HISTORIC MERGED-BRANCH CLEANUP · 13 November 2026
+
+GitHub actual branch counts: initial 143 branches; first cleanup PR #143 removed 16; historical merged PR #144 removed 103 more, leaving **26 branches**, inclusive of 2 new housekeeping branches and `main`. All 11 open PR heads, original visual references and security refs were preserved. Final PR #145 will try to remove its own 3 matched cleanup refs, after exact merged PR verification; recount for the actual final number. Vercel production after #144 READY at `d70a663d1963d81c4ec6e1f6ac9fd2b22320828d` on `www.avuqo.com`. No merchant feed/image, Supabase, eBay/tyre or customer code changed.
+
 # VERIFIED FIRST BATCH / HISTORICAL CLEANUP CANDIDATE · 13 November 2026
 
 **PR #143 merged and executed:** 16 recent branches from merged PR #127–142 actually disappeared in GitHub, branch count **144 → 128** with current cleanup branch included. Vercel production READY app SHA `557bf52a4e10004fae0f2578bcbb98e7ca7f3610` (project `avuqo`, `www.avuqo.com`). 11 open PRs and original warm-premium source branches remain protected. A **second candidate** workflow checks historical merged PR #1–126, using final frozen PR commit, current SHA, open PR, branch protection and multiple-PR reuse tests before deletion. No second-batch deletion verified yet. Source registry and customer app unchanged.
