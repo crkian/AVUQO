@@ -1,3 +1,9 @@
+## 13 November 2026 · Automatic seasonal homepage deployed
+- PR #136 merged: UK-year-round editorial calendar selects real homepage photographic hero, copy and CTA at the correct UK date per request, plus companion seasonal editorial module.
+- Christmas, Black Friday, Easter, Valentine's, Mothering Sunday, Father's Day, Halloween, back to school, spring/summer/autumn and winter sales; dynamic yearly date calculations and DST regression tests.
+- Owner-only `/control-centre/seasonal-calendar` shows current and future year dates, read-only with existing access gate.
+- Application deployment `da22e97c6fdad31d23e6c972e0a39239e689d8fb` READY on `www.avuqo.com`, November Black Friday hero independently verified. 28 public URLs HTTP 200/shared branding. Full browser screenshot QA remains pending; no live retail promotions/image licences inferred.
+
 
 ## Unreleased · Automatic UK homepage seasonal calendar
 - Extend seasonal editorial schedule into a year-round Europe/London calendar including Christmas, Black Friday, Valentine's, Easter, Mother's Day, Father's Day, Halloween, school season, spring, summer and autumn.
