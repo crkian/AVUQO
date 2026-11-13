@@ -2,6 +2,10 @@
 
 **Last reconciled: 13 November 2026, after v0.5.1 production verification.** Project: `crkian/AVUQO`, Supabase `tfoukwcruaamrtgxzshh`, Vercel `avuqo`, public site `https://www.avuqo.com`. This is an evolving operational handover, **not** an instruction to trust a stale commit or to assume production is healthy without checking.
 
+## Original hero restoration follow-up · 13 November 2026
+
+The next code candidate restores the photographic storefront hero and evidence-first shopping intelligence panel from `feature/warm-premium-experience-v1-20261105` to the real production homepage, using the existing AVUQO editorial photo source. Numerical mockup scores, invented price drops, and images from private merchant imports remain excluded; the original design target remains in `design/warm-premium-visual-system-20261105`. See PR attached to `feature/restore-photographic-home-hero-20261113` for exact release validation.
+
 ## Original full visual version FOUND · 13 November 2026
 
 The original rich AVUQO visual concept PNGs and `ASSET_MANIFEST.json` exist on `design/warm-premium-visual-system-20261105` under `docs/design/mockups/` (the PNGs were missing on `main` when checked). Original coded home exists on `feature/warm-premium-experience-v1-20261105`: `app/page.tsx`, `HomeShoppingDashboard`, `StorefrontQuickLinks` and complete styles. Restore these selectively to current production, never overwrite newer safety features by merging the historical branch wholesale. `docs/AVUQO_FULL_STOREFRONT_RECOVERY_2026-11-13.md` tracks what was brought forward and remaining graphical fidelity. Customer website must use real `/` and other public routes, not only `/preview/*`; no fictional product prices/scores may be transferred from mockup pixels.
