@@ -160,7 +160,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Inspect actual post-release desktop/mobile screenshots and loaded category editorial images on www.avuqo.com; check latest Actions production visual-audit artifact and fix only observed defects."
+      "task": "Ship no-flash seasonal homepage fallback, verify GitHub CI/Vercel READY and actual browser transition; inspect screenshot audit for remaining responsive issues."
     },
     {
       "priority": 2,
@@ -234,5 +234,12 @@
     "html_verified": "200, Black Friday primary hero present, category editorial image URL present, missing sprite absent, duplicate seasonal heading absent, owner shortcut absent",
     "screenshot_review": "User supplied pre-fix desktop screenshots; post-release browser image loading and mobile screenshots pending",
     "document": "docs/AVUQO_HOMEPAGE_OWNER_SCREENSHOT_CORRECTIONS_2026-11-13.md"
+  },
+  "current_candidate": {
+    "branch": "fix/no-false-homepage-loading-hero-20261113",
+    "scope": "Fix generic homepage hero flashing before the UK-date seasonal hero due to obsolete Suspense fallback",
+    "status": "candidate_pending_CI_and_production",
+    "preserves": "Europe/London per-request seasonal calendar, merchant/rights gates, Awin/eBay/tyres, auth, latest category imagery",
+    "next_visual_check": "Confirm after hard reload that no old room-photo Find what's worth it hero is ever shown before the seasonal page."
   }
 }
