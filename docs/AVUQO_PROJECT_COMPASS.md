@@ -1,3 +1,9 @@
+## Seasonal artwork verified · 13 November 2026
+
+PR #169 is READY on the production domain at `3caf3f6f8800addca8436edf9d0979566e02ef45` (`dpl_5SwnUJNdTUQDBcZRtUFUsqaJauM6`). Christmas, Easter, Valentine’s and Sales now use dedicated, unbranded local WebP artwork, shared with their existing homepage themes. Signed-out production browser checks confirmed the expected hero and no horizontal overflow on all four pages at 1348 and 449 CSS pixels. Build, lint, secrets and date-rotation checks passed. Christmas gift planning and evidence gates remain intact.
+
+Next visual work: refine product and signed-in account layouts.
+
 ## Black Friday and department artwork verified · 13 November 2026
 
 PR #167 is READY on the custom domain at `50a3e9d3a1fdc2b7457683f2688667b6df0cb2a6` (`dpl_GUSqxRdimdjEzNoagagxJ9pQZXKF`). Build, lint, secret checks and targeted design/date tests passed. The Black Friday landing page and date-driven homepage use the new locally hosted editorial artwork. Electronics & Tech, Home & Living and Beauty now have distinct artwork and direct headings. Signed-out production browser checks confirmed the landing and department pages render at desktop and 449 CSS pixels without document overflow. No provider, customer or schedule changes.

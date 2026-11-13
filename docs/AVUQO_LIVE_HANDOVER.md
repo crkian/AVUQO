@@ -1,3 +1,9 @@
+## Seasonal artwork verified · 13 November 2026
+
+PR #169 is READY on the production domain at `3caf3f6f8800addca8436edf9d0979566e02ef45` (`dpl_5SwnUJNdTUQDBcZRtUFUsqaJauM6`). Christmas, Easter, Valentine’s and Sales now use dedicated, unbranded local WebP artwork, shared with their existing homepage themes. Signed-out production browser checks confirmed the expected hero and no horizontal overflow on all four pages at 1348 and 449 CSS pixels. Build, lint, secrets and date-rotation checks passed. Christmas gift planning and evidence gates remain intact.
+
+Next visual work: refine product and signed-in account layouts.
+
 ## Seasonal artwork candidate · 13 November 2026
 
 Verified starting point is production `85359fdd5803fc063632d1fe0720400bd4883c41`. The candidate adds locally hosted art to the Christmas, Easter, Valentine’s and Sales pages and their existing homepage themes. Deployment and browser acceptance are pending.
