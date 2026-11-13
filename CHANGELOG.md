@@ -1,4 +1,9 @@
 
+## 13 November 2026 · Verified live code and restart handover
+- Reconciled PRs #129–#132 as merged; latest live Vercel READY deployment at `ab055f73acce9a478075c61aecb0b7b248d101d3` on `www.avuqo.com` (as-of observation, must be refreshed on every new release).
+- Added canonical root `AVUQO_START_HERE.md`, readable `docs/AVUQO_LIVE_HANDOVER.md` and structured `docs/AVUQO_CURRENT_STATE.json` so new connected chats can read the real GitHub project state without relying on conversation text.
+- Added mandatory check of current GitHub/Vercel/Supabase, open PRs and live-vs-private gates to contributor/assistant instructions.
+
 ## Unreleased · Restore photographic homepage hero in production
 - Reconstruct original full-bleed photo-led warm premium storefront with readable overlay, hero Compare/Sales CTAs and evidence-first shopping panel on actual homepage.
 - Keep current approved product, navigation and editorial source controls. Add responsive and no-fabricated-score CI test.

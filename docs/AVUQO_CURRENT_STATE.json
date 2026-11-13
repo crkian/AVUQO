@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "project": "AVUQO",
+  "as_of_utc": "2026-11-13",
+  "evidence_note": "Historical snapshot only. Recheck GitHub main HEAD, Vercel current production SHA and live Supabase source permissions at the start of every chat.",
+  "repo": "crkian/AVUQO",
+  "default_branch": "main",
+  "production": {
+    "url": "https://www.avuqo.com",
+    "platform": "Vercel",
+    "project": "avuqo",
+    "deployment_id": "dpl_9AM8Hx9BPW2uHi9ZbswAQykbTaij",
+    "verified_ready_sha": "ab055f73acce9a478075c61aecb0b7b248d101d3",
+    "verified_aliases": [
+      "www.avuqo.com",
+      "avuqo.com"
+    ],
+    "verification": "Vercel deployment READY and alias confirmed on 2026-11-13",
+    "status": "verified_at_snapshot_not_live_poll"
+  },
+  "stack": {
+    "app": "Next.js",
+    "frontend": "React / TypeScript",
+    "data": "Supabase PostgreSQL",
+    "supabase_project_id": "tfoukwcruaamrtgxzshh",
+    "local_workdir_windows": "C:\\avuqo"
+  },
+  "version_at_snapshot": "0.5.1",
+  "product_direction": {
+    "tagline": "Find what's worth it.",
+    "model": "one catalogue for both product comparison and genuine bargain discovery",
+    "customer_route_policy": "Launch approved customer features on real production routes; keep /preview/* for private inspection.",
+    "design": "Warm-premium original designs selectively restored; do not wholesale merge historical branches.",
+    "seller_model": "Affiliate comparison/referral, not approved for AVUQO-operated dropshipping checkout."
+  },
+  "live_code_verified_at_snapshot": [
+    {
+      "area": "main homepage",
+      "routes": [
+        "/"
+      ],
+      "evidence_prs": [
+        130,
+        131,
+        132
+      ],
+      "notes": "Live photo-led hero, Compare+Bargains entries, department tiles, groceries/tools/dashboard; visually inspired by full original implementation. Not pixel-complete."
+    },
+    {
+      "area": "private product showcase",
+      "routes": [
+        "/preview/products"
+      ],
+      "notes": "Owner-only inspection of historical imported Awin data; not public eligible live product inventory."
+    },
+    {
+      "area": "retailer Control Centre",
+      "routes": [
+        "/control-centre/retailers"
+      ],
+      "evidence_prs": [
+        129
+      ],
+      "notes": "Owner-only joined programmes, feed status, image URL coverage, permission gate."
+    },
+    {
+      "area": "tyre product paths",
+      "notes": "Earlier production code includes specialist tyre pages; no claim that authorised live prices/fitting or supplier feed is active. Verify current route and data separately."
+    }
+  ],
+  "integrations": [
+    {
+      "id": "awin",
+      "code_status": "private import/onboarding present",
+      "commercial_status": "public offer and photo publication unverified / gated",
+      "notes": "Historical imported rows not proof of fresh licensed prices. 13-Nov owner's CSV: 74 active feed rows across 12 advertisers, many Not Joined; PlayPress advertiser 101445. Verify rights per programme."
+    },
+    {
+      "id": "ebay",
+      "code_status": "Sandbox private preview was exercised",
+      "commercial_status": "Production Browse API application submitted; approval unconfirmed",
+      "notes": "Never activate unapproved Production Browse or public seller images; no secrets in Git."
+    },
+    {
+      "id": "tyres",
+      "code_status": "tyre find/compare pages and private enrichment work present",
+      "commercial_status": "individual supplier pricing/fitment and some automation unverified",
+      "notes": "PR #117 remains open; respect disabled-by-default feed worker."
+    },
+    {
+      "id": "zoho-support-email",
+      "code_status": "external business mail",
+      "commercial_status": "support@avuqo.com two-way incoming and outgoing Gmail recipient confirmed by owner 13-Nov",
+      "notes": "Use for future business outreach; eBay account keeps existing Gmail."
+    },
+    {
+      "id": "resend-auth-email",
+      "code_status": "auth.avuqo.com verified in Resend screenshot",
+      "commercial_status": "Supabase password recovery tested by owner",
+      "notes": "Do not expose password recovery links or tokens."
+    }
+  ],
+  "open_prs_at_snapshot": [
+    21,
+    25,
+    48,
+    50,
+    51,
+    58,
+    83,
+    85,
+    93,
+    102,
+    117
+  ],
+  "merged_recent": [
+    {
+      "pr": 129,
+      "scope": "Awin image URL coverage, feed inventory and combined shopping strategy"
+    },
+    {
+      "pr": 130,
+      "scope": "partner/visual backlog and production Compare+Bargains section"
+    },
+    {
+      "pr": 131,
+      "scope": "fuller storefront category ribbon and shopping dashboard"
+    },
+    {
+      "pr": 132,
+      "scope": "photo-led homepage and shopping intelligence panel"
+    }
+  ],
+  "closed_unmerged_recent": [
+    43
+  ],
+  "design_sources": {
+    "original_images_branch": "design/warm-premium-visual-system-20261105",
+    "original_images_path": "docs/design/mockups/",
+    "original_code_branch": "feature/warm-premium-experience-v1-20261105",
+    "source_register": "docs/design/AVUQO_ASSET_REGISTER_2026-11-05.md",
+    "warn": "Mockup PNG pixels contain invented offers/scores; reference only, never publish as real prices."
+  },
+  "next_actions": [
+    {
+      "priority": 1,
+      "task": "Recover and reconcile original branding/header/mobile navigation and visual quality on actual production pages; preserve account/auth/menu and current nav behaviour."
+    },
+    {
+      "priority": 2,
+      "task": "Finish seasonal and product-page real-route visual restoration, with responsive screenshots and verified-only offer image display."
+    },
+    {
+      "priority": 3,
+      "task": "Verify Awin current publisher membership, new feed IDs, merchant permission/image rights/price freshness, and release only approved offers."
+    },
+    {
+      "priority": 4,
+      "task": "Resolve or close 11 historical PRs only after checking their diffs against current main; prioritise fixes #50 #58 #51 #102 and separate tyres #117."
+    },
+    {
+      "priority": 5,
+      "task": "Track eBay production Browse approval and other partner applications without inventing approval."
+    }
+  ],
+  "required_reverification": [
+    "Fetch GitHub main current HEAD and open PR list",
+    "Fetch latest Vercel production deployment and verify READY, exact SHA and www.avuqo.com alias",
+    "If discussing data readiness query live Supabase source registry, current merchant feed/rights and import runs; never infer from this snapshot",
+    "Inspect CI checks of any candidate PR and exact deployment after merge",
+    "If status differs, update handover in same PR and report actual observed state"
+  ],
+  "handover_paths": {
+    "start": "AVUQO_START_HERE.md",
+    "readable": "docs/AVUQO_LIVE_HANDOVER.md",
+    "structured": "docs/AVUQO_CURRENT_STATE.json",
+    "compass": "docs/AVUQO_PROJECT_COMPASS.md",
+    "status": "docs/PROJECT_STATUS.md",
+    "backlog": "docs/AVUQO_LIVE_PRODUCTION_PARTNER_AND_DESIGN_BACKLOG_2026-11-13.md",
+    "design": "docs/design/AVUQO_WARM_PREMIUM_VISUAL_IDENTITY_2026-11-05.md"
+  }
+}

@@ -8,6 +8,14 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
+## Required restart protocol (13 November 2026)
+
+**FIRST: fetch from current `main`** `AVUQO_START_HERE.md`, `docs/AVUQO_LIVE_HANDOVER.md` and `docs/AVUQO_CURRENT_STATE.json`; then the Compass, status, backlog and relevant implementation sources. This is the canonical quick handover and overrides stale pending wording from old PR plans.
+
+**SECOND: verify reality** using connected GitHub and Vercel, not this file alone: current main HEAD, open PRs, latest READY production deployment SHA and `www.avuqo.com` alias. For Awin/eBay/tyres, verify live Supabase rights, freshness and source state separately. Clearly label code live, private showroom, provider-approved, public offer live and blocked. Never assume an API approval from earlier conversation.
+
+**THIRD: after each release**, update readable handover, machine-readable JSON, Compass (if strategy changed), status and changelog. When exact deployed SHA is known only after merge, a follow-up docs-only release record is needed, and every future chat still must recheck Vercel. Protect latest Awin/eBay/tyre/auth/Control Centre work; selectively port old design components onto current main only. Public customer features belong on production routes, not permanent `/preview` pages.
+
 ## AVUQO living project context (read before doing work)
 
 - Read `docs/PROJECT_STATUS.md`, `docs/ROADMAP.md`, `docs/SOURCE_TO_CODE_AUDIT_2026-11-02.md`, `docs/SOURCE_MANIFEST_2026-11-02.md`, `docs/SOURCE_REQUIREMENT_GAPS_2026-11-02.md`, `CHANGELOG.md` and `package.json` from the **current** GitHub branch. Current `main` and verified production data override dated snapshots.
