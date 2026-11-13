@@ -20,7 +20,7 @@ test("public homepage and categories keep staged product inventory owner-only",(
  const owner=readFileSync("components/home/OwnerStorefrontShortcut.tsx","utf8");
  const header=readFileSync("components/layout/Header.tsx","utf8");
  const nav=readFileSync("components/layout/MegaNav.tsx","utf8");
- assert.match(home,/OwnerStorefrontShortcut/);
+ assert.doesNotMatch(home,/OwnerStorefrontShortcut/); // Private shop remains owner-only via navigation.
  assert.match(owner,/db\.auth\.getUser/);
  assert.match(owner,/data\?\.role==="owner"\|\|data\?\.role==="admin"/);
  assert.match(owner,/if\(!allowed\)return null/);
