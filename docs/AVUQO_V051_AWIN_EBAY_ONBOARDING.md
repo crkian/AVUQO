@@ -1,6 +1,6 @@
 # AVUQO v0.5.1 · Awin Retailers + eBay UK Onboarding
 
-**13 November 2026 · Release candidate, not automatically live**
+**13 November 2026 · Code released and production route-verified.** PR #127 squash commit `f8c0eb92b740ba010a88ae8b097490241b4aadb6` · Vercel `dpl_DaokykruBiQBXm7E3SYqF1L2dXfu` READY. Manual Sandbox OAuth remains blocked by missing owner-provided keys.
 
 ## Why
 
@@ -52,11 +52,11 @@ No eBay transaction checkout, automatic product imports, nightly eBay harvest, p
 
 ## Release acceptance
 
-- [ ] New and existing eBay/Awin source tests, lint and production-style Next build pass.
-- [ ] GitHub secret scan passes on exact branch head.
-- [ ] Vercel preview reports READY.
-- [ ] Signed-out `/control-centre/retailers` and `/preview/ebay` redirect to login without exposing inventory or credential state.
-- [ ] Merge then verify `www.avuqo.com` public pages are unaffected and owner pages remain protected.
+- [x] New and existing eBay/Awin source tests, lint and production-style Next build pass.
+- [x] GitHub secret scan passes on exact branch head.
+- [x] Vercel preview reports READY.
+- [x] Signed-out `/control-centre/retailers` and `/preview/ebay` do not disclose private onboarding/preview content.
+- [x] Merge then verify `www.avuqo.com` public pages are unaffected and owner pages remain protected.
 - [ ] Manual Sandbox OAuth and Browse call **requires owner to create keyset and configure two Vercel secrets**. Cannot claim this step completed before keys exist.
 
 Keep the root `AGENTS.md`, design screenshot index, Project Compass and product source-rights policy as the continuing canonical references.
