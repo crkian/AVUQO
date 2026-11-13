@@ -5,7 +5,7 @@ import {inspectTooledUpProgrammeCurrency} from "../lib/awin/tooled-up-programme-
 const publisher="3135746",token="a".repeat(20);
 const fake=(data,status=200)=>async()=>new Response(JSON.stringify(data),{status,headers:{"content-type":"application/json"}});
 test("joined 496 GBP is evidence for programme only, never a published price/feed",async()=>{
- const v=await inspectTooledUpProgrammeCurrency(publisher,token,await fake([{id:496,currencyCode:"GBP"}]));
+ const v=await inspectTooledUpProgrammeCurrency(publisher,token,fake([{id:496,currencyCode:"GBP"}]));
  assert.equal(v.currency_verified,true);
  assert.equal(v.programme_currency,"GBP");
  assert.equal(v.advertiser_id,"496");
@@ -14,7 +14,7 @@ test("joined 496 GBP is evidence for programme only, never a published price/fee
 });
 test("non-GBP must not be inferred or coerced",async()=>{
  for(const currencyCode of ["EUR","USD"]){
-  const v=await inspectTooledUpProgrammeCurrency(publisher,token,await fake([{id:496,currencyCode}]));
+  const v=await inspectTooledUpProgrammeCurrency(publisher,token,fake([{id:496,currencyCode}]));
   assert.equal(v.currency_verified,false);
   assert.equal(v.programme_currency,currencyCode);
  }
@@ -25,12 +25,12 @@ test("missing, ambiguous, invalid and non-joined records fail closed",async()=>{
   [{id:"496",currencyCode:"GBP"}],[{id:496,currencyCode:"gbp"}],
   [{id:496,currencyCode:""}],[{id:498,currencyCode:"GBP"}]
  ]){
-  await assert.rejects(()=>inspectTooledUpProgrammeCurrency(publisher,token,await fake(rows)));
+  await assert.rejects(()=>inspectTooledUpProgrammeCurrency(publisher,token,fake(rows)));
  }
- await assert.rejects(()=>inspectTooledUpProgrammeCurrency(publisher,token,await fake({id:496,currencyCode:"GBP"})));
- await assert.rejects(()=>inspectTooledUpProgrammeCurrency(publisher,token,await fake([],403)));
- await assert.rejects(()=>inspectTooledUpProgrammeCurrency("invalid",token,await fake([])));
- await assert.rejects(()=>inspectTooledUpProgrammeCurrency(publisher,"bad",await fake([])));
+ await assert.rejects(()=>inspectTooledUpProgrammeCurrency(publisher,token,fake({id:496,currencyCode:"GBP"})));
+ await assert.rejects(()=>inspectTooledUpProgrammeCurrency(publisher,token,fake([],403)));
+ await assert.rejects(()=>inspectTooledUpProgrammeCurrency("invalid",token,fake([])));
+ await assert.rejects(()=>inspectTooledUpProgrammeCurrency(publisher,"bad",fake([])));
 });
 test("private route must require bearer secret, paused joined source and never perform writes",()=>{
  const p=readFileSync(new URL("../app/api/internal/awin-tooled-up-currency/route.ts",import.meta.url),"utf8");
