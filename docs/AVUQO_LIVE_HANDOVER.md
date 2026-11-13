@@ -1,3 +1,7 @@
+## Product comparison and My AVUQO candidate · 13 November 2026
+
+Production starting point was `78a17cfc6daef5d3913c6956825b83264c94155d`. The candidate brings retailer comparisons closer to product details and gives My AVUQO distinct guest and signed-in layouts. Catalogue evidence gates and account access controls stay in place. Browser acceptance for private account features depends on an authenticated session.
+
 ## Seasonal artwork verified · 13 November 2026
 
 PR #169 is READY on the production domain at `3caf3f6f8800addca8436edf9d0979566e02ef45` (`dpl_5SwnUJNdTUQDBcZRtUFUsqaJauM6`). Christmas, Easter, Valentine’s and Sales now use dedicated, unbranded local WebP artwork, shared with their existing homepage themes. Signed-out production browser checks confirmed the expected hero and no horizontal overflow on all four pages at 1348 and 449 CSS pixels. Build, lint, secrets and date-rotation checks passed. Christmas gift planning and evidence gates remain intact.

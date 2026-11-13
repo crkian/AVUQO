@@ -1,11 +1,11 @@
 "use client";
 import {useEffect,useState} from "react";
 import Link from "next/link";
-import {ArrowRight,Bookmark,Bell,ListChecks,SlidersHorizontal} from "lucide-react";
+import {ArrowRight,Heart,Bell,ListChecks,UserRound} from "lucide-react";
 import {createClient} from "../../lib/supabase/client";
 import styles from "./MyAVUQODashboard.module.css";
 type Counts={saved:number|null;watches:number|null;lists:number|null};
-export default function MyAVUQODashboard({signedIn,name}:{signedIn:boolean;name:string}){
+export default function MyAVUQODashboard({signedIn,name}:{signedIn:boolean|null;name:string}){
  const [counts,setCounts]=useState<Counts>({saved:null,watches:null,lists:null});
  useEffect(()=>{
   let disposed=false;
@@ -26,25 +26,26 @@ export default function MyAVUQODashboard({signedIn,name}:{signedIn:boolean;name:
   return ()=>{disposed=true;};
  },[signedIn]);
  const cards=[
-  {href:"/saved",label:"Saved items",num:counts.saved,description:"The finds you wanted to keep",icon:Bookmark},
-  {href:"/watches",label:"Price watches",num:counts.watches,description:"Active watches, not guaranteed alerts",icon:Bell},
-  {href:"/lists",label:"Shopping lists",num:counts.lists,description:"Private and shared plans",icon:ListChecks},
-  {href:"#account-preferences",label:"Preferences",num:null,description:"Your shopping style and account settings",icon:SlidersHorizontal}
+  {href:"/saved",label:"Saved items",num:counts.saved,description:"Keep products you want to revisit",icon:Heart},
+  {href:"/watches",label:"Price watches",num:counts.watches,description:"Track the offers you’re watching",icon:Bell},
+  {href:"/lists",label:"Shopping lists",num:counts.lists,description:"Organise private and shared plans",icon:ListChecks}
  ];
- return <section className={styles.wrap} aria-label="My AVUQO dashboard"><div className="shell">
-  <div className={styles.hero}><div><p>MY AVUQO / YOUR PERSONAL SPACE</p>
-   <h2>{signedIn&&name.trim()?"Welcome back, "+name.trim():"My AVUQO"}</h2>
-   <small>{signedIn?"Manage your favourites, watches, lists and shopping preferences in one warm, private place.":"Sign in for your real saved items, watches, lists and settings across devices."}</small>
-  </div></div>
-  <div className={styles.head}><h3>Your overview</h3><span>{signedIn?"Account-scoped information only":"Preview of the tools available when signed in"}</span></div>
+ return <section className={styles.wrap} aria-labelledby="my-avuqo-title"><div className="shell">
+  <div className={styles.hero}>
+   <div className={styles.identity}><span className={styles.avatar}><UserRound size={28} aria-hidden="true"/></span>
+    <div><h1 id="my-avuqo-title">My AVUQO</h1>
+     {signedIn!==null&&<p>{signedIn&&name.trim()?"Welcome back, "+name.trim():signedIn?"Your saved finds and shopping plans.":"Sign in to keep your finds and shopping plans together."}</p>}
+    </div>
+   </div>
+   {signedIn!==null&&<Link className={styles.heroAction} href={signedIn?"#account-preferences":"/login?next=/account"}>
+    {signedIn?"Edit preferences":"Sign in"} <ArrowRight size={16} aria-hidden="true"/>
+   </Link>}
+  </div>
+  <h2 className={styles.heading}>{signedIn?"Your overview":"Your shopping tools"}</h2>
   <div className={styles.grid}>{cards.map(({href,label,num,description,icon:Icon})=><Link className={styles.card} href={href} key={href}>
-   <span className={styles.icon}><Icon size={22}/></span>
-   <strong>{signedIn?(num===null?label:num.toLocaleString("en-GB")):label}</strong>
-   <span>{description}</span>
+   <span className={styles.icon}><Icon size={23} aria-hidden="true"/></span>
+   <span className={styles.cardCopy}><strong>{label}</strong><span>{description}</span></span>
+   {signedIn&&num!==null?<span className={styles.count}>{num.toLocaleString("en-GB")}</span>:<ArrowRight className={styles.arrow} size={17} aria-hidden="true"/>}
   </Link>)}</div>
-  <nav className={styles.actions} aria-label="More AVUQO tools"><Link href="/groceries">Grocery planning <ArrowRight size={15}/></Link>
-   <Link href="/reality-check">Budgeting &amp; value guidance <ArrowRight size={15}/></Link>
-   <Link href="/marketplace">Explore the marketplace <ArrowRight size={15}/></Link></nav>
-  <p className={styles.note}>The counts shown, where available, come from signed-in account queries protected by current database access rules. Missing data is not shown as zero. No purchases, savings or price drops are invented.</p>
  </div></section>;
 }

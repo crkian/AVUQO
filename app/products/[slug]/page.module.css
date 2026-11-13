@@ -69,3 +69,19 @@
 .action{background:linear-gradient(125deg,#863ee7,#5224bd);border-radius:999px}
 .back:focus-visible,.action:focus-visible,.productPage a:focus-visible{outline:3px solid #8542dc;outline-offset:4px}
 @media(max-width:760px){.art{min-height:280px;border-radius:23px}.hero{padding-top:36px}.copy h1{font-size:clamp(31px,8.5vw,46px)}}
+
+/* Keep retailer comparison near the product and leave longer guidance below it. */
+.hero{padding-block:clamp(25px,4vw,52px)}
+.heroGrid{gap:clamp(24px,4vw,55px)}
+.copy{min-width:0}
+.copy h1{font-size:clamp(33px,4.5vw,59px);overflow-wrap:anywhere}
+.heroActions{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.art .placeholder{padding:22px;text-align:center}
+.art .placeholder span{color:#675b73;font-size:14px;font-weight:750}
+.productPage #retailers{padding-block:clamp(26px,5vw,52px);scroll-margin-top:130px}
+@media(max-width:760px){
+ .hero .art{min-height:190px;max-height:350px}
+ .hero .art img{max-height:310px}
+ .hero .copy h1{font-size:clamp(30px,8vw,45px)}
+ .hero .topPrice{padding:17px;margin-block:16px}
+}
