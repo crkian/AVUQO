@@ -1,4 +1,10 @@
 
+## 13 November 2026 · Screenshot-driven homepage fix deployed
+- PR #140 deployed READY as app commit `e310af5a6ac49b00a01f7742c8d6a3664ebb5cf5` to `www.avuqo.com`.
+- Replaced nonexistent department sprite URL with editorial photo tiles, simplified to one automatic seasonal hero, corrected hero scale/alignment, removed owner private CTA from homepage while preserving role-gated navigation.
+- Live HTTP markup reconfirmed; post-deploy image render/mobile browser signoff remains pending. No Awin/eBay/tyre source permissions changed.
+
+
 ## Unreleased · Homepage screenshot corrections
 - Correct blank department image tiles caused by an absent sprite asset: use editorial category photography rather than licensed merchant products.
 - Remove duplicate seasonal homepage banner while keeping the automatic UK-date Black Friday/Christmas/Easter main hero.

@@ -1,4 +1,9 @@
 
+## VERIFIED LIVE HOMEPAGE SCREENSHOT CORRECTIONS · 13 November 2026
+
+PR #140 merged. App SHA `e310af5a6ac49b00a01f7742c8d6a3664ebb5cf5` READY on Vercel production `dpl_55ZKhZvcp4JFFVSYqT8a5MMdzm9d` with `www.avuqo.com` alias. Live homepage HTTP 200 checked: Black Friday primary hero present, new editorial category-photo URL present, nonexistent sprite reference absent, duplicate seasonal banner absent, owner preview CTA absent. Corrections responded to four owner desktop screenshots: blank category cards, duplicated event, giant left-edge headline, owner preview taking hero space. **Still pending: new actual browser screenshots, successful external background image loads and mobile visual signoff.** No Awin/eBay/tyres/rights changes. Read `docs/AVUQO_HOMEPAGE_OWNER_SCREENSHOT_CORRECTIONS_2026-11-13.md`. A docs-only deployment may advance HEAD; recheck Vercel next chat.
+
+
 ## Owner-provided actual homepage screenshot findings · 13 November 2026
 
 The user supplied four real desktop screenshots. Immediate visual defects: blank department tiles from missing `/branding/avuqo-department-reference-sprite.svg`, duplicate large Black Friday hero, headline overly large/at viewport edge, owner private-shop prompt occupying main public hero. Candidate branch `fix/homepage-screenshot-findings-20261113` restores editorial category photos, a single dynamic UK seasonal hero, constrained responsive typography and keeps private owner access only in navigation. No source/publication/tyres/eBay/Awin changes. Reference `docs/AVUQO_HOMEPAGE_OWNER_SCREENSHOT_CORRECTIONS_2026-11-13.md`. Candidate requires green CI, merged SHA Vercel READY and live screenshot review; do not claim image availability from code alone.
