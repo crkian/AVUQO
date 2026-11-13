@@ -1,3 +1,9 @@
+## Unreleased · Dormant private Tyres UK snapshot-job schema foundation
+
+- Stage additive service-role-only, RLS-enabled `awin_tyres_spec_enrichment_jobs` journal with `blocked` default, explicitly provided feed ID, content-addressed source digest/path and no old-93988 auto approval.
+- Add migration security contract tests and controlled live RLS/grant/empty-table verification checklist.
+- No worker RPCs, cron, supplier snapshots, price mutations or publication; PR #117 stays open until further runtime safety acceptance.
+
 ## 13 November 2026 · Tyres UK owner-only read-only worker preflight deployed
 
 - PR #155 merged and Vercel production READY app SHA `5954beb29fc849dc9368991fdce6ba2db5a3b063` at `www.avuqo.com`; quality/security tests passed.

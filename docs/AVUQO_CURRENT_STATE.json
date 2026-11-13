@@ -180,7 +180,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Review and test PR #117 migration/lease functions and private storage retention in controlled environment; verify current Awin Tyres UK feed identity and source rights, plus browser owner preflight. Only deploy worker after security and runtime acceptance; retain Pneus cron and all publication gates."
+      "task": "Verify staged dormant tyre job journal SQL CI and apply using connected Supabase migration capability. Verify live RLS/grants/zero rows and paused Awin, Vercel READY. Then separately design safe lease/renewal and snapshot retention/recovery with PR #117 still disabled."
     },
     {
       "priority": 2,
@@ -393,5 +393,23 @@
     "public_offers_enabled": false,
     "reference": "docs/TYRES_UK_AUTO_WORKER_PREFLIGHT_2026-11-13.md",
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
-  }
+  },
+  "current_candidate": {
+    "branch": "feature/tyres-uk-private-job-journal-foundation-20261113",
+    "legacy_pr": 117,
+    "status": "staged_sql_pending_ci_and_connected_migration",
+    "scope": "Additive dormant service-role-only RLS Tyres UK snapshot job journal with blocked state, no old default feed id, no RPC/cron/worker",
+    "supabase_baseline": "table and worker RPCs absent, private bucket present, Awin source paused with sync off",
+    "schema_source": "supabase/migrations/20261113210500_tyres_uk_private_job_journal_only.sql",
+    "release_checklist": "docs/TYRES_UK_DORMANT_SNAPSHOT_JOURNAL_RELEASE_2026-11-13.md",
+    "old_worker_activation": false,
+    "public_price_fitment_rights": false
+  },
+  "security_review_followups": [
+    {
+      "observed": "2026-11-13",
+      "severity": "review",
+      "scope": "Supabase advisor: authenticated role can execute public.publish_editorial and public.publish_avuqo_legal SECURITY DEFINER functions; audit permissions/logic separately, do not change blindly"
+    }
+  ]
 }

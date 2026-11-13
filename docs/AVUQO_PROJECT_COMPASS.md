@@ -14,6 +14,10 @@ Historical PR #117's automatic private snapshot worker is NOT safe to merge whol
 
 PR #155 Vercel READY at `www.avuqo.com`, app commit `5954beb29fc849dc9368991fdce6ba2db5a3b063`, deployment `dpl_5CoPiwj5gLSAiES6LwWc1Ux2U9v9`. Private owner form now shows an explicit read-only automation readiness check, backed by existing owner-authenticated API, paused joined Awin source, completed private run and read-only job-table/private-bucket lookups. Never approves automatic enablement or touches feed/publication data. Live Supabase confirmed missing job table/RPCs and existing private bucket. Old PR #117 worker/migration still OPEN and intentionally not installed. CI and secret scan green; signed-in owner click not separately verified. Next review migration security, runtime lease/recovery, source licence, retention and Pneus schedule. Refer `docs/TYRES_UK_AUTO_WORKER_PREFLIGHT_2026-11-13.md`.
 
+## Tyres UK dormant private job schema candidate · 13 Nov 2026
+
+Current `main` has no V2 snapshot job journal, verified against live Supabase. Branch `feature/tyres-uk-private-job-journal-foundation-20261113` creates only an additive service-only RLS job table, default state `blocked`, with explicit numeric feed identity (never blindly 93988) and immutable snapshot digest/path keys. No lease/apply functions, jobs, cron, Awin download, public products or permissions. Await CI, controlled migration and post-apply security verification. Full old PR #117 remains open for worker integration/runtime approval; see `docs/TYRES_UK_DORMANT_SNAPSHOT_JOURNAL_RELEASE_2026-11-13.md`. Supabase advisor independently flagged authenticated-executable publish definer RPCs for later security triage.
+
 
 ## Tyres UK owner-only no-write worker preflight candidate · 13 Nov 2026
 
