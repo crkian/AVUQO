@@ -2,7 +2,7 @@
 -- This migration creates NO worker functions, triggers, jobs, cron or supplier downloads.
 -- Do not treat table existence as permission to activate PR #117.
 -- Awin remains paused, with sync off and all merchant rights unverified.
-create table public.awin_tyres_spec_enrichment_jobs (
+create table if not exists public.awin_tyres_spec_enrichment_jobs (
  id uuid primary key default gen_random_uuid(),
  target_import_id uuid not null references public.feed_import_runs(id) on delete restrict,
  advertiser_id text not null default '12715' check(advertiser_id='12715'),
@@ -34,7 +34,7 @@ create table public.awin_tyres_spec_enrichment_jobs (
  check((lease_token is null and lease_until is null) or
        (lease_token is not null and lease_until is not null))
 );
-create index awin_tyres_enrichment_state_idx
+create index if not exists awin_tyres_enrichment_state_idx
  on public.awin_tyres_spec_enrichment_jobs(state,created_at);
 alter table public.awin_tyres_spec_enrichment_jobs enable row level security;
 -- Deliberately no RLS policies, anon/authenticated grants, public views,
