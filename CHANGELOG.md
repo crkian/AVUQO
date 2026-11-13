@@ -1,4 +1,10 @@
 
+## 13 November 2026 · Production screenshot QA mechanism deployed
+- PR #138 merged with production READY commit `08459b492fa8c9497b94cee933d9fa08dec0f01c`, alias `www.avuqo.com`.
+- Public desktop/mobile screenshot audit for 28 production routes enabled via GitHub Actions; no customer code, data or permissions modified.
+- Actual screenshot report/artifact review and human visual acceptance still pending; investigate the workflow run before marking visual design complete.
+
+
 ## Unreleased · Automated public production screenshot audit
 - Add read-only headless Chrome checks and desktop/mobile screenshots for 28 real public production routes, rather than relying on HTTP-only verification.
 - Add a GitHub Actions on-demand/weekly workflow, triggered on first merge, with downloadable screenshots and Markdown/JSON evidence report; measure horizontal overflow, missing H1, broken HTML images and page errors.

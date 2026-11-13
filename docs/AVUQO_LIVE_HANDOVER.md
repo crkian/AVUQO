@@ -1,4 +1,9 @@
 
+## VERIFIED PRODUCTION VISUAL AUDIT AUTOMATION · 13 November 2026
+
+PR **#138 merged** and the audit workflow code shipped to production `www.avuqo.com` with app SHA `08459b492fa8c9497b94cee933d9fa08dec0f01c`, Vercel `dpl_CJ7yRusAX2fGppGBxy9jydXfHVdZ` **READY**. The website still returned the expected Black Friday homepage after release. GitHub workflow `.github/workflows/production-visual-audit.yml` is configured for weekly/on-demand desktop 1440×900 and mobile 390×844 browser screenshots of 28 public routes and an Actions artifact `avuqo-public-visual-audit`. **The first screenshot artifact and actual screenshot review have NOT yet been verified**; do not assert the original design is pixel-perfect. At next chat startup locate the first Actions workflow run, examine the report, fix observed visual issues and preserve all Awin/eBay/tyre/auth/Control Centre protections. This docs-only follow-up may advance the production SHA; always recheck live Vercel.
+
+
 ## Next production visual QA automation candidate · 13 November 2026
 
 Branch `feature/production-visual-audit-20261113` adds read-only GitHub Actions screenshots of 28 public `www.avuqo.com` routes on desktop and phone widths, weekly/on demand, with machine-readable checks and PNG artifacts. This addresses the incomplete real-browser visual review. It **does not** edit customer UI, update retailer data or publish anything; current approved site remains the previous latest READY release. After branch merge, check the workflow's first run and artifact `avuqo-public-visual-audit`, inspect screenshots against `docs/design/AVUQO_VISUAL_REFERENCE_INDEX_2026-11-10.md`, and fix observed browser issues without rolling back integrations. See `docs/AVUQO_PRODUCTION_SCREENSHOT_QA_2026-11-13.md`. Candidate remains non-live until CI, merge and Vercel READY checked.

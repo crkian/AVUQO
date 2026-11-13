@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_Cj21PogF2EaRPrJ3PfQSv7ySKsmq",
-    "verified_ready_sha": "da22e97c6fdad31d23e6c972e0a39239e689d8fb",
+    "deployment_id": "dpl_CJ7yRusAX2fGppGBxy9jydXfHVdZ",
+    "verified_ready_sha": "08459b492fa8c9497b94cee933d9fa08dec0f01c",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "Production READY, www.avuqo.com alias and actual homepage November 2026 Black Friday hero verified through Vercel on 2026-11-13. A later docs-only deployment may have another SHA; always recheck.",
+    "verification": "Production READY on www.avuqo.com and exact PR #138 SHA verified on 2026-11-13. Live homepage still serves Black Friday; docs-only merges may subsequently advance SHA. Recheck Vercel on every restart.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -137,6 +137,10 @@
     {
       "pr": 136,
       "scope": "Automatic UK seasonal homepage photo/headline/CTA and read-only private annual calendar; real production verified"
+    },
+    {
+      "pr": 138,
+      "scope": "Production public-route desktop/mobile screenshot QA workflow and regression contract, no customer UI changes"
     }
   ],
   "closed_unmerged_recent": [
@@ -152,7 +156,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Run first GitHub Actions public desktop/mobile screenshot audit for 28 production routes and review PNG evidence against original design references, fixing only verified issues; do not claim pixel-complete before visual review."
+      "task": "Locate the first GitHub Actions `AVUQO production visual audit` run on main, download and inspect screenshot artifact/report for 28 routes x 2 viewports; fix confirmed issues and collect owner screenshot visual acceptance. Automation exists; do not claim successful captures without reviewing artifact."
     },
     {
       "priority": 2,
@@ -207,12 +211,15 @@
     "production_route_audit": "28 HTTP 200 routes with shared branding; no visual screenshot QA",
     "reference": "docs/AVUQO_AUTOMATIC_UK_SEASONAL_CALENDAR_AND_PAGE_AUDIT_2026-11-13.md"
   },
-  "current_candidate": {
-    "branch": "feature/production-visual-audit-20261113",
-    "scope": "Production-only public visual audit, 28 routes x 1440×900 and 390×844 Chrome screenshots and layout diagnostics, recurring weekly via GitHub Actions",
-    "status": "candidate_not_yet_verified_on_production",
-    "release_document": "docs/AVUQO_PRODUCTION_SCREENSHOT_QA_2026-11-13.md",
-    "no_privacy_risk": "unauthenticated only; no /control-centre, /preview, credentials or supplier integration changes",
-    "visual_approval": "await screenshot artifact and actual image inspection"
+  "last_visual_audit_automation": {
+    "pr": 138,
+    "release_commit": "08459b492fa8c9497b94cee933d9fa08dec0f01c",
+    "deployment": "dpl_CJ7yRusAX2fGppGBxy9jydXfHVdZ",
+    "status": "audit_workflow_code_deployed; first screenshot artifact review unverified",
+    "workflow": ".github/workflows/production-visual-audit.yml",
+    "scope": "28 public production routes at desktop 1440x900 and mobile 390x844, no authentication",
+    "artifact": "avuqo-public-visual-audit",
+    "review_document": "docs/AVUQO_PRODUCTION_SCREENSHOT_QA_2026-11-13.md",
+    "manual_visual_signoff": "pending"
   }
 }
