@@ -1,3 +1,7 @@
+## Editorial hero refresh candidate · 13 November 2026
+
+Last verified baseline before this change: `821b730ba71a6550e861ce2560f6cf51485e3c28`, `dpl_HC9FkzX8JxsvCNHtL2GhLbPrtmtC`. Candidate updates the seasonal hero layout and adds locally hosted Black Friday, Electronics, Home & Living and Beauty artwork. No mockup prices, merchant imagery or supplier changes. Verify exact deployment and desktop/mobile before closing the release.
+
 ## Production visual audit passed · 13 November 2026
 
 PR #165 is READY on the custom domain at `a2d1be5d988a0d8908acd1936223621d58fa6af4`, deployment `dpl_EEM8GELPoKxkjit6W1m5LG6thKw5`. [Audit run 43509641975](https://github.com/crkian/AVUQO/actions/runs/43509641975) passed 124 captures across 31 public routes at 1440, 768, 390 and 360 pixels. All logged HTTP statuses were 200. There were zero flagged cases. This is signed-out capture evidence. Signed-in end-to-end and mockup-by-mockup visual completion remain open.

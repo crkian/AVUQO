@@ -4,7 +4,11 @@
    Editorial imagery is never an assertion of verified merchant inventory. */
 .page{color:#302639;background:#faf8f3;--tone:#87506b;--wash:#f8eff0}
 .hero{position:relative;isolation:isolate;display:flex;align-items:center;min-height:340px;padding:clamp(45px,5.2vw,80px) 0;background-color:var(--wash);background-position:center 51%;background-size:cover;background-repeat:no-repeat}
-.hero>div{width:100%}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(90deg,#fcf8f4 0%,#fcf8f4f5 28%,#fcf8f480 51%,transparent 74%),var(--season-photo);background-size:cover;background-position:center}
+.heroContent{position:relative}
+.heroContent h1{max-width:700px;font-size:clamp(44px,5.1vw,72px)}
+.heroContent .lead{max-width:485px}
+.page[data-season=black-friday] .hero{--wash:#2c1834}
 .kicker{display:flex;align-items:center;gap:8px;color:var(--tone);font-size:10px;letter-spacing:.11em;text-transform:uppercase;font-weight:900;margin:0 0 10px}
 .hero h1{font-family:var(--avuqo-display-font, "Avenir Next", "Segoe UI", Arial, sans-serif);font-size:clamp(46px,6.1vw,82px);letter-spacing:-.05em;line-height:1.05;margin:0 0 11px;max-width:760px;color:#302639}
 .hero h1 em{font-style:normal;color:#6832db}
@@ -98,3 +102,12 @@
 .valueRibbon{background:linear-gradient(90deg,#fff4ee,#f7e9f7);border:1px solid #ebdfe6}
 @media(max-width:760px){.hero h1{font-size:clamp(39px,9.5vw,61px)}.categoryRail{scroll-margin-top:115px}.editorialFinds{overflow:hidden}}
 @media(prefers-reduced-motion:reduce){.story,.category,.findGrid>a{transition:none}}
+
+
+@media(max-width:750px){
+ .hero{padding:0 0 32px;min-height:0;background:#fcf8f4}
+ .hero::before{inset:0 0 auto;height:clamp(175px,39vw,275px);background-image:linear-gradient(0deg,#fcf8f4,transparent 60%),var(--season-photo);background-position:center,68% 52%}
+ .heroContent{padding-top:clamp(135px,32vw,230px)}
+ .heroContent h1{font-size:clamp(38px,9vw,57px)}
+ .heroContent .lead{max-width:37rem}
+}

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type {CSSProperties} from "react";
-import {ArrowRight, Bookmark, CalendarDays, CheckCircle2, Gift, House, Laptop, ListChecks, Plane, Scale, ShieldCheck, ShoppingBasket, Sparkles, Shirt} from "lucide-react";
+import {ArrowRight, Bookmark, CalendarDays, CheckCircle2, Gift, House, Laptop, ListChecks, Plane, Scale, ShieldCheck, ShoppingBasket, Shirt} from "lucide-react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import {seasonal,type Season} from "../../lib/editorial/seasonal";
@@ -12,25 +12,19 @@ const names:Record<Season,string>={
   easter:"Easter",
   valentines:"Valentine's",
 };
-const seasonalStory:Record<Season,string>={
-  sales:"Find inspiration for useful purchases, good timing and genuinely better value.",
-  "black-friday":"Start with what matters. Compare the details, not just the crossed-out prices.",
-  easter:"Spring ideas, thoughtful gifting and family time, all in one place.",
-  valentines:"Thoughtful gifts, little gestures and memories worth making.",
-};
 const photographs:Record<string,string>={
-  "/tech":"https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=720&q=80",
-  "/home":"https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=720&q=80",
+  "/tech":"/editorial/electronics.webp",
+  "/home":"/editorial/home-living.webp",
   "/gifts":"https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=720&q=80",
   "/christmas":"https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=720&q=80",
   "/toys":"https://images.unsplash.com/photo-1558060370-d644479cb6f7?auto=format&fit=crop&w=720&q=80",
   "/fashion":"https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=720&q=80",
   "/groceries":"https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=720&q=80",
   "/travel":"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=720&q=80",
-  "/beauty":"https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=720&q=80",
+  "/beauty":"/editorial/beauty.webp",
   "/experiences":"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=720&q=80",
   "/sales":"https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=720&q=80",
-  "/black-friday":"https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=720&q=80",
+  "/black-friday":"/editorial/black-friday.webp",
   "/categories":"https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=720&q=80",
   "/reality-check":"https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=720&q=80",
   "/lists":"https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=720&q=80",
@@ -55,15 +49,13 @@ const planner=[
 
 export default function SeasonalLanding({kind}:{kind:Season}){
  const d=seasonal[kind],name=names[kind];
- const custom={"--tone":d.color,"--wash":d.wash} as CSSProperties;
- const image={backgroundImage:`linear-gradient(90deg,rgba(252,248,244,.99),rgba(252,248,244,.96) 33%,rgba(252,248,244,.36) 70%,transparent),url("${d.photo}")`};
+ const custom={"--tone":d.color,"--wash":d.wash,"--season-photo":`url("${d.photo}")`} as CSSProperties;
  return <main className={styles.page} data-season={kind} style={custom}>
    <Header/>
-   <section className={styles.hero} style={image} aria-labelledby={`season-${kind}`}>
-    <div className="shell">
-      <p className={styles.kicker}><Sparkles size={15} aria-hidden="true"/> {d.eyebrow}</p>
-      <h1 id={`season-${kind}`}>{name} at <em>AVUQO.</em></h1>
-      <p className={styles.lead}>{seasonalStory[kind]} {d.intro}</p>
+   <section className={styles.hero} aria-labelledby={`season-${kind}`}>
+    <div className={`shell ${styles.heroContent}`}>
+      <h1 id={`season-${kind}`}>{kind==="sales"?<>Sales &amp; <em>Seasonal Savings</em></>:<>{name} at <em>AVUQO</em></>}</h1>
+      <p className={styles.lead}>{d.intro}</p>
       <div className={styles.heroActions}>
         <a href="#seasonal-discovery" className={styles.primary}>Explore {name} ideas <ArrowRight size={16}/></a>
         <Link href="/lists" className={styles.secondary}>Plan with a list</Link>

@@ -29,7 +29,10 @@ test("Every curated department has a distinct product blueprint and prepared sho
   assert.ok(blueprint,d.slug);
   assert.equal(blueprint.name,d.name);
   assert.equal(blueprint.checklist.length,3);
-  assert.ok(blueprint.visual.startsWith("https://images.unsplash.com/"));
+  if(blueprint.visual.startsWith("/editorial/")){
+   assert.match(blueprint.visual,/^\/editorial\/[a-z-]+\.webp$/);
+   assert.equal(readFileSync("public"+blueprint.visual).toString("ascii",8,12),"WEBP");
+  }else assert.ok(blueprint.visual.startsWith("https://images.unsplash.com/"));
  }
  assert.equal(departmentBlueprint("fake"),undefined);
  assert.match(file("app/categories/[department]/products/page.tsx"),/verifiedProductIndex\(120\)/);
