@@ -36,3 +36,30 @@ No current feed observation was found for these names in the `awin_feed_update_o
 7. Record member status, feed ID, last successful freshness check, image-use evidence and route type in the existing source-control process before any public release.
 
 **No rights/status changes, public images, public product offers, source activation, bulk import jobs or secret handling are authorised by this document.**
+
+## Owner-provided Awin Datafeed Inventory CSV (13 November 2026)
+Source: `datafeeds (3).csv` supplied privately by the owner. **DO NOT commit/export the original CSV:** its URL column contains private feed-download links and publisher identifiers. No URLs or access keys are stored in this documentation.
+
+- 958 datafeed rows across 619 advertiser IDs. Membership Status values: 74 `active` and 884 `Not Joined`. These are feed-level rows; **12 unique advertisers** have active feed entries. The 74 active rows report **274,898 listed product rows**, not unique sellable products.
+- Newly verified **PlayPress Toys UK**, advertiser ID **101445**, has active Awin feed `96428` and Google-format feed `F5142`, **81 listed rows in total**. This resolves its formerly unknown identifier. Verify both feed schemas and image rights before private import.
+- The other two newly seen screenshot names, **Your Co-op Energy** and **BroadbandCoop & MobileCoop**, have no matches in this CSV; their exact Awin IDs remain to be confirmed from programme details, and no public offer or feed should be inferred.
+- Active feed advertisers and row counts (may overlap across feeds):
+
+| Advertiser ID | Name | Active feed entries | Listed product rows |
+|---|---|---:|---:|
+| 496 | Tooled Up | 53 | 208831 |
+| 12715 | Tyres UK | 1 | 31738 |
+| 15236 | Tyres Pneus Online UK | 1 | 19997 |
+| 31539 | Mozillion | 5 | 11311 |
+| 736 | Cadbury Gifts Direct | 1 | 1371 |
+| 45747 | Craft Buddy Shop | 2 | 1311 |
+| 118401 | Compare Parking Prices UK | 2 | 120 |
+| 77952 | Petlibro UK Affiliate Program | 4 | 117 |
+| 101445 | PlayPress Toys UK | 2 | 81 |
+| 37738 | 1pMobile | 1 | 10 |
+| 128157 | Lyca Mobile UK | 1 | 10 |
+| 25022 | EPCs / certificates | 1 | 1 |
+
+**Caution:** the active-feed `Tooled Up` entries include historical ID `89987`; merchant previously reported old feeds deleted. An inventory row alone does not prove the URL still works or offers current licensed data. `active` is a feed inventory membership field, not evidence of permission to republish products, images, or links.
+
+**Current gap:** the other five historical joined programmes with no active CSV feed rows are Holiday Extras, Onestream, Christmas Letters from Santa, AutoAid Breakdown and Chattr Sim Only; the new screenshot programmes Your Co-op Energy and BroadbandCoop & MobileCoop also have no CSV entry. Treat as seven lead follow-ups, not automatically feedless services.
