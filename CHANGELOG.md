@@ -1,3 +1,10 @@
+## Unreleased · Tooled-Up Awin GBP programme currency verification
+
+- Port old PR #102's protected, read-only joined-programme `currencyCode` inspection to current main without reactivating deleted historical Tooled-Up feed IDs.
+- Return strictly programme-only GBP evidence; hard-code no feed activation, price confirmation, product staging, image rights, public offer publishing or database writes.
+- Use 15s timeout, bounded provider response, fail-closed ambiguous/missing currency handling; test source gating, non-GBP outcomes and no-write invariants.
+- Actual Awin API invocation with live credentials and current replacement-feed permission remain unverified.
+
 ## 13 November 2026 · Cadbury and Petlibro terms visible in production
 
 - PR #149 merged, Vercel READY `b6b6a93f7da3837f02d004cade0ec1fee52715a8` on `www.avuqo.com`, old PR #51 closed as superseded.
