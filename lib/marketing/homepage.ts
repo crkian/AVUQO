@@ -10,7 +10,7 @@ export async function loadHomeCampaigns():Promise<HomeCampaign[]> {
    .select("id,title,summary,cta_label,href,sponsored")
    .eq("brand_slug","avuqo").eq("status","approved")
    .lte("starts_at",now).gt("ends_at",now)
-   .order("priority",{ascending:false}).order("created_at",{ascending:false}).limit(8);
+   .order("priority",{ascending:false}).order("starts_at",{ascending:false}).order("id",{ascending:true}).limit(8);
   if(error||!data)return EDITORIAL_ROTATION;
   const accepted=data.map(r=>validPublicCampaign(r)).filter((r):r is HomeCampaign=>!!r);
   return accepted.length?accepted:EDITORIAL_ROTATION;

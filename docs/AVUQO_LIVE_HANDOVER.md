@@ -1,3 +1,7 @@
+## Production storefront polish verified · 13 November 2026
+
+PR #161 is READY on the custom domain at `0ddd9edd94b3164f1d6fc6064e43fde7d842c377`, deployment `dpl_BhuZZtzkermnyqCLdwBaKMcNS4Ln`. GitHub quality and secret checks passed. Campaign timing and private Awin monitor improvements are the next release candidate.
+
 ## Storefront polish in review · 13 November 2026
 
 Last verified custom-domain deployment before this change: `07928970409eabaa2063e83bcb0bf19fc07bfbe1`, `dpl_A6ehuJD55mapwL8QAwAN8razakdt`. The storefront candidate restores the original faceted mark from PR #93 and gives the category strip and shopping dashboard priority under the seasonal hero. Mobile Saved and Lists are one tap away. Verify production and update this entry after merging.

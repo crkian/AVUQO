@@ -2,6 +2,7 @@ import Link from "next/link";
 import { connection } from "next/server";
 import { requireControlCentreAccess } from "../../../lib/auth/requireControlCentreAccess";
 import { createClient } from "../../../lib/supabase/server";
+import {homePlacementState} from "../../../lib/marketing/homepage-policy";
 import { BRAND_SLUGS, isBrandSlug } from "../../../lib/marketing/policy";
 import {
   addMarketingChannel, addMarketingDraft, addMarketingFact, approveMarketingFact,
@@ -73,6 +74,7 @@ export default async function MarketingPage({
   const system = (extended[0].data??null) as GlobalControls|null;
   const assets = (extended[1].data??[]) as Asset[];
   const jobs = (extended[2].data??[]) as Job[];
+  const placementClock=new Date();
   const homePlacements=(extended[3].data??[]) as HomePlacement[];
   const editorialRules=(extended[4].data??[]) as EditorialRule[];
   const brandRules=editorialRules.filter(r=>r.brand_slug===brand);
@@ -150,6 +152,7 @@ export default async function MarketingPage({
     {tab==="homepage"&&<>
       <section className={styles.panel}>
         <h2>AVUQO editorial homepage rotation</h2>
+        <p><Link href="/control-centre/seasonal-calendar">View the UK seasonal hero calendar</Link></p>
         <p className={styles.muted}>Approved AVUQO campaigns appear in a rotating panel below the homepage introduction. Set a start and end time, choose a real AVUQO page, and review the copy. Campaigns expire automatically. This current editor supports AVUQO-owned pages and approved AVUQO facts only. Outside advertiser briefs and creative approvals are managed in the separate Site Advertising workspace. There is no live paid-ad delivery yet. Any future paid placements must be clearly labelled and must never affect product scores or organic rankings.</p>
         {brand!=="avuqo"?<div className={styles.warning}>This front-page carousel belongs to AVUQO only. Select AVUQO above. Other brands keep separate marketing workspaces and cannot add claims to AVUQO&apos;s homepage.</div>:
          <form action={createHomePlacement} className={styles.form}>
@@ -170,7 +173,7 @@ export default async function MarketingPage({
       <section className={styles.panel}><h2>Review and rotate</h2>
         <div className={styles.list}>{homePlacements.length?homePlacements.map(p=>
           <article key={p.id} className={styles.item}>
-            <span className={styles.status}>{p.status}</span>
+            <span className={styles.status}>{homePlacementState(p.status,p.starts_at,p.ends_at,placementClock)}</span>
             {p.sponsored&&<span className={styles.pill}>Sponsored · Advertisement</span>}
             <h3>{p.title}</h3><p>{p.summary}</p>
             <p className={styles.meta}>{p.href} · Priority {p.priority} · UTC {p.starts_at.slice(0,16)} to {p.ends_at.slice(0,16)}</p>
@@ -183,7 +186,7 @@ export default async function MarketingPage({
                 <input type="hidden" name="placement_id" value={p.id}/><input type="hidden" name="decision" value="pause"/>
                 <button type="submit">Pause this campaign</button>
               </form>}
-              {p.status==="paused"&&<form action={reviewHomePlacement}>
+              {p.status==="paused"&&Date.parse(p.ends_at)>placementClock.getTime()&&<form action={reviewHomePlacement}>
                 <input type="hidden" name="placement_id" value={p.id}/><input type="hidden" name="decision" value="resume"/>
                 <button type="submit">Resume this campaign</button>
               </form>}

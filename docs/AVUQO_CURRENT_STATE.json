@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_GVkTsnRpkWTc2p79DwUXD4EvhUEX",
-    "verified_ready_sha": "58355149ef69e82924a00c6866b0859a7483234a",
+    "deployment_id": "dpl_BhuZZtzkermnyqCLdwBaKMcNS4Ln",
+    "verified_ready_sha": "0ddd9edd94b3164f1d6fc6064e43fde7d842c377",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #159 public full-site tour, page/home/sitemap HTTP 200 on exact production deployment. Not merchant approval.",
+    "verification": "PR #161 production READY with www.avuqo.com alias and GitHub quality and secret checks passed.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
