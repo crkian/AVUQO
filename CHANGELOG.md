@@ -1,3 +1,6 @@
+## Unreleased · Awin HTTP provider error redaction
+- Replace raw failed Awin provider response snippets/status text in thrown feed connector errors with numeric HTTP status only, carrying forward security intent from old PR #50.
+- Add CI regression test; leave credentials, importer, publication, image rights and feed status untouched.
 ## 13 November 2026 · 119 historical branches safely removed
 - Verified PR #143 deleted 16 merged PR #127–142 branch refs.
 - Verified PR #144 deleted 103 older branches after exact frozen merged-PR last-commit and head SHA comparisons. Count now 26 including main and 2 cleanup branches, down from 143 before task (plus task-created branches).

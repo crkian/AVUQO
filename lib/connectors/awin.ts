@@ -178,8 +178,9 @@ export const awinConnector: SourceConnector = {
     });
 
     if (!response.ok) {
-      const body = (await response.text()).slice(0, 500);
-      throw new Error(`Awin feed request failed (${response.status}): ${body || response.statusText}`);
+      // Provider response bodies and statusText are untrusted and may contain account details.
+      // Emit only the numeric HTTP status. Never expose raw provider content in logs or UI.
+      throw new Error(`Awin feed request failed (HTTP ${response.status})`);
     }
 
     return readJsonLines(response, Math.max(1, Math.min(limit, 250)));
