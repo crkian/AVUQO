@@ -2,7 +2,7 @@
 
 **Date:** 10 November 2026  
 **Code branch:** `feature/marketing-tyres-all-category-product-readiness-20261110`  
-**State at creation:** release candidate, not yet deployed. Update project Compass after exact production verification.
+**Current state:** production verified 13 November 2026. PR #125 squash merge SHA `4b9231f173db8d3d42cc150cc0d16e0c96092259`. Vercel `dpl_tCLBPtevXFWNGHr65sZo8kvSVNrN` READY, public release routes responded HTTP 200. Authenticated owner-browser and physical 360px acceptance remain separate.
 
 ## Design contract and source traceability
 
@@ -71,12 +71,12 @@ No change to public offer admission (`lib/products/public-catalog.ts`) or curren
 
 ## Release acceptance checklist
 
-- [ ] GitHub lint, new marketing/tyre/25-category tests, existing safety suites and build green on exact head.
-- [ ] Secret scan green.
-- [ ] Vercel preview READY on exact SHA.
-- [ ] Public routes: `/products`, 25 departments including new `/categories/tech/products`, `/categories/baby-nursery/products`, `/tyres/find`, `/tyres/compare`, `/tyres/brands/michelin`, `/advertise`.
-- [ ] Owner routes `/control-centre/tyres`, `/control-centre/marketing/readiness` not accessible signed-out.
-- [ ] Merge and verify exact production SHA, `www.avuqo.com` alias and live customer routes.
+- [x] GitHub lint, new marketing/tyre/25-category tests, existing safety suites and build green on exact head.
+- [x] Secret scan green.
+- [x] Vercel preview READY on exact SHA.
+- [x] Public routes: `/products`, 25 departments including new `/categories/tech/products`, `/categories/baby-nursery/products`, `/tyres/find`, `/tyres/compare`, `/tyres/brands/michelin`, `/advertise`.
+- [x] Owner routes `/control-centre/tyres`, `/control-centre/marketing/readiness` not accessible signed-out.
+- [x] Merge and verify exact production SHA, `www.avuqo.com` alias and live customer routes.
 - [ ] Authenticated owner browser + physical 360px/desktop visual QA, sourced merchandising and commercial rights remain separate owner acceptance.
 
 ## Next authorised follow-up
