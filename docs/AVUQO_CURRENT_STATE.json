@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_G5W4w3GCFbjnqnAikP8UJSKWVBCK",
-    "verified_ready_sha": "7c8619352d5458a1c1ce69c3dc5f4960a813a3d2",
+    "deployment_id": "dpl_5CoPiwj5gLSAiES6LwWc1Ux2U9v9",
+    "verified_ready_sha": "5954beb29fc849dc9368991fdce6ba2db5a3b063",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #153 Tyres UK candidate-only source validation merged and Vercel production READY with www.avuqo.com aliases on 2026-11-13; later docs-only merges can advance production SHA, recheck.",
+    "verification": "PR #155 read-only owner tyre worker preflight production READY and www.avuqo.com alias verified 2026-11-13. Docs-only follow-up may advance SHA; recheck.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -161,6 +161,10 @@
     {
       "pr": 153,
       "scope": "Tyres UK strict technical candidate parser and honest disabled worker status only; PR #117 retained for migration/runtime work"
+    },
+    {
+      "pr": 155,
+      "scope": "Read-only owner Tyres UK worker preflight, actual DB/bucket blocker reporting, no migration or activation"
     }
   ],
   "closed_unmerged_recent": [
@@ -176,7 +180,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Deploy no-write Tyres UK worker preflight; then test via owner authenticated Control Centre, validate existing private snapshot bucket permissions, design and test migration/lease/storage retention, verify current Awin feed, and explicitly keep PR #117 worker disabled until accepted."
+      "task": "Review and test PR #117 migration/lease functions and private storage retention in controlled environment; verify current Awin Tyres UK feed identity and source rights, plus browser owner preflight. Only deploy worker after security and runtime acceptance; retain Pneus cron and all publication gates."
     },
     {
       "priority": 2,
@@ -372,17 +376,22 @@
     "public_prices_fitment_offers_approved": false,
     "old_pr_117": "still open; worker and migration require independent acceptance"
   },
-  "current_candidate": {
-    "branch": "feature/tyres-uk-worker-readonly-preflight-20261113",
-    "legacy_pr": 117,
-    "status": "candidate_pending_CI_and_production",
-    "scope": "Owner-only read-only Tyres UK snapshot worker prerequisite checks from existing private status UI; never enable worker",
-    "verified_supabase_baseline": "Private awin-bulk-private-snapshots bucket present, public=false, no general storage.objects policies; V2 job table/claim RPCs absent, Awin paused sync off",
+  "last_tyres_uk_preflight_release": {
+    "pr": 155,
+    "sha": "5954beb29fc849dc9368991fdce6ba2db5a3b063",
+    "deployment": "dpl_5CoPiwj5gLSAiES6LwWc1Ux2U9v9",
+    "status": "production_verified_ready",
     "action": "automation_preflight",
-    "ready_to_enable": false,
-    "no_database_writes": true,
-    "no_feed_fetch": true,
-    "no_cron": true,
-    "reference": "docs/TYRES_UK_AUTO_WORKER_PREFLIGHT_2026-11-13.md"
+    "owner_only": true,
+    "live_runtime_owner_click": "not yet exercised",
+    "job_table": "missing",
+    "private_snapshot_bucket": "exists, public=false",
+    "source_status": "paused, sync off",
+    "automatic_worker_enabled": false,
+    "sql_migration_applied": false,
+    "cron_added": false,
+    "public_offers_enabled": false,
+    "reference": "docs/TYRES_UK_AUTO_WORKER_PREFLIGHT_2026-11-13.md",
+    "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   }
 }
