@@ -1,0 +1,50 @@
+name: AVUQO production visual audit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 8 * * 1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: avuqo-production-visual-audit
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    name: Public desktop and mobile screenshots
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - name: Install pinned browser automation client without changing repository lockfile
+        run: npm install --no-save --no-package-lock --ignore-scripts puppeteer-core@24.29.0
+      - name: Capture production screenshots, overflow and image diagnostics
+        id: audit
+        continue-on-error: true
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium)"
+          export CHROME_BIN
+          node scripts/production-visual-audit.mjs
+      - name: Upload desktop/mobile visual evidence and machine report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: avuqo-public-visual-audit
+          path: visual-audit-output/
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Report flagged routes without affecting live production
+        if: steps.audit.outcome == 'failure'
+        run: |
+          echo "Public visual audit reported errors. Inspect visual-audit-output/report.md and attached screenshots."
+          exit 1
