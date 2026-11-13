@@ -1,4 +1,8 @@
 
+## Unreleased · Restore photographic homepage hero in production
+- Reconstruct original full-bleed photo-led warm premium storefront with readable overlay, hero Compare/Sales CTAs and evidence-first shopping panel on actual homepage.
+- Keep current approved product, navigation and editorial source controls. Add responsive and no-fabricated-score CI test.
+
 ## Unreleased · Restore full original premium storefront to live homepage
 - Recover `StorefrontQuickLinks` and `HomeShoppingDashboard` with responsive original CSS from `feature/warm-premium-experience-v1-20261105` and render on public homepage, not a preview.
 - Keep existing new sections, verified-only product index and honest editorial fallback when retailer offers are not approved.
