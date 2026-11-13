@@ -1,6 +1,11 @@
 name: AVUQO production visual audit
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/production-visual-audit.yml'
+      - 'scripts/production-visual-audit.mjs'
   workflow_dispatch:
   schedule:
     - cron: "0 8 * * 1"
