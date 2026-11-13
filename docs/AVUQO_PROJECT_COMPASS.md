@@ -8,6 +8,10 @@ PR #58 is older than the current secure Awin importer. Its useful duplicate-file
 
 PR #136 **deployed to production**, feature SHA `da22e97c6fdad31d23e6c972e0a39239e689d8fb` READY on `www.avuqo.com` (Vercel `dpl_Cj21PogF2EaRPrJ3PfQSv7ySKsmq`). The live November homepage was independently fetched and displays Black Friday hero and image. UK-date scheduling is request-time for main headline/art/CTA and related editorial panel, with recurring calendar in Control Centre `/control-centre/seasonal-calendar`. 28 public URLs passed an HTTP 200/shared-brand-markup check but **visual pixel fidelity and authenticated browser interaction are unverified**. See `docs/AVUQO_AUTOMATIC_UK_SEASONAL_CALENDAR_AND_PAGE_AUDIT_2026-11-13.md`. Supplier/publication gates stay intact. Subsequent docs-only releases can produce a new latest READY SHA, so recheck.
 
+## Verified Awin CSV importer release · 13 November 2026
+
+PR #147 selectively ported useful numbered Craft Buddy CSV filename handling and precise extension/size/empty import messages from obsolete PR #58, without restoring the old insecure filename-inferred advertiser or legacy fallback. Main code deployed READY SHA `ba25af858c203df11713c4496276b2d38d4caa22` on `www.avuqo.com`, Vercel `dpl_EBxNpctsyr6Vswy9WeCjNdAcHhWd`. Old PR #58 CLOSED, not merged. Each Awin import still needs owner/admin, joined source registry, manually selected advertiser ID, strict per-record merchant match and private unverified rights. No feed data or affiliate offer permissions changed. Next priority merchant contractual/photo permissions PR #51, then Tooled-Up currency PR #102.
+
 
 ## Real homepage owner screenshot QA and fixes · 13 November 2026
 
