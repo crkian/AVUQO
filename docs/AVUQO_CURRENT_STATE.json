@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_EBxNpctsyr6Vswy9WeCjNdAcHhWd",
-    "verified_ready_sha": "ba25af858c203df11713c4496276b2d38d4caa22",
+    "deployment_id": "dpl_2L3ihuCwwJX5UYBGrL5naFBxDemm",
+    "verified_ready_sha": "b6b6a93f7da3837f02d004cade0ec1fee52715a8",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #147 Awin numbered private CSV filename/error fix, production READY with www.avuqo.com aliases on 13 Nov 2026. Later docs-only releases change current HEAD: always recheck.",
+    "verification": "PR #149 historical Awin Cadbury/Petlibro terms and owner-only restriction display production READY on www.avuqo.com, 2026-11-13; newer docs-only deploy may advance SHA, recheck Vercel.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -149,6 +149,10 @@
     {
       "pr": 147,
       "scope": "Current-main Awin numbered CSV private import and clear upload validation errors; PR #58 superseded closed"
+    },
+    {
+      "pr": 149,
+      "scope": "Cadbury/Petlibro Awin historical terms and owner-only permissions guide, no source activation; old PR #51 closed"
     }
   ],
   "closed_unmerged_recent": [
@@ -164,7 +168,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Complete Cadbury/Petlibro terms PR CI+production; close old PR #51 only after verified release; then audit PR #102 Tooled-Up GBP currency proof. Request fresh written usage/image permission before any public feed offers."
+      "task": "Audit old PR #102 Tooled Up GBP currency proof on fresh main; safely port only missing currency/source verification and rights gates, CI/Vercel production READY, close old PR if superseded. Request up-to-date written Cadbury/Petlibro feed/photo permissions before approving public offers."
     },
     {
       "priority": 2,
@@ -299,7 +303,6 @@
       21,
       25,
       48,
-      51,
       83,
       85,
       93,
@@ -325,14 +328,15 @@
     "no_provider_upload": true,
     "public_offers_unverified": true
   },
-  "current_candidate": {
-    "branch": "feature/awin-cadbury-petlibro-rights-evidence-20261113",
-    "legacy_pr": 51,
-    "status": "candidate_pending_ci_production",
-    "scope": "Preserve historical owner-provided Cadbury/Petlibro terms summary and show restrictive rights guidance on authenticated retailer Control Centre; no source permission changes",
-    "evidence": "4 Nov 2026 owner emails/PDFs summarized in old PR #51; original documents not re-opened in this port",
-    "cadbury_736": "directory/editorial/comparison listed, sales commission exclusion and brand PPC restrictions; public image/feed licensing unverified",
-    "petlibro_77952": "organic comparison/editorial listed, UK territory exclusions, PPC/CSS restrictions, conflicting commission rates; public image/feed licensing unverified",
-    "publication": "fail-closed, no current rights or public product approval"
+  "last_merchant_rights_review_release": {
+    "pr": 149,
+    "release_sha": "b6b6a93f7da3837f02d004cade0ec1fee52715a8",
+    "deployment_id": "dpl_2L3ihuCwwJX5UYBGrL5naFBxDemm",
+    "production_ready": true,
+    "superseded_closed_pr": 51,
+    "scope": "Preserve historical Cadbury/Petlibro terms, show restrictions and evidence checklist in owner-only Retailers page",
+    "original_terms_re_read": false,
+    "source_rights_approved": false,
+    "public_images_offers_enabled": false
   }
 }

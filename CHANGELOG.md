@@ -1,3 +1,9 @@
+## 13 November 2026 · Cadbury and Petlibro terms visible in production
+
+- PR #149 merged, Vercel READY `b6b6a93f7da3837f02d004cade0ec1fee52715a8` on `www.avuqo.com`, old PR #51 closed as superseded.
+- Private owner retailer Control Centre now explains documented sale/PPC/territory/commission restrictions and outlines evidence required before using Awin data or photographs.
+- Preserve historical source-provenance and current permissions uncertainty. Rights gates unchanged, no merchant feeds activated or public images/offers released.
+
 ## Unreleased · Cadbury and Petlibro merchant terms visibility
 
 - Preserve historical owner-supplied Awin Cadbury/Petlibro programme terms summary from stale PR #51 in current repo with explicit provenance limitation.
