@@ -84,6 +84,33 @@ async function HomeContent() {
       </div>
     </div>
 
+    <section className={styles.shopJourneys} aria-label="Two ways to find what is worth it">
+      <div className="shell">
+        <div className={styles.shopJourneysHeading}>
+          <div><p className={styles.kicker}>YOUR SHOPPING, YOUR WAY</p><h2>Compare confidently. <span>Discover something worthwhile.</span></h2></div>
+          <p>One place for thoughtful comparisons and real bargains. We only describe an offer as current or discounted when the evidence supports it.</p>
+        </div>
+        <div className={styles.shopJourneyGrid}>
+          <article className={styles.shopJourneyCard}>
+            <div className={styles.shopJourneyPhoto} style={{backgroundImage:`url("${lifestylePages.shopping.tiles[0].image}")`}} aria-hidden="true"/>
+            <div className={styles.shopJourneyCopy}><span className={styles.shopJourneyEyebrow}><Scale size={15}/> COMPARE</span>
+              <h3>Find the right product. Then the right offer.</h3>
+              <p>Explore specifications, match exact variants and compare eligible retailer prices with delivery in mind.</p>
+              <Link href="/marketplace/compare">Start comparing <ArrowRight size={17}/></Link>
+            </div>
+          </article>
+          <article className={styles.shopJourneyCard}>
+            <div className={styles.shopJourneyPhoto} style={{backgroundImage:`url("${lifestylePages.shopping.tiles[5].image}")`}} aria-hidden="true"/>
+            <div className={styles.shopJourneyCopy}><span className={styles.shopJourneyEyebrow}><Sparkles size={15}/> DISCOVER</span>
+              <h3>Bargains worth checking, not just big red labels.</h3>
+              <p>Browse seasonal ideas and genuine promotions. Unverified price drops stay off the deals shelf.</p>
+              <Link href="/sales">Explore deals &amp; sales <ArrowRight size={17}/></Link>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <CategoryJourneys slug="shopping"/>
     <HomeSeasonalSpotlight spotlight={editorialSpotlight(new Date())}/>
     <HomeCampaignCarousel campaigns={campaigns}/>
