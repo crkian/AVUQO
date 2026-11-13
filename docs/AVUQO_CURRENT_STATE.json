@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_CJ7yRusAX2fGppGBxy9jydXfHVdZ",
-    "verified_ready_sha": "08459b492fa8c9497b94cee933d9fa08dec0f01c",
+    "deployment_id": "dpl_55ZKhZvcp4JFFVSYqT8a5MMdzm9d",
+    "verified_ready_sha": "e310af5a6ac49b00a01f7742c8d6a3664ebb5cf5",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "Production READY on www.avuqo.com and exact PR #138 SHA verified on 2026-11-13. Live homepage still serves Black Friday; docs-only merges may subsequently advance SHA. Recheck Vercel on every restart.",
+    "verification": "Verified READY with www.avuqo.com alias and actual live markup for PR #140 on 2026-11-13; future docs-only changes can advance SHA, so recheck.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -141,6 +141,10 @@
     {
       "pr": 138,
       "scope": "Production public-route desktop/mobile screenshot QA workflow and regression contract, no customer UI changes"
+    },
+    {
+      "pr": 140,
+      "scope": "Correct broken category image sprite, repeated seasonal banner, huge hero, owner-only prompt in homepage; source integrations protected"
     }
   ],
   "closed_unmerged_recent": [
@@ -156,7 +160,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Ship owner screenshot fixes; verify exact Vercel READY production SHA and real category photos/Black Friday primary hero; review mobile screenshot after deployment."
+      "task": "Inspect actual post-release desktop/mobile screenshots and loaded category editorial images on www.avuqo.com; check latest Actions production visual-audit artifact and fix only observed defects."
     },
     {
       "priority": 2,
@@ -222,13 +226,13 @@
     "review_document": "docs/AVUQO_PRODUCTION_SCREENSHOT_QA_2026-11-13.md",
     "manual_visual_signoff": "pending"
   },
-  "current_candidate": {
-    "branch": "fix/homepage-screenshot-findings-20261113",
-    "scope": "Four owner screenshot findings: missing category sprite replaced with editorial image tiles, duplicate seasonal home panel removed, hero scaled/centred, private owner shortcut removed from public hero (owner nav remains).",
-    "status": "candidate_not_yet_verified_on_production",
-    "evidence": "User-provided desktop screenshots 2026-11-13",
-    "document": "docs/AVUQO_HOMEPAGE_OWNER_SCREENSHOT_CORRECTIONS_2026-11-13.md",
-    "preserves": "UK date-driven main hero, Awin/eBay/tyres/Supabase auth and source rights",
-    "visual_signoff": "mobile screenshot and category image load not yet confirmed"
+  "last_owner_homepage_fixes": {
+    "pr": 140,
+    "app_release_commit": "e310af5a6ac49b00a01f7742c8d6a3664ebb5cf5",
+    "deployment": "dpl_55ZKhZvcp4JFFVSYqT8a5MMdzm9d",
+    "verified_ready": true,
+    "html_verified": "200, Black Friday primary hero present, category editorial image URL present, missing sprite absent, duplicate seasonal heading absent, owner shortcut absent",
+    "screenshot_review": "User supplied pre-fix desktop screenshots; post-release browser image loading and mobile screenshots pending",
+    "document": "docs/AVUQO_HOMEPAGE_OWNER_SCREENSHOT_CORRECTIONS_2026-11-13.md"
   }
 }
