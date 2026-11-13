@@ -7,6 +7,7 @@ import GiftFinder from "./GiftFinder";
 import PublishedChristmasCrafts from "./PublishedChristmasCrafts";
 import ChristmasHomeFeature from "../../components/home/ChristmasHomeFeature";
 import { Suspense } from "react";
+import {seasonalArt} from "../../lib/editorial/seasonal-art";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -26,12 +27,12 @@ export default function ChristmasPage() {
   return <main>
     <Header />
     <section className={styles.hero}>
-      <div className={styles.heroPhoto} aria-hidden="true"/><div className={styles.heroWash} aria-hidden="true"/>
+      <div className={styles.heroPhoto} style={{backgroundImage:`url("${seasonalArt.christmas}")`}} aria-hidden="true"/><div className={styles.heroWash} aria-hidden="true"/>
       <div className={`shell ${styles.heroLayout}`}>
         <div className={styles.heroCopy}>
         <p className={styles.eyebrow}><Sparkles size={16} /> AVUQO Christmas 2026</p>
-        <h1>More festive joy.<br /><span>Less guesswork.</span></h1>
-        <p>Find Christmas gift ideas, creative projects and practical ways to keep seasonal spending in check. We focus on the total cost and the details that matter, not just a flashy discount.</p>
+        <h1>Christmas at <span>AVUQO</span></h1>
+        <p>Find thoughtful gifts, creative projects and festive planning tools. Use a list to stay on budget and compare the total cost before you buy.</p>
         <div className={styles.heroActions}><Link className={styles.primary} href="#gift-ideas">Explore gift ideas <ArrowRight size={17}/></Link><Link className={styles.secondary} href="/lists">Plan a gift list</Link></div>
         </div>
 

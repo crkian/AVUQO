@@ -3,6 +3,7 @@ import type {CSSProperties} from "react";
 import {ArrowRight, Bookmark, CalendarDays, CheckCircle2, Gift, House, Laptop, ListChecks, Plane, Scale, ShieldCheck, ShoppingBasket, Shirt} from "lucide-react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
+import {seasonalArt} from "../../lib/editorial/seasonal-art";
 import {seasonal,type Season} from "../../lib/editorial/seasonal";
 import styles from "./SeasonalLanding.module.css";
 
@@ -16,15 +17,15 @@ const photographs:Record<string,string>={
   "/tech":"/editorial/electronics.webp",
   "/home":"/editorial/home-living.webp",
   "/gifts":"https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=720&q=80",
-  "/christmas":"https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=720&q=80",
+  "/christmas":seasonalArt.christmas,
   "/toys":"https://images.unsplash.com/photo-1558060370-d644479cb6f7?auto=format&fit=crop&w=720&q=80",
   "/fashion":"https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=720&q=80",
   "/groceries":"https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=720&q=80",
   "/travel":"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=720&q=80",
   "/beauty":"/editorial/beauty.webp",
   "/experiences":"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=720&q=80",
-  "/sales":"https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=720&q=80",
-  "/black-friday":"/editorial/black-friday.webp",
+  "/sales":seasonalArt.sales,
+  "/black-friday":seasonalArt["black-friday"],
   "/categories":"https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=720&q=80",
   "/reality-check":"https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=720&q=80",
   "/lists":"https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=720&q=80",
