@@ -1,3 +1,7 @@
+## Unreleased · Saved offer destinations
+
+- Reopen eligible saved offers from Saved Items, Watches and shared lists through the live offer route. Historical demo slugs still resolve to their labelled examples.
+
 ## Unreleased · Mobile search and visual audit coverage
 
 - Make global search visible at phone and tablet widths. Extend the public screenshot audit to search, Wishlist and Comparison Basket, and to 768px and 360px widths.
