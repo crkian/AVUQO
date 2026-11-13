@@ -257,3 +257,9 @@ Read `AGENTS.md`, this status page and `CHANGELOG.md` from `crkian/AVUQO` using 
 - Only permissioned fresh offers can appear in product pages, wishlists' new-item actions or basket additions.
 - Basket totals are **snapshots**, not live purchase quotes; final price and checkout remain at the retailer.
 - No stored customer email addresses or third-party email sent without a deliberate service design and consent.
+
+
+### 2026-11-13 Public live-first whole-site tour (candidate, not released)
+- Add public `/explore-avuqo` route, grouped links for shopping, deals, groceries, tyres, travel and personal tools, and a visible homepage entry point. Include tour in sitemap.
+- Explicitly label verification constraints and sign-in requirements; no fake prices, supplier imagery, approvals, automated alerts or merchant claims. No private Control Centre access is surfaced.
+- Release only after CI, preview and exact SHA production Vercel READY, then verify `/explore-avuqo` HTTP 200 and responsive behavior. This does not activate marketing/affiliate automation.
