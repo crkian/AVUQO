@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_CSmkg3D9G2BZht1MzRj6wFgpHDnQ",
-    "verified_ready_sha": "9093cbc9d9f4b814beea5cb82b432896879a4e98",
+    "deployment_id": "dpl_8tTvq2WhzbvkDYiEMre98iV7fqv1",
+    "verified_ready_sha": "41932649077862ce8ce1d226bcd957dba3616612",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #163 production READY with www.avuqo.com alias and GitHub quality and secret checks passed.",
+    "verification": "PR #164 production READY with www.avuqo.com alias and GitHub quality and secret checks passed.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -101,7 +101,6 @@
     }
   ],
   "open_prs_at_snapshot": [
-    21,
     25,
     83,
     93,
@@ -415,5 +414,19 @@
     "desktop_mobile_visual_signoff": "pending",
     "changed_source_rights": false,
     "changed_automation_flags": false
+  },
+  "last_public_visual_audit": {
+    "run": 43508505598,
+    "routes": 31,
+    "widths_px": [
+      1440,
+      768,
+      390,
+      360
+    ],
+    "captured": 124,
+    "cache_revalidation_flags": 66,
+    "other_flags_in_log": 0,
+    "authenticated_qa": "pending"
   }
 }
