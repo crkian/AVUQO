@@ -160,7 +160,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Reconcile old PR #58 numbered Awin CSV filenames and owner-friendly import errors against current main. Port only missing changes, test and deploy; then close stale PR without wholesale merging. Preserve all merchant/publication rights gates."
+      "task": "Complete current-main Awin numbered-file import PR (CI/Vercel), close obsolete #58 only after live verification, then evaluate PR #51 permissions and PR #102 Tooled-Up currency; no public merchant offers without evidence."
     },
     {
       "priority": 2,
@@ -236,11 +236,13 @@
     "document": "docs/AVUQO_HOMEPAGE_OWNER_SCREENSHOT_CORRECTIONS_2026-11-13.md"
   },
   "current_candidate": {
-    "branch": "fix/no-false-homepage-loading-hero-20261113",
-    "scope": "Fix generic homepage hero flashing before the UK-date seasonal hero due to obsolete Suspense fallback",
-    "status": "candidate_pending_CI_and_production",
-    "preserves": "Europe/London per-request seasonal calendar, merchant/rights gates, Awin/eBay/tyres, auth, latest category imagery",
-    "next_visual_check": "Confirm after hard reload that no old room-photo Find what's worth it hero is ever shown before the seasonal page."
+    "branch": "fix/awin-numbered-csv-private-import-current-main-20261113",
+    "legacy_pr": 58,
+    "status": "candidate_not_yet_verified_on_production",
+    "scope": "Normalize numbered (1)/(2)/(10) Craft Buddy Awin CSV filenames only for format parsing; separate invalid-extension, oversize, empty-file errors",
+    "preserved_security": "Owner/admin auth, explicit joined advertiser_id, joinedInSource registry, per-row matching and private_review/unverified; no inferred advertiser from filename",
+    "no_provider_upload": "No new Awin feed has been downloaded/imported; no rights approval",
+    "verification": "CI, Vercel READY, then close PR #58 only when replacement deployed"
   },
   "branch_cleanup_audit": {
     "observed_date": "2026-11-13",

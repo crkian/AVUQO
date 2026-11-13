@@ -1,3 +1,7 @@
+## Current Awin import robustness candidate · 13 November 2026
+
+PR #58 is older than the current secure Awin importer. Its useful duplicate-filename parsing and precise validation errors have been ported selectively to `fix/awin-numbered-csv-private-import-current-main-20261113`, while obsolete filename-based advertiser identity and automatic AKKO fallback are deliberately rejected. The live importer requires explicit joined `advertiser_id`, row-by-row cross-advertiser rejection, owner/admin role and private-only staging, and does not grant image rights. Candidate requires CI/Vercel proof before treating live; no live feed upload has been attempted.
+
 # AVUQO PROJECT COMPASS · START HERE IN EVERY NEW CHAT
 
 **Last reconciled: 13 November 2026, after v0.5.1 production verification.** Project: `crkian/AVUQO`, Supabase `tfoukwcruaamrtgxzshh`, Vercel `avuqo`, public site `https://www.avuqo.com`. This is an evolving operational handover, **not** an instruction to trust a stale commit or to assume production is healthy without checking.## VERIFIED AUTOMATIC SEASONAL RELEASE · 13 November 2026

@@ -1,3 +1,10 @@
+## Unreleased · Awin numbered CSV owner-upload safety and clarity
+
+- Support Chrome/Windows ` (1)`, ` (2)`, ` (10)` duplicate suffixes for correctly selecting the Craft Buddy Google-format Awin parser; general extension acceptance already covered numbered Cadbury/Petlibro filenames.
+- Return precise file-extension, 8MB-size and empty-upload errors rather than one misleading combined error.
+- Retain newer owner-selected joined advertiser, private staging and row-by-row identity checks; never infer merchant rights from filename. Reconcile conflicting historical PR #58 rather than merging it wholesale.
+- Add tests for malicious filename variations, exact format selection, private merchant validation and error messages.
+
 ## Unreleased · Awin HTTP provider error redaction
 - Replace raw failed Awin provider response snippets/status text in thrown feed connector errors with numeric HTTP status only, carrying forward security intent from old PR #50.
 - Add CI regression test; leave credentials, importer, publication, image rights and feed status untouched.

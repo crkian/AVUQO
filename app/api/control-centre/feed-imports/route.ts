@@ -4,6 +4,7 @@ import { createAdminClient } from '../../../../lib/supabase/admin';
 import { joinedInSource, joinedName } from '../../../../lib/awin/joined-catalogue';
 import { parseAwinFeed, parseCraftBuddyGoogleFeed } from '../../../../lib/feed-imports/parse';
 import { suggestedDepartment } from '../../../../lib/feed-imports/preview-departments';
+import { isCraftBuddyGoogleFeedFilename } from '../../../../lib/feed-imports/filename';
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,7 +15,9 @@ export async function POST(request: NextRequest) {
     if (!roleRow || !['admin', 'owner'].includes(roleRow.role)) return NextResponse.json({ error: 'Owner or admin permission required' }, { status: 403 });
     const form = await request.formData(); const file = form.get('file');
     if (!(file instanceof File)) return NextResponse.json({ error: 'Choose a .csv or .csv.gz feed' }, { status: 400 });
-    if (!/\.csv(\.gz)?$/i.test(file.name) || file.size > 8 * 1024 * 1024) return NextResponse.json({ error: 'Only CSV/gzip files up to 8MB are allowed' }, { status: 400 });
+    if (!/\.csv(\.gz)?$/i.test(file.name)) return NextResponse.json({ error: 'File name must end with .csv or .csv.gz. Keep the original extension when renaming downloads.' }, { status: 400 });
+    if (file.size > 8 * 1024 * 1024) return NextResponse.json({ error: 'Compressed feed exceeds the 8 MB upload limit' }, { status: 400 });
+    if (file.size === 0) return NextResponse.json({ error: 'The selected feed is empty. Download the full CSV and retry.' }, { status: 400 });
     // An explicit advertiser selection replaces fragile filename guessing.
     // Check the live registry after authenticating the owner. A joined programme
     // is allowed into PRIVATE review only, never automatically published.
@@ -26,7 +29,9 @@ export async function POST(request: NextRequest) {
       .select('id,metadata').eq('connector_key','awin').maybeSingle();
     if (sourceError || !source || !joinedInSource(source.metadata, merchantId))
       return NextResponse.json({ error: 'This advertiser is not verified as joined in the private source registry' }, { status: 403 });
-    const craftBuddyGoogle = merchantId === '45747' && /^45747-retail-en_GB\\.csv(\\.gz)?$/i.test(file.name);
+    // Filename selects only the input FORMAT. The owner-selected advertiser and
+    // every parsed row must still match the joined private source registry.
+    const craftBuddyGoogle = merchantId === '45747' && isCraftBuddyGoogleFeedFilename(file.name);
     const { records, total, review, excluded } = craftBuddyGoogle
       ? parseCraftBuddyGoogleFeed(Buffer.from(await file.arrayBuffer()), /\\.gz$/i.test(file.name))
       : parseAwinFeed(Buffer.from(await file.arrayBuffer()), /\\.gz$/i.test(file.name));
