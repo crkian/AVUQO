@@ -13,9 +13,7 @@ import StorefrontQuickLinks from "../components/home/StorefrontQuickLinks";
 import HomeShoppingDashboard from "../components/home/HomeShoppingDashboard";
 import {verifiedProductIndex} from "../lib/products/public-catalog";
 import HomeCampaignCarousel from "../components/home/HomeCampaignCarousel";
-import HomeSeasonalSpotlight from "../components/home/HomeSeasonalSpotlight";
 import {editorialSpotlight} from "../lib/editorial/seasonal-schedule";
-import OwnerStorefrontShortcut from "../components/home/OwnerStorefrontShortcut";
 import CategoryJourneys from "../components/marketplace/CategoryJourneys";
 import {loadHomeCampaigns} from "../lib/marketing/homepage";
 import styles from "./homepage-warm.module.css";
@@ -64,7 +62,6 @@ async function HomeContent() {
             <Link href={season?.href??"/marketplace/compare"} className={styles.fullStorefrontPrimary}>{season?.cta??"Start comparing"} <ArrowRight size={17}/></Link>
             <Link href="/marketplace/compare" className={styles.fullStorefrontSecondary}>Compare products <ArrowRight size={17}/></Link>
           </div>
-          <OwnerStorefrontShortcut/>
         </div>
         <div className={styles.heroVisual}>
           <aside className={styles.fullStorefrontIntelligence} aria-label="How AVUQO helps you shop">
@@ -93,7 +90,6 @@ async function HomeContent() {
       </div>
     </div>
 
-    <HomeSeasonalSpotlight spotlight={season}/>
     <section className={styles.shopJourneys} aria-label="Two ways to find what is worth it">
       <div className="shell">
         <div className={styles.shopJourneysHeading}>
