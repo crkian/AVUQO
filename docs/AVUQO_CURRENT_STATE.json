@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_9fAgyrGS1Nz2Fh8Q7nyFjmVpEvG5",
-    "verified_ready_sha": "45da7456b66f6fa21d25753c39e497203f26c7ed",
+    "deployment_id": "dpl_Cj21PogF2EaRPrJ3PfQSv7ySKsmq",
+    "verified_ready_sha": "da22e97c6fdad31d23e6c972e0a39239e689d8fb",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "Vercel deployment READY and www.avuqo.com alias confirmed after design PR #134, 2026-11-13; a later handover-only deployment may have a newer SHA. Always check Vercel.",
+    "verification": "Production READY, www.avuqo.com alias and actual homepage November 2026 Black Friday hero verified through Vercel on 2026-11-13. A later docs-only deployment may have another SHA; always recheck.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -133,6 +133,10 @@
     {
       "pr": 134,
       "scope": "Sitewide warm-premium customer-facing design pass: shared branding, nav, category/product/seasonal/travel visuals; approved images only"
+    },
+    {
+      "pr": 136,
+      "scope": "Automatic UK seasonal homepage photo/headline/CTA and read-only private annual calendar; real production verified"
     }
   ],
   "closed_unmerged_recent": [
@@ -148,7 +152,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Complete UK seasonal calendar branch CI and deploy: verify homepage Black Friday on 13 Nov 2026, owner annual calendar, production SHA and Vercel alias; then browser screenshots on desktop/mobile for visual acceptance."
+      "task": "Manual desktop/mobile screenshot visual audit of 28 verified HTTP routes against recovered AVUQO design boards, including dynamic Black Friday hero; correct any image crops or responsive problems. Authenticated personal/Control Centre flows require owner testing."
     },
     {
       "priority": 2,
@@ -192,16 +196,15 @@
     "gates": "No Awin/eBay/tyre permission, API or commercial-release change",
     "scope_doc": "docs/AVUQO_PRODUCTION_VISUAL_COMPLETION_PASS_2026-11-13.md"
   },
-  "current_candidate": {
-    "branch": "feature/automated-uk-seasonal-home-calendar-20261113",
-    "scope": "Request-time UK editorial seasonal homepage theme + main hero image/headline/CTA, rolling year calendar in owner Control Centre, 28-route baseline live HTTP check.",
-    "status": "candidate_not_yet_verified_on_production",
-    "release_document": "docs/AVUQO_AUTOMATIC_UK_SEASONAL_CALENDAR_AND_PAGE_AUDIT_2026-11-13.md",
-    "commercial_permissions": "No source, sponsored, Awin/eBay/tyre, offer or image rights changes",
-    "visual_audit": {
-      "http_200_routes": 28,
-      "screenshot_review": "not performed; still pending",
-      "auth_interactions": "not verified"
-    }
+  "last_completed_seasonal_release": {
+    "pr": 136,
+    "app_release_commit": "da22e97c6fdad31d23e6c972e0a39239e689d8fb",
+    "deployment": "dpl_Cj21PogF2EaRPrJ3PfQSv7ySKsmq",
+    "status": "production_verified_ready",
+    "current_hero": "Black Friday at AVUQO on 2026-11-13",
+    "calendar": "Europe/London, automatically switches request-time; UK annual moving and fixed dates",
+    "private_owner_calendar_route": "/control-centre/seasonal-calendar",
+    "production_route_audit": "28 HTTP 200 routes with shared branding; no visual screenshot QA",
+    "reference": "docs/AVUQO_AUTOMATIC_UK_SEASONAL_CALENDAR_AND_PAGE_AUDIT_2026-11-13.md"
   }
 }

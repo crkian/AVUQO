@@ -1,3 +1,7 @@
+## VERIFIED UK SEASONAL CALENDAR PRODUCTION RELEASE · 13 November 2026
+
+**PR #136 merged and application READY**: production commit `da22e97c6fdad31d23e6c972e0a39239e689d8fb`, deployment `dpl_Cj21PogF2EaRPrJ3PfQSv7ySKsmq`, aliases include `www.avuqo.com` and `avuqo.com`. Vercel's authenticated live homepage HTTP fetch confirmed the **“Black Friday at AVUQO”** main hero, its Black Friday image reference and destination on **13 Nov 2026**. Request-time UK-date calendar now automatically selects homepage image, headline and primary CTA; existing separate editorial feature uses the same date. Owner-only `/control-centre/seasonal-calendar` lists current/next-year events. All 28 audited public routes returned HTTP 200 and contained shared AVUQO branding. **This is not proof of pixel-perfect screenshots, mobile browser rendering, customer sign-in or approved retailer products.** Annual calendar does not publish affiliate offers, sponsored placements or social posts. See `docs/AVUQO_AUTOMATIC_UK_SEASONAL_CALENDAR_AND_PAGE_AUDIT_2026-11-13.md`. This documentation-only follow-up may produce a newer deployment SHA, so recheck Vercel on restart.
+
 
 ## Currently active: automated UK homepage calendar (13 Nov 2026 candidate)
 
