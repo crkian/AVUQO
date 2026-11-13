@@ -60,3 +60,12 @@
 .departmentSpotlight li{border:1px solid #e4d6e7;background:#fff;display:flex;align-items:flex-start;gap:12px;padding:14px 17px;border-radius:14px;font-size:12px;line-height:1.6;color:#4d4053}
 .departmentSpotlight li svg{color:#087b5b;flex:none;margin-top:2px}
 @media(max-width:750px){.departmentSpotlight{grid-template-columns:1fr;margin-top:20px;gap:17px}}
+
+/* Canonical public product view: high-fidelity premium layout; evidence and images stay admission gated. */
+.productPage{background:#faf8f3;color:#2b2135}
+.hero{background:radial-gradient(circle at 88% 18%,#f4e4f1,transparent 38%),#faf5f0;border-bottom:1px solid #e9dfe5}
+.copy h1{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.047em}
+.art{background:linear-gradient(150deg,#fff,#f9f3f0);border:1px solid #e8dfe5;box-shadow:0 14px 36px #311e3710}
+.action{background:linear-gradient(125deg,#863ee7,#5224bd);border-radius:999px}
+.back:focus-visible,.action:focus-visible,.productPage a:focus-visible{outline:3px solid #8542dc;outline-offset:4px}
+@media(max-width:760px){.art{min-height:280px;border-radius:23px}.hero{padding-top:36px}.copy h1{font-size:clamp(31px,8.5vw,46px)}}

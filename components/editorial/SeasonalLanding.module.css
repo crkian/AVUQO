@@ -84,3 +84,17 @@
 @media(max-width:750px){.hero{min-height:430px;padding:165px 0 44px;background-position:57% top}.hero h1{font-size:clamp(42px,10.5vw,62px)}.lead{font-size:14px}.categoryRail{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:-10px}.category{min-height:105px}.page[data-season=easter] .storyGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.storyGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.story{min-height:160px}.story:last-child:nth-child(odd){grid-column:1/-1}.plannerGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.findGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.findsHeading,.titleBar{align-items:start;flex-direction:column}.valueRibbon{grid-template-columns:1fr}.valueRibbon>strong{grid-column:auto}.valueRibbon>div{border-left:0;border-top:1px solid #e4d1dd}.tips>div{grid-template-columns:1fr}}
 @media(max-width:430px){.heroActions{flex-direction:column;align-items:stretch}.primary,.secondary{width:100%}.category{padding:11px 9px}.category strong{font-size:12px}.category small{font-size:9px}.editorial,.planning{padding:16px}.findPhoto{height:110px}.findGrid strong{font-size:15px}.findGrid small{font-size:10px}.story strong{font-size:14px}}
 @media(prefers-reduced-motion:reduce){.category,.findGrid>a{transition:none}.category:hover{transform:none}}
+
+/* Production seasonal design refinement: closer to approved warm editorial boards. */
+.page{background:#faf8f3;color:#241c32}
+.hero{border-bottom:1px solid #ebdfd9}
+.hero h1,.discovery h2,.editorialFinds h2,.planning h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.044em}
+.categoryRail{position:relative;z-index:2}
+.category{background:#fffdfb;border:1px solid #eedfe7;box-shadow:0 6px 22px #2e1b3810}
+.editorial,.planning{box-shadow:0 12px 34px #3019380b}
+.story,.category,.findGrid>a{transition:transform .2s ease,box-shadow .2s ease}
+.story:hover,.category:hover,.findGrid>a:hover{transform:translateY(-3px);box-shadow:0 14px 32px #2e1b3818}
+.category:focus-visible,.story:focus-visible,.findGrid>a:focus-visible,.plannerGrid a:focus-visible{outline:3px solid #8c35dc;outline-offset:4px}
+.valueRibbon{background:linear-gradient(90deg,#fff4ee,#f7e9f7);border:1px solid #ebdfe6}
+@media(max-width:760px){.hero h1{font-size:clamp(39px,9.5vw,61px)}.categoryRail{scroll-margin-top:115px}.editorialFinds{overflow:hidden}}
+@media(prefers-reduced-motion:reduce){.story,.category,.findGrid>a{transition:none}}

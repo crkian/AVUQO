@@ -76,9 +76,9 @@ export default function Header() {
     <>
     <header className="header">
       <div className="shell nav avuqo-header-layout">
-        <Link className="logo" href="/">
-          <span className="q-mark">Q</span>
-          AVUQO
+        <Link className="logo avuqo-brand-lockup" href="/" aria-label="AVUQO, Find what's worth it. Home">
+          <span className="avuqo-brand-symbol" aria-hidden="true">A</span>
+          <span className="avuqo-brand-text"><strong>AVUQO</strong><small>Find what&apos;s <em>worth it.</em></small></span>
         </Link>
 
         <form className="header-search" action="/search" method="get" role="search">

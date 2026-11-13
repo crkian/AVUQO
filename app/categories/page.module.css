@@ -47,3 +47,13 @@
 
 .directorySection{padding-top:65px;padding-bottom:15px}
 @media(max-width:680px){.directorySection{padding-top:30px}}
+
+/* Complete the original photo-first premium category design on the real category hub. */
+.page{background:#faf8f3;color:#302639}
+.hero{background:radial-gradient(circle at 85% 24%,#eadbf5,transparent 34%),radial-gradient(circle at 11% 95%,#fff0da,transparent 38%),#faf6ef;border-bottom:1px solid #eadfe5}
+.hero h1,.heading h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.05em}
+.hero h1 em{color:#702ac5}
+.card{background:#fffdfb;border-color:#e9dfe3;box-shadow:0 13px 31px #321d350d}
+.card:focus-visible,.departmentLink:focus-visible,.search button:focus-visible{outline:3px solid #7b39cf;outline-offset:4px}
+@media(max-width:680px){.hero{padding:50px 0 56px}.hero h1{font-size:clamp(41px,10vw,61px)}}
+@media(prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}

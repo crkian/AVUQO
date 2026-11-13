@@ -1,3 +1,7 @@
+
+## Most recent design work (13 Nov 2026, release candidate)
+
+`feature/restore-header-branding-production-20261113`: shared real-customer AVUQO gradient-A branding and tagline, nav/mobile/footer styling, warmer `/categories`, authorised-image `/products` grid, product-detail, SeasonalLanding and LifestyleLanding presentation. Preserves Awin/eBay/tyre permissions and Control Centre. **This paragraph describes a candidate, not necessarily a deployed release; recheck `main` and latest Vercel READY SHA/alias.** Source and acceptance in `docs/AVUQO_PRODUCTION_VISUAL_COMPLETION_PASS_2026-11-13.md`. After verified merge, next priority is owner desktop/mobile screenshot review and retailer rights/freshness validation.
 # AVUQO · LIVE HANDOVER · START OF EVERY CHAT
 **Reconciled 13 November 2026.** This is the **last verified snapshot**, not a real-time status endpoint. A fresh chat must read this from current GitHub `main` and **check Vercel** for the current deployed SHA, plus Supabase for source rights if necessary. Never assume a historical snapshot is today's production.
 

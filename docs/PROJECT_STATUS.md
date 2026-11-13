@@ -1,4 +1,6 @@
 
+**Production sitewide design candidate (13 Nov 2026, not deployed at entry):** New shared warm-premium AVUQO A-lockup, navigation/mobile styling and footer; unified category, verified-public product cards/detail, seasonal and lifestyle presentation. Existing `verifiedOffers` image-rights and price/source gates unchanged. Awin/eBay/tyre source modules and admin were not replaced. See `docs/AVUQO_PRODUCTION_VISUAL_COMPLETION_PASS_2026-11-13.md`. Full automated test, exact Vercel READY deployment and owner visual screenshot acceptance are separate gates.
+
 # CURRENT VERIFIED PRODUCTION STATE · 13 November 2026
 
 **First read:** `AVUQO_START_HERE.md`, `docs/AVUQO_LIVE_HANDOVER.md`, `docs/AVUQO_CURRENT_STATE.json`. The many “candidate/pending” entries below are historical PR-stage notes, **not current production status**.

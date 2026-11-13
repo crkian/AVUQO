@@ -2,6 +2,10 @@
 
 **Last reconciled: 13 November 2026, after v0.5.1 production verification.** Project: `crkian/AVUQO`, Supabase `tfoukwcruaamrtgxzshh`, Vercel `avuqo`, public site `https://www.avuqo.com`. This is an evolving operational handover, **not** an instruction to trust a stale commit or to assume production is healthy without checking.
 
+## Current production design completion candidate · 13 November 2026
+
+Current branch `feature/restore-header-branding-production-20261113` selectively finishes warm-premium styling on real production Header/Footer, `/categories`, `/products`, `/products/[slug]`, seasonal pages and LifestyleLanding travel/shopping routes. It preserves all newer Awin, eBay, tyres, customer/auth and Control Centre source code, and public imagery still requires explicit `image_rights_confirmed` source verification. See `docs/AVUQO_PRODUCTION_VISUAL_COMPLETION_PASS_2026-11-13.md`. Candidate must pass CI and Vercel production READY before stating live. Full visual pixel fidelity to archived images requires owner screenshot review after deployment.
+
 ## CURRENT VERIFIED HANDOVER · 13 November 2026 (read first)
 
 **Canonical entry:** `AVUQO_START_HERE.md` → `docs/AVUQO_LIVE_HANDOVER.md` → `docs/AVUQO_CURRENT_STATE.json`. Previous sections below describe historical candidates and may say “pending” even though the changes shipped. On 13-Nov the **latest production READY** deployment on **www.avuqo.com** was Vercel `dpl_9AM8Hx9BPW2uHi9ZbswAQykbTaij`, exact SHA `ab055f73acce9a478075c61aecb0b7b248d101d3`. PRs **#129–#132 merged**: private Awin feed/image evidence board; Compare+Bargains and partner roadmap; fuller original shopping dashboard; full-bleed photo-led hero. The main mockup collection remains in historic design branch and whole-site visual restoration is incomplete. **Do not claim Awin/eBay/tyre merchant public offers or licensed images live** solely from a UI deployment. Recheck current GitHub main and Vercel before relying on this snapshot. 11 older PRs remained open as-of review.

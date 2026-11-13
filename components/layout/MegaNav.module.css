@@ -58,3 +58,13 @@
 .privateDepartment{display:flex!important;align-items:center;justify-content:space-between;gap:10px;margin:9px 5px 4px;padding:13px 15px!important;background:#eee7f9;border:1px solid #dbc9ee;border-radius:12px;color:#4c3281!important;font-size:12px;font-weight:850;line-height:1.5;white-space:normal;text-decoration:none!important}
 .privateDepartment:hover,.privateDepartment:focus-visible{background:#e5d7f6;outline-offset:2px}
 @media(max-width:1000px){.privateDepartment{margin:10px 8px;min-height:48px;font-size:13px}}
+
+/* Warm-premium navigation completes the recovered storefront without touching menu behaviour. */
+.groupHeading{border-radius:999px;transition:background .18s ease}
+.groupHeading:hover,.groupHeading:focus-within{background:#f4eafa}
+.groupLink.active{color:#672bce!important}
+.dropdown{border:1px solid #ebdfeb;background:#fffdfc;box-shadow:0 24px 60px #2619322b}
+.menuLink{border-radius:13px}
+.menuLink:hover,.menuLink:focus-visible{background:#f8f0fb}
+.expand:focus-visible,.groupLink:focus-visible,.viewAll:focus-visible{outline:3px solid #8843de;outline-offset:2px}
+@media(prefers-reduced-motion:reduce){.groupHeading{transition:none}}

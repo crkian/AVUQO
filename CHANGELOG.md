@@ -1,4 +1,10 @@
 
+## Unreleased · Live website visual completion pass
+- Complete warm-premium AVUQO shared header, mobile navigation and footer brand lockup without altering auth, search or Control Centre access.
+- Bring real category, product index/detail, seasonal and travel/lifestyle page presentation into consistent premium responsive styling.
+- In `/products`, show only independently approved `published.image_url` from the verified-source product index and retain a neutral placeholder for all other products.
+- Register pixel-fidelity/manual desktop/mobile QA as a separate acceptance gate. No private Awin/eBay/tyre offers or photographs become public via this style change.
+
 ## 13 November 2026 · Verified live code and restart handover
 - Reconciled PRs #129–#132 as merged; latest live Vercel READY deployment at `ab055f73acce9a478075c61aecb0b7b248d101d3` on `www.avuqo.com` (as-of observation, must be refreshed on every new release).
 - Added canonical root `AVUQO_START_HERE.md`, readable `docs/AVUQO_LIVE_HANDOVER.md` and structured `docs/AVUQO_CURRENT_STATE.json` so new connected chats can read the real GitHub project state without relying on conversation text.
