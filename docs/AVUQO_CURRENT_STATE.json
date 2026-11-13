@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_EEM8GELPoKxkjit6W1m5LG6thKw5",
-    "verified_ready_sha": "a2d1be5d988a0d8908acd1936223621d58fa6af4",
+    "deployment_id": "dpl_GUSqxRdimdjEzNoagagxJ9pQZXKF",
+    "verified_ready_sha": "50a3e9d3a1fdc2b7457683f2688667b6df0cb2a6",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #165 production READY with custom-domain aliases. Read-only four-width visual audit passed 124 captures on 31 public routes.",
+    "verification": "PR #167 READY on the custom domain. Editorial pages checked in the production browser at desktop and 449 CSS pixels.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {

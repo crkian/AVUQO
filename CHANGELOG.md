@@ -1,3 +1,7 @@
+## 13 November 2026 · Editorial hero refresh deployed
+
+PR #167, production `50a3e9d3a1fdc2b7457683f2688667b6df0cb2a6`.
+
 ## Unreleased · Editorial hero refresh
 
 - Add locally hosted editorial photographs for the Black Friday campaign and the Electronics, Home & Living and Beauty departments. Align seasonal headlines to the content grid and keep mobile copy legible below the photographs.
