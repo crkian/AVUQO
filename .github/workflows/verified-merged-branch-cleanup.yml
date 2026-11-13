@@ -26,14 +26,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Prune only PR #127-142 branch heads that exactly match their merged PR
+      - name: Prune PR #127-145 heads that exactly match already merged PRs
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { owner, repo } = context.repo;
             // Curated only. Do not touch unmatched historical code, originals, private pilots or open PR branches.
-            const candidatePRs = Array.from({length: 16}, (_,i) => i + 127);
+            const candidatePRs = Array.from({length: 19}, (_,i) => i + 127);
             const execute = context.eventName === 'push' || String(context.payload.inputs?.execute) === 'true';
             const opened = await github.paginate(github.rest.pulls.list, {owner, repo, state:'open', per_page:100});
             let deleted = 0, eligible = 0;

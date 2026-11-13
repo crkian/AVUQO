@@ -3,7 +3,7 @@ import {readFileSync} from "node:fs";
 import test from "node:test";
 const y=readFileSync(new URL("../.github/workflows/verified-merged-branch-cleanup.yml",import.meta.url),"utf8");
 test("cleanup is a strictly bounded batch of already merged PRs",()=>{
- assert.match(y,/Array\.from\(\{length: 16\}, \(_,i\) => i \+ 127\)/);
+ assert.match(y,/Array\.from\(\{length: 19\}, \(_,i\) => i \+ 127\)/);
  assert.match(y,/pr\.merged/);
  assert.match(y,/pr\.head\.sha/);
  assert.match(y,/sha !== pr\.head\.sha/);
