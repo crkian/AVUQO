@@ -136,3 +136,27 @@ button,a,input,select,textarea{touch-action:manipulation}
 /* Non-invasive shared AVUQO design tokens restored from the original warm-premium design spec.
    Existing components retain their current layout until individually reviewed. */
 :root{--avuqo-canvas:#faf8f3;--avuqo-cream:#f7f3ec;--avuqo-surface:#ffffff;--avuqo-surface-warm:#fffdf9;--avuqo-ink:#17142b;--avuqo-editorial-ink:#302639;--avuqo-muted:#716d80;--avuqo-violet:#5b35f5;--avuqo-violet-dark:#3a20bd;--avuqo-blue:#3478f6;--avuqo-border:#e7e3ec;--avuqo-warm-border:#e9e0dc;--avuqo-positive:#087b5b;--avuqo-card-radius:22px;--avuqo-feature-radius:26px;--avuqo-display-font:Georgia,'Times New Roman',serif}
+
+/* AVUQO warm-premium shared navigation and brand, 2026-11-13.
+   Presentation only: search/auth/owner controls/mega menu continue to use existing components. */
+.header{background:rgba(255,252,249,.975);border-bottom:1px solid #ebe2e6;box-shadow:0 3px 20px rgba(34,22,47,.035)}
+.header .avuqo-brand-lockup,.avuqo-footer .avuqo-brand-lockup{display:inline-flex;align-items:center;gap:10px;white-space:nowrap;letter-spacing:normal;text-decoration:none;min-width:max-content}
+.avuqo-brand-symbol{position:relative;display:grid;place-items:center;width:39px;height:43px;flex:none;color:#fff;font-size:29px;font-family:Georgia,serif;font-weight:900;font-style:italic;line-height:1;transform:skew(-8deg);border-radius:12px 4px 12px 4px;background:linear-gradient(148deg,#ff5abc 0%,#ae30e9 38%,#5946db 67%,#5687f4 100%);text-shadow:0 1px 1px #5b357844;box-shadow:0 7px 19px #763ed326}
+.avuqo-brand-text{display:flex;flex-direction:column;gap:0;line-height:1.06;text-align:left}
+.avuqo-brand-text strong{font-size:clamp(23px,2.1vw,31px);color:#17142b;font-weight:950;letter-spacing:-.06em}
+.avuqo-brand-text small{font-size:10px;letter-spacing:-.025em;font-weight:750;color:#32264b}
+.avuqo-brand-text em{font-style:normal;font-weight:900;color:#6333dd}
+.header .header-search{background:#fff;border:1px solid #e9dfec;box-shadow:0 6px 19px #241c3410;border-radius:999px}
+.header .header-search input{background:transparent}
+.header .header-search button{border-radius:999px;background:linear-gradient(120deg,#9040ed,#5422bd);color:#fff}
+.header .header-actions a:not(.auth-email),.header .header-actions .control-centre-link{color:#342846}
+.header .header-actions .signin,.header .auth-menu .auth-email{border:1px solid #e9dfea;border-radius:999px;background:#fff;color:#31263e}
+.header .signout-button{border-radius:999px;background:#f4ebfb;color:#5535a2}
+.header a:focus-visible,.header button:focus-visible,.header input:focus-visible,.avuqo-footer a:focus-visible{outline:3px solid #8542dc;outline-offset:3px}
+.avuqo-footer{background:linear-gradient(180deg,#fffdfa 0%,#f8f3ee 100%);border-top:1px solid #e9dfde}
+.avuqo-footer .avuqo-brand-symbol{width:33px;height:35px;font-size:23px}
+.avuqo-footer .avuqo-brand-text strong{font-size:26px}
+@media(max-width:1150px){.header .avuqo-brand-text strong{font-size:25px}.header .avuqo-brand-symbol{width:33px;height:38px;font-size:24px}}
+@media(max-width:760px){.header .avuqo-brand-lockup{gap:6px}.header .avuqo-brand-symbol{width:31px;height:34px;font-size:22px}.header .avuqo-brand-text strong{font-size:23px}.header .avuqo-brand-text small{font-size:9px}.header .mobile-menu-toggle{border-radius:12px;background:#fff;border:1px solid #ede3ef}.header .header-actions .signin{min-height:40px}}
+@media(max-width:380px){.header .avuqo-brand-symbol{width:27px;height:32px;font-size:20px}.header .avuqo-brand-text strong{font-size:21px}.header .avuqo-brand-text small{font-size:8px}}
+@media(prefers-reduced-motion:reduce){.header *,.avuqo-footer *{scroll-behavior:auto}}
