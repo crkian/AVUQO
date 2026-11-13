@@ -20,12 +20,12 @@ export default function Advertise(){
     <Link href="/affiliate-disclosure">Our affiliate independence policy</Link></div>
   </div></section>
   <section className={"shell "+styles.section}><div className={styles.heading}><p className={styles.kicker}>A PLANNED COMMERCIAL OFFERING</p>
-   <h2>A place for a story worth telling.</h2><p>These are possible creative positions within AVUQO's owner-managed advertising workflow. They are not a rate card, currently bookable inventory or a guarantee of impressions.</p></div>
+   <h2>A place for a story worth telling.</h2><p>These are possible creative positions within AVUQO&apos;s owner-managed advertising workflow. They are not a rate card, currently bookable inventory or a guarantee of impressions.</p></div>
    <div className={styles.grid}>{AD_ZONES.map((zone,i)=><article className={styles.card} key={zone.id}><span className={styles.number}>{String(i+1).padStart(2,"0")}</span>
     <h3>{zone.label}</h3><p>{zone.description}</p><span className={styles.explanation}>Subject to review, scheduling and availability</span>
    </article>)}</div>
   </section>
-  <section className={styles.trust}><div className={"shell "+styles.trustInner}><div><p className={styles.kicker}>FIND WHAT'S WORTH IT</p>
+  <section className={styles.trust}><div className={"shell "+styles.trustInner}><div><p className={styles.kicker}>FIND WHAT&apos;S WORTH IT</p>
     <h2>Editorial integrity is part of the product.</h2><p>We do not sell ranking positions, fabricated price claims or access to private shopper information.</p></div>
    <ul>{measures.map(m=><li key={m.title}><CheckCircle2 size={22}/><div><h3>{m.title}</h3><p>{m.text}</p></div></li>)}</ul>
   </div></section>
