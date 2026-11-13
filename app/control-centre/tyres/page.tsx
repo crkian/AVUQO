@@ -41,7 +41,7 @@ export default async function TyreOperations(){
     {name:"Technical enrichment worker",value:enrichmentJobs.error?"Not installed / unavailable":enrichmentJobs.data?.[0]?.state??"No job",desc:"A prepared automation route is not proof that a supplier import ran"}
    ].map(x=><article key={x.name} className={styles.metric}><small>{x.name}</small><strong>{typeof x.value==="number"?x.value.toLocaleString("en-GB"):x.value}</strong><p>{x.desc}</p></article>)}
   </section>
-  <section className={styles.panel}><div className={styles.panelHead}><h2>Tyre supplier onboarding</h2><p>Use each named supplier's authorised feed and rights review. Awin access alone does not grant public price or image publication.</p></div>
+  <section className={styles.panel}><div className={styles.panelHead}><h2>Tyre supplier onboarding</h2><p>Use each named supplier&apos;s authorised feed and rights review. Awin access alone does not grant public price or image publication.</p></div>
    <div className={styles.checks}>{suppliers.map(s=>{
     const recent=(imports.data??[]).filter(r=>String(r.merchant_id)===s.id)[0];
     const job=(reviewJobs.data??[]).find(j=>String(j.advertiser_id)===s.id);
