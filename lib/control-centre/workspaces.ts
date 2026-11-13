@@ -17,6 +17,7 @@ export const CONTROL_CENTRE_SECTIONS:AdminSection[]=[
   {href:"/control-centre/groceries/price-evidence",label:"Grocery price evidence",description:"Review source records and freshness"}]},
  {id:"data",label:"Sources & Value",description:"Merchants, prices and data quality",links:[
   {href:"/control-centre/source-atlas",label:"All-source atlas",description:"Every connector, feed import, evidence gate and content state"},
+  {href:"/control-centre/tyres",label:"Tyre marketplace pipeline",description:"Two supplier reviews, technical enrichment and public variant readiness"},
   {href:"/control-centre/live-data",label:"Live-data status",description:"Readiness of verified feeds"},
   {href:"/control-centre/coverage",label:"Coverage",description:"Supported sector coverage"},
   {href:"/control-centre/sources",label:"Connectors & sources",description:"Source permissions and data feeds"},
@@ -30,6 +31,7 @@ export const CONTROL_CENTRE_SECTIONS:AdminSection[]=[
   {href:"/control-centre/site-advertising",label:"Site advertising",description:"Third-party advertisers and on-site campaigns"},
   {href:"/control-centre/brand-previews",label:"Company-area previews",description:"Private concept pages for five merchant brands"},
   {href:"/control-centre/marketing",label:"Brand social marketing",description:"Our four brands on social platforms"},
+  {href:"/control-centre/marketing/readiness",label:"Marketing launch readiness",description:"Real owner preflight, channels, drafts, creative rights and auto-posting gates"},
   {href:"/control-centre/affiliate-networks",label:"Affiliate networks",description:"Eight-network application and connector readiness"},
   {href:"/control-centre/awin-advertisers",label:"Awin advertiser release",description:"Register, approve rights, test and publish one offer"},
   {href:"/control-centre/promotions",label:"Affiliate promotion",description:"Eligible merchant promotion engine"},

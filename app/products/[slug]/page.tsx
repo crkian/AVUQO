@@ -9,6 +9,7 @@ import Footer from "../../../components/layout/Footer";
 import AddToCollectionButton from "../../../components/collections/AddToCollectionButton";
 import {verifiedProduct} from "../../../lib/products/public-catalog";
 import {chooseProductTemplate,validatedSpecificationEntries} from "../../../lib/products/templates";
+import {identifiedDepartment} from "../../../lib/products/department-showrooms";
 import styles from "./page.module.css";
 type Props={params:Promise<{slug:string}>};
 const gbp=(n:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(n);
@@ -28,6 +29,7 @@ async function ProductDetails({params}:Props){
  const {product,offers}=entry;
  const best=[...offers].sort((a,b)=>Number(a.offer.total_price??a.offer.price)-Number(b.offer.total_price??b.offer.price))[0];
  const presentation=chooseProductTemplate(product,offers);
+ const department=identifiedDepartment({product,offers});
  const candidateSpecs=validatedSpecificationEntries(product.specifications,presentation.specPriority);
  const specRecord=product.specifications&&typeof product.specifications==="object"&&!Array.isArray(product.specifications)
   ?product.specifications as Record<string,unknown>:{};
@@ -48,6 +50,13 @@ async function ProductDetails({params}:Props){
  :"Check current price, delivery, stock and terms before buying."}</small></div>
  <Link className={styles.action} href="#retailers">Compare retailers <ArrowRight size={18}/></Link><div style={{marginTop:14}}><AddToCollectionButton kind="wishlist" productId={product.id} productSlug={product.slug} offerId={best.offer.id}/></div><p className={styles.assurance}><ShieldCheck size={17}/> Verified-source display only. Independent of affiliate payout.</p></div>
  </div></div></section>
+
+ {department&&<section className={`shell ${styles.departmentSpotlight}`} aria-label="Department-specific buying guidance">
+  <div><p className={styles.kicker}>YOUR AVUQO DEPARTMENT / {department.name.toUpperCase()}</p>
+   <h2>{department.focus}</h2><p>These checks help you evaluate this type of purchase. They are not new retailer claims, reviews or product endorsements.</p>
+   <Link href={"/categories/"+department.slug+"/products"}>Explore {department.name} <ArrowRight size={16}/></Link></div>
+  <ul>{department.checklist.map(point=><li key={point}><CheckCircle2 size={18}/>{point}</li>)}</ul>
+ </section>}
  <section className={`shell ${styles.templateSection}`} aria-label="Product-specific guidance">
   <div className={styles.templateHeading}><p className={styles.kicker}>Designed for this kind of purchase</p><h2>{presentation.sectionHeading}</h2><p>{presentation.sectionIntro}</p></div>
   <div className={styles.templateGrid}>

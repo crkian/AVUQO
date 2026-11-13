@@ -29,6 +29,8 @@ export default function TyresPage(){
      <div className={styles.heroActions}>
       <a className={styles.premiumButton} href="#size-finder">Explore by tyre size <ArrowRight size={18}/></a>
       <Link className={styles.lightButton} href="/tyres/brands">Browse tyre brands <ArrowUpRight size={17}/></Link>
+      <Link className={styles.lightButton} href="/tyres/find">Find verified tyres <ArrowRight size={17}/></Link>
+      <Link className={styles.lightButton} href="/tyres/compare">Compare models <ArrowRight size={17}/></Link>
      </div>
      <div className={styles.studioMicro}><ShieldCheck size={17}/><span>Useful guidance now. Retailer offers only when verified.</span></div>
     </div>
@@ -123,8 +125,8 @@ export default function TyresPage(){
     </div>
    </section>
    <aside className={styles.comingSoon}><span className={styles.pill}>IN PREPARATION</span>
-    <div><h2>Intelligent tyre comparisons are on their way.</h2><p>Our private supplier catalogue is being checked before any retail listings appear. Until then, AVUQO Tyres is an educational browsing experience, not a live quote or vehicle-fitment service.</p></div>
-    <Link href="/motoring">Explore AVUQO Motoring <ArrowUpRight size={18}/></Link>
+    <div><h2>An exact-variant comparison engine, waiting for approved goods.</h2><p>The find, model and retailer comparison pages are built. They will only show public products when technical evidence, image and supplier rights and current offer checks pass. This is not a vehicle-fitment or installed-quote service.</p></div>
+    <Link href="/tyres/find">Explore the verified product finder <ArrowUpRight size={18}/></Link>
    </aside>
   </div>
   <Footer/>

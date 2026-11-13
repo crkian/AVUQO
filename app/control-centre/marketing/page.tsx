@@ -107,9 +107,10 @@ export default async function MarketingPage({
     <div className={styles.head}>
       <div><p className={styles.eyebrow}>AVUQO Control Centre / Marketing</p>
         <h1>Brand social marketing</h1>
-        <p className={styles.muted}>Create, review and schedule social content for AVUQO, Fantasy Lockr, Capshur and Cluedoku. AVUQO website advertising for external businesses is a separate future system.</p></div>
+        <p className={styles.muted}>Create, review and schedule social content for AVUQO, Fantasy Lockr, Capshur and Cluedoku. Direct advertiser intake and campaign review already live in the separate, owner-only Site Advertising workspace; ad serving and payment booking remain disabled.</p></div>
       <span className={styles.pill}>{safeMode?"Live publishing OFF":system?.emergency_stop?"Emergency stop ON":"Publishing controls configured"}</span>
     </div>
+    <div style={{display:"flex",gap:12,alignItems:"center",flexWrap:"wrap",marginBottom:16}}><Link href="/control-centre/marketing/readiness" style={{display:"inline-flex",alignItems:"center",padding:"11px 17px",background:"#4a2d69",color:"#fff",borderRadius:999,fontSize:12,fontWeight:850}}>Review four-brand production readiness →</Link><Link href="/control-centre/site-advertising" style={{fontSize:12,color:"#614080",fontWeight:850}}>Site advertising intake →</Link></div>
     <nav className={styles.tabs} aria-label="Marketing sections">
       {TABS.map(([key,label])=><Link key={key} href={href(key,brand)}
         aria-current={tab===key?"page":undefined}>{label}</Link>)}
