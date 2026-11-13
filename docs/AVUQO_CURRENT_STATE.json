@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_5CoPiwj5gLSAiES6LwWc1Ux2U9v9",
-    "verified_ready_sha": "5954beb29fc849dc9368991fdce6ba2db5a3b063",
+    "deployment_id": "dpl_GVkTsnRpkWTc2p79DwUXD4EvhUEX",
+    "verified_ready_sha": "58355149ef69e82924a00c6866b0859a7483234a",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #155 read-only owner tyre worker preflight production READY and www.avuqo.com alias verified 2026-11-13. Docs-only follow-up may advance SHA; recheck.",
+    "verification": "PR #159 public full-site tour, page/home/sitemap HTTP 200 on exact production deployment. Not merchant approval.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -180,22 +180,22 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Verify staged dormant tyre job journal SQL CI and apply using connected Supabase migration capability. Verify live RLS/grants/zero rows and paused Awin, Vercel READY. Then separately design safe lease/renewal and snapshot retention/recovery with PR #117 still disabled."
+      "task": "Review the live whole-site tour and original warm-premium design with actual desktop and mobile screenshots; selectively fix production visuals while leaving customer prices/rights fail-closed."
     },
     {
       "priority": 2,
-      "task": "Finish seasonal and product-page real-route visual restoration, with responsive screenshots and verified-only offer image display."
+      "task": "Finish existing Control Centre Awin feed discovery and private resumable import automation, plus marketing approval and scheduling without unapproved source or social publishing."
     },
     {
       "priority": 3,
-      "task": "Verify Awin current publisher membership, new feed IDs, merchant permission/image rights/price freshness, and release only approved offers."
-    },
-    {
-      "priority": 4,
-      "task": "Resolve or close 11 historical PRs only after checking their diffs against current main; prioritise fixes #50 #58 #51 #102 and separate tyres #117."
+      "task": "Test draft Tyres UK lease PR #158 in a controlled SQL environment, reconcile migration history and keep PR #117 blocked."
     },
     {
       "priority": 5,
+      "task": "Resolve or close 11 historical PRs only after checking their diffs against current main; prioritise fixes #50 #58 #51 #102 and separate tyres #117."
+    },
+    {
+      "priority": 6,
       "task": "Track eBay production Browse approval and other partner applications without inventing approval."
     }
   ],
@@ -395,20 +395,11 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "feature": "public_live_first_whole_site_tour",
-    "branch": "feature/public-whole-site-tour-live-first-20261113",
-    "production_status": "candidate_not_merged",
-    "route": "/explore-avuqo",
-    "homepage_link": true,
-    "sitemap_entry": true,
-    "no_supplier_or_marketing_activation": true,
-    "requires": [
-      "GitHub quality and secrets pass",
-      "Vercel preview",
-      "main merge",
-      "Vercel exact SHA READY and aliases",
-      "live route HTTP and responsive QA"
-    ]
+    "feature": "Tyres UK private lease claim/renew",
+    "pr": 158,
+    "status": "draft_not_applied",
+    "worker_enabled": false,
+    "source_paused": true
   },
   "security_review_followups": [
     {
@@ -416,5 +407,18 @@
       "severity": "review",
       "scope": "Supabase advisor: authenticated role can execute public.publish_editorial and public.publish_avuqo_legal SECURITY DEFINER functions; audit permissions/logic separately, do not change blindly"
     }
-  ]
+  ],
+  "last_live_first_site_tour": {
+    "pr": 159,
+    "release_sha": "58355149ef69e82924a00c6866b0859a7483234a",
+    "deployment_id": "dpl_GVkTsnRpkWTc2p79DwUXD4EvhUEX",
+    "production_ready": true,
+    "public_route": "/explore-avuqo",
+    "public_route_http_status": 200,
+    "homepage_entrypoint_verified": true,
+    "sitemap_verified": true,
+    "desktop_mobile_visual_signoff": "pending",
+    "changed_source_rights": false,
+    "changed_automation_flags": false
+  }
 }
