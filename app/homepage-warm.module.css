@@ -64,3 +64,24 @@
 .ownerPreview small{font-size:12px;color:#716978;line-height:1.5}
 .ownerPreview a{flex:none;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:9px 13px;border-radius:10px;background:#6245a5;color:white;font-size:12px;font-weight:850;text-decoration:none}
 @media(max-width:600px){.ownerPreview{align-items:stretch;flex-direction:column;padding:14px}.ownerPreview a{width:100%}}
+
+
+/* Live homepage: editorial comparison + bargain discovery, not a preview. */
+.shopJourneys{padding:clamp(56px,7vw,100px) 0;background:linear-gradient(180deg,#fffdf9,#f8f3ed)}
+.shopJourneysHeading{display:flex;justify-content:space-between;align-items:end;gap:35px;margin-bottom:26px}
+.shopJourneysHeading>div{max-width:720px}
+.shopJourneysHeading h2{margin:0;color:#302639;font-size:clamp(32px,3.8vw,55px);line-height:1.1;letter-spacing:-.05em}
+.shopJourneysHeading h2 span{color:#6545a1}
+.shopJourneysHeading>p{max-width:390px;margin:0;color:#6e6570;line-height:1.65;font-size:15px}
+.shopJourneyGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.shopJourneyCard{display:grid;grid-template-columns:minmax(0,.76fr) minmax(0,1fr);min-height:295px;overflow:hidden;border:1px solid #e8dfdf;border-radius:25px;background:#fff;box-shadow:0 15px 40px #3c28430b}
+.shopJourneyPhoto{background:#eee7e2 center/cover no-repeat;min-height:275px}
+.shopJourneyCopy{display:flex;flex-direction:column;align-items:flex-start;padding:clamp(22px,2.6vw,36px)}
+.shopJourneyEyebrow{display:flex;align-items:center;gap:8px;color:#724b9c;font-size:11px;font-weight:850;letter-spacing:.12em}
+.shopJourneyCopy h3{margin:17px 0 10px;color:#302639;font-size:clamp(24px,2.3vw,31px);letter-spacing:-.045em;line-height:1.15}
+.shopJourneyCopy p{margin:0 0 21px;color:#6c636d;font-size:14px;line-height:1.6}
+.shopJourneyCopy a{display:inline-flex;align-items:center;justify-content:center;gap:9px;margin-top:auto;border-radius:14px;padding:13px 17px;min-height:44px;background:linear-gradient(135deg,#5b35f5,#3a20bd);color:#fff;font-size:13px;font-weight:850;text-decoration:none}
+.shopJourneyCopy a:focus-visible{outline:3px solid #302639;outline-offset:4px}
+@media(max-width:1200px){.shopJourneyCard{grid-template-columns:1fr}.shopJourneyPhoto{min-height:175px}.shopJourneyCopy{min-height:255px}}
+@media(max-width:740px){.shopJourneysHeading{display:block}.shopJourneysHeading>p{margin-top:16px}.shopJourneyGrid{grid-template-columns:1fr}.shopJourneyCard{grid-template-columns:minmax(0,.75fr) minmax(0,1fr);min-height:245px}.shopJourneyPhoto{min-height:245px}.shopJourneyCopy{min-height:245px}}
+@media(max-width:480px){.shopJourneyCard{grid-template-columns:1fr}.shopJourneyPhoto{min-height:178px}.shopJourneyCopy{min-height:0}.shopJourneyCopy h3{font-size:25px}}
