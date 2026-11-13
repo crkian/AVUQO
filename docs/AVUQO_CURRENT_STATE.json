@@ -156,7 +156,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Locate the first GitHub Actions `AVUQO production visual audit` run on main, download and inspect screenshot artifact/report for 28 routes x 2 viewports; fix confirmed issues and collect owner screenshot visual acceptance. Automation exists; do not claim successful captures without reviewing artifact."
+      "task": "Ship owner screenshot fixes; verify exact Vercel READY production SHA and real category photos/Black Friday primary hero; review mobile screenshot after deployment."
     },
     {
       "priority": 2,
@@ -221,5 +221,14 @@
     "artifact": "avuqo-public-visual-audit",
     "review_document": "docs/AVUQO_PRODUCTION_SCREENSHOT_QA_2026-11-13.md",
     "manual_visual_signoff": "pending"
+  },
+  "current_candidate": {
+    "branch": "fix/homepage-screenshot-findings-20261113",
+    "scope": "Four owner screenshot findings: missing category sprite replaced with editorial image tiles, duplicate seasonal home panel removed, hero scaled/centred, private owner shortcut removed from public hero (owner nav remains).",
+    "status": "candidate_not_yet_verified_on_production",
+    "evidence": "User-provided desktop screenshots 2026-11-13",
+    "document": "docs/AVUQO_HOMEPAGE_OWNER_SCREENSHOT_CORRECTIONS_2026-11-13.md",
+    "preserves": "UK date-driven main hero, Awin/eBay/tyres/Supabase auth and source rights",
+    "visual_signoff": "mobile screenshot and category image load not yet confirmed"
   }
 }
