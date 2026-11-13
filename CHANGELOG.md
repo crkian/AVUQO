@@ -1,4 +1,9 @@
 
+## Unreleased · Remove generic homepage flash before correct seasonal page
+- Replace old `HeroPlaceholder` in streamed Suspense fallback with neutral accessible responsive loading shell; correct UK date-specific hero remains determined by `editorialSpotlight(new Date())` per request.
+- Add regression test guarding against ever displaying the obsolete living-room hero as a loading state.
+
+
 ## 13 November 2026 · Screenshot-driven homepage fix deployed
 - PR #140 deployed READY as app commit `e310af5a6ac49b00a01f7742c8d6a3664ebb5cf5` to `www.avuqo.com`.
 - Replaced nonexistent department sprite URL with editorial photo tiles, simplified to one automatic seasonal hero, corrected hero scale/alignment, removed owner private CTA from homepage while preserving role-gated navigation.
