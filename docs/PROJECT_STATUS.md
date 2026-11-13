@@ -1,4 +1,9 @@
 
+# VERIFIED DESKTOP/MOBILE VISUAL QA WORKFLOW RELEASE · 13 November 2026
+
+PR #138 merged, production READY commit `08459b492fa8c9497b94cee933d9fa08dec0f01c`, Vercel `dpl_CJ7yRusAX2fGppGBxy9jydXfHVdZ`, alias `www.avuqo.com`. The live homepage still serves Black Friday. Automated 28-route public Chrome screenshot/audit **workflow added** and scheduled weekly/on-demand; actual execution artifact review remains **unverified**, so graphical approval is not complete. Workflow does not access private Control Centre/preview, credentials or protected supplier data, and no customer UI/integrations changed in this PR. See `docs/AVUQO_PRODUCTION_SCREENSHOT_QA_2026-11-13.md`. Do not confuse Vercel READY with successful screenshot review.
+
+
 **Real production screenshot-QA workflow candidate (13 Nov 2026):** Following verified PR #136 UK seasonal homepage deployment and 28 public HTTP 200 checks, added a read-only GitHub Actions workflow `production-visual-audit.yml` capturing 28 public URLs on 1440×900 and 390×844 Chrome, HTTP/H1/overflow/broken-image/JS diagnostics, and `report.md`, `report.json`, 56 PNG screenshots in a 14-day artifact. Workflow automatically starts on merge, weekly Monday 08:00 UTC and on demand. Owner-only previews, Control Centre, credentials, Awin/eBay/tyre publishing remain untouched. **No actual visual screenshot artifact has yet been reviewed**, so pixel visual acceptance is still pending. See `docs/AVUQO_PRODUCTION_SCREENSHOT_QA_2026-11-13.md`.
 # VERIFIED AUTOMATIC SEASONAL HOMEPAGE RELEASE · 13 November 2026
 
