@@ -1,3 +1,10 @@
+
+## Unreleased · Automatic UK homepage seasonal calendar
+- Extend seasonal editorial schedule into a year-round Europe/London calendar including Christmas, Black Friday, Valentine's, Easter, Mother's Day, Father's Day, Halloween, school season, spring, summer and autumn.
+- Change real `/` homepage photo, headline and primary CTA to current UK theme on request. Keep existing sponsored placements and verified product admission separate.
+- Add `/control-centre/seasonal-calendar` owner-only current/next-year read-only calendar, linked from Control Centre.
+- Remove hard-coded 2026 Black Friday editorial copy; introduce DST, Easter and multi-year regression tests.
+- Audit 28 customer routes through authenticated production HTTP fetch (status 200; visual screenshot acceptance not implied).
 ## 13 November 2026 · Sitewide warm-premium design verified on production
 - PR #134 merged; Vercel application release `45da7456b66f6fa21d25753c39e497203f26c7ed` READY on `www.avuqo.com`, deployment `dpl_9fAgyrGS1Nz2Fh8Q7nyFjmVpEvG5`.
 - Shared branded A-lockup and tagline, navigation/mobile/footer, category, public product index/detail, seasonal and travel/lifestyle presentation updated on real routes. Existing public offer and image-rights checks remain unchanged.
