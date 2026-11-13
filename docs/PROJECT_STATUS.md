@@ -1,3 +1,9 @@
+## Black Friday and department artwork verified · 13 November 2026
+
+PR #167 is READY on the custom domain at `50a3e9d3a1fdc2b7457683f2688667b6df0cb2a6` (`dpl_GUSqxRdimdjEzNoagagxJ9pQZXKF`). Build, lint, secret checks and targeted design/date tests passed. The Black Friday landing page and date-driven homepage use the new locally hosted editorial artwork. Electronics & Tech, Home & Living and Beauty now have distinct artwork and direct headings. Signed-out production browser checks confirmed the landing and department pages render at desktop and 449 CSS pixels without document overflow. No provider, customer or schedule changes.
+
+Next visual release: bring Christmas, Easter, Valentine’s and Sales artwork closer to the reference, then refine product and signed-in account composition.
+
 ## Editorial hero refresh candidate · 13 November 2026
 
 New generated editorial images follow the original warm-premium boards and show generic, unbranded subjects. Black Friday shares its local image with the UK-scheduled homepage spotlight. Three category heroes use direct department names and compact responsive layouts. Pricing and supplier eligibility are outside this release.

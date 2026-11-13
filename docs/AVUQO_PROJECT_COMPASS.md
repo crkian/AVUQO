@@ -1,3 +1,9 @@
+## Black Friday and department artwork verified · 13 November 2026
+
+PR #167 is READY on the custom domain at `50a3e9d3a1fdc2b7457683f2688667b6df0cb2a6` (`dpl_GUSqxRdimdjEzNoagagxJ9pQZXKF`). Build, lint, secret checks and targeted design/date tests passed. The Black Friday landing page and date-driven homepage use the new locally hosted editorial artwork. Electronics & Tech, Home & Living and Beauty now have distinct artwork and direct headings. Signed-out production browser checks confirmed the landing and department pages render at desktop and 449 CSS pixels without document overflow. No provider, customer or schedule changes.
+
+Next visual release: bring Christmas, Easter, Valentine’s and Sales artwork closer to the reference, then refine product and signed-in account composition.
+
 ## Current Awin import robustness candidate · 13 November 2026
 
 PR #58 is older than the current secure Awin importer. Its useful duplicate-filename parsing and precise validation errors have been ported selectively to `fix/awin-numbered-csv-private-import-current-main-20261113`, while obsolete filename-based advertiser identity and automatic AKKO fallback are deliberately rejected. The live importer requires explicit joined `advertiser_id`, row-by-row cross-advertiser rejection, owner/admin role and private-only staging, and does not grant image rights. Candidate requires CI/Vercel proof before treating live; no live feed upload has been attempted.
