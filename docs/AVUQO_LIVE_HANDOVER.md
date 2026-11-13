@@ -1,3 +1,11 @@
+## Production visual audit passed · 13 November 2026
+
+PR #165 is READY on the custom domain at `a2d1be5d988a0d8908acd1936223621d58fa6af4`, deployment `dpl_EEM8GELPoKxkjit6W1m5LG6thKw5`. [Audit run 43509641975](https://github.com/crkian/AVUQO/actions/runs/43509641975) passed 124 captures across 31 public routes at 1440, 768, 390 and 360 pixels. All logged HTTP statuses were 200. There were zero flagged cases. This is signed-out capture evidence. Signed-in end-to-end and mockup-by-mockup visual completion remain open.
+
+Production read-only checks found 62 feed refresh flags across 74 observed feeds. Awin remains paused with sync off. The metadata monitor has recorded nine successful checks. Marketing publishing and AI are disabled with emergency stop on and zero publication jobs. No approved homepage campaigns are currently live or scheduled. Anonymous access to feed observations was confirmed absent. The existing Pneus cron is unchanged.
+
+PR #158 exact lease SQL passed isolated single-connection PostgreSQL checks for role grants, blocked and paused-source gates, lease ownership, renewal and expired reclaim. Production has the journal at migration version 20261113202720 and no lease RPCs. A two-connection race, migration-history reconciliation and approved current feed evidence remain outstanding. No SQL was applied to production.
+
 ## Verified Saved, Watches and Lists release · 13 November 2026
 
 PR #164 is READY on the custom domain at `41932649077862ce8ce1d226bcd957dba3616612`, deployment `dpl_8tTvq2WhzbvkDYiEMre98iV7fqv1`. GitHub quality and secret checks passed. Saved, Watches and Lists recognise live-offer IDs and preserve historical demonstration links. No database migration or customer-data rewrite was used. Superseded PR #21 closed after its fix and historical delivery plan reached main.
