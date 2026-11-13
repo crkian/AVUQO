@@ -1,3 +1,7 @@
+## VERIFIED PRODUCT DESIGN RELEASE · 13 November 2026 (PR #134)
+
+The warm-premium customer design pass was **merged and deployed READY** as app commit `45da7456b66f6fa21d25753c39e497203f26c7ed`, Vercel `dpl_9fAgyrGS1Nz2Fh8Q7nyFjmVpEvG5`, with production aliases `www.avuqo.com` and `avuqo.com`. It covers the shared branded header/footer, MegaNav/mobile presentation, real category hub, public products index/details, seasonal and travel/lifestyle page styling. Product index photographs are shown only when `verifiedOffers` admits a rights-approved image; source/publication gates and Awin/eBay/tyre/Control Centre logic were not changed. **Owner desktop/mobile screenshot visual acceptance is still pending**, so do not claim pixel-perfect recreation of every concept board. This handover record itself may cause a newer docs-only production SHA; new chats must query current Vercel and read the machine state.
+
 
 ## Most recent design work (13 Nov 2026, release candidate)
 
