@@ -257,3 +257,9 @@ Read `AGENTS.md`, this status page and `CHANGELOG.md` from `crkian/AVUQO` using 
 - Only permissioned fresh offers can appear in product pages, wishlists' new-item actions or basket additions.
 - Basket totals are **snapshots**, not live purchase quotes; final price and checkout remain at the retailer.
 - No stored customer email addresses or third-party email sent without a deliberate service design and consent.
+
+
+### 2026-11-13 Tyres UK journal release and lease-only draft
+- **Verified live:** PR #157 merged at `f57ba2452f5fa4dd6d75ccb2bd3be681353458a8`; Vercel `dpl_HJcyAeNgHBKyStJ8m7wbkNGabNuc` READY and production aliases assigned. Supabase journal installed, RLS, service role only, zero jobs, default blocked; Awin paused/sync off.
+- **Migration caveat:** Connected Supabase records migration version `20261113202720` for the journal; GitHub SQL file starts `20261113210500`. Must reconcile before CI/local migration replay.
+- **Draft only:** service-role lease claim/renew primitives with no worker, cron, publication or supplier download. Requires test DB concurrency/privilege and recovery tests, CI success and merge gate. Old PR #117 remains draft and unmergeable. Preserve Pneus cron.
