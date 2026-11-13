@@ -160,7 +160,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Ship no-flash seasonal homepage fallback, verify GitHub CI/Vercel READY and actual browser transition; inspect screenshot audit for remaining responsive issues."
+      "task": "Verify safe merged PR #127–142 GitHub branch cleanup workflow actually deleted eligible refs, recount branches, keep 11 open PRs and original designs, then audit other historical merged squash branches individually."
     },
     {
       "priority": 2,
@@ -241,5 +241,29 @@
     "status": "candidate_pending_CI_and_production",
     "preserves": "Europe/London per-request seasonal calendar, merchant/rights gates, Awin/eBay/tyres, auth, latest category imagery",
     "next_visual_check": "Confirm after hard reload that no old room-photo Find what's worth it hero is ever shown before the seasonal page."
+  },
+  "branch_cleanup_audit": {
+    "observed_date": "2026-11-13",
+    "observed_original_branch_count": 143,
+    "with_current_cleanup_branch": 144,
+    "open_prs": [
+      21,
+      25,
+      48,
+      50,
+      51,
+      58,
+      83,
+      85,
+      93,
+      102,
+      117
+    ],
+    "verified_merged_branch_candidates": 16,
+    "scope": "Only merged PR #127-142 heads deleted after exact-SHA, no open PR, same repo, main target and protection checks",
+    "status": "candidate before CI/merge/branch recount",
+    "audit_file": "docs/AVUQO_BRANCH_AUDIT_AND_SAFE_PRUNING_2026-11-13.md",
+    "cleanup_workflow": ".github/workflows/verified-merged-branch-cleanup.yml",
+    "remaining_branches": "Do not auto-delete unreviewed historical code, original visual design assets or active Awin/tyres security work"
   }
 }
