@@ -164,7 +164,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Audit remaining PR #51 Cadbury/Petlibro programme restrictions and image rights, then PR #102 Tooled-Up GBP currency proof. Port only safe missing work to current main, test/production deploy; no public offer publication before explicit permission and freshness verification."
+      "task": "Complete Cadbury/Petlibro terms PR CI+production; close old PR #51 only after verified release; then audit PR #102 Tooled-Up GBP currency proof. Request fresh written usage/image permission before any public feed offers."
     },
     {
       "priority": 2,
@@ -324,5 +324,15 @@
     "scope": "Chrome duplicate suffixes Craft Buddy Google CSV parser only; separate invalid extension, oversized and empty uploads; preserve joined explicit advertiser and per-row IDs",
     "no_provider_upload": true,
     "public_offers_unverified": true
+  },
+  "current_candidate": {
+    "branch": "feature/awin-cadbury-petlibro-rights-evidence-20261113",
+    "legacy_pr": 51,
+    "status": "candidate_pending_ci_production",
+    "scope": "Preserve historical owner-provided Cadbury/Petlibro terms summary and show restrictive rights guidance on authenticated retailer Control Centre; no source permission changes",
+    "evidence": "4 Nov 2026 owner emails/PDFs summarized in old PR #51; original documents not re-opened in this port",
+    "cadbury_736": "directory/editorial/comparison listed, sales commission exclusion and brand PPC restrictions; public image/feed licensing unverified",
+    "petlibro_77952": "organic comparison/editorial listed, UK territory exclusions, PPC/CSS restrictions, conflicting commission rates; public image/feed licensing unverified",
+    "publication": "fail-closed, no current rights or public product approval"
   }
 }
