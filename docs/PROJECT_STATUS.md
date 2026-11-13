@@ -1,3 +1,5 @@
+**Awin security fix candidate (13 Nov):** Porting stale PR #50 onto current `main`: unsuccessful Awin feed response error must expose HTTP numeric status only, never the provider body/statusText in logs/UI. Source rights, feed activation, parser, Awin/eBay/tyre business rules remain unchanged. Candidate requires CI, merge, Vercel READY and legacy #50 closure after replacement verification.
+
 # VERIFIED HISTORIC MERGED-BRANCH CLEANUP · 13 November 2026
 
 GitHub actual branch counts: initial 143 branches; first cleanup PR #143 removed 16; historical merged PR #144 removed 103 more, leaving **26 branches**, inclusive of 2 new housekeeping branches and `main`. All 11 open PR heads, original visual references and security refs were preserved. Final PR #145 will try to remove its own 3 matched cleanup refs, after exact merged PR verification; recount for the actual final number. Vercel production after #144 READY at `d70a663d1963d81c4ec6e1f6ac9fd2b22320828d` on `www.avuqo.com`. No merchant feed/image, Supabase, eBay/tyre or customer code changed.
