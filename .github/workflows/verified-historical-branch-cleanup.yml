@@ -1,0 +1,81 @@
+name: AVUQO historical merged-branch review and cleanup
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/verified-historical-branch-cleanup.yml
+  workflow_dispatch:
+    inputs:
+      execute:
+        description: "Delete eligible historical merged PR branches (false is dry run)"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: read
+
+concurrency:
+  group: avuqo-historical-merged-branch-cleanup
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Verify historical merged PR branch tips before optional deletion
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const {owner,repo}=context.repo;
+            const execute=context.eventName==='push'||String(context.payload.inputs?.execute)==='true';
+            const open=await github.paginate(github.rest.pulls.list,{owner,repo,state:'open',per_page:100});
+            const allClosed=await github.paginate(github.rest.pulls.list,{owner,repo,state:'closed',per_page:100});
+            // A second, separate historical batch; the 16 recent merged PR heads were already removed.
+            const merged=allClosed.filter(pr=>pr.number<=126&&pr.merged_at&&pr.base.ref==='main'&&pr.head?.repo?.full_name===`${owner}/${repo}`);
+            const openNames=new Set(open.filter(pr=>pr.head?.repo?.full_name===`${owner}/${repo}`).map(pr=>pr.head.ref));
+            const protectedNames=new Set(['main','master','design/warm-premium-visual-system-20261105','feature/warm-premium-experience-v1-20261105']);
+            // If the same branch was associated with more than one PR, retain it for human reconciliation.
+            const byName=new Map();
+            for(const pr of merged){const name=pr.head.ref;byName.set(name,[...(byName.get(name)||[]),pr]);}
+            const report=[];let deleted=0,eligible=0;
+            for(const [name,prs] of [...byName.entries()].sort((a,b)=>a[0].localeCompare(b[0]))){
+              let reason='';
+              if(!name||protectedNames.has(name)||name.startsWith('security/'))reason='preserved source or security ref';
+              else if(openNames.has(name))reason='open PR still references this branch';
+              else if(prs.length!==1)reason='branch reused by multiple merged PRs: manual review';
+              const pr=prs[0];let actualSha=null;
+              if(!reason){
+                try{const ref=await github.rest.git.getRef({owner,repo,ref:`heads/${name}`});actualSha=ref.data.object.sha;}
+                catch(err){reason=err.status===404?'already absent':`ref lookup error ${err.status}`;}
+              }
+              if(!reason && actualSha!==pr.head.sha)reason='HEAD changed since merged PR; retain unmerged commits';
+              // IMPORTANT: Validate frozen PR commit list too, not merely the mutable branch head field.
+              if(!reason){
+                try {
+                  const commits=await github.paginate(github.rest.pulls.listCommits,{owner,repo,pull_number:pr.number,per_page:100});
+                  if(!commits.length||commits.at(-1).sha!==actualSha)reason='branch SHA differs from final PR commit; retain';
+                } catch(err){reason=`PR commit verification unavailable (${err.status}); retain`;}
+              }
+              if(!reason){
+                try{const info=await github.rest.repos.getBranch({owner,repo,branch:name});if(info.data.protected)reason='protected branch';}
+                catch(err){reason=`protection check unavailable (${err.status}); retain`;}
+              }
+              if(!reason){
+                eligible++;
+                if(execute){
+                  try{await github.rest.git.deleteRef({owner,repo,ref:`heads/${name}`});deleted++;reason='DELETED (exact merged PR commit confirmed)';}
+                  catch(err){reason=`delete failed: ${err.status}; retain`;}
+                }else reason='ELIGIBLE, dry run only';
+              }
+              report.push(`| ${pr.number} | \`${name}\` | ${reason} |`);
+            }
+            await core.summary.addHeading('AVUQO historical branch audit, PR #1–126')
+              .addRaw(`Mode: ${execute?'DELETE':'DRY RUN'}, historical merged PRs: ${merged.length}, checked names: ${byName.size}, eligible: ${eligible}, deleted: ${deleted}.\n\n`)
+              .addRaw('| PR | Branch | Result |\n|---|---|---|\n'+report.join('\n')).write();
+            console.log(JSON.stringify({execute,merged:merged.length,checked:byName.size,eligible,deleted,report},null,2));
+            if(execute&&eligible!==deleted)core.warning('Some branches remained; inspect audit summary.');

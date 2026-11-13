@@ -1,3 +1,7 @@
+## 13 November 2026 · First merged branch cleanup completed, second staged
+- PR #143 merged; GitHub verified 16 safe merged PR #127–142 branch heads deleted. 144 branches including cleanup branch fell to 128; open PR heads and original warm-premium sources retained.
+- Add narrowly validated historical PR #1–126 cleanup workflow with frozen final PR commit verification, no-open-PR, no branch reuse and protected/reference branch exclusions. Candidate must pass tests and confirm deletion before claiming its outcome.
+
 ## Unreleased · GitHub safe merged-branch clean-up
 - Inventory all 143 pre-task GitHub branches and map 11 open PR branch heads to protected/unresolved work.
 - Add guarded GitHub Actions cleanup of 16 recent merged PR #127–142 branches only if branch HEAD SHA exactly matches frozen merged PR, no other open PR uses it and branch is not protected; provide manual dry-run mode and GitHub summary.

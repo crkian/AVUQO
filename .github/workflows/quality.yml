@@ -44,6 +44,8 @@ jobs:
         run: node --experimental-strip-types --test tests/marketing-tyres-category-readiness.test.mjs
       - name: Warm-premium design, seasonal and handover safety tests
         run: node --experimental-strip-types --test tests/warm-premium-design-restoration.test.mjs
+      - name: Verify historical branch pruning frozen-commit safety gates
+        run: node --test tests/verified-historical-branch-cleanup.test.mjs
       - name: Verify merged GitHub branch pruning safety gates
         run: node --test tests/verified-merged-branch-cleanup.test.mjs
       - name: Prevent generic homepage flash before UK seasonal hero
