@@ -134,3 +134,10 @@
 @media(max-width:900px){.fullStorefrontHero .heroGrid{grid-template-columns:minmax(0,1fr) minmax(260px,.72fr);gap:22px}.fullStorefrontHero .heroCopy h1{font-size:clamp(39px,5.2vw,52px)}}
 @media(max-width:700px){.fullStorefrontHero{padding:135px 0 32px!important}.fullStorefrontHero .heroGrid{width:min(100% - 32px,570px);grid-template-columns:1fr;gap:24px}.fullStorefrontHero .heroCopy h1{font-size:clamp(37px,9.5vw,53px)}}
 @media(max-width:420px){.fullStorefrontHero{padding-top:112px!important}.fullStorefrontHero .heroGrid{width:calc(100% - 28px)}.fullStorefrontHero .heroCopy h1{font-size:clamp(35px,9.6vw,42px)}}
+
+/* The request-time UK calendar streams the correct hero. The Suspense fallback is
+   deliberately neutral, not the unrelated evergreen homepage seen in owner screenshots. */
+.seasonalLoading{min-height:470px;display:flex;align-items:center;background:linear-gradient(115deg,#fffaf7,#f8edf6,#faf7f2);border-bottom:1px solid #ede1e8}
+.seasonalLoading>div{width:100%}
+.seasonalLoadingBar{display:block;width:min(340px,65%);height:22px;border-radius:999px;background:#e9ddeb;opacity:.55}
+@media(max-width:700px){.seasonalLoading{min-height:400px}.seasonalLoadingBar{height:17px;width:min(270px,75%)}}
