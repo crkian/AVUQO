@@ -7,3 +7,18 @@
 @media(max-width:960px){.departmentGrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:700px){.departmentGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.departmentLink{font-size:12px;padding:13px;min-height:72px}}
 @media(max-width:375px){.departmentGrid{grid-template-columns:1fr}}
+
+/* Full premium product showroom: only independently admitted images appear here. */
+.hero{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(circle at 85% 25%,#f4e3ef 0%,transparent 36%),radial-gradient(circle at 5% 100%,#fff1dc 0%,transparent 42%),#faf7f2;border-bottom:1px solid #eadfe5}
+.hero h1{font-family:Georgia,"Times New Roman",serif;color:#251d36;font-size:clamp(43px,5.8vw,78px);line-height:1.08}
+.hero h1 span{color:#7432ba}
+.hero p:not(.kicker){color:#5f5465}
+.card{overflow:hidden;border:1px solid #eadfe7;border-radius:24px;background:#fffdfb;box-shadow:0 11px 30px #301d3b0a;transition:transform .2s ease,box-shadow .2s ease}
+.card:hover{transform:translateY(-3px);box-shadow:0 16px 33px #301d3b18}
+.card:focus-visible{outline:3px solid #7240d2;outline-offset:4px}
+.photo{position:relative;overflow:hidden;background:linear-gradient(145deg,#fffaf6,#f3ecf7);min-height:215px}
+.approvedPhoto{position:absolute;inset:0;background-position:center;background-repeat:no-repeat;background-size:contain;display:block}
+.placeholder{display:grid;place-items:center;min-height:215px;color:#785c96;font-weight:900;font-size:18px;letter-spacing:-.06em}
+.departmentLink{background:#fffdfb;border:1px solid #e9e0e5;border-radius:16px}
+.departmentLink:hover{border-color:#a881d4;background:#fbf5ff}
+@media(max-width:700px){.hero{padding-top:55px;padding-bottom:57px}.card{border-radius:20px}.photo,.placeholder{min-height:175px}}
