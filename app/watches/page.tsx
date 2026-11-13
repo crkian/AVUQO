@@ -7,6 +7,7 @@ import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import {createClient} from "../../lib/supabase/client";
 import {migrateLocalWatches} from "../../lib/watches/migrateLocalWatches";
+import {dealDestination,savedDealDestination} from "../../lib/avuqo/deal-links";
 import styles from "./page.module.css";
 
 type WatchRow = {
@@ -18,14 +19,14 @@ type WatchRow = {
   created_at:string;
 };
 type WatchView = {
-  id:string;dealId:string|null;title:string;category:string;
+  id:string;href:string|null;title:string;category:string;
   merchant:string|null;createdAt:string;
 };
 function toView(row:WatchRow):WatchView {
   const criteria=row.criteria ?? {};
   const text=(key:string)=>typeof criteria[key]==="string" ? String(criteria[key]) : null;
-  const id=text("dealId") ?? row.watch_key.replace(/^deal:/,"");
-  return {id:row.id,dealId:/^[a-z0-9-]{1,100}$/i.test(id)?id:null,
+  const href=savedDealDestination(row.watch_key) ?? dealDestination(text("dealId"));
+  return {id:row.id,href,
     title:text("title") || row.name,category:text("category") || "Saved watch",
     merchant:text("merchant"),createdAt:row.created_at};
 }
@@ -87,7 +88,7 @@ export default function WatchesPage(){
               <div className={styles.details}><p className={styles.category}>{watch.category}</p><h2>{watch.title}</h2>
                 <p>{watch.merchant??"Merchant not recorded"} · Added {new Date(watch.createdAt).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})}</p></div>
               <span className={styles.status}><Bell size={17}/> On your watchlist</span>
-              <div className={styles.actions}>{watch.dealId?<Link href={`/deal/${watch.dealId}`}>View &amp; recheck <ArrowRight size={16}/></Link>:<span>Original deal unavailable</span>}
+              <div className={styles.actions}>{watch.href?<Link href={watch.href}>View &amp; recheck <ArrowRight size={16}/></Link>:<span>Original deal unavailable</span>}
                 <button type="button" onClick={()=>void removeWatch(watch.id)} aria-label={`Remove ${watch.title}`}><Trash2 size={18}/></button>
               </div>
             </article>)}</div>}

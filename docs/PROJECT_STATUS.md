@@ -1,3 +1,7 @@
+## Saved offer destination candidate · 13 November 2026
+
+Selectively port #21 routing onto the current Saved, Watch and List pages. The live route continues to recheck offer eligibility, and previously stored list keys are recognised without a customer-data migration.
+
 ## Mobile search and audit candidate · 13 November 2026
 
 Keep global search usable on the phone and tablet. Extend visual audit to four widths and three additional public journeys. PR #162 already deployed with private Awin monitor and homepage scheduling fixes.

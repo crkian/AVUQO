@@ -1,3 +1,9 @@
+## Mobile search release verified · 13 November 2026
+
+PR #163 is READY on the custom domain at `9093cbc9d9f4b814beea5cb82b432896879a4e98`, deployment `dpl_CSmkg3D9G2BZht1MzRj6wFgpHDnQ`. GitHub quality and secret checks passed. Existing production screenshot audit run 43508505598 now covers four widths. Superseded PRs #48 and #85 closed after their unique evidence and requirements reached main.
+
+Candidate selectively ports the remaining saved-offer destination bug fix from #21 and preserves its original roadmap. No customer records will be rewritten.
+
 ## Private Awin monitor and homepage scheduling verified on production · 13 November 2026
 
 PR #162 is READY on the custom domain at `b0cc915c6af15eff0b853ed9fb05fc58fcf72ae2`, deployment `dpl_9BeEhxZGbE9RYSfmUmUqbWzKkXbf`. GitHub quality and secret checks passed. Read-only production DB checks earlier today recorded nine successful Awin metadata checks, 74 observed feeds and a last success at 06:17 UTC. Awin source paused/sync off. Marketing publishing and AI disabled with emergency stop on. Zero currently approved-in-window or future approved homepage placements. No external runs or production writes were triggered in verification.

@@ -6,6 +6,7 @@ import {useEffect, useMemo, useState} from "react";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import {createClient} from "../../lib/supabase/client";
+import {savedDealDestination} from "../../lib/avuqo/deal-links";
 import styles from "./page.module.css";
 
 type Row = {
@@ -19,11 +20,6 @@ type Row = {
 };
 type SortOrder = "recent" | "name";
 const money = (value:number) => new Intl.NumberFormat("en-GB", {style:"currency",currency:"GBP"}).format(value);
-
-function savedDealHref(key:string|null):string|null {
-  const match = key?.match(/^deal:([a-z0-9-]{1,100})$/i);
-  return match ? `/deal/${match[1]}` : null;
-}
 
 export default function SavedPage() {
   const db = useMemo(() => createClient(), []);
@@ -84,7 +80,7 @@ export default function SavedPage() {
           : rows.length===0
           ? <div className={styles.empty}><Heart size={37}/><h2>Nothing saved just yet.</h2><p>Save something worth a second look, then find it here.</p><Link href="/discover">Explore AVUQO <Search size={16}/></Link></div>
           : <div className={styles.grid}>{shown.map((item,index)=>{
-              const href=savedDealHref(item.item_key);
+              const href=savedDealDestination(item.item_key);
               return <article className={styles.card} key={item.id}>
                 <span className={styles.heart} aria-label="Saved item"><Heart size={21} fill="currentColor"/></span>
                 <div className={styles.art} data-tone={index%4}><ShoppingBag size={57} aria-hidden="true"/><small>Saved find</small></div>
