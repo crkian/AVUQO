@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_5CoPiwj5gLSAiES6LwWc1Ux2U9v9",
-    "verified_ready_sha": "5954beb29fc849dc9368991fdce6ba2db5a3b063",
+    "deployment_id": "dpl_HJcyAeNgHBKyStJ8m7wbkNGabNuc",
+    "verified_ready_sha": "f57ba2452f5fa4dd6d75ccb2bd3be681353458a8",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #155 read-only owner tyre worker preflight production READY and www.avuqo.com alias verified 2026-11-13. Docs-only follow-up may advance SHA; recheck.",
+    "verification": "PR #157 dormant Tyres UK job journal code READY on exact production SHA. Database migration applied under Supabase version 20261113202720, repo filename version 20261113210500; reconciliation required. No auto-worker.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -180,7 +180,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Verify staged dormant tyre job journal SQL CI and apply using connected Supabase migration capability. Verify live RLS/grants/zero rows and paused Awin, Vercel READY. Then separately design safe lease/renewal and snapshot retention/recovery with PR #117 still disabled."
+      "task": "Verify and test draft Tyres UK claim/renew lease-only SQL against a disposable database with concurrency, expiry, permissions and migration-history reconciliation. Do not merge or apply until runtime tests pass; old #117 stays open and worker disabled."
     },
     {
       "priority": 2,
@@ -411,5 +411,40 @@
       "severity": "review",
       "scope": "Supabase advisor: authenticated role can execute public.publish_editorial and public.publish_avuqo_legal SECURITY DEFINER functions; audit permissions/logic separately, do not change blindly"
     }
-  ]
+  ],
+  "last_tyres_uk_journal_release": {
+    "pr": 157,
+    "sha": "f57ba2452f5fa4dd6d75ccb2bd3be681353458a8",
+    "deployment": "dpl_HJcyAeNgHBKyStJ8m7wbkNGabNuc",
+    "production_ready": true,
+    "supabase_migration_version": "20261113202720",
+    "repository_migration_file_version": "20261113210500",
+    "migration_history_reconciliation_required": true,
+    "job_table_exists": true,
+    "job_rows": 0,
+    "rls_enabled": true,
+    "anon_authenticated_access": false,
+    "default_state": "blocked",
+    "source_paused": true,
+    "source_sync_enabled": false,
+    "automatic_worker_enabled": false
+  },
+  "current_candidate_tyres_uk_private_lease": {
+    "branch": "feature/tyres-uk-private-lease-primitives-review-20261113",
+    "phase": "draft_review_not_deployed",
+    "functions": [
+      "claim_private_tyres_uk_snapshot_job",
+      "renew_private_tyres_uk_snapshot_lease"
+    ],
+    "not_applied_to_supabase": true,
+    "requires": [
+      "migration version reconciliation",
+      "controlled SQL concurrent lease tests",
+      "negative role execute tests",
+      "source rights and retention review",
+      "CI and preview acceptance"
+    ],
+    "changes_pneus_cron": false,
+    "activates_worker": false
+  }
 }
