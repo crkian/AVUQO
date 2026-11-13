@@ -17,13 +17,18 @@ test("UK editorial calendar rotates without creating an advertiser or product of
  assert.equal(editorialMomentForDate(date("2027-08-10T12:00:00Z")),"summer");
  assert.equal(editorialMomentForDate(date("invalid")),null);
  assert.equal(editorialSpotlight(date("2026-11-15T12:00:00Z"))?.href,"/black-friday");
+ assert.equal(editorialSpotlight(date("2026-11-15T12:00:00Z"))?.image,seasonal["black-friday"].photo);
  assert.equal(editorialSpotlight(date("2026-12-24T12:00:00Z"))?.href,"/christmas");
  assert.ok(SEASONAL_DESTINATIONS.length>=10,"Year-round editorial calendar should cover major UK dates and evergreen periods");
 });
 test("every restored seasonal route shares a premium, evidence-safe template",()=>{
  for(const kind of ["sales","black-friday","easter","valentines"]){
   assert.ok(seasonal[kind],"missing seasonal config: "+kind);
-  assert.ok(seasonal[kind].photo.startsWith("https://images.unsplash.com/"));
+  const photo=seasonal[kind].photo;
+  if(photo.startsWith("/editorial/")){
+   assert.match(photo,/^\/editorial\/[a-z-]+\.webp$/);
+   assert.equal(readFileSync("public"+photo).toString("ascii",8,12),"WEBP");
+  }else assert.ok(photo.startsWith("https://images.unsplash.com/"));
  }
  for(const file of ["app/easter/page.tsx","app/valentines/page.tsx","app/black-friday/page.tsx"]){
   assert.match(read(file),/SeasonalLanding/);

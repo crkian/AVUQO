@@ -19,8 +19,9 @@ const links = [
 ];
 export default function LifestyleLanding({config,afterTrust}: {config:Landing;afterTrust?:ReactNode}) {
   const story=storyFor(config.slug);
+  const editorialHero=config.hero.startsWith("/editorial/");
   const theme = {"--accent":config.accent} as CSSProperties;
-  return <main className={styles.page} style={theme} data-category={config.slug}>
+  return <main className={styles.page} style={theme} data-category={config.slug} data-editorial-hero={editorialHero||undefined}>
     <Header />
     <nav className={styles.subnav} aria-label="Explore shopping categories">
       <div className={`shell ${styles.subnavLinks}`}>{links.map(item=>
@@ -33,8 +34,8 @@ export default function LifestyleLanding({config,afterTrust}: {config:Landing;af
       <div className={`shell ${styles.heroInner}`}>
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}><Sparkles size={15}/>{story?.identity??config.eyebrow}</p>
-          <h1 id="lifestyle-title">{config.headline}<span>{config.highlight}</span></h1>
-          {story&&<p className={styles.categoryPromise}>{story.strapline}</p>}
+          <h1 id="lifestyle-title">{config.headline}{config.highlight&&<>{editorialHero?" ":null}<span>{config.highlight}</span></>}</h1>
+          {story&&!editorialHero&&<p className={styles.categoryPromise}>{story.strapline}</p>}
           <p>{config.intro}</p>
           <div className={styles.heroActions}>
             <Link href="#explore" className={styles.cta}>Explore {config.slug==="home"?"home ideas":config.slug} <ArrowRight size={18}/></Link>

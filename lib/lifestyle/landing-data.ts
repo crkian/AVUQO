@@ -42,9 +42,9 @@ export const lifestylePages: Record<string,Landing> = {
     featureTitle:"The best trip works on every level.",featureCopy:"Look beyond the first advertised price to the complete journey and the experience you actually want.",featureImage:image("photo-1476514525535-07fb3b4ae5f1",900)
   },
   home: {
-    slug:"home",eyebrow:"Home & living",headline:"A home that works.",highlight:"A price that fits.",accent:"#9c6746",
+    slug:"home",eyebrow:"Home & living",headline:"Home &",highlight:"Living",accent:"#9c6746",
     intro:"Create a more comfortable home with thoughtful furniture, practical appliances and everyday essentials. Explore ideas without losing sight of running costs and longevity.",
-    hero:image("photo-1600210492486-724fe5c67fb0"),heroPosition:"center 55%",
+    hero:"/editorial/home-living.webp",heroPosition:"center 54%",
     tiles:[
       {title:"Furniture",copy:"Spaces worth staying in.",search:"furniture",image:image("photo-1616486338812-3dadae4b4ace",700)},
       {title:"Kitchen",copy:"Make daily cooking simpler.",search:"kitchen appliances",image:image("photo-1556911220-bff31c812dba",700)},
@@ -57,9 +57,9 @@ export const lifestylePages: Record<string,Landing> = {
     featureTitle:"Make room for better decisions.",featureCopy:"Smart home shopping starts with practical needs, comfort, space and total ownership costs.",featureImage:image("photo-1600566753190-17f0baa2a6c3",900)
   },
   tech: {
-    slug:"tech",eyebrow:"Technology",headline:"Useful tech.",highlight:"Without the hype.",accent:"#cf6941",
+    slug:"tech",eyebrow:"Technology",headline:"Electronics &",highlight:"Tech",accent:"#cf6941",
     intro:"Explore laptops, headphones, connected devices and home technology with an eye on real-world usefulness, compatibility and long-term cost.",
-    hero:image("photo-1498049794561-7780e7231661"),
+    hero:"/editorial/electronics.webp",
     tiles:[
       {title:"Laptops & computing",copy:"Choose for the way you actually work.",search:"laptops",image:image("photo-1496181133206-80ce9b88a853",700)},
       {title:"Phones & accessories",copy:"Devices, contracts and everyday extras.",search:"smartphones",image:image("photo-1511707171634-5f897ff02aa9",700)},
@@ -102,9 +102,9 @@ export const lifestylePages: Record<string,Landing> = {
     featureTitle:"More play, more possibility.",featureCopy:"A great toy invites exploration and makes room for imagination.",featureImage:image("photo-1513364776144-60967b0f800f",900)
   },
   beauty: {
-    slug:"beauty",eyebrow:"Beauty & wellbeing",headline:"Feel good.",highlight:"Choose confidently.",accent:"#b36861",
+    slug:"beauty",eyebrow:"Beauty & wellbeing",headline:"Beauty",highlight:"",accent:"#b36861",
     intro:"Explore skincare, beauty tools and self-care ideas with clear thinking about ingredients, suitability and realistic value.",
-    hero:image("photo-1596462502278-27bfdc403348"),
+    hero:"/editorial/beauty.webp",
     tiles:[
       {title:"Skincare",copy:"A routine that fits your needs.",search:"skincare",image:image("photo-1620916566398-39f1143ab7be",700)},
       {title:"Haircare",copy:"Care, styling and simple routines.",search:"haircare",image:image("photo-1526947425960-945c6e72858f",700)},

@@ -1,3 +1,7 @@
+## Unreleased · Editorial hero refresh
+
+- Add locally hosted editorial photographs for the Black Friday campaign and the Electronics, Home & Living and Beauty departments. Align seasonal headlines to the content grid and keep mobile copy legible below the photographs.
+
 ## Unreleased · Saved offer destinations
 
 - Reopen eligible saved offers from Saved Items, Watches and shared lists through the live offer route. Historical demo slugs still resolve to their labelled examples.

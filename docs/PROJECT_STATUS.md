@@ -1,3 +1,7 @@
+## Editorial hero refresh candidate · 13 November 2026
+
+New generated editorial images follow the original warm-premium boards and show generic, unbranded subjects. Black Friday shares its local image with the UK-scheduled homepage spotlight. Three category heroes use direct department names and compact responsive layouts. Pricing and supplier eligibility are outside this release.
+
 ## Saved offer destination candidate · 13 November 2026
 
 Selectively port #21 routing onto the current Saved, Watch and List pages. The live route continues to recheck offer eligibility, and previously stored list keys are recognised without a customer-data migration.

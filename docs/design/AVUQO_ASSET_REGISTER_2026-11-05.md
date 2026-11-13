@@ -70,3 +70,7 @@ git push -u origin design/warm-premium-visual-system-20261105
 ```
 
 If working tree has unrelated edits, do not discard them; inspect `git status` and use a separate worktree if needed. These image imports should remain documentation-only. No SQL, database migrations, deployed frontend changes or source connectors are required.
+
+## Production editorial artwork · 13 November 2026
+
+The generated, unbranded hero images in `public/editorial/` are AVUQO editorial illustrations. `black-friday.webp` is shared by the November homepage and Black Friday page. `electronics.webp`, `home-living.webp` and `beauty.webp` are department artwork. None represents a specific merchant listing or grants publication rights.

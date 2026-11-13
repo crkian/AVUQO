@@ -80,3 +80,17 @@
 .feature{background:#f6f0eb}
 @media(max-width:720px){.hero{min-height:520px}.heroCopy h1{font-size:clamp(40px,10.2vw,63px)}.heroPhoto{background-position:60% 23%!important}.tile{border-radius:19px}}
 @media(prefers-reduced-motion:reduce){.tile{transition:none}}
+
+.page[data-editorial-hero] .hero{min-height:390px}
+.page[data-editorial-hero] .heroInner{padding-block:52px}
+.page[data-editorial-hero] .heroCopy h1{font-size:clamp(43px,5.15vw,72px);margin-block:12px 15px}
+.page[data-editorial-hero] .heroCopy h1 span{display:inline;color:#6431cc}
+.page[data-editorial-hero] .heroWash{background:linear-gradient(90deg,#faf7f1 0%,#faf7f1ee 29%,#faf7f185 51%,transparent 74%)}
+.page[data-category=beauty][data-editorial-hero] .heroWash{background:linear-gradient(90deg,#fff3f3 0%,#fff3f3ee 29%,#fff3f385 51%,transparent 74%)}
+@media(max-width:720px){
+ .page[data-editorial-hero] .hero{min-height:0;background:#faf7f1}
+ .page[data-editorial-hero] .heroPhoto{inset:0 0 auto;height:clamp(178px,40vw,300px);background-position:68% 55%!important}
+ .page[data-editorial-hero] .heroWash,.page[data-category=beauty][data-editorial-hero] .heroWash{inset:0 0 auto;height:clamp(179px,40vw,301px);background:linear-gradient(0deg,#faf7f1,transparent 60%)}
+ .page[data-editorial-hero] .heroInner{padding-top:clamp(145px,34vw,255px);padding-bottom:34px}
+ .page[data-editorial-hero] .heroCopy h1{font-size:clamp(39px,9vw,60px)}
+}
