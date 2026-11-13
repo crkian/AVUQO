@@ -41,6 +41,15 @@ export default async function RetailerOnboarding(){
   const ax=priority.indexOf(a[0]),bx=priority.indexOf(b[0]);
   return (ax<0?100:ax)-(bx<0?100:bx);
  });
+ const importedMerchants=[...latestRun.keys()].filter(id=>joinedAwinAdvertisers.some(([joinedId])=>joinedId===id));
+ const imageCoverage=new Map<string,{total:number;withImage:number;error:boolean}>();
+ await Promise.all(importedMerchants.map(async id=>{
+  const [total,images]=await Promise.all([
+   db.from("feed_import_records").select("id",{count:"exact",head:true}).eq("merchant_id",id),
+   db.from("feed_import_records").select("id",{count:"exact",head:true}).eq("merchant_id",id).not("image_url","is",null)
+  ]);
+  imageCoverage.set(id,{total:total.count??0,withImage:images.count??0,error:Boolean(total.error||images.error)});
+ }));
  const ebayConfig=ebayPilotReadiness();
  const joined=entries.filter(([id])=>awin&&joinedInSource(awin.metadata,id)).length;
  const allRunCount=(imports.data??[]).length;
@@ -66,9 +75,9 @@ export default async function RetailerOnboarding(){
    <div className={styles.panelHead}><h2>Awin: where we can start privately</h2>
     <p>Look at the small, product-focused programmes first, then larger catalogues. Every row is a historical membership observation and still requires feed, price, affiliate link and image-use checks.</p></div>
    <div className={styles.tableWrap}><table className={styles.table}>
-    <thead><tr><th>Advertiser</th><th>Membership record</th><th>Most recent private feed</th><th>Current feed observation</th><th>Rights gate</th></tr></thead>
+    <thead><tr><th>Advertiser</th><th>Membership record</th><th>Most recent private feed</th><th>Private image references</th><th>Current feed observation</th><th>Rights gate</th></tr></thead>
     <tbody>{entries.map(([id,name])=>{
-     const record=latestRun.get(id),seen=latestObservation.get(id);
+     const record=latestRun.get(id),seen=latestObservation.get(id),images=imageCoverage.get(id);
      const sourceMeta=awin?.metadata;
      const metaRecord=sourceMeta&&typeof sourceMeta==="object"&&!Array.isArray(sourceMeta)?sourceMeta as {awin_advertisers?:unknown}:null;
      const permissions=Array.isArray(metaRecord?.awin_advertisers)?metaRecord.awin_advertisers as {advertiser_id?:string;feed_permission_confirmed?:boolean}[]:[];
@@ -77,12 +86,13 @@ export default async function RetailerOnboarding(){
       <td><strong>{name}</strong><small>Advertiser {id}{priority.includes(id)?" · prioritised for review":""}</small></td>
       <td><span className={styles.status}>{awin&&joinedInSource(awin.metadata,id)?"Joined, historically observed":"Not currently evidenced"}</span></td>
       <td>{record?<><strong>{Number(record.review_count??0).toLocaleString("en-GB")} review rows</strong><small>{stamp(record.created_at)} · {statusWord(record.permission_status)}</small></>:"No local import"}</td>
+      <td>{images?(images.error?<span>Count unavailable</span>:<><strong>{images.withImage.toLocaleString("en-GB")} / {images.total.toLocaleString("en-GB")}</strong><small>URLs only · images not cleared for public display</small></>):<span>No imported images</span>}</td>
       <td>{seen?<><strong>{Number(seen.listed_products??0).toLocaleString("en-GB")} reported products</strong><small>Observed {stamp(seen.updated_at)} · not ingested</small></>:"Not observed"}</td>
       <td><span className={styles.status}>{approvedFeed?"Recorded feed permission; other gates remain":"Feed use not approved"}</span></td>
      </tr>;
     })}</tbody>
    </table></div>
-   <div className={styles.notice}>Do not use a joined-programme label as consent to republish images, price feeds, discounts or tracking links. Tooled-Up has replaced its old feeds, so any old imported data must be refreshed against its current feed list before release.</div>
+   <div className={styles.notice}>Image figures count stored private feed URLs, including historical and repeated imports. They are not photographs licensed for AVUQO use. Public product imagery stays disabled until each merchant’s feed/image terms are checked and approved. Do not use a joined-programme label as consent to republish images, price feeds, discounts or tracking links. Tooled-Up has replaced its old feeds, so any old imported data must be refreshed against its current feed list before release.</div>
    <nav className={styles.links}><Link href="/control-centre/feed-imports">Inspect existing import reviews</Link>
     <Link href="/control-centre/product-previews">See private product cards</Link>
     <Link href="/control-centre/product-readiness">Check product evidence</Link></nav>

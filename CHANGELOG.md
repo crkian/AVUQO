@@ -1,3 +1,8 @@
+
+## Unreleased · Awin inventory and image evidence
+- Extend owner-only retailer onboarding with stored private image URL coverage, without loading or publishing retailer photos.
+- Reconcile Awin feed export and newly observed PlayPress Toys UK programme and feed IDs without committing private download URLs.
+- Document AVUQO's single-catalogue Compare + Bargain Discovery strategy and rights-first launch sequence. Existing `/preview/products` remains the production-hosted owner view for layout testing.
 # AVUQO software changelog
 
 ## [0.5.1] - 2026-11-13 (verified production, eBay Sandbox and Awin retailer onboarding)
