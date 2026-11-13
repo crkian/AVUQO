@@ -35,7 +35,7 @@ export function normalizeEbayUkResults(data:unknown,hasCampaign:boolean):EbayPil
    try{
     const link=new URL(item.itemAffiliateWebUrl);
     verifiedLink=link.protocol==="https:"&&!link.username&&!link.password&&
-      /(^|\\.)ebay\\.(co\\.uk|com)$/.test(link.hostname)&&/^\\d{10}$/.test(link.searchParams.get("campid")??"");
+      /(^|\.)ebay\.(co\.uk|com)$/.test(link.hostname)&&/^\d{10}$/.test(link.searchParams.get("campid")??"");
    }catch{verifiedLink=false;}
   }
   return [{
@@ -59,7 +59,7 @@ export function ebayPilotReadiness(){
  const sandboxCredentials=Boolean(process.env.EBAY_SANDBOX_CLIENT_ID&&process.env.EBAY_SANDBOX_CLIENT_SECRET);
  const productionCredentials=Boolean(process.env.EBAY_CLIENT_ID&&process.env.EBAY_CLIENT_SECRET);
  const productionApproved=process.env.EBAY_BROWSE_PRODUCTION_APPROVED==="true";
- const campaignConfigured=/^\\d{10}$/.test(process.env.EBAY_EPN_CAMPAIGN_ID??"");
+ const campaignConfigured=/^\d{10}$/.test(process.env.EBAY_EPN_CAMPAIGN_ID??"");
  return {environment,credentialsConfigured:environment==="sandbox"?sandboxCredentials:productionCredentials,
   productionApproved,campaignConfigured,
   ready:environment==="sandbox"?sandboxCredentials:productionCredentials&&productionApproved};
