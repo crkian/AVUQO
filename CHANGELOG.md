@@ -1,3 +1,10 @@
+## 13 November 2026 · Tyres UK owner-only read-only worker preflight deployed
+
+- PR #155 merged and Vercel production READY app SHA `5954beb29fc849dc9368991fdce6ba2db5a3b063` at `www.avuqo.com`; quality/security tests passed.
+- Added owner-only read-only `automation_preflight` with private job-table/bucket checks, readiness blockers and permanent `ready_to_enable:false` pending independent acceptance.
+- Live DB confirms existing private bucket but absent V2 job table/RPCs; Awin remains paused/sync off. No migration, scheduled worker, provider feed download, historical price updates, source rights or public publication changed.
+- Historical PR #117 remains open pending controlled migration, lease/retry, feed identity and storage-retention validation.
+
 ## Unreleased · Read-only Tyres UK automatic worker readiness preflight
 
 - Add owner-only `automation_preflight` action to existing private tyre-spec API and Control Centre to show whether snapshot-job table and bucket are available, without invoking any worker, querying private feed URL or changing data.

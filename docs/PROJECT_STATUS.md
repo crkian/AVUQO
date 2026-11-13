@@ -1,3 +1,7 @@
+# VERIFIED TYRES UK AUTOMATIC-WORKER PREFLIGHT RELEASE · 13 NOVEMBER 2026
+
+PR #155 merged; Vercel production READY SHA `5954beb29fc849dc9368991fdce6ba2db5a3b063`, deployment `dpl_5CoPiwj5gLSAiES6LwWc1Ux2U9v9`, alias `www.avuqo.com`. Owner-only `/control-centre/tyre-spec-enrichment` now has read-only prerequisite check for private snapshot bucket and job-table existence, with always-negative enable decision and explicit blocked requirements. Live DB: job table/RPCs absent; private bucket present; Awin paused/sync off. Build/lint/tests/secrets passed. No auto-worker, SQL migration, cron, supplier feed fetch, price change or public offers. Actual owner browser preflight execution remains unverified. Old PR #117 remains OPEN pending migration/lease/retention and verified current supplier feed.
+
 # TYRES UK AUTO-WORKER PREFLIGHT CANDIDATE · 13 NOVEMBER 2026
 
 Live Supabase read-only audit confirms bucket `awin-bulk-private-snapshots` private, proposed V2 job table absent and claim/apply snapshot RPCs missing; existing private enrichment RPC security invoker, Awin paused/sync off. A new authenticated owner-only preflight in the existing tyre API/UI checks job-table and private-bucket readiness without any writes, current Awin download, feed activation or public prices. Always returns not approved to enable; old PR #117 remains open. No migration or cron will ship in this candidate. CI/production verification pending. Full evidence `docs/TYRES_UK_AUTO_WORKER_PREFLIGHT_2026-11-13.md`.
