@@ -1,4 +1,9 @@
 
+## Unreleased · LIVE production shopping journeys and partner roadmap
+- Add a photo-led Compare and Discover bargains section directly to the real public homepage, linking to existing real production destinations. No fictional offers or score data.
+- Record versioned provider leads and API/access conditions for UK supplier/dropshipping platforms, holiday and activity search, golf trips, travel insurance and regulated UK comparison.
+- Locate the original warm-premium mockup reference paths in Git and define production, mobile, image-rights and data-integrity acceptance gates. Add CI regression coverage.
+
 ## Unreleased · Awin inventory and image evidence
 - Extend owner-only retailer onboarding with stored private image URL coverage, without loading or publishing retailer photos.
 - Reconcile Awin feed export and newly observed PlayPress Toys UK programme and feed IDs without committing private download URLs.
