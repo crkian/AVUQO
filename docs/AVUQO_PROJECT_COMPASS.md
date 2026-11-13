@@ -2,6 +2,10 @@
 
 **Last reconciled: 13 November 2026, after v0.5.1 production verification.** Project: `crkian/AVUQO`, Supabase `tfoukwcruaamrtgxzshh`, Vercel `avuqo`, public site `https://www.avuqo.com`. This is an evolving operational handover, **not** an instruction to trust a stale commit or to assume production is healthy without checking.
 
+## CURRENT VERIFIED HANDOVER · 13 November 2026 (read first)
+
+**Canonical entry:** `AVUQO_START_HERE.md` → `docs/AVUQO_LIVE_HANDOVER.md` → `docs/AVUQO_CURRENT_STATE.json`. Previous sections below describe historical candidates and may say “pending” even though the changes shipped. On 13-Nov the **latest production READY** deployment on **www.avuqo.com** was Vercel `dpl_9AM8Hx9BPW2uHi9ZbswAQykbTaij`, exact SHA `ab055f73acce9a478075c61aecb0b7b248d101d3`. PRs **#129–#132 merged**: private Awin feed/image evidence board; Compare+Bargains and partner roadmap; fuller original shopping dashboard; full-bleed photo-led hero. The main mockup collection remains in historic design branch and whole-site visual restoration is incomplete. **Do not claim Awin/eBay/tyre merchant public offers or licensed images live** solely from a UI deployment. Recheck current GitHub main and Vercel before relying on this snapshot. 11 older PRs remained open as-of review.
+
 ## Original hero restoration follow-up · 13 November 2026
 
 The next code candidate restores the photographic storefront hero and evidence-first shopping intelligence panel from `feature/warm-premium-experience-v1-20261105` to the real production homepage, using the existing AVUQO editorial photo source. Numerical mockup scores, invented price drops, and images from private merchant imports remain excluded; the original design target remains in `design/warm-premium-visual-system-20261105`. See PR attached to `feature/restore-photographic-home-hero-20261113` for exact release validation.
