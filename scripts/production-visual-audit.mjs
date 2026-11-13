@@ -10,23 +10,25 @@ import puppeteer from "puppeteer-core";
 
 export const PUBLIC_ROUTES = [
  "/","/discover","/marketplace","/marketplace/compare","/shopping",
- "/categories","/tech","/home","/beauty","/fashion","/toys","/pets","/gifts",
+ "/search?q=headphones","/categories","/tech","/home","/beauty","/fashion","/toys","/pets","/gifts",
  "/sales","/black-friday","/easter","/valentines","/christmas",
  "/products","/travel","/groceries",
  "/tyres","/tyres/find","/tyres/compare",
- "/saved","/watches","/lists","/account"
+ "/saved","/watches","/lists","/wishlist","/basket","/account"
 ];
 const BASE="https://www.avuqo.com";
 const VIEWPORTS={
  desktop:{width:1440,height:900,deviceScaleFactor:1,isMobile:false,hasTouch:false},
- mobile:{width:390,height:844,deviceScaleFactor:1,isMobile:true,hasTouch:true}
+ tablet:{width:768,height:1024,deviceScaleFactor:1,isMobile:true,hasTouch:true},
+ mobile:{width:390,height:844,deviceScaleFactor:1,isMobile:true,hasTouch:true},
+ narrow:{width:360,height:800,deviceScaleFactor:1,isMobile:true,hasTouch:true}
 };
 const output=process.env.VISUAL_AUDIT_DIR||"visual-audit-output";
 const results=[];
 const escapeMd=v=>String(v).replaceAll("|","\\|").replaceAll("\n"," ");
 const safeName=p=>p==="/"
  ?"home"
- :p.replace(/^\//,"").replaceAll("/","-");
+ :p.replace(/^\//,"").replace(/[^a-z0-9-]+/gi,"-");
 await mkdir(output,{recursive:true});
 const browser=await puppeteer.launch({
  executablePath:process.env.CHROME_BIN||"/usr/bin/google-chrome",
@@ -70,7 +72,7 @@ try{
     });
     Object.assign(entry,info);
     if(info.bodyHeight>15000)entry.renderError="Very tall page, inspect screenshot and layout";
-    await page.screenshot({path:file,fullPage:info.bodyHeight<=15000,animations:"disabled",timeout:20000});
+    await page.screenshot({path:file,fullPage:info.bodyHeight<=15000,timeout:20000});
     if(pageErrors.length)entry.renderError=(entry.renderError?entry.renderError+"; ":"")+"JS: "+pageErrors.join(" / ");
    }catch(e){entry.renderError=String(e.message??e).slice(0,350)}
    page.off("pageerror",onError);
@@ -87,7 +89,7 @@ const report=[
  "",
  "Date (UTC): "+new Date().toISOString(),
  "Base URL: "+BASE,
- "Viewports: desktop 1440×900, mobile 390×844",
+ "Viewports: desktop 1440×900, tablet 768×1024, mobile 390×844 and narrow mobile 360×800",
  "Browser: headless Google Chrome. Screenshots are public **unauthenticated** views, including account sign-in prompts.",
  "Deployment IDs seen: "+(deploymentIds.join(", ")||"unavailable"),
  "Routes: "+PUBLIC_ROUTES.length+", captures: "+results.length+", flagged captures: "+issues.length,
