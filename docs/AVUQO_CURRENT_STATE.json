@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_HU1PbTyE3oRrCYujGSPZZRFUPNHZ",
-    "verified_ready_sha": "36b2840a159db2d274c38837dcdef9dc02333aac",
+    "deployment_id": "dpl_G5W4w3GCFbjnqnAikP8UJSKWVBCK",
+    "verified_ready_sha": "7c8619352d5458a1c1ce69c3dc5f4960a813a3d2",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "Tooled-Up read-only programme currency inspection PR #151 merged, Vercel production READY on www.avuqo.com on 2026-11-13. Later docs-only deploys can advance HEAD; always recheck.",
+    "verification": "PR #153 Tyres UK candidate-only source validation merged and Vercel production READY with www.avuqo.com aliases on 2026-11-13; later docs-only merges can advance production SHA, recheck.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -157,6 +157,10 @@
     {
       "pr": 151,
       "scope": "Tooled-Up programme-only currency check; old PR #102 closed, no current feed permission or product approval"
+    },
+    {
+      "pr": 153,
+      "scope": "Tyres UK strict technical candidate parser and honest disabled worker status only; PR #117 retained for migration/runtime work"
     }
   ],
   "closed_unmerged_recent": [
@@ -172,7 +176,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Ship candidate-only Tyres UK safety port; verify production READY. PR #117 still open: do not activate without controlled Supabase migration, storage/bucket policies, verified current Awin Tyres UK feed, lease/runtime/negative tests, preserved Pneus cron and explicit acceptance."
+      "task": "PR #117 remains OPEN. Before enabling any automated Tyres UK snapshot, inspect existing private bucket and Supabase migration functions/RLS, verify current Awin feed and worker runtime/leases, preserve existing Pneus cron, pass negative tests and controlled dry run. No enable flag or public offers without approval."
     },
     {
       "priority": 2,
@@ -354,15 +358,18 @@
     "old_feed_89987_current_status": "obsolete/historical; not validated",
     "public_image_price_offer_rights_verified": false
   },
-  "current_candidate": {
-    "branch": "feature/tyres-uk-candidate-validation-production-20261113",
-    "legacy_pr": 117,
-    "status": "candidate_pending_CI_and_production",
-    "scope": "Private Tyres UK pure snapshot candidate validation and owner UI disabled-worker disclosure, no source/data/migration changes",
-    "live_supabase_checked": "awin_tyres_spec_enrichment_jobs table absent; Awin paused, sync_enabled false",
-    "worker_flag": "NOT ENABLED; no cron route or migration deployed",
-    "old_feed_93988": "historical and not independently reverified",
-    "preserves": "Pneus cron, existing exact-source manual enrichment, price and public publication gates",
-    "pr117": "remain open until separate migration, storage, leases and cron evidence test"
+  "last_tyres_uk_validation_release": {
+    "pr": 153,
+    "release_sha": "7c8619352d5458a1c1ce69c3dc5f4960a813a3d2",
+    "deployment_id": "dpl_G5W4w3GCFbjnqnAikP8UJSKWVBCK",
+    "production_ready": true,
+    "scope": "Pure Tyres UK technical candidate checks only and explicit disabled-worker message in owner-only Control Centre",
+    "automatic_worker_enabled": false,
+    "cron_added": false,
+    "sql_migration_applied": false,
+    "source_paused": true,
+    "source_sync_enabled": false,
+    "public_prices_fitment_offers_approved": false,
+    "old_pr_117": "still open; worker and migration require independent acceptance"
   }
 }
