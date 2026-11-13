@@ -1,3 +1,9 @@
+## Unreleased · Cadbury and Petlibro merchant terms visibility
+
+- Preserve historical owner-supplied Awin Cadbury/Petlibro programme terms summary from stale PR #51 in current repo with explicit provenance limitation.
+- Surface commercial restrictions and evidence checklist inside private Retailers Control Centre, including Cadbury sale-category exclusion and branded PPC, Petlibro GB delivery exclusions, PPC/CSS and disputed rates.
+- Add source-rights and private-owner-view regression tests. **No image/feed republication approval, source activation, imports or public offer release.**
+
 ## 13 November 2026 · Awin numbered private CSV importing deployed
 
 - PR #147 merged with Vercel READY app SHA `ba25af858c203df11713c4496276b2d38d4caa22` on `www.avuqo.com`. Historical PR #58 closed as superseded.
