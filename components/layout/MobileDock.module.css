@@ -5,3 +5,6 @@
  .item.active{color:#5734cf;background:#f0eafa}
  .item span{white-space:nowrap}
 }
+
+/* Keep every customer route's bottom navigation calm and consistent on mobile. */
+@media(max-width:760px){.dock{background:rgba(255,252,249,.97);border-top-color:#e9ddea}.item.active{background:linear-gradient(135deg,#f5eafe,#efeafb);color:#5825bc}.item:focus-visible{outline:3px solid #8542dc;outline-offset:-3px}}
