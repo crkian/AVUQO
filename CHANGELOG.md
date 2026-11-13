@@ -1,5 +1,15 @@
 # AVUQO software changelog
 
+## [0.5.1] - 2026-11-13 (Awin retailer onboarding + eBay Sandbox access candidate)
+
+- Fixed the pre-existing owner-only eBay UK Browse pilot to use environment-specific Sandbox App ID/Cert ID instead of always calling Production endpoints. Default remains Sandbox, with real UK production Browse gated behind a separate keyset and explicitly recorded restricted API approval.
+- Added owner-only `/control-centre/retailers`: real Awin joined-programme observations, private imported rows, feed freshness and independent permission flags, plus eBay private preview setup and keyset/partner approval guidance.
+- Preserved original eBay seller/private-product review, hidden image choice, no automatic eBay imports, no public eBay checkout, no source activation, and unchanged canonical source/offer publication gating.
+- Added regression tests for keyset isolation, limited production permissions, safe eBay affiliate URL detection and admin-only read-only retailer onboarding.
+- Onboarding reference: `docs/AVUQO_V051_AWIN_EBAY_ONBOARDING.md`; Vercel credentials required from owner before real Sandbox API testing. No secret or production feed permission granted by this code change.
+- Source audit: 16 historically joined Awin programmes with advertiser-level `feed_permission_confirmed=false`, 122,309 existing private feed rows, and no eBay credential env vars. Old Tooled-Up feeds replaced by `awinnew`, and mytyres.co.uk application rejected. New live goods are therefore **not** represented as imported or approved.
+
+
 **Production verified 13 November 2026:** PR #125, SHA `4b9231f173db8d3d42cc150cc0d16e0c96092259`, Vercel `dpl_tCLBPtevXFWNGHr65sZo8kvSVNrN` READY, all live smoke routes HTTP 200, both owner dashboards gated while signed out. Real licensed supplier goods and social/advertiser publication remain disabled pending external approvals.
 
 ## [0.5.0] - 2026-11-10 (marketing, tyre and all-category product readiness release candidate)
