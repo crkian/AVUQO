@@ -1,3 +1,7 @@
+## Unreleased · GitHub safe merged-branch clean-up
+- Inventory all 143 pre-task GitHub branches and map 11 open PR branch heads to protected/unresolved work.
+- Add guarded GitHub Actions cleanup of 16 recent merged PR #127–142 branches only if branch HEAD SHA exactly matches frozen merged PR, no other open PR uses it and branch is not protected; provide manual dry-run mode and GitHub summary.
+- Preserve original visual reference and source branches plus all unreviewed Awin, eBay and tyre safety changes. Deletion status requires subsequent verification.
 
 ## Unreleased · Remove generic homepage flash before correct seasonal page
 - Replace old `HeroPlaceholder` in streamed Suspense fallback with neutral accessible responsive loading shell; correct UK date-specific hero remains determined by `editorialSpotlight(new Date())` per request.

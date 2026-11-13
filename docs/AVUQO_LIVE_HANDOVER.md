@@ -1,3 +1,7 @@
+## GitHub branch cleanup audit · 13 November 2026
+
+Live repo had **143 branches** before the cleanup work started (144 including current cleanup branch) and **11 open PRs**. All 11 are unmergeable against present `main`, including Awin source rights/security, tyres and original visual assets. **Do not merge or delete those heads blindly.** See full 144-name inventory `docs/AVUQO_BRANCH_AUDIT_AND_SAFE_PRUNING_2026-11-13.md`. An exact-SHA-protected GitHub Actions cleanup workflow `.github/workflows/verified-merged-branch-cleanup.yml` targets only 16 already-merged PR #127–142 branches on first merge, requiring matching frozen PR head SHA, same repository, merged state, main base, no open PR and no branch protection. **Deletion must be confirmed from a new GitHub branch list after running**, not inferred from workflow code. Remaining 115 historical branches are reserved for a second audited cleanup; never discard original mockup assets or unpublished provider safety work.
+
 
 ## Streaming homepage flash fix candidate · 13 November 2026
 
