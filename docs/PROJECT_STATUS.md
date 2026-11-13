@@ -1,3 +1,7 @@
+## Current candidate: Awin CSV duplicate filenames · 13 November 2026
+
+Modern `app/api/control-centre/feed-imports/route.ts` already accepts named `.csv` and `.csv.gz` files, but a filename-based Craft Buddy Google-format matcher did not accept Windows duplicate suffixes. Candidate selectively ports PR #58 duplicate suffix normalisation and clearer extension/size/empty upload errors **without** restoring its obsolete filename-derived advertiser trust or AKKO fallback. New unit and source gate tests; existing owner/admin authentication, joined registry selection, row advertiser match and private-only staging unchanged. No external uploads, merchant publication, Awin image rights or source activation. Pending CI, Vercel READY and old PR #58 closure after replacement deployment.
+
 **Awin security fix candidate (13 Nov):** Porting stale PR #50 onto current `main`: unsuccessful Awin feed response error must expose HTTP numeric status only, never the provider body/statusText in logs/UI. Source rights, feed activation, parser, Awin/eBay/tyre business rules remain unchanged. Candidate requires CI, merge, Vercel READY and legacy #50 closure after replacement verification.
 
 # VERIFIED HISTORIC MERGED-BRANCH CLEANUP · 13 November 2026
