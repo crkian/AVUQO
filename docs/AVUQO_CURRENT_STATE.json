@@ -172,7 +172,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Verify current Tooled-Up joined programme currency using owner-only secret-protected diagnostics; independently discover replacement current Awin feed identifiers (old 89987 unverified), then validate fresh GBP prices and written feed/image usage rights before any private staging or publication. Triage PR #117 private tyre worker next if merchant evidence cannot proceed."
+      "task": "Ship candidate-only Tyres UK safety port; verify production READY. PR #117 still open: do not activate without controlled Supabase migration, storage/bucket policies, verified current Awin Tyres UK feed, lease/runtime/negative tests, preserved Pneus cron and explicit acceptance."
     },
     {
       "priority": 2,
@@ -353,5 +353,16 @@
     "current_feed_id_verified": false,
     "old_feed_89987_current_status": "obsolete/historical; not validated",
     "public_image_price_offer_rights_verified": false
+  },
+  "current_candidate": {
+    "branch": "feature/tyres-uk-candidate-validation-production-20261113",
+    "legacy_pr": 117,
+    "status": "candidate_pending_CI_and_production",
+    "scope": "Private Tyres UK pure snapshot candidate validation and owner UI disabled-worker disclosure, no source/data/migration changes",
+    "live_supabase_checked": "awin_tyres_spec_enrichment_jobs table absent; Awin paused, sync_enabled false",
+    "worker_flag": "NOT ENABLED; no cron route or migration deployed",
+    "old_feed_93988": "historical and not independently reverified",
+    "preserves": "Pneus cron, existing exact-source manual enrichment, price and public publication gates",
+    "pr117": "remain open until separate migration, storage, leases and cron evidence test"
   }
 }

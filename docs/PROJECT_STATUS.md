@@ -1,3 +1,7 @@
+## Tyres UK disabled-worker safety reconciliation candidate · 13 Nov 2026
+
+Live Awin source paused/sync off; production SQL currently lacks `public.awin_tyres_spec_enrichment_jobs`. Old PR #117 relies on un-applied migration, storage snapshot and cron job, and its `vercel.json` is stale relative to the existing Pneus cron. Do **not** wholesale merge or activate. Current-main branch selectively ports candidate-only strict CSV schema and description-cross-checked load/speed validation (no returned price, no publication), plus honest owner Control Centre state and CI negative tests. Worker/migration remain unfinished and PR #117 stays open. Current historical feed 93988 must be revalidated before any future worker. No source, data, price, fitment or permissions changed.
+
 # VERIFIED TOOLED-UP AWIN PROGRAMME CURRENCY CODE RELEASE · 13 NOVEMBER 2026
 
 Merged PR #151, Vercel production READY SHA `36b2840a159db2d274c38837dcdef9dc02333aac`, deployment `dpl_HU1PbTyE3oRrCYujGSPZZRFUPNHZ` on `www.avuqo.com`. Superseded old PR #102 CLOSED. Read-only, secret-protected current Awin joined-programme `currencyCode` inspection for advertiser 496, requires Awin paused/sync disabled, no writes and no image or product authorisation. Historic feed 496:89987 remains unverified/possibly retired. **No live owner API currency outcome or replacement feed ID confirmed.** Next owner evidence of GBP and new Tooled-Up feed rights, then PR #117 if appropriate.

@@ -1,3 +1,10 @@
+## Unreleased · Private Tyres UK current-snapshot candidate validation
+
+- Selectively port the safe, pure current-feed schema and description-cross-checked technical candidate logic from old PR #117 to current main; candidate output excludes prices and all fitment/publication approvals.
+- Make the owner-only tyre Control Centre show automatic enrichment as **not enabled** and retain original exact-file manual recovery.
+- Add tests for invalid/cross-advertiser rows, conflicting load/speed, wrong currencies, no returned price and absence of automatic cron.
+- Do NOT port/enable old worker or migration until live Supabase job tables, storage leases and existing Pneus cron can be safely reconciled. Old PR #117 stays open.
+
 ## 13 November 2026 · Tooled-Up Awin joined-programme currency diagnostic deployed
 
 - PR #151 merged; protected, read-only `/api/internal/awin-tooled-up-currency` with Awin source paused/joined guard and exact advertiser 496 `currencyCode`; Vercel READY `36b2840a159db2d274c38837dcdef9dc02333aac` on `www.avuqo.com`.

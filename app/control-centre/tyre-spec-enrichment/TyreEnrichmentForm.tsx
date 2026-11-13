@@ -86,6 +86,10 @@ export default function TyreEnrichmentForm(){
  }
  return <section style={{display:"grid",gap:15,background:"white",padding:22,border:"1px solid #e5dce9",borderRadius:18,maxWidth:850}}>
   <h2 style={{margin:0,fontSize:24}}>Enrich existing Tyres UK specifications</h2>
+  <div role="note" style={{border:"1px solid #d9c6e4",background:"#f8f2fc",padding:"14px 16px",borderRadius:12,lineHeight:1.55}}>
+   <strong>Automatic current-feed enrichment is not enabled.</strong>
+   <p style={{margin:"7px 0 0"}}>The current-feed technical candidate checks are prepared, but the scheduled worker, database job migration and feed snapshot verification have not passed release acceptance. The existing manual recovery below remains limited to the exact original import. No live prices, fitment approvals or public tyre offers are changed.</p>
+  </div>
   <p style={{margin:0,color:"#6f6475",lineHeight:1.6}}>This reads your original Awin file locally, checks its fingerprint against the completed import, and updates only private review metadata. It does not reimport products, change prices, approve fitment or publish anything.</p>
   <button type="button" disabled={busy} onClick={inspect} style={{padding:12,borderRadius:10,border:"1px solid #d5c7de",background:"white"}}>Check current private enrichment status</button>
   <label style={{display:"grid",gap:8}}>Original Tyres UK CSV.GZ (feed 93988)
