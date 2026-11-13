@@ -1,3 +1,7 @@
+# VERIFIED SITEWIDE VISUAL RELEASE · 13 November 2026
+
+**LIVE CODE on `www.avuqo.com`**: PR #134 merged and Vercel production READY at app SHA `45da7456b66f6fa21d25753c39e497203f26c7ed` (deployment `dpl_9fAgyrGS1Nz2Fh8Q7nyFjmVpEvG5`). Shared AVUQO warm-premium brand, header/footer, navigation and mobile treatment, real categories, public product list/details, seasonal and travel/lifestyle pages are updated. Approved public image rendering remains behind existing source image-rights verification. No merchant Awin/eBay/tyre public offer release, credentials or source activation. **Still outstanding:** human desktop/mobile screenshot comparison to the full concepts and proof of provider data rights/current prices. See `docs/AVUQO_PRODUCTION_VISUAL_COMPLETION_PASS_2026-11-13.md`. Handover-only releases can move deployment HEAD; recheck Vercel on restart.
+
 
 **Production sitewide design candidate (13 Nov 2026, not deployed at entry):** New shared warm-premium AVUQO A-lockup, navigation/mobile styling and footer; unified category, verified-public product cards/detail, seasonal and lifestyle presentation. Existing `verifiedOffers` image-rights and price/source gates unchanged. Awin/eBay/tyre source modules and admin were not replaced. See `docs/AVUQO_PRODUCTION_VISUAL_COMPLETION_PASS_2026-11-13.md`. Full automated test, exact Vercel READY deployment and owner visual screenshot acceptance are separate gates.
 
