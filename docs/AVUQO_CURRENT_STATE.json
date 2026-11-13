@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_BhuZZtzkermnyqCLdwBaKMcNS4Ln",
-    "verified_ready_sha": "0ddd9edd94b3164f1d6fc6064e43fde7d842c377",
+    "deployment_id": "dpl_9BeEhxZGbE9RYSfmUmUqbWzKkXbf",
+    "verified_ready_sha": "b0cc915c6af15eff0b853ed9fb05fc58fcf72ae2",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #161 production READY with www.avuqo.com alias and GitHub quality and secret checks passed.",
+    "verification": "PR #162 production READY with www.avuqo.com alias and GitHub quality and secret checks passed.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -104,14 +104,11 @@
     21,
     25,
     48,
-    50,
-    51,
-    58,
     83,
     85,
     93,
-    102,
-    117
+    117,
+    158
   ],
   "merged_recent": [
     {

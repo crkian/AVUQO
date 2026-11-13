@@ -1,3 +1,9 @@
+## Private Awin monitor and homepage scheduling verified on production · 13 November 2026
+
+PR #162 is READY on the custom domain at `b0cc915c6af15eff0b853ed9fb05fc58fcf72ae2`, deployment `dpl_9BeEhxZGbE9RYSfmUmUqbWzKkXbf`. GitHub quality and secret checks passed. Read-only production DB checks earlier today recorded nine successful Awin metadata checks, 74 observed feeds and a last success at 06:17 UTC. Awin source paused/sync off. Marketing publishing and AI disabled with emergency stop on. Zero currently approved-in-window or future approved homepage placements. No external runs or production writes were triggered in verification.
+
+Current candidate keeps search visible on phones and tablets and expands the read-only visual audit to 1440, 768, 390 and 360 pixels, including search, Wishlist and Comparison Basket. Retained older PR #48 diagnostic evidence and PR #85 offer/SEO acceptance criteria. PR #83 retains the canonical mockup assets. Keep #21, #25, #93, #117 and #158 open for remaining unique work and controlled testing.
+
 ## Production storefront polish verified · 13 November 2026
 
 PR #161 is READY on the custom domain at `0ddd9edd94b3164f1d6fc6064e43fde7d842c377`, deployment `dpl_BhuZZtzkermnyqCLdwBaKMcNS4Ln`. GitHub quality and secret checks passed. Campaign timing and private Awin monitor improvements are the next release candidate.

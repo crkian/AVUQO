@@ -1,3 +1,7 @@
+## Mobile search and audit candidate · 13 November 2026
+
+Keep global search usable on the phone and tablet. Extend visual audit to four widths and three additional public journeys. PR #162 already deployed with private Awin monitor and homepage scheduling fixes.
+
 ## Campaign scheduling and private Awin monitor candidate · 13 November 2026
 
 Homepage editorial placement delivery uses publicly readable sort fields. The existing owner review stays in place. The Awin monitor distinguishes an empty response from a successful check, and the importer requires explicit preflight or approved staging mode for POST. No change to schedules, switches, source rights or data.

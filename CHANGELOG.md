@@ -1,3 +1,8 @@
+## Unreleased · Mobile search and visual audit coverage
+
+- Make global search visible at phone and tablet widths. Extend the public screenshot audit to search, Wishlist and Comparison Basket, and to 768px and 360px widths.
+- Preserve historical Awin diagnostic evidence and the shared offer, Watches and SEO acceptance requirements from PRs #48 and #85.
+
 ## Unreleased · Campaign timing and Awin monitoring
 
 - Fix anonymous homepage campaign ordering under the existing column grants, show scheduled/live/ended placements in the Control Centre, and link the UK seasonal calendar.
