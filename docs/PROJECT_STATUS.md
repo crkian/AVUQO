@@ -1,3 +1,7 @@
+# VERIFIED CADBURY/PETLIBRO AWIN TERMS RELEASE · 13 NOVEMBER 2026
+
+PR #149 merged and verified production READY SHA `b6b6a93f7da3837f02d004cade0ec1fee52715a8`, Vercel `dpl_2L3ihuCwwJX5UYBGrL5naFBxDemm`, `www.avuqo.com` alias. Historic PR #51 CLOSED as superseded. Existing owner-only retailer onboarding now describes previously reviewed programme restrictions and links to source-rights evidence review. Cadbury sales commission exclusions and brand PPC; Petlibro territory, PPC/CSS and conflicting rates. Original emails/PDFs **not re-examined** for this release; merchant image/feed republication rights are NOT verified, no source status/approval flag changed, no public offers. Next #102 Tooled Up GBP proof.
+
 # CADBURY/PETLIBRO HISTORICAL TERMS REVIEW CANDIDATE · 13 NOVEMBER 2026
 
 Current-main work selectively preserves documentation-only PR #51 terms from owner emails/PDFs reviewed 4 Nov and surfaces conservative guidance in the private retailer Control Centre. Awin Cadbury 736: organic comparison/editorial listed, sale category excluded from commission, branded PPC restricted. Petlibro 77952: UK exclusions, PPC/CSS constraints, contradictory commission terms. Both: public feed/images/republication rights not confirmed, historical review not a current legal grant. All rights flags, source ingestion/publishing controls and unapproved images stay unchanged. Dedicated regressions and CI; after Vercel READY, old conflicting PR #51 should be closed. No owner-supplied underlying PDF/email freshly re-read during this port.
