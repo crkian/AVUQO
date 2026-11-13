@@ -1,3 +1,9 @@
+## Marketing homepage current-fact safeguards · candidate · 13 November 2026
+
+- Public homepage campaigns now require a second server-side, private evidence check at request time: fact must still be AVUQO-specific, approved and unexpired. Existing public RLS and column-limited SELECT stay intact.
+- Owner-only creation lists current facts and approve/resume actions recheck evidence; Control Centre shows withheld invalid campaigns. Safe evergreen content remains fallback.
+- Verified baseline: live database had zero marketing facts or placements, with social publishing/AI disabled and emergency stop ON. No feed import, social automation, paid ads or product releases enabled. Candidate not yet deployed; see `docs/MARKETING_HOME_CURRENT_EVIDENCE_RELEASE_2026-11-13.md`.
+
 ## Verified product/account production visual release · 13 Nov 2026
 
 PR #171 app SHA `29454fd87952e66a1e02815ef26d3db46887ce5c`, Vercel `dpl_4vN5FNZght94Uje3YV5AX4wrV8dG` READY with aliases; homepage/products/account HTTP 200 and matching deployment ID. Build, lint, secrets and Vercel preview passed. No source approval, product publication or account permission changes; authenticated journeys and exact-variant eligible-product visual comparison need further browser acceptance.
