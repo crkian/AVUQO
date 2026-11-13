@@ -1,3 +1,7 @@
+# VERIFIED PRIVATE TYRES UK CANDIDATE VALIDATION RELEASE · 13 NOV 2026
+
+PR #153 merged and Vercel READY app SHA `7c8619352d5458a1c1ce69c3dc5f4960a813a3d2`, `dpl_G5W4w3GCFbjnqnAikP8UJSKWVBCK` with `www.avuqo.com` alias. Strict private-only Tyres UK source-header, advertiser and description-cross-checked load/speed candidate parsing deployed without any current price output or verified fitment. Owner Control Centre explicitly labels automated enrichment NOT ENABLED. Historic PR #117 **remains OPEN**; its migration/storage/cron/lease worker is NOT yet deployed or enabled. Live Supabase job table absent, Awin paused/sync off. Preserve existing Pneus cron and manual original-file recovery. No public offers or source rights changed.
+
 ## Tyres UK disabled-worker safety reconciliation candidate · 13 Nov 2026
 
 Live Awin source paused/sync off; production SQL currently lacks `public.awin_tyres_spec_enrichment_jobs`. Old PR #117 relies on un-applied migration, storage snapshot and cron job, and its `vercel.json` is stale relative to the existing Pneus cron. Do **not** wholesale merge or activate. Current-main branch selectively ports candidate-only strict CSV schema and description-cross-checked load/speed validation (no returned price, no publication), plus honest owner Control Centre state and CI negative tests. Worker/migration remain unfinished and PR #117 stays open. Current historical feed 93988 must be revalidated before any future worker. No source, data, price, fitment or permissions changed.
