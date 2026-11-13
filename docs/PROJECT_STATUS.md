@@ -1,4 +1,7 @@
 
+**Streaming old-homepage flash candidate (13 Nov 2026):** Owner screenshots show generic living-room hero before correct Black Friday homepage. `app/page.tsx` Suspense explicitly rendered obsolete HeroPlaceholder before server data resolved. Replaced only fallback with neutral branded layout pending CI/production. No seasonal date logic, category photos, Awin/eBay/tyre/source rights or auth changes. Verify `www.avuqo.com` exact SHA; actual browser transition signoff pending.
+
+
 # VERIFIED OWNER HOMEPAGE SCREENSHOT FIXES · 13 November 2026
 
 PR #140 merged; Vercel app SHA `e310af5a6ac49b00a01f7742c8d6a3664ebb5cf5` production READY, `dpl_55ZKhZvcp4JFFVSYqT8a5MMdzm9d`, alias `www.avuqo.com`. Black Friday hero remains, new editorial category-image URLs are in live markup, missing sprite and duplicate seasonal panel removed, owner private-shop hero shortcut removed (owner-only navigation remains). Hero responsive max-width and typography adjusted. **Actual loaded photo visual and post-fix mobile screenshots have not yet been independently inspected.** Existing provider and tyre safeguards unchanged; details in `docs/AVUQO_HOMEPAGE_OWNER_SCREENSHOT_CORRECTIONS_2026-11-13.md`.

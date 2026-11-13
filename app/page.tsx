@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { connection } from "next/server";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, CheckCircle2, ListChecks, Search, ShieldCheck, Sparkles, Eye, Scale, ReceiptText } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CheckCircle2, ListChecks, ShieldCheck, Sparkles, Eye, Scale, ReceiptText } from "lucide-react";
 import { publishedEditorial } from "../lib/content/editorial";
 import { lifestylePages } from "../lib/lifestyle/landing-data";
 import Header from "../components/layout/Header";
@@ -23,26 +23,16 @@ export const metadata: Metadata = {
   description: "A welcoming home for smarter shopping, grocery lists, everyday comparisons, helpful watches and more considered decisions.",
 };
 
-function SearchForm() {
-  return <form className={styles.search} action="/search" method="get" role="search">
-    <Search size={21} aria-hidden="true"/>
-    <input type="search" name="q" placeholder="What would you like to explore?" aria-label="Search AVUQO" required/>
-    <button type="submit">Find value <ArrowRight size={17}/></button>
-  </form>;
-}
-
-function HeroPlaceholder() {
-  return <section className={styles.hero}>
-    <div className={`shell ${styles.heroGrid}`}>
-      <div className={styles.heroCopy}>
-        <p className={styles.eyebrow}>Welcome to AVUQO</p>
-        <h1>Find what’s worth it.</h1>
-        <p className={styles.heroText}>A more thoughtful way to explore shopping, groceries, travel and everyday decisions.</p>
-        <SearchForm/>
+/** A neutral loading surface: never show an outdated evergreen hero before the UK seasonal hero arrives. */
+function SeasonalLoading() {
+  return <main className={styles.page}>
+    <Header/>
+    <section className={styles.seasonalLoading} aria-label="Loading the current seasonal homepage" aria-busy="true">
+      <div className="shell">
+        <span className={styles.seasonalLoadingBar} aria-hidden="true"/>
       </div>
-      <div className={styles.heroArt} style={{backgroundImage:`url("${lifestylePages.home.hero}")`}} aria-hidden="true"/>
-    </div>
-  </section>;
+    </section>
+  </main>;
 }
 
 async function HomeContent() {
@@ -201,5 +191,5 @@ async function HomeContent() {
 }
 
 export default function Home() {
-  return <Suspense fallback={<main className={styles.page}><Header/><HeroPlaceholder/></main>}><HomeContent/></Suspense>;
+  return <Suspense fallback={<SeasonalLoading/>}><HomeContent/></Suspense>;
 }

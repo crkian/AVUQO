@@ -1,4 +1,9 @@
 
+## Streaming homepage flash fix candidate · 13 November 2026
+
+Owner supplied two consecutive live screenshots: an old generic `Find what’s worth it` living-room homepage initially appears, then the correct Black Friday seasonal homepage. Root cause verified in `app/page.tsx`: a `Suspense` fallback rendered `HeroPlaceholder` (an entire obsolete homepage) while `HomeContent` awaited `connection()` and its data. Branch `fix/no-false-homepage-loading-hero-20261113` changes only the fallback to a neutral accessible loading surface with responsive CSS, preserving the request-time UK seasonal hero and all integration/auth gates. It must pass CI and Vercel production READY before considering live. Actual browser transition QA pending.
+
+
 ## VERIFIED LIVE HOMEPAGE SCREENSHOT CORRECTIONS · 13 November 2026
 
 PR #140 merged. App SHA `e310af5a6ac49b00a01f7742c8d6a3664ebb5cf5` READY on Vercel production `dpl_55ZKhZvcp4JFFVSYqT8a5MMdzm9d` with `www.avuqo.com` alias. Live homepage HTTP 200 checked: Black Friday primary hero present, new editorial category-photo URL present, nonexistent sprite reference absent, duplicate seasonal banner absent, owner preview CTA absent. Corrections responded to four owner desktop screenshots: blank category cards, duplicated event, giant left-edge headline, owner preview taking hero space. **Still pending: new actual browser screenshots, successful external background image loads and mobile visual signoff.** No Awin/eBay/tyres/rights changes. Read `docs/AVUQO_HOMEPAGE_OWNER_SCREENSHOT_CORRECTIONS_2026-11-13.md`. A docs-only deployment may advance HEAD; recheck Vercel next chat.
