@@ -1,3 +1,18 @@
+## Verified cleanup results · 13 November 2026
+
+The full initial inventory below is historical; do not read it as current branch status.
+
+- **Original branch count:** 143, including `main`.
+- **PR #143:** 16 exact merged PR #127–142 branch refs removed; 144 branches (including the audit branch) fell to 128.
+- **PR #144:** GitHub independently removed **103 additional historical branches** whose actual tip matched both the old merged PR head and its final recorded PR commit. **26 branches remained** after this step, including `main` and the two temporary cleanup branches.
+- **Total proven removed by these two runs: 119 branch refs.** Original design source branches, both security history branches and all **11 open PR heads** remain.
+- **Final housekeeping candidate PR #145** extends the first verified cleanup allowlist through #145; once merged, it should remove the three temporary cleanup branches (#143, #144, #145) if their heads are unchanged and no PR depends on them. Recount after the workflow; expected **24 branches**, but only report an actual observed count.
+- Latest production code after PR #144: Vercel READY commit `d70a663d1963d81c4ec6e1f6ac9fd2b22320828d` with `www.avuqo.com` alias. Provider rights and data remain unchanged.
+
+**Remaining branches are intentionally retained** where no exact merged-commit proof exists, an open PR references them, or original visual/security sources need review. A smaller branch count is not permission to erase unpublished fixes.
+
+---
+
 # AVUQO branch inventory and production-first cleanup · 13 Nov 2026
 
 **Source:** Live GitHub search_branches, two pages; original count 144 including `main` and the newly created cleanup PR branch. GitHub previously reported 143 branches before this branch was added. Counts below are evidence as of this search, not a live query.
