@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_4xoCSJJjX8nLdzUzpFU3ZfSXju1p",
-    "verified_ready_sha": "8af0882eef7d9022066528a6304d81ffc0d1551d",
+    "deployment_id": "dpl_Cue4UGzwMXxoLPdSahM9jru1Mfzh",
+    "verified_ready_sha": "3f8574c9520b7cb2c57cc8279e14bae4e5c38334",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "Vercel READY and www.avuqo.com alias for PR #145 (2026-11-13). Subsequent documentation-only commits may advance the SHA; always recheck.",
+    "verification": "PR #146 Awin HTTP status only error-redaction code verified Vercel production READY and www.avuqo.com aliases, 2026-11-13. Recheck latest deploy after docs-only updates.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -160,7 +160,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Production-first: triage 11 retained unmerged PRs on latest main; prioritize security redaction #50, numbered Awin filenames #58, programme restrictions #51, Tooled Up currency #102, tyre enrichment #117. Port missing safeguards selectively, test and deploy; do not merge stale branches wholesale or activate unapproved merchant offers."
+      "task": "Reconcile old PR #58 numbered Awin CSV filenames and owner-friendly import errors against current main. Port only missing changes, test and deploy; then close stale PR without wholesale merging. Preserve all merchant/publication rights gates."
     },
     {
       "priority": 2,
@@ -297,6 +297,26 @@
       "original_visual_sources_preserved": true,
       "security_branches_preserved": true,
       "verified_date": "2026-11-13"
-    }
+    },
+    "remaining_open_prs": [
+      21,
+      25,
+      48,
+      51,
+      58,
+      83,
+      85,
+      93,
+      102,
+      117
+    ]
+  },
+  "last_merchant_security_release": {
+    "pr": 146,
+    "sha": "3f8574c9520b7cb2c57cc8279e14bae4e5c38334",
+    "verified_live": true,
+    "scope": "Awin provider error redaction; only numeric HTTP status, no provider raw response or statusText",
+    "supersedes_closed_pr": 50,
+    "provider_activation": false
   }
 }
