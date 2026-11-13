@@ -44,6 +44,8 @@ jobs:
         run: node --experimental-strip-types --test tests/marketing-tyres-category-readiness.test.mjs
       - name: Warm-premium design, seasonal and handover safety tests
         run: node --experimental-strip-types --test tests/warm-premium-design-restoration.test.mjs
+      - name: Production design completion and rights-gated visual tests
+        run: node --test tests/production-design-completion.test.mjs
       - name: Current cross-chat handover integrity tests
         run: node --test tests/current-handover-integrity.test.mjs
       - name: Production photographic storefront safety regression tests
