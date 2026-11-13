@@ -44,6 +44,8 @@ jobs:
         run: node --experimental-strip-types --test tests/marketing-tyres-category-readiness.test.mjs
       - name: Warm-premium design, seasonal and handover safety tests
         run: node --experimental-strip-types --test tests/warm-premium-design-restoration.test.mjs
+      - name: Cadbury and Petlibro affiliate terms and permissions safety tests
+        run: node --test tests/awin-cadbury-petlibro-rights-review.test.mjs
       - name: Awin numbered private feed filenames and upload error regression tests
         run: node --test tests/feed-import-filenames.test.mjs
       - name: Awin provider error redaction regression tests

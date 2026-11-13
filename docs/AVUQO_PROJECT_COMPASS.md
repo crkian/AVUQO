@@ -7,6 +7,10 @@ PR #58 is older than the current secure Awin importer. Its useful duplicate-file
 **Last reconciled: 13 November 2026, after v0.5.1 production verification.** Project: `crkian/AVUQO`, Supabase `tfoukwcruaamrtgxzshh`, Vercel `avuqo`, public site `https://www.avuqo.com`. This is an evolving operational handover, **not** an instruction to trust a stale commit or to assume production is healthy without checking.## VERIFIED AUTOMATIC SEASONAL RELEASE · 13 November 2026
 
 PR #136 **deployed to production**, feature SHA `da22e97c6fdad31d23e6c972e0a39239e689d8fb` READY on `www.avuqo.com` (Vercel `dpl_Cj21PogF2EaRPrJ3PfQSv7ySKsmq`). The live November homepage was independently fetched and displays Black Friday hero and image. UK-date scheduling is request-time for main headline/art/CTA and related editorial panel, with recurring calendar in Control Centre `/control-centre/seasonal-calendar`. 28 public URLs passed an HTTP 200/shared-brand-markup check but **visual pixel fidelity and authenticated browser interaction are unverified**. See `docs/AVUQO_AUTOMATIC_UK_SEASONAL_CALENDAR_AND_PAGE_AUDIT_2026-11-13.md`. Supplier/publication gates stay intact. Subsequent docs-only releases can produce a new latest READY SHA, so recheck.
+## Cadbury/Petlibro Awin restrictions candidate · 13 November 2026
+
+Original PR #51 recorded historical owner-provided programme terms but had never reached modern `main`. Its textual review is copied with provenance caveats and presented on the private `/control-centre/retailers` UI. Merchant participation in comparison/editorial channels **does not** prove that AVUQO may download, cache, transform or publicly display product images and fresh feed prices. Cadbury sale-category noncommissionable, branded PPC restricted; Petlibro territorial limitations, PPC/CSS restrictions and contradictory commission statements. Keep feed permission, usage rights, advertiser permissions and public offer/photograph gates fail-closed. Evidence recorded for documentation only, not fresh written approval. CI and production verification pending.
+
 
 ## Verified Awin CSV importer release · 13 November 2026
 

@@ -97,6 +97,30 @@ export default async function RetailerOnboarding(){
     <Link href="/control-centre/product-previews">See private product cards</Link>
     <Link href="/control-centre/product-readiness">Check product evidence</Link></nav>
   </section>
+  <section className={styles.panel} aria-labelledby="awin-merchant-terms-heading">
+   <div className={styles.panelHead}>
+    <h2 id="awin-merchant-terms-heading">Cadbury and Petlibro: documented restrictions</h2>
+    <p>Historical owner-supplied Awin programme welcome emails and PDF terms were reviewed on 4 November 2026. These are restrictions to respect, not a current licence for public product photographs, feed data, pricing or affiliate links.</p>
+   </div>
+   <div className={styles.checks}>
+    <article className={styles.check}>
+     <ShieldCheck size={21}/><h3>Cadbury Gifts Direct · 736</h3>
+     <p>Shopping directories, comparison and editorial publishing were described as allowed partner types. Sale-category purchases were excluded from commissions. Branded PPC bidding was restricted. The historical terms did not establish public feed-image storage, resizing, caching or republication permission.</p>
+     <strong>Public feed/images: not approved by this evidence</strong>
+    </article>
+    <article className={styles.check}>
+     <ShieldCheck size={21}/><h3>Petlibro UK · 77952</h3>
+     <p>Organic comparison/editorial partner types were listed. UK coverage excluded Channel Islands and Gibraltar. Brand PPC and CSS had restrictions; documented commission figures conflicted. Feed-photo and price republication rights, retention and current assigned commission remain unverified.</p>
+     <strong>Public feed/images: not approved by this evidence</strong>
+    </article>
+    <article className={styles.check}>
+     <PackageSearch size={21}/><h3>Evidence needed before release</h3>
+     <p>Verify the latest advertiser terms, permitted product/image use and retention, territory, live feed access and freshness, approved tracking link, eligibility and applicable paid-search rules. Request written merchant clarification where terms are ambiguous.</p>
+     <Link href="/control-centre/source-readiness">Review rights and evidence gates</Link>
+    </article>
+   </div>
+   <div className={styles.notice}>Awin joining and historical imported image URLs are not publication licences. No retailer is enabled by this section, no rights approvals are written, and the commercial source stays governed by the existing fail-closed checks.</div>
+  </section>
   <section className={styles.panel}>
    <div className={styles.panelHead}><h2>eBay UK: connect Sandbox, then request production access</h2>
     <p>AVUQO already has a private UK Browse search and responsive seller-item preview. Sandbox and Production are separate eBay environments.</p></div>
