@@ -1,3 +1,7 @@
+# VERIFIED FIRST BATCH / HISTORICAL CLEANUP CANDIDATE · 13 November 2026
+
+**PR #143 merged and executed:** 16 recent branches from merged PR #127–142 actually disappeared in GitHub, branch count **144 → 128** with current cleanup branch included. Vercel production READY app SHA `557bf52a4e10004fae0f2578bcbb98e7ca7f3610` (project `avuqo`, `www.avuqo.com`). 11 open PRs and original warm-premium source branches remain protected. A **second candidate** workflow checks historical merged PR #1–126, using final frozen PR commit, current SHA, open PR, branch protection and multiple-PR reuse tests before deletion. No second-batch deletion verified yet. Source registry and customer app unchanged.
+
 # GITHUB PRODUCTION-FIRST BRANCH CLEANUP CANDIDATE · 13 November 2026
 
 GitHub branch inventory: 143 original branches, 11 open PRs (all non-mergeable against current `main`), and known 16 merged PR #127–142 heads. Curated action `.github/workflows/verified-merged-branch-cleanup.yml` checks exact frozen merged PR HEAD, branch protected status, and active PR refs before deleting the 16 known safe candidates; intended to trigger only on first merge into `main`. The remaining historical branches require separate provenance/unique-code review. **No deletion has been verified at candidate stage.** See `docs/AVUQO_BRANCH_AUDIT_AND_SAFE_PRUNING_2026-11-13.md` for every branch and safeguards. User requested production-first execution while reducing unneeded branches. No Awin/eBay/tyre or customer data changes.
