@@ -144,7 +144,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Recover and reconcile original branding/header/mobile navigation and visual quality on actual production pages; preserve account/auth/menu and current nav behaviour."
+      "task": "Finish sitewide warm-premium design branch, verify CI and Vercel READY on www.avuqo.com, then manually compare real desktop and mobile screenshots to archived references."
     },
     {
       "priority": 2,
@@ -178,5 +178,13 @@
     "status": "docs/PROJECT_STATUS.md",
     "backlog": "docs/AVUQO_LIVE_PRODUCTION_PARTNER_AND_DESIGN_BACKLOG_2026-11-13.md",
     "design": "docs/design/AVUQO_WARM_PREMIUM_VISUAL_IDENTITY_2026-11-05.md"
+  },
+  "current_candidate": {
+    "branch": "feature/restore-header-branding-production-20261113",
+    "scope": "Shared production AVUQO brand lockup, nav, mobile dock, categories, image-rights-gated public product cards, product detail, seasonal and travel/lifestyle warm-premium visual system.",
+    "status": "candidate_not_yet_verified_on_production",
+    "acceptance": "PR CI, secret scan, merge, Vercel READY on exact SHA, owner screenshot review",
+    "scope_doc": "docs/AVUQO_PRODUCTION_VISUAL_COMPLETION_PASS_2026-11-13.md",
+    "warning": "Candidate does not activate Awin/eBay/tyre offers, grant image rights, or replace Control Centre/auth logic."
   }
 }
