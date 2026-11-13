@@ -334,3 +334,7 @@ Versions below refer to the Next.js application in `package.json`, not historica
 ### 2026-11-13 — Whole-site public AVUQO tour (candidate)
 - Added a customer-facing `/explore-avuqo` tour linked directly from the homepage, pointing to existing shopping, comparisons, deals, groceries, motoring, travel and My AVUQO routes.
 - Included in sitemap and quality regression tests; no external offer/source rights, private owner data or automation changed. Production release pending checks.
+
+
+### 2026-11-13 — Whole-site public AVUQO tour verified live
+- PR #159 merged, code `58355149ef69e82924a00c6866b0859a7483234a`, Vercel production READY `dpl_GVkTsnRpkWTc2p79DwUXD4EvhUEX` with `www.avuqo.com` alias. Public tour, homepage entry and sitemap HTTP 200 verified. No source activation or publication changes. Desktop/mobile screenshot sign-off pending.
