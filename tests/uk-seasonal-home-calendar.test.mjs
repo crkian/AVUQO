@@ -14,7 +14,7 @@ test("major campaigns switch automatically and gracefully return to the normal s
  const cases={
   "2026-01-01":"sales","2026-01-20":"sales","2026-01-21":"valentines",
   "2026-02-14":"valentines","2026-02-15":"spring",
-  "2026-03-01":"spring","2026-03-01":"spring",
+  "2026-02-28":"spring","2026-03-01":"mothers-day",
   "2026-03-08":"mothers-day","2026-03-15":"mothers-day",
   "2026-03-16":"easter","2026-04-05":"easter","2026-04-06":"easter","2026-04-07":"spring",
   "2026-06-01":"summer","2026-06-14":"fathers-day","2026-06-21":"fathers-day","2026-06-22":"summer",
