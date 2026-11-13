@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_55ZKhZvcp4JFFVSYqT8a5MMdzm9d",
-    "verified_ready_sha": "e310af5a6ac49b00a01f7742c8d6a3664ebb5cf5",
+    "deployment_id": "dpl_fdRydzpr8XJWuccJ3mUidiaLQ9UN",
+    "verified_ready_sha": "557bf52a4e10004fae0f2578bcbb98e7ca7f3610",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "Verified READY with www.avuqo.com alias and actual live markup for PR #140 on 2026-11-13; future docs-only changes can advance SHA, so recheck.",
+    "verification": "Production READY on www.avuqo.com after PR #143, 2026-11-13; recheck Vercel on next chat.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -160,7 +160,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Verify safe merged PR #127–142 GitHub branch cleanup workflow actually deleted eligible refs, recount branches, keep 11 open PRs and original designs, then audit other historical merged squash branches individually."
+      "task": "Verify second historic merged-PR cleanup workflow run, count branch removals; preserve 11 unresolved PRs and original AVUQO design sources. Then triage open PR security and importer fixes on fresh main."
     },
     {
       "priority": 2,
@@ -264,6 +264,21 @@
     "status": "candidate before CI/merge/branch recount",
     "audit_file": "docs/AVUQO_BRANCH_AUDIT_AND_SAFE_PRUNING_2026-11-13.md",
     "cleanup_workflow": ".github/workflows/verified-merged-branch-cleanup.yml",
-    "remaining_branches": "Do not auto-delete unreviewed historical code, original visual design assets or active Awin/tyres security work"
+    "remaining_branches": "Do not auto-delete unreviewed historical code, original visual design assets or active Awin/tyres security work",
+    "first_batch": {
+      "pr": 143,
+      "confirmed_deleted": 16,
+      "original_count": 143,
+      "with_cleanup_branch_count": 144,
+      "after_count": 128,
+      "open_pr_branches_preserved": true,
+      "original_visual_branches_preserved": true
+    },
+    "second_batch": {
+      "status": "candidate_pending_CI_and_workflow_execution",
+      "workflow": ".github/workflows/verified-historical-branch-cleanup.yml",
+      "scope": "only merged PR #1–126 with exact current head == PR head == final frozen PR commit; exclude multi-PR branches, active PR, security and protected refs",
+      "not_yet_deleted": true
+    }
   }
 }
