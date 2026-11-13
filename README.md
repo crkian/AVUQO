@@ -2,6 +2,10 @@
 
 An evidence-led UK comparison and savings application. Current customer website: https://www.avuqo.com.
 
+## One-link live handover for new chats
+
+**[AVUQO_START_HERE.md](AVUQO_START_HERE.md)** is the canonical first file for every new ChatGPT/project development conversation. It links to **[live vs private state](docs/AVUQO_LIVE_HANDOVER.md)** and **[machine-readable state](docs/AVUQO_CURRENT_STATE.json)**. A connected chat must fetch current GitHub, open PRs and Vercel READY production SHA rather than blindly trusting snapshot metadata.
+
 ## Start here
 
 - **[AVUQO Project Compass](docs/AVUQO_PROJECT_COMPASS.md):** mandatory cross-chat handover for the original sources, the warm-premium design, branch audits, deployment history, owner advertising/automation and the next verified milestone.
