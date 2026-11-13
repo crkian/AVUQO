@@ -188,3 +188,8 @@ Tyres UK (Awin 12715/feed 93988): 31,372 staged records (28,990 review), dimensi
 Append date, branch/PR, preview checks, migration (if any), production commit/deployment, safety gates, verified features, unresolved blockers and next smallest deliverable. Mark differences between design reference, implemented branch, deployed page and real operational data. **Never say an entire system is finished simply because some pages render.**
 
 **For the owner on a new chat:** say *“Read `AGENTS.md` and `docs/AVUQO_PROJECT_COMPASS.md` in the current AVUQO GitHub repo, then continue the next verified milestone without redesigning the warm-premium look.”* This works as a durable repository handover, not as a guarantee of cross-chat assistant memory.
+
+
+### Live-first AVUQO whole-site review journey (13 November 2026)
+- PR #159 released as production READY commit `58355149ef69e82924a00c6866b0859a7483234a` (Vercel `dpl_GVkTsnRpkWTc2p79DwUXD4EvhUEX`) with real public `/explore-avuqo` tour, homepage entry and sitemap route. Live-domain page returned 200 with matching deployment header. The site tour makes the existing main shopping, groceries, tyres, travel, seasonal and personal routes discoverable and distinguishes interface availability from merchant/price/marketing approval.
+- Finish desktop/mobile visual screenshot QA, then continue existing Control Centre import and marketing automation selectively with safe source gates. No fake products, feed permissions, shopper prices or owner controls activated in this UI release.
