@@ -67,6 +67,9 @@ test("owner approval and resumption both recheck current source claims",()=>{
  assert.match(actions,/resuming=action==="resume"&&place\.status==="paused"/);
  assert.match(actions,/if\(approving\|\|resuming\)/);
  assert.match(actions,/currentAvuqoHomeFact\(fact,new Date\(\)\)/);
+ assert.match(page,/homeFactById=new Map/);
+ assert.match(page,/withheld · supporting fact is not current/);
+ assert.match(page,/currentAvuqoHomeFact\(homeFactById\.get\(p\.fact_id\),placementClock\)/);
  assert.match(page,/currentHomepageFacts=approvedFacts\.filter/);
  assert.match(page,/disabled=\{!isOwner\|\|!currentHomepageFacts.length\}/);
 });
