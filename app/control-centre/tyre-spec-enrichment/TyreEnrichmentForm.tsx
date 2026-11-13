@@ -5,6 +5,7 @@ import {candidateTyresUkTechnicalSpecs} from "../../../lib/awin/tyres-uk-technic
 
 const API="/api/control-centre/tyre-spec-enrichment";
 type Status={source_digest:string;imported:number;enriched_review_records:number};
+type Preflight={job_table_ready:boolean;private_snapshot_bucket_ready:boolean;automatic_enabled:boolean;ready_to_enable:false;blockers:string[];no_database_writes:true};
 async function call(payload:Record<string,unknown>){
  const result=await fetch(API,{method:"POST",cache:"no-store",
   headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
@@ -15,6 +16,7 @@ async function call(payload:Record<string,unknown>){
 export default function TyreEnrichmentForm(){
  const [file,setFile]=useState<File|null>(null);
  const [status,setStatus]=useState<Status|null>(null);
+ const [preflight,setPreflight]=useState<Preflight|null>(null);
  const [state,setState]=useState("Choose the original Tyres UK Awin CSV.GZ file.");
  const [busy,setBusy]=useState(false);
  const [progress,setProgress]=useState({read:0,eligible:0,updated:0,skipped:0});
@@ -27,6 +29,18 @@ export default function TyreEnrichmentForm(){
    setState(`Existing private import contains ${info.imported.toLocaleString("en-GB")} records; ${info.enriched_review_records.toLocaleString("en-GB")} currently enriched.`);
   }catch(e){setState(e instanceof Error?e.message:"Status unavailable");}
   finally{setBusy(false);}
+ }
+ async function checkPreflight(){
+  setBusy(true);
+  setState("Checking private worker prerequisites without changing records...");
+  try{
+   const result=await call({action:"automation_preflight"}) as Preflight;
+   setPreflight(result);
+   setState("Preflight complete. Automatic enrichment remains disabled pending the prerequisites below.");
+  }catch(e){
+   setPreflight(null);
+   setState(e instanceof Error?e.message:"Private preflight unavailable");
+  }finally{setBusy(false);}
  }
  async function enrich(){
   if(!file)return;
@@ -91,6 +105,13 @@ export default function TyreEnrichmentForm(){
    <p style={{margin:"7px 0 0"}}>The current-feed technical candidate checks are prepared, but the scheduled worker, database job migration and feed snapshot verification have not passed release acceptance. The existing manual recovery below remains limited to the exact original import. No live prices, fitment approvals or public tyre offers are changed.</p>
   </div>
   <p style={{margin:0,color:"#6f6475",lineHeight:1.6}}>This reads your original Awin file locally, checks its fingerprint against the completed import, and updates only private review metadata. It does not reimport products, change prices, approve fitment or publish anything.</p>
+  <button type="button" disabled={busy} onClick={checkPreflight} style={{padding:12,borderRadius:10,border:"1px solid #d5c7de",background:"#f6edff",fontWeight:700}}>Check automatic worker prerequisites (read-only)</button>
+  {preflight&&<div role="status" style={{padding:14,borderRadius:12,border:"1px solid #ddd1e7",background:"#fbf7ff",lineHeight:1.55}}>
+   <strong>Automatic worker: Not approved to enable</strong>
+   <p style={{margin:"7px 0"}}>Private job table: {preflight.job_table_ready?"Available":"Not installed"}. Private snapshot bucket: {preflight.private_snapshot_bucket_ready?"Available":"Not ready"}. Flag: {preflight.automatic_enabled?"ON (requires immediate owner review)":"Off"}.</p>
+   <ul style={{paddingLeft:20,margin:"8px 0"}}>{preflight.blockers.map(b=><li key={b}>{b}</li>)}</ul>
+   <small>The preflight never imports supplier data, writes records or grants publication rights.</small>
+  </div>}
   <button type="button" disabled={busy} onClick={inspect} style={{padding:12,borderRadius:10,border:"1px solid #d5c7de",background:"white"}}>Check current private enrichment status</button>
   <label style={{display:"grid",gap:8}}>Original Tyres UK CSV.GZ (feed 93988)
    <input type="file" accept=".csv.gz" disabled={busy} onChange={e=>setFile(e.target.files?.[0]??null)}/>

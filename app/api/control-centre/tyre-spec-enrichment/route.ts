@@ -33,6 +33,34 @@ export async function POST(request:NextRequest){
       run.status!=="private_review"||run.permission_status!=="unverified"||
       importSession.committed_count!==run.total_count||!importSession.completed_at)
    return send({error:"Completed Tyres UK owner import unavailable"},409);
+  if(action==="automation_preflight"){
+   // Read-only operational check. Do not fetch provider feeds, stage snapshots,
+   // apply migrations, claim leases, set environment flags or write records.
+   const {error:jobError}=await db.from("awin_tyres_spec_enrichment_jobs")
+    .select("id",{head:true,count:"exact"}).limit(1);
+   const {data:bucket,error:bucketError}=await db.storage.getBucket("awin-bulk-private-snapshots");
+   const jobTableReady=!jobError;
+   const privateBucketReady=!bucketError&&Boolean(bucket)&&bucket.public===false;
+   const enabled=process.env.AWIN_TYRE_AUTO_ENRICH_ENABLED==="true";
+   // Never interpret dependency readiness as a green light to launch automation:
+   // no runtime/lease tests, active-feed proof or merchant image rights are checked here.
+   return send({status:"tyres_uk_automatic_preflight",
+    private_only:true,no_publication:true,no_database_writes:true,
+    source_paused:true,source_sync_disabled:true,
+    original_import_private_and_complete:true,
+    job_table_ready:jobTableReady,private_snapshot_bucket_ready:privateBucketReady,
+    automatic_enabled:enabled,
+    current_feed_verified:false,runtime_lease_tested:false,
+    snapshot_retention_approved:false,merchant_publication_rights_verified:false,
+    ready_to_enable:false,
+    blockers:[
+     ...(!jobTableReady?["Private snapshot job migration not installed"]:[]),
+     ...(!privateBucketReady?["Private snapshot bucket missing or public"]:[]),
+     "Current Tyres UK Awin feed identity and licence not reverified",
+     "Worker lease, bounded runtime and retry tests incomplete",
+     "Private snapshot retention and deletion rules not approved"
+    ]});
+  }
   if(action==="status"){
    const {count,error}=await db.from("feed_import_records")
     .select("id",{count:"exact",head:true})

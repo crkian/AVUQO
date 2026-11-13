@@ -1,3 +1,9 @@
+## Unreleased · Read-only Tyres UK automatic worker readiness preflight
+
+- Add owner-only `automation_preflight` action to existing private tyre-spec API and Control Centre to show whether snapshot-job table and bucket are available, without invoking any worker, querying private feed URL or changing data.
+- Direct Supabase audit confirms private snapshot bucket, missing job table/functions and paused sync-off Awin source; record blocking migration, feed proof, runtime/lease and retention tasks.
+- Keep PR #117 worker intentionally unmerged/off, no automatic cron, migration, environment change, price/fitment/publication changes.
+
 ## 13 November 2026 · Tyres UK private candidate validator deployed
 
 - PR #153 merged and Vercel production READY SHA `7c8619352d5458a1c1ce69c3dc5f4960a813a3d2`, domain `www.avuqo.com`.

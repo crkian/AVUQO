@@ -176,7 +176,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "PR #117 remains OPEN. Before enabling any automated Tyres UK snapshot, inspect existing private bucket and Supabase migration functions/RLS, verify current Awin feed and worker runtime/leases, preserve existing Pneus cron, pass negative tests and controlled dry run. No enable flag or public offers without approval."
+      "task": "Deploy no-write Tyres UK worker preflight; then test via owner authenticated Control Centre, validate existing private snapshot bucket permissions, design and test migration/lease/storage retention, verify current Awin feed, and explicitly keep PR #117 worker disabled until accepted."
     },
     {
       "priority": 2,
@@ -371,5 +371,18 @@
     "source_sync_enabled": false,
     "public_prices_fitment_offers_approved": false,
     "old_pr_117": "still open; worker and migration require independent acceptance"
+  },
+  "current_candidate": {
+    "branch": "feature/tyres-uk-worker-readonly-preflight-20261113",
+    "legacy_pr": 117,
+    "status": "candidate_pending_CI_and_production",
+    "scope": "Owner-only read-only Tyres UK snapshot worker prerequisite checks from existing private status UI; never enable worker",
+    "verified_supabase_baseline": "Private awin-bulk-private-snapshots bucket present, public=false, no general storage.objects policies; V2 job table/claim RPCs absent, Awin paused sync off",
+    "action": "automation_preflight",
+    "ready_to_enable": false,
+    "no_database_writes": true,
+    "no_feed_fetch": true,
+    "no_cron": true,
+    "reference": "docs/TYRES_UK_AUTO_WORKER_PREFLIGHT_2026-11-13.md"
   }
 }
