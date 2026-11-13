@@ -1,4 +1,4 @@
-## Unreleased · Seasonal artwork
+## 13 November 2026 · Seasonal artwork deployed
 
 - Add original locally hosted Christmas, Easter, Valentine’s and Sales hero artwork and reuse it in the corresponding homepage themes. Refine the Christmas mobile hero and preserve gift planning tools.
 
