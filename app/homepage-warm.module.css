@@ -115,3 +115,9 @@
 @media(max-width:900px){.fullStorefrontHero .heroGrid{grid-template-columns:minmax(0,1fr) minmax(255px,.75fr);gap:18px}.fullStorefrontHero .heroCopy h1{font-size:clamp(43px,5.7vw,60px)}.fullStorefrontIntelligence{padding:15px}.fullStorefrontIntelligenceBody{grid-template-columns:1fr;justify-items:center}.fullStorefrontIntelligence ul{justify-self:stretch}}
 @media(max-width:700px){.fullStorefrontHero{padding:140px 0 32px!important;min-height:0}.fullStorefrontPhoto{background-position:60% top}.fullStorefrontHero::before{background:linear-gradient(0deg,rgba(255,251,247,.99) 0%,rgba(255,251,247,.96) 60%,rgba(255,251,247,.08) 100%)}.fullStorefrontHero .heroGrid{grid-template-columns:1fr;gap:22px}.fullStorefrontHero .heroCopy h1{font-size:clamp(39px,10vw,58px)}.fullStorefrontHero .heroVisual{justify-content:center}.fullStorefrontIntelligence{width:min(100%,490px)}.fullStorefrontIntelligenceBody{grid-template-columns:89px 1fr;gap:13px}.fullStorefrontActions a{flex:1}}
 @media(max-width:420px){.fullStorefrontHero{padding-top:110px!important}.fullStorefrontActions{flex-direction:column}.fullStorefrontIntelligenceBody{grid-template-columns:1fr}.fullStorefrontIntelligence ul{grid-template-columns:1fr 1fr;gap:11px}.fullStorefrontHero .heroCopy h1{font-size:41px}}
+
+/* Dynamic UK editorial seasons change the actual production hero, never retailer offers. */
+.fullStorefrontHero .seasonalHeroTagline{display:block;margin-top:12px;color:#7435ca;font-size:clamp(22px,2.7vw,35px);font-family:Arial,Helvetica,sans-serif;letter-spacing:-.04em;font-weight:850}
+.fullStorefrontHero .heroCopy h1{max-width:730px;text-wrap:balance}
+.fullStorefrontHero .heroText{max-width:610px}
+@media(max-width:700px){.fullStorefrontHero .seasonalHeroTagline{font-size:clamp(19px,5.4vw,28px)}}

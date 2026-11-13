@@ -1,68 +1,43 @@
 /**
- * Editorial seasons are pure dates, not supplier/sponsored campaign approvals.
- * This calendar may change site discovery modules only, never offer publication.
+ * Editorial-only homepage themes, driven by the UK civil-date calendar.
+ * This never changes merchant offers, sponsored approvals, rankings or prices.
  */
-export type EditorialMoment="black-friday"|"christmas"|"valentines"|"easter"|"sales";
+import {editorialMomentForDate,annualSeasonalWindows} from "./seasonal-date.mjs";
+import type {SeasonalMoment} from "./seasonal-date.mjs";
+export {editorialMomentForDate,annualSeasonalWindows};
+export type EditorialMoment=SeasonalMoment;
 export type EditorialSpotlight={
  id:EditorialMoment;name:string;title:string;summary:string;href:string;
  image:string;cta:string;secondaryHref:string;secondaryLabel:string;
 };
+const image=(id:string)=>"https://images.unsplash.com/"+id+"?auto=format&fit=crop&w=1600&q=80";
 const S:Record<EditorialMoment,EditorialSpotlight>={
- "black-friday":{id:"black-friday",name:"Black Friday",title:"Black Friday at AVUQO",
-  summary:"Plan the sales thoughtfully. Discover what matters and check the real price evidence, not just the markdown.",
-  href:"/black-friday",cta:"Explore Black Friday",secondaryHref:"/christmas",secondaryLabel:"Plan Christmas",
-  image:"https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=1600&q=80"},
- christmas:{id:"christmas",name:"Christmas",title:"Christmas at AVUQO",
-  summary:"Thoughtful gifting, festive planning, useful lists and all the little things that make a season worth sharing.",
-  href:"/christmas",cta:"Explore Christmas",secondaryHref:"/lists",secondaryLabel:"Plan a gift list",
-  image:"https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=1600&q=80"},
- valentines:{id:"valentines",name:"Valentine’s Day",title:"Valentine’s at AVUQO",
-  summary:"Gifts, experiences and thoughtful gestures to explore without pressure or imaginary discounts.",
-  href:"/valentines",cta:"Explore Valentine’s ideas",secondaryHref:"/lists",secondaryLabel:"Make a list",
-  image:"https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1600&q=80"},
- easter:{id:"easter",name:"Easter",title:"Easter at AVUQO",
-  summary:"Spring gifting, home inspiration, family activities and practical ways to plan your Easter shopping.",
-  href:"/easter",cta:"Explore Easter",secondaryHref:"/groceries",secondaryLabel:"Plan groceries",
-  image:"https://images.unsplash.com/photo-1457089328109-e5d9bd499191?auto=format&fit=crop&w=1600&q=80"},
- sales:{id:"sales",name:"Seasonal sales",title:"Shop thoughtfully in the sales",
-  summary:"A good offer is only good when it is the exact thing you want at a genuinely worthwhile full price.",
-  href:"/sales",cta:"Explore sale advice",secondaryHref:"/marketplace",secondaryLabel:"Explore marketplace",
-  image:"https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80"}
+ "black-friday":{id:"black-friday",name:"Black Friday",title:"Black Friday at AVUQO",summary:"Find what is worth it this Black Friday. Explore thoughtfully and check real price evidence before deciding.",href:"/black-friday",cta:"Explore Black Friday",secondaryHref:"/christmas",secondaryLabel:"Plan Christmas",image:image("photo-1549465220-1a8b9238cd48")},
+ christmas:{id:"christmas",name:"Christmas",title:"Christmas at AVUQO",summary:"Thoughtful gifts, festive home inspiration, shopping lists and practical planning for the season.",href:"/christmas",cta:"Explore Christmas",secondaryHref:"/lists",secondaryLabel:"Plan a gift list",image:image("photo-1512389142860-9c449e58a543")},
+ valentines:{id:"valentines",name:"Valentine’s",title:"Valentine’s at AVUQO",summary:"Find inspiration for thoughtful gifts, date-night plans and experiences, without invented discounts.",href:"/valentines",cta:"Explore Valentine’s",secondaryHref:"/lists",secondaryLabel:"Plan a gift",image:image("photo-1518199266791-5375a83190b7")},
+ easter:{id:"easter",name:"Easter",title:"Easter at AVUQO",summary:"Spring gifts, Easter baking, family activities and ideas that are worth sharing.",href:"/easter",cta:"Explore Easter",secondaryHref:"/groceries",secondaryLabel:"Plan Easter groceries",image:image("photo-1457089328109-e5d9bd499191")},
+ sales:{id:"sales",name:"Winter sales",title:"Shop smarter in the sales",summary:"Discover what matters, compare the total cost, and question discounts that lack real price evidence.",href:"/sales",cta:"Explore seasonal sales",secondaryHref:"/marketplace/compare",secondaryLabel:"Compare products",image:image("photo-1441986300917-64674bd600d8")},
+ spring:{id:"spring",name:"Spring",title:"A fresh start at AVUQO",summary:"Find spring home inspiration, thoughtful gifts and useful ideas for the lighter days ahead.",href:"/home",cta:"Explore spring ideas",secondaryHref:"/categories",secondaryLabel:"Browse categories",image:image("photo-1490750967868-88aa4486c946")},
+ summer:{id:"summer",name:"Summer",title:"Summer at AVUQO",summary:"Explore holidays, outdoor living, family adventures and seasonal essentials with value in mind.",href:"/travel",cta:"Explore summer travel",secondaryHref:"/home",secondaryLabel:"Outdoor living ideas",image:image("photo-1507525428034-b723cf961d3e")},
+ autumn:{id:"autumn",name:"Autumn",title:"Autumn at AVUQO",summary:"Warm up your home, prepare for cooler days and discover practical things worth considering.",href:"/home",cta:"Explore home ideas",secondaryHref:"/categories",secondaryLabel:"Browse categories",image:image("photo-1473448912268-2022ce9509d8")},
+ "back-to-school":{id:"back-to-school",name:"Back to school",title:"Back to school with AVUQO",summary:"Plan school and work essentials, compare specifications and keep your shopping list organised.",href:"/categories",cta:"Explore essentials",secondaryHref:"/lists",secondaryLabel:"Make a list",image:image("photo-1503676260728-1c00da094a0b")},
+ halloween:{id:"halloween",name:"Halloween",title:"Halloween at AVUQO",summary:"Creative costumes, home décor, treats and activity inspiration without exaggerated deal claims.",href:"/gifts",cta:"Explore Halloween ideas",secondaryHref:"/toys",secondaryLabel:"Family activities",image:image("photo-1509557965875-b88c97052f0e")},
+ "mothers-day":{id:"mothers-day",name:"Mothering Sunday",title:"Mother’s Day at AVUQO",summary:"Thoughtful gifts and experiences to celebrate the people who matter, with time to plan.",href:"/gifts",cta:"Explore thoughtful gifts",secondaryHref:"/experiences",secondaryLabel:"Explore experiences",image:image("photo-1513201099705-a9746e1e201f")},
+ "fathers-day":{id:"fathers-day",name:"Father’s Day",title:"Father’s Day at AVUQO",summary:"Gifts, gadgets and shared experiences chosen for the person, not the size of a supposed saving.",href:"/gifts",cta:"Explore gift ideas",secondaryHref:"/experiences",secondaryLabel:"Explore experiences",image:image("photo-1513201099705-a9746e1e201f")}
 };
-function localYmd(instant:Date){
- const parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/London",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(instant);
- const val=(type:string)=>Number(parts.find(p=>p.type===type)?.value??0);
- return {year:val("year"),month:val("month"),day:val("day")};
-}
-function gregorianEaster(year:number):Date{
- const a=year%19,b=Math.floor(year/100),c=year%100,d=Math.floor(b/4),e=b%4;
- const f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3);
- const h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4;
- const l=(32+2*e+2*i-h-k+7)%7,m=Math.floor((a+11*h+22*l)/451);
- const month=Math.floor((h+l-7*m+114)/31);
- const day=((h+l-7*m+114)%31)+1;
- return new Date(Date.UTC(year,month-1,day,12));
-}
-export function editorialMomentForDate(now:Date):EditorialMoment|null{
- if(!Number.isFinite(now.getTime()))return null;
- const {year,month,day}=localYmd(now);
- if(month===2&&day<=14)return "valentines";
- const today=Date.UTC(year,month-1,day,12);
- const easter=gregorianEaster(year).getTime();
- if(today>=easter-21*864e5&&today<=easter+7*864e5)return "easter";
- if(month===11)return "black-friday";
- if(month===12&&day<=28)return "christmas";
- if(month===1&&day<=20)return "sales";
- return null;
-}
 export function editorialSpotlight(now:Date):EditorialSpotlight|null{
  const id=editorialMomentForDate(now);
  return id?S[id]:null;
 }
 export const SEASONAL_DESTINATIONS=[
- {name:"Black Friday",href:"/black-friday",window:"November",commercial:"Source-verified promotions only"},
- {name:"Christmas",href:"/christmas",window:"1–28 December",commercial:"Verified gift offers only"},
- {name:"Valentine’s Day",href:"/valentines",window:"1–14 February",commercial:"Editorial guide, not guaranteed discounts"},
- {name:"Easter",href:"/easter",window:"21 days before to 7 days after Easter",commercial:"Editorial inspiration, approved products separately"},
- {name:"January sales",href:"/sales",window:"1–20 January",commercial:"No invented reference prices"}
+ {name:"January and post-Christmas sales",href:"/sales",window:"27 Dec–20 Jan",commercial:"Only independently verified deals count as price reductions"},
+ {name:"Valentine’s",href:"/valentines",window:"21 Jan–14 Feb",commercial:"Editorial gifting, not automatic retailer promotions"},
+ {name:"Mothering Sunday",href:"/gifts",window:"14 days before UK Mothering Sunday",commercial:"UK date calculated from Easter"},
+ {name:"Easter",href:"/easter",window:"20 days before Easter through Easter Monday",commercial:"Editorial inspiration; offers separately verified"},
+ {name:"Father’s Day",href:"/gifts",window:"14 days before third Sunday in June",commercial:"Editorial gift planning"},
+ {name:"Summer",href:"/travel",window:"June–August, except Father’s Day and back to school",commercial:"Travel information does not imply a live booking API"},
+ {name:"Back to school",href:"/categories",window:"15 Aug–10 Sep",commercial:"Schools set their own terms; this is a shopping theme"},
+ {name:"Halloween",href:"/gifts",window:"15–31 Oct",commercial:"Editorial ideas, no assumed discounts"},
+ {name:"Black Friday",href:"/black-friday",window:"1–30 Nov",commercial:"Do not invent promotions or reference prices"},
+ {name:"Christmas",href:"/christmas",window:"1–26 Dec",commercial:"Only verified gift offers may be labelled live"}
 ] as const;

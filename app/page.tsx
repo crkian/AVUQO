@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { connection } from "next/server";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, CheckCircle2, ListChecks, Search, ShieldCheck, Sparkles, Eye, Scale, ReceiptText } from "lucide-react";
@@ -47,19 +48,21 @@ function HeroPlaceholder() {
 }
 
 async function HomeContent() {
+  await connection(); // Re-evaluate the UK calendar on each homepage request, including date boundaries.
+  const season=editorialSpotlight(new Date());
   const [editorial,campaigns,products] = await Promise.all([publishedEditorial("home"),loadHomeCampaigns(),verifiedProductIndex(8)]);
   return <main className={styles.page}>
     <Header/>
     <section className={`${styles.hero} ${styles.fullStorefrontHero}`} aria-labelledby="home-title">
-      <div className={styles.fullStorefrontPhoto} style={{backgroundImage:`url("${lifestylePages.home.hero}")`}} aria-hidden="true"/>
+      <div className={styles.fullStorefrontPhoto} style={{backgroundImage:`url("${season?.image??lifestylePages.home.hero}")`}} aria-hidden="true"/>
       <div className={`shell ${styles.heroGrid}`}>
         <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}><Sparkles size={15}/> Discover more. Compare better.</p>
-          <h1 id="home-title">Shop smarter.<br/><em>Find what&apos;s worth it.</em></h1>
-          <p className={styles.heroText}>{editorial.description}</p>
+          <p className={styles.eyebrow}><Sparkles size={15}/> {season ? `${season.name} · the AVUQO seasonal edit` : "Discover more. Compare better."}</p>
+          <h1 id="home-title">{season ? <>{season.title}<em className={styles.seasonalHeroTagline}>Find what&apos;s worth it.</em></> : <>Shop smarter.<br/><em>Find what&apos;s worth it.</em></>}</h1>
+          <p className={styles.heroText}>{season?.summary??editorial.description}</p>
           <div className={styles.fullStorefrontActions}>
-            <Link href="/marketplace/compare" className={styles.fullStorefrontPrimary}>Start comparing <ArrowRight size={17}/></Link>
-            <Link href="/sales" className={styles.fullStorefrontSecondary}>Discover deals <ArrowRight size={17}/></Link>
+            <Link href={season?.href??"/marketplace/compare"} className={styles.fullStorefrontPrimary}>{season?.cta??"Start comparing"} <ArrowRight size={17}/></Link>
+            <Link href="/marketplace/compare" className={styles.fullStorefrontSecondary}>Compare products <ArrowRight size={17}/></Link>
           </div>
           <OwnerStorefrontShortcut/>
         </div>
@@ -90,6 +93,7 @@ async function HomeContent() {
       </div>
     </div>
 
+    <HomeSeasonalSpotlight spotlight={season}/>
     <section className={styles.shopJourneys} aria-label="Two ways to find what is worth it">
       <div className="shell">
         <div className={styles.shopJourneysHeading}>
@@ -119,7 +123,6 @@ async function HomeContent() {
 
     <HomeShoppingDashboard items={products}/>
     <CategoryJourneys slug="shopping"/>
-    <HomeSeasonalSpotlight spotlight={editorialSpotlight(new Date())}/>
     <HomeCampaignCarousel campaigns={campaigns}/>
     <LifestyleExplorer/>
     <ShoppingDepartmentShelf compact/>

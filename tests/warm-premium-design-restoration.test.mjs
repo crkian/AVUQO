@@ -14,11 +14,11 @@ test("UK editorial calendar rotates without creating an advertiser or product of
  assert.equal(editorialMomentForDate(date("2027-03-12T12:00:00Z")),"easter");
  assert.equal(editorialMomentForDate(date("2027-03-28T12:00:00Z")),"easter");
  assert.equal(editorialMomentForDate(date("2027-01-10T12:00:00Z")),"sales");
- assert.equal(editorialMomentForDate(date("2027-08-10T12:00:00Z")),null);
+ assert.equal(editorialMomentForDate(date("2027-08-10T12:00:00Z")),"summer");
  assert.equal(editorialMomentForDate(date("invalid")),null);
  assert.equal(editorialSpotlight(date("2026-11-15T12:00:00Z"))?.href,"/black-friday");
  assert.equal(editorialSpotlight(date("2026-12-24T12:00:00Z"))?.href,"/christmas");
- assert.equal(SEASONAL_DESTINATIONS.length,5);
+ assert.ok(SEASONAL_DESTINATIONS.length>=10,"Year-round editorial calendar should cover major UK dates and evergreen periods");
 });
 test("every restored seasonal route shares a premium, evidence-safe template",()=>{
  for(const kind of ["sales","black-friday","easter","valentines"]){
@@ -41,7 +41,9 @@ test("Christmas gift finder and published-offer gates survive seasonal visual re
  assert.match(christmas,/<GiftFinder\s*\/>/);
  assert.match(christmas,/<PublishedChristmasCrafts\s*\/>/);
  const page=read("app/page.tsx");
- assert.match(page,/<HomeSeasonalSpotlight spotlight=\{editorialSpotlight\(new Date\(\)\)\}/);
+ assert.match(page,/const season=editorialSpotlight\(new Date\(\)\)/);
+ assert.match(page,/<HomeSeasonalSpotlight spotlight=\{season\}/);
+ assert.match(page,/season\?\.image/);
 });
 test("owner seasonal operations are protected and are not a source activation worker",()=>{
  const admin=read("app/control-centre/seasonal/page.tsx");
