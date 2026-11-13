@@ -1,3 +1,8 @@
+## Unreleased · Marketing homepage time-window and source-claim integrity
+
+- Re-check each custom homepage campaign's private approved supporting claim during the server-rendered rotation; drop expired, revoked, wrong-brand or missing fact claims without exposing private fields.
+- Require current fact evidence for both owner approval and resume, suppress stale dashboard actions and expose withheld state. No changes to global marketing switches, cron, external social publishing or Awin.
+
 ## 13 November 2026 · Product and My AVUQO design VERIFIED live
 
 - PR #171 merged at `29454fd87952e66a1e02815ef26d3db46887ce5c` and deployed Vercel READY (`dpl_4vN5FNZght94Uje3YV5AX4wrV8dG`) with live homepage/products/account all HTTP 200. Refines eligible-offer comparison order, merchant image fallback and guest/signed-in account layouts. No source, approval, price, or automation activation change.

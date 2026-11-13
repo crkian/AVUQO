@@ -4,6 +4,7 @@ import {redirect} from "next/navigation";
 import {createClient} from "../../../lib/supabase/server";
 import {requireControlCentreAccess} from "../../../lib/auth/requireControlCentreAccess";
 import {isBrandSlug} from "../../../lib/marketing/policy";
+import {currentAvuqoHomeFact} from "../../../lib/marketing/homepage-policy";
 
 const HOME="/control-centre/marketing";
 function fail(s:string):never {throw new Error("Marketing campaigns: "+s)}
@@ -52,16 +53,19 @@ export async function reviewHomePlacement(form:FormData) {
   .select("id,status,fact_id,ends_at,brand_slug").eq("id",id).eq("brand_slug","avuqo").maybeSingle();
  if(fetchError||!place)fail("Unknown placement");
  let update:Record<string,unknown>={updated_at:new Date().toISOString()};
- if(action==="approve"&&place.status==="draft") {
-  const {data:fact}=await db.from("marketing_facts").select("id,status,expires_at,brand_slug")
-   .eq("id",place.fact_id).eq("brand_slug","avuqo").eq("status","approved").maybeSingle();
-  if(!fact||(fact.expires_at&&Date.parse(fact.expires_at)<=Date.now())||
-   Date.parse(place.ends_at)<=Date.now())fail("The placement or supporting fact has expired");
-  update={...update,status:"approved",approved_by:user.id,approved_at:new Date().toISOString()};
- } else if(action==="pause"&&place.status==="approved"){
+ const approving=action==="approve"&&place.status==="draft";
+ const resuming=action==="resume"&&place.status==="paused";
+ if(approving||resuming) {
+  const {data:fact,error:factError}=await db.from("marketing_facts")
+   .select("id,status,expires_at,brand_slug")
+   .eq("id",place.fact_id).eq("brand_slug","avuqo").maybeSingle();
+  if(factError||!currentAvuqoHomeFact(fact,new Date())||
+   !Number.isFinite(Date.parse(place.ends_at))||Date.parse(place.ends_at)<=Date.now())
+   fail("The placement or supporting fact is no longer eligible");
+  update={...update,status:"approved",
+   ...(approving?{approved_by:user.id,approved_at:new Date().toISOString()}: {})};
+ } else if(action==="pause"&&place.status==="approved") {
   update.status="paused";
- } else if(action==="resume"&&place.status==="paused"&&Date.parse(place.ends_at)>Date.now()){
-  update.status="approved";
  } else fail("Placement is not eligible for this action");
  const {data,error}=await db.from("marketing_home_placements").update(update)
   .eq("id",id).eq("status",place.status).eq("brand_slug","avuqo").select("id");

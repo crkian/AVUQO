@@ -2,7 +2,7 @@ import Link from "next/link";
 import { connection } from "next/server";
 import { requireControlCentreAccess } from "../../../lib/auth/requireControlCentreAccess";
 import { createClient } from "../../../lib/supabase/server";
-import {homePlacementState} from "../../../lib/marketing/homepage-policy";
+import {homePlacementState,currentAvuqoHomeFact} from "../../../lib/marketing/homepage-policy";
 import { BRAND_SLUGS, isBrandSlug } from "../../../lib/marketing/policy";
 import {
   addMarketingChannel, addMarketingDraft, addMarketingFact, approveMarketingFact,
@@ -76,6 +76,12 @@ export default async function MarketingPage({
   const jobs = (extended[2].data??[]) as Job[];
   const placementClock=new Date();
   const homePlacements=(extended[3].data??[]) as HomePlacement[];
+  const homeFactResult=tab==="homepage"&&homePlacements.length
+   ? await db.from("marketing_facts").select("id,brand_slug,status,expires_at")
+      .in("id",[...new Set(homePlacements.map(p=>p.fact_id))])
+   : {data:[],error:null};
+  const homeFactById=new Map((homeFactResult.data??[]).map(f=>[f.id,f]));
+
   const editorialRules=(extended[4].data??[]) as EditorialRule[];
   const brandRules=editorialRules.filter(r=>r.brand_slug===brand);
   const myAssets=assets.filter(a=>a.brand_slug===brand);
@@ -92,7 +98,7 @@ export default async function MarketingPage({
     } catch {return [asset.id,""] as const;}
   }));
   const previewById=new Map<string,string>(previewEntries);
-  const problem = results.find(result=>result.error)?.error || extended.find(result=>result.error)?.error;
+  const problem = results.find(result=>result.error)?.error || extended.find(result=>result.error)?.error || homeFactResult.error;
   const brands = (results[0].data??[]) as Brand[];
   const facts = (results[1].data??[]) as Fact[];
   const posts = (results[2].data??[]) as Post[];
@@ -103,6 +109,7 @@ export default async function MarketingPage({
   const bp = posts.filter(item=>item.brand_slug===brand);
   const bc = channels.filter(item=>item.brand_slug===brand);
   const approvedFacts = bf.filter(item=>item.status==="approved");
+  const currentHomepageFacts=approvedFacts.filter(item=>currentAvuqoHomeFact(item,placementClock));
   const isOwner = role==="owner";
 
   return <div className={styles.wrap}>
@@ -153,12 +160,12 @@ export default async function MarketingPage({
       <section className={styles.panel}>
         <h2>AVUQO editorial homepage rotation</h2>
         <p><Link href="/control-centre/seasonal-calendar">View the UK seasonal hero calendar</Link></p>
-        <p className={styles.muted}>Approved AVUQO campaigns appear in a rotating panel below the homepage introduction. Set a start and end time, choose a real AVUQO page, and review the copy. Campaigns expire automatically. This current editor supports AVUQO-owned pages and approved AVUQO facts only. Outside advertiser briefs and creative approvals are managed in the separate Site Advertising workspace. There is no live paid-ad delivery yet. Any future paid placements must be clearly labelled and must never affect product scores or organic rankings.</p>
+        <p className={styles.muted}>Approved AVUQO campaigns appear in a rotating panel below the homepage introduction. Set a start and end time, choose a real AVUQO page, and review the copy. Campaigns expire automatically, and a withdrawn or expired supporting fact removes a campaign from the public rotation. Resuming a paused campaign checks that fact again. This current editor supports AVUQO-owned pages and approved AVUQO facts only. Outside advertiser briefs and creative approvals are managed in the separate Site Advertising workspace. There is no live paid-ad delivery yet. Any future paid placements must be clearly labelled and must never affect product scores or organic rankings.</p>
         {brand!=="avuqo"?<div className={styles.warning}>This front-page carousel belongs to AVUQO only. Select AVUQO above. Other brands keep separate marketing workspaces and cannot add claims to AVUQO&apos;s homepage.</div>:
          <form action={createHomePlacement} className={styles.form}>
           <label>Headline<input name="title" required minLength={8} maxLength={100} placeholder="Explore smarter shopping decisions"/></label>
           <label>Description<textarea name="summary" required minLength={15} maxLength={260} placeholder="Useful, factual, owner-reviewed campaign copy"/></label>
-          <label>Approved AVUQO fact<select name="fact_id" required>{approvedFacts.map(f=><option key={f.id} value={f.id}>{f.claim.slice(0,120)}</option>)}</select></label>
+          <label>Current approved AVUQO fact<select name="fact_id" required>{currentHomepageFacts.map(f=><option key={f.id} value={f.id}>{f.claim.slice(0,120)}</option>)}</select></label>
           <label>Link to an AVUQO page<input name="href" required defaultValue="/discover" placeholder="/discover" pattern="/[a-z0-9][a-z0-9/-]*"/></label>
           <label>Button label<input name="cta_label" required defaultValue="Explore now" maxLength={40}/></label>
           <div className={styles.grid}>
@@ -167,13 +174,15 @@ export default async function MarketingPage({
           </div>
           <label>Order priority (0-100)<input type="number" min={0} max={100} name="priority" defaultValue={50}/></label>
           <p className={styles.muted}>This editor is for AVUQO-owned editorial features only. Outside advertisers are managed separately under Site Advertising.</p>
-          <button type="submit" disabled={!isOwner||!approvedFacts.length}>Save private homepage campaign</button>
+          <button type="submit" disabled={!isOwner||!currentHomepageFacts.length}>Save private homepage campaign</button>
         </form>}
       </section>
       <section className={styles.panel}><h2>Review and rotate</h2>
         <div className={styles.list}>{homePlacements.length?homePlacements.map(p=>
           <article key={p.id} className={styles.item}>
-            <span className={styles.status}>{homePlacementState(p.status,p.starts_at,p.ends_at,placementClock)}</span>
+            <span className={styles.status}>{p.status==="approved"&&!currentAvuqoHomeFact(homeFactById.get(p.fact_id),placementClock)
+               ?"withheld · supporting fact is not current"
+               :homePlacementState(p.status,p.starts_at,p.ends_at,placementClock)}</span>
             {p.sponsored&&<span className={styles.pill}>Sponsored · Advertisement</span>}
             <h3>{p.title}</h3><p>{p.summary}</p>
             <p className={styles.meta}>{p.href} · Priority {p.priority} · UTC {p.starts_at.slice(0,16)} to {p.ends_at.slice(0,16)}</p>
@@ -186,7 +195,7 @@ export default async function MarketingPage({
                 <input type="hidden" name="placement_id" value={p.id}/><input type="hidden" name="decision" value="pause"/>
                 <button type="submit">Pause this campaign</button>
               </form>}
-              {p.status==="paused"&&Date.parse(p.ends_at)>placementClock.getTime()&&<form action={reviewHomePlacement}>
+              {p.status==="paused"&&Date.parse(p.ends_at)>placementClock.getTime()&&currentAvuqoHomeFact(homeFactById.get(p.fact_id),placementClock)&&<form action={reviewHomePlacement}>
                 <input type="hidden" name="placement_id" value={p.id}/><input type="hidden" name="decision" value="resume"/>
                 <button type="submit">Resume this campaign</button>
               </form>}

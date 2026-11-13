@@ -389,11 +389,20 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "feature": "Tyres UK private lease claim/renew",
-    "pr": 158,
-    "status": "draft_not_applied",
-    "worker_enabled": false,
-    "source_paused": true
+    "feature": "Marketing homepage current-source-fact evidence safety",
+    "branch": "fix/marketing-home-campaign-live-evidence-20261113",
+    "status": "candidate_not_merged_or_live",
+    "changes": [
+      "public homepage private current-fact admission",
+      "owner approve and resume re-validation",
+      "withheld dashboard status and limited resume"
+    ],
+    "migration_added": false,
+    "cron_modified": false,
+    "marketing_publishing_enabled": false,
+    "ai_enabled": false,
+    "awin_changed": false,
+    "tests": "tests/marketing-home-current-evidence.test.mjs"
   },
   "security_review_followups": [
     {
@@ -441,5 +450,15 @@
     "signed_in_account_acceptance": "pending",
     "approved_offer_image_visual_acceptance": "pending",
     "no_provider_or_automation_activation": true
+  },
+  "marketing_live_fact_baseline_20261113": {
+    "marketing_system": {
+      "publishing_enabled": false,
+      "ai_enabled": false,
+      "emergency_stop": true
+    },
+    "fact_records": 0,
+    "home_placement_records": 0,
+    "observation": "read-only live Supabase 13 Nov; do not infer continued status without requery"
   }
 }
