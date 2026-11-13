@@ -263,3 +263,9 @@ Read `AGENTS.md`, this status page and `CHANGELOG.md` from `crkian/AVUQO` using 
 - Add public `/explore-avuqo` route, grouped links for shopping, deals, groceries, tyres, travel and personal tools, and a visible homepage entry point. Include tour in sitemap.
 - Explicitly label verification constraints and sign-in requirements; no fake prices, supplier imagery, approvals, automated alerts or merchant claims. No private Control Centre access is surfaced.
 - Release only after CI, preview and exact SHA production Vercel READY, then verify `/explore-avuqo` HTTP 200 and responsive behavior. This does not activate marketing/affiliate automation.
+
+
+### 2026-11-13 Verified live-first full-site tour release
+- PR #159 merged to main at `58355149ef69e82924a00c6866b0859a7483234a`; Vercel READY `dpl_GVkTsnRpkWTc2p79DwUXD4EvhUEX`, `www.avuqo.com` / `avuqo.com` aliases.
+- Real `https://www.avuqo.com/explore-avuqo` status 200, expected heading, matching deployment ID. Homepage and sitemap also status 200, both link the tour. CI build/lint/security passed; screenshot visual acceptance remains pending.
+- No supplier rights, product price, database, marketing automation or Control Centre authentication changes. Continue live-first customer design and private automation separately.
