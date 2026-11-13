@@ -1,4 +1,9 @@
 
+# VERIFIED OWNER HOMEPAGE SCREENSHOT FIXES · 13 November 2026
+
+PR #140 merged; Vercel app SHA `e310af5a6ac49b00a01f7742c8d6a3664ebb5cf5` production READY, `dpl_55ZKhZvcp4JFFVSYqT8a5MMdzm9d`, alias `www.avuqo.com`. Black Friday hero remains, new editorial category-image URLs are in live markup, missing sprite and duplicate seasonal panel removed, owner private-shop hero shortcut removed (owner-only navigation remains). Hero responsive max-width and typography adjusted. **Actual loaded photo visual and post-fix mobile screenshots have not yet been independently inspected.** Existing provider and tyre safeguards unchanged; details in `docs/AVUQO_HOMEPAGE_OWNER_SCREENSHOT_CORRECTIONS_2026-11-13.md`.
+
+
 **Owner screenshot corrections (13 Nov 2026; pending CI/merge at entry):** Real live desktop screenshots showed broken/blank department photo cards from missing `/branding/avuqo-department-reference-sprite.svg`, duplicate Black Friday hero/spotlight, oversize/edge-aligned hero copy, and prominent owner-only storefront CTA. Fixed department backgrounds to editorial photos, removed second seasonal homepage panel (annual London-time date switch remains in primary hero), constrained responsive hero text/grid, and removed owner-only shortcut from main merchandising (owner role-gated menu remains). No Awin/eBay/tyre/source/auth changes. See `docs/AVUQO_HOMEPAGE_OWNER_SCREENSHOT_CORRECTIONS_2026-11-13.md`. Release checks and owner mobile screenshot QA pending.
 
 # VERIFIED DESKTOP/MOBILE VISUAL QA WORKFLOW RELEASE · 13 November 2026
