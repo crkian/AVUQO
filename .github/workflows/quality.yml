@@ -44,6 +44,8 @@ jobs:
         run: node --experimental-strip-types --test tests/marketing-tyres-category-readiness.test.mjs
       - name: Warm-premium design, seasonal and handover safety tests
         run: node --experimental-strip-types --test tests/warm-premium-design-restoration.test.mjs
+      - name: Production photographic storefront safety regression tests
+        run: node --test tests/production-photographic-storefront.test.mjs
       - name: Full original live storefront restoration regression tests
         run: node --test tests/full-live-storefront-restoration.test.mjs
       - name: Live production shopping and provider pipeline regression tests
