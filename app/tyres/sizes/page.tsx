@@ -54,7 +54,7 @@ async function SizeGuideContent({searchParams}:Props){
      <article className={styles.info}><b>Special variants</b><p>Winter and all-season markings, reinforced/XL, run-flat and other variants can matter even when the nominal size matches.</p></article>
     </div>
    </section>
-   <aside className={styles.notice}><strong>Important:</strong> Consult the vehicle handbook, tyre placard or a qualified tyre fitting professional before purchasing. The approved-product finder is available, but private imported products never become public without separate rights and technical checks. AVUQO does not certify vehicle fitment or installed prices.</aside>
+   <aside className={styles.notice}><strong>Important:</strong> Consult the vehicle handbook, tyre placard or a qualified tyre fitting professional before purchasing. The approved-product finder is available, but private imported products never become public without separate rights and technical checks. AVUQO does not certify vehicle-fitment or installed prices.</aside>
    <p style={{marginTop:25}}><Link className={styles.textLink} href="/tyres/brands">Explore tyre manufacturers →</Link></p>
   </div><Footer/></main>;
 }
