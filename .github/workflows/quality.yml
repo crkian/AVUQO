@@ -44,6 +44,8 @@ jobs:
         run: node --experimental-strip-types --test tests/marketing-tyres-category-readiness.test.mjs
       - name: Warm-premium design, seasonal and handover safety tests
         run: node --experimental-strip-types --test tests/warm-premium-design-restoration.test.mjs
+      - name: Owner homepage screenshot corrections regression tests
+        run: node --test tests/owner-home-screenshot-corrections.test.mjs
       - name: Public screenshot audit workflow isolation and route contract tests
         run: node --test tests/production-visual-audit-contract.test.mjs
       - name: UK seasonal homepage calendar date boundary and source-safety tests
