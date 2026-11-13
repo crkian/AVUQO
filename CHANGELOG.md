@@ -1,3 +1,8 @@
+
+## Unreleased · Automated public production screenshot audit
+- Add read-only headless Chrome checks and desktop/mobile screenshots for 28 real public production routes, rather than relying on HTTP-only verification.
+- Add a GitHub Actions on-demand/weekly workflow, triggered on first merge, with downloadable screenshots and Markdown/JSON evidence report; measure horizontal overflow, missing H1, broken HTML images and page errors.
+- Keep Control Centre, private previews and signed-in personal data out of screenshot automation. Original design boards remain reference-only; no fake product evidence added.
 ## 13 November 2026 · Automatic seasonal homepage deployed
 - PR #136 merged: UK-year-round editorial calendar selects real homepage photographic hero, copy and CTA at the correct UK date per request, plus companion seasonal editorial module.
 - Christmas, Black Friday, Easter, Valentine's, Mothering Sunday, Father's Day, Halloween, back to school, spring/summer/autumn and winter sales; dynamic yearly date calculations and DST regression tests.
