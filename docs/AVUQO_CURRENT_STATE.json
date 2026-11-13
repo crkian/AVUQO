@@ -395,15 +395,20 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "branch": "feature/tyres-uk-private-job-journal-foundation-20261113",
-    "legacy_pr": 117,
-    "status": "staged_sql_pending_ci_and_connected_migration",
-    "scope": "Additive dormant service-role-only RLS Tyres UK snapshot job journal with blocked state, no old default feed id, no RPC/cron/worker",
-    "supabase_baseline": "table and worker RPCs absent, private bucket present, Awin source paused with sync off",
-    "schema_source": "supabase/migrations/20261113210500_tyres_uk_private_job_journal_only.sql",
-    "release_checklist": "docs/TYRES_UK_DORMANT_SNAPSHOT_JOURNAL_RELEASE_2026-11-13.md",
-    "old_worker_activation": false,
-    "public_price_fitment_rights": false
+    "feature": "public_live_first_whole_site_tour",
+    "branch": "feature/public-whole-site-tour-live-first-20261113",
+    "production_status": "candidate_not_merged",
+    "route": "/explore-avuqo",
+    "homepage_link": true,
+    "sitemap_entry": true,
+    "no_supplier_or_marketing_activation": true,
+    "requires": [
+      "GitHub quality and secrets pass",
+      "Vercel preview",
+      "main merge",
+      "Vercel exact SHA READY and aliases",
+      "live route HTTP and responsive QA"
+    ]
   },
   "security_review_followups": [
     {
