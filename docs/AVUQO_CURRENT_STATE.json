@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_8iVdwgTJhHK6gniHvJb4GKRidMWr",
-    "verified_ready_sha": "d70a663d1963d81c4ec6e1f6ac9fd2b22320828d",
+    "deployment_id": "dpl_4xoCSJJjX8nLdzUzpFU3ZfSXju1p",
+    "verified_ready_sha": "8af0882eef7d9022066528a6304d81ffc0d1551d",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "Vercel production READY on www.avuqo.com for PR #144 2026-11-13, docs-only release; recheck future.",
+    "verification": "Vercel READY and www.avuqo.com alias for PR #145 (2026-11-13). Subsequent documentation-only commits may advance the SHA; always recheck.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -160,7 +160,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "After final housekeeping PR #145, re-count GitHub branches and verify 11 open PRs and original visual assets still exist; prioritize opening security and Awin feed import fixes on current main, deploying only approved offers."
+      "task": "Production-first: triage 11 retained unmerged PRs on latest main; prioritize security redaction #50, numbered Awin filenames #58, programme restrictions #51, Tooled Up currency #102, tyre enrichment #117. Port missing safeguards selectively, test and deploy; do not merge stale branches wholesale or activate unapproved merchant offers."
     },
     {
       "priority": 2,
@@ -286,10 +286,17 @@
     },
     "final_housekeeping": {
       "pr": 145,
-      "status": "candidate_pending CI/merge",
-      "target": "PR #143, #144, #145 merged cleanup branch refs, only if exact merged PR head hashes still match and no open PR depends on them",
-      "expected_after_count": 24,
-      "verification_required": true
+      "status": "completed_verified",
+      "matched_housekeeping_branches_deleted": 3,
+      "verified_final_branch_count": 24,
+      "original_branch_count": 143,
+      "merged_feature_branches_deleted": 119,
+      "cleanup_task_branches_deleted": 3,
+      "total_deleted_during_task": 122,
+      "all_11_open_pr_heads_preserved": true,
+      "original_visual_sources_preserved": true,
+      "security_branches_preserved": true,
+      "verified_date": "2026-11-13"
     }
   }
 }
