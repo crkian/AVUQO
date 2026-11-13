@@ -168,7 +168,7 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Audit old PR #102 Tooled Up GBP currency proof on fresh main; safely port only missing currency/source verification and rights gates, CI/Vercel production READY, close old PR if superseded. Request up-to-date written Cadbury/Petlibro feed/photo permissions before approving public offers."
+      "task": "Finish PR #102 currency-inspection port CI and deployment, close obsolete #102 after verification; separately confirm current Tooled-Up Awin feed IDs and commercial image/price permissions before private staging or public publishing."
     },
     {
       "priority": 2,
@@ -338,5 +338,15 @@
     "original_terms_re_read": false,
     "source_rights_approved": false,
     "public_images_offers_enabled": false
+  },
+  "current_candidate": {
+    "branch": "feature/tooled-up-readonly-gbp-verification-current-main-20261113",
+    "legacy_pr": 102,
+    "status": "candidate_pending_ci_and_production",
+    "scope": "Tooled-Up advertiser 496 read-only joined programme currencyCode GET, protected internal endpoint, no database writes",
+    "historical_feed_89987": "unverified/stale; do not assume available or licensed",
+    "programme_currency_live_result": "not checked against live Awin account",
+    "feed_publication_image_rights": "not verified; fail closed",
+    "documentation": "docs/tooled-up-awin-programme-currency.md"
   }
 }
