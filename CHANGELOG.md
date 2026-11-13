@@ -1,4 +1,9 @@
 
+## Unreleased · Restore full original premium storefront to live homepage
+- Recover `StorefrontQuickLinks` and `HomeShoppingDashboard` with responsive original CSS from `feature/warm-premium-experience-v1-20261105` and render on public homepage, not a preview.
+- Keep existing new sections, verified-only product index and honest editorial fallback when retailer offers are not approved.
+- Record precise mockup PNG source branch and release safety checklist; add CI regression tests.
+
 ## Unreleased · LIVE production shopping journeys and partner roadmap
 - Add a photo-led Compare and Discover bargains section directly to the real public homepage, linking to existing real production destinations. No fictional offers or score data.
 - Record versioned provider leads and API/access conditions for UK supplier/dropshipping platforms, holiday and activity search, golf trips, travel insurance and regulated UK comparison.

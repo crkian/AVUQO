@@ -8,6 +8,9 @@ import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import LifestyleExplorer from "../components/lifestyle/LifestyleExplorer";
 import ShoppingDepartmentShelf from "../components/shopping/ShoppingDepartmentShelf";
+import StorefrontQuickLinks from "../components/home/StorefrontQuickLinks";
+import HomeShoppingDashboard from "../components/home/HomeShoppingDashboard";
+import {verifiedProductIndex} from "../lib/products/public-catalog";
 import HomeCampaignCarousel from "../components/home/HomeCampaignCarousel";
 import HomeSeasonalSpotlight from "../components/home/HomeSeasonalSpotlight";
 import {editorialSpotlight} from "../lib/editorial/seasonal-schedule";
@@ -44,7 +47,7 @@ function HeroPlaceholder() {
 }
 
 async function HomeContent() {
-  const [editorial,campaigns] = await Promise.all([publishedEditorial("home"),loadHomeCampaigns()]);
+  const [editorial,campaigns,products] = await Promise.all([publishedEditorial("home"),loadHomeCampaigns(),verifiedProductIndex(8)]);
   return <main className={styles.page}>
     <Header/>
     <section className={styles.hero} aria-labelledby="home-title">
@@ -76,6 +79,7 @@ async function HomeContent() {
       </div>
     </section>
 
+    <StorefrontQuickLinks/>
     <div className={styles.reassurance}>
       <div className={`shell ${styles.reassuranceInner}`}>
         <span><ShieldCheck size={19}/> Independent thinking</span>
@@ -111,6 +115,7 @@ async function HomeContent() {
       </div>
     </section>
 
+    <HomeShoppingDashboard items={products}/>
     <CategoryJourneys slug="shopping"/>
     <HomeSeasonalSpotlight spotlight={editorialSpotlight(new Date())}/>
     <HomeCampaignCarousel campaigns={campaigns}/>
