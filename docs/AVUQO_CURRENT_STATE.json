@@ -174,15 +174,15 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Reconcile 17 divergent no-open-PR branches using actual code/docs diff to current main; preserve original design and security records; do not mass delete unmerged commits."
+      "task": "Merge #50/#51/#85 exact-identity closed-PR cleanup only if CI, frozen-content checks and Vercel preview pass; verify automatic workflow outcome and fresh branch inventory before claiming deletions."
     },
     {
       "priority": 2,
-      "task": "Review open historic PRs #25 taxonomy, #83 reference art, #93 storefront; retain #117 unsafe Tyres worker and #158 lease until separate controlled tests."
+      "task": "Continue review of the 14+ unmerged divergent historical Awin and design branches. Never delete an unincorporated code path or original reference."
     },
     {
       "priority": 3,
-      "task": "Continue private Awin import resilience and owner-approved editorial marketing, with source pauses, publication gates and Pneus cron unchanged."
+      "task": "Resume Awin import recovery and owner-approved marketing draft acceptance on current main, preserving source pause and Pneus cron."
     },
     {
       "priority": 4,
@@ -393,10 +393,14 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "feature": "None; PR #185 branch cleanup is live",
-    "status": "production_verified",
-    "recommended_next": "Reconcile 17 divergent historical refs, then return to import recovery and visual completion",
-    "automatic_pruning": "enabled after main pushes for verified merged PR heads"
+    "feature": "Reconciled closed unmerged PR #50/#51/#85 source-ref retirement",
+    "status": "candidate_not_merged_not_deleted",
+    "branch": "chore/reconcile-three-closed-legacy-branches-20261114",
+    "docs": "docs/CLOSED_LEGACY_BRANCH_RECONCILIATION_2026-11-14.md",
+    "workflow": ".github/workflows/reconciled-closed-pr-branch-retirement.yml",
+    "candidate_branches": 3,
+    "deletion_requires_runtime_proof": true,
+    "activation_changes": false
   },
   "security_review_followups": [
     {
@@ -547,5 +551,24 @@
     "deployment_id": "dpl_GhzjfNTsg2UYTumhPRwiPvSbwkJ3",
     "per_ref_action_log_checked": false,
     "inventory_document": "docs/BRANCH_REDUCTION_RESULTS_AND_RECONCILIATION_2026-11-14.md"
+  },
+  "branch_cleanup_closed_pr_candidate_20261114": {
+    "starting_branches_including_main": 25,
+    "old_closed_prs": [
+      50,
+      51,
+      85
+    ],
+    "expected_if_all_verification_passes": 22,
+    "remaining_open_prs": [
+      25,
+      83,
+      93,
+      117,
+      158
+    ],
+    "all_deletions_so_far_confirmed": 0,
+    "proof": "historical file vs main content audit with frozen source PR sha, current blob sha and ledger",
+    "not_claimed_live": true
   }
 }
