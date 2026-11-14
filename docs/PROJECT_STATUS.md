@@ -1,3 +1,10 @@
+## Branch cleanup VERIFIED: 63 -> 25 refs · 14 November 2026
+
+- PR #185 deployed READY at `a032f85a39964dff2ade6785331c399d2eccda1b` / `dpl_GhzjfNTsg2UYTumhPRwiPvSbwkJ3`. Homepage 200 on exact deployment; tests, build, lint, secrets and preview passed.
+- New main-push verified merge cleanup reduced GitHub refs from 63 to 25 including main. 38 refs disappeared in observed branch inventories, not merely CI simulations. Per-ref Actions logs were not separately inspected.
+- Retain 5 open PR heads, 2 security refs and 17 divergent older branches until diff-to-live review; original visual source is among protected open PR heads. `docs/BRANCH_REDUCTION_RESULTS_AND_RECONCILIATION_2026-11-14.md` records all 25 and next safe review order.
+- Continue marketing, imports and visual releases through short-lived PRs; automatic cleanup prevents ongoing merged branch buildup.
+
 ## Branch hygiene toward zero stale branches · candidate · 14 November 2026
 
 - Read-only count: 63 GitHub branches including `main`; 5 open PRs (#25/#83/#93/#117/#158). Not all branches are safe to remove; original reference design and security work must survive until fully incorporated/archived.

@@ -9,7 +9,7 @@ Keep `main` as the sole production release branch and **zero unnecessary branche
 - The existing `verified-historical-branch-cleanup.yml` owns PRs <=126, with SHA equality and frozen PR commit checks. Preserve its original design/security exclusions.
 
 ## Ongoing verified merged-branch cleanup
-The updated `.github/workflows/verified-merged-branch-cleanup.yml` runs after each **main push** and supports manual `workflow_dispatch` dry run by default. It enumerates **only existing branch names associated with merged PRs #127+**; it does not scan by names such as `feature/*` or delete arbitrary branches.
+The deployed `.github/workflows/verified-merged-branch-cleanup.yml` runs after each **main push** and supports manual `workflow_dispatch` dry run by default. It enumerates **only existing branch names associated with merged PRs #127+**; it does not scan by names such as `feature/*` or delete arbitrary branches.
 It deletes a ref only after confirming:
 1. The PR is closed and merged into `main` from the same repository.
 2. The name is neither `main`, `master`, a `security/` ref nor the original warm-premium archive branches.
@@ -25,3 +25,6 @@ Any branch with unique commits, changed SHA, uncertain merge history, active PR,
 - The cleanup workflow can retire eligible merged heads. Do not create a separate long-lived docs branch; use a small docs-only PR only when needed to record exact production commit.
 - Keep the remaining five historic open PRs and their source refs **until each unique contribution is either ported to current main or intentionally rejected with evidence**. Prioritise a taxonomy diff reconciliation, original warm-premium image asset preservation, then the isolated Tyres UK lease tests. **Do not merge old #117 wholesale.**
 - Do not use force-update, rebase-away, or delete to conceal unmerged features.
+
+## Verified release evidence
+PR #185 landed at `a032f85a39964dff2ade6785331c399d2eccda1b` and Vercel production `dpl_GhzjfNTsg2UYTumhPRwiPvSbwkJ3` was READY with live homepage HTTP 200 on that deployment. GitHub branch inventory reduced from 63 to 25 including main (38 fewer refs); per-branch Action logs were not independently opened. The 25 remaining refs are classified in `docs/BRANCH_REDUCTION_RESULTS_AND_RECONCILIATION_2026-11-14.md`.

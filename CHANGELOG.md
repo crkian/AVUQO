@@ -1,3 +1,7 @@
+## 14 November 2026 · Verified GitHub branch retirement LIVE
+
+- PR #185 merged at `a032f85a39964dff2ade6785331c399d2eccda1b`, Vercel READY `dpl_GhzjfNTsg2UYTumhPRwiPvSbwkJ3`. The main-push cleanup removes only merged, unchanged, uniquely reviewed branch refs with no open PR or archive/security protection. Verified GitHub branch count fell from 63 to 25 including main; the 25 remaining are catalogued rather than deleted blindly. No customer-facing or data-source activation changes.
+
 ## Unreleased · Ongoing verified GitHub merged-branch pruning
 
 - Extend the existing strictly guarded merged-PR cleanup to automatically check eligible recent merged heads after each main push, not just a historical one-off PR window. Scope limited to exact frozen reviewed PR head/commit, currently present ref, unique branch association, not open/protected/security/original design. Documents path to zero **stale** branches while retaining unmerged feature and design work. Actual removals require runtime evidence.
