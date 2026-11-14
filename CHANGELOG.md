@@ -1,3 +1,7 @@
+## Unreleased · True HTTP 404 for unapproved products
+
+- Next 16 Cache Components commits a streamed page's HTTP 200 before page-level `notFound()` can change status. Candidate direct GET/HEAD product-status guard now uses **existing fully verified product admission** or the four honest research-guide allowlist in `proxy.ts`, returning a fixed accessible noindex/no-store 404 for unknown/draft products. Existing cookie/session proxy and source/price/score/media rights untouched; CI and real preview/production HTTP verification pending.
+
 ## 14 November 2026 · Live Data streamed candidate shortlist and explicit role checks LIVE
 
 - PR #197 split the up-to-5,000-row private candidate scan from faster dashboard metrics using accessible Suspense loading. Initial unauthenticated smoke failed due to private UI markers in redirected HTML/RSC. PR #198 immediately enforced explicit owner/admin authorization in the parent page and async child before private DB queries; this **passed signed-out production RSC inspection**. Final app SHA `0f84dba3a1c9e8487c953b24c8a0ca1a4eb1838d`, Vercel `dpl_6J8N1ErH35V3GqY77rQR7xxAkowP` READY and homepage 200 matching. CI/secrets/preview passed; signed-in speed and shortlist correctness still require owner browser test. No source/merchant/cron/product publishing changes.
