@@ -4,13 +4,16 @@
   "repository": "crkian/AVUQO",
   "repository_visibility": "public",
   "production_snapshot": {
-    "commit": "41cb2755b00d8f2c0558e38fe18e1f7852d33fdc",
-    "deployment_id": "dpl_7LR8wQLo6X9jSZhU9zYeyiTVPTAY",
+    "commit": "20006d39f7ae9541f79ca39ef9966818cb0cae93",
+    "deployment_id": "dpl_DrcFffyiYBCmdF9T6PcYoKfjDqd4",
     "state": "READY",
     "aliases": [
       "www.avuqo.com",
       "avuqo.com"
-    ]
+    ],
+    "verified_public_homepage_http_status": 200,
+    "source_pr": 189,
+    "release_status": "verified_at_snapshot_date"
   },
   "branch_inventory": {
     "counts": {
@@ -348,5 +351,15 @@
     "Do not silently activate Awin feeds or social publishing",
     "Preserve original visual and security refs until contributions reviewed",
     "Current state and production observations must be freshly checked"
-  ]
+  ],
+  "register_release": {
+    "pr": 189,
+    "merge_commit": "20006d39f7ae9541f79ca39ef9966818cb0cae93",
+    "vercel_deployment_id": "dpl_DrcFffyiYBCmdF9T6PcYoKfjDqd4",
+    "quality": "passed",
+    "secrets": "passed",
+    "preview": "passed",
+    "main_branch_cleanup": "feature_ref_absent",
+    "notes": "Dated project index not a complete repository file-tree export"
+  }
 }

@@ -4,13 +4,15 @@
 
 > **Rule:** An idea appearing here is NOT proof that it works, is licensed, has connected provider data, is deployed, or has passed real signed-in/browser acceptance. Original owner PDFs and visual assets may contain confidential material and are not automatically copied into a public repository.
 
+**Publication proof:** Index released through [PR #189](https://github.com/crkian/AVUQO/pull/189) at `20006d39f7ae9541f79ca39ef9966818cb0cae93`, Vercel `dpl_DrcFffyiYBCmdF9T6PcYoKfjDqd4` READY with both public aliases. Homepage HTTP 200 at matching deployment. Quality build/lint, source map contracts, secrets and preview passed. The Git branch count remained 22 after automatic retirement of the index PR's own feature branch. This is a dated **public repository** snapshot, not an ongoing auto-sync of all commits or private originals.
+
 ## 1. Verified live snapshot and what Git means
 
 | Evidence | As checked 14 Nov 2026 |
 |---|---|
 | Default branch | `main` |
-| Production SHA | `41cb2755b00d8f2c0558e38fe18e1f7852d33fdc` |
-| Vercel READY deployment | `dpl_7LR8wQLo6X9jSZhU9zYeyiTVPTAY` |
+| Production SHA at index release | `20006d39f7ae9541f79ca39ef9966818cb0cae93` |
+| Vercel READY deployment at index release | `dpl_DrcFffyiYBCmdF9T6PcYoKfjDqd4` |
 | Public domains | `www.avuqo.com`, `avuqo.com` |
 | Branch inventory | **22 refs**: 1 main + 5 open PRs + 2 security references + 14 old divergent feature/docs branches |
 | Earlier cleanup evidence | 63 → 25 through PR #185; 25 → 22 through verified PR #187 |

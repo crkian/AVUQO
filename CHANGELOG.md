@@ -1,3 +1,7 @@
+## 14 November 2026 · Complete Git/idea/handover register VERIFIED on production
+
+- PR #189 application/docs SHA `20006d39f7ae9541f79ca39ef9966818cb0cae93`, Vercel `dpl_DrcFffyiYBCmdF9T6PcYoKfjDqd4` READY and homepage 200 exact deployment. Added consolidated human and machine-readable Git register for 22 observed branches, five active PR drafts, nine original source ideas, 29 roadmap workstreams, 12 gaps and the complete handover navigation. No code feature, Supabase, Awin, media rights, pricing, cron or marketing activation change. Original confidential source files stay outside public Git, clearly indexed by digest.
+
 ## Unreleased · Unified AVUQO all-Git, branch, idea and handover register
 
 - Create a navigable GitHub index and JSON companion for the full observed 22-ref branch inventory, five open drafts, original 9 owner source references, 29 roadmap delivery IDs, 12 evidence gaps, current production proof, all critical handovers and cross-workstream future ideas. Preserve distinction between mapped ideas, staged/blocked source rights, verified production features and original confidential assets absent from public Git. No application code, provider, import, marketing or scheduled-job changes.
