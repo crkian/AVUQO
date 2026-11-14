@@ -45,3 +45,8 @@
 .page[data-tone="blue"]{--wash:#eaf1ff}
 .page[data-tone="green"]{--wash:#edf6e9}
 .page[data-tone="teal"]{--wash:#e8f5f3}
+
+
+/* Neutral editorial model imagery; never imply this is a merchant-supplied photo. */
+.researchArt{background:radial-gradient(circle at 72% 23%,#e0d1f2,transparent 43%),linear-gradient(145deg,#fbf7f3,#eee6f1);color:#76518f}
+.researchArt svg{height:43px;width:43px}
