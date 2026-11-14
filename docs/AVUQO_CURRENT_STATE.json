@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_5z93DKd4sceJjCdMFDpyi5zzca5U",
-    "verified_ready_sha": "0727c0866ad15053955dc3b9fa6822a043122376",
+    "deployment_id": "dpl_GhzjfNTsg2UYTumhPRwiPvSbwkJ3",
+    "verified_ready_sha": "a032f85a39964dff2ade6785331c399d2eccda1b",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "Awin feed inventory PR #183 READY; matching production homepage 200. Protected route HTTP not independently checked.",
+    "verification": "PR #185 automated verified merged-branch cleanup deployed READY. www homepage HTTP 200 matching deployment ID. No supplier/marketing product behaviour changed.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -174,15 +174,15 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Merge safe cleanup policy only after CI; inspect automatic cleanup Actions log and re-query live branches for actual deletion count. Keep original design/security/open PR refs."
+      "task": "Reconcile 17 divergent no-open-PR branches using actual code/docs diff to current main; preserve original design and security records; do not mass delete unmerged commits."
     },
     {
       "priority": 2,
-      "task": "Reconcile remaining open historical PRs #25 #83 #93 and dangerous Tyres #117 versus #158, preserving unique assets before closing."
+      "task": "Review open historic PRs #25 taxonomy, #83 reference art, #93 storefront; retain #117 unsafe Tyres worker and #158 lease until separate controlled tests."
     },
     {
       "priority": 3,
-      "task": "Continue Awin private import resilience/metadata freshness and owner-approved marketing draft acceptance without activating sources."
+      "task": "Continue private Awin import resilience and owner-approved editorial marketing, with source pauses, publication gates and Pneus cron unchanged."
     },
     {
       "priority": 4,
@@ -393,10 +393,10 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "feature": "Verified ongoing merged PR branch cleanup",
-    "status": "candidate_not_merged",
-    "branch": "chore/verified-merged-pr-branch-prune-20261114",
-    "scope": "Reduce stale GitHub refs without deleting unique or active work"
+    "feature": "None; PR #185 branch cleanup is live",
+    "status": "production_verified",
+    "recommended_next": "Reconcile 17 divergent historical refs, then return to import recovery and visual completion",
+    "automatic_pruning": "enabled after main pushes for verified merged PR heads"
   },
   "security_review_followups": [
     {
@@ -529,17 +529,23 @@
   },
   "branch_cleanup_candidate_20261114": {
     "starting_branches_including_main": 63,
-    "starting_open_prs": [
+    "verified_remaining_branches_including_main": 25,
+    "verified_disappeared_branch_refs": 38,
+    "open_pr_numbers": [
       25,
       83,
       93,
       117,
       158
     ],
+    "security_refs": 2,
+    "divergent_unreviewed_refs": 17,
     "workflow": ".github/workflows/verified-merged-branch-cleanup.yml",
-    "scope": "Only currently present merged PR #127+ exact frozen reviewed head SHA, unique PR-branch association, no open PR and no protected/design/security refs",
-    "mode": "candidate_not_merged",
-    "actual_branches_deleted": null,
-    "requires_post_merge_workflow_evidence": true
+    "status": "production_ready_and_branch_reduction_observed",
+    "release_pr": 185,
+    "release_sha": "a032f85a39964dff2ade6785331c399d2eccda1b",
+    "deployment_id": "dpl_GhzjfNTsg2UYTumhPRwiPvSbwkJ3",
+    "per_ref_action_log_checked": false,
+    "inventory_document": "docs/BRANCH_REDUCTION_RESULTS_AND_RECONCILIATION_2026-11-14.md"
   }
 }
