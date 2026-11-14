@@ -12,6 +12,9 @@ import {researchGuideBySlug} from "../../../lib/products/research-guides";
 import {verifiedProduct} from "../../../lib/products/public-catalog";
 import {chooseProductTemplate,validatedSpecificationEntries} from "../../../lib/products/templates";
 import styles from "./page.module.css";
+// A real 404 must be determined before streamed HTML. This route intentionally
+// blocks on authorised source evidence rather than prerendering a soft 404.
+export const instant = false;
 type Props={params:Promise<{slug:string}>};
 const gbp=(n:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(n);
 const approvedTyreSpecKeys=new Set(["tyre_width_mm","tyre_profile","tyre_rim_inches","load_index",
