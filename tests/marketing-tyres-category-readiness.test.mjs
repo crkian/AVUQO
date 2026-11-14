@@ -1,3 +1,4 @@
+import {chooseProductTemplate} from "../lib/products/templates.ts";
 import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
@@ -128,4 +129,49 @@ test("Marketing and tyre owner dashboards are role-protected, read-only and use 
  const marketing=file("app/control-centre/marketing/readiness/page.tsx");
  assert.match(marketing,/MARKETING_CHANNEL_ROADMAP/);
  assert.match(marketing,/site-advertising/);
+});
+
+test("all 25 departments have distinct editorial visuals and matching item guidance",()=>{
+ const visuals=DEPARTMENT_BLUEPRINTS.map(d=>d.visual.split("?")[0]);
+ assert.equal(new Set(visuals).size,25);
+ const headings=DEPARTMENT_BLUEPRINTS.map(d=>{
+  const item={product:{product_type:d.slug,canonical_title:"Fixture"},offers:[]};
+  const presentation=chooseProductTemplate(item.product,item.offers);
+  assert.equal(presentation.department?.slug,d.slug);
+  assert.equal(DEPARTMENT_BLUEPRINTS.filter(category=>eligibleDepartmentProduct(category,item)).length,1);
+  return presentation.groupHeading;
+ });
+ assert.equal(new Set(headings).size,25);
+});
+
+test("structured labels keep ambiguous and misclassified items off the wrong shelf",()=>{
+ const fixture=(type,...categories)=>({
+  product:{product_type:type,canonical_title:"Generic item"},
+  offers:categories.map(category=>({published:{category}})),
+ });
+ const cases=[
+  [fixture("cat food","Pets > Cat food"),"pets","pets"],
+  [fixture("smartwatch","Electronics > Wearables"),"tech","tech"],
+  [fixture("phone accessories"),"tech","tech"],
+  [fixture("product","Toys & Games › Board games"),"toys-games","general"],
+  [fixture("product","Motoring > Tyres"),"motoring","tyres"],
+  [fixture("product","Sports & Fitness > Bicycle tyres"),"sports-fitness","general"],
+  [fixture("cat food","Groceries"),undefined,"general"],
+  [fixture("product","Home","Tech"),undefined,"general"],
+  [fixture("unspecified"),undefined,"general"],
+ ];
+ for(const [item,slug,template] of cases){
+  assert.equal(identifiedDepartment(item)?.slug,slug);
+  assert.deepEqual(DEPARTMENT_BLUEPRINTS.filter(category=>eligibleDepartmentProduct(category,item)).map(d=>d.slug),slug?[slug]:[]);
+  assert.equal(chooseProductTemplate(item.product,item.offers).template,template);
+ }
+ const context=fixture("product","Tech > Headphones");
+ assert.equal(chooseProductTemplate(context.product,context.offers).specPriority[0],"noise_cancellation");
+ const laundry=fixture("washing machine","Home");
+ assert.equal(chooseProductTemplate(laundry.product,laundry.offers).specPriority[0],"installation_type");
+ const wrongLeaf=fixture("tech","Tech > Washing machine");
+ assert.equal(chooseProductTemplate(wrongLeaf.product,wrongLeaf.offers).specPriority[0],"model");
+ const nameOnly=fixture("product");
+ nameOnly.product.canonical_title="Headphones";
+ assert.equal(chooseProductTemplate(nameOnly.product,nameOnly.offers).template,"general");
 });

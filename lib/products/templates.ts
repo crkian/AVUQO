@@ -1,8 +1,9 @@
 import type {PublicProduct,PublicOffer} from "./public-catalog";
+import {classifiedDepartmentSlugs,departmentBlueprint,departmentForLabel,normalisedDepartment} from "./department-showrooms.ts";
 export type ProductTemplate="tech"|"home"|"beauty"|"grocery"|"tyres"|"motoring"|"travel"|"pets"|"fashion"|"gifts"|"general";
 export type ProductPresentation={
  template:ProductTemplate;eyebrow:string;sectionHeading:string;sectionIntro:string;practicalTitle:string;
- practicalPoints:readonly string[];groupHeading:string;imageShape:"square"|"portrait"|"wide";specPriority:readonly string[];
+ practicalPoints:readonly string[];groupHeading:string;imageShape:"square"|"portrait"|"wide";specPriority:readonly string[];department?:ReturnType<typeof departmentBlueprint>;
 };
 const TEMPLATES:Record<ProductTemplate,ProductPresentation>={
  tech:{template:"tech",eyebrow:"A closer look at the technology",sectionHeading:"The details that make a difference.",sectionIntro:"Compare the exact model and configuration, not just a shared product name.",practicalTitle:"Before adding it to your basket",practicalPoints:["Confirm the exact model, version, size and storage option.","Check included accessories, compatibility and warranty terms.","Consider running costs, repairability and delivery."],groupHeading:"Technical specifications",imageShape:"square",specPriority:["model","screen_size","storage","memory","processor","battery","connectivity","warranty"]},
@@ -17,25 +18,72 @@ const TEMPLATES:Record<ProductTemplate,ProductPresentation>={
  gifts:{template:"gifts",eyebrow:"The art of thoughtful giving",sectionHeading:"A little thought goes a long way.",sectionIntro:"Make the present fit the person and the occasion rather than the sale.",practicalTitle:"Before wrapping it up",practicalPoints:["Check the recipient's interests and age suitability.","Confirm what is included, delivery dates and gift options.","Check returns and any personalisation conditions."],groupHeading:"Gift & product details",imageShape:"portrait",specPriority:["recipient","age","occasion","material","size","included","personalisation"]},
  general:{template:"general",eyebrow:"A little more information",sectionHeading:"Know what you are comparing.",sectionIntro:"Use the available product details to check you're comparing the same item.",practicalTitle:"Things worth checking",practicalPoints:["Confirm the model, variant and included items.","Account for delivery and applicable charges.","Check returns, warranty and current retailer terms."],groupHeading:"Product details",imageShape:"square",specPriority:["model","size","material","warranty","specifications"]},
 };
-export function chooseProductTemplate(product:Pick<PublicProduct,"product_type"|"canonical_title">,offers:Pick<PublicOffer,"published">[]):ProductPresentation{
- const type=product.product_type?.toLowerCase()??"";
- const categories=offers.map(o=>o.published.category.toLowerCase()).join(" ");
- const name=product.canonical_title.toLowerCase();
- const combined=`${type} ${categories}`;
- if(/(grocery|grocer|supermarket|food|beverage|pantry)/.test(combined))return TEMPLATES.grocery;
- if(/(travel|hotel|holiday|flight|accommodation|booking|experience)/.test(combined))return TEMPLATES.travel;
- if(/\b(tyres?|tires?)\b/.test(combined))return TEMPLATES.tyres;
- if(/(motor|vehicle|car |automotive|lease)/.test(combined))return TEMPLATES.motoring;
- if(/(beauty|skincare|cosmetic|fragrance|makeup|health & beauty)/.test(combined))return TEMPLATES.beauty;
- if(/(pets?|animal)/.test(combined))return TEMPLATES.pets;
- if(/(fashion|clothing|apparel|shoes|footwear|accessories|jewellery|watches)/.test(combined))return TEMPLATES.fashion;
- if(/(gifts?|toys?|seasonal|christmas)/.test(combined))return TEMPLATES.gifts;
- if(/(tech|electronics?|comput|phone|television|gaming|laptop|tablet|audio)/.test(combined))return TEMPLATES.tech;
- if(/(home|household|kitchen|appliance|furniture|decor|garden)/.test(combined))return TEMPLATES.home;
- // Product titles are only a last-resort visual hint, never evidence for a feature claim.
- if(/(macbook|laptop|smart tv|headphones|monitor|smartphone)/.test(name))return TEMPLATES.tech;
- if(/(vacuum|air fryer|sofa|lamp|kettle|bedding)/.test(name))return TEMPLATES.home;
- return TEMPLATES.general;
+const DEPARTMENT_TEMPLATES:Readonly<Record<string,ProductTemplate>>={
+ tech:"tech",home:"home",beauty:"beauty","grocery-food":"grocery",motoring:"motoring",
+ travel:"travel",pets:"pets",fashion:"fashion",gifts:"gifts",
+};
+type ProductDetail=Pick<ProductPresentation,"sectionHeading"|"groupHeading"|"specPriority">;
+const PRODUCT_DETAILS:Readonly<Record<string,ProductDetail>>={
+ headphones:{sectionHeading:"Comfort, listening time and connection",groupHeading:"Headphone specifications",specPriority:["noise_cancellation","battery","connectivity","weight","codec"]},
+ laptop:{sectionHeading:"Performance for the work you do",groupHeading:"Laptop configuration",specPriority:["processor","memory","storage","screen_size","battery","weight"]},
+ smartwatch:{sectionHeading:"The right fit for your wrist and phone",groupHeading:"Watch compatibility and features",specPriority:["case_size","connectivity","compatibility","battery","water_resistance"]},
+ "washing machine":{sectionHeading:"Fit, loads and running costs",groupHeading:"Installation and laundry specifications",specPriority:["installation_type","dimensions","capacity","energy_rating","spin_speed","noise_db"]},
+ "air fryer":{sectionHeading:"Capacity, controls and worktop space",groupHeading:"Air fryer specifications",specPriority:["capacity","dimensions","power","programmes","care"]},
+ "pet food":{sectionHeading:"Food suited to your pet and their life stage",groupHeading:"Feeding and pack details",specPriority:["species","age","ingredients","net_weight","feeding_guide"]},
+ "dog food":{sectionHeading:"Food suited to your dog and their life stage",groupHeading:"Feeding and pack details",specPriority:["species","age","ingredients","net_weight","feeding_guide"]},
+ "cat food":{sectionHeading:"Food suited to your cat and their life stage",groupHeading:"Feeding and pack details",specPriority:["species","age","ingredients","net_weight","feeding_guide"]},
+};
+const DEPARTMENT_FIELDS:Readonly<Record<string,readonly string[]>>={
+ "baby-nursery":["age","weight_limit","dimensions","safety_standard","care"],
+ "books-media":["isbn","edition","format","language","condition"],
+ "business-industrial":["model","capacity","voltage","dimensions","standards"],
+ "connectivity-utilities":["coverage","contract_length","speed","setup_fee","cancellation"],
+ crafts:["material","contents","dimensions","required_tools","age"],
+ "diy-building":["model","dimensions","material","compatibility","power"],
+ experiences:["venue","duration","age","accessibility","included","cancellation"],
+ "garden-outdoors":["dimensions","material","weather_resistance","assembly","care"],
+ "health-wellbeing":["size","strength","ingredients","usage","warnings"],
+ "home-services":["service_area","scope","duration","included","cancellation"],
+ "insurance-finance":["provider","cover","excess","eligibility","exclusions"],
+ "learning-education":["level","duration","accreditation","access_period","requirements"],
+ "musical-instruments":["model","instrument_type","size","tuning","connectivity"],
+ "office-stationery":["format","size","compatibility","quantity","refill"],
+ "sports-fitness":["size","weight_limit","material","assembly","activity"],
+ "toys-games":["age","players","edition","piece_count","batteries","warnings"],
+};
+const TYRE_LABEL=/^(?:tyres?|tires?|car tyres?|vehicle tyres?)$/;
+type OfferCategory={published:Pick<PublicOffer["published"],"category">};
+export function chooseProductTemplate(
+ product:Pick<PublicProduct,"product_type"|"canonical_title">,offers:OfferCategory[],
+):ProductPresentation{
+ const type=normalisedDepartment(product.product_type??"");
+ const matches=classifiedDepartmentSlugs({product,offers});
+ if(matches.size!==1)return TEMPLATES.general;
+ const department=departmentBlueprint([...matches][0]);
+ if(!department)return TEMPLATES.general;
+
+ const isTyre=department.slug==="motoring"&&(TYRE_LABEL.test(type)||offers.some(({published})=>
+  TYRE_LABEL.test(normalisedDepartment(published.category.split(/[>›/]/).at(-1)??""))));
+ if(isTyre)return {...TEMPLATES.tyres,department};
+
+ const categoryTypes=offers.map(({published})=>normalisedDepartment(published.category.split(/[>›/]/).at(-1)??""));
+ const explicitDetail=Object.hasOwn(PRODUCT_DETAILS,type)?PRODUCT_DETAILS[type]:undefined;
+ const subtypes=[...new Set(categoryTypes.filter(label=>Object.hasOwn(PRODUCT_DETAILS,label)&&departmentForLabel(label)?.slug===department.slug))];
+ const detail=explicitDetail??(subtypes.length===1?PRODUCT_DETAILS[subtypes[0]]:undefined);
+ const template=DEPARTMENT_TEMPLATES[department.slug];
+ if(template)return {...TEMPLATES[template],...(detail&&{...detail,sectionIntro:"Check which specifications apply to this exact variant."}),department};
+
+ return {
+  ...TEMPLATES.general,
+  eyebrow:department.name,
+  sectionHeading:department.focus,
+  sectionIntro:department.intro,
+  practicalPoints:department.checklist,
+  groupHeading:`${department.name} details`,
+  imageShape:department.family==="service"||department.family==="travel"?"wide":"square",
+  specPriority:DEPARTMENT_FIELDS[department.slug]??TEMPLATES.general.specPriority,
+  department,
+ };
 }
 export function validatedSpecificationEntries(value:unknown,priority:readonly string[]):[string,string][]{
  if(!value||typeof value!=="object"||Array.isArray(value))return [];

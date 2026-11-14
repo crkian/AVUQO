@@ -31,26 +31,24 @@ async function DepartmentGoods({department}:{department:string}){
  const editorial=departmentBySlug(department);
  const verified=await verifiedProductIndex(120);
  const matching=verified.filter(item=>eligibleDepartmentProduct(d,item));
- return <main className={styles.page}><Header/>
+ return <main className={styles.page} data-tone={d.theme}><Header/>
   <section className={styles.hero}>
    <div className={styles.heroPhoto} style={{backgroundImage:`url("${d.visual}")`}} aria-hidden="true"/>
    <div className={styles.heroShade} aria-hidden="true"/>
    <div className={"shell "+styles.heroInner}>
-    <nav className={styles.breadcrumb}><Link href="/categories">All categories</Link><span>/</span>
+    <nav aria-label="Breadcrumb" className={styles.breadcrumb}><Link href="/categories">All categories</Link><span>/</span>
      <Link href={editorial?editorialHref(editorial):"/categories"}>{d.name}</Link><span>/</span><span>Products</span></nav>
-    <p className={styles.kicker}>THE AVUQO PRODUCT EDIT / {d.family.toUpperCase()}</p>
-    <h1>{d.name}<br/><em>Worth a closer look.</em></h1>
-    <p>Explore the exact products and trusted offers available for this department. We only display a listing after its current data and merchant permissions pass our checks.</p>
-    <div className={styles.heroActions}><Link href={editorial?editorialHref(editorial):"/categories"}>Explore {d.name} guides <ArrowRight size={16}/></Link>
-     <Link href="/whos-who">Meet the makers <ArrowRight size={16}/></Link></div>
+    <p className={styles.kicker}>Products &amp; buying guidance</p>
+    <h1>{d.name}</h1>
+    <p>{d.intro}</p>
+    <div className={styles.heroActions}><Link href={editorial?editorialHref(editorial):"/categories"}>Explore the department <ArrowRight size={16}/></Link>
+     <Link href="#department-buying-guide">See buying guidance <ArrowRight size={16}/></Link></div>
    </div>
   </section>
   <section className={"shell "+styles.content}>
-   <div className={styles.heading}><div><p className={styles.kicker}>THE VERIFIED SHELF</p>
-    <h2>{matching.length?"Eligible products to explore.":"A considered collection, being prepared."}</h2>
-    <p>{matching.length?
-      "Only exact matching products with authorised, current public retailer offers are included. Check variant and total cost with the merchant.":
-      "This department is open for discovery, but no product has yet passed every public-offer gate. That is not a shortage claim or a promise of future availability."}</p></div>
+   <div className={styles.heading}><div>
+    <h2>{d.name} listings</h2>
+    <p>We show retailer offers after checking the product variant, price evidence and merchant permissions.</p></div>
     <span className={styles.status}><ShieldCheck size={17}/>{matching.length} eligible {matching.length===1?"product":"products"}</span></div>
    {matching.length?<div className={styles.goodsGrid}>{matching.map(({product,offers})=>{
     const approvedImage=offers.find(o=>o.published.image_url)?.published.image_url;
@@ -61,14 +59,14 @@ async function DepartmentGoods({department}:{department:string}){
       <strong>Examine exact product <ArrowRight size={15}/></strong></div>
     </Link>;
    })}</div>:
-    <div className={styles.empty}><ShieldCheck size={31}/><h3>No unverified products on this shelf.</h3>
-     <p>We never make up inventory, AVUQO Scores or sale prices. Meanwhile, browse the category guidance or search for a specific model.</p>
+    <div className={styles.empty}><ShieldCheck size={31}/><h3>No verified listings yet</h3>
+     <p>Explore buying guidance for {d.name} or search AVUQO for something specific.</p>
      <Link href={"/search?q="+encodeURIComponent(d.name)}>Search AVUQO <Search size={17}/></Link>
     </div>}
   </section>
-  <section className={styles.guide}><div className={"shell "+styles.guideGrid}>
+  <section className={styles.guide} id="department-buying-guide"><div className={"shell "+styles.guideGrid}>
    <div><p className={styles.kicker}>BUYING WITH CONFIDENCE</p><h2>{d.focus}</h2>
-    <p>The questions below are useful for this type of purchase. They do not certify a particular product.</p></div>
+    </div>
    <ul>{d.checklist.map(point=><li key={point}><CheckCircle2 size={20}/><span>{point}</span></li>)}</ul>
   </div></section>
   <section className={"shell "+styles.disclosure}>Category pages are editorial and can be live even where suppliers are not ready. Public products require an approved identity, current eligible retailer offer, authorised commercial data and separate image rights. <Link href="/editorial-policy">How verification works</Link>.</section>

@@ -1,5 +1,10 @@
 ## Verified marketing homepage fact-gate release · 13 November 2026
 
+## Department and item design
+
+The category directory links to all 25 editorial guides and product shelves. Use `lib/products/department-showrooms.ts` for the shared department artwork, buying checks and structured classification. Use `lib/products/templates.ts` for product-type details. Editorial photography illustrates each department. The verified-offer reader still controls retailer and merchant image eligibility. See the live handover for deployment and catalogue availability.
+
+
 PR #173 released at `1fcad1afd007544a2f4a2669b4d20c45d0226d19`, Vercel `dpl_22XM7ti5pdEDcgCnprCyfF7WMfYb` READY, live homepage exact SHA HTTP 200. Current approved AVUQO fact eligibility is checked in server-only code for every customer-visible custom home placement, preserving public limited-column RLS and evergreen fallback. Owner approve/resume is gated and Control Centre shows withheld state. Marketing publishing/AI are still disabled with emergency stop ON; no live approved campaigns or offers were fabricated. Finish real owner-created campaign test when approved evidence exists, and continue separate Awin import and editorial scheduling work.
 
 ## Marketing homepage source-claim gate · 13 November 2026 (candidate)

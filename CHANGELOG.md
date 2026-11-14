@@ -1,3 +1,8 @@
+## [0.5.2] · Department and item presentation
+
+- Give all 25 product departments their own editorial photograph and update the 14 generated department guides with topic links and specific buying checks.
+- Route product detail presentation and catalogue shelves through the same structured classification. Keep ambiguous items out of department shelves and use the verified catalogue on the Pets landing.
+
 ## 14 November 2026 · Private Awin retry recovery deployed
 
 - Recover an interrupted empty import session and deduplicate concurrent starts for the same feed snapshot. Completed sessions still require a matching fingerprint and row count.
