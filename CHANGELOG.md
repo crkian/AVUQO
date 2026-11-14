@@ -1,3 +1,8 @@
+## 14 November 2026 · Four public research-only model guides LIVE; 404 follow-up in review
+
+- PR #191 production SHA `3f5f9112505b427f3d0ded58516ffea582892dd8`, Vercel `dpl_7cFCyggNHknGtxcp4dfK1erajRxi` READY. Live homepage, /products, four model research detail routes and home/tech shelves all returned HTTP 200 matching deployment. No retailer price, stock, AVUQO Score, commissioned offer or merchant image released. Awin remains paused/sync off, 0 approved offer-release records.
+- QA observed a private pilot slug displaying not-found content but HTTP 200 after streamed rendering. Current follow-up fixes status by performing product entitlement check before returning streamed markup. This follow-up is **candidate until separate CI/production verification**. No disclosure of private pilot content was observed.
+
 ## Unreleased · Four editorial product model guides visible without unapproved offers
 
 - Add public buying research for four identifiable products (MacBook Air M4 13-inch, Ninja AF300UK, Dyson V15 Detect Absolute, LG C4 65-inch family), linked from `/products`, homepage and tech/home department shelves. Their individual routes show checklist/model caveats and manufacturer info, **not** prices, stock, licensed product images, AVUQO scores or affiliate purchase links. Existing verified-offer admission takes priority, unpublished pilots stay hidden, and research detail routes are noindex. No database, import, source rights, marketing or cron activation.
