@@ -1,5 +1,36 @@
 # AVUQO verified branch cleanup: production results and retained inventory
 
+## Latest verified position: 22 branches after PR #187
+
+**14 November 2026, verified on current GitHub and Vercel.** PR #187 merged at `79e97df4761cb57010bbf874bc92440545b6709f`; Vercel `dpl_wWZ37buUPN9syB77c9AEYFfXQVGf` READY on `www.avuqo.com` and `avuqo.com`. Live homepage returned HTTP 200 with matching deployment ID.
+
+Fresh GitHub listing: **22 branches including `main`**, down **41** from the original 63. Three deliberately reconciled closed-unmerged PR refs #50/#51/#85 were absent after the restricted retirement workflow; the temporary PR #187 branch was also auto-pruned. Original PRs remain closed and auditable. Their original content and evidence checks are recorded in `docs/CLOSED_LEGACY_BRANCH_RECONCILIATION_2026-11-14.md`. As before, per-branch GitHub Actions log output was not independently retrieved; GitHub branch inventory confirms the actual ref absences.
+
+Current 22 = **1 main + 5 open-PR heads + 2 security refs + 14 divergent historical branches not yet reconciled.** The full 14 historical refs:
+
+| Remaining historical ref | Next review |
+|---|---|
+| `docs/p0-03-verified-rollout-20261104` | Verify signed-in customer collection milestone records versus main |
+| `feature/awin-auto-import-clean-rebase-20261105` | Compare with current private importer #176 recovery |
+| `feature/awin-canonical-private-taxonomy-20261030` | Reconcile canonical taxonomy with open #25 |
+| `feature/awin-departments-crafts-20261030` | Compare current 50 category routes |
+| `feature/awin-feed-catalogue-safety-20261104` | Compare feed diagnostics with live #183 validations |
+| `feature/awin-readonly-diagnostics-20261104` | Compare live Control Centre diagnostics |
+| `feature/awin-safe-feed-change-monitor-20261104` | Compare live metadata monitor |
+| `feature/category-specific-product-previews-20261104` | Compare product shelves and owner-only preview |
+| `feature/photo-led-category-pages-2026` | Preserve any approved artwork before retiring |
+| `feature/tooled-up-awin-programme-currency-proof-20261105` | Check latest currency-verification constraints |
+| `feature/tooled-up-private-catalogue-filters-20261104` | Review current owner catalogue filters |
+| `fix/customer-item-links-and-roadmap-20261030` | Check current Saved and Watches destinations |
+| `fix/numbered-feed-filenames-20261104` | Check private upload file validation and tests |
+| `fix/phase1-saved-watches-routing-20261030` | Check current Saved and Watches destinations |
+
+Open PR #25/#83/#93/#117/#158, the original warm-premium design references and two security branches remain protected. No authorisation or source publication was activated by cleanup.
+
+---
+
+## Historical snapshot: 25 refs after PR #185
+
 *Evidence timestamp: 14 November 2026, after PR #185 automatic cleanup; do not infer future live state.*
 
 ## Results
@@ -9,7 +40,7 @@
 - **Evidence strength:** GitHub branch count before/after independently verifies refs disappeared. The workflow's per-branch outcomes were not directly retrieved from Actions logs in this session; do not claim those logs were independently inspected.
 - The updated cleanup runs automatically after pushes to `main`, and manual dispatch remains a dry run by default. It requires a merged PR, exact unchanged head and frozen last reviewed commit, unique PR use, no open PR, and no protected, security or original design ref.
 
-## The 25 retained refs
+## The 25 retained refs at that historical snapshot
 - **1 production branch:** `main`.
 - **5 open PR branches:** PR #25 `feature/universal-categories-inactive-20261030`; #83 `design/warm-premium-visual-system-20261105`; #93 `feature/warm-premium-experience-v1-20261105`; #117 `feature/tyres-uk-server-auto-enrichment-v2-20261109`; #158 `feature/tyres-uk-private-lease-primitives-review-20261113`. Each requires separate content/rights/security reconciliation. Do not auto-merge PR #117.
 - **2 security refs:** `security/block-future-secret-commits`, `security/remove-exposed-build-archive`; preserve pending security-source review.
@@ -35,7 +66,7 @@
 | `fix/numbered-feed-filenames-20261104` | 6 | import filename parsing, compare live validation |
 | `fix/phase1-saved-watches-routing-20261030` | 6 | saved/watch navigation, compare live |
 
-## Reduction plan
+## Original reduction plan after PR #185
 1. For each of the 17 divergent refs, compare the actual code/document changes with current production and existing GitHub handovers; classify **already incorporated**, **missing feature to port**, **reference to archive**, or **unsafe/superseded**. Record evidence before closing/deleting. Never wholesale merge a stale branch.
 2. Preserve original warm-premium artwork, security history, and Tyres UK #117/#158 while testing lease claims and resolving supplier permission questions.
 3. Evaluate the three non-tyre open PRs against current category/design functionality and retain original art references until copied into current `main`. Close an obsolete PR only after its value is captured.

@@ -1,3 +1,7 @@
+## Branch retirement verified: 25 to 22 · 14 Nov 2026
+
+PR #187 merged at `79e97df4761cb57010bbf874bc92440545b6709f`; Vercel `dpl_wWZ37buUPN9syB77c9AEYFfXQVGf` READY with both production aliases and exact live homepage HTTP 200. Three closed-but-unmerged PR branches #50/#51/#85 were reconciled against current Awin error-safe code, merchant terms review and byte-identical shared requirements. They were independently absent in fresh GitHub search after the bounded workflow. The temporary PR branch was also pruned. Now 22 refs including main: 5 open PRs, 2 protected security, 14 historical divergent, 1 main. The per-ref workflow log was not independently inspected; deletion is evidenced by the ref listing. Source, marketing and feed controls unchanged. See the current inventory and proof ledger under `docs/BRANCH_REDUCTION_RESULTS_AND_RECONCILIATION_2026-11-14.md`.
+
 ## Closed old PR source preservation · candidate · 14 November 2026
 
 - 25 live GitHub branches remain. Closed-not-merged historical PRs #50, #51 and #85 have been source-compared to current main. Awin errors already disclose only HTTP status, Cadbury/Petlibro restriction review exists with newer current notes, and price/eBay/Watch/SEO requirements doc has an identical content SHA.

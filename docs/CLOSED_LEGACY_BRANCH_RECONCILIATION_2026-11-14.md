@@ -1,6 +1,6 @@
 # Reconciled closed historical PR branches: exact-scope retirement
 
-Evidence date: 14 November 2026. **Candidate until GitHub CI, merger, action logs and a subsequent branch-count check.**
+Evidence date: 14 November 2026. **PRODUCTION VERIFIED.** PR #187 merged at `79e97df4761cb57010bbf874bc92440545b6709f`; Vercel `dpl_wWZ37buUPN9syB77c9AEYFfXQVGf` READY, exact live homepage HTTP 200. GitHub branch-list confirmed all three specifically listed historical refs are absent and the temporary PR branch is gone. Quality/secret checks passed on PR #187. The individual GitHub Actions deletion log has not been independently inspected, so this confirmation relies on the branch inventory and verified deployment.
 
 This is **not** a broad delete of divergent or closed PRs. Each branch below is a single, frozen historical PR, closed without merging, whose substantive contribution has been checked against current `main`. The historical PR's review and commits remain in GitHub after ref retirement.
 
@@ -28,3 +28,8 @@ Do not extend this allowlist without another actual diff-to-main audit, recorded
 Review `docs/p0-03-verified-rollout-20261104` with the current authentication/data-access acceptance, then `fix/numbered-feed-filenames-20261104`, `feature/awin-safe-feed-change-monitor-20261104`, and the other dated supplier/UX refs. Preserve `design/warm-premium-visual-system-20261105`, `feature/warm-premium-experience-v1-20261105`, the two `security/` refs, open #25 taxonomy, unsafe #117 tyre worker, and #158 dormant lease primitives until separately reconciled.
 
 **Retiring the branch is not merging its original PR.** The contribution was already selectively ported; the old PR remains closed and auditable. Check actual workflow runs and the branch list before claiming ref deletion.
+
+## Post-release result and remaining source
+- Original branches for closed PR #50, #51 and #85 were absent in the next GitHub listing. Their historical pull requests and commits remain accessible through GitHub.
+- The current approved Awin connector, merchant terms review and price/availability/SEO specification remain on `main`. The older evidence caution and acceptance limitations above remain valid.
+- The observed branch count is now **22 including main**: five active historical PRs, two security source refs, fourteen divergent review candidates and `main`. See `docs/BRANCH_REDUCTION_RESULTS_AND_RECONCILIATION_2026-11-14.md` for the complete current list.
