@@ -68,6 +68,8 @@ jobs:
         run: node --test tests/awin-http-error-redaction.test.mjs
       - name: Verify historical branch pruning frozen-commit safety gates
         run: node --test tests/verified-historical-branch-cleanup.test.mjs
+      - name: Verify three reconciled closed PR branch retirement proofs
+        run: node --test tests/reconciled-closed-pr-branch-retirement.test.mjs
       - name: Verify merged GitHub branch pruning safety gates
         run: node --test tests/verified-merged-branch-cleanup.test.mjs
       - name: Prevent generic homepage flash before UK seasonal hero
