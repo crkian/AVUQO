@@ -1,3 +1,7 @@
+## [0.5.3] · Category directory navigation
+
+- Keep the category directory footer below the independently scrolling department and topic panels on desktop.
+
 ## [0.5.2] · Department and item presentation
 
 - Give all 25 product departments their own editorial photograph and update the 14 generated department guides with topic links and specific buying checks.

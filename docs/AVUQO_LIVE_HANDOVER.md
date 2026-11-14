@@ -1,3 +1,9 @@
+## Category and item design verified · 14 November 2026
+
+PR #178 deployed `8010f564c5042d2058463dd6ad376b8ba67002ec` (Vercel `dpl_6KZUk22Bq8hqmKi6nKFqNtwDRKXX`, READY on `www.avuqo.com`). Build, lint, secret scan and preview passed. All 50 category guides and product shelves returned HTTP 200 with a heading on the exact deployment. All 25 shelves showed zero verified listings. Browser spot checks covered Books and Instruments and the Books shelf had zero document overflow at 337 and 1348 CSS pixels. Production had six demo deal rows and zero eligible external product listings, so populated item pages remain fixture-verified pending approved offers.
+
+Version 0.5.3 contains a follow-up for the category directory: constrain both scrolling columns to their grid row on desktop so the footer cannot cover department buttons. Production evidence for this follow-up will be added separately.
+
 ## Department and item presentation · 14 November 2026
 
 Baseline browsing exposed repeated monogram artwork on generated department guides and reused imagery on product shelves. Version 0.5.2 adds a unique editorial photo per department, keeps the 11 dedicated guides, and makes the 14 generated guides and 25 product shelves category-specific. The directory links directly to each product shelf.

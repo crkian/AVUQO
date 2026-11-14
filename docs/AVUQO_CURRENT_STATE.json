@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_59juctLSxXAr3bMbvMPiBbKLxKuN",
-    "verified_ready_sha": "043f7f3a9d72e93daa7d07744cf353d6f2d82c83",
+    "deployment_id": "dpl_6KZUk22Bq8hqmKi6nKFqNtwDRKXX",
+    "verified_ready_sha": "8010f564c5042d2058463dd6ad376b8ba67002ec",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #176 READY. Live unauthenticated Awin importer returned HTTP 401; authenticated supplier retry pending.",
+    "verification": "PR #178 READY. All 50 category guides and product shelves HTTP 200. No eligible products for live populated detail acceptance.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -25,7 +25,7 @@
     "supabase_project_id": "tfoukwcruaamrtgxzshh",
     "local_workdir_windows": "C:\\avuqo"
   },
-  "version_at_snapshot": "0.5.1",
+  "version_at_snapshot": "0.5.2",
   "product_direction": {
     "tagline": "Find what's worth it.",
     "model": "one catalogue for both product comparison and genuine bargain discovery",
@@ -478,5 +478,13 @@
     "emergency_stop": true,
     "observed_home_campaigns": 0,
     "real_owner_campaign_acceptance": "pending"
+  },
+  "category_design_release": {
+    "pr": 178,
+    "sha": "8010f564c5042d2058463dd6ad376b8ba67002ec",
+    "deployment_id": "dpl_6KZUk22Bq8hqmKi6nKFqNtwDRKXX",
+    "live_routes_checked": 50,
+    "public_external_listing_count": 0,
+    "populated_product_verification": "fixture only pending eligible offers"
   }
 }
