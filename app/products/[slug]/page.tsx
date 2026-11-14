@@ -27,12 +27,11 @@ export async function generateMetadata({params}:Props):Promise<Metadata>{
  }
  return {title:record.product.canonical_title,description:`Understand price and seller evidence for ${record.product.canonical_title} on AVUQO. Check each current retailer offer.`,alternates:{canonical:`/products/${slug}`},robots:{index:true,follow:true}};
 }
-async function ProductDetails({params}:Props){
- await connection();
- const {slug}=await params;
- const entry=await verifiedProduct(slug);
+type ApprovedProductEntry=NonNullable<Awaited<ReturnType<typeof verifiedProduct>>>;
+function ProductDetails({entry,guide}:{
+ entry:ApprovedProductEntry|null;guide:ReturnType<typeof researchGuideBySlug>;
+}){
  if(!entry){
-  const guide=researchGuideBySlug(slug);
   if(!guide)notFound();
   return <ResearchProductDetails guide={guide}/>;
  }
@@ -95,4 +94,13 @@ async function ProductDetails({params}:Props){
  <section className={`shell ${styles.disclaimer}`}><strong>How this page works</strong><p>Product matching, stock, prices and delivery information are based on the specific eligible source records shown. We do not guarantee availability or the checkout price. Compare the exact variant and merchant terms. Some eligible outbound links may earn AVUQO commission without affecting the ranking. <Link href="/affiliate-disclosure">Affiliate disclosure</Link> · <Link href="/editorial-policy">Editorial policy</Link>.</p></section>
  </div>;
 }
-export default function Page(props:Props){return <main><Header/><Suspense fallback={<div className="shell section">Checking product evidence…</div>}><ProductDetails {...props}/></Suspense><Footer/></main>;}
+export default async function Page({params}:Props){
+ // Reject draft/unapproved and unknown product identities before streaming HTML.
+ // A streamed not-found component can incorrectly return HTTP 200.
+ await connection();
+ const {slug}=await params;
+ const entry=await verifiedProduct(slug);
+ const guide=entry?undefined:researchGuideBySlug(slug);
+ if(!entry&&!guide)notFound();
+ return <main><Header/><Suspense fallback={<div className="shell section">Checking product evidence…</div>}><ProductDetails entry={entry} guide={guide}/></Suspense><Footer/></main>;
+}
