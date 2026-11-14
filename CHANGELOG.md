@@ -1,3 +1,7 @@
+## Unreleased · Unified AVUQO all-Git, branch, idea and handover register
+
+- Create a navigable GitHub index and JSON companion for the full observed 22-ref branch inventory, five open drafts, original 9 owner source references, 29 roadmap delivery IDs, 12 evidence gaps, current production proof, all critical handovers and cross-workstream future ideas. Preserve distinction between mapped ideas, staged/blocked source rights, verified production features and original confidential assets absent from public Git. No application code, provider, import, marketing or scheduled-job changes.
+
 ## 14 November 2026 · Three historically closed branch refs retired, production verified
 
 - PR #187 production SHA `79e97df4761cb57010bbf874bc92440545b6709f`, Vercel READY `dpl_wWZ37buUPN9syB77c9AEYFfXQVGf`. Exact audited and content-preserved branches from closed PRs #50, #51, #85 were confirmed absent after the frozen-SHA retirement action. Branch count 25 to 22 including main, original 63 to 22. The original PR history is retained, remaining 14 divergent refs and original design/security/tyre work protected. No app features, permissions, feed source or cron activated.
