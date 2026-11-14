@@ -1,3 +1,7 @@
+## Awin metadata inventory duplicate guard · 14 November 2026 (candidate)
+
+Current-main branch `fix/awin-feed-monitor-ambiguous-inventory-20261114` protects private metadata monitoring against duplicate column identifiers, contradictory feed rows and malformed product counts. Conflicts are recorded as invalid inventory, not normal refresh/zero-count feed updates; harmless signed URL rotation is ignored and the URLs are never retained. Source remains paused/sync off. Existing private retries from #176 and Pneus cron unaffected. Release checks in `docs/AWIN_FEED_INVENTORY_AMBIGUITY_GATE_2026-11-14.md`. Do not claim deployed until Vercel READY.
+
 ## Marketing draft-only scheduler resilience released · 14 November 2026
 
 PR #181 Vercel READY app SHA `a75964878b61b9ae175252e085646404dd8a5cb1` (`dpl_2pc1X5UNfnSpQC9TnGSmFPf6sxJQ`). Existing 09:00 UTC marketing cron continues; bad individual scheduled draft rules no longer abort other rules. No actual rules/posts are live, no fake owner facts, and no publishing/AI/merchant gates were activated. Read `docs/MARKETING_EDITORIAL_RULE_ISOLATION_RELEASE_2026-11-14.md` for tests and acceptance limitations.
