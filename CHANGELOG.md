@@ -1,3 +1,7 @@
+## Unreleased · Awin metadata feed inventory ambiguity protection
+
+- Reject duplicate/empty CSV header names, missing or invalid product counts, and conflicting duplicate advertiser/feed identities. Continue allowing identical metadata entries with different credential-bearing URLs without storing or returning the links. Existing feed monitor fails closed before discovery writes on malformed inventories; no feed, import, cron, price or rights activation.
+
 ## 14 November 2026 · Marketing draft scheduler failure isolation LIVE
 
 - PR #181 merged `a75964878b61b9ae175252e085646404dd8a5cb1`, Vercel production READY `dpl_2pc1X5UNfnSpQC9TnGSmFPf6sxJQ`. The daily editorial-only scheduling loop now isolates malformed/failed rules, validates brand/channel/owner/due/cadence before its claim and records bounded errors without overwriting newer schedules. Review-only drafts unchanged; social/AI and supplier imports remain gated.
