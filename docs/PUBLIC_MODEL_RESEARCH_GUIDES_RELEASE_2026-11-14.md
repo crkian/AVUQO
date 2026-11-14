@@ -1,6 +1,10 @@
+## Verified release and isolated follow-up
+
+PR #191 merged SHA `3f5f9112505b427f3d0ded58516ffea582892dd8`, Vercel `dpl_7cFCyggNHknGtxcp4dfK1erajRxi` READY with production aliases and live HTTP 200 on homepage, /products, four model detail routes, home/tech shelves. All four detail routes contained editorial guide/no-live-offer notices and no retailer CTA. Awin stayed paused and had zero approved release records. The Cadbury draft pilot URL returned **HTTP 200 containing not-found markup and no pilot content** due Suspense streaming, so HTTP 404 acceptance remains open until the follow-up. The current follow-up branch performs the unknown/draft check before rendering the page. Do not claim an HTTP 404 until real production verification.
+
 # P1 product visibility: four public model research guides
 
-Date: 14 November 2026. **Release candidate until PR merge and exact READY production evidence.**
+Date: 14 November 2026. **PR #191 verified on production.** Follow-up for true not-found HTTP status is pending.
 
 ## Owner goal
 Make actual named products visible on the real AVUQO site now, without leaking demonstration offers, turning on unauthorised supplier sync, inventing merchant prices/stock, or losing the original warm-premium design direction.
