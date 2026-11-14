@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_2r8GhTAvLXmMw4nbuA1EgymqdGbT",
-    "verified_ready_sha": "08c34b2c58aa93084ed8e72d166bcba4120bf800",
+    "deployment_id": "dpl_8KU4CnG7t2rWMVC5GKFZbpbw9YtP",
+    "verified_ready_sha": "927e60d4174d5ac58f3d0cfa8587065ea9f5dfe2",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #195 Control Centre editor request-bound code Vercel READY. Homepage 200 exact deployment. Signed-in owner editor and Dashboard count browser acceptance pending.",
+    "verification": "PR #197 Live Data streamed candidate panel READY, public homepage 200 exact dpl. Signed-out RSC contained some private page UI payload alongside redirect, requiring hotfix; no actual private rows confirmed in sampled bytes.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -174,27 +174,23 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Merge Live Data candidate scan streaming after GitHub CI and Vercel preview. Verify production exact READY and signed-out Control Centre guard. Separately measure signed-in metrics and candidate shortlist timing."
+      "task": "Merge Live Data role-before-fetch hotfix only after CI/preview. On exact READY deployment inspect signed-out RSC body to confirm redirect and NO private candidate or operational metrics. Keep provider/marketing gates unchanged."
     },
     {
       "priority": 2,
-      "task": "Use approved owner/Work read-only browser to verify both Awin observation count cards and editor post-#195 log requests; no Save/Publish."
+      "task": "Read-only owner browser: independently measure Live Data main dashboard first paint and candidate shortlist, verify result/permission state."
     },
     {
       "priority": 3,
-      "task": "Fix actual HTTP 404 for unknown/unapproved product identities; PR #194 failed real HTTP status. Keep four editorial model guides."
+      "task": "Owner or Work check Marketplace/Source Atlas 74 Awin observation count and editor no-new-prerender logs; no Save/Publish."
     },
     {
       "priority": 4,
-      "task": "Obtain licensed live retailer product feed/price/stock/affiliate image permissions and approve one genuine offer in owner control pipeline, not demo prices."
+      "task": "Fix genuine product 404 status; draft/unknown slugs still HTTP 200 with no-result content, four editorial guides are real but unpriced."
     },
     {
       "priority": 5,
-      "task": "Continue historical divergent branch reconciliation after live UX and approved imports remain stable."
-    },
-    {
-      "priority": 6,
-      "task": "Audit and retire only superseded historical branches while porting missing worthwhile code/design."
+      "task": "First real approved retailer product offer when current permissions, live price, VAT/delivery, variant and rights are established."
     }
   ],
   "required_reverification": [
@@ -393,15 +389,14 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "feature": "Live Data Monitor 5,000-row candidate scan isolated behind Suspense",
+    "feature": "Live Data parent and async candidate explicit role guard before private RSC streaming",
+    "branch": "fix/live-data-auth-before-private-stream-20261114",
     "status": "candidate_not_merged",
-    "branch": "perf/live-data-candidate-suspense-20261114",
+    "release_blocks_other_new_features": true,
     "tests": "tests/live-data-candidate-streaming.test.mjs",
-    "production_ready": false,
-    "owner_first_paint_latency_verified": false,
-    "supplier_activation": false,
-    "cron_change": false,
-    "database_migration": false
+    "requires_signed_out_rsc_smoke": true,
+    "requires_production_ready": true,
+    "db_changes": false
   },
   "security_review_followups": [
     {
@@ -684,6 +679,12 @@
     "first_paint_implementation": "independent Suspense candidate panel",
     "first_paint_latency_measured": false,
     "owner_browser_acceptance": "pending",
-    "documentation": "docs/LIVE_DATA_MONITOR_CANDIDATE_STREAMING_2026-11-14.md"
+    "documentation": "docs/LIVE_DATA_MONITOR_CANDIDATE_STREAMING_2026-11-14.md",
+    "pr": 197,
+    "release_sha": "927e60d4174d5ac58f3d0cfa8587065ea9f5dfe2",
+    "release_deployment_id": "dpl_8KU4CnG7t2rWMVC5GKFZbpbw9YtP",
+    "code_deployed": true,
+    "security_acceptance": "failed_unsigned_RSC_serialized_private_UI",
+    "signed_in_perf_acceptance": "pending"
   }
 }
