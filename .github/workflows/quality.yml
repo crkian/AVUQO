@@ -66,6 +66,8 @@ jobs:
         run: node --test tests/feed-import-filenames.test.mjs
       - name: Awin provider error redaction regression tests
         run: node --test tests/awin-http-error-redaction.test.mjs
+      - name: Owner Petlibro preflight, private staging and global-stop acceptance tests
+        run: node --test tests/awin-owner-pilot-controls.test.mjs
       - name: Verify historical branch pruning frozen-commit safety gates
         run: node --test tests/verified-historical-branch-cleanup.test.mjs
       - name: Verify three reconciled closed PR branch retirement proofs
