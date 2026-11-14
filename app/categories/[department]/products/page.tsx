@@ -3,12 +3,13 @@ import {Suspense} from "react";
 import type {Metadata} from "next";
 import {connection} from "next/server";
 import {notFound} from "next/navigation";
-import {ArrowRight,CheckCircle2,Search,ShieldCheck,ShoppingBag} from "lucide-react";
+import {ArrowRight,BookOpen,CheckCircle2,Search,ShieldCheck,ShoppingBag} from "lucide-react";
 import Header from "../../../../components/layout/Header";
 import Footer from "../../../../components/layout/Footer";
 import {BROWSE_DEPARTMENTS,departmentBySlug,departmentHref as editorialHref}
  from "../../../../lib/categories/browse-tree";
 import {verifiedProductIndex} from "../../../../lib/products/public-catalog";
+import {researchGuidesByDepartment} from "../../../../lib/products/research-guides";
 import {departmentBlueprint,eligibleDepartmentProduct} from "../../../../lib/products/department-showrooms";
 import styles from "./page.module.css";
 
@@ -18,8 +19,8 @@ export function generateStaticParams(){
 }
 export async function generateMetadata({params}:Props):Promise<Metadata>{
  const d=departmentBlueprint((await params).department);
- return d?{title:d.name+" | Verified products | AVUQO",
-  description:"Explore "+d.name+" products only when exact variants and current authorised retailer offers are approved.",
+ return d?{title:d.name+" | Products and buying guides | AVUQO",
+  description:"Research "+d.name+" models and see live retailer offers only after eligibility and permission checks.",
   alternates:{canonical:"/categories/"+d.slug+"/products"},
   robots:{index:false,follow:true}}:
   {title:"Department unavailable",robots:{index:false,follow:false}};
@@ -31,6 +32,7 @@ async function DepartmentGoods({department}:{department:string}){
  const editorial=departmentBySlug(department);
  const verified=await verifiedProductIndex(120);
  const matching=verified.filter(item=>eligibleDepartmentProduct(d,item));
+ const research=researchGuidesByDepartment(department);
  return <main className={styles.page} data-tone={d.theme}><Header/>
   <section className={styles.hero}>
    <div className={styles.heroPhoto} style={{backgroundImage:`url("${d.visual}")`}} aria-hidden="true"/>
@@ -45,6 +47,16 @@ async function DepartmentGoods({department}:{department:string}){
      <Link href="#department-buying-guide">See buying guidance <ArrowRight size={16}/></Link></div>
    </div>
   </section>
+  {research.length>0&&<section className={"shell "+styles.content} aria-labelledby="department-research-heading">
+   <div className={styles.heading}><div><p className={styles.kicker}>Editorial research guides</p>
+    <h2 id="department-research-heading">Explore individual models</h2>
+    <p>These guides identify real product models and buying considerations. They do not show a live retailer offer, current price, stock, product photograph or AVUQO Score.</p></div></div>
+   <div className={styles.goodsGrid}>{research.map(guide=><Link className={styles.item} key={guide.slug} href={"/products/"+guide.slug}>
+    <div className={`${styles.art} ${styles.researchArt}`} aria-hidden="true"><BookOpen size={40}/></div>
+    <div className={styles.itemBody}><p>{guide.brand} · Research guide</p><h3>{guide.title}</h3>
+      <span>No verified retailer offers yet</span><strong>View buying questions <ArrowRight size={15}/></strong></div>
+   </Link>)}</div>
+  </section>}
   <section className={"shell "+styles.content}>
    <div className={styles.heading}><div>
     <h2>{d.name} listings</h2>
