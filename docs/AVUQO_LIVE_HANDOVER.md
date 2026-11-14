@@ -1,3 +1,7 @@
+## Owner Control Centre audit · 14 November 2026
+
+All 56 fixed and linked detail pages rendered with the owner role, and 14 editor and marketing variants opened. Marketplace and Source Atlas each have a confirmed observation-count permission gap. Live Data can be slow, the endpoint checker has no configured targets, and Open Food Facts returned HTTP 503. See [the route-by-route owner audit](AVUQO_CONTROL_CENTRE_OWNER_AUDIT_2026-11-14.md). State-changing action acceptance remains pending.
+
 ## PRODUCT VISIBILITY FIRST: FOUR MODEL RESEARCH GUIDES · CANDIDATE · 14 NOV 2026
 
 Owner priority is to put recognisable products on the actual site before further Git housekeeping. Fresh read-only production Supabase: **4 active product identities**, **8 draft pilots**, **6 demo-only offers** and **0 approved Awin offer release reviews**; Awin remains **paused, sync disabled, publisher/product rights pending**. Existing public `verifiedProductIndex` correctly excludes the demo offers, so showing live prices today would misrepresent the data.
