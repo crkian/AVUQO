@@ -1,3 +1,9 @@
+## Live Data candidate scan streaming · candidate · 14 November 2026
+
+- Refactor `/control-centre/live-data` to stream independent source counts, source health and recent import runs while its up-to-5,000-row candidate scan loads inside a separate accessible Suspense server component. Preserve 200-row serial pages, 40-row shortlist, dedup, error/partial labels and private-source permission restrictions.
+- Candidate reads now use the existing session-scoped Supabase client inside the auth-protected Control Centre layout. No new DB grants, writes, supplier imports, price approvals, cron or social action. Explicitly mark permission/scan failure Unavailable, not zero.
+- Regression test `tests/live-data-candidate-streaming.test.mjs` included in quality CI. **Not live until merge and Vercel READY**. Signed-in metrics-versus-candidates browser timing remains pending. See `docs/LIVE_DATA_MONITOR_CANDIDATE_STREAMING_2026-11-14.md`.
+
 ## Owner Control Centre audit editor release VERIFIED · 14 November 2026
 
 PR #195 code `08c34b2c58aa93084ed8e72d166bcba4120bf800`, Vercel `dpl_2r8GhTAvLXmMw4nbuA1EgymqdGbT` READY, homepage HTTP 200 exact deployment; quality, lint, owner-audit tests, secrets and preview passed. Private editorial page requests now explicitly enter `connection()` before role and DB reads, with no Save/Publish logic changes. Vercel runtime search for Date.now/prerender had no matching lines within the sampled release window; no fresh signed-in browser or write-path acceptance was performed.

@@ -1,3 +1,7 @@
+## Unreleased · Stream Live Data metrics independently of private 5,000-row candidate scan
+
+- Move the read-only pending candidate scan into a separate async server panel behind an accessible Suspense fallback. The original 200-row paging, 5,000-row maximum, dedup, permission warnings and 40-row preview remain. Failures are explicitly Unavailable, no imported products or publishing controls change. Actual owner browser latency improvement remains to be measured.
+
 ## 14 November 2026 · Control Centre editor private request boundary LIVE
 
 - PR #195 code `08c34b2c58aa93084ed8e72d166bcba4120bf800`, Vercel `dpl_2r8GhTAvLXmMw4nbuA1EgymqdGbT` READY. The authenticated editorial page editor now opts into request-time rendering before role, parameters and DB access; tests guard server-only private observation count access in Source Atlas and Marketplace. No content was saved or published, no broad DB grant applied; owner browser acceptance pending. Added independent Work screenshot/latency audit brief. Product draft-slug HTTP 200 defect remains open.

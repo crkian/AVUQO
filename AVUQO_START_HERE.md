@@ -19,6 +19,8 @@
 > [Latest owner Control Centre audit](docs/AVUQO_CONTROL_CENTRE_OWNER_AUDIT_2026-11-14.md) records 56 rendered pages, operational warnings and the remaining action checks.
 
 ## Next work
+**Active live-data candidate (not live):** `perf/live-data-candidate-suspense-20261114` separates the slow private 5,000-row candidate scan from the Live Data Monitor's initial source metrics, with an accessible loading panel. See `docs/LIVE_DATA_MONITOR_CANDIDATE_STREAMING_2026-11-14.md`. Release only after CI/preview/Vercel exact production READY; signed-in owner browser timing and row/permission checks are still required. No supplier/import/social activation. The product HTTP 404 problem and first approved retailer offer remain distinct urgent priorities.
+
 
 **Owner Control Centre audit reconciliation in progress, editor code released:** The original [56-page owner audit](docs/AVUQO_CONTROL_CENTRE_OWNER_AUDIT_2026-11-14.md) found private Awin observation metrics unavailable, Live Data slowness and a page editor prerender warning. Fresh code review confirms Marketplace and Source Atlas now use the authenticated server-only Awin count pattern; Supabase sees **74** rows, but signed-in owner/browser cards still need confirmation. The editor request-bound rendering fix is live via PR #195; read [the latest reconciliation and remaining checks](docs/CONTROL_CENTRE_OWNER_AUDIT_RECONCILIATION_2026-11-14.md). Live Data needs a separate loading boundary, and Save/Publish/Import/Retry remain untested on disposable controlled data.
 

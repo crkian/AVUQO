@@ -174,23 +174,23 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Owner/Work read-only browser verify Marketplace and Source Atlas Awin count cards show actual private 74 observation count, and editor loads without fresh prerender Date.now logs. No Save/Publish."
+      "task": "Merge Live Data candidate scan streaming after GitHub CI and Vercel preview. Verify production exact READY and signed-out Control Centre guard. Separately measure signed-in metrics and candidate shortlist timing."
     },
     {
       "priority": 2,
-      "task": "Isolate Live Data 5k-row serial candidate scan into separate loading/Suspense boundary while preserving status/error/partial data and no writes."
+      "task": "Use approved owner/Work read-only browser to verify both Awin observation count cards and editor post-#195 log requests; no Save/Publish."
     },
     {
       "priority": 3,
-      "task": "Investigate true HTTP 404 for unapproved product pilots and unknown model slugs; PR #194 still live HTTP 200 not-found HTML. Maintain four legitimate guides."
+      "task": "Fix actual HTTP 404 for unknown/unapproved product identities; PR #194 failed real HTTP status. Keep four editorial model guides."
     },
     {
       "priority": 4,
-      "task": "Owner-approved current Awin product, merchant, image and landed-price evidence, then release one eligible real offer with existing approval gates. Source paused, no demo prices."
+      "task": "Obtain licensed live retailer product feed/price/stock/affiliate image permissions and approve one genuine offer in owner control pipeline, not demo prices."
     },
     {
       "priority": 5,
-      "task": "Use Work parallel screenshot and owner console QA briefs; keep Work read-only while ChatGPT changes Git."
+      "task": "Continue historical divergent branch reconciliation after live UX and approved imports remain stable."
     },
     {
       "priority": 6,
@@ -393,10 +393,15 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "feature": "None; PR #195 editor request-bound code verified live",
-    "status": "production_verified_authenticated_acceptance_pending",
-    "recommended_next": "Live Data candidate scan Suspense/loading partition and independently verify Awin dashboard cards; product HTTP 404 unresolved",
-    "source_activation": "unchanged"
+    "feature": "Live Data Monitor 5,000-row candidate scan isolated behind Suspense",
+    "status": "candidate_not_merged",
+    "branch": "perf/live-data-candidate-suspense-20261114",
+    "tests": "tests/live-data-candidate-streaming.test.mjs",
+    "production_ready": false,
+    "owner_first_paint_latency_verified": false,
+    "supplier_activation": false,
+    "cron_change": false,
+    "database_migration": false
   },
   "security_review_followups": [
     {
@@ -666,5 +671,19 @@
     "pilot_slug_http": 200,
     "unknown_slug_http": 200,
     "true_http_404_acceptance": false
+  },
+  "live_data_candidate_isolation_20261114": {
+    "branch": "perf/live-data-candidate-suspense-20261114",
+    "component": "app/control-centre/live-data/CandidateReviewPanel.tsx",
+    "parent": "app/control-centre/live-data/page.tsx",
+    "candidate_limit": 5000,
+    "page_size": 200,
+    "shortlist_limit": 40,
+    "read_only": true,
+    "role_access_in_parent_layout": true,
+    "first_paint_implementation": "independent Suspense candidate panel",
+    "first_paint_latency_measured": false,
+    "owner_browser_acceptance": "pending",
+    "documentation": "docs/LIVE_DATA_MONITOR_CANDIDATE_STREAMING_2026-11-14.md"
   }
 }
