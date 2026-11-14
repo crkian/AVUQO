@@ -1,3 +1,7 @@
+## Unreleased · Live Data stream access-control hotfix
+
+- After PR #197's READY scan-streaming release, a signed-out request still received some private dashboard React payload during the layout's login redirect. Add explicit owner/admin authorization within the Live Data route and nested async candidate panel before database reads or JSX. Tests verify pre-query guards. No private rows observed in the sampled response, but anonymous RSC content must be excluded before acceptance. No DB, retailer, source or marketing changes.
+
 ## Unreleased · Stream Live Data metrics independently of private 5,000-row candidate scan
 
 - Move the read-only pending candidate scan into a separate async server panel behind an accessible Suspense fallback. The original 200-row paging, 5,000-row maximum, dedup, permission warnings and 40-row preview remain. Failures are explicitly Unavailable, no imported products or publishing controls change. Actual owner browser latency improvement remains to be measured.
