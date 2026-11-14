@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_wWZ37buUPN9syB77c9AEYFfXQVGf",
-    "verified_ready_sha": "79e97df4761cb57010bbf874bc92440545b6709f",
+    "deployment_id": "dpl_DrcFffyiYBCmdF9T6PcYoKfjDqd4",
+    "verified_ready_sha": "20006d39f7ae9541f79ca39ef9966818cb0cae93",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #187 reconciled three closed old PR refs. Vercel READY and www homepage 200 exact data-dpl-id. No source or customer code activation.",
+    "verification": "Complete Git and ideas index PR #189 READY, live homepage HTTP 200 exact deployment.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -393,11 +393,9 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "feature": "Full Git branch, idea source and handover inventory",
-    "branch": "docs/unified-git-branches-ideas-handover-20261114",
-    "status": "candidate_not_merged_or_deployed",
-    "scope": "Docs only; preserve public repo privacy and original owner source provenance",
-    "tests": "tests/complete-git-idea-handover-index.test.mjs"
+    "feature": "Complete Git/idea index",
+    "status": "production_verified",
+    "recommended_next": "Review historical P0-03 documentation, then Awin import and marketing work"
   },
   "security_review_followups": [
     {
@@ -596,7 +594,7 @@
     "no_source_activation": true
   },
   "complete_git_idea_handover_snapshot_20261114": {
-    "status": "candidate_docs_only_not_merged",
+    "status": "production_verified",
     "repo_visibility": "public",
     "index_markdown": "docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md",
     "index_json": "docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.json",
@@ -620,6 +618,9 @@
     "granular_requirement_gaps_indexed": 12,
     "production_sha_checked_before_branch": "41cb2755b00d8f2c0558e38fe18e1f7852d33fdc",
     "production_deployment_checked": "dpl_7LR8wQLo6X9jSZhU9zYeyiTVPTAY",
-    "notes": "Index is source and handover map, not proof every idea is built. Originals remain owner assets. Re-verify branches/deployment before any changes."
+    "notes": "Index is source and handover map, not proof every idea is built. Originals remain owner assets. Re-verify branches/deployment before any changes.",
+    "release_pr": 189,
+    "release_sha": "20006d39f7ae9541f79ca39ef9966818cb0cae93",
+    "release_deployment": "dpl_DrcFffyiYBCmdF9T6PcYoKfjDqd4"
   }
 }
