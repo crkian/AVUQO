@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "project": "AVUQO",
-  "as_of_utc": "2026-11-13",
+  "as_of_utc": "2026-11-14",
   "evidence_note": "Historical snapshot only. Recheck GitHub main HEAD, Vercel current production SHA and live Supabase source permissions at the start of every chat.",
   "repo": "crkian/AVUQO",
   "default_branch": "main",
@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_22XM7ti5pdEDcgCnprCyfF7WMfYb",
-    "verified_ready_sha": "1fcad1afd007544a2f4a2669b4d20c45d0226d19",
+    "deployment_id": "dpl_aisifpCp2x3z2Tim7YHznzPYp68U",
+    "verified_ready_sha": "92afa9c906b25f5fd8df259c62f793fbd2712500",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #173 marketing current-fact eligibility release READY, live homepage HTTP 200 at exact deployment. No marketing campaigns approved or social/AI enabled.",
+    "verification": "Vercel READY with signed-out live account and catalogue browser checks.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -444,7 +444,16 @@
     ],
     "signed_in_account_acceptance": "pending",
     "approved_offer_image_visual_acceptance": "pending",
-    "no_provider_or_automation_activation": true
+    "no_provider_or_automation_activation": true,
+    "guest_browser_acceptance": {
+      "deployment": "dpl_aisifpCp2x3z2Tim7YHznzPYp68U",
+      "widths_css_px": [
+        1348,
+        449
+      ],
+      "horizontal_overflow_px": 0,
+      "catalogue": "No eligible external offers on public check."
+    }
   },
   "marketing_live_fact_baseline_20261113": {
     "marketing_system": {

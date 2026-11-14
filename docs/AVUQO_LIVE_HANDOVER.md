@@ -1,3 +1,7 @@
+## My AVUQO and public catalogue browser check · 14 November 2026
+
+Verified against production `92afa9c906b25f5fd8df259c62f793fbd2712500` (`dpl_aisifpCp2x3z2Tim7YHznzPYp68U`). The guest account displays the sign-in link and Saved, Watches and Lists shortcuts while keeping the preferences form out of the guest view. Checked at 1348 and 449 CSS pixels with zero horizontal overflow. The public catalogue explicitly reported no eligible external offers. Signed-in preference saving and visual acceptance of a populated product comparison remain pending.
+
 ## VERIFIED MARKETING HOMEPAGE SOURCE-CLAIM GATE · 13 November 2026
 
 **PR #173 merged**, app SHA `1fcad1afd007544a2f4a2669b4d20c45d0226d19`, Vercel production deployment **READY** `dpl_22XM7ti5pdEDcgCnprCyfF7WMfYb`, aliases include `www.avuqo.com` and `avuqo.com`. Live-domain `/` returned HTTP 200 with matching `data-dpl-id`; signed-out Control Centre marketing response did not expose the private marketing workspace title. GitHub quality Build/Lint/marketing claim tests and secrets scan passed on PR head `4f69cfca181b3a86dac4b3d35b5f68868b84be81`, Vercel preview successful.
