@@ -393,10 +393,14 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "feature": "None after PR #181 verified live",
-    "status": "production_verified",
-    "recommended_next": "Awin metadata monitor and private import recovery hardening",
-    "automation_activation": "unchanged"
+    "feature": "Awin metadata inventory fail-closed validation",
+    "branch": "fix/awin-feed-monitor-ambiguous-inventory-20261114",
+    "status": "candidate_not_merged_or_live",
+    "tests": "tests/awin-feed-list-audit.test.mjs",
+    "preserves_source_pause": true,
+    "import_activation": false,
+    "cron_unchanged": true,
+    "prior_private_retry_pr": 176
   },
   "security_review_followups": [
     {
@@ -520,5 +524,11 @@
     "ai_enabled": false,
     "emergency_stop": true,
     "actual_approved_rule_test": "not exercised"
+  },
+  "awin_inventory_baseline_20261114": {
+    "source_status": "paused",
+    "sync_enabled": false,
+    "source_verified_from": "read-only connected Supabase",
+    "recorded_not_live_poll": true
   }
 }
