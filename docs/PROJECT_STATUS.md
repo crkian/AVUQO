@@ -1,3 +1,9 @@
+## Unified Git, all branches, ideas and handovers VERIFIED · 14 November 2026
+
+- PR #189 merged SHA `20006d39f7ae9541f79ca39ef9966818cb0cae93`, Vercel `dpl_DrcFffyiYBCmdF9T6PcYoKfjDqd4` READY; exact live homepage HTTP 200 on both-domain deployment. Build/lint/source register tests/secrets/preview passed.
+- Master linked docs: `docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md` + `.json`: 22 Git branch refs, 5 open drafts, 14 divergent old refs, 2 security refs, 9 original owner sources (hash-provenanced, not raw confidential files), 29 roadmap IDs and 12 gaps. Linked from README, Start Here, AGENTS, ROADMAP and handovers.
+- GitHub repo is public; original confidential master product/grocery PDFs and incomplete artwork are not automatically committed. The index is a dated navigation/evidence registry, not a claim all integrations or ideas are live. Preserve production source/publication gates, release cron and owner roles.
+
 ## Full Git / all branches / owner ideas and handovers index · candidate · 14 Nov 2026
 
 Added linked Markdown and JSON inventory at `docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md`. It consolidates **22 observed branches**, five open draft PRs, two protected security references, fourteen divergent old branches, nine original source-asset IDs/checksums, 29 roadmap workstreams and twelve granular requirement gaps. The index points to existing living handover, Compass, roadmap, audit, design and source approvals without replacing them. GitHub is public and confidential master source PDFs/image binaries are indexed but **not** committed as raw attachments. This is a candidate until CI and production READY verification. No customer-facing or provider activation changes.
