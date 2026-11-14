@@ -1,3 +1,7 @@
+## Owner Control Centre audit · 14 November 2026
+
+All 56 fixed and linked detail pages rendered with the owner role, and 14 editor/marketing variants opened. Marketplace and Source Atlas each have a confirmed observation-count permission gap. Live Data can be slow, the endpoint checker has no configured targets, and Open Food Facts returned HTTP 503. See [the route-by-route owner audit](AVUQO_CONTROL_CENTRE_OWNER_AUDIT_2026-11-14.md). State-changing action acceptance remains pending.
+
 ## COMPLETE GIT + ORIGINAL IDEA + HANDOVER REGISTRY VERIFIED LIVE · 14 November 2026
 
 PR #189 merged application/document SHA `20006d39f7ae9541f79ca39ef9966818cb0cae93`; Vercel production `dpl_DrcFffyiYBCmdF9T6PcYoKfjDqd4` **READY** with aliases `www.avuqo.com` and `avuqo.com`; public homepage HTTP 200 with the same deployment marker. GitHub PR head `44ea1b3a0142bf6dfe7b5a37ae3550bbe3bf8f50` passed full build, lint, source/branch/idea index completeness tests, secrets scan and Vercel preview. The PR's short-lived development branch was absent in a subsequent GitHub branch listing, which remained **22 including main**.

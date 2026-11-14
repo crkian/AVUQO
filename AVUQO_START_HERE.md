@@ -16,6 +16,8 @@
 
 **Verified production snapshot on 14 November 2026:** `20006d39f7ae9541f79ca39ef9966818cb0cae93` (Vercel `dpl_DrcFffyiYBCmdF9T6PcYoKfjDqd4` READY, `www.avuqo.com` and `avuqo.com` aliases, homepage HTTP 200 at exact deployment). PR #189 released the complete Git/branch/owner-idea/handover Markdown and JSON index linked above. The verified Git branch list still had **22 refs**, including five open drafts, two protected security refs and 14 divergent historical refs. Original confidential product/source PDFs remain outside the PUBLIC repo but are checksum-indexed; this is a dated snapshot, not proof all ideas are built or future branch state stays unchanged.
 
+> [Latest owner Control Centre audit](docs/AVUQO_CONTROL_CENTRE_OWNER_AUDIT_2026-11-14.md) records 56 rendered pages, operational warnings and the remaining action checks.
+
 ## Next work
 The limited closed-PR reconciliation of #50/#51/#85 is **completed and branch absences verified**. See `docs/CLOSED_LEGACY_BRANCH_RECONCILIATION_2026-11-14.md` and the 22-ref current inventory at `docs/BRANCH_REDUCTION_RESULTS_AND_RECONCILIATION_2026-11-14.md`. Review `docs/p0-03-verified-rollout-20261104` next, then current Awin import recovery and marketing approval workflows. Keep five open PRs, original warm-premium references and security branches protected.
 
