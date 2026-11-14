@@ -1,3 +1,7 @@
+## Category picker verified · 14 November 2026
+
+PR #179 deployed `a71b9bcc25a2a65b53a2744b661dffc86c20c067` (Vercel `dpl_5vmb555PfgdUQYwE9HVSq9b8Hb3J`, READY on `www.avuqo.com`). GitHub Build, Lint and secret checks passed on `ea516cdaa4ebf2d7f86180dfcb6ca8b2adf0aa0e` and the Vercel preview succeeded. The desktop category directory now selects Books and follows its direct product link. At narrow width the picker selects Musical Instruments and opens its guide. Browser checks across the release sequence found no horizontal overflow on the 14 refreshed guides and 25 shelves at 1,348 and 449 CSS pixels. The Books shelf also passed at 337 CSS pixels. Populated public item acceptance remains pending verified external offers.
+
 ## Category and item design verified · 14 November 2026
 
 PR #178 deployed `8010f564c5042d2058463dd6ad376b8ba67002ec` (Vercel `dpl_6KZUk22Bq8hqmKi6nKFqNtwDRKXX`, READY on `www.avuqo.com`). Build, lint, secret scan and preview passed. All 50 category guides and product shelves returned HTTP 200 with a heading on the exact deployment. All 25 shelves showed zero verified listings. Browser spot checks covered Books and Instruments and the Books shelf had zero document overflow at 337 and 1348 CSS pixels. Production had six demo deal rows and zero eligible external product listings, so populated item pages remain fixture-verified pending approved offers.

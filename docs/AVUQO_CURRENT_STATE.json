@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_6KZUk22Bq8hqmKi6nKFqNtwDRKXX",
-    "verified_ready_sha": "8010f564c5042d2058463dd6ad376b8ba67002ec",
+    "deployment_id": "dpl_5vmb555PfgdUQYwE9HVSq9b8Hb3J",
+    "verified_ready_sha": "a71b9bcc25a2a65b53a2744b661dffc86c20c067",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #178 READY. All 50 category guides and product shelves HTTP 200. No eligible products for live populated detail acceptance.",
+    "verification": "PR #179 READY. Desktop and narrow-width category picker journeys passed. PR #178 verified 50 category routes.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -25,7 +25,7 @@
     "supabase_project_id": "tfoukwcruaamrtgxzshh",
     "local_workdir_windows": "C:\\avuqo"
   },
-  "version_at_snapshot": "0.5.2",
+  "version_at_snapshot": "0.5.3",
   "product_direction": {
     "tagline": "Find what's worth it.",
     "model": "one catalogue for both product comparison and genuine bargain discovery",
@@ -485,6 +485,15 @@
     "deployment_id": "dpl_6KZUk22Bq8hqmKi6nKFqNtwDRKXX",
     "live_routes_checked": 50,
     "public_external_listing_count": 0,
-    "populated_product_verification": "fixture only pending eligible offers"
+    "populated_product_verification": "fixture only pending eligible offers",
+    "directory_fix_pr": 179,
+    "directory_fix_sha": "a71b9bcc25a2a65b53a2744b661dffc86c20c067",
+    "directory_fix_deployment_id": "dpl_5vmb555PfgdUQYwE9HVSq9b8Hb3J",
+    "responsive_generated_guides": 14,
+    "responsive_product_shelves": 25,
+    "browser_widths_css_px": [
+      449,
+      1348
+    ]
   }
 }
