@@ -1,4 +1,5 @@
 import {createClient} from "../../../lib/supabase/server";
+import {requireControlCentreAccess} from "../../../lib/auth/requireControlCentreAccess";
 import styles from "../control-centre.module.css";
 
 // This bounded private scan is deliberately isolated from the faster monitor cards.
@@ -10,6 +11,8 @@ const fmt = (value: string | null) => value ? new Date(value).toLocaleString("en
 export default async function CandidateReviewPanel({
  restrictedMerchantIds,permissionsUnavailable
 }:{restrictedMerchantIds:string[];permissionsUnavailable:boolean}){
+ // Defence in depth: never stream candidate data if the panel is reused.
+ await requireControlCentreAccess();
  const db=await createClient();
  const candidates=await db.from("feed_import_records").select("id,merchant_id,merchant_product_id,awin_product_id,title,brand,category,price,currency,image_url,created_at,reasons,status,review_decision,metadata").eq("status", "review").eq("review_decision", "pending").gt("price", 0).not("title", "is", null).order("created_at", { ascending: false }).limit(200);
  const restrictedMerchants=new Set(restrictedMerchantIds);
