@@ -1,3 +1,7 @@
+## Unreleased · Control Centre owner editor request-bound rendering
+
+- Explicitly mark the authenticated public page editor as request-bound under Next.js Cache Components; `connection()` precedes any role, search-param or private draft reads. Preserve owner-only publishing and existing server actions. CI guards both owner role-first Awin observation count dashboards. Existing private Awin count is 74, but signed-in owner browser and editor log checks are pending. No Supabase, source, cron or publishing changes.
+
 ## Unreleased · Public product pilot true 404
 
 - Resolve permissioned verified product or allowlisted editorial research identity before streaming a product page; unknown/draft-only URL must be genuine HTTP 404 instead of streamed 200. Pass approved data to renderer once, preserve all price/source/media gates, add regression in CI. No supplier or marketing activation.
