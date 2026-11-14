@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_BsoRWdS8cYsc9Z1JJ6v5EkiLctds",
-    "verified_ready_sha": "0cd64b8ccd73a8f298a62e07937e0bb537f26d1c",
+    "deployment_id": "dpl_2pc1X5UNfnSpQC9TnGSmFPf6sxJQ",
+    "verified_ready_sha": "a75964878b61b9ae175252e085646404dd8a5cb1",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "Current main production Vercel READY at new 14 Nov SHA, includes category releases. Marketing scheduler isolation is branch candidate, not live.",
+    "verification": "PR #181 marketing editorial scheduler failure isolation: Vercel READY; www homepage HTTP 200 exact data-dpl-id; unauthenticated /api/internal/marketing HTTP 404.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -174,19 +174,19 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Review and harden existing marketing editorial-only draft scheduler and Control Centre readiness. Keep social publishing/AI stopped and verify no duplicate or unapproved posts."
+      "task": "Audit and harden current Awin metadata feed-change detection and private import retry/recovery, with rights and paused-source checks unchanged. PR #176 recovery is already live."
     },
     {
       "priority": 2,
-      "task": "Review Awin feed-change monitor and private import scheduling/retry pipeline; preserve source pause, private storage, rights and existing Pneus schedule."
+      "task": "Actual owner-approved marketing editorial draft scheduler acceptance once real approved facts/rules exist; do not insert fake production data or enable social publishing."
     },
     {
       "priority": 3,
-      "task": "Finish signed-in My AVUQO and approved product-offer browser acceptance; continue warm-premium visual acceptance."
+      "task": "Finish authorized signed-in account and eligible-product comparison visual acceptance once approved offers exist."
     },
     {
       "priority": 4,
-      "task": "Controlled PR #158 Tyres UK lease two-connection race and migration version reconciliation. Keep old PR #117 disabled."
+      "task": "PR #158 Tyres UK two-connection lease race and migration history reconciliation, worker remains disabled."
     },
     {
       "priority": 5,
@@ -393,13 +393,10 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "feature": "Marketing editorial draft scheduler rule failure isolation",
-    "branch": "fix/marketing-editorial-rule-failure-isolation-20261114",
-    "status": "candidate_not_merged",
-    "tests": "tests/marketing-editorial-rule-isolation.test.mjs",
-    "changes_social_publishing": false,
-    "changes_cron": false,
-    "changes_supabase": false
+    "feature": "None after PR #181 verified live",
+    "status": "production_verified",
+    "recommended_next": "Awin metadata monitor and private import recovery hardening",
+    "automation_activation": "unchanged"
   },
   "security_review_followups": [
     {
@@ -508,5 +505,20 @@
     "ai_enabled": false,
     "emergency_stop": true,
     "observed_from": "read-only connected Supabase"
+  },
+  "last_marketing_editorial_scheduler_release": {
+    "pr": 181,
+    "app_sha": "a75964878b61b9ae175252e085646404dd8a5cb1",
+    "deployment_id": "dpl_2pc1X5UNfnSpQC9TnGSmFPf6sxJQ",
+    "ready": true,
+    "quality_and_secret_checks": "passed",
+    "marketing_cron_access_control_unauthenticated_http": 404,
+    "homepage_http": 200,
+    "live_rules_observed": 0,
+    "live_posts_observed": 0,
+    "marketing_publishing_enabled": false,
+    "ai_enabled": false,
+    "emergency_stop": true,
+    "actual_approved_rule_test": "not exercised"
   }
 }
