@@ -13,9 +13,11 @@
 
 **A merged PR isn't by itself a deployed feature.** In every session, verify current GitHub `main` and Vercel project `avuqo` latest READY **production** deployment and `www.avuqo.com` alias. If the SHA differs from this snapshot, treat the snapshot as stale and update it after verifying. For provider-dependent claims, inspect Supabase source permissions, feed freshness and publication gates. No public imported Awin/eBay/tyre images or prices without rights and current evidence.
 
-**Verified production snapshot on 14 November 2026:** `0727c0866ad15053955dc3b9fa6822a043122376` (Vercel `dpl_5z93DKd4sceJjCdMFDpyi5zzca5U`, READY, `www.avuqo.com` alias, homepage HTTP 200). PR #183 Awin metadata monitor ambiguity guard is live; PR #181 editorial draft scheduler resilience and #176 private import setup retry are already live. This is a snapshot and must be reverified before changes.
+**Verified production snapshot on 14 November 2026:** `a032f85a39964dff2ade6785331c399d2eccda1b` (Vercel `dpl_GhzjfNTsg2UYTumhPRwiPvSbwkJ3`, READY with `www.avuqo.com`; homepage HTTP 200 matching deployment). PR #185 installed an ongoing frozen-commit-guarded GitHub cleanup. Actual branch count fell **63 to 25** including `main`; 5 open PR heads, 2 protected security refs and 17 divergent historical refs await reconciliation. No customer/source automation changed. This is a dated snapshot; reverify before any new release.
 
 ## Next work
+Read `docs/BRANCH_REDUCTION_RESULTS_AND_RECONCILIATION_2026-11-14.md` before opening or deleting a branch. The goal is zero stale refs, not discarding original design or unmerged code. Continue selective review of the 17 historical divergences, current private Awin import resilience and visible site improvements.
+
 Continue reviewing private Awin import failure/retry behaviour and metadata freshness, with the new #183 feed inventory validation already live. Unauthenticated private monitor HTTP check remains unverified because connected Vercel inspection was blocked by deployment authentication. Do not invoke provider import to test it. Then finish owner-approved editorial draft acceptance. Preserve paused Awin source, image/offer rights, marketing emergency stop and Pneus cron.
 
 ## Additional visual work
