@@ -82,6 +82,8 @@ jobs:
         run: node --test tests/uk-seasonal-home-calendar.test.mjs
       - name: Production design completion and rights-gated visual tests
         run: node --test tests/production-design-completion.test.mjs
+      - name: Full Git branch, source and idea handover registry tests
+        run: node --test tests/complete-git-idea-handover-index.test.mjs
       - name: Current cross-chat handover integrity tests
         run: node --test tests/current-handover-integrity.test.mjs
       - name: Production photographic storefront safety regression tests
