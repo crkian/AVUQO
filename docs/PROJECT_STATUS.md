@@ -1,3 +1,9 @@
+## Product 404 before streaming · candidate · 14 November 2026
+
+- Live unknown/draft products still returned HTTP 200 with not-found metadata after PR #194 (Next 16 Cache Components streaming). This is an actual failed HTTP requirement, not a theoretical SEO concern.
+- Candidate `fix/products-request-bound-true-404-20261114` adds a direct-document GET/HEAD gate to existing Supabase proxy: four editorial slugs or full existing `verifiedProduct` source/offer/release gates may pass, all other product slugs receive a fixed noindex/no-store HTTP 404 before a streamed page. Supabase session handling for other paths preserved.
+- RSC client navigation still relies on native `notFound()` and needs browser QA. Build/preview/live 404/200 acceptance and proxy performance measurement outstanding. No product, offer, source or marketing settings activated. Full scope `docs/PRODUCT_TRUE_HTTP_404_REQUEST_BOUNDARY_2026-11-14.md`.
+
 ## Live Data streaming and pre-query auth fix · VERIFIED · 14 November 2026
 
 - PR #197 (`927e60d4174d5ac58f3d0cfa8587065ea9f5dfe2` / Vercel `dpl_8KU4CnG7t2rWMVC5GKFZbpbw9YtP`) shipped an independent Suspense candidate panel. Signed-out RSC response exposed private UI markers while redirecting to login, so original acceptance **failed**; no private product row exposure was confirmed in sampled response.

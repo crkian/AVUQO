@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_6J8N1ErH35V3GqY77rQR7xxAkowP",
-    "verified_ready_sha": "0f84dba3a1c9e8487c953b24c8a0ca1a4eb1838d",
+    "deployment_id": "dpl_Abjdy7YJGrGDmyR4jNbEYvH1hpbz",
+    "verified_ready_sha": "0e401beb351ebd73cef4e4def93ba966b4594e51",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #197 bounded Live Data candidate streaming plus urgent role-before-query PR #198. Vercel READY exact app SHA. Homepage 200 matching dpl. Signed-out live-data RSC redirected without private candidate or source metric markers. Owner browser timing pending.",
+    "verification": "Prior to product true-404 patch, docs-only PR #199 production READY. Unknown direct product GET still HTTP 200 with streamed NEXT_HTTP_ERROR_FALLBACK;404; product HTTP contract unresolved.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -174,23 +174,23 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Fix genuine HTTP 404 for unknown and draft product routes: PR #194 merged but signed-out HTTP response still 200 with unavailable markup. Preserve four legitimate research model guides."
+      "task": "Run Next 16 proxy build/CI and Vercel preview for product true 404 gate; verify existing session proxy and all four research model guides, then merge and independently measure production unknown/draft direct GET 404."
     },
     {
       "priority": 2,
-      "task": "Get at least one fresh, rights-cleared, owner-approved retailer offer with full price, delivery and image permissions; never expose demo or unverified Awin prices."
+      "task": "Signed-in owner/Work browser verify client RSC navigation into unknown product not-found and product document 404 header behaviour; do not assume RSC 404 status."
     },
     {
       "priority": 3,
-      "task": "Read-only signed-in owner/Work Live Data QA: measure main metric first paint vs private candidate scan; check permission and duplicate flags and 5k/40 bounds."
+      "task": "Secure source/advertiser/publication rights, current price/stock/variant/VAT/delivery/image approval and owner-only per-offer release for first real published retailer comparison; don't use demo inventory."
     },
     {
       "priority": 4,
-      "task": "Owner/Work read-only Marketplace and Source Atlas Awin observation card check and editor post-#195 prerender warning; avoid Save/Publish."
+      "task": "Read-only owner checks: Live Data first-paint/candidate timings; Source Atlas/Marketplace Awin observation cards; editor post-prerender log results."
     },
     {
       "priority": 5,
-      "task": "Reconcile only superseded historical Git branches after preserving unique feature and original design/security work."
+      "task": "Reconcile remaining historical branches by selective porting of unique work and safe branch retirement."
     }
   ],
   "required_reverification": [
@@ -389,10 +389,14 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "feature": "None after PR #197 and #198 code releases; owner performance acceptance remains pending",
-    "status": "production_verified_signed_out_access_guard_passed_owner_browser_pending",
-    "recommended_next": "Unknown/draft product true HTTP 404, then first rights-approved retailer offer and owner Live Data speed check",
-    "source_activation": false
+    "feature": "Direct public product document HTTP 404 pre-stream via existing proxy",
+    "branch": "fix/products-request-bound-true-404-20261114",
+    "status": "candidate_not_merged",
+    "description": "Full verifiedProduct rights/offer admission or one of 4 editorial guides, otherwise fixed 404 GET/HEAD",
+    "no_demo_offer_publication": true,
+    "client_RSC_status_separate_qa": true,
+    "db_changes": false,
+    "tests": "tests/public-product-document-true-404.test.mjs"
   },
   "security_review_followups": [
     {
@@ -661,7 +665,14 @@
     "four_research_guides_http_200": true,
     "pilot_slug_http": 200,
     "unknown_slug_http": 200,
-    "true_http_404_acceptance": false
+    "true_http_404_acceptance": false,
+    "prior_pr_194_live_http_status": 200,
+    "prior_unknown_live_http_status": 200,
+    "current_fix_candidate_branch": "fix/products-request-bound-true-404-20261114",
+    "method": "return Response(status:404) from proxy before streamed route for unknown/draft product documents",
+    "release_acceptance": "pending",
+    "rsc_navigation_acceptance": "pending",
+    "original_approved_product_gate_reused": true
   },
   "live_data_candidate_isolation_20261114": {
     "branch": "perf/live-data-candidate-suspense-20261114",
