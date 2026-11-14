@@ -1,3 +1,7 @@
+## Public product soft-404 correction · candidate · 14 November 2026
+
+Four genuine model research guides are already production visible via PR #191 without current retailer offers, photos or price claims. Draft/unapproved product slugs should not be HTTP 200 merely because a Next.js streamed not-found component rendered. Closed unmerged PR #193's useful correction has been rebuilt from latest main as `fix/public-product-true-404-20261114`, with pre-stream identity checks and tests. Only verified approved offers or those four explicit editorial slugs render; no demo/pilot publication changes. Confirm CI/preview, exact production Vercel READY and HTTP 404 for the pilot before marking released.
+
 ## PRODUCT VISIBILITY FIRST: FOUR MODEL RESEARCH GUIDES · CANDIDATE · 14 NOV 2026
 
 Owner priority is to put recognisable products on the actual site before further Git housekeeping. Fresh read-only production Supabase: **4 active product identities**, **8 draft pilots**, **6 demo-only offers** and **0 approved Awin offer release reviews**; Awin remains **paused, sync disabled, publisher/product rights pending**. Existing public `verifiedProductIndex` correctly excludes the demo offers, so showing live prices today would misrepresent the data.

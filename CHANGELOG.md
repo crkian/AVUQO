@@ -1,3 +1,7 @@
+## Unreleased · Public product pilot true 404
+
+- Resolve permissioned verified product or allowlisted editorial research identity before streaming a product page; unknown/draft-only URL must be genuine HTTP 404 instead of streamed 200. Pass approved data to renderer once, preserve all price/source/media gates, add regression in CI. No supplier or marketing activation.
+
 ## Unreleased · Four editorial product model guides visible without unapproved offers
 
 - Add public buying research for four identifiable products (MacBook Air M4 13-inch, Ninja AF300UK, Dyson V15 Detect Absolute, LG C4 65-inch family), linked from `/products`, homepage and tech/home department shelves. Their individual routes show checklist/model caveats and manufacturer info, **not** prices, stock, licensed product images, AVUQO scores or affiliate purchase links. Existing verified-offer admission takes priority, unpublished pilots stay hidden, and research detail routes are noindex. No database, import, source rights, marketing or cron activation.

@@ -1,3 +1,7 @@
+## P1-04 genuine product 404 · CANDIDATE · 14 November 2026
+
+The four real model research pages released by PR #191 are already production READY, but an unknown/draft pilot product currently can stream a Next.js not-found component with HTTP 200. A historical attempted correction in closed, unmerged PR #193 is preserved for reference, **not merged as a stale branch**. New fresh-main `fix/public-product-true-404-20261114` resolves verified product access or one of the four editorial research identities in the async Page before rendering the header/Suspense. Missing public eligibility throws `notFound()` before streaming. Existing `verifiedProduct`, source approval gates, no retail price on research guides and all approved-offer logic remain unchanged. New `tests/public-product-route-http-404.test.mjs` is in quality CI. Candidate until CI/preview/merge/READY and live HTTP 404/200 checks. This is not affiliate offer approval or source activation. Owner-rights/price sign-off remains the next blocking dependency.
+
 ## Owner Control Centre audit · 14 November 2026
 
 All 56 fixed and linked detail pages rendered with the owner role, and 14 editor and marketing variants opened. Marketplace and Source Atlas each have a confirmed observation-count permission gap. Live Data can be slow, the endpoint checker has no configured targets, and Open Food Facts returned HTTP 503. See [the route-by-route owner audit](AVUQO_CONTROL_CENTRE_OWNER_AUDIT_2026-11-14.md). State-changing action acceptance remains pending.

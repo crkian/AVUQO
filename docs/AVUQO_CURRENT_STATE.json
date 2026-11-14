@@ -174,19 +174,19 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Release four named public model research guides; verify no price/stock/affiliate/image claims; complete mobile/desktop QA and exact Vercel READY proof."
+      "task": "Ship product true-404 patch via CI/preview/READY and independently verify 404 on draft pilot and HTTP 200 on all four editorial research models."
     },
     {
       "priority": 2,
-      "task": "Owner-controlled P1-01: obtain written rights and current joined Awin programme + exact product feed, import privately, reconcile merchant/variants/landed price and release one legitimate priced offer through existing admission controls."
+      "task": "Owner obtains verified current Awin programme/advertiser rights, fresh model-specific price, delivery and image permissions, then tests one private pilot product approval through existing controlled release gate."
     },
     {
       "priority": 3,
-      "task": "Run separate Work read-only browser QA of homepage, model pages, responsive design and account routes when credits available. Brief in docs/WORK_PARALLEL_PRODUCT_DESIGN_QA_BRIEF_2026-11-14.md."
+      "task": "Read-only Work visual QA per docs/WORK_PARALLEL_PRODUCT_DESIGN_QA_BRIEF_2026-11-14.md when Work credits are available; no overlapping writes."
     },
     {
       "priority": 4,
-      "task": "Reconcile outdated P0-03 and numbered Awin filename branch work against current main; remove only superseded code after preservation review."
+      "task": "Reconcile old branches sequentially against current main and record any superseded contribution before retirement."
     },
     {
       "priority": 5,
@@ -393,16 +393,13 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "feature": "Four research-only public product model guides",
-    "branch": "feature/public-product-research-guides-20261114",
-    "status": "candidate_not_merged_or_live",
-    "scope": "Public named-model editorial guides on /products, homepage, individual pages, tech/home departments",
-    "tests": "tests/public-research-product-guides.test.mjs",
-    "affects_retailer_prices": false,
-    "affects_affiliate_source_permissions": false,
-    "affects_social_publishing": false,
-    "affects_supabase_schema": false,
-    "affects_pneus_cron": false
+    "feature": "Product routes: genuine 404 for unapproved pilot and unknown slugs",
+    "branch": "fix/public-product-true-404-20261114",
+    "status": "candidate_not_merged",
+    "tests": "tests/public-product-route-http-404.test.mjs",
+    "preserves_real_guides": 4,
+    "unapproved_offer_activation": false,
+    "source_sync_changes": false
   },
   "security_review_followups": [
     {
