@@ -1,3 +1,9 @@
+## COMPLETE GIT AND OWNER-IDEA INDEX · CANDIDATE · 14 November 2026
+
+A current-main documentation branch `docs/unified-git-branches-ideas-handover-20261114` adds `docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md` and matching `.json` to make the entire dated branch inventory, original source themes and living handovers findable in one place. Based on actual GitHub branch search: **22 refs** = 1 main, five open drafts #25/#83/#93/#117/#158, two security archives, fourteen divergent old code/docs refs; current READY Vercel main `41cb2755b00d8f2c0558e38fe18e1f7852d33fdc` / `dpl_7LR8wQLo6X9jSZhU9zYeyiTVPTAY`. Includes **nine** checksum-verified owner sources by title, not raw confidential original PDFs, **29** roadmap IDs and **12** source-audit gaps, plus all major design/import/marketing/analytics/personalisation/travel concepts and active privacy/rights limits.
+
+This is an **index/reconciliation release candidate**, not the original source files or an implementation of every idea. The repo is public. Preserve the source-manifest notice that original confidential binaries and owner-provided visual assets may exist only in project uploads/design archive. No app code, database, cron, Awin source flags, social publishing, price or owner privileges are changed. Candidate requires GitHub CI, preview, merge, exact SHA Vercel READY check and dated handover. This section's candidate label becomes historical after verified release.
+
 ## Three reconciled closed PR branches retired · VERIFIED · 14 November 2026
 
 PR #187 merged at `79e97df4761cb57010bbf874bc92440545b6709f`, Vercel production `dpl_wWZ37buUPN9syB77c9AEYFfXQVGf` READY with `www.avuqo.com` and `avuqo.com` aliases. Live homepage HTTP 200 with same deployment marker. CI build/lint, immutable Git blob and closed-PR identity tests, secrets and preview passed on head `eee9df58669a613cb06555f1007a64599edcc521`.
