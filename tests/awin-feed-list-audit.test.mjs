@@ -37,3 +37,32 @@ test("feed list route is owner-gated and never returns URLs",()=>{
  assert.ok(route.indexOf("joined_programme_observed===true")<route.indexOf("inspectAwinFeedList("));
  assert.match(route,/Cache-Control/);
 });
+
+
+test("feed identity is unambiguous even if signed download links rotate",()=>{
+ const base="496,Tooled Up,GB,active,Awin,89987,All Products,English,,2026-11-04 05:11:24,2026-11-04 05:09:48,84284,https://private.invalid/first";
+ const sameMetadata=base.replace("https://private.invalid/first","https://private.invalid/second");
+ const valid=inspectAwinFeedList(header+"\\n"+base+"\\n"+sameMetadata,new Set(["496"]));
+ assert.equal(valid.invalidRows,0);
+ assert.equal(valid.feeds.length,1);
+ assert.equal(JSON.stringify(valid).includes("private.invalid"),false);
+ const conflict=base.replace(",84284,",",84285,").replace("https://private.invalid/first","https://private.invalid/third");
+ const ambiguous=inspectAwinFeedList(header+"\\n"+base+"\\n"+conflict,new Set(["496"]));
+ assert.equal(ambiguous.invalidRows,1);
+ assert.equal(ambiguous.feeds.length,1);
+});
+test("blank, negative, fractional and non-numeric product counts are invalid, not zero",()=>{
+ const row="496,Tooled Up,GB,active,Awin,89987,All Products,English,,2026-11-04,2026-11-04,VALUE,https://invalid.example/credential";
+ for(const bad of ["","-3","1.5","NaN","99999999999999999999"]){
+  const result=inspectAwinFeedList(header+"\\n"+row.replace("VALUE",bad),new Set(["496"]));
+  assert.equal(result.invalidRows,1,bad);
+  assert.equal(result.feeds.length,0,bad);
+ }
+ const good=inspectAwinFeedList(header+"\\n"+row.replace("VALUE","0"),new Set(["496"]));
+ assert.equal(good.feeds[0].products,0);
+});
+test("ambiguous duplicate or empty CSV headers are rejected before recording changes",()=>{
+ const row="496,Tooled Up,GB,active,Awin,89987,All Products,English,,2026-11-04,2026-11-04,1,https://private.invalid/token";
+ assert.throws(()=>inspectAwinFeedList(header+",Feed ID\\n"+row+",999",new Set(["496"])),/duplicate or empty/);
+ assert.throws(()=>inspectAwinFeedList(header+",\\n"+row+",",new Set(["496"])),/duplicate or empty/);
+});
