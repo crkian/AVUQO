@@ -1,3 +1,7 @@
+## Unreleased · Editorial draft scheduler isolated rule failures
+
+- Validate each due brand/channel/owner/cadence rule before its atomic claim, inside the per-rule error boundary. A corrupt rule or database claim failure no longer aborts all other due draft work; failures are recorded best-effort without overwriting another worker's newer schedule. Drafts remain private and review-only, and marketing publishing/AI remain disabled. No cron, database or affiliate changes.
+
 ## Category picker verified · 14 November 2026
 
 PR #179 deployed `a71b9bcc25a2a65b53a2744b661dffc86c20c067` (Vercel `dpl_5vmb555PfgdUQYwE9HVSq9b8Hb3J`, READY on `www.avuqo.com`). GitHub Build, Lint and secret checks passed on `ea516cdaa4ebf2d7f86180dfcb6ca8b2adf0aa0e` and the Vercel preview succeeded. The desktop category directory now selects Books and follows its direct product link. At narrow width the picker selects Musical Instruments and opens its guide. Browser checks across the release sequence found no horizontal overflow on the 14 refreshed guides and 25 shelves at 1,348 and 449 CSS pixels. The Books shelf also passed at 337 CSS pixels. Populated public item acceptance remains pending verified external offers.
