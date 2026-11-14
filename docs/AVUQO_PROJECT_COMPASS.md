@@ -1,3 +1,7 @@
+## Verified GitHub branch reduction · 14 November 2026
+
+PR #185 production READY at `a032f85a39964dff2ade6785331c399d2eccda1b` / `dpl_GhzjfNTsg2UYTumhPRwiPvSbwkJ3`. Automatic exact frozen-head PR cleanup after main pushes brought branches from 63 to 25 including main. Five open PR heads, two security references and seventeen divergent historical refs remain until selective reconciliation. Do not delete original warm-premium source, security evidence, or unmerged code to reach a cosmetic zero. Full list: `docs/BRANCH_REDUCTION_RESULTS_AND_RECONCILIATION_2026-11-14.md`. No Awin, marketing, privacy or price permissions changed.
+
 ## Branch lifecycle and verified cleanup · 14 November 2026 (candidate)
 
 New ongoing verified merged-branch cleanup is being staged on current main. Initial inventory 63 branches and 5 open PRs. Every main push will inspect existing merged PR #127+ refs and delete only frozen/unique exact reviewed head SHAs, preserving live PRs, moved refs, security work and original warm-premium design assets. The original historical <=126 workflow remains. The goal is zero obsolete branches, not deletion of irreplaceable work. See `docs/VERIFIED_BRANCH_RETIREMENT_POLICY_2026-11-14.md`; verify action run and branch count after merge before recording success.
