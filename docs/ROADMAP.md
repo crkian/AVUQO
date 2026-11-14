@@ -1,5 +1,7 @@
 # AVUQO living delivery roadmap
 
+**Cross-reference:** [Complete Git, every current branch, all original source themes and handovers](./AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md) and [machine index](./AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.json) (14 Nov 2026 snapshot). This roadmap remains the detailed workstream/acceptance authority; the new index does not upgrade any unverified feature to live.
+
 **Last evidence audit:** 2 November 2026 · [full source-to-code matrix](./SOURCE_TO_CODE_AUDIT_2026-11-02.md) · [original source manifest](./SOURCE_MANIFEST_2026-11-02.md) · [granular source gaps](./SOURCE_REQUIREMENT_GAPS_2026-11-02.md).
 **Software version:** v0.3.0 deployed via PR #44; Awin owner-release SQL correction PR #45 deployed READY at `18752f41287f30f82ba679c170e61b685520765e` and release migration applied. Cadbury and Petlibro registered as **unapproved private pilots**. See [pilot register](./AWIN_CADBURY_PETLIBRO_PILOTS_2026-11-04.md).
 **16-programme Awin queue (4 Nov):** Owner-observed joined API returned 16 IDs; all registered privately as paused/unapproved, starting with Cadbury `736`, Petlibro `77952`, Craft Buddy `45747`. Rights, feed capability, prices and image permissions need individual verification. [Sequential queue and source-linked acceptance gates](./AWIN_JOINED_PROGRAMMES_2026-11-04.md). Multi-advertiser isolation remains an architectural blocker before simultaneous ingestion.
