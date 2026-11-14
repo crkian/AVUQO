@@ -1,3 +1,7 @@
+## Branch lifecycle and verified cleanup · 14 November 2026 (candidate)
+
+New ongoing verified merged-branch cleanup is being staged on current main. Initial inventory 63 branches and 5 open PRs. Every main push will inspect existing merged PR #127+ refs and delete only frozen/unique exact reviewed head SHAs, preserving live PRs, moved refs, security work and original warm-premium design assets. The original historical <=126 workflow remains. The goal is zero obsolete branches, not deletion of irreplaceable work. See `docs/VERIFIED_BRANCH_RETIREMENT_POLICY_2026-11-14.md`; verify action run and branch count after merge before recording success.
+
 ## Awin feed metadata monitor validation released · 14 November 2026
 
 PR #183 code SHA `0727c0866ad15053955dc3b9fa6822a043122376`, Vercel `dpl_5z93DKd4sceJjCdMFDpyi5zzca5U` READY, live homepage 200 exact deployment. The metadata-only monitor rejects conflicting duplicate records and malformed counts/headers before discovery writes. Awin stays paused, sync off, and importer/cron/Pneus unchanged. Vercel inspection could not independently fetch the private unauthenticated monitor endpoint due deployment-authentication protection, so do not treat its runtime 401 as proved. See `docs/AWIN_FEED_INVENTORY_AMBIGUITY_GATE_2026-11-14.md`.
