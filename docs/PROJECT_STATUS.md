@@ -1,3 +1,9 @@
+## Owner Control Centre audit editor release VERIFIED · 14 November 2026
+
+PR #195 code `08c34b2c58aa93084ed8e72d166bcba4120bf800`, Vercel `dpl_2r8GhTAvLXmMw4nbuA1EgymqdGbT` READY, homepage HTTP 200 exact deployment; quality, lint, owner-audit tests, secrets and preview passed. Private editorial page requests now explicitly enter `connection()` before role and DB reads, with no Save/Publish logic changes. Vercel runtime search for Date.now/prerender had no matching lines within the sampled release window; no fresh signed-in browser or write-path acceptance was performed.
+
+Source Atlas and Marketplace already read private observations through a role-gated admin client; 74 database rows were observed, but signed-in owner/admin metric display remains unverified. Live Data scan loading state next. Separate product #194 unknown/pilot response **still 200**, true HTTP 404 pending. Work read-only audit: `docs/WORK_PARALLEL_OWNER_CONTROL_CENTRE_AUDIT_2026-11-14.md`. No Awin or social permissions altered.
+
 ## Control Centre owner-audit reconciliation · candidate · 14 November 2026
 
 - Marketplace and Source Atlas already use authenticated server-only admin client for private Awin observation metric; live DB count 74. This supersedes the old *code* access gap, but signed-in owner/admin browser card confirmation still pending.
