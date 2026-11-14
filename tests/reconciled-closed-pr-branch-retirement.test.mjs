@@ -7,16 +7,16 @@ const read=path=>readFileSync(new URL("../"+path,import.meta.url));
 const script=read(".github/workflows/reconciled-closed-pr-branch-retirement.yml").toString();
 const ledger=read("docs/CLOSED_LEGACY_BRANCH_RECONCILIATION_2026-11-14.md").toString();
 const blobHash=buffer=>createHash("sha1").update(
- Buffer.concat([Buffer.from("blob "+buffer.length+"\\0"),buffer])
+ Buffer.concat([Buffer.from("blob "+buffer.length+"\0"),buffer])
 ).digest("hex");
 
 test("manual dispatch defaults to dry run, auto attempt only on checked-in main workflow change",()=>{
- assert.match(script,/branches: \\[main\\]/);
- assert.match(script,/reconciled-closed-pr-branch-retirement\\.yml/);
+ assert.match(script,/branches: \[main\]/);
+ assert.match(script,/reconciled-closed-pr-branch-retirement\.yml/);
  assert.match(script,/workflow_dispatch:/);
  assert.match(script,/default: false/);
- assert.match(script,/context\\.eventName==='push'/);
- assert.doesNotMatch(script,/pull_request:\\s*\\n/);
+ assert.match(script,/context\.eventName==='push'/);
+ assert.doesNotMatch(script,/pull_request:\s*\n/);
 });
 
 test("only three individually reviewed closed but NOT merged PR heads are in retirement allowlist",()=>{
@@ -31,10 +31,10 @@ test("only three individually reviewed closed but NOT merged PR heads are in ret
   assert.ok(ledger.includes(branch));
  }
  assert.equal((script.match(/expectedHead:'[a-f0-9]{40}'/g)||[]).length,3);
- assert.match(script,/pr\\.state!=='closed'/);
- assert.match(script,/pr\\.merged\\|\\|pr\\.merged_at/);
- assert.match(script,/pr\\.head\\.sha!==expectedHead/);
- assert.match(script,/commits\\.at\\(-1\\)\\.sha!==expectedHead/);
+ assert.match(script,/pr\.state!=='closed'/);
+ assert.match(script,/pr\.merged\|\|pr\.merged_at/);
+ assert.match(script,/pr\.head\.sha!==expectedHead/);
+ assert.match(script,/commits\.at\(-1\)\.sha!==expectedHead/);
 });
 
 test("current preserved files match frozen reviewed blobs and include critical safety content",()=>{
@@ -46,7 +46,7 @@ test("current preserved files match frozen reviewed blobs and include critical s
   assert.equal(blobHash(read(path)),sha,path);
   assert.ok(script.includes("preservedBlob:'"+sha+"'"));
  }
- assert.match(read("lib/connectors/awin.ts").toString(),/Awin feed request failed \\(HTTP \\$/);
+ assert.match(read("lib/connectors/awin.ts").toString(),/Awin feed request failed \(HTTP \$/);
  assert.match(ledger,/publication rights still NOT confirmed/i);
  assert.match(ledger,/documentation only/i);
 });
@@ -61,5 +61,5 @@ test("all ambiguous or moved refs remain untouched and all failures are logged",
   "name.startsWith('design/')","recheck.data.object.sha!==expectedHead",
   "github.rest.git.deleteRef","default: false"
  ]) assert.ok(script.includes(part),part);
- assert.doesNotMatch(script,/deleteRef\\(\\{[^}]*ref:'heads\\/main'/);
+ assert.doesNotMatch(script,/deleteRef\(\{[^}]*ref:'heads\/main'/);
 });
