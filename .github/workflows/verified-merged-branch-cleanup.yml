@@ -26,16 +26,24 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Prune PR #127-145 heads that exactly match already merged PRs
+      - name: Prune PR #127-184 heads only after frozen merged-commit verification
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { owner, repo } = context.repo;
-            // Curated only. Do not touch unmatched historical code, originals, private pilots or open PR branches.
-            const candidatePRs = Array.from({length: 19}, (_,i) => i + 127);
+            // Curated merged PR range, including recent releases. Never touch open PR heads, protected originals or changed branch tips.
+            const candidatePRs = Array.from({length: 58}, (_,i) => i + 127);
             const execute = context.eventName === 'push' || String(context.payload.inputs?.execute) === 'true';
             const opened = await github.paginate(github.rest.pulls.list, {owner, repo, state:'open', per_page:100});
+            const allPRs = await github.paginate(github.rest.pulls.list, {owner, repo, state:'all', per_page:100});
+            // Never remove a branch if it was reused for a different PR.
+            const sharedNameCounts = new Map();
+            for (const item of allPRs) {
+              if(item.head.repo?.full_name !== `${owner}/${repo}`)continue;
+              const key=item.head.ref;
+              sharedNameCounts.set(key,(sharedNameCounts.get(key)||0)+1);
+            }
             let deleted = 0, eligible = 0;
             const report = [];
             for (const number of candidatePRs) {
@@ -44,7 +52,8 @@ jobs:
               let reason = '';
               if (!pr.merged || pr.state !== 'closed' || pr.base.ref !== 'main') reason = 'PR not merged into main';
               else if (pr.head.repo?.full_name !== `${owner}/${repo}`) reason = 'branch from other repository';
-              else if (!name || name === 'main' || name === 'master' || name.startsWith('design/warm-premium-visual-system') || name.startsWith('feature/warm-premium-experience')) reason = 'protected/historical reference';
+              else if (!name || name === 'main' || name === 'master' || name.startsWith('security/') || name.startsWith('design/warm-premium-visual-system') || name.startsWith('feature/warm-premium-experience')) reason = 'protected/historical reference';
+              else if ((sharedNameCounts.get(name)||0)!==1) reason='branch reused across PRs; preserve';
               else if (opened.some(other => other.head.ref === name && other.head.repo?.full_name === `${owner}/${repo}`)) reason = 'branch has open PR';
               let sha;
               if (!reason) {
@@ -56,6 +65,13 @@ jobs:
                 }
               }
               if (!reason && sha !== pr.head.sha) reason='branch moved since merge: protect extra commits';
+              // Verify the historical PR commit list, not just mutable PR head fields.
+              if(!reason){
+                try {
+                  const commits=await github.paginate(github.rest.pulls.listCommits,{owner,repo,pull_number:number,per_page:100});
+                  if(!commits.length || commits.at(-1).sha !== sha) reason='branch differs from final reviewed PR commit';
+                }catch(err){reason=`PR commit verification unavailable (${err.status}); preserve`;}
+              }
               if (!reason) {
                 const {data: info}=await github.rest.repos.getBranch({owner,repo,branch:name});
                 if(info.protected) reason = 'branch protected';
