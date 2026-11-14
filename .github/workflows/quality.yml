@@ -80,6 +80,8 @@ jobs:
         run: node --test tests/production-visual-audit-contract.test.mjs
       - name: UK seasonal homepage calendar date boundary and source-safety tests
         run: node --test tests/uk-seasonal-home-calendar.test.mjs
+      - name: Product detail true-404 pre-stream admission tests
+        run: node --test tests/public-product-route-http-404.test.mjs
       - name: Public product research guide identity and no-price safety tests
         run: node --experimental-strip-types --test tests/public-research-product-guides.test.mjs
       - name: Production design completion and rights-gated visual tests
