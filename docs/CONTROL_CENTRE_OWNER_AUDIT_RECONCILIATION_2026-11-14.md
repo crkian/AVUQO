@@ -1,3 +1,7 @@
+## Verified production implementation of this candidate · 14 November 2026
+
+PR #195 merged code `08c34b2c58aa93084ed8e72d166bcba4120bf800`, Vercel `dpl_2r8GhTAvLXmMw4nbuA1EgymqdGbT` READY on production custom aliases; public homepage HTTP 200 exact deployment. CI build, lint, audit regressions, secrets scan and preview passed. Runtime log search for the strings `Date.now` and `prerender` in this release's sampled window returned no records. **This is code and smoke validation, not authenticated editor acceptance**; owner browser must revisit the editor and inspect new logs. Marketplace and Source Atlas use current role-gated admin-client code with live private table count 74; user-facing values and admin negative checks remain unverified. Live Data sequential scan next. Separate post-#194 product 404 failure remains open.
+
 # Control Centre owner audit reconciliation: live observation metrics and editor request boundary
 
 **Date:** 14 November 2026. **Source audit:** [AVUQO_CONTROL_CENTRE_OWNER_AUDIT_2026-11-14.md](./AVUQO_CONTROL_CENTRE_OWNER_AUDIT_2026-11-14.md). **Release status:** candidate pending CI, preview, merge, Vercel READY and signed-in browser/log acceptance.
