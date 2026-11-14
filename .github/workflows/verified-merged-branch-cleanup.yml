@@ -3,8 +3,6 @@ name: AVUQO verified merged-branch cleanup
 on:
   push:
     branches: [main]
-    paths:
-      - .github/workflows/verified-merged-branch-cleanup.yml
   workflow_dispatch:
     inputs:
       execute:
@@ -26,17 +24,24 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Prune PR #127-184 heads only after frozen merged-commit verification
+      - name: Prune only verified merged PR branch heads since #127
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { owner, repo } = context.repo;
-            // Curated merged PR range, including recent releases. Never touch open PR heads, protected originals or changed branch tips.
-            const candidatePRs = Array.from({length: 58}, (_,i) => i + 127);
+            // Ongoing cleanup after each main merge. Only branch tips that
+            // match a frozen merged PR commit are eligible. The historical
+            // review workflow owns PRs <=126 and preserves original assets.
             const execute = context.eventName === 'push' || String(context.payload.inputs?.execute) === 'true';
             const opened = await github.paginate(github.rest.pulls.list, {owner, repo, state:'open', per_page:100});
             const allPRs = await github.paginate(github.rest.pulls.list, {owner, repo, state:'all', per_page:100});
+            const liveBranches = await github.paginate(github.rest.repos.listBranches, {owner, repo, per_page:100});
+            const liveNames = new Set(liveBranches.map(branch=>branch.name));
+            const candidatePRs = allPRs.filter(pr=>
+              pr.number>=127 && pr.merged_at && pr.base.ref==='main' &&
+              pr.head?.repo?.full_name===`${owner}/${repo}` && liveNames.has(pr.head.ref)
+            ).map(pr=>pr.number).sort((a,b)=>a-b);
             // Never remove a branch if it was reused for a different PR.
             const sharedNameCounts = new Map();
             for (const item of allPRs) {
@@ -73,8 +78,10 @@ jobs:
                 }catch(err){reason=`PR commit verification unavailable (${err.status}); preserve`;}
               }
               if (!reason) {
-                const {data: info}=await github.rest.repos.getBranch({owner,repo,branch:name});
-                if(info.protected) reason = 'branch protected';
+                try {
+                  const {data: info}=await github.rest.repos.getBranch({owner,repo,branch:name});
+                  if(info.protected) reason = 'branch protected';
+                }catch(err){reason=`branch protection check failed (${err.status}); preserve`;}
               }
               if (!reason) {
                 eligible++;
