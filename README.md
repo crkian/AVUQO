@@ -8,6 +8,8 @@ An evidence-led UK comparison and savings application. Current customer website:
 
 ## Start here
 
+- **[Complete Git, all 22 branches, original ideas and every handover](docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md):** master navigable index of 9 original source assets, all 29 numbered workstreams, 12 detailed gaps, 22 current branch refs, five open PRs, verified releases and source/privacy caveats. [Machine-readable index](docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.json). This is a dated inventory, not proof that every idea is live.
+
 - **[AVUQO Project Compass](docs/AVUQO_PROJECT_COMPASS.md):** mandatory cross-chat handover for the original sources, the warm-premium design, branch audits, deployment history, owner advertising/automation and the next verified milestone.
 - **[Approved design reference screenshots](docs/design/AVUQO_VISUAL_REFERENCE_INDEX_2026-11-10.md):** original uploaded account, seasonal, beauty, home, lists, watches, product and mobile concepts.
 - **[Warm-premium design specification](docs/design/AVUQO_WARM_PREMIUM_VISUAL_IDENTITY_2026-11-05.md):** locked visual baseline and tokens.
