@@ -1,3 +1,7 @@
+## 14 November 2026 · Marketing draft scheduler failure isolation LIVE
+
+- PR #181 merged `a75964878b61b9ae175252e085646404dd8a5cb1`, Vercel production READY `dpl_2pc1X5UNfnSpQC9TnGSmFPf6sxJQ`. The daily editorial-only scheduling loop now isolates malformed/failed rules, validates brand/channel/owner/due/cadence before its claim and records bounded errors without overwriting newer schedules. Review-only drafts unchanged; social/AI and supplier imports remain gated.
+
 ## Unreleased · Editorial draft scheduler isolated rule failures
 
 - Validate each due brand/channel/owner/cadence rule before its atomic claim, inside the per-rule error boundary. A corrupt rule or database claim failure no longer aborts all other due draft work; failures are recorded best-effort without overwriting another worker's newer schedule. Drafts remain private and review-only, and marketing publishing/AI remain disabled. No cron, database or affiliate changes.
