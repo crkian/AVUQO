@@ -1,3 +1,9 @@
+## Unreleased · Owner-operated Petlibro Awin preflight and private staging safety
+
+- Candidate owner-only Control Centre at /control-centre/awin-pilot: reuse the existing secret-protected Awin worker in-process for advertiser 77952, feed 103580. Read-only preflight must pass before the UI offers a separately confirmed private staging action. No new credential distribution or public importer URL.
+- The automatic Awin worker now checks the existing global ingestion and emergency-stop controls before product-row writes, between chunks and before completing an import, while still allowing read-only preflight. Paused Awin source, joined membership, snapshot fingerprint and private unverified rows remain required. An interrupted write remains resumable.
+- No source activation, rights attestation, canonical product conversion, offer approval, cron change or public price is performed. Source remains paused. Requires GitHub CI, preview owner acceptance and exact production release verification. Old public Awin connector still needs a separate safe canonical product/offers bridge.
+
 ## 14 November 2026 · Live Data streamed candidate shortlist and explicit role checks LIVE
 
 - PR #197 split the up-to-5,000-row private candidate scan from faster dashboard metrics using accessible Suspense loading. Initial unauthenticated smoke failed due to private UI markers in redirected HTML/RSC. PR #198 immediately enforced explicit owner/admin authorization in the parent page and async child before private DB queries; this **passed signed-out production RSC inspection**. Final app SHA `0f84dba3a1c9e8487c953b24c8a0ca1a4eb1838d`, Vercel `dpl_6J8N1ErH35V3GqY77rQR7xxAkowP` READY and homepage 200 matching. CI/secrets/preview passed; signed-in speed and shortlist correctness still require owner browser test. No source/merchant/cron/product publishing changes.
