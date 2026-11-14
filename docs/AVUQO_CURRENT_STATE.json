@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_4okbG4LCkUNPAXRatMoyVFwAEng2",
-    "verified_ready_sha": "417751d287686948a09e1f67a390fecc15dc97ec",
+    "deployment_id": "dpl_2r8GhTAvLXmMw4nbuA1EgymqdGbT",
+    "verified_ready_sha": "08c34b2c58aa93084ed8e72d166bcba4120bf800",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #194 deployed READY exact SHA; homepage and four research guides 200, but unknown/draft pilot product slugs still returned HTTP 200 not-found content. True 404 unresolved.",
+    "verification": "PR #195 Control Centre editor request-bound code Vercel READY. Homepage 200 exact deployment. Signed-in owner editor and Dashboard count browser acceptance pending.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -174,27 +174,27 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Release editor request-time/prerender boundary after CI/preview. Confirm signed-in owner page load and no fresh Date.now prerender logs; do not test Publish on real content."
+      "task": "Owner/Work read-only browser verify Marketplace and Source Atlas Awin count cards show actual private 74 observation count, and editor loads without fresh prerender Date.now logs. No Save/Publish."
     },
     {
       "priority": 2,
-      "task": "In owner browser verify Marketplace and Source Atlas both display 74 Awin observations; main already uses role-checked server admin clients, no permission widening."
+      "task": "Isolate Live Data 5k-row serial candidate scan into separate loading/Suspense boundary while preserving status/error/partial data and no writes."
     },
     {
       "priority": 3,
-      "task": "Separate Live Data Monitor 5k-row sequential candidate scan behind explicit Suspense loading state; measure latency, preserve no-write and incomplete-scan status."
+      "task": "Investigate true HTTP 404 for unapproved product pilots and unknown model slugs; PR #194 still live HTTP 200 not-found HTML. Maintain four legitimate guides."
     },
     {
       "priority": 4,
-      "task": "Investigate genuine HTTP 404 for unknown and draft product slugs under Next Cache Components; PR #194 did not achieve required HTTP status."
+      "task": "Owner-approved current Awin product, merchant, image and landed-price evidence, then release one eligible real offer with existing approval gates. Source paused, no demo prices."
     },
     {
       "priority": 5,
-      "task": "Obtain permissioned live supplier offer/price/variant evidence for one real product then owner approve through existing release controls; no demo offer/publication."
+      "task": "Use Work parallel screenshot and owner console QA briefs; keep Work read-only while ChatGPT changes Git."
     },
     {
       "priority": 6,
-      "task": "Run Work read-only desktop/mobile website QA and independent owner Control Centre screen verification without overlapping Git edits; see docs/WORK_PARALLEL_PRODUCT_DESIGN_QA_BRIEF_2026-11-14.md."
+      "task": "Audit and retire only superseded historical branches while porting missing worthwhile code/design."
     }
   ],
   "required_reverification": [
@@ -393,12 +393,10 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "feature": "Control Centre private page editor prerender request boundary and audit contract tests",
-    "branch": "fix/control-centre-editor-request-prerender-20261114",
-    "status": "candidate_not_merged",
-    "changes_publishing": false,
-    "changes_database": false,
-    "requires_authenticated_browser_and_runtime_logs": true
+    "feature": "None; PR #195 editor request-bound code verified live",
+    "status": "production_verified_authenticated_acceptance_pending",
+    "recommended_next": "Live Data candidate scan Suspense/loading partition and independently verify Awin dashboard cards; product HTTP 404 unresolved",
+    "source_activation": "unchanged"
   },
   "security_review_followups": [
     {
@@ -649,10 +647,15 @@
     "awin_observation_rows_read_only": 74,
     "marketplace_source_atlas_private_admin_client_on_main": true,
     "owner_browser_card_count_acceptance": "pending",
-    "public_page_editor_prerender_fix": "candidate_not_merged",
+    "public_page_editor_prerender_fix": "production_code_verified_owner_browser_pending",
     "live_data_scan_loading": "pending",
     "open_food_facts_sample_last_observed": "upstream 503",
-    "write_path_acceptance": "pending_with_disposable_data"
+    "write_path_acceptance": "pending_disposable_test_only",
+    "release_pr": 195,
+    "release_sha": "08c34b2c58aa93084ed8e72d166bcba4120bf800",
+    "release_deployment": "dpl_2r8GhTAvLXmMw4nbuA1EgymqdGbT",
+    "runtime_log_query": "No Date.now or prerender matches in sampled production deployment window; no fresh authenticated editor request proven",
+    "work_parallel_brief": "docs/WORK_PARALLEL_OWNER_CONTROL_CENTRE_AUDIT_2026-11-14.md"
   },
   "product_true_404_followup": {
     "pr": 194,
