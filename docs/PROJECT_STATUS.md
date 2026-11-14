@@ -1,3 +1,9 @@
+## Live Data streaming and pre-query auth fix · VERIFIED · 14 November 2026
+
+- PR #197 (`927e60d4174d5ac58f3d0cfa8587065ea9f5dfe2` / Vercel `dpl_8KU4CnG7t2rWMVC5GKFZbpbw9YtP`) shipped an independent Suspense candidate panel. Signed-out RSC response exposed private UI markers while redirecting to login, so original acceptance **failed**; no private product row exposure was confirmed in sampled response.
+- PR #198 (`0f84dba3a1c9e8487c953b24c8a0ca1a4eb1838d` / `dpl_6J8N1ErH35V3GqY77rQR7xxAkowP`) added explicit role-before-query in both parent and child. Build/lint/tests/secrets/preview and Vercel READY passed. Live homepage 200 exact deployment; signed-out Live Data response still contained a framework login redirect instruction but **no private UI markers or source metrics**, meeting this RSC smoke criterion. Error/fatal runtime log sample empty.
+- 5,000 cap, 200-row batches, dedup/40-result shortlist, private permissions and read-only status preserved. **Actual signed-in first-paint and candidate latency acceptance pending**. No DB/cron/import/publisher/source activation. See `docs/LIVE_DATA_MONITOR_CANDIDATE_STREAMING_2026-11-14.md` and Work owner QA brief.
+
 ## Private Live Data stream auth fix · urgent candidate · 14 November 2026
 
 - PR #197 deployed READY `927e60d4174d5ac58f3d0cfa8587065ea9f5dfe2` / `dpl_8KU4CnG7t2rWMVC5GKFZbpbw9YtP`, with main metrics separated from the 5,000-row candidate scan. Code CI passed.

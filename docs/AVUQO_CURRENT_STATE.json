@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_8KU4CnG7t2rWMVC5GKFZbpbw9YtP",
-    "verified_ready_sha": "927e60d4174d5ac58f3d0cfa8587065ea9f5dfe2",
+    "deployment_id": "dpl_6J8N1ErH35V3GqY77rQR7xxAkowP",
+    "verified_ready_sha": "0f84dba3a1c9e8487c953b24c8a0ca1a4eb1838d",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #197 Live Data streamed candidate panel READY, public homepage 200 exact dpl. Signed-out RSC contained some private page UI payload alongside redirect, requiring hotfix; no actual private rows confirmed in sampled bytes.",
+    "verification": "PR #197 bounded Live Data candidate streaming plus urgent role-before-query PR #198. Vercel READY exact app SHA. Homepage 200 matching dpl. Signed-out live-data RSC redirected without private candidate or source metric markers. Owner browser timing pending.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -174,23 +174,23 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Merge Live Data role-before-fetch hotfix only after CI/preview. On exact READY deployment inspect signed-out RSC body to confirm redirect and NO private candidate or operational metrics. Keep provider/marketing gates unchanged."
+      "task": "Fix genuine HTTP 404 for unknown and draft product routes: PR #194 merged but signed-out HTTP response still 200 with unavailable markup. Preserve four legitimate research model guides."
     },
     {
       "priority": 2,
-      "task": "Read-only owner browser: independently measure Live Data main dashboard first paint and candidate shortlist, verify result/permission state."
+      "task": "Get at least one fresh, rights-cleared, owner-approved retailer offer with full price, delivery and image permissions; never expose demo or unverified Awin prices."
     },
     {
       "priority": 3,
-      "task": "Owner or Work check Marketplace/Source Atlas 74 Awin observation count and editor no-new-prerender logs; no Save/Publish."
+      "task": "Read-only signed-in owner/Work Live Data QA: measure main metric first paint vs private candidate scan; check permission and duplicate flags and 5k/40 bounds."
     },
     {
       "priority": 4,
-      "task": "Fix genuine product 404 status; draft/unknown slugs still HTTP 200 with no-result content, four editorial guides are real but unpriced."
+      "task": "Owner/Work read-only Marketplace and Source Atlas Awin observation card check and editor post-#195 prerender warning; avoid Save/Publish."
     },
     {
       "priority": 5,
-      "task": "First real approved retailer product offer when current permissions, live price, VAT/delivery, variant and rights are established."
+      "task": "Reconcile only superseded historical Git branches after preserving unique feature and original design/security work."
     }
   ],
   "required_reverification": [
@@ -389,14 +389,10 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "feature": "Live Data parent and async candidate explicit role guard before private RSC streaming",
-    "branch": "fix/live-data-auth-before-private-stream-20261114",
-    "status": "candidate_not_merged",
-    "release_blocks_other_new_features": true,
-    "tests": "tests/live-data-candidate-streaming.test.mjs",
-    "requires_signed_out_rsc_smoke": true,
-    "requires_production_ready": true,
-    "db_changes": false
+    "feature": "None after PR #197 and #198 code releases; owner performance acceptance remains pending",
+    "status": "production_verified_signed_out_access_guard_passed_owner_browser_pending",
+    "recommended_next": "Unknown/draft product true HTTP 404, then first rights-approved retailer offer and owner Live Data speed check",
+    "source_activation": false
   },
   "security_review_followups": [
     {
@@ -684,7 +680,18 @@
     "release_sha": "927e60d4174d5ac58f3d0cfa8587065ea9f5dfe2",
     "release_deployment_id": "dpl_8KU4CnG7t2rWMVC5GKFZbpbw9YtP",
     "code_deployed": true,
-    "security_acceptance": "failed_unsigned_RSC_serialized_private_UI",
-    "signed_in_perf_acceptance": "pending"
+    "security_acceptance": "signed_out_RSC_no_private_page_markers_after_role_checks",
+    "signed_in_perf_acceptance": "pending",
+    "streaming_pr": 197,
+    "streaming_release_sha": "927e60d4174d5ac58f3d0cfa8587065ea9f5dfe2",
+    "streaming_deployment_id": "dpl_8KU4CnG7t2rWMVC5GKFZbpbw9YtP",
+    "auth_hotfix_pr": 198,
+    "auth_hotfix_release_sha": "0f84dba3a1c9e8487c953b24c8a0ca1a4eb1838d",
+    "auth_hotfix_deployment_id": "dpl_6J8N1ErH35V3GqY77rQR7xxAkowP",
+    "http_status_unauthenticated": 200,
+    "redirect_instruction": true,
+    "latency_measured": false,
+    "ci_build_lint_tests_secrets_preview": "passed",
+    "source_activation": false
   }
 }
