@@ -13,7 +13,7 @@
 
 **A merged PR isn't by itself a deployed feature.** In every session, verify current GitHub `main` and Vercel project `avuqo` latest READY **production** deployment and `www.avuqo.com` alias. If the SHA differs from this snapshot, treat the snapshot as stale and update it after verifying. For provider-dependent claims, inspect Supabase source permissions, feed freshness and publication gates. No public imported Awin/eBay/tyre images or prices without rights and current evidence.
 
-**Latest verified production at 13 Nov 2026:** `1fcad1afd007544a2f4a2669b4d20c45d0226d19` (Vercel `dpl_22XM7ti5pdEDcgCnprCyfF7WMfYb` READY and `www.avuqo.com` alias; homepage HTTP 200 matching deployment). This is a **snapshot**, not a promise that the domain has not changed since.
+**Verified production snapshot on 14 November 2026:** `92afa9c906b25f5fd8df259c62f793fbd2712500` (Vercel `dpl_aisifpCp2x3z2Tim7YHznzPYp68U`, READY on `www.avuqo.com`). Signed-out account and catalogue browser checks passed.
 
 ## Next work
 Continue comparing production category, seasonal, product and account routes against the original warm-premium references. The faceted mark and storefront navigation changes are deployed via PR #161. Continue private Awin feed discovery/import retries and marketing editorial draft scheduling behind existing source and approval gates. PR #173 homepage fact-expiry/revocation safety is already live, with social publishing/AI still disabled and zero approved homepage campaigns on the latest database check. Open PRs and status live in the handover files.
