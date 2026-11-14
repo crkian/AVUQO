@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_5vmb555PfgdUQYwE9HVSq9b8Hb3J",
-    "verified_ready_sha": "a71b9bcc25a2a65b53a2744b661dffc86c20c067",
+    "deployment_id": "dpl_BsoRWdS8cYsc9Z1JJ6v5EkiLctds",
+    "verified_ready_sha": "0cd64b8ccd73a8f298a62e07937e0bb537f26d1c",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #179 READY. Desktop and narrow-width category picker journeys passed. PR #178 verified 50 category routes.",
+    "verification": "Current main production Vercel READY at new 14 Nov SHA, includes category releases. Marketing scheduler isolation is branch candidate, not live.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -393,11 +393,13 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "feature": "None after verified marketing homepage claim-gate release",
-    "status": "production_verified",
-    "recommended_next": "Marketing editorial draft scheduler and Awin metadata monitor + private import retry review",
-    "automatic_social_publishing": "disabled",
-    "merchant_import_activation": "not approved"
+    "feature": "Marketing editorial draft scheduler rule failure isolation",
+    "branch": "fix/marketing-editorial-rule-failure-isolation-20261114",
+    "status": "candidate_not_merged",
+    "tests": "tests/marketing-editorial-rule-isolation.test.mjs",
+    "changes_social_publishing": false,
+    "changes_cron": false,
+    "changes_supabase": false
   },
   "security_review_followups": [
     {
@@ -495,5 +497,16 @@
       449,
       1348
     ]
+  },
+  "marketing_rule_baseline_20261114": {
+    "rules_total": 0,
+    "enabled_rules": 0,
+    "due_rules": 0,
+    "posts_total": 0,
+    "posts_draft": 0,
+    "publishing_enabled": false,
+    "ai_enabled": false,
+    "emergency_stop": true,
+    "observed_from": "read-only connected Supabase"
   }
 }
