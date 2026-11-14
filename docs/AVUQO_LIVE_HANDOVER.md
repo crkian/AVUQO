@@ -1,3 +1,7 @@
+## MERGED BRANCH RETIREMENT · CANDIDATE · 14 NOVEMBER 2026
+
+Live production baseline `43da00fd19e0e37e0cb3fe79c7da53504028da2e` READY; GitHub read-only branch inventory returned **63 branches including main** and **5 open PRs** (#25, #83, #93, #117, #158). Branch `chore/verified-merged-pr-branch-prune-20261114` updates the existing verified-merged-branch cleanup to run on each main push. Only currently existing merged PR #127+ heads with exact PR head SHA, final reviewed PR commit, unique PR branch association, no open PR and nonprotected/nonsecurity/nonoriginal-design status may be deleted. Branches with changed SHA/extra work and the original visual/design/security records are protected. This is **candidate until CI and merge**, and number actually removed must be verified from GitHub Actions logs and a fresh branch listing. Historic #1–126 separate guarded cleanup unchanged. See `docs/VERIFIED_BRANCH_RETIREMENT_POLICY_2026-11-14.md`. Do not conflate fewer branches with completed supplier automation or visual feature coverage.
+
 ## Awin feed inventory integrity VERIFIED · 14 November 2026
 
 PR #183 merged at app SHA `0727c0866ad15053955dc3b9fa6822a043122376`, Vercel production deployment `dpl_5z93DKd4sceJjCdMFDpyi5zzca5U` **READY**, aliases `www.avuqo.com` and `avuqo.com`. The public homepage returned HTTP 200 with exact deployment marker. GitHub quality build, lint, Awin feed inventory regression tests, secrets scan and Vercel preview all passed on PR head `9d3f951a5f88e08ef11d1545f17da40c6eec8eed`.
