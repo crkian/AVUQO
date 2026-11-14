@@ -8,6 +8,10 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
+## Complete project and owner idea registry (14 November 2026)
+
+The durable [master Git/branch/idea index](docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md) and [machine-readable companion](docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.json) map **all 22 GitHub branch names observed on 14 Nov**, 5 draft PRs, 29 roadmap workstreams, 12 known requirement gaps, 9 original owner source assets, and the handover hierarchy. Read these when the owner asks for "everything", wants a comprehensive delivery plan, or starts a new project workstream. Re-query GitHub for the *current* branches/PRs and Vercel for production before acting. Do not commit confidential source PDFs or unpublished design binaries into the public repo to make the index look complete. Never call mapped ideas "live" without implementation, data rights, production and actual acceptance evidence.
+
 ## Required restart protocol (13 November 2026)
 
 **FIRST: fetch from current `main`** `AVUQO_START_HERE.md`, `docs/AVUQO_LIVE_HANDOVER.md` and `docs/AVUQO_CURRENT_STATE.json`; then the Compass, status, backlog and relevant implementation sources. This is the canonical quick handover and overrides stale pending wording from old PR plans.
