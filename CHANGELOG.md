@@ -1,3 +1,7 @@
+## Unreleased · Ongoing verified GitHub merged-branch pruning
+
+- Extend the existing strictly guarded merged-PR cleanup to automatically check eligible recent merged heads after each main push, not just a historical one-off PR window. Scope limited to exact frozen reviewed PR head/commit, currently present ref, unique branch association, not open/protected/security/original design. Documents path to zero **stale** branches while retaining unmerged feature and design work. Actual removals require runtime evidence.
+
 ## 14 November 2026 · Awin metadata inventory validation LIVE
 
 - PR #183 production SHA `0727c0866ad15053955dc3b9fa6822a043122376`, Vercel `dpl_5z93DKd4sceJjCdMFDpyi5zzca5U` READY. Fail-closed validation of duplicate CSV headers, conflicting duplicate feed identities and nonnumeric product counts; harmless signed URL rotation is ignored without persisting URLs. Source remained paused and no merchant/import/publication rights changed. Private endpoint runtime response still awaits independent read-only test.
