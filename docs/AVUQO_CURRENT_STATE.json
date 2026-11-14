@@ -174,19 +174,19 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Reconcile historical docs/p0-03-verified-rollout-20261104 against current protected collection RLS, migration and acceptance docs; retire only after exact source/content proof."
+      "task": "Finish CI and production proof of complete Git/idea/handover index; keep it linked from README, START_HERE, AGENTS and JSON state."
     },
     {
       "priority": 2,
-      "task": "Reconcile older fix/numbered-feed-filenames-20261104 and Awin feed monitor fragments against live verified importer code; selectively port missing safety changes before retiring."
+      "task": "Reconcile P0-03 documentation and 14 historical branches without deleting unique code/design sources or applying old migrations."
     },
     {
       "priority": 3,
-      "task": "Continue Awin private retry/freshness and marketing owner-only automation checks; preserve paused source, no social/AI activation."
+      "task": "Complete owner-approved marketing editorial workflow and private Awin import resilience, preserving source pause/publication gates."
     },
     {
       "priority": 4,
-      "task": "Preserve #25/#83/#93 originals, security histories, and #117/#158 Tyres until controlled review."
+      "task": "Continue live warm-premium visual and signed-in customer acceptance; preserve original design files until verified on main."
     },
     {
       "priority": 5,
@@ -393,10 +393,11 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "feature": "None after verified PR #187 closed-PR branch retirement",
-    "status": "production_verified",
-    "recommended_next": "P0-03 historical rollout documentation branch, then Awin private retry and marketing owner acceptance",
-    "source_permissions": "unchanged"
+    "feature": "Full Git branch, idea source and handover inventory",
+    "branch": "docs/unified-git-branches-ideas-handover-20261114",
+    "status": "candidate_not_merged_or_deployed",
+    "scope": "Docs only; preserve public repo privacy and original owner source provenance",
+    "tests": "tests/complete-git-idea-handover-index.test.mjs"
   },
   "security_review_followups": [
     {
@@ -593,5 +594,32 @@
     "initial_ref_count": 63,
     "per_ref_github_actions_log_checked": false,
     "no_source_activation": true
+  },
+  "complete_git_idea_handover_snapshot_20261114": {
+    "status": "candidate_docs_only_not_merged",
+    "repo_visibility": "public",
+    "index_markdown": "docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md",
+    "index_json": "docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.json",
+    "observed_branch_counts": {
+      "total": 22,
+      "main": 1,
+      "open_pr_refs": 5,
+      "security_refs": 2,
+      "historical_divergent_refs": 14
+    },
+    "observed_open_prs": [
+      25,
+      83,
+      93,
+      117,
+      158
+    ],
+    "original_owner_sources_indexed": 9,
+    "original_confidential_binary_files_added_to_git": false,
+    "roadmap_workstreams_indexed": 29,
+    "granular_requirement_gaps_indexed": 12,
+    "production_sha_checked_before_branch": "41cb2755b00d8f2c0558e38fe18e1f7852d33fdc",
+    "production_deployment_checked": "dpl_7LR8wQLo6X9jSZhU9zYeyiTVPTAY",
+    "notes": "Index is source and handover map, not proof every idea is built. Originals remain owner assets. Re-verify branches/deployment before any changes."
   }
 }
