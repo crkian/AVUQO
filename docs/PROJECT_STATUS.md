@@ -1,3 +1,9 @@
+## Marketing review-only draft scheduler resilience · candidate · 14 November 2026
+
+- The existing daily marketing cron's editorial-draft substep is hardened so one malformed/due rule or claim error cannot block other brands and channels. The same brand/platform/owner/cadence validation is now applied within a per-rule error boundary, with best-effort, concurrency-guarded failure recording. No new social/publishing activation.
+- Live baseline: 0 editorial rules, 0 marketing posts; publishing/AI OFF, emergency stop ON. No production fixtures or new rights. See `docs/MARKETING_EDITORIAL_RULE_ISOLATION_RELEASE_2026-11-14.md`.
+- Branch-only until CI and exact READY production are verified.
+
 ## Category picker verified · 14 November 2026
 
 PR #179 deployed `a71b9bcc25a2a65b53a2744b661dffc86c20c067` (Vercel `dpl_5vmb555PfgdUQYwE9HVSq9b8Hb3J`, READY on `www.avuqo.com`). GitHub Build, Lint and secret checks passed on `ea516cdaa4ebf2d7f86180dfcb6ca8b2adf0aa0e` and the Vercel preview succeeded. The desktop category directory now selects Books and follows its direct product link. At narrow width the picker selects Musical Instruments and opens its guide. Browser checks across the release sequence found no horizontal overflow on the 14 refreshed guides and 25 shelves at 1,348 and 449 CSS pixels. The Books shelf also passed at 337 CSS pixels. Populated public item acceptance remains pending verified external offers.
