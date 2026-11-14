@@ -1,3 +1,11 @@
+## Final production release and signed-out response check · 14 November 2026
+
+The original candidate streaming PR #197 deployed READY at `927e60d4174d5ac58f3d0cfa8587065ea9f5dfe2`, Vercel `dpl_8KU4CnG7t2rWMVC5GKFZbpbw9YtP`. Its signed-out RSC smoke failed because the layout's login redirect coexisted with serialized private UI markers (fallback heading/empty state). No private product row exposure was established in that sampled response.
+
+Immediate PR #198 implemented explicit role checks before session Supabase reads in both page and async child, passed GitHub build/lint/tests/secrets and Vercel preview, then merged at `0f84dba3a1c9e8487c953b24c8a0ca1a4eb1838d`. Vercel production `dpl_6J8N1ErH35V3GqY77rQR7xxAkowP` is READY with `www.avuqo.com` / `avuqo.com` aliases. Public homepage HTTP 200 exact deployment. Fresh signed-out `/control-centre/live-data` response contained a login redirect instruction but **no private candidate heading, empty results, private source-count or page-title markers**. No sampled production error/fatal logs found. That proves this **specific signed-out content smoke** passed, not complete authentication testing across all routes.
+
+**Still pending:** genuine signed-in owner/admin browser verification that source metrics display before candidate shortlist completes, accurate permission and dedup flags, no unexpected errors, and actual timing versus the original audit. Existing Work read-only acceptance brief is the intended follow-up. No production data or permissions were changed by either PR.
+
 ## Follow-up access-control hotfix after PR #197 · 14 November 2026
 
 PR #197 shipped candidate scan streaming at `927e60d4174d5ac58f3d0cfa8587065ea9f5dfe2` (Vercel `dpl_8KU4CnG7t2rWMVC5GKFZbpbw9YtP`, READY). In a **signed-out** production request, the Control Centre layout initiated a login redirect, but the streamed React response still included portions of the private Live Data panel, including its fallback heading and empty-results UI. The unauthenticated response was HTTP 200 with a redirect instruction in the React payload. No actual private product rows were observed in the sampled response; **do not equate that with proof that no sensitive data could appear**.
