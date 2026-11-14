@@ -196,6 +196,10 @@ For each new proposal, first attach its **source ID** (S01–S09 or a new S10+) 
 
 ## 10. Immediate continuation queue
 
+**Newest P1-04 release candidate, 14 Nov:** `docs/PUBLIC_MODEL_RESEARCH_GUIDES_RELEASE_2026-11-14.md` adds four clearly research-only individual product guides at public routes, manufacturer reference links and home/tech/homepage discovery. It cannot show demo or unapproved Awin prices/stock/images. Real retailer offers still depend on permissioned P1-01 owner release, recent prices and exact variant matching. Optional independent Work screenshot/test instructions live at `docs/WORK_PARALLEL_PRODUCT_DESIGN_QA_BRIEF_2026-11-14.md`; Work is not invoked by committing this file. Candidate requires CI/merge/READY proof.
+
+### Other queued work
+
 1. Compare historical `docs/p0-03-verified-rollout-20261104` with current collection code, RLS/migration and customer acceptance docs, then retire only if the useful record is on main.
 2. Compare `fix/numbered-feed-filenames-20261104` and Awin private feed/monitor branches against recent deployed validations and #176 recovery. Port any missing tests, never replay a migration or enable paused feeds as a cleanup side effect.
 3. Finish genuine **approved private import** and **review-only editorial scheduling** owner acceptance, with source permissions and emergency stops still in place.
