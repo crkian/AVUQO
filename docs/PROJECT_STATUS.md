@@ -1,3 +1,11 @@
+## PRODUCT VISIBILITY FIRST: FOUR MODEL RESEARCH GUIDES · CANDIDATE · 14 NOV 2026
+
+Owner priority is to put recognisable products on the actual site before further Git housekeeping. Fresh read-only production Supabase: **4 active product identities**, **8 draft pilots**, **6 demo-only offers** and **0 approved Awin offer release reviews**; Awin remains **paused, sync disabled, publisher/product rights pending**. Existing public `verifiedProductIndex` correctly excludes the demo offers, so showing live prices today would misrepresent the data.
+
+Candidate `feature/public-product-research-guides-20261114` adds four editorial model guides (Apple MacBook Air M4 13-inch, Ninja AF300UK, Dyson V15 Detect Absolute, LG C4 65-inch family), with no retailer price, stock, score, merchant photo or affiliate buy link. All four have their own `/products/[slug]` guide fallback and manufacturer info references; `/products`, homepage cards and home/tech product showrooms surface them without activating a source. Existing independent verified-offer pages win if a product later passes rights/variant/score/price freshness checks. Unapproved draft pilot products remain hidden and research detail pages are `noindex`. No new DB migration, cron, Awin flag, customer entitlement, social or tyre worker. See `docs/PUBLIC_MODEL_RESEARCH_GUIDES_RELEASE_2026-11-14.md`; Work parallel read-only QA brief `docs/WORK_PARALLEL_PRODUCT_DESIGN_QA_BRIEF_2026-11-14.md`.
+
+**Release status CANDIDATE until CI, preview, merge and exact SHA production READY.** After release: owner-approved current Awin merchant feed/permission check and one real offer release, then continuing visual and branch reconciliation. Never backfill demo prices as real offers.
+
 ## Unified Git, all branches, ideas and handovers VERIFIED · 14 November 2026
 
 - PR #189 merged SHA `20006d39f7ae9541f79ca39ef9966818cb0cae93`, Vercel `dpl_DrcFffyiYBCmdF9T6PcYoKfjDqd4` READY; exact live homepage HTTP 200 on both-domain deployment. Build/lint/source register tests/secrets/preview passed.

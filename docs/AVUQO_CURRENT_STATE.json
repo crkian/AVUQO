@@ -174,23 +174,23 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Finish CI and production proof of complete Git/idea/handover index; keep it linked from README, START_HERE, AGENTS and JSON state."
+      "task": "Release four named public model research guides; verify no price/stock/affiliate/image claims; complete mobile/desktop QA and exact Vercel READY proof."
     },
     {
       "priority": 2,
-      "task": "Reconcile P0-03 documentation and 14 historical branches without deleting unique code/design sources or applying old migrations."
+      "task": "Owner-controlled P1-01: obtain written rights and current joined Awin programme + exact product feed, import privately, reconcile merchant/variants/landed price and release one legitimate priced offer through existing admission controls."
     },
     {
       "priority": 3,
-      "task": "Complete owner-approved marketing editorial workflow and private Awin import resilience, preserving source pause/publication gates."
+      "task": "Run separate Work read-only browser QA of homepage, model pages, responsive design and account routes when credits available. Brief in docs/WORK_PARALLEL_PRODUCT_DESIGN_QA_BRIEF_2026-11-14.md."
     },
     {
       "priority": 4,
-      "task": "Continue live warm-premium visual and signed-in customer acceptance; preserve original design files until verified on main."
+      "task": "Reconcile outdated P0-03 and numbered Awin filename branch work against current main; remove only superseded code after preservation review."
     },
     {
       "priority": 5,
-      "task": "Resolve or close 11 historical PRs only after checking their diffs against current main; prioritise fixes #50 #58 #51 #102 and separate tyres #117."
+      "task": "Progress approved marketing draft scheduling, source rights, site design and remaining listed roadmap ideas one safe PR at a time."
     },
     {
       "priority": 6,
@@ -393,9 +393,16 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "feature": "Complete Git/idea index",
-    "status": "production_verified",
-    "recommended_next": "Review historical P0-03 documentation, then Awin import and marketing work"
+    "feature": "Four research-only public product model guides",
+    "branch": "feature/public-product-research-guides-20261114",
+    "status": "candidate_not_merged_or_live",
+    "scope": "Public named-model editorial guides on /products, homepage, individual pages, tech/home departments",
+    "tests": "tests/public-research-product-guides.test.mjs",
+    "affects_retailer_prices": false,
+    "affects_affiliate_source_permissions": false,
+    "affects_social_publishing": false,
+    "affects_supabase_schema": false,
+    "affects_pneus_cron": false
   },
   "security_review_followups": [
     {
@@ -622,5 +629,18 @@
     "release_pr": 189,
     "release_sha": "20006d39f7ae9541f79ca39ef9966818cb0cae93",
     "release_deployment": "dpl_DrcFffyiYBCmdF9T6PcYoKfjDqd4"
+  },
+  "first_product_visibility_baseline_20261114": {
+    "active_product_identities": 4,
+    "draft_pilot_products": 8,
+    "active_demo_offers": 6,
+    "published_demo_deals": 6,
+    "approved_awin_offer_reviews": 0,
+    "awin_source_status": "paused",
+    "awin_sync_enabled": false,
+    "awin_publication_rights": "pending",
+    "offer_price_publication": "blocked_until_verified_source_and_owner_review",
+    "research_guide_targets": 4,
+    "source": "read-only connected Supabase 14 November 2026; recheck before activation"
   }
 }

@@ -85,3 +85,8 @@
 @media(max-width:1150px){.grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.tools{grid-column:1/-1}.tools nav{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:760px){.grid{grid-template-columns:1fr}.tools{grid-column:auto}.tools nav{grid-template-columns:repeat(2,minmax(0,1fr))}.findPhoto{height:135px;min-height:135px}.groceryPhoto{height:130px}}
 @media(max-width:500px){.findPhoto{height:115px;min-height:115px}.groceryChecks{grid-template-columns:1fr 1fr}}
+
+
+/* A research card is never a merchant photograph or a verified offer. */
+.findPhoto[data-topic=research]{background:radial-gradient(circle at 75% 20%,#e6d5f3,transparent 46%),linear-gradient(140deg,#f8f0f5,#efe9e1);color:#78529b}
+.findPhoto[data-topic=research] svg{width:38px;height:38px}

@@ -1,5 +1,7 @@
 # AVUQO living delivery roadmap
 
+**Current P1-04 product visibility candidate (14 Nov 2026):** Four independently identified, editorial-only product model guides are being added to public catalogue, tech/home shelves and homepage, without releasing a single priced retailer offer. Live Supabase has 4 active demo identities, 8 draft private pilot identities, 6 demonstration offers, zero approved Awin item releases. This is **not** P1-01 merchant acceptance or completion of P1-04 comparison. See `docs/PUBLIC_MODEL_RESEARCH_GUIDES_RELEASE_2026-11-14.md` and optional `docs/WORK_PARALLEL_PRODUCT_DESIGN_QA_BRIEF_2026-11-14.md`. Next: source-licensed first real offer, then actual variant/GBP landed-cost comparisons and full UI/browser acceptance. Preserve other P0-P4 workstreams.
+
 **Cross-reference:** [Complete Git, every current branch, all original source themes and handovers](./AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md) and [machine index](./AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.json) (14 Nov 2026 snapshot). This roadmap remains the detailed workstream/acceptance authority; the new index does not upgrade any unverified feature to live.
 
 **Last evidence audit:** 2 November 2026 · [full source-to-code matrix](./SOURCE_TO_CODE_AUDIT_2026-11-02.md) · [original source manifest](./SOURCE_MANIFEST_2026-11-02.md) · [granular source gaps](./SOURCE_REQUIREMENT_GAPS_2026-11-02.md).

@@ -1,6 +1,7 @@
 import Link from "next/link";
-import {ArrowRight, Bell, Bookmark, CheckCircle2, ListChecks, Package, Plane, Scale, ShoppingBasket, ShieldCheck} from "lucide-react";
+import {ArrowRight, Bell, BookOpen, Bookmark, CheckCircle2, ListChecks, Package, Plane, Scale, ShoppingBasket, ShieldCheck} from "lucide-react";
 import type {PublicOffer,PublicProduct} from "../../lib/products/public-catalog";
+import {RESEARCH_PRODUCT_GUIDES} from "../../lib/products/research-guides";
 import styles from "./HomeShoppingDashboard.module.css";
 export type DashboardEntry={product:PublicProduct;offers:PublicOffer[]};
 const money=(value:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(value);
@@ -15,6 +16,7 @@ const tools=[
 
 export default function HomeShoppingDashboard({items}:{items:DashboardEntry[]}){
  const picked=items.slice(0,3);
+ const researchPicks=RESEARCH_PRODUCT_GUIDES.slice(0,3);
  return <section className={styles.section} aria-label="Everyday AVUQO shopping tools">
    <div className="shell">
     <div className={styles.heading}><div><p className={styles.kicker}>Useful shopping, all in one place</p><h2>Discover. Compare. Decide.</h2></div>
@@ -35,8 +37,8 @@ export default function HomeShoppingDashboard({items}:{items:DashboardEntry[]}){
       </div>
      </article>
      <article className={styles.finds}>
-      <div className={styles.findsHeading}><div><p className={styles.kicker}>A closer look</p><h3>{picked.length?"Verified shopping highlights":"Find your next good thing"}</h3></div>
-        <Link href={picked.length?"/products":"/categories"}>View all <ArrowRight size={16}/></Link></div>
+      <div className={styles.findsHeading}><div><p className={styles.kicker}>A closer look</p><h3>{picked.length?"Verified shopping highlights":"Start with real product guides"}</h3></div>
+        <Link href="/products">View all <ArrowRight size={16}/></Link></div>
       <div className={styles.findsGrid}>
         {picked.length?picked.map(({product,offers})=>{
           const best=[...offers].sort((a,b)=>Number(a.offer.total_price??a.offer.price)-Number(b.offer.total_price??b.offer.price))[0];
@@ -49,11 +51,11 @@ export default function HomeShoppingDashboard({items}:{items:DashboardEntry[]}){
             <small>Eligible observed offer</small>
           </Link>;
         }):
-        <>
-          <Link href="/tech" className={styles.find}><span className={styles.findPhoto} data-topic="tech"/><strong>Useful technology</strong><span>Explore ideas</span><small>Editorial inspiration</small></Link>
-          <Link href="/home" className={styles.find}><span className={styles.findPhoto} data-topic="home"/><strong>Home comforts</strong><span>Browse thoughtfully</span><small>Editorial inspiration</small></Link>
-          <Link href="/beauty" className={styles.find}><span className={styles.findPhoto} data-topic="beauty"/><strong>Beauty &amp; care</strong><span>Discover guides</span><small>Editorial inspiration</small></Link>
-        </>}
+        researchPicks.map(guide=><Link href={`/products/${guide.slug}`} key={guide.slug} className={styles.find}>
+          <span className={styles.findPhoto} data-topic="research"><BookOpen size={37} aria-hidden="true"/></span>
+          <strong>{guide.title}</strong><span>Explore this model</span>
+          <small>Research guide · No verified retailer price</small>
+        </Link>)}
       </div>
       <p className={styles.findsDisclosure}><ShieldCheck size={15}/> No unverified offers are represented as current deals.</p>
      </article>
