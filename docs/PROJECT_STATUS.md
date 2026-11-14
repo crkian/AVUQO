@@ -1,3 +1,8 @@
+## 14 November 2026: Awin inventory ambiguity guard candidate
+
+- Add strict metadata-only feed-list CSV identity validation: distinct nonblank headers, explicit safe-integer counts, and fail-closed handling of conflicting duplicate advertiser/feed IDs. Signed URLs are never retained; harmless URL rotation remains deduplicated. Existing monitor stops before its discovery RPC if inventory rows are ambiguous.
+- Awin source was verified paused with sync disabled. PR #176 recovery and all four Vercel cron registrations remain unchanged. No supplier downloads or offers activated. Candidate requires CI, merge, and exact-SHA Vercel READY verification; see `docs/AWIN_FEED_INVENTORY_AMBIGUITY_GATE_2026-11-14.md`.
+
 ## 14 November 2026: Marketing editorial schedule isolation VERIFIED
 
 PR #181 code release `a75964878b61b9ae175252e085646404dd8a5cb1` deployed READY at `dpl_2pc1X5UNfnSpQC9TnGSmFPf6sxJQ`, homepage HTTP 200 at matching custom-domain deployment and unauthenticated marketing cron HTTP 404. GitHub build, lint, targeted tests, secrets and preview passed. Per-rule malformed schedules/claim errors no longer abort other review-only draft schedules. No live marketing rules or posts exist; publishing and AI OFF with emergency stop ON. Owner-approved rule acceptance remains pending.

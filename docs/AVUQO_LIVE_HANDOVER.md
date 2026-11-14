@@ -1,3 +1,7 @@
+## AWIN FEED INVENTORY INTEGRITY · CANDIDATE · 14 November 2026
+
+Current main baseline `d104e3cf0bb5ab0ce51260c48220afeccfc2f595` READY (`dpl_4DA84MV1yqa96Mqfpzm3udag4uMh`). Fresh branch `fix/awin-feed-monitor-ambiguous-inventory-20261114` makes the existing metadata-only Awin feed monitor reject ambiguous CSV columns, conflicting duplicate advertiser/feed records and invalid product counts rather than silently accepting first record or treating bad counts as zero. Identical metadata rows with rotated signed links still deduplicate without persisting URLs. Existing route fails closed on invalid rows, no discovery RPC occurs, and supplier rights/paused source remain unchanged. PR #176 resumable private importer and current Pneus cron are preserved. This is branch-only until CI, merge and production READY. See `docs/AWIN_FEED_INVENTORY_AMBIGUITY_GATE_2026-11-14.md`.
+
 ## MARKETING EDITORIAL DRAFT SCHEDULER FAILURE ISOLATION VERIFIED · 14 November 2026
 
 PR #181 merged at `a75964878b61b9ae175252e085646404dd8a5cb1`, Vercel production `dpl_2pc1X5UNfnSpQC9TnGSmFPf6sxJQ` **READY** with `www.avuqo.com` and `avuqo.com` aliases. Live custom-domain homepage returned HTTP 200 with exact `data-dpl-id`; unauthenticated `/api/internal/marketing` returned HTTP 404. The PR head `4714f091667c07694468e76c4a28f310cf15cbf5` passed GitHub quality build/lint, targeted rule-isolation regressions and secrets scanning; preview also succeeded.
