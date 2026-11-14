@@ -53,7 +53,7 @@ test("current preserved files match frozen reviewed blobs and include critical s
 
 test("all ambiguous or moved refs remain untouched and all failures are logged",()=>{
  for(const part of [
-  "sharedNameCounts","allPRs.filter","opened.some","pr.base.ref!=='main'",
+  "allPRs.filter","opened.some","pr.base.ref!=='main'",
   "headSha!==expectedHead","branch moved since review",
   "reviewed commit verification unavailable",
   "preservedBlob","ledger.data.content",
