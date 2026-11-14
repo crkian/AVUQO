@@ -44,3 +44,18 @@ test("partial scans, failed permissions and source evidence remain safe and accu
  assert.match(page,/\(importRuns\.data \?\? \[\]\)\.filter\(r => r\.permission_status !== "verified"\)/);
  assert.match(page,/const errors = \[importRuns\.error/);
 });
+
+test("private page and its async child authorize owner/admin before fetching or emitting RSC",()=>{
+ for(const [label,source] of [["Live Data parent",page],["Candidate async panel",candidate]]){
+  assert.match(source,/requireControlCentreAccess/,`${label}: import role check`);
+  const access=source.indexOf("await requireControlCentreAccess()");
+  const db=source.indexOf("await createClient()",access);
+  const firstQuery=source.indexOf('db.from("',access);
+  assert.ok(access>=0&&db>access&&firstQuery>db,`${label}: must check verified role before DB queries`);
+  assert.ok(source.indexOf("return ",access)>firstQuery,`${label}: no data UI before verified role`);
+ }
+ const layout=readFileSync(new URL("../app/control-centre/layout.tsx",import.meta.url),"utf8");
+ assert.match(layout,/requireControlCentreAccess/);
+ // The page guard is mandatory even when the private parent layout redirects.
+ assert.match(page,/A layout redirect can race with streamed nested server components/);
+});
