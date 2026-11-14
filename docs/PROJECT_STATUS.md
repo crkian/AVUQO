@@ -1,3 +1,11 @@
+## Control Centre owner-audit reconciliation · candidate · 14 November 2026
+
+- Marketplace and Source Atlas already use authenticated server-only admin client for private Awin observation metric; live DB count 74. This supersedes the old *code* access gap, but signed-in owner/admin browser card confirmation still pending.
+- Public editor adds request-bound `instant=false` and `connection()` before role/searchParams/data reads to address previously observed request-time prerender warning. No save/publish changes. CI/test/preview and owner browser + fresh Vercel log acceptance required.
+- Live Data Monitor has sequential candidate scans up to 5,000 rows before first render; isolate behind a loading state in a separate PR. Open Food Facts 503 is external, endpoint targets currently unconfigured.
+- PR #194's product route still returned 200 for unpublished/unknown slugs on real production checks despite missing-content guard. **True HTTP 404 remains unresolved.** No demo price may appear.
+- See `docs/CONTROL_CENTRE_OWNER_AUDIT_RECONCILIATION_2026-11-14.md`.
+
 ## Public product real HTTP 404 · candidate · 14 November 2026
 
 Four editorial research model guides are live via PR #191 but are not approved-price retailer comparisons. A draft pilot/unknown slug can return HTTP 200 with a streamed not-found component; current candidate moves public eligibility checks before any header/Suspense stream and adds an explicit CI regression. The earlier PR #193 was closed unmerged; this is a narrowly rebuilt patch from latest `main`. Awin remains paused and 0 Awin offer releases are approved. Live 404 status and production READY remain acceptance gates before declaring finished.
