@@ -1,3 +1,8 @@
+## Unreleased · Four editorial product model guides visible without unapproved offers
+
+- Add public buying research for four identifiable products (MacBook Air M4 13-inch, Ninja AF300UK, Dyson V15 Detect Absolute, LG C4 65-inch family), linked from `/products`, homepage and tech/home department shelves. Their individual routes show checklist/model caveats and manufacturer info, **not** prices, stock, licensed product images, AVUQO scores or affiliate purchase links. Existing verified-offer admission takes priority, unpublished pilots stay hidden, and research detail routes are noindex. No database, import, source rights, marketing or cron activation.
+- Prepared separate read-only Work QA brief for mobile/desktop product/design testing, to run only when user credits allow.
+
 ## 14 November 2026 · Complete Git/idea/handover register VERIFIED on production
 
 - PR #189 application/docs SHA `20006d39f7ae9541f79ca39ef9966818cb0cae93`, Vercel `dpl_DrcFffyiYBCmdF9T6PcYoKfjDqd4` READY and homepage 200 exact deployment. Added consolidated human and machine-readable Git register for 22 observed branches, five active PR drafts, nine original source ideas, 29 roadmap workstreams, 12 gaps and the complete handover navigation. No code feature, Supabase, Awin, media rights, pricing, cron or marketing activation change. Original confidential source files stay outside public Git, clearly indexed by digest.
