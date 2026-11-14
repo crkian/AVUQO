@@ -2,6 +2,7 @@
 
 **For any future ChatGPT chat, developer or coding agent:** This repository holds the latest AVUQO handover. **Read from current `main`, not conversational memory or old screenshots.**
 
+0. **[COMPLETE GIT / ALL BRANCHES / ALL IDEAS / HANDOVERS](docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md)**: the complete dated 22-ref inventory, original owner idea-source mapping, 29 workstreams, 12 gaps, live versus blocked, open PRs, and every major restart document. [Machine-readable companion](docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.json). **This is an index, not the source originals or proof of delivery.**
 1. **[Live-versus-staged handover](docs/AVUQO_LIVE_HANDOVER.md)**: deployment evidence, current work, open PRs, image rights and exact next task.
 2. **[Machine-readable state](docs/AVUQO_CURRENT_STATE.json)**: compact versioned JSON for an agent to parse and report. It is time-stamped, **not a live API**.
 3. **[AGENTS.md](AGENTS.md)**: mandatory safety, Next.js, source rights, CI and visual-conformity instructions.
