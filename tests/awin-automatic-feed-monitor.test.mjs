@@ -41,3 +41,16 @@ test("empty Awin inventories never record a successful check and POST needs an e
  assert.ok(importer.indexOf('request.method==="POST"&&!preflight&&!manualStage')>0);
  assert.ok(importer.indexOf('request.method==="POST"&&!preflight&&!manualStage')<importer.indexOf("await getInventory"));
 });
+
+test("private automatic import setup can recover after a failed session insert without replacing data",()=>{
+ const s=readFileSync("app/api/internal/awin-auto-import/route.ts","utf8");
+ const setup=s.slice(s.indexOf("const runFields="),s.indexOf("let committed=session.committed_count"));
+ assert.match(setup,/onConflict:"id",ignoreDuplicates:true/);
+ assert.match(setup,/onConflict:"import_id",ignoreDuplicates:true/);
+ assert.match(setup,/run\.created_by!==ownerId/);
+ assert.match(setup,/run\.permission_status!=="unverified"/);
+ assert.match(setup,/records\.length>0/);
+ assert.ok(setup.indexOf("session.source_digest!==digest")<setup.indexOf('status:"already_staged"'));
+ assert.match(setup,/session\.committed_count===rows\.length/);
+ assert.doesNotMatch(setup,/\.delete\(|\.update\(\{/);
+});

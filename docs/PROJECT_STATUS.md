@@ -1,3 +1,7 @@
+## Private Awin retry recovery candidate · 14 November 2026
+
+The two allowlisted pilot feeds can recover an interrupted empty session. Concurrent automatic starts use a stable run ID and a duplicate-safe session insert. No new cron, feed activation, schema or public offers.
+
 ## VERIFIED MARKETING HOME CLAIM GATE · 13 November 2026
 
 PR #173 merged app SHA `1fcad1afd007544a2f4a2669b4d20c45d0226d19`; Vercel `dpl_22XM7ti5pdEDcgCnprCyfF7WMfYb` READY with `www.avuqo.com` alias; public homepage HTTP 200 with matching deployment. Build/lint/evidence and secrets tests passed. Public homepage now rechecks private current approved AVUQO fact eligibility for custom campaigns and falls back to safe editorial; owner resume and dashboard also respect revoked/expired facts. Live marketing system still disabled with emergency stop ON and zero campaigns. Actual owner campaign publishing acceptance remains pending.
