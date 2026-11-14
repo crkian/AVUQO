@@ -85,3 +85,11 @@
  .hero .copy h1{font-size:clamp(30px,8vw,45px)}
  .hero .topPrice{padding:17px;margin-block:16px}
 }
+.productPage[data-department-theme="rose"]{--product-tone:#8b3f66;--product-bg:#fbefef;--product-soft:#f3e0e9}
+.productPage[data-department-theme="blue"]{--product-tone:#345686;--product-bg:#edf1f8;--product-soft:#e2e9f4}
+.productPage[data-department-theme="amber"]{--product-tone:#855423;--product-bg:#faf0e1;--product-soft:#f2e6d3}
+.productPage[data-department-theme="green"]{--product-tone:#486642;--product-bg:#eef2e5;--product-soft:#e3ebd8}
+.productPage[data-department-theme="teal"]{--product-tone:#286362;--product-bg:#e9f3ee;--product-soft:#dbece7}
+.productPage[data-department-theme="violet"]{--product-tone:#684893;--product-bg:#f4eef8;--product-soft:#ebdff4}
+.templateHeading a{display:inline-flex;align-items:center;gap:7px;color:var(--product-tone);text-decoration:underline;text-underline-offset:3px}
+.templateGrid[data-single-panel]{grid-template-columns:1fr}

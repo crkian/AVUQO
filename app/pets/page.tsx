@@ -5,8 +5,9 @@ import { ArrowRight, Cat, Dog, Droplets, Gift, ShieldCheck } from "lucide-react"
 import { connection } from "next/server";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
-import { createClient } from "../../lib/supabase/server";
-import LiveDealCard, { type LiveDealCardData } from "../../components/live/LiveDealCard";
+import {verifiedProductIndex} from "../../lib/products/public-catalog";
+import {eligibleDepartmentProduct} from "../../lib/products/department-showrooms";
+import LiveDealCard from "../../components/live/LiveDealCard";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -24,16 +25,16 @@ const categories = [
 
 async function PublishedPetOffers() {
   await connection();
-  const db = await createClient();
-  const {data,error} = await db.from("published_deals")
-    .select("offer_id,title,category,merchant,current_price,typical_price,saving_amount,avuqo_score,confidence,label,decision,image_url,reason")
-    .eq("status","published").ilike("merchant","%petlibro%").gt("current_price",0)
-    .order("avuqo_score",{ascending:false}).limit(8);
-  const offers = error ? [] : (data ?? []) as LiveDealCardData[];
+  const verified = await verifiedProductIndex();
+  const offers = verified
+    .filter(item=>eligibleDepartmentProduct({slug:"pets"},item))
+    .flatMap(item=>item.offers.map(({published})=>published))
+    .sort((a,b)=>b.avuqo_score-a.avuqo_score)
+    .slice(0,8);
   return <section className="shell section" aria-labelledby="pet-offers">
     <div className="section-title"><div><p className="kicker">Retailer-backed shopping</p><h2 id="pet-offers">Verified pet offers</h2><p>Only products approved through the AVUQO publication process are shown here.</p></div></div>
     {offers.length ? <div className={styles.grid}>{offers.map(offer=><LiveDealCard key={offer.offer_id} deal={offer}/>)}</div> :
-    <div className={styles.empty}><ShieldCheck size={28}/><h3>Product checks in progress</h3><p>Petlibro UK is an approved affiliate partner. We have imported its catalogue for private review, but have not verified current pricing, retailer permissions and publication readiness. No offers are being shown yet.</p></div>}
+    <div className={styles.empty}><ShieldCheck size={28}/><h3>Product checks in progress</h3><p>Verified pet listings appear here when current price evidence and retailer permissions are confirmed.</p></div>}
     <p className={styles.note}>Prices and stock can change. Confirm current details with each retailer. AVUQO may earn a commission from eligible purchases; this does not determine organic ranking.</p>
   </section>;
 }
@@ -42,6 +43,7 @@ export default function PetsPage() {
   return <main><Header/>
     <section className={styles.hero}><div className={styles.heroPhoto} aria-hidden="true"/><div className={styles.heroWash} aria-hidden="true"/><div className={`shell ${styles.heroLayout}`}><div className={styles.heroCopy}><p className="kicker">AVUQO Pets</p><h1>Happier pets. <span>Better value.</span></h1><p>Explore smart feeders, fountains and thoughtful pet essentials. Compare usefulness and total cost, not just marketing promises.</p><Link className={styles.primary} href="#categories">Explore pet essentials <ArrowRight size={17}/></Link></div></div></section>
     <section className="shell section" id="categories"><div className="section-title"><div><p className="kicker">Find your category</p><h2>Start with what your pet needs.</h2></div></div><div className={styles.grid}>{categories.map(({title,description,href,Icon,image})=><Link key={title} href={href} className={styles.card}><div className={styles.cardPhoto} style={{backgroundImage:`url("${image}")`}} aria-hidden="true"/><div className={styles.cardBody}><Icon size={21}/><h3>{title}</h3><p>{description}</p><span>Explore ideas <ArrowRight size={15}/></span></div></Link>)}</div></section>
+    <div className="shell"><Link className={styles.primary} href="/categories/pets/products">Browse pet products <ArrowRight size={17}/></Link></div>
     <Suspense fallback={<section className="shell section">Checking approved pet offers…</section>}><PublishedPetOffers/></Suspense>
     <section className="shell section"><div className={styles.tip}><h2>Look beyond the sticker price.</h2><p>For automatic feeders and fountains, compare ongoing filter costs, capacity, cleaning needs, power requirements and replacement parts as well as the upfront purchase.</p></div></section>
     <Footer/></main>;

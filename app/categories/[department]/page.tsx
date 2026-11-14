@@ -5,6 +5,7 @@ import {ArrowRight,ChevronRight,Search,ShieldCheck} from "lucide-react";
 import Header from "../../../components/layout/Header";
 import Footer from "../../../components/layout/Footer";
 import {BROWSE_DEPARTMENTS,departmentBySlug,departmentHref,topicHref} from "../../../lib/categories/browse-tree";
+import {departmentBlueprint,departmentHref as productHref} from "../../../lib/products/department-showrooms";
 import styles from "./department.module.css";
 import CategoryJourneys from "../../../components/marketplace/CategoryJourneys";
 type Params={params:Promise<{department:string}>};
@@ -22,6 +23,8 @@ export default async function DepartmentPage({params}:Params){
  const {department}=await params;
  const item=departmentBySlug(department);
  if(!item||item.landing)notFound();
+ const blueprint=departmentBlueprint(department);
+ if(!blueprint)notFound();
  const other=BROWSE_DEPARTMENTS.filter(d=>d.slug!==item.slug&&d.theme===item.theme).slice(0,4);
  return <main className={styles.page} data-tone={item.theme}>
   <Header/>
@@ -33,31 +36,28 @@ export default async function DepartmentPage({params}:Params){
     </nav>
     <div className={styles.heroGrid}>
      <div className={styles.copy}>
-      <p className={styles.kicker}>AVUQO department guide</p>
       <h1>{item.name}</h1>
       <p className={styles.intro}>{item.intro}</p>
       <p className={styles.important}><ShieldCheck size={20}/> {item.advice}</p>
-      <Link className={styles.directory} href="/categories">Explore all 25 departments <ArrowRight size={16}/></Link>
+      <Link className={styles.directory} href={productHref(item)}>Browse {item.name} products <ArrowRight size={16}/></Link>
      </div>
-     <div className={styles.art} aria-hidden="true"><span>{item.name.charAt(0)}</span><div>Discover • Consider • Compare</div></div>
+     <div className={styles.art} style={{backgroundImage:`url("${blueprint.visual}")`}} aria-hidden="true"/>
     </div>
    </div>
   </section>
-  <CategoryJourneys slug={item.slug}/>
   <section className={"shell "+styles.section} aria-labelledby="subcategories">
    <div className={styles.heading}>
-    <div><p className={styles.kicker}>Find your next direction</p>
-     <h2 id="subcategories">Explore {item.name.toLowerCase()}</h2>
-     <p>Choose a topic to search AVUQO for eligible products or relevant information. A topic is not proof of live inventory.</p>
-    </div><span>{item.topics.length} browse topics</span>
+    <h2 id="subcategories">Explore {item.name}</h2>
    </div>
    <div className={styles.grid}>
-    {item.topics.map((topic,index)=><Link key={topic} className={styles.topicCard} href={topicHref(topic)}>
-     <div className={styles.topicArt} aria-hidden="true"><span>{String(index+1).padStart(2,"0")}</span><b>{["✦","◈","◇","✳"][index%4]}</b></div>
-     <div className={styles.topicCopy}><h3>{topic}</h3><span>Explore this topic <ArrowRight size={15}/></span></div>
+    {item.topics.map(topic=><Link key={topic} className={styles.topicCard} href={topicHref(topic)}>
+     <span>{topic}</span><ArrowRight size={17} aria-hidden="true"/>
     </Link>)}
    </div>
-   <p className={styles.note}><ShieldCheck size={17}/> This directory uses curated search prompts. We do not advertise inactive taxonomy as stocked products or verified prices.</p>
+   <div className={styles.checks}>
+    <h2>{blueprint.focus}</h2>
+    <ul>{blueprint.checklist.map(point=><li key={point}><ShieldCheck size={17} aria-hidden="true"/>{point}</li>)}</ul>
+   </div>
   </section>
   <section className={styles.searchSection}>
    <div className={"shell "+styles.searchInner}>
@@ -72,6 +72,7 @@ export default async function DepartmentPage({params}:Params){
   {other.length>0&&<section className={"shell "+styles.related}>
     <h2>Continue exploring</h2><div>{other.map(d=><Link key={d.slug} href={departmentHref(d)}>{d.name}<ArrowRight size={15}/></Link>)}</div>
    </section>}
+  <CategoryJourneys slug={item.slug}/>
   <Footer/>
  </main>;
 }

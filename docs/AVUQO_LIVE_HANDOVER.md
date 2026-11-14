@@ -1,3 +1,11 @@
+## Department and item presentation · 14 November 2026
+
+Baseline browsing exposed repeated monogram artwork on generated department guides and reused imagery on product shelves. Version 0.5.2 adds a unique editorial photo per department, keeps the 11 dedicated guides, and makes the 14 generated guides and 25 product shelves category-specific. The directory links directly to each product shelf.
+
+Product details and department shelves now use the same canonical type and verified offer category classification. Conflicting departments fall back to general item guidance and are excluded from department shelves. Explicit subtypes control which specifications lead. Tyre fitment proof is still required separately. Pets no longer reads published deal rows directly for its rail; it uses the same verified catalogue as other product shelves. No approval, activation, migrations, public data writes or Pneus schedule changes.
+
+The baseline public catalogue had no eligible items, so populated comparison layouts need owner-approved catalogue evidence for live acceptance. Safe fixture tests cover type, department conflicts and subtype priorities.
+
 ## Private Awin retry recovery deployed · 14 November 2026
 
 PR #176 is READY at `043f7f3a9d72e93daa7d07744cf353d6f2d82c83` (`dpl_59juctLSxXAr3bMbvMPiBbKLxKuN`) on `www.avuqo.com`. It makes setup resumable for an empty interrupted run and deduplicates starts for the same feed fingerprint. GitHub quality and secrets checks passed. The unauthenticated live endpoint returned HTTP 401 and a private non-cacheable response. A read-only production check confirmed the Awin source was paused, sync was off and zero incomplete setup runs were present. Isolated database checks verified that duplicate inserts preserve the original run and session data. No authenticated supplier invocation, production test write, migration, cron or public offer change occurred. A real authenticated retry remains to be exercised.

@@ -3,6 +3,7 @@ import Link from "next/link";
 import {ArrowRight,ChevronRight,Search,ShieldCheck} from "lucide-react";
 import {useMemo,useState} from "react";
 import {BROWSE_DEPARTMENTS,DEPARTMENT_GROUPS,departmentHref,topicHref} from "../../lib/categories/browse-tree";
+import {departmentBlueprint,departmentHref as productHref} from "../../lib/products/department-showrooms";
 import styles from "./DepartmentExplorer.module.css";
 export default function DepartmentExplorer({
  variant="directory",onNavigate
@@ -13,6 +14,7 @@ export default function DepartmentExplorer({
  const matches=useMemo(()=>BROWSE_DEPARTMENTS.filter(d=>!normalized||
    [d.name,d.intro,...d.topics].some(t=>t.toLocaleLowerCase("en-GB").includes(normalized))),[normalized]);
  const selected=matches.find(d=>d.slug===selectedSlug)??matches[0];
+ const visual=selected&&variant==="directory"?departmentBlueprint(selected.slug)?.visual:undefined;
  const count=BROWSE_DEPARTMENTS.reduce((sum,d)=>sum+d.topics.length,0);
  return <div className={styles.explorer+" "+styles[variant]}>
   <div className={styles.topBar}><div><span className={styles.kicker}>Explore the full directory</span>
@@ -39,12 +41,13 @@ export default function DepartmentExplorer({
    </div>
    <div className={styles.detail} aria-live="polite">
     {selected?<div className={styles.detailInner} data-tone={selected.theme}>
-     <div className={styles.illustration} aria-hidden="true"><span>{selected.name.slice(0,1)}</span></div>
+     {visual&&<div className={styles.illustration} style={{backgroundImage:`url("${visual}")`}} aria-hidden="true"/>}
      <div className={styles.detailCopy}>
       <span className={styles.kicker}>Explore {selected.name}</span>
       <h3>{selected.name}</h3><p>{selected.intro}</p>
-      <Link className={styles.parentLink} href={departmentHref(selected)} onClick={onNavigate}>
+      <div className={styles.actions}><Link className={styles.parentLink} href={departmentHref(selected)} onClick={onNavigate}>
        Open department <ArrowRight size={16}/></Link>
+       <Link className={styles.parentLink} href={productHref(selected)} onClick={onNavigate}>Browse products <ArrowRight size={16}/></Link></div>
      </div>
      <div className={styles.topics}>
       <h4>Explore subcategories</h4>

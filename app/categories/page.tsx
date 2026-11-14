@@ -48,11 +48,10 @@ export default function CategoriesPage(){return <main className={styles.page}>
    <h2 id="department-title">A world for every way you shop.</h2>
    <p>Distinct stories, practical questions and discovery paths, all rooted in the same AVUQO independence.</p></div>
   <div className={styles.grid}>
-   {lifestyleOrder.map((slug,index)=>{
+   {lifestyleOrder.map(slug=>{
     const page=lifestylePages[slug],story=storyFor(slug);
     return <Link href={"/"+slug} key={slug} className={styles.card} data-tone={story?.energy??"warm"}>
      <div className={styles.photo} style={{backgroundImage:'linear-gradient(180deg,transparent 35%,rgba(0,0,0,.27) 100%),url("'+page.hero+'")'}} aria-hidden="true">
-      <span>{String(index+1).padStart(2,"0")}</span>
      </div>
      <div className={styles.cardCopy}>
       <p>{story?.identity??page.eyebrow}</p><h3>{makeTitle(slug)}</h3>

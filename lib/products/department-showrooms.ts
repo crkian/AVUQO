@@ -6,7 +6,7 @@ import type {PublicOffer,PublicProduct} from "./public-catalog";
 export type ProductFamily="goods"|"service"|"regulated"|"travel"|"safety";
 export type DepartmentBlueprint={
  slug:string;name:string;family:ProductFamily;focus:string;checklist:readonly string[];
- visual:string;aliases:readonly string[];
+ visual:string;theme:BrowseDepartment["theme"];intro:string;aliases:readonly string[];
 };
 const FOCUS:Record<string,{family:ProductFamily;focus:string;checklist:readonly string[];aliases?:readonly string[]}>={
  "baby-nursery":{family:"safety",focus:"Safety, age and the right fit for your family",checklist:["Check age and weight limits and applicable safety standards.","Confirm the exact model, included pieces and care guidance.","Review delivery, returns and any assembly requirements."],aliases:["baby","nursery"]},
@@ -35,35 +35,39 @@ const FOCUS:Record<string,{family:ProductFamily;focus:string;checklist:readonly 
  "toys-games":{family:"safety",focus:"Age suitability, safe play and durability",checklist:["Check age recommendations and choking or battery warnings.","Confirm the exact edition, pieces and compatibility.","Review care, materials and returns."]},
  travel:{family:"travel",focus:"Dates, travellers and complete booking costs",checklist:["Check dates, route, traveller mix and availability.","Include baggage, transfers and local charges.","Read cancellations, accessibility and provider conditions."]}
 };
-const ART:Record<ProductFamily,string>={
- goods:"https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=1300&q=80",
- service:"https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1300&q=80",
- regulated:"https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1300&q=80",
- travel:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1300&q=80",
- safety:"https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1300&q=80"
-};
-/* Reuse existing AVUQO editorial photographs, not supplier product imagery. */
-const DEPARTMENT_ART:Record<string,string|undefined>={
- "baby-nursery":lifestylePages.toys?.tiles[0]?.image,
- "books-media":lifestylePages.tech?.tiles[0]?.image,
- "business-industrial":lifestylePages.tech?.tiles[1]?.image,
- "connectivity-utilities":lifestylePages.tech?.tiles[1]?.image,
- crafts:lifestylePages.gifts?.tiles[1]?.image,
- "diy-building":lifestylePages.home?.tiles[1]?.image,
- "garden-outdoors":lifestylePages.home?.featureImage,
- "health-wellbeing":lifestylePages.beauty?.tiles[0]?.image,
- "home-services":lifestylePages.home?.tiles[0]?.image,
- "insurance-finance":lifestylePages.motoring?.tiles[1]?.image,
- "learning-education":lifestylePages.toys?.tiles[1]?.image,
- "musical-instruments":lifestylePages.tech?.tiles[2]?.image,
- "office-stationery":lifestylePages.tech?.tiles[0]?.image,
- "sports-fitness":lifestylePages.motoring?.tiles[0]?.image,
- "grocery-food":lifestylePages.shopping?.tiles[2]?.image
+// Editorial illustrations only. Merchant photos are sourced independently from approved offers.
+const editorialPhoto=(id:string)=>`https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1100&h=740&q=80`;
+const DEPARTMENT_ART:Record<string,string>={
+ "baby-nursery":editorialPhoto("1522771930-78848d9293e8"),
+ "books-media":editorialPhoto("1507842217343-583bb7270b66"),
+ "business-industrial":editorialPhoto("1581092921461-eab62e97a780"),
+ "connectivity-utilities":editorialPhoto("1544197150-b99a580bb7a8"),
+ "crafts":editorialPhoto("1513364776144-60967b0f800f"),
+ "diy-building":editorialPhoto("1504148455328-c376907d081c"),
+ "garden-outdoors":editorialPhoto("1416879595882-3373a0480b5b"),
+ "grocery-food":editorialPhoto("1542838132-92c53300491e"),
+ "health-wellbeing":editorialPhoto("1571019613454-1cb2f99b2d8b"),
+ "home-services":editorialPhoto("1621905251189-08b45d6a269e"),
+ "insurance-finance":editorialPhoto("1450101499163-c8848c66ca85"),
+ "learning-education":editorialPhoto("1503676260728-1c00da094a0b"),
+ "musical-instruments":editorialPhoto("1510915361894-db8b60106cb1"),
+ "office-stationery":editorialPhoto("1456735190827-d1262f71b8a3"),
+ "pets":editorialPhoto("1548199973-03cce0bbc87b"),
+ "sports-fitness":editorialPhoto("1517836357463-d25dfeac3438"),
+ "beauty":lifestylePages.beauty.hero,
+ "experiences":lifestylePages.experiences.hero,
+ "fashion":lifestylePages.fashion.hero,
+ "gifts":lifestylePages.gifts.hero,
+ "home":lifestylePages.home.hero,
+ "motoring":lifestylePages.motoring.hero,
+ "tech":lifestylePages.tech.hero,
+ "toys-games":lifestylePages.toys.hero,
+ "travel":lifestylePages.travel.hero,
 };
 export const DEPARTMENT_BLUEPRINTS:readonly DepartmentBlueprint[]=BROWSE_DEPARTMENTS.map(d=>{
- const f=FOCUS[d.slug];if(!f)throw Error("Missing AVUQO department blueprint: "+d.slug);
+ const f=FOCUS[d.slug];const visual=DEPARTMENT_ART[d.slug];if(!f||!visual)throw Error("Missing AVUQO department blueprint: "+d.slug);
  return {slug:d.slug,name:d.name,focus:f.focus,family:f.family,checklist:f.checklist,
-   visual:lifestylePages[d.slug]?.hero??DEPARTMENT_ART[d.slug]??ART[f.family],aliases:[d.slug,d.name,...(f.aliases??[])]};
+   visual,theme:d.theme,intro:d.intro,aliases:[d.slug,d.name,...(f.aliases??[])]};
 });
 export function departmentBlueprint(slug:string):DepartmentBlueprint|undefined{
  return DEPARTMENT_BLUEPRINTS.find(d=>d.slug===slug);
@@ -71,21 +75,40 @@ export function departmentBlueprint(slug:string):DepartmentBlueprint|undefined{
 export function normalisedDepartment(value:string):string{
  return value.normalize("NFKD").toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]+/g," ").trim();
 }
-/** Never infer commercial category from a product title. Only explicit offer/category labels. */
-export function eligibleDepartmentProduct(
- department:Pick<DepartmentBlueprint,"aliases">,
- item:{product:Pick<PublicProduct,"product_type">;offers:Pick<PublicOffer,"published">[]}
-):boolean{
- const accepted=new Set(department.aliases.map(normalisedDepartment));
- return item.offers.some(o=>accepted.has(normalisedDepartment(o.published.category)))||
-  (typeof item.product.product_type==="string" &&
-   accepted.has(normalisedDepartment(item.product.product_type)));
+type CategoryLabels={
+ product:Pick<PublicProduct,"product_type">;
+ offers:{published:Pick<PublicOffer["published"],"category">}[];
+};
+const TYPE_DEPARTMENTS:Readonly<Record<string,string>>={
+ headphones:"tech", smartphone:"tech", smartwatch:"tech", laptop:"tech", television:"tech",
+ "phone accessories":"tech", "air fryer":"home", furniture:"home", "washing machine":"home",
+ "pet food":"pets", "dog food":"pets", "cat food":"pets", "pet feeder":"pets",
+ book:"books-media", books:"books-media", toy:"toys-games", "board game":"toys-games",
+ drill:"diy-building", "power tool":"diy-building", guitar:"musical-instruments",
+ perfume:"beauty", skincare:"beauty", footwear:"fashion", apparel:"fashion", automotive:"motoring",
+ tyre:"motoring", tyres:"motoring", tire:"motoring", tires:"motoring", "car tyre":"motoring", "car tyres":"motoring", "vehicle tyre":"motoring", "vehicle tyres":"motoring",
+};
+export function departmentForLabel(label:string){
+ const value=normalisedDepartment(label);
+ return departmentBlueprint(TYPE_DEPARTMENTS[value]??"")??
+  DEPARTMENT_BLUEPRINTS.find(d=>d.aliases.some(alias=>normalisedDepartment(alias)===value));
 }
-export function identifiedDepartment(
- item:{product:Pick<PublicProduct,"product_type">;offers:Pick<PublicOffer,"published">[]}
-):DepartmentBlueprint|undefined{
- const matched=DEPARTMENT_BLUEPRINTS.filter(d=>eligibleDepartmentProduct(d,item));
- // Ambiguous category memberships must not create a false product classification.
- return matched.length===1?matched[0]:undefined;
+
+export function classifiedDepartmentSlugs(item:CategoryLabels):Set<string>{
+ const labels=[item.product.product_type??"",...item.offers.flatMap(o=>{
+  // A breadcrumb is rooted in its parent department. Its final segment may supply a subtype.
+  const segments=o.published.category.split(/\s*(?:>|›|\/)\s*/);
+  return departmentForLabel(segments[0])?[segments[0]]:segments.slice(-1);
+ })];
+ return new Set(labels.map(departmentForLabel).flatMap(d=>d?[d.slug]:[]));
+}
+
+/** Only structured product types and published categories may establish membership. */
+export function identifiedDepartment(item:CategoryLabels):DepartmentBlueprint|undefined{
+ const matches=classifiedDepartmentSlugs(item);
+ return matches.size===1?departmentBlueprint([...matches][0]):undefined;
+}
+export function eligibleDepartmentProduct(department:Pick<DepartmentBlueprint,"slug">,item:CategoryLabels):boolean{
+ return identifiedDepartment(item)?.slug===department.slug;
 }
 export function departmentHref(d:Pick<BrowseDepartment,"slug">){return "/categories/"+d.slug+"/products";}
