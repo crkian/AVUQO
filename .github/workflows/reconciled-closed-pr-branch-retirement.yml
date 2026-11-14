@@ -133,6 +133,6 @@ jobs:
               report.push(`| #${number} | \`${name}\` | ${reason} |`);
             }
             await core.summary.addHeading('Reconciled legacy branch retirement')
-              .addRaw(`Mode: ${execute?'DELETE':'DRY RUN'}, reviewed: ${candidates.length}, eligible: ${eligible}, deleted: ${deleted}.\\n\\n`)
-              .addRaw('| Closed PR | Branch | Result |\\n|---|---|---|\\n'+report.join('\\n')).write();
+              .addRaw(`Mode: ${execute?'DELETE':'DRY RUN'}, reviewed: ${candidates.length}, eligible: ${eligible}, deleted: ${deleted}.\n\n`)
+              .addRaw('| Closed PR | Branch | Result |\n|---|---|---|\n'+report.join('\n')).write();
             console.log(JSON.stringify({execute,eligible,deleted,report},null,2));
