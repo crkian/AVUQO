@@ -1,3 +1,7 @@
+## 14 November 2026 · Control Centre editor private request boundary LIVE
+
+- PR #195 code `08c34b2c58aa93084ed8e72d166bcba4120bf800`, Vercel `dpl_2r8GhTAvLXmMw4nbuA1EgymqdGbT` READY. The authenticated editorial page editor now opts into request-time rendering before role, parameters and DB access; tests guard server-only private observation count access in Source Atlas and Marketplace. No content was saved or published, no broad DB grant applied; owner browser acceptance pending. Added independent Work screenshot/latency audit brief. Product draft-slug HTTP 200 defect remains open.
+
 ## Unreleased · Control Centre owner editor request-bound rendering
 
 - Explicitly mark the authenticated public page editor as request-bound under Next.js Cache Components; `connection()` precedes any role, search-param or private draft reads. Preserve owner-only publishing and existing server actions. CI guards both owner role-first Awin observation count dashboards. Existing private Awin count is 74, but signed-in owner browser and editor log checks are pending. No Supabase, source, cron or publishing changes.
