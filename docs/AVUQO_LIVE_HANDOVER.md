@@ -1,3 +1,7 @@
+## Private Awin retry recovery candidate · 14 November 2026
+
+Baseline `31c0ea78c31ef768cedc5411153626d8d2f01268` READY on the live domain. The candidate can resume an empty private Awin pilot run when its session failed to initialise. Fingerprint, owner, row-count and private status checks protect existing state. Production verification will exercise only the unauthenticated rejection and confirm the paused source.
+
 ## My AVUQO and public catalogue browser check · 14 November 2026
 
 Verified against production `92afa9c906b25f5fd8df259c62f793fbd2712500` (`dpl_aisifpCp2x3z2Tim7YHznzPYp68U`). The guest account displays the sign-in link and Saved, Watches and Lists shortcuts while keeping the preferences form out of the guest view. Checked at 1348 and 449 CSS pixels with zero horizontal overflow. The public catalogue explicitly reported no eligible external offers. Signed-in preference saving and visual acceptance of a populated product comparison remain pending.

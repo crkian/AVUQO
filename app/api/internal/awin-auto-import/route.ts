@@ -196,30 +196,51 @@ export async function POST(request:NextRequest){
   sample_headers:header!.filter(x=>/^(merchant_id|merchant_product_id|product_name|search_price|currency|stock_status|aw_deep_link|ean|gtin|mpn|advertiser_id|id|title|price|availability)$/i.test(x)).slice(0,20),
   private_only:true,no_database_writes:true,no_publication:true});
  const runFilename=`GENAWIN__${feed}__${filename}`;
- const {data:prior,error:priorError}=await db.from("feed_import_runs")
-  .select("id,status,created_by").eq("merchant_id",advertiser).eq("filename",runFilename)
-  .order("created_at",{ascending:false}).limit(1);
- if(priorError)return reply({error:"Could not check existing import"},503);
- if(prior?.[0]?.status==="private_review")
-  return reply({status:"already_staged",advertiser_id:advertiser,feed_id:feed,records:rows.length,private_only:true});
- let runId=prior?.[0]?.id as string|undefined;
- if(prior?.[0]&&prior[0].created_by!==owner[0].user_id)return reply({error:"Prior import owner mismatch"},409);
- if(!runId){
-  const {data:run,error:insertError}=await db.from("feed_import_runs").insert({
-   created_by:owner[0].user_id,merchant_id:advertiser,merchant_name:name,
+ const ownerId=owner[0].user_id;
+ const runFields="id,status,created_by,permission_status,total_count,review_count,excluded_count";
+ const findPrior=()=>db.from("feed_import_runs").select(runFields).eq("merchant_id",advertiser)
+  .eq("filename",runFilename).order("created_at",{ascending:false}).limit(1).maybeSingle();
+ let {data:run,error:runError}=await findPrior();
+ if(runError)return reply({error:"Could not check existing import"},503);
+ if(!run){
+  // A stable primary key makes simultaneous starts for the same snapshot converge.
+  const hex=createHash("sha256").update(JSON.stringify(["awin-auto-import",advertiser,feed,digest])).digest("hex");
+  const id=`${hex.slice(0,8)}-${hex.slice(8,12)}-8${hex.slice(13,16)}-8${hex.slice(17,20)}-${hex.slice(20,32)}`;
+  const {error:insertError}=await db.from("feed_import_runs").upsert({
+   id,created_by:ownerId,merchant_id:advertiser,merchant_name:name,
    filename:runFilename,status:"importing",permission_status:"unverified",
    total_count:0,review_count:0,excluded_count:0
-  }).select("id").single();
-  if(insertError||!run)return reply({error:"Could not create private auto-import"},503);
-  runId=run.id;
-  const {error:sessionError}=await db.from("large_feed_import_sessions")
-   .insert({import_id:runId,source_digest:digest});
-  if(sessionError)return reply({error:"Private import session setup failed"},503);
+  },{onConflict:"id",ignoreDuplicates:true});
+  if(insertError)return reply({error:"Could not create private auto-import"},503);
+  ({data:run,error:runError}=await findPrior());
+  if(runError||!run)return reply({error:"Could not load private auto-import"},503);
  }
- const {data:session,error:sessionError}=await db.from("large_feed_import_sessions")
-  .select("next_sequence,committed_count,source_digest,completed_at").eq("import_id",runId).single();
- if(sessionError||!session||session.source_digest!==digest||session.completed_at)
-  return reply({error:"Resume fingerprint mismatch or completed session"},409);
+ if(run.created_by!==ownerId)return reply({error:"Prior import owner mismatch"},409);
+ const runId=run.id;
+ const loadSession=()=>db.from("large_feed_import_sessions")
+  .select("next_sequence,committed_count,source_digest,completed_at").eq("import_id",runId).maybeSingle();
+ let {data:session,error:sessionError}=await loadSession();
+ if(sessionError)return reply({error:"Could not check private import session"},503);
+ if(!session){
+  // Recover an interrupted start only for an untouched, still-private run.
+  if(run.status!=="importing"||run.permission_status!=="unverified"||
+     run.total_count!==0||run.review_count!==0||run.excluded_count!==0)
+   return reply({error:"Missing session on non-empty or closed import"},409);
+  const {data:records,error:recordsError}=await db.from("feed_import_records")
+   .select("id").eq("import_id",runId).limit(1);
+  if(recordsError)return reply({error:"Could not check existing private records"},503);
+  if(!records||records.length>0)return reply({error:"Existing records require a matching session"},409);
+  const {error:setupError}=await db.from("large_feed_import_sessions")
+   .upsert({import_id:runId,source_digest:digest},{onConflict:"import_id",ignoreDuplicates:true});
+  if(setupError)return reply({error:"Private import session setup failed"},503);
+  ({data:session,error:sessionError}=await loadSession());
+  if(sessionError||!session)return reply({error:"Could not load private import session"},503);
+ }
+ if(session.source_digest!==digest)return reply({error:"Resume fingerprint mismatch"},409);
+ if(session.completed_at&&session.committed_count===rows.length)
+  return reply({status:"already_staged",advertiser_id:advertiser,feed_id:feed,records:rows.length,private_only:true});
+ if(session.completed_at||run.status!=="importing"||run.permission_status!=="unverified")
+  return reply({error:"Private import is not writable"},409);
  let committed=session.committed_count;
  for(let i=session.next_sequence;i<Math.ceil(rows.length/250);i++){
   const batch=rows.slice(i*250,(i+1)*250);
@@ -232,7 +253,12 @@ export async function POST(request:NextRequest){
   const {data:done,error}=await db.rpc("append_general_awin_feed_chunk",{
    p_import_id:runId,p_sequence:i,p_digest:chunkDigest,p_rows:staged
   });
-  if(error)return reply({error:"Private batch rejected",saved_records:committed,run_id:runId,private_only:true},503);
+  if(error){
+   const {data:latest}=await loadSession();
+   if(latest?.completed_at&&latest.source_digest===digest&&latest.committed_count===rows.length)
+    return reply({status:"already_staged",advertiser_id:advertiser,feed_id:feed,records:rows.length,private_only:true});
+   return reply({error:"Private batch rejected",saved_records:committed,run_id:runId,private_only:true},503);
+  }
   committed=Number(done?.committed??0);
  }
  const {data:finish,error:finishError}=await db.rpc("finish_general_awin_feed_import",{p_import_id:runId,p_total:rows.length});
