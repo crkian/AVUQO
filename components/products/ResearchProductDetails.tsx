@@ -47,7 +47,7 @@ export default function ResearchProductDetails({guide}:{guide:ResearchProductGui
 
   <section className={`shell ${styles.researchManufacturer}`} aria-labelledby="manufacturer-guide-heading">
    <div><p className={styles.kicker}>Check at the source</p><h2 id="manufacturer-guide-heading">Manufacturer information</h2>
-    <p>Review the manufacturer's published model details. Specifications and bundles can vary by country or product suffix, so confirm the exact item before purchasing.</p>
+    <p>Review the manufacturer&apos;s published model details. Specifications and bundles can vary by country or product suffix, so confirm the exact item before purchasing.</p>
     <a href={guide.manufacturerInfoUrl} target="_blank" rel="noopener noreferrer">
      See official manufacturer information <ExternalLink size={17} aria-hidden="true"/>
     </a>
@@ -57,7 +57,7 @@ export default function ResearchProductDetails({guide}:{guide:ResearchProductGui
   </section>
   <section className={`shell ${styles.disclaimer}`}>
    <strong>About this guide</strong>
-   <p>This is an independent product research starting point, not an approved merchant offer, a price comparison, an endorsement or a claim of availability. Product names are used for identification; imagery is editorial only. Retailer comparisons will appear through AVUQO's separate source, variant, freshness, rights and owner-review controls. <Link href="/editorial-policy">Editorial policy</Link> · <Link href="/affiliate-disclosure">Affiliate disclosure</Link>.</p>
+   <p>This is an independent product research starting point, not an approved merchant offer, a price comparison, an endorsement or a claim of availability. Product names are used for identification; imagery is editorial only. Retailer comparisons will appear through AVUQO&apos;s separate source, variant, freshness, rights and owner-review controls. <Link href="/editorial-policy">Editorial policy</Link> · <Link href="/affiliate-disclosure">Affiliate disclosure</Link>.</p>
   </section>
  </div>;
 }
