@@ -1,3 +1,7 @@
+## 14 November 2026 · Awin metadata inventory validation LIVE
+
+- PR #183 production SHA `0727c0866ad15053955dc3b9fa6822a043122376`, Vercel `dpl_5z93DKd4sceJjCdMFDpyi5zzca5U` READY. Fail-closed validation of duplicate CSV headers, conflicting duplicate feed identities and nonnumeric product counts; harmless signed URL rotation is ignored without persisting URLs. Source remained paused and no merchant/import/publication rights changed. Private endpoint runtime response still awaits independent read-only test.
+
 ## Unreleased · Awin metadata feed inventory ambiguity protection
 
 - Reject duplicate/empty CSV header names, missing or invalid product counts, and conflicting duplicate advertiser/feed identities. Continue allowing identical metadata entries with different credential-bearing URLs without storing or returning the links. Existing feed monitor fails closed before discovery writes on malformed inventories; no feed, import, cron, price or rights activation.

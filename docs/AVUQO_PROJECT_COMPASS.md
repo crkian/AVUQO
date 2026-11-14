@@ -1,3 +1,7 @@
+## Awin feed metadata monitor validation released · 14 November 2026
+
+PR #183 code SHA `0727c0866ad15053955dc3b9fa6822a043122376`, Vercel `dpl_5z93DKd4sceJjCdMFDpyi5zzca5U` READY, live homepage 200 exact deployment. The metadata-only monitor rejects conflicting duplicate records and malformed counts/headers before discovery writes. Awin stays paused, sync off, and importer/cron/Pneus unchanged. Vercel inspection could not independently fetch the private unauthenticated monitor endpoint due deployment-authentication protection, so do not treat its runtime 401 as proved. See `docs/AWIN_FEED_INVENTORY_AMBIGUITY_GATE_2026-11-14.md`.
+
 ## Awin metadata inventory duplicate guard · 14 November 2026 (candidate)
 
 Current-main branch `fix/awin-feed-monitor-ambiguous-inventory-20261114` protects private metadata monitoring against duplicate column identifiers, contradictory feed rows and malformed product counts. Conflicts are recorded as invalid inventory, not normal refresh/zero-count feed updates; harmless signed URL rotation is ignored and the URLs are never retained. Source remains paused/sync off. Existing private retries from #176 and Pneus cron unaffected. Release checks in `docs/AWIN_FEED_INVENTORY_AMBIGUITY_GATE_2026-11-14.md`. Do not claim deployed until Vercel READY.

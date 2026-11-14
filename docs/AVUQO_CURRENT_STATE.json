@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_2pc1X5UNfnSpQC9TnGSmFPf6sxJQ",
-    "verified_ready_sha": "a75964878b61b9ae175252e085646404dd8a5cb1",
+    "deployment_id": "dpl_5z93DKd4sceJjCdMFDpyi5zzca5U",
+    "verified_ready_sha": "0727c0866ad15053955dc3b9fa6822a043122376",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #181 marketing editorial scheduler failure isolation: Vercel READY; www homepage HTTP 200 exact data-dpl-id; unauthenticated /api/internal/marketing HTTP 404.",
+    "verification": "Awin feed inventory PR #183 READY; matching production homepage 200. Protected route HTTP not independently checked.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -393,14 +393,9 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "feature": "Awin metadata inventory fail-closed validation",
-    "branch": "fix/awin-feed-monitor-ambiguous-inventory-20261114",
-    "status": "candidate_not_merged_or_live",
-    "tests": "tests/awin-feed-list-audit.test.mjs",
-    "preserves_source_pause": true,
-    "import_activation": false,
-    "cron_unchanged": true,
-    "prior_private_retry_pr": 176
+    "feature": "No active release candidate",
+    "status": "production_verified",
+    "recommended_next": "Review private Awin import retries and feed freshness"
   },
   "security_review_followups": [
     {
