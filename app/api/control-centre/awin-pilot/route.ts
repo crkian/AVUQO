@@ -2,7 +2,6 @@ import {NextRequest,NextResponse} from "next/server";
 import {createClient} from "../../../../lib/supabase/server";
 import {POST as runPrivateAwinPilot} from "../../internal/awin-auto-import/route";
 
-export const runtime="nodejs";
 const send=(body:unknown,status=200)=>NextResponse.json(body,{status,headers:{"Cache-Control":"private, no-store"}});
 
 /**
