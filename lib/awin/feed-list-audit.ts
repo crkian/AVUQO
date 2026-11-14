@@ -43,7 +43,7 @@ export function inspectAwinFeedList(content:string,joinedIds:ReadonlySet<string>
   const rawProducts=get("No of products");
   const n=Number(rawProducts);
   // Empty or malformed counts must not masquerade as a genuine empty feed.
-  if(!/^\\d+$/.test(rawProducts)||!Number.isSafeInteger(n)||n<0){invalidRows++;continue;}
+  if(!/^\d+$/.test(rawProducts)||!Number.isSafeInteger(n)||n<0){invalidRows++;continue;}
   const safe:SafeFeed={advertiserId,advertiserName:get("Advertiser Name").slice(0,120),
    feedId,feedName:get("Feed Name").slice(0,120),format:get("Datafeed Format").slice(0,40),
    products:n,
