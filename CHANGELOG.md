@@ -1,3 +1,7 @@
+## 14 November 2026 · Three historically closed branch refs retired, production verified
+
+- PR #187 production SHA `79e97df4761cb57010bbf874bc92440545b6709f`, Vercel READY `dpl_wWZ37buUPN9syB77c9AEYFfXQVGf`. Exact audited and content-preserved branches from closed PRs #50, #51, #85 were confirmed absent after the frozen-SHA retirement action. Branch count 25 to 22 including main, original 63 to 22. The original PR history is retained, remaining 14 divergent refs and original design/security/tyre work protected. No app features, permissions, feed source or cron activated.
+
 ## Unreleased · Three closed historic branches reconciled against main
 
 - Record original contributions from closed-unmerged PR #50 (Awin error redaction), #51 (Cadbury/Petlibro merchant terms) and #85 (cross-provider price/eBay/Watch/SEO requirements), all already preserved in newer current-main code or documents. Add a one-time GitHub workflow limited to their frozen reviewed branch heads, with fail-closed protection checks; no deletion claimed until action logs/branch inventory prove it. No customer-facing code or source controls changed.
