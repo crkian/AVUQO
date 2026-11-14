@@ -80,6 +80,8 @@ jobs:
         run: node --test tests/production-visual-audit-contract.test.mjs
       - name: UK seasonal homepage calendar date boundary and source-safety tests
         run: node --test tests/uk-seasonal-home-calendar.test.mjs
+      - name: Live Data bounded candidate streaming and no-write tests
+        run: node --test tests/live-data-candidate-streaming.test.mjs
       - name: Control Centre owner audit request and read-permission regressions
         run: node --test tests/control-centre-owner-audit-regressions.test.mjs
       - name: Product detail true-404 pre-stream admission tests
