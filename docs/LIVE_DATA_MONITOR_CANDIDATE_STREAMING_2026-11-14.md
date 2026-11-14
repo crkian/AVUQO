@@ -1,3 +1,11 @@
+## Follow-up access-control hotfix after PR #197 · 14 November 2026
+
+PR #197 shipped candidate scan streaming at `927e60d4174d5ac58f3d0cfa8587065ea9f5dfe2` (Vercel `dpl_8KU4CnG7t2rWMVC5GKFZbpbw9YtP`, READY). In a **signed-out** production request, the Control Centre layout initiated a login redirect, but the streamed React response still included portions of the private Live Data panel, including its fallback heading and empty-results UI. The unauthenticated response was HTTP 200 with a redirect instruction in the React payload. No actual private product rows were observed in the sampled response; **do not equate that with proof that no sensitive data could appear**.
+
+The urgent fresh-main fix `fix/live-data-auth-before-private-stream-20261114` requires `await requireControlCentreAccess()` inside **both** the Live Data page and async CandidateReviewPanel *before* creating a Supabase client, querying private data or rendering the private React payload. The parent Control Centre layout guard remains in place, but is no longer the only enforcement layer for concurrent streamed components. Add regression tests for guard/query ordering.
+
+**Release acceptance:** code CI/secret/preview; merge; exact SHA Vercel READY; fresh signed-out `/control-centre/live-data` HTTP/RSC inspection must show a login redirect **without serialized private candidate/metrics sections**. Check authenticated owner/admin in a separate approved browser pass, including query results and latency. If a signed-out response still contains private UI or data, do not mark this fix accepted; investigate framework redirect/streaming interactions. No DB/RLS/cron/source/marketing changes.
+
 # Live Data Monitor: isolate private candidate scan from operational metrics
 
 Date: 14 November 2026. **Status: release candidate, not yet production-verified.**
