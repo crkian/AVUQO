@@ -40,12 +40,12 @@ export default function PetlibroPilotControls(){
    setResult(report);
    if(mode==="preflight")setPreflightPassed(report.status==="preflight_passed");
   }catch{
-   setFailure("Could not contact AVUQO's private importer");
+   setFailure("Could not contact AVUQO private importer");
    if(mode==="preflight")setPreflightPassed(false);
   }finally{setBusy(null);}
  }
  return <section style={{border:"1px solid #ded6ec",background:"white",borderRadius:16,padding:22,display:"grid",gap:15}}>
-  <h2 style={{margin:0,fontSize:22}}>Test Petlibro's current Awin feed</h2>
+  <h2 style={{margin:0,fontSize:22}}>Test Petlibro current Awin feed</h2>
   <p style={{margin:0,lineHeight:1.6}}>Advertiser <strong>77952</strong>, UK Product feed <strong>103580</strong>. These are production-data operations. Neither operation publishes a product, enables an Awin source, approves rights or starts a marketing campaign.</p>
   <div style={{display:"flex",gap:12,flexWrap:"wrap"}}>
    <button type="button" style={button} disabled={busy!==null}
