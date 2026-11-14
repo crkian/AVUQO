@@ -1,7 +1,7 @@
 /** Owner-controlled, scheduled editorial generation. This NEVER publishes or sends content. */
 import {createAdminClient} from "../supabase/admin";
 import {evergreenCaption,normaliseCaption,reviewDraft} from "./policy";
-import {nextEditorialRun} from "./editorial-automation-policy";
+import {editorialRulePreflight} from "./editorial-rule-preflight";
 
 export async function runEditorialDraftAutomation() {
  if(process.env.MARKETING_AUTOMATION_DRAFTS!=="YES") return {enabled:false,drafts:0};
@@ -13,14 +13,18 @@ export async function runEditorialDraftAutomation() {
  if(error)throw error;
  let drafts=0;let skipped=0;
  for(const rule of rules??[]) {
-  const newNext=nextEditorialRun(new Date(),rule.cadence_days);
-  const {data:claimed,error:claimError}=await db.from("marketing_automation_rules")
-   .update({next_run_at:newNext,last_run_at:new Date().toISOString(),last_error:null})
-   .eq("id",rule.id).eq("enabled",true).eq("next_run_at",rule.next_run_at).select("id");
-  if(claimError)throw claimError;
-  if(!claimed?.length)continue;
+  // One malformed rule or transient database error must not suppress the
+  // other brands' approved, review-only editorial work.
+  let claimedNext:string|null=null;
   try {
-   if(!rule.created_by)throw Error("Owner identity missing");
+   const now=new Date();
+   const newNext=editorialRulePreflight(rule,now);
+   const {data:claimed,error:claimError}=await db.from("marketing_automation_rules")
+    .update({next_run_at:newNext,last_run_at:now.toISOString(),last_error:null})
+    .eq("id",rule.id).eq("enabled",true).eq("next_run_at",rule.next_run_at).select("id");
+   if(claimError)throw claimError;
+   if(!claimed?.length)continue;
+   claimedNext=newNext;
    const [factsR,brandR,recentR]=await Promise.all([
     db.from("marketing_facts").select("id,claim,status,expires_at,brand_slug")
      .eq("brand_slug",rule.brand_slug).eq("status","approved")
@@ -55,9 +59,16 @@ export async function runEditorialDraftAutomation() {
    drafts++;
   }catch(error) {
    skipped++;
-   await db.from("marketing_automation_rules").update({
-    last_error:(error instanceof Error?error.message:"Editorial draft failed").slice(0,280)
-   }).eq("id",rule.id);
+   // Do not overwrite another worker's successful claim or newer schedule.
+   // Logging failure is itself non-fatal to the rest of the daily batch.
+   try{
+    await db.from("marketing_automation_rules").update({
+     last_error:(error instanceof Error?error.message:"Editorial draft failed").slice(0,280)
+    }).eq("id",rule.id).eq("enabled",true)
+     .eq("next_run_at",claimedNext??rule.next_run_at);
+   }catch {
+    // Other due rules should still be processed; no external posting occurs.
+   }
   }
  }
  return {enabled:true,drafts,skipped};
