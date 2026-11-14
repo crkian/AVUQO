@@ -1,3 +1,14 @@
+## FIRST FOUR PRODUCT MODEL GUIDES LIVE · PR #191 VERIFIED · 14 NOVEMBER 2026
+
+PR #191 merged `3f5f9112505b427f3d0ded58516ffea582892dd8`, production Vercel `dpl_7cFCyggNHknGtxcp4dfK1erajRxi` **READY** with both `www.avuqo.com` and `avuqo.com` aliases. GitHub quality Build/Lint, targeted four-product-guide and existing storefront safety tests, secrets and preview passed on PR head `7b89fc96151acd11fdfa291307a5062dd85adf82`. Live independent HTTP checks confirmed **homepage, /products, all four named model guides and tech/home product shelves HTTP 200 at this exact deployment**, with research-only notice and **no retailer purchase CTA on the four guides**. The four product guides (Apple MacBook Air 13-inch M4, Ninja AF300UK, Dyson V15 Detect Absolute, LG C4 65-inch family) use editorial illustrations, research questions and official manufacturer-information links, not merchant imagery or prices.
+
+The only existing priced offers are demo data. Latest connected Supabase still has Awin **paused, sync disabled and zero approved Awin offer-release records**. No real retailer price, stock, savings, score or image rights were assumed; no merchant/publisher controls, DB migration, cron, outbound marketing or tyre worker changed. **Actual shoppable products are still blocked** pending one current licensed merchant feed and owner-admitted offer through existing P1-01 controls.
+
+**Post-release defect found:** an unapproved Cadbury pilot slug correctly rendered the Next.js not-found UI, with no private content or offer CTA, but streamed a HTTP **200**. Follow-up branch `fix/product-pilot-soft-404-and-release-proof-20261114` rejects non-approved/non-allowlisted product slugs **before** streaming page HTML to obtain true HTTP 404. This follow-up is **CANDIDATE**, not production-verified until CI, merge and a new exact deployment smoke test. See `docs/PUBLIC_MODEL_RESEARCH_GUIDES_RELEASE_2026-11-14.md`.
+
+For parallel Work mode when user credits allow, use read-only QA brief `docs/WORK_PARALLEL_PRODUCT_DESIGN_QA_BRIEF_2026-11-14.md`. It is a prepared task, not a currently running agent.
+
+
 ## Owner Control Centre audit · 14 November 2026
 
 All 56 fixed and linked detail pages rendered with the owner role, and 14 editor and marketing variants opened. Marketplace and Source Atlas each have a confirmed observation-count permission gap. Live Data can be slow, the endpoint checker has no configured targets, and Open Food Facts returned HTTP 503. See [the route-by-route owner audit](AVUQO_CONTROL_CENTRE_OWNER_AUDIT_2026-11-14.md). State-changing action acceptance remains pending.
