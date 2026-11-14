@@ -1,3 +1,9 @@
+## Awin private metadata monitor integrity VERIFIED · 14 November 2026
+
+- PR #183 merged at `0727c0866ad15053955dc3b9fa6822a043122376`, Vercel `dpl_5z93DKd4sceJjCdMFDpyi5zzca5U` READY with production aliases; public homepage HTTP 200 on exact deployment. Quality build/lint, regression, secrets and preview passed.
+- Feed-list metadata now fails closed on duplicate/empty headers, malformed counts and conflicting duplicate feed identifiers without retaining credential URLs. Awin source still paused, sync off. No imports or product publication activated.
+- Private endpoint's unauthenticated response could not be independently checked because connected Vercel inspection reported deployment authentication failure. Retest with an authorised read-only browser/session rather than running the cron. Controlled malformed-inventory integration remains pending.
+
 ## 14 November 2026: Awin inventory ambiguity guard candidate
 
 - Add strict metadata-only feed-list CSV identity validation: distinct nonblank headers, explicit safe-integer counts, and fail-closed handling of conflicting duplicate advertiser/feed IDs. Signed URLs are never retained; harmless URL rotation remains deduplicated. Existing monitor stops before its discovery RPC if inventory rows are ambiguous.
