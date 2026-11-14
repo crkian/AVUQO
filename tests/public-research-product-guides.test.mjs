@@ -73,3 +73,15 @@ test("home, public /products, and departments reveal research guides without mod
  assert.match(department,/matching=verified\.filter/);
  assert.match(department,/No verified retailer offers yet/);
 });
+
+test("unapproved product URL is rejected before streaming a public 200 response",()=>{
+ const route=src("app/products/[slug]/page.tsx");
+ const page=route.slice(route.indexOf("export default async function Page"));
+ const check=page.indexOf("if(!entry&&!guide)notFound()");
+ const markup=page.indexOf("return <main>");
+ assert.match(page,/await connection\(\)/);
+ assert.ok(check>0&&markup>check,"Not-found check must precede all streamed page HTML");
+ assert.match(page,/const entry=await verifiedProduct\(slug\)/);
+ assert.match(page,/const guide=entry\?undefined:researchGuideBySlug\(slug\)/);
+ assert.match(page,/<ProductDetails entry=\{entry\} guide=\{guide\}/);
+});
