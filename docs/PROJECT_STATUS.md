@@ -1,3 +1,7 @@
+## Public product real HTTP 404 · candidate · 14 November 2026
+
+Four editorial research model guides are live via PR #191 but are not approved-price retailer comparisons. A draft pilot/unknown slug can return HTTP 200 with a streamed not-found component; current candidate moves public eligibility checks before any header/Suspense stream and adds an explicit CI regression. The earlier PR #193 was closed unmerged; this is a narrowly rebuilt patch from latest `main`. Awin remains paused and 0 Awin offer releases are approved. Live 404 status and production READY remain acceptance gates before declaring finished.
+
 ## PRODUCT VISIBILITY FIRST: FOUR MODEL RESEARCH GUIDES · CANDIDATE · 14 NOV 2026
 
 Owner priority is to put recognisable products on the actual site before further Git housekeeping. Fresh read-only production Supabase: **4 active product identities**, **8 draft pilots**, **6 demo-only offers** and **0 approved Awin offer release reviews**; Awin remains **paused, sync disabled, publisher/product rights pending**. Existing public `verifiedProductIndex` correctly excludes the demo offers, so showing live prices today would misrepresent the data.
