@@ -1,3 +1,7 @@
+## 14 November 2026 · Live Data streamed candidate shortlist and explicit role checks LIVE
+
+- PR #197 split the up-to-5,000-row private candidate scan from faster dashboard metrics using accessible Suspense loading. Initial unauthenticated smoke failed due to private UI markers in redirected HTML/RSC. PR #198 immediately enforced explicit owner/admin authorization in the parent page and async child before private DB queries; this **passed signed-out production RSC inspection**. Final app SHA `0f84dba3a1c9e8487c953b24c8a0ca1a4eb1838d`, Vercel `dpl_6J8N1ErH35V3GqY77rQR7xxAkowP` READY and homepage 200 matching. CI/secrets/preview passed; signed-in speed and shortlist correctness still require owner browser test. No source/merchant/cron/product publishing changes.
+
 ## Unreleased · Live Data stream access-control hotfix
 
 - After PR #197's READY scan-streaming release, a signed-out request still received some private dashboard React payload during the layout's login redirect. Add explicit owner/admin authorization within the Live Data route and nested async candidate panel before database reads or JSX. Tests verify pre-query guards. No private rows observed in the sampled response, but anonymous RSC content must be excluded before acceptance. No DB, retailer, source or marketing changes.
