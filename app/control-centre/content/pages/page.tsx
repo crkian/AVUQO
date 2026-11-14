@@ -1,8 +1,13 @@
+import {connection} from "next/server";
 import { requireControlCentreAccess } from "../../../../lib/auth/requireControlCentreAccess";
 import { createClient } from "../../../../lib/supabase/server";
 import { DEFAULT_EDITORIAL,defaultsFor,parseEditorial,type EditorialKey } from "../../../../lib/content/editorial";
 import { saveEditorial,publishEditorial } from "./actions";
+// Owner editor is request-bound: auth, search parameters and database state
+// must not run during static/partial prerendering.
+export const instant=false;
 export default async function Editor({searchParams}:{searchParams:Promise<{page?:string;saved?:string;published?:string}>}){
+ await connection();
  const {role}=await requireControlCentreAccess();const p=await searchParams;
  const key:EditorialKey=p.page && p.page in DEFAULT_EDITORIAL ? p.page as EditorialKey:"home";
  const db=await createClient();const [{data:draft},{data:published}]=await Promise.all([
