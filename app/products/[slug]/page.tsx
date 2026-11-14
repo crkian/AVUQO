@@ -7,6 +7,8 @@ import {ArrowLeft,ArrowRight,CheckCircle2,Clock3,ImageOff,ShieldCheck} from "luc
 import Header from "../../../components/layout/Header";
 import Footer from "../../../components/layout/Footer";
 import AddToCollectionButton from "../../../components/collections/AddToCollectionButton";
+import ResearchProductDetails from "../../../components/products/ResearchProductDetails";
+import {researchGuideBySlug} from "../../../lib/products/research-guides";
 import {verifiedProduct} from "../../../lib/products/public-catalog";
 import {chooseProductTemplate,validatedSpecificationEntries} from "../../../lib/products/templates";
 import styles from "./page.module.css";
@@ -17,14 +19,23 @@ const approvedTyreSpecKeys=new Set(["tyre_width_mm","tyre_profile","tyre_rim_inc
 export async function generateMetadata({params}:Props):Promise<Metadata>{
  await connection();
  const {slug}=await params;const record=await verifiedProduct(slug);
- if(!record)return {title:"Product unavailable",robots:{index:false,follow:false}};
+ if(!record){
+  const guide=researchGuideBySlug(slug);
+  if(!guide)return {title:"Product unavailable",robots:{index:false,follow:false}};
+  return {title:guide.title+" | Research guide",description:guide.teaser,
+   alternates:{canonical:"/products/"+slug},robots:{index:false,follow:true}};
+ }
  return {title:record.product.canonical_title,description:`Understand price and seller evidence for ${record.product.canonical_title} on AVUQO. Check each current retailer offer.`,alternates:{canonical:`/products/${slug}`},robots:{index:true,follow:true}};
 }
 async function ProductDetails({params}:Props){
  await connection();
  const {slug}=await params;
  const entry=await verifiedProduct(slug);
- if(!entry)notFound();
+ if(!entry){
+  const guide=researchGuideBySlug(slug);
+  if(!guide)notFound();
+  return <ResearchProductDetails guide={guide}/>;
+ }
  const {product}=entry;
  const offers=[...entry.offers].sort((a,b)=>Number(a.offer.total_price??a.offer.price)-Number(b.offer.total_price??b.offer.price));
  const best=offers[0];
