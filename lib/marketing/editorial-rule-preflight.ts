@@ -1,5 +1,5 @@
-import {isBrandSlug} from "./policy";
-import {nextEditorialRun} from "./editorial-automation-policy";
+import {isBrandSlug} from "./policy.ts";
+import {nextEditorialRun} from "./editorial-automation-policy.ts";
 
 /** Validates a stored rule before any claim or draft write.
  * No side effects and no permission to publish. */
