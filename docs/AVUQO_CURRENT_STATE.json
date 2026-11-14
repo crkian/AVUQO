@@ -174,15 +174,15 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Audit and harden current Awin metadata feed-change detection and private import retry/recovery, with rights and paused-source checks unchanged. PR #176 recovery is already live."
+      "task": "Merge safe cleanup policy only after CI; inspect automatic cleanup Actions log and re-query live branches for actual deletion count. Keep original design/security/open PR refs."
     },
     {
       "priority": 2,
-      "task": "Actual owner-approved marketing editorial draft scheduler acceptance once real approved facts/rules exist; do not insert fake production data or enable social publishing."
+      "task": "Reconcile remaining open historical PRs #25 #83 #93 and dangerous Tyres #117 versus #158, preserving unique assets before closing."
     },
     {
       "priority": 3,
-      "task": "Finish authorized signed-in account and eligible-product comparison visual acceptance once approved offers exist."
+      "task": "Continue Awin private import resilience/metadata freshness and owner-approved marketing draft acceptance without activating sources."
     },
     {
       "priority": 4,
@@ -393,9 +393,10 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "feature": "No active release candidate",
-    "status": "production_verified",
-    "recommended_next": "Review private Awin import retries and feed freshness"
+    "feature": "Verified ongoing merged PR branch cleanup",
+    "status": "candidate_not_merged",
+    "branch": "chore/verified-merged-pr-branch-prune-20261114",
+    "scope": "Reduce stale GitHub refs without deleting unique or active work"
   },
   "security_review_followups": [
     {
@@ -525,5 +526,20 @@
     "sync_enabled": false,
     "source_verified_from": "read-only connected Supabase",
     "recorded_not_live_poll": true
+  },
+  "branch_cleanup_candidate_20261114": {
+    "starting_branches_including_main": 63,
+    "starting_open_prs": [
+      25,
+      83,
+      93,
+      117,
+      158
+    ],
+    "workflow": ".github/workflows/verified-merged-branch-cleanup.yml",
+    "scope": "Only currently present merged PR #127+ exact frozen reviewed head SHA, unique PR-branch association, no open PR and no protected/design/security refs",
+    "mode": "candidate_not_merged",
+    "actual_branches_deleted": null,
+    "requires_post_merge_workflow_evidence": true
   }
 }
