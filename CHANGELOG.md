@@ -1,4 +1,4 @@
-## Unreleased · Private Awin retry recovery
+## 14 November 2026 · Private Awin retry recovery deployed
 
 - Recover an interrupted empty import session and deduplicate concurrent starts for the same feed snapshot. Completed sessions still require a matching fingerprint and row count.
 
