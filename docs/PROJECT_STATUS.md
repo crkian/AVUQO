@@ -1,3 +1,9 @@
+## Branch hygiene toward zero stale branches · candidate · 14 November 2026
+
+- Read-only count: 63 GitHub branches including `main`; 5 open PRs (#25/#83/#93/#117/#158). Not all branches are safe to remove; original reference design and security work must survive until fully incorporated/archived.
+- Candidate update to the already installed GitHub Actions verified-merged cleanup: after every main push, prune only existing PR #127+ branch tips confirmed closed+merged into main, exact frozen head and final PR commit SHA, unique branch name and no open PR, without touching protected/security/original design refs. Never delete a moved ref. Existing historical <=126 workflow remains.
+- The CI tests exercise **safety contract**, while actual deletion outcomes and new count require post-merge workflow logs and branch search. See `docs/VERIFIED_BRANCH_RETIREMENT_POLICY_2026-11-14.md`.
+
 ## Awin private metadata monitor integrity VERIFIED · 14 November 2026
 
 - PR #183 merged at `0727c0866ad15053955dc3b9fa6822a043122376`, Vercel `dpl_5z93DKd4sceJjCdMFDpyi5zzca5U` READY with production aliases; public homepage HTTP 200 on exact deployment. Quality build/lint, regression, secrets and preview passed.
