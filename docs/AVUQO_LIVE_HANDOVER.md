@@ -1,3 +1,7 @@
+## Private Awin retry recovery deployed · 14 November 2026
+
+PR #176 is READY at `043f7f3a9d72e93daa7d07744cf353d6f2d82c83` (`dpl_59juctLSxXAr3bMbvMPiBbKLxKuN`) on `www.avuqo.com`. It makes setup resumable for an empty interrupted run and deduplicates starts for the same feed fingerprint. GitHub quality and secrets checks passed. The unauthenticated live endpoint returned HTTP 401 and a private non-cacheable response. A read-only production check confirmed the Awin source was paused, sync was off and zero incomplete setup runs were present. Isolated database checks verified that duplicate inserts preserve the original run and session data. No authenticated supplier invocation, production test write, migration, cron or public offer change occurred. A real authenticated retry remains to be exercised.
+
 ## Private Awin retry recovery candidate · 14 November 2026
 
 Baseline `31c0ea78c31ef768cedc5411153626d8d2f01268` READY on the live domain. The candidate can resume an empty private Awin pilot run when its session failed to initialise. Fingerprint, owner, row-count and private status checks protect existing state. Production verification will exercise only the unauthenticated rejection and confirm the paused source.

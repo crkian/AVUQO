@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_aisifpCp2x3z2Tim7YHznzPYp68U",
-    "verified_ready_sha": "92afa9c906b25f5fd8df259c62f793fbd2712500",
+    "deployment_id": "dpl_59juctLSxXAr3bMbvMPiBbKLxKuN",
+    "verified_ready_sha": "043f7f3a9d72e93daa7d07744cf353d6f2d82c83",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "Vercel READY with signed-out live account and catalogue browser checks.",
+    "verification": "PR #176 READY. Live unauthenticated Awin importer returned HTTP 401; authenticated supplier retry pending.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
