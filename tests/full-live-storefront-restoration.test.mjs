@@ -18,7 +18,9 @@ test("restored full storefront is part of public production homepage, not only p
 test("dashboard uses independently eligible product index and honest editorial fallback",()=>{
  assert.match(home,/verifiedProductIndex\(8\)/);
  assert.match(dashboard,/No unverified offers are represented as current deals/);
- assert.match(dashboard,/Editorial inspiration/);
+ assert.match(dashboard,/RESEARCH_PRODUCT_GUIDES\.slice\(0,3\)/);
+ assert.match(dashboard,/Research guide · No verified retailer price/);
+ assert.match(dashboard,/picked\.length\?picked\.map/);
  assert.match(dashboard,/published\.image_url/);
  assert.doesNotMatch(dashboard,/Math\.random|fake.*deal|example.*score/i);
 });
