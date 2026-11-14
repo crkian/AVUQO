@@ -1,3 +1,11 @@
+## Petlibro owner pilot controls and emergency stop · CANDIDATE · 14 November 2026
+
+- The existing Awin automatic worker has already staged Petlibro 77952:103580 (44 rows on 5 Nov) and Mozillion 31539:74135 (229-row snapshot on 14 Nov) behind private-review gates; daily feed-list monitor is functioning. The public pipeline is a separate single-advertiser connector and has not converted these private rows into public products/offers.
+- Candidate adds /control-centre/awin-pilot for owner-authenticated, fixed-feed read-only preflight and separately confirmed private staging. It invokes the existing worker server-side without exposing CRON_SECRET. All feed network/download/parse/persistence invariants stay in the existing worker.
+- Correct global emergency-stop gap: private auto-import stage now refuses new writes if source ingestion disabled or global emergency stop enabled, checks again after download, before each chunk and before finishing. A safe preflight remains available while paused.
+- No production controls changed or product feed triggered by this code PR; manual stage creates only private review rows with unverified permissions. Petlibro owner-provided permission email has not yet been attested in production source metadata, and no current priced offers are approved.
+- Next gate: PR CI/build/preview, signed-in owner preflight (correct current provider rows and GBP inference), private-stage idempotence test, stop/rollback acceptance, then separately implement source-specific, auditable canonical product/offer mapping. PR #200 unknown product HTTP 404 remains separate.
+
 ## Live Data streaming and pre-query auth fix · VERIFIED · 14 November 2026
 
 - PR #197 (`927e60d4174d5ac58f3d0cfa8587065ea9f5dfe2` / Vercel `dpl_8KU4CnG7t2rWMVC5GKFZbpbw9YtP`) shipped an independent Suspense candidate panel. Signed-out RSC response exposed private UI markers while redirecting to login, so original acceptance **failed**; no private product row exposure was confirmed in sampled response.
