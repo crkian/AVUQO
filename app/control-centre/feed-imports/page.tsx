@@ -22,6 +22,7 @@ export default async function FeedImportsPage() {
     .eq('import_id', latest.id).order('created_at', { ascending: true }).range(0, 999) : { data: [], error: null };
   return <main style={{ display: 'grid', gap: 24, maxWidth: 1220, paddingBottom: 40 }}>
     <header><p style={{ color: '#6545d6', fontWeight: 750, letterSpacing: 1, fontSize: 12 }}>SOURCES / PRIVATE IMPORTS</p><h1 style={{ fontSize: 30, margin: '8px 0' }}>Product feed review</h1><p style={{ color: '#62627a' }}>Private pilot. No products are published, and affiliate links remain disabled while merchant rights are unverified.</p></header>
+    <section style={{border:"1px solid #dcd2ef",background:"#f9f5ff",borderRadius:14,padding:18,display:"grid",gap:8}}><strong>Petlibro · Live Awin preflight and controlled private stage</strong><p style={{margin:0,fontSize:13,color:"#6a6076"}}>Use the existing Awin worker on Petlibro feed 103580, with explicit owner confirmation and global emergency stop. No public offers are created.</p><Link href="/control-centre/awin-pilot" style={{fontWeight:800}}>Open Petlibro private pilot controls →</Link></section>
     <div style={{padding:17,border:"1px solid #e7dff0",background:"#faf7ff",borderRadius:14,display:"grid",gap:9}}>
       <strong style={{fontSize:15}}>Check how imported products will look</strong>
       <p style={{fontSize:12,margin:0,color:"#74677f"}}>Open the private Product Preview Gallery to inspect staged product cards across merchants and mobile layouts. No prices or images are published.</p>
