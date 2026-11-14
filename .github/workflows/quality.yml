@@ -84,6 +84,8 @@ jobs:
         run: node --test tests/live-data-candidate-streaming.test.mjs
       - name: Control Centre owner audit request and read-permission regressions
         run: node --test tests/control-centre-owner-audit-regressions.test.mjs
+      - name: Public product document true HTTP 404 route gate tests
+        run: node --test tests/public-product-document-true-404.test.mjs
       - name: Product detail true-404 pre-stream admission tests
         run: node --test tests/public-product-route-http-404.test.mjs
       - name: Public product research guide identity and no-price safety tests
