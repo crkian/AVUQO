@@ -23,10 +23,13 @@ export function inspectAwinFeedList(content:string,joinedIds:ReadonlySet<string>
  const [rawHeader,...rows]=csvMatrix(content.replace(/^\uFEFF/,""));
  if(!rawHeader)throw new Error("Feed inventory CSV is empty");
  const header=rawHeader.map(x=>x.trim());
+ // Ambiguous headers can redirect identity or status lookups to the wrong cell.
+ if(header.some(name=>!name)||new Set(header).size!==header.length)
+  throw new Error("Feed inventory has duplicate or empty column names");
  for(const key of required)if(!header.includes(key))throw new Error("Feed inventory is missing column: "+key);
  if(rows.length>5000)throw new Error("Feed inventory exceeds the 5,000-row inspection limit");
  const index=(k:string)=>header.indexOf(k);
- const unique=new Set<string>();const feeds:SafeFeed[]=[];
+ const unique=new Map<string,SafeFeed>();const feeds:SafeFeed[]=[];
  let activeOutsideJoined=0,invalidRows=0,totalActive=0;
  for(const cells of rows){
   if(cells.length!==header.length){invalidRows++;continue;}
@@ -37,16 +40,26 @@ export function inspectAwinFeedList(content:string,joinedIds:ReadonlySet<string>
   if(!/^\d+$/.test(advertiserId)||!/^([A-Za-z]?\d+)$/.test(feedId)){invalidRows++;continue;}
   if(!joinedIds.has(advertiserId)){activeOutsideJoined++;continue;}
   const key=advertiserId+":"+feedId;
-  if(unique.has(key))continue;
-  unique.add(key);
-  const n=Number(get("No of products"));
-  feeds.push({advertiserId,advertiserName:get("Advertiser Name").slice(0,120),
+  const rawProducts=get("No of products");
+  const n=Number(rawProducts);
+  // Empty or malformed counts must not masquerade as a genuine empty feed.
+  if(!/^\\d+$/.test(rawProducts)||!Number.isSafeInteger(n)||n<0){invalidRows++;continue;}
+  const safe:SafeFeed={advertiserId,advertiserName:get("Advertiser Name").slice(0,120),
    feedId,feedName:get("Feed Name").slice(0,120),format:get("Datafeed Format").slice(0,40),
-   products:Number.isSafeInteger(n)&&n>=0?n:0,
+   products:n,
    lastImported:get("Last Imported").slice(0,32),lastChecked:get("Last Checked").slice(0,32),
    language:get("Language").slice(0,45),
    tooledUpFilenameMustBeChecked:advertiserId==="496"
-  });
+  };
+  const prior=unique.get(key);
+  if(prior){
+   // Ignore signed URL differences. They are credentials, not feed identity.
+   // Other conflicting fields make the inventory ambiguous and must fail.
+   if(JSON.stringify(prior)!==JSON.stringify(safe))invalidRows++;
+   continue;
+  }
+  unique.set(key,safe);
+  feeds.push(safe);
  }
  const byMerchant=[...new Map(feeds.map(f=>[f.advertiserId,f.advertiserName])).entries()].map(([id,name])=>({
   advertiserId:id,advertiserName:name,feedCount:feeds.filter(f=>f.advertiserId===id).length,
