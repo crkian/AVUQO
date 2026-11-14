@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_DrcFffyiYBCmdF9T6PcYoKfjDqd4",
-    "verified_ready_sha": "20006d39f7ae9541f79ca39ef9966818cb0cae93",
+    "deployment_id": "dpl_7cFCyggNHknGtxcp4dfK1erajRxi",
+    "verified_ready_sha": "3f5f9112505b427f3d0ded58516ffea582892dd8",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "Complete Git and ideas index PR #189 READY, live homepage HTTP 200 exact deployment.",
+    "verification": "PR #191 four editorial model guides Vercel READY and homepage, /products, all model detail URLs, home/tech shelves HTTP 200 exact deployment; no real affiliate offer/price activation.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -174,19 +174,19 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Release four named public model research guides; verify no price/stock/affiliate/image claims; complete mobile/desktop QA and exact Vercel READY proof."
+      "task": "Release pre-stream product detail not-found HTTP status correction; verify unknown/pilot is real HTTP 404, four research guides remain 200 exact Vercel READY, and Awin stays paused."
     },
     {
       "priority": 2,
-      "task": "Owner-controlled P1-01: obtain written rights and current joined Awin programme + exact product feed, import privately, reconcile merchant/variants/landed price and release one legitimate priced offer through existing admission controls."
+      "task": "Obtain and verify written advertiser feed/price/image rights and one fresh Awin merchant product/variant for first true priced eligible offer; use existing private release controls."
     },
     {
       "priority": 3,
-      "task": "Run separate Work read-only browser QA of homepage, model pages, responsive design and account routes when credits available. Brief in docs/WORK_PARALLEL_PRODUCT_DESIGN_QA_BRIEF_2026-11-14.md."
+      "task": "Use optional Work read-only browser QA brief for full mobile/desktop and approved warm-premium visual comparison when user credits allow."
     },
     {
       "priority": 4,
-      "task": "Reconcile outdated P0-03 and numbered Awin filename branch work against current main; remove only superseded code after preservation review."
+      "task": "Review and retire superseded P0-03 historical docs and import filename branches only after preserving unique content."
     },
     {
       "priority": 5,
@@ -393,16 +393,11 @@
     "old_pr_117": "still open until controlled migration/feed/lease/runtime validation"
   },
   "current_candidate": {
-    "feature": "Four research-only public product model guides",
-    "branch": "feature/public-product-research-guides-20261114",
+    "feature": "Pre-stream product entitlement check returning real HTTP 404 for private draft pilot/unknown slugs",
+    "branch": "fix/product-pilot-soft-404-and-release-proof-20261114",
     "status": "candidate_not_merged_or_live",
-    "scope": "Public named-model editorial guides on /products, homepage, individual pages, tech/home departments",
-    "tests": "tests/public-research-product-guides.test.mjs",
-    "affects_retailer_prices": false,
-    "affects_affiliate_source_permissions": false,
-    "affects_social_publishing": false,
-    "affects_supabase_schema": false,
-    "affects_pneus_cron": false
+    "source_activation": false,
+    "privacy": "no pilot content or unverified offer released"
   },
   "security_review_followups": [
     {
@@ -642,5 +637,25 @@
     "offer_price_publication": "blocked_until_verified_source_and_owner_review",
     "research_guide_targets": 4,
     "source": "read-only connected Supabase 14 November 2026; recheck before activation"
+  },
+  "first_product_visibility_release_20261114": {
+    "pr": 191,
+    "commit": "3f5f9112505b427f3d0ded58516ffea582892dd8",
+    "deployment_id": "dpl_7cFCyggNHknGtxcp4dfK1erajRxi",
+    "ready": true,
+    "public_research_guides": 4,
+    "home_and_department_cards": true,
+    "real_approved_priced_offers": 0,
+    "awin_status": "paused",
+    "awin_sync_enabled": false,
+    "public_product_pages_verified_http": 200,
+    "verified_detail_slugs": [
+      "apple-macbook-air-m4-13-256gb-apple-macbook-ai",
+      "ninja-af300uk-ninja-af300uk",
+      "dyson-v15-detect-absolute-dyson-v15-detect",
+      "lg-oled65c4-lg-oled65c4"
+    ],
+    "private_pilot_content_exposed": false,
+    "soft_not_found_http_before_followup": 200
   }
 }
