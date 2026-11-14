@@ -16,6 +16,8 @@
 
 **Verified production snapshot on 14 November 2026:** `20006d39f7ae9541f79ca39ef9966818cb0cae93` (Vercel `dpl_DrcFffyiYBCmdF9T6PcYoKfjDqd4` READY, `www.avuqo.com` and `avuqo.com` aliases, homepage HTTP 200 at exact deployment). PR #189 released the complete Git/branch/owner-idea/handover Markdown and JSON index linked above. The verified Git branch list still had **22 refs**, including five open drafts, two protected security refs and 14 divergent historical refs. Original confidential product/source PDFs remain outside the PUBLIC repo but are checksum-indexed; this is a dated snapshot, not proof all ideas are built or future branch state stays unchanged.
 
+> [Latest owner Control Centre audit](docs/AVUQO_CONTROL_CENTRE_OWNER_AUDIT_2026-11-14.md) records 56 rendered pages, operational warnings and the remaining action checks.
+
 ## Next work
 **Active P1-04 product visibility candidate:** build four public, real-model *research guides* to make `/products`, homepage and tech/home showrooms useful now while real affiliate offers remain unapproved. See `docs/PUBLIC_MODEL_RESEARCH_GUIDES_RELEASE_2026-11-14.md`. The existing `verifiedProductIndex` remains the only path to real prices. Work-mode screenshot/QA task is prepared at `docs/WORK_PARALLEL_PRODUCT_DESIGN_QA_BRIEF_2026-11-14.md`, not running automatically. Verify this PR is merged and Vercel READY before claiming the model guides are live.
 
