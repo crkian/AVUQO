@@ -1,3 +1,7 @@
+## 14 November 2026: Marketing editorial schedule isolation VERIFIED
+
+PR #181 code release `a75964878b61b9ae175252e085646404dd8a5cb1` deployed READY at `dpl_2pc1X5UNfnSpQC9TnGSmFPf6sxJQ`, homepage HTTP 200 at matching custom-domain deployment and unauthenticated marketing cron HTTP 404. GitHub build, lint, targeted tests, secrets and preview passed. Per-rule malformed schedules/claim errors no longer abort other review-only draft schedules. No live marketing rules or posts exist; publishing and AI OFF with emergency stop ON. Owner-approved rule acceptance remains pending.
+
 ## Marketing review-only draft scheduler resilience · candidate · 14 November 2026
 
 - The existing daily marketing cron's editorial-draft substep is hardened so one malformed/due rule or claim error cannot block other brands and channels. The same brand/platform/owner/cadence validation is now applied within a per-rule error boundary, with best-effort, concurrency-guarded failure recording. No new social/publishing activation.
