@@ -1,3 +1,7 @@
+## Unreleased · Three closed historic branches reconciled against main
+
+- Record original contributions from closed-unmerged PR #50 (Awin error redaction), #51 (Cadbury/Petlibro merchant terms) and #85 (cross-provider price/eBay/Watch/SEO requirements), all already preserved in newer current-main code or documents. Add a one-time GitHub workflow limited to their frozen reviewed branch heads, with fail-closed protection checks; no deletion claimed until action logs/branch inventory prove it. No customer-facing code or source controls changed.
+
 ## 14 November 2026 · Verified GitHub branch retirement LIVE
 
 - PR #185 merged at `a032f85a39964dff2ade6785331c399d2eccda1b`, Vercel READY `dpl_GhzjfNTsg2UYTumhPRwiPvSbwkJ3`. The main-push cleanup removes only merged, unchanged, uniquely reviewed branch refs with no open PR or archive/security protection. Verified GitHub branch count fell from 63 to 25 including main; the 25 remaining are catalogued rather than deleted blindly. No customer-facing or data-source activation changes.

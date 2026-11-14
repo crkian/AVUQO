@@ -1,3 +1,7 @@
+## Legacy PR #50/#51/#85 reconciliation · 14 November 2026, candidate
+
+Three closed-but-unmerged branches can potentially be retired after individual proof: the current Awin connector already redacts provider response bodies; current Cadbury/Petlibro terms preserve merchant restrictions and lack of image rights; and the cross-provider price/availability/SEO requirements file has the same Git blob SHA as historical PR #85. The older statuses and original fact evidence are indexed in `docs/CLOSED_LEGACY_BRANCH_RECONCILIATION_2026-11-14.md`. A one-shot, frozen SHA and current-main blob-hash-gated cleanup is staged in a fresh PR and has not yet run. Keep all five open PR heads and both security references until separate reviews.
+
 ## Verified GitHub branch reduction · 14 November 2026
 
 PR #185 production READY at `a032f85a39964dff2ade6785331c399d2eccda1b` / `dpl_GhzjfNTsg2UYTumhPRwiPvSbwkJ3`. Automatic exact frozen-head PR cleanup after main pushes brought branches from 63 to 25 including main. Five open PR heads, two security references and seventeen divergent historical refs remain until selective reconciliation. Do not delete original warm-premium source, security evidence, or unmerged code to reach a cosmetic zero. Full list: `docs/BRANCH_REDUCTION_RESULTS_AND_RECONCILIATION_2026-11-14.md`. No Awin, marketing, privacy or price permissions changed.

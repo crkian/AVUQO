@@ -1,3 +1,9 @@
+## Closed old PR source preservation · candidate · 14 November 2026
+
+- 25 live GitHub branches remain. Closed-not-merged historical PRs #50, #51 and #85 have been source-compared to current main. Awin errors already disclose only HTTP status, Cadbury/Petlibro restriction review exists with newer current notes, and price/eBay/Watch/SEO requirements doc has an identical content SHA.
+- A strictly three-name pinned-head cleanup will delete only if exact closed PR head and final reviewed commit, original branch ref, current preserved main blob and reconciliation ledger all match, with no active/reused PR or protection. This release is **candidate**, and no deletions are yet claimed. Read `docs/CLOSED_LEGACY_BRANCH_RECONCILIATION_2026-11-14.md`.
+- Open PR #25/#83/#93/#117/#158, security refs and other divergent historical work remain untouched. No merchant rights or runtime automation flags changed.
+
 ## Branch cleanup VERIFIED: 63 -> 25 refs · 14 November 2026
 
 - PR #185 deployed READY at `a032f85a39964dff2ade6785331c399d2eccda1b` / `dpl_GhzjfNTsg2UYTumhPRwiPvSbwkJ3`. Homepage 200 on exact deployment; tests, build, lint, secrets and preview passed.
