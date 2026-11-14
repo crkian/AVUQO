@@ -20,6 +20,10 @@ The durable [master Git/branch/idea index](docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_H
 
 **THIRD: after each release**, update readable handover, machine-readable JSON, Compass (if strategy changed), status and changelog. When exact deployed SHA is known only after merge, a follow-up docs-only release record is needed, and every future chat still must recheck Vercel. Protect latest Awin/eBay/tyre/auth/Control Centre work; selectively port old design components onto current main only. Public customer features belong on production routes, not permanent `/preview` pages.
 
+## Private streamed React Server Component access (14 November 2026)
+
+The Control Centre layout's login redirect alone does **not** guarantee that a child Server Component cannot be evaluated and serialized during concurrent Suspense streaming. For every owner/admin-only route that makes private database queries, **await the verified role check in the data-owning page/server component before DB client creation, querying or JSX**, and ensure nested independently async data components also guard their own reads when practical. Do not use client-only controls or a rendering fallback as authorization. PR #197 triggered an unauthenticated RSC UI serialization finding and the `fix/live-data-auth-before-private-stream-20261114` hotfix addresses Live Data specifically; broader page reviews require separate evidence. Signed-out smoke of actual response bytes is required for acceptance.
+
 ## Branch discipline and cleanup (14 November 2026)
 
 - Always branch from currently verified `main`, one small PR per release. Do not leave idle merged branches, push directly to production or use a stale historical branch as the new baseline.

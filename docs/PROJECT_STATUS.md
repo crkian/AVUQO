@@ -1,3 +1,10 @@
+## Private Live Data stream auth fix · urgent candidate · 14 November 2026
+
+- PR #197 deployed READY `927e60d4174d5ac58f3d0cfa8587065ea9f5dfe2` / `dpl_8KU4CnG7t2rWMVC5GKFZbpbw9YtP`, with main metrics separated from the 5,000-row candidate scan. Code CI passed.
+- **Signed-out HTTP inspection found that login-redirecting RSC output still contained private Live Data panel UI markers and a generic empty state.** No actual private product rows were confirmed in that sample, but this must fail access-control acceptance.
+- Fresh-main hotfix adds role verification **inside both the Live Data route and async candidate panel**, before any session DB reads/streamed UI. Layout guard remains defense in depth. No other private route or source activation changed.
+- CI, preview, exact production READY and signed-out response recheck required. Signed-in owner timing and counts remain pending. See `docs/LIVE_DATA_MONITOR_CANDIDATE_STREAMING_2026-11-14.md`.
+
 ## Live Data candidate scan streaming · candidate · 14 November 2026
 
 - Refactor `/control-centre/live-data` to stream independent source counts, source health and recent import runs while its up-to-5,000-row candidate scan loads inside a separate accessible Suspense server component. Preserve 200-row serial pages, 40-row shortlist, dedup, error/partial labels and private-source permission restrictions.

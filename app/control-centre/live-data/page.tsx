@@ -2,6 +2,7 @@ import { connection } from "next/server";
 import {Suspense} from "react";
 import Link from "next/link";
 import { createClient } from "../../../lib/supabase/server";
+import {requireControlCentreAccess} from "../../../lib/auth/requireControlCentreAccess";
 import styles from "../control-centre.module.css";
 import EndpointHealthCheck from "./EndpointHealthCheck";
 import FoodFactsPreview from "./FoodFactsPreview";
@@ -17,6 +18,9 @@ function freshness(value: string | null) {
 }
 export default async function LiveDataPage() {
   await connection();
+  // A layout redirect can race with streamed nested server components.
+  // Authorize here before ANY private queries or React payload is prepared.
+  await requireControlCentreAccess();
   const db = await createClient();
   const [sources, runs, feeds, deals, groceries, evidence, needsReview, excluded, checked, timestamped, linkIndicated, gtinIndicated, sampleMetadata, importRuns] = await Promise.all([
     db.from("sources").select("id,name,source_type,status,health_status,sync_enabled,last_successful_sync_at,connector_key").order("name"),

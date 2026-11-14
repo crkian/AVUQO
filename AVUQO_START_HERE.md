@@ -19,6 +19,8 @@
 > [Latest owner Control Centre audit](docs/AVUQO_CONTROL_CENTRE_OWNER_AUDIT_2026-11-14.md) records 56 rendered pages, operational warnings and the remaining action checks.
 
 ## Next work
+**Urgent security acceptance before further features:** PR #197 Live Data's separate candidate streaming panel is production READY at `927e60d4174d5ac58f3d0cfa8587065ea9f5dfe2` / `dpl_8KU4CnG7t2rWMVC5GKFZbpbw9YtP`. Signed-out RSC inspection still contained parts of the private panel UI despite a layout login redirect. Fresh-main hotfix `fix/live-data-auth-before-private-stream-20261114` now enforces role auth within parent and candidate server components **before reading data**. Complete CI, preview, exact Vercel READY and signed-out response checks **before marking streaming release accepted**. See `docs/LIVE_DATA_MONITOR_CANDIDATE_STREAMING_2026-11-14.md`. No actual private product row leakage was confirmed in that sample; do not dismiss the access-control finding.
+
 **Active live-data candidate (not live):** `perf/live-data-candidate-suspense-20261114` separates the slow private 5,000-row candidate scan from the Live Data Monitor's initial source metrics, with an accessible loading panel. See `docs/LIVE_DATA_MONITOR_CANDIDATE_STREAMING_2026-11-14.md`. Release only after CI/preview/Vercel exact production READY; signed-in owner browser timing and row/permission checks are still required. No supplier/import/social activation. The product HTTP 404 problem and first approved retailer offer remain distinct urgent priorities.
 
 
