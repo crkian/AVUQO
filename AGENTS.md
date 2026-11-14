@@ -16,6 +16,13 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 **THIRD: after each release**, update readable handover, machine-readable JSON, Compass (if strategy changed), status and changelog. When exact deployed SHA is known only after merge, a follow-up docs-only release record is needed, and every future chat still must recheck Vercel. Protect latest Awin/eBay/tyre/auth/Control Centre work; selectively port old design components onto current main only. Public customer features belong on production routes, not permanent `/preview` pages.
 
+## Branch discipline and cleanup (14 November 2026)
+
+- Always branch from currently verified `main`, one small PR per release. Do not leave idle merged branches, push directly to production or use a stale historical branch as the new baseline.
+- `.github/workflows/verified-merged-branch-cleanup.yml` runs after main pushes and removes **only** unique verified merged PR #127+ branch tips matching the frozen final reviewed commit, with no active PR, protection, security or original design archive. It cannot safely retire branches whose history has diverged.
+- Historical refs and all open PRs require diff-to-current-main reconciliation before closure. The 14 Nov count and 25-branch inventory live at `docs/BRANCH_REDUCTION_RESULTS_AND_RECONCILIATION_2026-11-14.md`. Preserve original visual assets, security evidence and risky Tyres UK prototypes until value is incorporated or explicitly rejected with documentation.
+- After an actual production release, record the exact GitHub SHA, Vercel READY ID, aliases and acceptance evidence in START_HERE, live handover and machine state, and verify the automatic cleanup's updated branch inventory before claiming the branch was removed.
+
 ## AVUQO living project context (read before doing work)
 
 - Read `docs/PROJECT_STATUS.md`, `docs/ROADMAP.md`, `docs/SOURCE_TO_CODE_AUDIT_2026-11-02.md`, `docs/SOURCE_MANIFEST_2026-11-02.md`, `docs/SOURCE_REQUIREMENT_GAPS_2026-11-02.md`, `CHANGELOG.md` and `package.json` from the **current** GitHub branch. Current `main` and verified production data override dated snapshots.
