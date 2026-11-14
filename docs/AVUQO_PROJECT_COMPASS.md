@@ -1,3 +1,7 @@
+## Marketing draft-only scheduler resilience released · 14 November 2026
+
+PR #181 Vercel READY app SHA `a75964878b61b9ae175252e085646404dd8a5cb1` (`dpl_2pc1X5UNfnSpQC9TnGSmFPf6sxJQ`). Existing 09:00 UTC marketing cron continues; bad individual scheduled draft rules no longer abort other rules. No actual rules/posts are live, no fake owner facts, and no publishing/AI/merchant gates were activated. Read `docs/MARKETING_EDITORIAL_RULE_ISOLATION_RELEASE_2026-11-14.md` for tests and acceptance limitations.
+
 ## Department and item design
 
 The category directory links to all 25 editorial guides and product shelves. Use `lib/products/department-showrooms.ts` for the shared department artwork, buying checks and structured classification. Use `lib/products/templates.ts` for product-type details. Editorial photography illustrates each department. The verified-offer reader still controls retailer and merchant image eligibility. See the live handover for deployment and catalogue availability.
