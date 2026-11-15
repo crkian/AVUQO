@@ -88,6 +88,9 @@ export function auditPetlibroStagedIdentities(
    issues.push("missing_or_conflicting_price");
   for(const key of ["gtin","model"] as const){
    const values=entries.map(x=>normalized(meta(x.row.metadata)[key]));
+   // Petlibro's reviewed 20-column UK feed does not supply a model
+   // field. An absent model is an annotation gap, not a second identity.
+   if(key==="model"&&values.every(x=>!x))continue;
    if(new Set(values).size!==1||values.every(x=>!x))
     issues.push("missing_or_conflicting_"+key);
   }
