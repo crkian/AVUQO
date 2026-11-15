@@ -1,3 +1,10 @@
+## Petlibro paired-SKU production audit · private review candidate · 15 November 2026
+
+- Read-only Supabase audit of latest Petlibro 77952:103580 private import (5 Nov): **44 staged rows map to 22 logical product identities**, each with a `_feed` and `_health` merchant SKU suffix. All 22 pairs agree on title, GBP price, GTIN and model field; 44/44 have tracked links marked verified, 0/44 have source-updated timestamps, 0/44 have per-row image rights confirmed, 0/44 have approved category mapping. Absence of a model field in this feed is not used to invent model evidence.
+- New bounded private owner Control Centre audit groups those pairs and flags conflicting variants, missing companion rows, currency, tracking or review anomalies. These are **candidate identity comparisons only**, not deduplication/approval of any live offers.
+- No automatic conversion to `products`, `offers`, `price_history` or public sale is implemented. Merchant permission email supplied by the owner must be reconciled separately from stored row rights, and prices must be freshly checked. No live database changes were performed.
+- After CI, acceptance of PR #202 still needs real owner session checks. Do not merge or activate while approval gates remain untested.
+
 ## Petlibro owner pilot controls and emergency stop · CANDIDATE · 14 November 2026
 
 - The existing Awin automatic worker has already staged Petlibro 77952:103580 (44 rows on 5 Nov) and Mozillion 31539:74135 (229-row snapshot on 14 Nov) behind private-review gates; daily feed-list monitor is functioning. The public pipeline is a separate single-advertiser connector and has not converted these private rows into public products/offers.
