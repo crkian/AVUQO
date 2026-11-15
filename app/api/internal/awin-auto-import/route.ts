@@ -8,6 +8,7 @@ import {identifyFormat,prepareGeneralBatch} from "../../../../lib/feed-imports/g
 import {approvedAwinDownloadUrl} from "../../../../lib/awin/approved-feed-url";
 import {normalizePilotAwinFeed} from "../../../../lib/awin/pilot-feed-normalizer";
 import {mozillionPhysicalFeedAllowed} from "../../../../lib/awin/mozillion-feed-types";
+import {evaluateSourceControls} from "../../../../lib/pipeline/source-readiness";
 
 
 /** Explicit physical-product pilot only. Never auto-fetch plan, parking, insurance,
@@ -19,6 +20,14 @@ const approvedFeedPairs=new Map([
 const MAX_LIST_BYTES=2_500_000,MAX_COMPRESSED=3_000_000,MAX_DECOMPRESSED=12_000_000,MAX_ROWS=5000;
 const reply=(body:unknown,status=200)=>NextResponse.json(body,{status,headers:{"Cache-Control":"private, no-store"}});
 const sourceDigest=(bytes:Uint8Array)=>createHash("sha256").update(bytes).digest("hex");
+
+/** The global stop must halt private staging too, not just public publication. */
+async function privateStagingAllowed(db:ReturnType<typeof createAdminClient>){
+ const {data,error}=await db.from("system_controls")
+  .select("control_key,enabled")
+  .in("control_key",["source_ingestion","deal_publishing","global_emergency_stop"]);
+ return evaluateSourceControls(data,!!error).ingestion;
+}
 
 async function boundedResponse(response:Response,max:number){
  if(!response.ok)throw Error("upstream_http_"+response.status);
@@ -96,6 +105,10 @@ export async function POST(request:NextRequest){
   return reply({error:"Joined advertiser verification failed"},403);
  if(source.status!=="paused"||source.sync_enabled!==false)
   return reply({error:"All Awin private imports require the publication source to remain paused"},409);
+ // A paused Awin source is intentional for private staging; the owner global
+ // emergency stop and ingestion switch still govern all product-row writes.
+ if(!preflight&&!(await privateStagingAllowed(db)))
+  return reply({error:"Private import stopped by global ingestion controls",private_only:true},423);
  // This worker can stage while the general Awin source is paused. It NEVER
  // changes source controls, publication permissions, offers or products.
  const {data:owner,error:ownerError}=await db.from("user_roles")
@@ -195,6 +208,9 @@ export async function POST(request:NextRequest){
   currency_source:currencySource,source_currency_explicit:currencySource==="feed_column",
   sample_headers:header!.filter(x=>/^(merchant_id|merchant_product_id|product_name|search_price|currency|stock_status|aw_deep_link|ean|gtin|mpn|advertiser_id|id|title|price|availability)$/i.test(x)).slice(0,20),
   private_only:true,no_database_writes:true,no_publication:true});
+ // Recheck after the potentially slow provider download and full-file validation.
+ if(!(await privateStagingAllowed(db)))
+  return reply({error:"Private import stopped before database writes",private_only:true},423);
  const runFilename=`GENAWIN__${feed}__${filename}`;
  const ownerId=owner[0].user_id;
  const runFields="id,status,created_by,permission_status,total_count,review_count,excluded_count";
@@ -243,6 +259,10 @@ export async function POST(request:NextRequest){
   return reply({error:"Private import is not writable"},409);
  let committed=session.committed_count;
  for(let i=session.next_sequence;i<Math.ceil(rows.length/250);i++){
+  // An owner stop can be applied while a larger import is processing. Leave
+  // an interrupted session resumable rather than finishing after a stop.
+  if(!(await privateStagingAllowed(db)))
+   return reply({error:"Private import paused by global controls",saved_records:committed,run_id:runId,private_only:true},423);
   const batch=rows.slice(i*250,(i+1)*250);
   const records=prepareGeneralBatch(advertiser,feed,header!,batch);
   // Explicit machine provenance, with human publication rights STILL unverified.
@@ -261,6 +281,8 @@ export async function POST(request:NextRequest){
   }
   committed=Number(done?.committed??0);
  }
+ if(!(await privateStagingAllowed(db)))
+  return reply({error:"Private import stopped before completion",saved_records:committed,run_id:runId,private_only:true},423);
  const {data:finish,error:finishError}=await db.rpc("finish_general_awin_feed_import",{p_import_id:runId,p_total:rows.length});
  if(finishError)return reply({error:"Private import finish failed",run_id:runId},503);
  return reply({status:"private_review",advertiser_id:advertiser,feed_id:feed,
