@@ -67,7 +67,7 @@ test("fail closed on emergency stop before/between private writes and never acti
  assert.match(source,/readBackDigest/);
  assert.match(source,/uploadPrivateAwinTus/);
  assert.match(validation,/privateTooledUpValidationRow/);
- assert.match(validation,/source_digest/);
+ assert.match(validation,/snapshot_sha256/);
  assert.doesNotMatch(source,/\.from\("offers"\)|\.from\("products"\)|published_deals/);
  assert.doesNotMatch(validation,/\.from\("offers"\)|\.from\("products"\)|published_deals/);
  assert.match(validator,/expected_inventory_rows:Number\.isSafeInteger/);
