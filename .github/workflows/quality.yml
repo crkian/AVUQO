@@ -76,6 +76,8 @@ jobs:
         run: node --test tests/petlibro-private-reconcile.test.mjs
       - name: Mozillion private SIM-free handset draft candidate and cron tests
         run: node --test tests/mozillion-private-handset-reconcile.test.mjs
+      - name: Cadbury strict private feed candidate and cron tests
+        run: node --test tests/cadbury-private-candidates.test.mjs
       - name: Verify historical branch pruning frozen-commit safety gates
         run: node --test tests/verified-historical-branch-cleanup.test.mjs
       - name: Verify three reconciled closed PR branch retirement proofs

@@ -1,3 +1,9 @@
+## Unreleased · Cadbury private candidate cron and validated Awin feed source
+
+- Strict 07:47 UTC daily reconciler for Cadbury Gifts Direct 736:48599, accepting only newest completed, digest-validated private AUTO import with bounded unique supplier IDs, verified GBP, physical goods, stock and tracking. Fails closed without a current validated import; the 4 Nov historical 1,367 rows cannot seed the automatic draft matcher.
+- Creates only canonical-keyed drafts and candidate matches, preserving Cadbury sales-category no-commission rules and no public images/prices/offers. Keeps existing Petlibro, Mozillion, tyre and marketing jobs and global stop.
+- Records owner-uploaded Cadbury profile/terms evidence in private rights ledger; advertiser-specific public offer and image rights still require appropriate evidence.
+
 ## Unreleased · Mozillion SIM-free handset catalogue auto-candidates
 
 - Daily 07:37 UTC private candidate reconciler reuses the 07:09 UTC Mozillion physical-phone feed. It checks 229 independently identified handsets (166 Brand New, 63 Good as New in 14 Nov snapshot), using stable merchant SKU, not missing GTIN/MPN or display-title matches.
