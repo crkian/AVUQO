@@ -1,3 +1,11 @@
+## Craft Buddy 45747:F1356 automatic private identity reconciliation · candidate · 15 November 2026
+
+- At 21:34 UTC, Supabase has **no** newest Craft Buddy F1356 AUTO snapshot; the sole 28 October owner-uploaded 1,299-row private import with 1,233 review and 66 excluded records is ineligible. Awin 15 Nov monitor lists 1,307 products on Google-format F1356, but discovery does not prove a successful download.
+- Candidate adds 07:57 UTC daily service-role-only post-import RPC, following 07:17 private staging. Rejects missing/stale (>72 hours), importing, incomplete, wrong-digest, wrong-feed and duplicate-identity snapshots. A valid AUTO import can include excluded out-of-stock/malformed rows if separately accounted for; only reviewable valid GBP/stock/tracking rows become matched candidates. Runs under a per-feed advisory lock.
+- Uses immutable `awin:45747:F1356:<full supplier ID>` identity. Bulk creates draft products with NULL images and no price, and review-only candidate links; no merging by title/GTIN/character names. Detects changed existing product titles/brands and mismatched source links, aborts transaction on ambiguity. Returns how many formerly linked identities disappeared or were excluded, without deleting/activating listings.
+- Craft Buddy's third-party licensed Harry Potter/Disney/Marvel/Star Wars artwork, merchant logo and current GBP offer rights still require independent evidence. All draft metadata marks licence/category/price review required; no public pages/offers, paid ads, image URL copying, brand approval or Awin source activation. No live feed preflight yet.
+- Release gates: GitHub lint/build/security, Vercel preview, versioned Supabase migration, first no-auto-snapshot RPC smoke with zero drafts and zero offers, production build exact commit. No asynchronous success assumed.
+
 ## Craft Buddy 45747:F1356 Google private Awin import · candidate · 15 Nov 2026
 
 - Owner uploaded joined Awin screenshot and 4-page 2 Mar 2023 terms. Rights ledger records content 8% and coupon 5% screenshot rates; comparison/newsletter/editorial supported; dashboard-provided creatives, trademark written consent, protected character artwork and kid-safe content rules are preserved. No public brand assets, ads or feed photos approved.

@@ -70,6 +70,8 @@ jobs:
         run: node --test tests/awin-three-pilot-scheduler.test.mjs
       - name: Craft Buddy exact Google retail private-feed checks
         run: node --experimental-strip-types --test tests/craft-buddy-google-private-feed.test.mjs tests/awin-approved-feed-url.test.mjs
+      - name: Craft Buddy private catalogue reconciliation and chronological cron safety
+        run: node --test tests/craft-buddy-private-reconcile.test.mjs
       - name: Owner Petlibro preflight, private staging and global-stop acceptance tests
         run: node --test tests/awin-owner-pilot-controls.test.mjs
       - name: Petlibro private identity pairing and duplicate release safety tests
