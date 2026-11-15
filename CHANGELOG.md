@@ -1,3 +1,9 @@
+## Unreleased · Mozillion SIM-free handset catalogue auto-candidates
+
+- Daily 07:37 UTC private candidate reconciler reuses the 07:09 UTC Mozillion physical-phone feed. It checks 229 independently identified handsets (166 Brand New, 63 Good as New in 14 Nov snapshot), using stable merchant SKU, not missing GTIN/MPN or display-title matches.
+- Atomic, idempotent service-role-only transaction stops on global controls, bad feed state, incomplete digests, unknown handset brands/types, source identity reuse, missing explicit GBP, bad tracking and ambiguous grades. All products remain private drafts; no public prices, affiliate offers, images or marketing are written.
+- Add versioned Supabase migration, cron and acceptance tests. This does not grant vendor publication rights.
+
 ## Unreleased · Automatic private Petlibro SKU reconciliation after daily feed import
 
 - Add one daily service-role-only post-import cron for advertiser 77952, feed 103580. An atomic idempotent RPC validates paired source identities, reuses existing draft products, creates only new drafts, and records candidate source links without copying unverified photos or prices.
