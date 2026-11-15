@@ -4,6 +4,7 @@ import Link from "next/link";
 import {requireControlCentreAccess} from "../../../lib/auth/requireControlCentreAccess";
 import {createAdminClient} from "../../../lib/supabase/admin";
 import PetlibroPilotControls from "./PetlibroPilotControls";
+import {auditPetlibroStagedIdentities,type PetlibroStagedRow} from "../../../lib/awin/petlibro-identity-audit";
 
 export const instant=false;
 export const metadata:Metadata={title:"Private Petlibro auto-import pilot | AVUQO",robots:{index:false,follow:false}};
@@ -32,13 +33,22 @@ export default async function PetlibroPilot(){
  const source=sourceResult.data;
  const run=runResult.data;
  const feed=feedResult.data;
+ // Owner/admin access was checked before this service-role read.
+ const {data:stagedRows,error:stagedError}=run
+  ?await db.from("feed_import_records")
+    .select("merchant_product_id,title,brand,price,currency,status,review_decision,metadata,image_url")
+    .eq("import_id",run.id).order("merchant_product_id",{ascending:true}).limit(501)
+  :{data:[] as PetlibroStagedRow[],error:null};
+ const rows=(stagedRows??[]) as PetlibroStagedRow[];
+ const audit=auditPetlibroStagedIdentities(rows.slice(0,500),
+   rows.length>500||Boolean(run&&run.total_count>rows.length));
  const meta=asRecord(source?.metadata);
  const entries=Array.isArray(meta.awin_advertisers)?meta.awin_advertisers.map(asRecord):[];
  const petlibro=entries.find(x=>x.advertiser_id==="77952");
  // Existing private import membership is not a per-advertiser publication licence.
  const rightsRegistered=petlibro?.feed_permission_confirmed===true;
  const paused=source?.status==="paused"&&source.sync_enabled===false;
- const dataError=Boolean(sourceResult.error||runResult.error||feedResult.error||reviewResult.error);
+ const dataError=Boolean(sourceResult.error||runResult.error||feedResult.error||reviewResult.error||stagedError);
  return <main style={{maxWidth:1050,margin:"0 auto",padding:"28px 20px 80px",display:"grid",gap:22}}>
   <nav><Link href="/control-centre/feed-imports">← Private imports</Link></nav>
   <header style={{display:"grid",gap:8}}>
@@ -62,6 +72,36 @@ export default async function PetlibroPilot(){
    <strong>Last staged run</strong>
    <p style={{margin:0}}> {run?run.total_count+" records; "+run.review_count+" private-review; "+run.excluded_count+" excluded. State: "+run.status+"; permission: "+run.permission_status+".":"No matching automatic Petlibro staging run."}</p>
    <p style={{margin:0,fontSize:13,color:"#675b77"}}>Inventory last observed: {date(feed?.observed_at)}. A feed-list update is not a verified current price or stock check.</p>
+  </section>
+  <section style={{background:"#fff",border:"1px solid #e3ddec",borderRadius:16,padding:20,display:"grid",gap:12}}>
+   <h2 style={{fontSize:23,margin:0}}>Private product identity audit</h2>
+   <p style={{margin:0,lineHeight:1.6}}>The imported supplier IDs can have separate <code>_feed</code> and <code>_health</code> variants for a single logical Petlibro product. This is a private identity comparison, <strong>not</strong> approved deduplication for public offers.</p>
+   {stagedError?<p role="alert">Could not inspect the private import rows. No product identity totals can be confirmed.</p>:
+    run?<><div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
+     {[
+      ["Staged rows",String(audit.sourceRows)],
+      ["Identity groups",audit.incomplete?"Partial scan":String(audit.distinctIdentityGroups)],
+      ["Matching feed/health pairs",audit.incomplete?"Unverified":String(audit.matchingPairs)],
+      ["Pairs needing attention",audit.incomplete?"Unverified":String(audit.groupsNeedingAttention)]
+     ].map(([label,value])=><div key={label} style={{background:"#faf8fd",borderRadius:11,padding:13,minWidth:140,flex:"1 1 140px"}}>
+      <small style={{color:"#6b6175"}}>{label}</small><div style={{fontSize:23,fontWeight:800}}>{value}</div></div>)}
+    </div>
+    {audit.incomplete&&<p role="alert">The scan reached its private safety cap or does not match the import run count. Do not use partial counts to approve product identity.</p>}
+    <p style={{margin:0,fontSize:13,color:"#6b6175"}}>{audit.priceTimestampEvidenceRows} rows carry a source-update timestamp; {audit.imageRightsConfirmedRows} rows have image rights recorded in row metadata. An owner's separate merchant permission email does not change these source-row flags. Prices and stock still require fresh checks.</p>
+    <div style={{overflowX:"auto"}}>
+     <table style={{width:"100%",borderCollapse:"collapse",minWidth:600,fontSize:13}}>
+      <thead><tr>{["Supplier identity","Private title","Recorded price","Row pairing","Review"].map(h=><th key={h} style={{padding:11,textAlign:"left",borderBottom:"1px solid #e9e4f0"}}>{h}</th>)}</tr></thead>
+      <tbody>{audit.candidates.slice(0,5).map(c=><tr key={c.sku}>
+       <td style={{padding:11,wordBreak:"break-word",borderBottom:"1px solid #eee"}}>{c.sku}</td>
+       <td style={{padding:11,borderBottom:"1px solid #eee"}}>{c.title}</td>
+       <td style={{padding:11,whiteSpace:"nowrap",borderBottom:"1px solid #eee"}}>{c.price?c.price+" "+c.currency:"Unverified"}</td>
+       <td style={{padding:11,borderBottom:"1px solid #eee"}}>{c.issues.length?c.issues.join(", "):"Paired: "+c.rows+" rows"}</td>
+       <td style={{padding:11,borderBottom:"1px solid #eee"}}>{c.needsReview?"Needs owner review":"Checked privately"}</td>
+      </tr>)}</tbody>
+     </table>
+    </div>
+    <p style={{margin:0,fontSize:12,color:"#6f6577"}}>Showing up to five identity groups for private inspection. All prices shown are historical staging values, not live offers. There is no automatic merge, category activation, price-history write or publication.</p></>:
+    <p>No Petlibro private import exists yet. Run preflight before staging a feed.</p>}
   </section>
   {role==="owner"&&!dataError?<PetlibroPilotControls/>:
    <p style={{padding:16,background:"#fff5ed",borderRadius:12}}>Only the owner may initiate a feed preflight or private staging. Administrators can view these diagnostics.</p>}
