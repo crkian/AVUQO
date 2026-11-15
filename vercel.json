@@ -23,6 +23,10 @@
     {
       "path": "/api/internal/awin-pilot-schedule/cadbury",
       "schedule": "13 7 * * *"
+    },
+    {
+      "path": "/api/internal/awin-petlibro-private-reconcile",
+      "schedule": "27 7 * * *"
     }
   ],
   "ignoreCommand": "git diff --quiet HEAD^ HEAD -- . ':(exclude)docs/**' ':(exclude)*.md' ':(exclude).github/**'"

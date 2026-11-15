@@ -72,6 +72,8 @@ jobs:
         run: node --test tests/awin-owner-pilot-controls.test.mjs
       - name: Petlibro private identity pairing and duplicate release safety tests
         run: node --experimental-strip-types --test tests/awin-petlibro-identity-audit.test.mjs
+      - name: Petlibro automatic private candidate reconciliation and cron safety tests
+        run: node --test tests/petlibro-private-reconcile.test.mjs
       - name: Verify historical branch pruning frozen-commit safety gates
         run: node --test tests/verified-historical-branch-cleanup.test.mjs
       - name: Verify three reconciled closed PR branch retirement proofs

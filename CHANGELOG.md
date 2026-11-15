@@ -1,3 +1,9 @@
+## Unreleased · Automatic private Petlibro SKU reconciliation after daily feed import
+
+- Add one daily service-role-only post-import cron for advertiser 77952, feed 103580. An atomic idempotent RPC validates paired source identities, reuses existing draft products, creates only new drafts, and records candidate source links without copying unverified photos or prices.
+- Preserve merchant ID, price freshness, source pause and per-offer owner release gates. No public prices, offers or publishing. Leave the other current daily Awin feeds and marketing cron unchanged.
+- Include strict database grant/stop controls and CI tests. Candidate until Supabase migration, preview, main merge, exact Vercel deployment and read-only production verification.
+
 ## Unreleased · Separate daily private Awin pilot feeds and reduce AVUQO build churn
 
 - Candidate adds three independent daily, fixed-feed private Awin cron paths for Petlibro, Mozillion and Cadbury while retaining feed-list monitor, Pneus and marketing cron. Strict existing worker checks, source pause and unverified private review remain. No public Awin product price or offer release.
