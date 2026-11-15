@@ -42,7 +42,7 @@ BEGIN
               WHERE control_key='global_emergency_stop' AND enabled=false) THEN
    RAISE EXCEPTION 'Private Petlibro reconciliation blocked by global stop or ingestion controls';
  END IF;
- SELECT count(*),min(id) INTO v_source_count,v_source_id
+ SELECT count(*),min(id::text)::uuid INTO v_source_count,v_source_id
  FROM public.sources
  WHERE connector_key='awin' AND status='paused' AND sync_enabled=false;
  IF v_source_count<>1 THEN
@@ -128,11 +128,11 @@ BEGIN
    -- The SKU may contain spaces, '&' and '*', so never derive it from
    -- a prettified slug.
    v_key:='awin:77952:103580:'||v_sku.sku;
-   SELECT count(*),min(id) INTO v_found,v_product_id
+   SELECT count(*),min(id::text)::uuid INTO v_found,v_product_id
    FROM public.products WHERE canonical_key=v_key;
    IF v_found>1 THEN RAISE EXCEPTION 'Duplicate canonical Petlibro key'; END IF;
    IF v_found=0 THEN
-     SELECT count(*),min(id) INTO v_found,v_product_id
+     SELECT count(*),min(id::text)::uuid INTO v_found,v_product_id
      FROM public.products
      WHERE status='draft' AND lower(brand)='petlibro'
        AND lower(canonical_title)=lower(v_sku.title);
