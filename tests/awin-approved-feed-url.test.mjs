@@ -29,3 +29,10 @@ test("rejects non-CSV or wrong download route",()=>{
   path.replace("/datafeed/download/","/datafeed/list/")
  ])assert.throws(()=>approvedAwinDownloadUrl(candidate,key,"103580"),/feed_binding_mismatch/);
 });
+
+test("allow exactly Craft Buddy alphanumeric signed Awin feed ID",()=>{
+ const google=path.replace("/fid/103580/","/fid/F1356/");
+ assert.equal(approvedAwinDownloadUrl(google,key,"F1356"),google);
+ for(const feed of ["F1357","XYZ","F1356evil"])
+  assert.throws(()=>approvedAwinDownloadUrl(google,key,feed));
+});

@@ -68,6 +68,8 @@ jobs:
         run: node --test tests/awin-http-error-redaction.test.mjs
       - name: Independently scheduled private Awin feeds and Vercel build filter
         run: node --test tests/awin-three-pilot-scheduler.test.mjs
+      - name: Craft Buddy exact Google retail private-feed checks
+        run: node --experimental-strip-types --test tests/craft-buddy-google-private-feed.test.mjs tests/awin-approved-feed-url.test.mjs
       - name: Owner Petlibro preflight, private staging and global-stop acceptance tests
         run: node --test tests/awin-owner-pilot-controls.test.mjs
       - name: Petlibro private identity pairing and duplicate release safety tests

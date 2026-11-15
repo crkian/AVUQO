@@ -1,3 +1,10 @@
+## Craft Buddy 45747:F1356 Google private Awin import · candidate · 15 Nov 2026
+
+- Owner uploaded joined Awin screenshot and 4-page 2 Mar 2023 terms. Rights ledger records content 8% and coupon 5% screenshot rates; comparison/newsletter/editorial supported; dashboard-provided creatives, trademark written consent, protected character artwork and kid-safe content rules are preserved. No public brand assets, ads or feed photos approved.
+- On 15 Nov Awin monitor records Google-format feed F1356 with 1,307 items and a separate two-item Awin feed 109997. Historical 28 Oct private upload contained 1,299 rows, 1,233 reviewed and 66 excluded. It cannot prove current price, stock, schema or rights.
+- Candidate adds exact private-only 45747:F1356 importer support and 07:17 UTC cron. Google feed header is required to include six exact, unique columns; at most 256 raw columns projected to the validated 120-column parser. Exact publisher-bound tracking and Awin signed feed URLs, explicit GBP, unique IDs, row/size caps, owner source pause, global stop and idempotence remain enforced. Fail closed if real Google schema differs.
+- No fresh preflight yet; no public offers, logos, images, rights approvals, active products or product draft reconciliation.
+
 ## Cadbury Gifts Direct private candidate matching · candidate · 15 November 2026
 
 - Owner 15 Nov Awin profile screenshot confirms joined 736, online tracking, UK, indicative commission 7%, sometimes 8%. Owner-uploaded Cadbury 2023 terms confirm permitted comparison engine, shopping directory, editorial content and linking; sale category earns zero commission and Cadbury branded PPC is prohibited. Neither the PDF nor profile by itself proves image reuse, public feed price licence or current purchase total. Evidence saved to `affiliate_programs` on 15 Nov.
