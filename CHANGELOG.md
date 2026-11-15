@@ -1,3 +1,9 @@
+## Unreleased · Prevent Petlibro doubled product identities in first live-data pilot
+
+- Production private feed identity audit reveals 44 historical Petlibro rows are 22 matching pairs with separate `_feed` and `_health` source IDs. Added a read-only, bounded pair-audit module and owner screen preview of five candidate groups, without collapsing source rows or publishing products.
+- Safety rules flag conflicting price, title, GTIN, currency, tracking, missing pairs and invalid review status; missing model column is explicitly informational. Counts become incomplete rather than falsely claiming full catalogue readiness beyond 500 fetched rows.
+- New unit and access-control tests are required in GitHub quality CI. No merchant rights, approvals, canonical product records, price histories, public offers or deployment changed.
+
 ## Unreleased · Owner-operated Petlibro Awin preflight and private staging safety
 
 - Candidate owner-only Control Centre at /control-centre/awin-pilot: reuse the existing secret-protected Awin worker in-process for advertiser 77952, feed 103580. Read-only preflight must pass before the UI offers a separately confirmed private staging action. No new credential distribution or public importer URL.
