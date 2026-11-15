@@ -1,3 +1,9 @@
+## Unreleased · Automate existing Tooled Up snapshot and full-feed validator
+
+- Connect the previously implemented Tooled Up `496:89987` exact-feed snapshot uploader and full-stream integrity validator to separate 08:05 and 08:25 UTC daily Vercel Cron paths. Guard both with cron authentication, source pause, joined programme, source-ingestion switch and global emergency stop, including rechecks before private writes.
+- Select only a current immutable private snapshot by exact 64-hex digest and storage creation time. Do not reinterpret 4 Nov owner's 84,284 private review records as current. Make inventory row comparison advisory against current observations, not a hardcoded stale count.
+- No new import rows, public offers, images, rights flags or product activation. GBP verification and resumable 84k-row staging still block automatic catalogue release.
+
 ## Unreleased · Craft Buddy scheduled private SKU candidate reconciler
 
 - After bounded 45747:F1356 private Awin import, add 07:57 UTC daily service-role-only transactional reconciler: exact SKU drafts, review-only candidate mappings, bounded fresh completed source digests, safe skip of excluded out-of-stock rows, global stop, source pause and idempotence.

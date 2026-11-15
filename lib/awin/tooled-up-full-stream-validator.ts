@@ -26,7 +26,9 @@ function validTracking(value:string){
  * The report contains aggregate metrics only, never source row values.
  * No storage, database or network operations occur in this function.
  */
-export async function validateTooledUpGzipStream(source:ReadableStream<Uint8Array>){
+export async function validateTooledUpGzipStream(
+ source:ReadableStream<Uint8Array>,expectedInventoryRows:number|null=null
+){
  let compressed=0,expanded=0;
  const hash=createHash("sha256");
  const limitedSource=source.pipeThrough(new TransformStream<Uint8Array,Uint8Array>({
@@ -106,8 +108,12 @@ export async function validateTooledUpGzipStream(source:ReadableStream<Uint8Arra
   status:"validated_private_diagnostics",
   advertiser_id:"496",feed_id:"89987",
   source_columns:header.length,
-  actual_rows:rowCount,expected_inventory_rows:84245,
-  inventory_count_matches:rowCount===84245,
+  actual_rows:rowCount,
+  expected_inventory_rows:Number.isSafeInteger(expectedInventoryRows)&&
+    expectedInventoryRows!==null&&expectedInventoryRows>0?expectedInventoryRows:null,
+  inventory_count_matches:Number.isSafeInteger(expectedInventoryRows)&&
+    expectedInventoryRows!==null&&expectedInventoryRows>0
+    ?rowCount===expectedInventoryRows:null,
   estimated_chunks:Math.ceil(rowCount/250),
   compressed_bytes:compressed,expanded_bytes:expanded,
   snapshot_sha256:hash.digest("hex"),

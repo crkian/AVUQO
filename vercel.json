@@ -43,6 +43,14 @@
     {
       "path": "/api/internal/awin-craft-buddy-private-reconcile",
       "schedule": "57 7 * * *"
+    },
+    {
+      "path": "/api/internal/awin-tooled-up-snapshot",
+      "schedule": "5 8 * * *"
+    },
+    {
+      "path": "/api/internal/awin-tooled-up-daily-validation",
+      "schedule": "25 8 * * *"
     }
   ],
   "ignoreCommand": "git diff --quiet HEAD^ HEAD -- . ':(exclude)docs/**' ':(exclude)*.md' ':(exclude).github/**'"

@@ -1,6 +1,6 @@
 import {NextRequest,NextResponse} from "next/server";
 import {createAdminClient} from "../../../../lib/supabase/admin";
-import {joinedInSource} from "../../../../lib/awin/joined-catalogue";
+import {tooledUpPrivateAutomationAllowed} from "../../../../lib/awin/tooled-up-private-automation";
 import {AWIN_PRIVATE_SNAPSHOT_BUCKET,privateAwinSnapshotKey} from "../../../../lib/awin/private-snapshot";
 import {validateTooledUpGzipStream} from "../../../../lib/awin/tooled-up-full-stream-validator";
 import {privateTooledUpValidationRow} from "../../../../lib/awin/private-validation-report";
@@ -39,11 +39,8 @@ export async function POST(request:NextRequest){
   digest=body.snapshot_sha256;
  }catch{return send({error:"Invalid request"},400);}
  const db=createAdminClient();
- const {data:source,error:sourceError}=await db.from("sources")
-  .select("metadata,status,sync_enabled").eq("connector_key","awin").maybeSingle();
- if(sourceError||!source||source.status!=="paused"||source.sync_enabled!==false||
-    !joinedInSource(source.metadata,"496"))
-  return send({error:"Joined advertiser or paused-source check failed"},403);
+ if(!(await tooledUpPrivateAutomationAllowed(db)))
+  return send({error:"Private validation blocked by source/stop controls"},423);
  const key=privateAwinSnapshotKey("496","89987",digest,"csv.gz");
  const {data:prior,error:priorError}=await db.from("awin_private_snapshot_validations")
   .select("snapshot_sha256,actual_rows,compressed_bytes,expanded_bytes,critical_issues,duplicate_product_ids,invalid_price_rows,unverified_affiliate_links")
@@ -70,15 +67,25 @@ export async function POST(request:NextRequest){
   if(!response.ok||!response.body)return send({error:"Private snapshot read failed"},502);
   if(Number(response.headers.get("content-length")??0)>250*1024*1024)
    return send({error:"Private snapshot exceeds permitted size"},413);
-  const result=await validateTooledUpGzipStream(response.body);
+  // An Awin feed-list estimate is diagnostic only, never an exact row gate.
+  // Do not hardcode the historical 84,245 count for future daily snapshots.
+  const {data:latestInventory,error:inventoryError}=await db
+   .from("awin_feed_update_observations")
+   .select("listed_products,observed_at")
+   .eq("advertiser_id","496").eq("feed_id","89987")
+   .order("observed_at",{ascending:false}).limit(1).maybeSingle();
+  const inventoryRows=Number(latestInventory?.listed_products);
+  const observedAt=Date.parse(latestInventory?.observed_at??"");
+  const trustedEstimate=!inventoryError&&Number.isSafeInteger(inventoryRows)&&
+    inventoryRows>0&&inventoryRows<=500000&&Number.isFinite(observedAt)&&
+    observedAt<=Date.now()+120000&&observedAt>Date.now()-36*60*60*1000
+      ?inventoryRows:null;
+  const result=await validateTooledUpGzipStream(response.body,trustedEstimate);
   const row=privateTooledUpValidationRow(result,key);
   if(row.snapshot_sha256!==digest)throw Error("snapshot_fingerprint_mismatch");
   // Recheck membership and pause state after potentially lengthy validation.
-  const {data:current,error:currentError}=await db.from("sources")
-   .select("metadata,status,sync_enabled").eq("connector_key","awin").maybeSingle();
-  if(currentError||!current||current.status!=="paused"||current.sync_enabled!==false||
-     !joinedInSource(current.metadata,"496"))
-   return send({error:"Source safety status changed; no audit saved"},409);
+  if(!(await tooledUpPrivateAutomationAllowed(db)))
+   return send({error:"Private controls changed; no audit saved"},409);
   const {error:insertError}=await db.from("awin_private_snapshot_validations").insert(row);
   if(insertError){
    if(insertError.code==="23505")return send({status:"already_validated",...safeReport(result)});
