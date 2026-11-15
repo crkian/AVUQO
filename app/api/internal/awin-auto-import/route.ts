@@ -17,6 +17,7 @@ const approvedFeedPairs=new Map([
  ["77952:103580","Petlibro UK products"],
  ["31539:74135","Mozillion SIM-free phones"],
  ["736:48599","Cadbury Gifts Direct UK shopping feed (private only)"],
+ ["45747:F1356","Craft Buddy Google-retail feed (private only)"],
 ]);
 const MAX_LIST_BYTES=2_500_000,MAX_COMPRESSED=3_000_000,MAX_DECOMPRESSED=12_000_000,MAX_ROWS=5000;
 const reply=(body:unknown,status=200)=>NextResponse.json(body,{status,headers:{"Cache-Control":"private, no-store"}});
@@ -84,7 +85,8 @@ export async function POST(request:NextRequest){
  const manualStage=request.method==="POST"&&url.searchParams.get("mode")==="stage"&&
   (url.searchParams.get("advertiser_id")==="77952"&&url.searchParams.get("feed_id")==="103580"||
    url.searchParams.get("advertiser_id")==="31539"&&url.searchParams.get("feed_id")==="74135"||
-   url.searchParams.get("advertiser_id")==="736"&&url.searchParams.get("feed_id")==="48599");
+   url.searchParams.get("advertiser_id")==="736"&&url.searchParams.get("feed_id")==="48599"||
+   url.searchParams.get("advertiser_id")==="45747"&&url.searchParams.get("feed_id")==="F1356");
  if(request.method==="POST"&&!preflight&&!manualStage)
   return reply({error:"Choose preflight or an allowlisted private staging feed"},400);
  if(!preflight&&!manualStage&&process.env.AWIN_AUTO_IMPORT_ENABLED!=="true")
@@ -128,7 +130,9 @@ export async function POST(request:NextRequest){
  if(advertiser==="31539"&&!mozillionPhysicalFeedAllowed(advertiser,feed,
    feedRow[idx("Feed Name")]??""))
   return reply({error:"Mozillion non-handset or renamed feed blocked from physical import"},422);
- if(!/^(awin|standard)$/i.test(feedRow[idx("Datafeed Format")]?.trim()??""))
+ if(!((advertiser==="45747"&&feed==="F1356"&&
+  /^google$/i.test(feedRow[idx("Datafeed Format")]?.trim()??""))||
+  (advertiser!=="45747"&&/^(awin|standard)$/i.test(feedRow[idx("Datafeed Format")]?.trim()??""))))
   return reply({error:"Feed format not supported by pilot"},422);
  let downloaded:Uint8Array,filename:string;
  try{
@@ -157,7 +161,8 @@ export async function POST(request:NextRequest){
   detectedDelimiter=delimiter==="\t"?"tab":"comma";
   // Only the approved Mozillion SIM-free feed may be parsed with up to 256
   // raw columns. All rows are projected to <=120 validated fields before staging.
-  const rawColumnBound=advertiser==="31539"&&feed==="74135"?256:120;
+  const rawColumnBound=(advertiser==="31539"&&feed==="74135")||
+   (advertiser==="45747"&&feed==="F1356")?256:120;
   for await(const row of parseRows(csv,delimiter,rawColumnBound)){
    if(!header){header=row.map(v=>v.trim());rawColumnCount=header.length;parseStage="rows";}
    else{

@@ -18,6 +18,7 @@ const PILOTS:Record<string,readonly [string,string]>={
  petlibro:["77952","103580"],
  mozillion:["31539","74135"],
  cadbury:["736","48599"],
+ craftbuddy:["45747","F1356"],
 };
 export async function GET(
  request:NextRequest,

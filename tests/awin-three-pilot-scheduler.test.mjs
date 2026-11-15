@@ -7,7 +7,7 @@ const worker=read("app/api/internal/awin-auto-import/route.ts");
 const vercel=JSON.parse(read("vercel.json"));
 
 test("daily cron has independently scheduled physical-only private pilots",()=>{
- for(const [slug,minute] of [["petlibro","5"],["mozillion","9"],["cadbury","13"]]){
+ for(const [slug,minute] of [["petlibro","5"],["mozillion","9"],["cadbury","13"],["craftbuddy","17"]]){
   const path="/api/internal/awin-pilot-schedule/"+slug;
   assert.deepEqual(vercel.crons.filter(c=>c.path===path),[{path,schedule:minute+" 7 * * *"}]);
  }
@@ -24,11 +24,12 @@ test("the scheduler never permits an arbitrary merchant, URL, credential, or sou
  assert.match(scheduler,/petlibro:\["77952","103580"\]/);
  assert.match(scheduler,/mozillion:\["31539","74135"\]/);
  assert.match(scheduler,/cadbury:\["736","48599"\]/);
+ assert.match(scheduler,/craftbuddy:\["45747","F1356"\]/);
  assert.match(scheduler,/privateImport\(new NextRequest/);
  assert.doesNotMatch(scheduler,/\.from\(|\.upsert\(|\.insert\(|\.update\(|fetch\(/);
 });
 test("existing importer accepts only three fixed SKU feeds and continues all private rights/size/stop gates",()=>{
- for(const pair of ['"77952:103580"','"31539:74135"','"736:48599"'])
+ for(const pair of ['"77952:103580"','"31539:74135"','"736:48599"','"45747:F1356"'])
   assert.ok(worker.includes(pair));
  assert.match(worker,/source\.status!=="paused"\|\|source\.sync_enabled!==false/);
  assert.match(worker,/permission_status:"unverified"/);

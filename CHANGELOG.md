@@ -1,3 +1,8 @@
+## Unreleased · Craft Buddy exact Google-format private import pilot
+
+- Record Awin 45747 joined screenshot and Craft Buddy terms in private permissions registry. Stage only exact F1356 Google Awin feed through bounded reviewed parser, strict advertiser+signed URL, global stop, no publication. New 07:17 UTC private cron.
+- No product drafts created from 28 Oct snapshot, and no public price/image rights inferred.
+
 ## Unreleased · Cadbury private candidate cron and validated Awin feed source
 
 - Strict 07:47 UTC daily reconciler for Cadbury Gifts Direct 736:48599, accepting only newest completed, digest-validated private AUTO import with bounded unique supplier IDs, verified GBP, physical goods, stock and tracking. Fails closed without a current validated import; the 4 Nov historical 1,367 rows cannot seed the automatic draft matcher.
