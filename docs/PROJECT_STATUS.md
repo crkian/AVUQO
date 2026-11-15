@@ -1,3 +1,10 @@
+## Mozillion physical-handset private catalogue reconciliation · CANDIDATE · 15 November 2026
+
+- Live read-only audit of newest Mozillion 31539:74135 private AUTO snapshot from 14 November: 229 rows, 229 unique merchant product IDs, 229 GBP prices with explicit source currency, verified tracking links, physical handset flag and observed stock. Titles split 166 Brand New and 63 Good as New. Brands are Apple, Samsung, Google and TCL. No GTIN/MPN or source timestamps, no contract/eSIM titles. Three rows privately checked, 226 still pending. None of these observations proves publication or image reuse rights.
+- Candidate adds 07:37 UTC daily post-import service-role-only reconciliation after the 07:09 UTC private import. It validates latest SHA-completed snapshot, joined registry, paused Awin source, emergency stop and source_ingestion control. Checks every row, including handset naming, manufacturer, explicit GBP, source feed binding, stock and condition. Distinct merchant SKUs and handset grades are separate product identities; there is no cross-retailer match by title.
+- Stable `awin:31539:74135:<merchant_product_id>` canonical key. Inserts draft products without images or prices, and `candidate` product_matches only. Never touches offers, scores, current prices, source controls, customer-visible product status, rights or owner approvals. Existing SKU with changed name, brand or condition rejects the full transaction. Missing product IDs in newer snapshots only reported for future withdrawal logic.
+- Requires versioned Supabase migration, GitHub CI, protected preview, DB idempotence/reverification and exact production READY before release. Uses existing CRON_SECRET and AWIN_AUTO_IMPORT_ENABLED opt-in. Supplier feed auto staging stays private.
+
 ## Petlibro safe automatic identity reconciliation · CANDIDATE · 15 November 2026
 
 - Following owner request to make each available feed automatic, a post-feed task is proposed for 07:27 UTC, behind existing Awin product feed import at 07:05 UTC. It operates **only** on the newest Petlibro 77952:103580 private AUTO snapshot.
