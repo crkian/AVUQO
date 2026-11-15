@@ -1,3 +1,9 @@
+## Unreleased · Separate daily private Awin pilot feeds and reduce AVUQO build churn
+
+- Candidate adds three independent daily, fixed-feed private Awin cron paths for Petlibro, Mozillion and Cadbury while retaining feed-list monitor, Pneus and marketing cron. Strict existing worker checks, source pause and unverified private review remain. No public Awin product price or offer release.
+- Only approved small-physical feed allowlist changes; Cadbury 736:48599 requires full current Awin schema validation before any staging rows. Service, contract, Google-format, tyre and oversized catalogue feeds stay isolated.
+- Adds Vercel ignored-build filter for documentation and CI-only changes; code changes still build. One grouped Git commit reduces preview build fan-out. Complete tests and production verification required before activation.
+
 ## Unreleased · Prevent Petlibro doubled product identities in first live-data pilot
 
 - Production private feed identity audit reveals 44 historical Petlibro rows are 22 matching pairs with separate `_feed` and `_health` source IDs. Added a read-only, bounded pair-audit module and owner screen preview of five candidate groups, without collapsing source rows or publishing products.
