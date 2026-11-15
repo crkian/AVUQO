@@ -85,8 +85,9 @@ BEGIN
    count(distinct r.currency) AS currencies,
    count(distinct r.brand) AS brands,
    count(distinct r.metadata->>'gtin') AS gtins,
-   count(distinct r.metadata->>'model') AS models,
-   bool_and(r.price>0 AND r.currency='GBP' AND r.status='review'
+   count(distinct coalesce(r.metadata->>'model','')) AS models,
+   bool_and(r.merchant_id='77952' AND lower(btrim(r.brand))='petlibro' AND
+     r.price>0 AND r.currency='GBP' AND r.status='review'
      AND r.review_decision IN ('pending','checked')
      AND r.metadata->>'tracking_link_verified'='true'
      AND length(btrim(r.title))>2 AND length(btrim(r.merchant_product_id))>7
