@@ -87,7 +87,7 @@ export default async function PetlibroPilot(){
       <small style={{color:"#6b6175"}}>{label}</small><div style={{fontSize:23,fontWeight:800}}>{value}</div></div>)}
     </div>
     {audit.incomplete&&<p role="alert">The scan reached its private safety cap or does not match the import run count. Do not use partial counts to approve product identity.</p>}
-    <p style={{margin:0,fontSize:13,color:"#6b6175"}}>{audit.priceTimestampEvidenceRows} rows carry a source-update timestamp; {audit.imageRightsConfirmedRows} rows have image rights recorded in row metadata. An owner's separate merchant permission email does not change these source-row flags. Prices and stock still require fresh checks.</p>
+    <p style={{margin:0,fontSize:13,color:"#6b6175"}}>{audit.priceTimestampEvidenceRows} rows carry a source-update timestamp; {audit.imageRightsConfirmedRows} rows have image rights recorded in row metadata. A separate owner-supplied merchant permission email does not change these source-row flags. Prices and stock still require fresh checks.</p>
     <div style={{overflowX:"auto"}}>
      <table style={{width:"100%",borderCollapse:"collapse",minWidth:600,fontSize:13}}>
       <thead><tr>{["Supplier identity","Private title","Recorded price","Row pairing","Review"].map(h=><th key={h} style={{padding:11,textAlign:"left",borderBottom:"1px solid #e9e4f0"}}>{h}</th>)}</tr></thead>
