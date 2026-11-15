@@ -39,6 +39,10 @@
     {
       "path": "/api/internal/awin-pilot-schedule/craftbuddy",
       "schedule": "17 7 * * *"
+    },
+    {
+      "path": "/api/internal/awin-craft-buddy-private-reconcile",
+      "schedule": "57 7 * * *"
     }
   ],
   "ignoreCommand": "git diff --quiet HEAD^ HEAD -- . ':(exclude)docs/**' ':(exclude)*.md' ':(exclude).github/**'"

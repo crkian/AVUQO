@@ -1,3 +1,9 @@
+## Unreleased · Craft Buddy scheduled private SKU candidate reconciler
+
+- After bounded 45747:F1356 private Awin import, add 07:57 UTC daily service-role-only transactional reconciler: exact SKU drafts, review-only candidate mappings, bounded fresh completed source digests, safe skip of excluded out-of-stock rows, global stop, source pause and idempotence.
+- No public products, retailer offers, images, prices or trademark/character licences inferred. The 28 October manual import is never accepted for automatic matching. Keeps all existing feed, tyre and marketing cron paths.
+- Tests and Supabase versioned migration gate release.
+
 ## Unreleased · Craft Buddy exact Google-format private import pilot
 
 - Record Awin 45747 joined screenshot and Craft Buddy terms in private permissions registry. Stage only exact F1356 Google Awin feed through bounded reviewed parser, strict advertiser+signed URL, global stop, no publication. New 07:17 UTC private cron.

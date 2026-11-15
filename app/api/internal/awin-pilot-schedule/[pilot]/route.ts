@@ -5,7 +5,7 @@ const reply=(body:unknown,status=200)=>NextResponse.json(body,{
  status,headers:{"Cache-Control":"private, no-store"}
 });
 /**
- * Three fixed, independently scheduled physical-product private imports.
+ * Four fixed, independently scheduled physical-product private imports.
  * Exact feed IDs, server-to-server cron authentication and a separate
  * AWIN_AUTO_IMPORT_ENABLED opt-in. The existing worker performs the actual
  * Awin inventory, signed URL, schema, size, currency, join, source-pause,
