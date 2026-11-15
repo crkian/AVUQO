@@ -1,3 +1,12 @@
+## Petlibro safe automatic identity reconciliation · CANDIDATE · 15 November 2026
+
+- Following owner request to make each available feed automatic, a post-feed task is proposed for 07:27 UTC, behind existing Awin product feed import at 07:05 UTC. It operates **only** on the newest Petlibro 77952:103580 private AUTO snapshot.
+- One transactional, service-role-only, SECURITY INVOKER Supabase RPC rejects source activation, emergency stop, missing ingestion control, missing joined observation, incomplete/newer importing snapshots, oversized snapshots (>500), excluded rows and ambiguous `_feed`/`_health` SKU pairs. Uses a per-feed transactional advisory lock and unique source-offer identity.
+- It reuses the 22 previously prepared draft products (including the original Polar Feeder draft), attaches any newly observed well-formed Petlibro SKUs as additional **drafts only**, and adds candidate `product_matches` without overwriting owner review decisions. It never merges distinct SKUs by GTIN: observed 22 logical SKUs have 20 distinct GTIN values, so a GTIN collision count is reported.
+- It does not write `offers`, `published_deals`, `deal_scores`, images, prices, approval records or source/rights flags. It cannot activate customer-facing inventory. Database migration needs connected Supabase application and verification, followed by GitHub CI, Vercel READY and signed-out smoke.
+- Last private Petlibro product snapshot is 5 Nov 2026 (44 rows) with no source-update timestamps. Merchant response Gmail thread `1a1a6f1eba600746` discusses advertiser 77952 while its signature says 77942. Merchant ID, freshness, delivered price, image edit/retention and per-offer owner review are still unresolved; user publishing approval alone cannot establish them.
+- Other Awin feeds remain on their existing private schedules. No new Awin feed import or public offer release triggered by this candidate.
+
 ## Three daily physical Awin private feed refreshes · CANDIDATE · 15 November 2026
 
 - User requested automated operation of all joined feeds and rapid public products. The live 15 November inventory has 74 feed observations across 11 advertisers, with overlapping, large, service, contract and tyre feeds. In Supabase the Awin source remains paused/sync disabled; no source-wide rights approvals, and no approved public offers. A feed observation alone does not grant publication rights.
