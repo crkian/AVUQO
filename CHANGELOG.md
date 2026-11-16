@@ -1,3 +1,4 @@
+- Add second post-create migration to revoke Supabase default broad `service_role` grants and restore only SELECT/INSERT/UPDATE; verify RLS and no anon/authenticated grants.
 ## Unreleased · Private Awin Cron attempt journal · 16 November 2026
 
 - Add service-role-only, RLS-enforced `awin_private_cron_attempts` for **four scheduled private feed imports plus Tooled Up snapshot/validator**, with start/finish time, sanitized fixed outcome code, HTTP status and duration. A timed-out worker remains visibly `started`.
