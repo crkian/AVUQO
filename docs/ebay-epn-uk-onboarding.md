@@ -1,3 +1,16 @@
+## 16 November 2026 · Public eBay UK affiliate discovery, implementation candidate
+
+**Customer-facing change:** `/partners/ebay-uk` and homepage partner shelf. Six fixed UK categories plus a general eBay UK link use the documented EPN tracking parameters `mkevt=1`, `mkcid=1`, UK rotation `710-53481-19255-0`, existing active AVUQO campaign `5339240499` and `toolid=10001`. Every link is labelled, externally hosted by ebay.co.uk, opens a new tab with sponsored disclosure and **does not claim any AVUQO-verified listing prices, stock, images, discounts, score, comparisons or checkout**.
+
+**Evidence:** The connected Gmail EPN digest dated 5 Nov 2026 says eBay Partner Network accepted proposed contract terms. Owner's EPN screenshot independently recorded the active default campaign. This supports ordinary EPN outbound linking, but **is not** approval of eBay restricted production Buy/Browse/Feed APIs. Vercel production has `EBAY_SANDBOX_CLIENT_ID` / `EBAY_SANDBOX_CLIENT_SECRET`, but no `EBAY_CLIENT_ID`, `EBAY_CLIENT_SECRET` or `EBAY_BROWSE_PRODUCTION_APPROVED`. eBay source remains paused, and the six existing Supabase offers are all October demo rows. No legitimate eBay item-priced offers are live.
+
+**API rule:** eBay requires production Buy API growth check and approvals (https://developer.ebay.com/api-docs/buy/buy-requirements.html). Search-category affiliate links can be constructed under the official EPN UK specification (https://developer.ebay.com/api-docs/buy/static/ref-epn-link.html) and the EPN Link Generator documents category and search links (https://partnernetwork.ebay.com/resources/create-your-affiliate-link). Only fixed allowlisted destination paths are constructed, no user-controlled open redirect.
+
+**Awin remains separate:** 251 draft Awin product identities, zero public retailer offers, paused source and pending merchant price/image rights. Existing four pilot imports and Tooled Up private capture/validate need actual current preflight, price and publish/withdrawal gating. Do not count EPN search links as eBay product offers, and never represent them as Awin feed publication.
+
+**Release gates:** Test exact EPN parameters, strict search list and false-price disclosure; GitHub CI and Vercel preview, merge exact SHA and verify signed-out homepage + new page READY. Do not automatically click tracked EPN links to test them. Record production confirmation in Git without extra application build.
+
+
 # AVUQO eBay Partner Network UK integration
 
 ## Evidence and identity

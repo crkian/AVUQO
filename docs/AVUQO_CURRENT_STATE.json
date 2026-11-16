@@ -813,5 +813,13 @@
     "unverified_joined_record": "PlayPress Toys 101445",
     "status": "documented_target_not_public_deployed",
     "matrix": "docs/AVUQO_ALL_AWIN_MERCHANT_STAGING_TO_LIVE_2026-11-16.md"
+  },
+  "ebay_public_epn_20261116": {
+    "status": "candidate",
+    "page": "/partners/ebay-uk",
+    "network_terms_accepted_on": "2026-11-05",
+    "campaign": "5339240499",
+    "production_browse_approved": false,
+    "ebay_priced_offers": 0
   }
 }

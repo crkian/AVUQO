@@ -1,3 +1,9 @@
+## Unreleased · Public eBay UK EPN affiliate category discovery · 16 Nov 2026
+
+- Public eBay UK partner landing and homepage shelf; six fixed EPN tracked search categories with UK rotation, active campaign, clear disclosure. No scraped images, invented product/price/stock, simulated customer offer or eBay production Browse API use.
+- Connected EPN accepted-terms email and active campaign establish a general partner-link basis; developer Browse API approval and Production keys are still missing. Site price catalogue remains off; six legacy offers are demo only.
+- Add official-link safety tests and full Git handover, branch/source/feature tracker, eBay onboarding, Awin board, status and changelog updates.
+
 ## Unreleased · Record full 19-programme Awin automatic staging-to-live scope · 16 Nov 2026
 
 - Owner confirmed all eligible Awin programmes/products should stage and ultimately publish automatically, not stop at one item or six pilots. Added complete 19-programme table/JSON, 17 numeric IDs, 16 joined registry IDs, two missing IDs, 74 observed feed IDs among 11 advertisers and precise category-specific blockers. Live Awin offers remain zero; private canonical products remain 251.

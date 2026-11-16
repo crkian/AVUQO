@@ -10,6 +10,7 @@ import Footer from "../components/layout/Footer";
 import LifestyleExplorer from "../components/lifestyle/LifestyleExplorer";
 import ShoppingDepartmentShelf from "../components/shopping/ShoppingDepartmentShelf";
 import StorefrontQuickLinks from "../components/home/StorefrontQuickLinks";
+import EbayUKPartnerShelf from "../components/home/EbayUKPartnerShelf";
 import HomeShoppingDashboard from "../components/home/HomeShoppingDashboard";
 import {verifiedProductIndex} from "../lib/products/public-catalog";
 import HomeCampaignCarousel from "../components/home/HomeCampaignCarousel";
@@ -72,6 +73,7 @@ async function HomeContent() {
     </section>
 
     <StorefrontQuickLinks/>
+    <EbayUKPartnerShelf/>
     <HomeShoppingDashboard items={products}/>
     <div className={styles.reassurance}>
       <div className={`shell ${styles.reassuranceInner}`}>

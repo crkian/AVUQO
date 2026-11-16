@@ -1393,5 +1393,14 @@
       "eBay production Browse permission and approved data/image reuse not established",
       "Network confirmed vs pending vs paid commissions and returns/reversals must not be conflated"
     ]
+  },
+  "ebay_public_epn_2026_11_16": {
+    "status": "PR_candidate",
+    "page": "/partners/ebay-uk",
+    "campaign": "5339240499",
+    "rot": "710-53481-19255-0",
+    "search_links": 6,
+    "production_browse_approved": false,
+    "public_priced_ebay_offers": 0
   }
 }
