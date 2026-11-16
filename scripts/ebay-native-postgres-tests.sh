@@ -20,4 +20,6 @@ export EBAY_RACE_TEST_DATABASE_URL='host=/var/run/postgresql user=postgres dbnam
 bash scripts/test-ebay-tombstone-race.sh
 bash scripts/test-ebay-reverse-lock-witness.sh
 bash scripts/test-ebay-committed-link-first-race.sh
+# The only committed fixtures run AFTER all rollback-only races in this disposable DB.
+psql_local -f tests/fixtures/ebay-committed-multi-identity-tombstone.sql
 echo 'NATIVE_POSTGRES_CONCURRENCY_PASS (synthetic subset only; no production approval)'
