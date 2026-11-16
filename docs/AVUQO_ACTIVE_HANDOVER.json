@@ -1569,5 +1569,25 @@
     "additional_spend": "£0",
     "docker": false,
     "direct_supply": false
+  },
+  "ebay_live_readonly_release_preflight_20261116": {
+    "status": "CANDIDATE_PENDING_GITHUB_CI",
+    "read_only_sql": "scripts/ebay-full-schema-readonly-preflight.sql",
+    "native_ci": "scripts/test-ebay-full-schema-readonly-preflight.sh",
+    "structural_test": "tests/ebay-full-schema-readonly-preflight.test.mjs",
+    "runbook": "docs/AVUQO_EBAY_FULL_SCHEMA_RELEASE_PREFLIGHT_2026-11-16.md",
+    "production_read_only_check": "4 PASS, 8 BLOCK",
+    "production_journal_applied": false,
+    "production_customer_data_mutated": false,
+    "production_database_migration_applied": false,
+    "synthetic_ci_expected": "11 PASS, provider_release_authorised BLOCK",
+    "production_approval": false,
+    "full_store_erasure_proven": false,
+    "legal_retention_approved": false,
+    "provider_signed_event_verified": false,
+    "extra_spending": "£0",
+    "docker": false,
+    "awin": "unchanged",
+    "ebay": "paused, sync off, quarantined, HTTP 503, unregistered"
   }
 }
