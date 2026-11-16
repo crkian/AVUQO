@@ -442,6 +442,16 @@
       "id": "FUTURE-01",
       "state": "open",
       "task": "Long-tail opportunities and original 29 roadmap streams/12 requirement gaps"
+    },
+    {
+      "id": "BRANCH-01",
+      "state": "open",
+      "task": "Exact semantic diff and source preservation review of 15 divergent historic refs; protect seven open PR heads and two security refs. Never delete solely on age/ahead count."
+    },
+    {
+      "id": "SOURCES-01",
+      "state": "open",
+      "task": "Work through 37 original feature groups with precise Git/e2e evidence; do not confuse PDF/ZIP requirements with current deployment or permissions."
     }
   ],
   "handover": {
@@ -464,7 +474,7 @@
     }
   },
   "requirements": {
-    "change_control": "EVERY material check, analysis, error, code/schema/cron edit, rights decision, data read/write and release must be appended to Git active handover Markdown plus JSON, PROJECT_STATUS and CHANGELOG at the end of the turn. CI enforces four-file updates on implementation PRs; audit-only changes must voluntarily maintain the record.",
+    "change_control": "For every substantive task, read current Git main and all active handovers/tracker; commit active Markdown+JSON, branch/feature tracker Markdown+JSON, PROJECT_STATUS and CHANGELOG, updating branch/feature rows and next Awin gate. CI enforces these on implementation PRs. Documentation-only investigations must voluntarily update the same records.",
     "licence_boundary": "Owner approval for AVUQO does not independently grant merchant/third-party IP or price rights.",
     "privacy": "Never commit secret values, user records, confidential source PDFs or raw merchant/affiliate signed URLs to public Git."
   },
@@ -611,5 +621,19 @@
       "anon_or_authenticated_grants": false,
       "initial_attempts": 0
     }
+  },
+  "git_branch_source_feature_tracker": {
+    "markdown": "docs/AVUQO_GIT_BRANCH_SOURCE_FEATURE_TRACKER_2026-11-16.md",
+    "machine": "docs/AVUQO_GIT_BRANCH_SOURCE_FEATURE_TRACKER_2026-11-16.json",
+    "awin": "docs/AVUQO_AWIN_COMPLETION_BOARD_2026-11-16.md",
+    "inventory_main": "f9e5157de0da39651d3bef9f6461c5c8579d2d57",
+    "branches": 25,
+    "open_pr_refs": 7,
+    "security_refs": 2,
+    "unreconciled_historical": 15,
+    "source_assets_inspected": 14,
+    "feature_groups": 37,
+    "deleted_branches": 0,
+    "action": "Reconcile all divergent refs with exact source/PR/main evidence and preserve original private sources."
   }
 }

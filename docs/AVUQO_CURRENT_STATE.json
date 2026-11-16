@@ -776,5 +776,19 @@
     "production_deployment": "dpl_2isQnD9gt7AkAsboVGARCmrhhfjq",
     "migrations_applied": true,
     "initial_attempts": 0
+  },
+  "branch_feature_tracker_20261116": {
+    "machine": "docs/AVUQO_GIT_BRANCH_SOURCE_FEATURE_TRACKER_2026-11-16.json",
+    "readable": "docs/AVUQO_GIT_BRANCH_SOURCE_FEATURE_TRACKER_2026-11-16.md",
+    "awin": "docs/AVUQO_AWIN_COMPLETION_BOARD_2026-11-16.md",
+    "read_date": "2026-11-16",
+    "branch_count": 25,
+    "open_prs": 7,
+    "security_refs": 2,
+    "historical": 15,
+    "source_assets": 14,
+    "features": 37,
+    "branches_deleted": 0,
+    "production_app_unchanged": true
   }
 }

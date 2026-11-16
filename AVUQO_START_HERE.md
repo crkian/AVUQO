@@ -1,5 +1,8 @@
 # AVUQO · START HERE (current GitHub state)
 
+**LIVE BRANCH/FEATURE TRACKER (16 NOV):** [25 Git refs and safe disposition](docs/AVUQO_GIT_BRANCH_SOURCE_FEATURE_TRACKER_2026-11-16.md), [structured inventory](docs/AVUQO_GIT_BRANCH_SOURCE_FEATURE_TRACKER_2026-11-16.json) and [Awin finishing board](docs/AVUQO_AWIN_COMPLETION_BOARD_2026-11-16.md). Read immediately after the [active handover](docs/AVUQO_ACTIVE_HANDOVER.md). It lists every original source-derived feature (37 groups), unmerged ideas, historical startup scripts and destructive reset SQL. Reverify on each session; do not delete divergent/security/original design branches without exact SHA/PR/content review.
+
+
 **CURRENT RESTART ORDER (16 Nov):** FIRST read [ACTIVE GIT HANDOVER](docs/AVUQO_ACTIVE_HANDOVER.md) and its [machine companion](docs/AVUQO_ACTIVE_HANDOVER.json). Then read AGENTS, the older historical handovers and original source/branch/idea index, and re-query actual GitHub/Vercel/Supabase state. Latest verified *application* after handover PR #210: `3a98b509` / `dpl_6oMYNWsFCrUG1ZM37Zu8B6mfPGAY` READY, homepage HTTP 200 exact deployment; docs-only commits intentionally may not cause another Vercel build. The older 14 Nov material below is historical. Update active Git handover for every code/schema/cron change.
 
 

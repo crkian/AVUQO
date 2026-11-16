@@ -17,15 +17,24 @@ if(!handover.includes("## 10. Required handover procedure")||
    !Array.isArray(machine.priorities)||machine.priorities.length<1||
    machine.handover?.current!=="docs/AVUQO_ACTIVE_HANDOVER.md")
  throw Error("Current Markdown/machine handover missing or incomplete.");
+const fullTracker=JSON.parse(readFileSync("docs/AVUQO_GIT_BRANCH_SOURCE_FEATURE_TRACKER_2026-11-16.json","utf8"));
+if(fullTracker.repo!=="crkian/AVUQO"||
+   !Array.isArray(fullTracker.branch_inventory?.branches)||
+   fullTracker.branch_inventory.branches.length<2||
+   !Array.isArray(fullTracker.feature_requirements)||
+   fullTracker.feature_requirements.length<30)
+ throw Error("Complete branch and source feature tracker must remain present and parseable.");
 const base=process.env.PR_BASE_SHA,head=process.env.PR_HEAD_SHA;
 if(base&&head){
  const files=execFileSync("git",["diff","--name-only",base,head],{encoding:"utf8"}).trim().split("\n").filter(Boolean);
  const implementation=files.some(p=>/^(app|components|lib|supabase|scripts)\//.test(p)||p==="vercel.json");
  const required=implementation?[
   "docs/PROJECT_STATUS.md","CHANGELOG.md",
-  "docs/AVUQO_ACTIVE_HANDOVER.md","docs/AVUQO_ACTIVE_HANDOVER.json"
+  "docs/AVUQO_ACTIVE_HANDOVER.md","docs/AVUQO_ACTIVE_HANDOVER.json",
+  "docs/AVUQO_GIT_BRANCH_SOURCE_FEATURE_TRACKER_2026-11-16.md",
+  "docs/AVUQO_GIT_BRANCH_SOURCE_FEATURE_TRACKER_2026-11-16.json"
  ]:[];
  const missing=required.filter(p=>!files.includes(p));
- if(missing.length)throw Error("Implementation PR must update all four handover/register files: "+missing.join(", "));
+ if(missing.length)throw Error("Implementation PR must update the handover, feature/branch tracker and register files: "+missing.join(", "));
 }
 console.log("AVUQO version and full Git handover verified: "+manifest.version);
