@@ -1101,7 +1101,7 @@
   },
   "ebay_atomic_tombstone_admission_20261116": {
     "status": "migration applied and single-session rollback-only negative test verified, PR merging pending",
-    "migration": "supabase/migrations/20261116165000_ebay_atomic_tombstone_admission.sql",
+    "migration": "ebay_atomic_tombstone_admission_20261116",
     "receipt_lock": "transaction keyed to each account HMAC, sorted lock keys",
     "link_guard": "exact HMAC tombstone check on INSERT/UPDATE of ebay_account_item_links",
     "db_indexes": "user_id_digest username_digest eias_token_digest",
@@ -1110,9 +1110,9 @@
     "site_importer_live": false,
     "ebay_quarantine": true,
     "webhook": "503 intentionally, not registered",
-    "ebay_keyset": "disabled per last screenshot",
-    "awin": "existing private importers preserved",
-    "next": "CI, apply SQL, verify trigger and negative synthetic tombstone check, then full erasure and real signed provider acceptance",
+    "ebay_keyset": "last screenshot disabled",
+    "awin": "existing private importers unchanged",
+    "next": "Run two-session transaction contention test; build full automatic cross-store erasure with retention and future atomic importer, validate provider signed E2E then consider registration",
     "migration_applied": true,
     "first_migration_attempt": "PostgreSQL 42601 as $ delimiter; no migration applied",
     "recovery": "Corrected to as $$ and fixed escaped comments; migration succeeded",
@@ -1120,11 +1120,30 @@
       "ebay_account_item_00_tombstone_gate",
       "ebay_deletion_receipt_account_lock"
     ],
-    "function_acl": "postgres direct EXECUTE only",
+    "function_acl": "postgres-only direct EXECUTE",
     "runtime_negative_test": "synthetic receipt insert and matching link rejected, rollback verified, counts zero",
     "receipt_count": 0,
     "link_count": 0,
     "cross_session_concurrency_tested": false,
-    "full_erasure_complete": false
+    "full_erasure_complete": false,
+    "pr": 242,
+    "merged": true,
+    "application_sha": "1d8639f30310407cb4234160f8b6de0e77406340",
+    "vercel_deployment": "dpl_FhmuWfMXY83qPhHZyXBXQmj6j3XH",
+    "vercel_status": "READY",
+    "pr_head_sha": "d7306f7d06bd10f9e8804ee74508dc30dfa46ce7",
+    "ci": "build lint account tombstone contract and committed-secret check success",
+    "initial_migration_failure": "PostgreSQL 42601, malformed as $ delimiter; no SQL applied",
+    "failure_recovered": "as $$ corrected, comment lines fixed, regression added, reapplied successfully",
+    "verified_triggers": [
+      "ebay_account_item_00_tombstone_gate",
+      "ebay_deletion_receipt_account_lock"
+    ],
+    "negative_test": "synthetic receipt then matching ownership-link rejected, rollback left 0 receipts/0 links",
+    "cross_session_race_tested": false,
+    "full_account_erasure_complete": false,
+    "ebay_source_quarantined": true,
+    "webhook_status": "503, unregistered",
+    "live_ebay_item_offers": 0
   }
 }
