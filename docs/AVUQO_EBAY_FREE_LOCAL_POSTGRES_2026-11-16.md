@@ -17,3 +17,9 @@ No Docker anywhere in this testing path, no additional spend, no Supabase schema
 ## Still required
 
 A faithful complete-schema or owner-authorised clone test, true committed ownership-link follow-on erasure, identity alias/race permutations, full cross-store erasure implementation and processor/backup/legal retention verification, signed eBay provider notification testing and production permissions. No false `completed` receipt or 2xx acknowledgment is permitted.
+
+## Committed multi-alias suppression regression (16 November 2026)
+
+The native PostgreSQL job now also runs `tests/fixtures/ebay-committed-multi-identity-tombstone.sql` **after** all rollback-only race witnesses. It first commits three synthetic eBay ownership links, one for each supported digest identity kind, then commits one receipt covering all three aliases. It verifies seven pending queue tasks, post-commit suppression on each alias, blocked fresh relinks, and the permanent prohibition on marking that receipt completed. The three pre-existing linked offers deliberately remain linked at the end of this regression; this proves only that admission suppression survives COMMIT, **not** that an erasure executor exists or completed deletion. Everything lives exclusively inside the disposable GitHub runner database, which is never connected to Supabase or eBay.
+
+The job must pass before describing this as tested. Completion, legal retention, backup erasure, external processor requests and actual eBay callbacks remain unverified and must not be claimed.
