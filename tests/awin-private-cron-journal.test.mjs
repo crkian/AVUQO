@@ -4,6 +4,7 @@ import {readFileSync} from "node:fs";
 import {safePrivateCronOutcome} from "../lib/awin/private-cron-outcome.ts";
 const read=p=>readFileSync(p,"utf8");
 const sql=read("supabase/migrations/20261116190000_awin_private_cron_attempts.sql");
+const grants=read("supabase/migrations/20261116191500_awin_private_cron_minimal_service_grants.sql");
 const record=read("lib/awin/private-cron-recorder.ts");
 const pilot=read("app/api/internal/awin-pilot-schedule/[pilot]/route.ts");
 const snapshot=read("app/api/internal/awin-tooled-up-snapshot/route.ts");
@@ -23,6 +24,9 @@ test("persistent journal is private service-role only and rejects arbitrary jobs
  for(const needle of ["ENABLE ROW LEVEL SECURITY","REVOKE ALL ON TABLE public.awin_private_cron_attempts FROM PUBLIC, anon, authenticated","GRANT SELECT,INSERT,UPDATE ON TABLE public.awin_private_cron_attempts TO service_role","CHECK (job_key IN","state IN ('started','completed','disabled','rejected','exception')","finished_at IS NULL","duration_ms"])assert.ok(sql.includes(needle),needle);
  for(const job of ["pilot_petlibro","pilot_mozillion","pilot_cadbury","pilot_craftbuddy","tooled_up_snapshot","tooled_up_validation"])assert.ok(sql.includes("'"+job+"'"),job);
  assert.doesNotMatch(sql,/GRANT .* (anon|authenticated)/);
+ assert.match(grants,/REVOKE ALL ON TABLE public\.awin_private_cron_attempts FROM service_role/);
+ assert.match(grants,/GRANT SELECT, INSERT, UPDATE ON TABLE public\.awin_private_cron_attempts TO service_role/);
+ assert.doesNotMatch(grants,/GRANT (DELETE|TRUNCATE|TRIGGER|REFERENCES|ALL)\b/);
  assert.doesNotMatch(sql.split("CREATE TABLE IF NOT EXISTS")[1].split(");")[0],/affiliate_tracking_url|credential|raw_product|signed_url/i);
  assert.match(record,/insert\(\{job_key:job,state:"started"\}\)/);
  assert.match(record,/\.eq\("id",attemptId\)\.eq\("state","started"\)/);
