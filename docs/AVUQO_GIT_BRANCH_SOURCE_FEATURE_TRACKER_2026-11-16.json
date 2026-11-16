@@ -1884,5 +1884,34 @@
     "ebay_source": "paused with DB quarantine",
     "eBay_webhook": "503, not registered",
     "full_account_deletion": "not implemented"
+  },
+  "ebay_account_deletion_compliance_decision_20261116": {
+    "status": "owner decision required, no exemption claimed",
+    "official_source": "https://www.developer.ebay.com/develop/guides/buy/marketplace-user-account-deletion",
+    "doc": "docs/AVUQO_EBAY_COMPLETION_DECISION_2026-11-16.md",
+    "two_paths": [
+      "exemption if truly not persisting ANY eBay data",
+      "signed deletion subscription and full erasure if eBay data stored"
+    ],
+    "reviewed_current_app": "fixed affiliate category links, count-only private Browse diagnostic, no eBay source-linked DB records",
+    "source": {
+      "status": "paused",
+      "sync_enabled": false,
+      "credential_status": "not_configured"
+    },
+    "guard_triggers_enabled": 5,
+    "ebay_source_records_last_checked": 0,
+    "storage_objects_last_checked": 0,
+    "production_ebay_oauth_configured": false,
+    "exemption_eligibility_certified": false,
+    "exemption_submitted": false,
+    "production_keyset_active": false,
+    "browse_api_commercial_approval": false,
+    "planned_persistent_items_require_subscription_review": true,
+    "automated_test": "tests/ebay-current-no-persist-safety.test.mjs",
+    "external_log_backup_retention_unknown": true,
+    "webhook": "503, not registered",
+    "awin": "private importer systems unchanged",
+    "next": "Run CI and deploy; owner attests data retention/chooses exemption or subscription; obtain approved eBay portal confirmation, then production API rights separately"
   }
 }
