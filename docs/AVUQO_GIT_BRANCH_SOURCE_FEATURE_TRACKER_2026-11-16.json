@@ -2002,5 +2002,30 @@
     "true_link_first_uncommitted_race": "PASS_SYNTHETIC_DB",
     "work_journal_acceptance": "PASS_SYNTHETIC_DB",
     "production_evidence": false
+  },
+  "ebay_committed_multi_alias_tombstone_20261116": {
+    "status": "PENDING_GITHUB_NATIVE_POSTGRES_TEST",
+    "fixture": "tests/fixtures/ebay-committed-multi-identity-tombstone.sql",
+    "unit_contract": "tests/ebay-committed-multi-identity-tombstone.test.mjs",
+    "executor": "scripts/ebay-native-postgres-tests.sh",
+    "identity_kinds": [
+      "user_id_digest",
+      "username_digest",
+      "eias_token_digest"
+    ],
+    "synthetic_link_commit": true,
+    "synthetic_receipt_commit": true,
+    "tests_suppression_after_commit": true,
+    "tests_relink_rejection": true,
+    "tests_seven_pending_tasks": true,
+    "tests_no_false_completion": true,
+    "account_erasure_performed": false,
+    "production_database_changes": false,
+    "committed_data_disposal": "temporary GitHub hosted VM",
+    "docker": false,
+    "new_spend": "£0",
+    "eBay": "paused, sync off, quarantine, webhook 503 unregistered",
+    "awin": "unchanged",
+    "next": "Review native PostgreSQL CI result; then build actual erasure and process/legal retention verification"
   }
 }
