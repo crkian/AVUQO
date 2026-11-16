@@ -1,5 +1,10 @@
 # AVUQO | ACTIVE OPERATIONAL HANDOVER
 
+## 16 November 2026 · Reverse-direction eBay advisory-lock witness candidate (NOT a live race pass)
+
+Added an opt-in independent-two-psql-process reverse advisory-lock probe (`scripts/test-ebay-reverse-lock-witness.sh`), static contract tests and GitHub CI syntax gate. It deliberately simulates the account-link advisory key rather than writing a prohibited eBay offer, so it is **not a true link-first committed transaction proof**. Neither the original receipt-first nor this reverse probe has been executed using authorised private database connections. Read-only production SQL reconfirmed eBay `paused`, `sync_enabled=false`, deletion receipts 0, account links 0, and both locking guards enabled. No Supabase writes, webhook registration, eBay activation or Awin changes. Full erasure, backup/processor policy, actual signed provider notifications and production approval remain NO-GO. Details: `docs/AVUQO_EBAY_REVERSE_RACE_AND_ERASURE_GATES_2026-11-16.md`. Candidate branch only until CI and merge. 
+
+
 ## 16 November 2026 · PR #244 safe two-connection race harness merged and production deployment READY (race remains unproven)
 
 **Verified release:** [PR #244](https://github.com/crkian/AVUQO/pull/244) merged at application SHA `6b9327da9c2d6d8d495afc71116091268ded9ce5`. Exact matching Vercel production deployment `dpl_94EkJnHRRrFAJMPHgLyMa2ie1jRR` **READY**. PR head `891b94250e83c4655a00a32a0ab737f2066fe639` passed GitHub lint, build, `bash -n` and the new race-harness static test, plus committed-secret scan. No production Supabase schema or eBay source changes.
