@@ -17,7 +17,7 @@ test("eBay privacy replay manifest has all twelve canonical chronological migrat
  for(const stamp of [
   "20261116132000","20261116153000","20261116155500","20261116165000",
   "20261116181000","20261116192000","20261116200000","20261116203000",
-  "20261116211000","20261116214000","20261116221000","20261116224000"
+  "20261116211000","20261116214000","20261116221000","20261116224000","20261116230000"
  ]) assert.ok(migrations.some(p=>p.includes(stamp)),stamp);
 });
 test("replay never connects to production nor drops a database it did not create",()=>{
