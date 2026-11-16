@@ -1,3 +1,7 @@
+## 16 Nov 2026 · eBay live partner links are not Awin public price offers
+
+An eBay partner discovery page is being staged with EPN category/search links only. It does not alter the Awin paused source, offer release states or actual verified retailer price counts.
+
 ## 16 Nov 2026 · Owner target: stage **all eligible** Awin feeds through genuine live publication
 
 [Complete 19-programme Awin staging/live matrix](AVUQO_ALL_AWIN_MERCHANT_STAGING_TO_LIVE_2026-11-16.md) ([structured JSON](AVUQO_ALL_AWIN_MERCHANT_STAGING_TO_LIVE_2026-11-16.json)). This scope is **not** a 6-merchant pilot as an end state. Supabase has 19 programme evidence records, 17 numeric IDs (16 currently in joined-code registry, extra PlayPress 101445 pending joined verification), two without IDs, and 74 observed feed IDs across 11 advertisers. Some include overlapping Tooled Up subfeeds and contract/quote products; summed rows do not equal unique offers. **Current public Awin offers 0; 251 private draft products**; no live publication or rights approvals have been modified. The next executable work is to verify live private-feed outcomes, finish Tooled Up 250-row staging and build per-advertiser automatic offer admission/withdrawal with actual current price and media rights, rather than globally enabling the paused Awin source. All 19 programme lanes and exact blockers are enumerated in the linked matrix.

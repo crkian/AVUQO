@@ -1,5 +1,18 @@
 # AVUQO | ACTIVE OPERATIONAL HANDOVER
 
+## 16 November 2026 · Public eBay UK affiliate discovery, implementation candidate
+
+**Customer-facing change:** `/partners/ebay-uk` and homepage partner shelf. Six fixed UK categories plus a general eBay UK link use the documented EPN tracking parameters `mkevt=1`, `mkcid=1`, UK rotation `710-53481-19255-0`, existing active AVUQO campaign `5339240499` and `toolid=10001`. Every link is labelled, externally hosted by ebay.co.uk, opens a new tab with sponsored disclosure and **does not claim any AVUQO-verified listing prices, stock, images, discounts, score, comparisons or checkout**.
+
+**Evidence:** The connected Gmail EPN digest dated 5 Nov 2026 says eBay Partner Network accepted proposed contract terms. Owner's EPN screenshot independently recorded the active default campaign. This supports ordinary EPN outbound linking, but **is not** approval of eBay restricted production Buy/Browse/Feed APIs. Vercel production has `EBAY_SANDBOX_CLIENT_ID` / `EBAY_SANDBOX_CLIENT_SECRET`, but no `EBAY_CLIENT_ID`, `EBAY_CLIENT_SECRET` or `EBAY_BROWSE_PRODUCTION_APPROVED`. eBay source remains paused, and the six existing Supabase offers are all October demo rows. No legitimate eBay item-priced offers are live.
+
+**API rule:** eBay requires production Buy API growth check and approvals (https://developer.ebay.com/api-docs/buy/buy-requirements.html). Search-category affiliate links can be constructed under the official EPN UK specification (https://developer.ebay.com/api-docs/buy/static/ref-epn-link.html) and the EPN Link Generator documents category and search links (https://partnernetwork.ebay.com/resources/create-your-affiliate-link). Only fixed allowlisted destination paths are constructed, no user-controlled open redirect.
+
+**Awin remains separate:** 251 draft Awin product identities, zero public retailer offers, paused source and pending merchant price/image rights. Existing four pilot imports and Tooled Up private capture/validate need actual current preflight, price and publish/withdrawal gating. Do not count EPN search links as eBay product offers, and never represent them as Awin feed publication.
+
+**Release gates:** Test exact EPN parameters, strict search list and false-price disclosure; GitHub CI and Vercel preview, merge exact SHA and verify signed-out homepage + new page READY. Do not automatically click tracked EPN links to test them. Record production confirmation in Git without extra application build.
+
+
 ## 16 Nov 2026 · Owner target: stage **all eligible** Awin feeds through genuine live publication
 
 [Complete 19-programme Awin staging/live matrix](AVUQO_ALL_AWIN_MERCHANT_STAGING_TO_LIVE_2026-11-16.md) ([structured JSON](AVUQO_ALL_AWIN_MERCHANT_STAGING_TO_LIVE_2026-11-16.json)). This scope is **not** a 6-merchant pilot as an end state. Supabase has 19 programme evidence records, 17 numeric IDs (16 currently in joined-code registry, extra PlayPress 101445 pending joined verification), two without IDs, and 74 observed feed IDs across 11 advertisers. Some include overlapping Tooled Up subfeeds and contract/quote products; summed rows do not equal unique offers. **Current public Awin offers 0; 251 private draft products**; no live publication or rights approvals have been modified. The next executable work is to verify live private-feed outcomes, finish Tooled Up 250-row staging and build per-advertiser automatic offer admission/withdrawal with actual current price and media rights, rather than globally enabling the paused Awin source. All 19 programme lanes and exact blockers are enumerated in the linked matrix.

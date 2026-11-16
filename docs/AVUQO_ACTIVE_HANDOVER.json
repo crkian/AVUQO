@@ -470,6 +470,11 @@
       "id": "AWIN-ALL-LIVE",
       "state": "open",
       "task": "19-programme full Awin rollout: finish private staging, per-merchant approved automatic offer eligibility/refresh/withdrawal and signed-out public acceptance. Preserve specialist adapters and do not bulk activate paused global source."
+    },
+    {
+      "id": "EBAY-EPN-LINKS",
+      "state": "candidate",
+      "task": "Public eBay UK tracked affiliate category searches without pretending Browse API item offers are live; continue full production Browse approval separately."
     }
   ],
   "handover": {
@@ -685,5 +690,18 @@
     "eligible_public_offers_verified": 0,
     "owner_goal": "Automatically stage every supported merchant and publish every valid offer with real freshness/rights/withdrawal; not one-product pilot",
     "public_merch_activation": "not_yet_implemented"
+  },
+  "ebay_public_partner_discovery_2026_11_16": {
+    "status": "candidate_not_yet_production",
+    "page": "/partners/ebay-uk",
+    "home_shelf": true,
+    "campaign": "5339240499",
+    "uk_rotation": "710-53481-19255-0",
+    "network_terms_accepted_email_date": "2026-11-05",
+    "production_browse_api_approved": false,
+    "production_browse_keys_configured": false,
+    "public_ebay_item_offers": 0,
+    "category_search_count": 6,
+    "next": "Git CI and Vercel preview, then production acceptance. Affiliate search links do not equal price verified offers."
   }
 }
