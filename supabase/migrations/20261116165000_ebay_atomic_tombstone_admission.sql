@@ -10,7 +10,8 @@ create index ebay_deletion_receipts_username_digest_idx
 create index ebay_deletion_receipts_eias_digest_idx
  on public.ebay_deletion_receipts(eias_token_digest) where eias_token_digest is not null;
 
--- VOLATILE ensures the post-lock check gets a fresh READ COMMITTED snapshot.\n-- DBA/service-role only via existing private receipt table privileges.
+-- VOLATILE ensures the post-lock check gets a fresh READ COMMITTED snapshot.
+-- DBA/service-role only via existing private receipt table privileges.
 -- No public RPC grants. Only exact HMAC digest equality, never text markers.
 create function public.ebay_is_account_digest_suppressed(
  p_kind text, p_digest text
@@ -37,7 +38,9 @@ $$;
 revoke all on function public.ebay_is_account_digest_suppressed(text,text)
  from public,anon,authenticated,service_role;
 
--- Account-link gate runs as its restricted function owner so it can read the\n-- private receipt ledger; it exposes no direct RPC and only returns NEW/raises.\n-- Sort by the resulting lock key, not raw domain/name, to avoid taking
+-- Account-link gate runs as its restricted function owner so it can read the
+-- private receipt ledger; it exposes no direct RPC and only returns NEW/raises.
+-- Sort by the resulting lock key, not raw domain/name, to avoid taking
 -- multiple advisory keys in divergent order between concurrent receipts.
 create function public.ebay_lock_deletion_receipt_accounts()
 returns trigger language plpgsql security invoker set search_path = ''
@@ -89,7 +92,7 @@ end;
 $$;
 revoke all on function public.ebay_reject_tombstoned_account_item_link()
  from public,anon,authenticated,service_role;
-create trigger ebay_account_item_tombstone_gate
+create trigger ebay_account_item_00_tombstone_gate
 before insert or update on public.ebay_account_item_links for each row
 execute function public.ebay_reject_tombstoned_account_item_link();
 
