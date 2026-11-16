@@ -2117,5 +2117,23 @@
     "production_database_modified": false,
     "ebay": "NO-GO paused, sync false, quarantine, HTTP 503, no portal token",
     "awin": "unchanged"
+  },
+  "ebay_secondary_store_orphan_guard_20261116": {
+    "status": "CANDIDATE_UNAPPLIED_PENDING_NATIVE_CI",
+    "finding": "Four real ON DELETE SET NULL foreign keys: analytics_events, attribution_events, user_feedback, watch_events -> offers",
+    "live_read_only_scan": "14 targeted eBay-source and textual-marker checks; all zero; limited scope",
+    "candidate_migration": "supabase/migrations/20261116203000_ebay_prevent_secondary_reference_orphaning.sql",
+    "runbook": "docs/AVUQO_EBAY_SECONDARY_STORE_ORPHAN_GATE_2026-11-16.md",
+    "native_test": "tests/fixtures/ebay-local-secondary-orphan-guard-acceptance.sql",
+    "staged_only": true,
+    "applied_to_production": false,
+    "verified_full_erasure": false,
+    "secondary_erasure_implemented": false,
+    "backup_retention_processors_verified": false,
+    "real_signed_provider_event_verified": false,
+    "cost": "£0",
+    "docker": false,
+    "ebay": "paused and callback HTTP 503/unregistered",
+    "awin": "unchanged"
   }
 }
