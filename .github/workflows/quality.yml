@@ -64,6 +64,8 @@ jobs:
         run: node --test tests/ebay-audited-partial-erasure.test.mjs
       - name: eBay deletion receipt permanent tombstone and no-false-completion checks
         run: node --test tests/ebay-deletion-receipt-integrity-lock.test.mjs
+      - name: eBay Developer Portal challenge and fail-closed notification runtime acceptance
+        run: node --test tests/ebay-portal-registration-runtime.test.mjs
       - name: eBay signed deletion runtime crypto and network-mock acceptance
         run: node --test tests/ebay-deletion-signature-runtime.test.mjs
       - name: Public eBay UK EPN partner searches without fabricated offers
