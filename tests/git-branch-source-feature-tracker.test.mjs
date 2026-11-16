@@ -34,6 +34,7 @@ test("actual source file hashes and all feature groups are preserved separately 
   assert.ok(f.status!=="live_complete");
  }
  assert.ok(m.startup_artifacts.some(x=>x.path==="AVUQO_SUPABASE_RESET_AND_SETUP.sql"&&x.action==="NEVER_RUN_ON_PRODUCTION"));
- assert.match(read("docs/AVUQO_AWIN_COMPLETION_BOARD_2026-11-16.md"),/251 private/);
+ assert.equal(m.awin_finish.private_canonical_awin_products,251);
+ assert.match(read("docs/AVUQO_AWIN_COMPLETION_BOARD_2026-11-16.md"),/public Awin offers/);
  assert.match(read("scripts/check-project-register.mjs"),/docs\/AVUQO_GIT_BRANCH_SOURCE_FEATURE_TRACKER_2026-11-16\.json/);
 });
