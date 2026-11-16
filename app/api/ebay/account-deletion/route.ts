@@ -1,8 +1,6 @@
 import {createHash} from "node:crypto";
 import {NextRequest,NextResponse} from "next/server";
 
-export const runtime="nodejs";
-
 /**
  * eBay production account-deletion webhook, phase 1 (challenge only).
  *
