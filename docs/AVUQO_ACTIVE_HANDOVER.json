@@ -15,12 +15,12 @@
     "url": "https://www.avuqo.com",
     "project": "avuqo",
     "platform": "Vercel",
-    "ready_app_commit": "3a98b50948d16599ac46d6c8a087c323e7688e7b",
-    "ready_deployment": "dpl_6oMYNWsFCrUG1ZM37Zu8B6mfPGAY",
+    "ready_app_commit": "d6c94f9ebe5e89c8d2d80dfac0d710c1d133dcbc",
+    "ready_deployment": "dpl_2isQnD9gt7AkAsboVGARCmrhhfjq",
     "verified_http": 200,
-    "status": "verified_READY_http200_after_handover_PR210",
+    "status": "verified_READY_http200_after_cron_journal_PR213",
     "docs_only_ignore_build_note": "Documentation commits may advance Git main without changing running application SHA. Always recheck.",
-    "verification": "PR #210 merged; GitHub quality+secret scan passed; Vercel production READY exact SHA and www homepage HTTP 200 matching dpl. No recheck of 16-Nov private source counts in this doc-only follow-up."
+    "verification": "PR #213 merged and exact production READY; live site HTTP 200 matched deployment. Private cron audit table now present with RLS and minimal service-role grants, zero rows at verification. Awin source paused and zero public Awin offers."
   },
   "supabase": {
     "project_ref": "tfoukwcruaamrtgxzshh",
@@ -289,6 +289,10 @@
     {
       "pr": 210,
       "area": "Full Git operational handover, all sources/PRs/backlog and mandatory future CI handover update"
+    },
+    {
+      "pr": 213,
+      "area": "Service-role-only protected scheduled Awin execution journal for four pilots and Tooled Up capture and validation"
     }
   ],
   "open_prs_as_checked": [
@@ -576,7 +580,7 @@
   ],
   "pending_release_2026_11_16": {
     "feature": "private_awin_six_cron_attempt_journal",
-    "status": "candidate_pr_not_deployed_at_document_authoring",
+    "status": "production_ready_not_yet_invoked",
     "new_table": "public.awin_private_cron_attempts",
     "protected_jobs": [
       "pilot_petlibro",
@@ -589,11 +593,23 @@
     "observability": "service-only sanitized status, duration, HTTP status and start/finish, no feed data or secrets",
     "security": "cron secret verified before audit, own RLS table, no user read permissions, no public product/offer changes",
     "next_approval_checks": [
-      "Apply both migrations and verify service_role only SELECT/INSERT/UPDATE; anon/authenticated none",
-      "CI build/test/secrets and Vercel preview",
-      "merge and exact production READY",
-      "inspect 17 Nov jobs by outcome code and fix confirmed blockers"
+      "After 17 Nov scheduled invocations, inspect six journal outcome codes and compare to actual private imports, snapshots and validation records",
+      "For missing audit attempts, check Vercel invocation/auth/secret conditions rather than assuming success or failure",
+      "Update Git handover Markdown+JSON, status and changelog with observed evidence"
     ],
-    "grants_correction": "Two migrations: original RLS journal plus versioned revoke-all/regrant SELECT, INSERT, UPDATE service_role after Supabase default initial broad grants. Must recheck final privileges after applying."
+    "grants_correction": "Two migrations: original RLS journal plus versioned revoke-all/regrant SELECT, INSERT, UPDATE service_role after Supabase default initial broad grants. Must recheck final privileges after applying.",
+    "production": {
+      "commit": "d6c94f9ebe5e89c8d2d80dfac0d710c1d133dcbc",
+      "deployment": "dpl_2isQnD9gt7AkAsboVGARCmrhhfjq",
+      "homepage_http_status": 200,
+      "db_migrations_applied": true,
+      "service_role_grants": [
+        "SELECT",
+        "INSERT",
+        "UPDATE"
+      ],
+      "anon_or_authenticated_grants": false,
+      "initial_attempts": 0
+    }
   }
 }
