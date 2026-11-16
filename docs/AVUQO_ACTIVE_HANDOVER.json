@@ -2,7 +2,7 @@
   "schema_version": 2,
   "project": "AVUQO",
   "as_of_utc": "2026-11-16",
-  "snapshot_type": "observed_at_morning_not_live_API",
+  "snapshot_type": "observed_november_16_live_audit_plus_original_morning_snapshot",
   "repo": {
     "full_name": "crkian/AVUQO",
     "visibility": "public",
@@ -332,12 +332,12 @@
     {
       "id": "OPS-01",
       "state": "open",
-      "task": "Inspect live 16 Nov cron execution and Tooled Up 08:05/08:25 zero-snapshot discrepancy"
+      "task": "First Tooled Up 08:05/08:25 cron could only run on 17 Nov: its code deployed 16 Nov 09:47 UTC. Verify first capture/validation and log outcome after 17 Nov windows; fix only reproduced errors."
     },
     {
       "id": "OPS-02",
       "state": "open",
-      "task": "Verify fresh current feed preflight/staging across four active small-feed pilots"
+      "task": "Pilot private imports have no new run rows after 14 Nov despite 16 Nov discovery. Inspect Vercel Cron outcomes, feed digest idempotence, upstream/schema/GBP limits and data journal after 17 Nov 07:17."
     },
     {
       "id": "RIGHTS-01",
@@ -460,7 +460,7 @@
     }
   },
   "requirements": {
-    "change_control": "Substantive PRs update active Markdown and JSON handover, PROJECT_STATUS and CHANGELOG in Git before merge. GitHub CI enforces the files changed, and users verify current deployment after merge.",
+    "change_control": "EVERY material check, analysis, error, code/schema/cron edit, rights decision, data read/write and release must be appended to Git active handover Markdown plus JSON, PROJECT_STATUS and CHANGELOG at the end of the turn. CI enforces four-file updates on implementation PRs; audit-only changes must voluntarily maintain the record.",
     "licence_boundary": "Owner approval for AVUQO does not independently grant merchant/third-party IP or price rights.",
     "privacy": "Never commit secret values, user records, confidential source PDFs or raw merchant/affiliate signed URLs to public Git."
   },
@@ -471,5 +471,107 @@
     "Query newest feed_import_runs, exact SKU match counts and immutable snapshot validator",
     "Review Vercel Cron logs to prove actual daily job execution",
     "Recheck rights/commission/image permission evidence before public offers"
+  ],
+  "audit_updates": [
+    {
+      "date_utc": "2026-11-16",
+      "type": "read_only_live_cron_timing_and_feed_status_audit",
+      "code_changes": false,
+      "supabase_writes": false,
+      "public_offer_changes": false,
+      "owner_operating_rule": "Record every material task, investigation, action, error and outstanding followup in both active Git handovers and project status/changelog, even when no code changes.",
+      "tooled_up_first_deployment": {
+        "id": "dpl_Hs18EQdhAm31mh3kDKUJA4c3DZzr",
+        "ready_at_utc": "2026-11-16T09:47:05.094Z",
+        "scheduled_capture_utc": "08:05",
+        "scheduled_validation_utc": "08:25",
+        "first_possible_run_date": "2026-11-17",
+        "unobserved_snapshot_cause": "deployed_after_scheduled_time_on_2026_11_16_not_a_confirmed_failure"
+      },
+      "handover_release_deployment": {
+        "id": "dpl_6oMYNWsFCrUG1ZM37Zu8B6mfPGAY",
+        "ready_at_utc": "2026-11-16T09:59:13.410Z"
+      },
+      "awin_discovery": {
+        "observed_at_utc": "2026-11-16T06:17:39.849Z",
+        "feeds": [
+          {
+            "advertiser": "77952",
+            "feed": "103580",
+            "listed": 44,
+            "needs_private_refresh": false
+          },
+          {
+            "advertiser": "31539",
+            "feed": "74135",
+            "listed": 229,
+            "needs_private_refresh": true
+          },
+          {
+            "advertiser": "736",
+            "feed": "48599",
+            "listed": 1371,
+            "needs_private_refresh": true
+          },
+          {
+            "advertiser": "45747",
+            "feed": "F1356",
+            "listed": 1308,
+            "needs_private_refresh": true
+          },
+          {
+            "advertiser": "496",
+            "feed": "89987",
+            "listed": 84256,
+            "needs_private_refresh": true
+          }
+        ]
+      },
+      "recent_merchant_private_import_run_since_2026_11_15_count": 0,
+      "latest_auto_imports_confirmed": {
+        "petlibro": "2026-11-05",
+        "mozillion": "2026-11-14",
+        "cadbury": null,
+        "craft_buddy": null
+      },
+      "tooled_up_private_snapshots": 0,
+      "tooled_up_full_file_validations": 0,
+      "source_state": {
+        "status": "paused",
+        "sync_enabled": false,
+        "publication_permission": "pending"
+      },
+      "controls": {
+        "source_ingestion": true,
+        "global_emergency_stop": false
+      },
+      "public_awin_offers": 0,
+      "production_required_env_names_present": [
+        "CRON_SECRET",
+        "AWIN_AUTO_IMPORT_ENABLED",
+        "AWIN_DATAFEED_API_KEY",
+        "AWIN_ACCESS_TOKEN",
+        "AWIN_PUBLISHER_ID"
+      ],
+      "environment_values_verified": false,
+      "vercel_runtime_logs_for_2026_11_16_morning": "No matching records returned; inconclusive, not evidence of skipped or failed cron",
+      "next_operator_checks": [
+        {
+          "date": "2026-11-17",
+          "time_utc": "07:17",
+          "task": "Review four pilot private import invocations, datastore rows, and exact skip/failed outcomes"
+        },
+        {
+          "date": "2026-11-17",
+          "time_utc": "08:05",
+          "task": "Inspect first eligible Tooled Up immutable private snapshot and checksum"
+        },
+        {
+          "date": "2026-11-17",
+          "time_utc": "08:25",
+          "task": "Inspect first eligible Tooled Up private full-feed validation report and errors"
+        }
+      ]
+    }
   ]
 }
