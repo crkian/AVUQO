@@ -2197,5 +2197,32 @@
     "docker": false,
     "awin": "unchanged",
     "ebay": "paused; sync disabled; quarantine; HTTP 503; unregistered"
+  },
+  "ebay_live_privacy_control_tower_20261116": {
+    "status": "CANDIDATE_PENDING_GITHUB_CI",
+    "page": "app/control-centre/ebay-privacy/page.tsx",
+    "url": "/control-centre/ebay-privacy",
+    "policy": "lib/ebay/privacy-control-tower.ts",
+    "loader": "lib/ebay/privacy-control-tower-server.ts",
+    "test": "tests/ebay-privacy-control-tower.test.mjs",
+    "runbook": "docs/AVUQO_EBAY_PRIVACY_CONTROL_TOWER_2026-11-16.md",
+    "owner_auth_before_db": true,
+    "admin_queries_only_counts": true,
+    "identities_exposed": false,
+    "work_journal_missing_fail_closed": true,
+    "seven_surfaces": true,
+    "user_registration_authorized": false,
+    "provider_ack_enabled": false,
+    "source_live_state": "paused",
+    "source_sync_enabled": false,
+    "production_work_journal_applied": false,
+    "production_supabase_writes": false,
+    "signed_provider_notifications_verified": false,
+    "all_stores_erased_verified": false,
+    "backup_retention_approved": false,
+    "budget": "£0 additional",
+    "docker": false,
+    "awin": "unchanged",
+    "commercial_model": "affiliate marketplace/comparison, retailer fulfils, AVUQO no stock or dropshipping"
   }
 }
