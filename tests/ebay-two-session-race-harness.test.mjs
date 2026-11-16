@@ -6,7 +6,8 @@ test("owner-gated psql two-process race proof cannot silently succeed without co
  assert.match(script,/ALLOW_EBAY_RACE_TEST/);
  assert.match(script,/EBAY_RACE_TEST_DATABASE_URL/);
  assert.match(script,/holder_pid=\$!/);
- assert.match(script,/grep -q '\^EBAY_LOCK_HELD\$'/);
+ assert.match(script,/pg_try_advisory_xact_lock/);
+ assert.match(script,/avuqo-ebay-account:user_id_digest/);
  assert.match(script,/lock_timeout='1200ms'/);
  assert.match(script,/55P03/);
  assert.match(script,/contender_rc.*-eq 0/);
