@@ -1,5 +1,8 @@
 # AVUQO · START HERE (current GitHub state)
 
+**16 Nov original ideas cross-check:** [14-Nov master source/PR/index](docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md) is preserved as history. Current [feature & branch tracker](docs/AVUQO_GIT_BRANCH_SOURCE_FEATURE_TRACKER_2026-11-16.md) and [JSON](docs/AVUQO_GIT_BRANCH_SOURCE_FEATURE_TRACKER_2026-11-16.json) map ALL 29 old workstreams + 12 gaps to 37 feature groups. The latest verified app is PR #216, `d977cfa3` / `dpl_E5cbjLHeTA1s6CHPmtJu2UFvjeuh` READY; authenticated owner Awin preflight is pending. Historical release SHA passages below are dated.
+
+
 **LIVE BRANCH/FEATURE TRACKER (16 NOV):** [25 Git refs and safe disposition](docs/AVUQO_GIT_BRANCH_SOURCE_FEATURE_TRACKER_2026-11-16.md), [structured inventory](docs/AVUQO_GIT_BRANCH_SOURCE_FEATURE_TRACKER_2026-11-16.json) and [Awin finishing board](docs/AVUQO_AWIN_COMPLETION_BOARD_2026-11-16.md). Read immediately after the [active handover](docs/AVUQO_ACTIVE_HANDOVER.md). It lists every original source-derived feature (37 groups), unmerged ideas, historical startup scripts and destructive reset SQL. Reverify on each session; do not delete divergent/security/original design branches without exact SHA/PR/content review.
 
 

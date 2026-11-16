@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_2isQnD9gt7AkAsboVGARCmrhhfjq",
-    "verified_ready_sha": "d6c94f9ebe5e89c8d2d80dfac0d710c1d133dcbc",
+    "deployment_id": "dpl_E5cbjLHeTA1s6CHPmtJu2UFvjeuh",
+    "verified_ready_sha": "d977cfa3a01265b1401235c728c089da377a256d",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #210 merged and production exact Vercel SHA 3a98b50948d16599ac46d6c8a087c323e7688e7b / dpl_6oMYNWsFCrUG1ZM37Zu8B6mfPGAY READY, homepage HTTP 200 with marker. Current operational content is docs/AVUQO_ACTIVE_HANDOVER.md + JSON; Supabase private data was read earlier 16 Nov, not rechecked after docs-only follow-up.",
+    "verification": "PR #216 merged, production Vercel READY on d977cfa3... and homepage/control-centre feed-monitor HTTP 200 on exact deployment; GET on POST-only run-now returned 405. Owner authenticated click and actual preflight/staging still pending. 16 Nov Cron journal zero and Awin source paused.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -789,12 +789,17 @@
     "source_assets": 14,
     "features": 37,
     "branches_deleted": 0,
-    "production_app_unchanged": true
+    "production_app_unchanged": true,
+    "original_index_roadmap_ids_covered": 29,
+    "original_index_gap_ids_covered": 12,
+    "original_index_reconciled": "docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md"
   },
   "pending_owner_awin_run_now": {
-    "status": "candidate",
+    "status": "production_READY_signed_in_owner_acceptance_pending",
     "page": "/control-centre/awin-feed-updates",
     "api": "/api/control-centre/awin-run-now",
-    "no_public_offers": true
+    "no_public_offers": true,
+    "deployment": "dpl_E5cbjLHeTA1s6CHPmtJu2UFvjeuh",
+    "app_commit": "d977cfa3a01265b1401235c728c089da377a256d"
   }
 }

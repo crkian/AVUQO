@@ -1,3 +1,9 @@
+## Unreleased · Reconcile original 14 Nov index against live 25-branch / 37-feature tracker · 16 Nov 2026
+
+- Reopened the complete 14 Nov Git/branch/idea handover and its machine index. Linked **all 29 original P0–P4 workstreams and 12 G01–G12 gaps** to current source-derived feature IDs in the active tracker Markdown+JSON. Preserve original 22-ref snapshot, 1,384 inactive taxonomy seed, original high-resolution/16 mockup source references, marketing/eBay/tyre/commission acceptance gates and original 50 category-guide ambitions. Never treat an older branch requirement as a live integration.
+- Add clear current-history overlay to original old index without rewriting 14-Nov branch/deployment facts; update active handover Markdown+JSON, machine state, Awin board, ROADMAP and project status.
+- Verify merged PR #216 current Awin owner-only private run-now and six-job journal at application SHA `d977cfa3a01265b1401235c728c089da377a256d`, Vercel `dpl_E5cbjLHeTA1s6CHPmtJu2UFvjeuh` READY, home and Control Centre feed update route HTTP 200, POST-only route GET 405. Owner signed-in preflight still untested, source paused, zero published Awin offers. This is **documentation-only**; avoid another Vercel app build.
+
 ## Unreleased · Owner-only Awin live preflight and private runs · 16 Nov 2026
 
 - Add owner-authenticated same-origin fixed Awin private source preflight/staging and Tooled Up snapshot/validation using existing protected workers. Owner Control Centre feed updates show buttons and six-job safe Cron journal, without falsely marking manual runs as Cron.
