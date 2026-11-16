@@ -1,51 +1,42 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {readFileSync} from "node:fs";
+import {readFileSync,existsSync} from "node:fs";
 const read=p=>readFileSync(new URL("../"+p,import.meta.url),"utf8");
-const ps=read("scripts/run-ebay-local-postgres-tests.ps1");
-const sh=read("scripts/ebay-local-container-tests.sh");
+const sh=read("scripts/ebay-native-postgres-tests.sh");
+const race=read("scripts/test-ebay-committed-link-first-race.sh");
 const fixture=read("tests/fixtures/ebay-local-schema.sql");
-const acceptance=read("tests/fixtures/ebay-local-erasure-acceptance.sql");
-const receipt=read("scripts/test-ebay-tombstone-race.sh");
-const reverse=read("scripts/test-ebay-reverse-lock-witness.sh");
+const workflow=read(".github/workflows/quality.yml");
 
-test("free local Docker runner is isolated, ephemeral and does not connect to cloud",()=>{
- assert.match(ps,/--network none/);
- assert.match(ps,/--tmpfs/);
- assert.match(ps,/docker rm -f/);
- assert.match(ps,/finally \{/);
- assert.match(ps,/Get-Command docker/);
- assert.doesNotMatch(ps,/docker (push|login|build)|--publish|\s-p\s+\d|supabase\s+db|vercel\s+deploy|https?:\/\//i);
+test("native Ubuntu runner and Unix-socket connection only, no containers",()=>{
+ assert.match(workflow,/runs-on: ubuntu-24\.04/);
+ assert.match(workflow,/systemctl start postgresql\.service/);
+ assert.match(workflow,/sudo -u postgres/);
+ assert.match(sh,/PGHOST.*\/var\/run\/postgresql/);
+ assert.match(sh,/avuqo_ebay_ci_synthetic/);
+ assert.match(sh,/DATABASE_URL/);
+ assert.match(sh,/NATIVE_POSTGRES_CONCURRENCY_PASS/);
+ for(const x of [sh,workflow]) assert.doesNotMatch(x,/docker (run|build|pull)|services:\s*\n\s*postgres:/i);
 });
-test("only real versioned trigger and work journal migrations are used",()=>{
- for(const path of [
- "20261116153000_ebay_deletion_receipt_integrity_lock.sql",
+test("actual migrations and rollback-based acceptance are executed",()=>{
+ for(const path of ["20261116153000_ebay_deletion_receipt_integrity_lock.sql",
  "20261116165000_ebay_atomic_tombstone_admission.sql",
- "20261116181000_ebay_erasure_work_journal.sql"
- ]) assert.ok(ps.includes(path),path);
- assert.match(sh,/test-ebay-tombstone-race\.sh/);
- assert.match(sh,/test-ebay-reverse-lock-witness\.sh/);
- assert.match(sh,/ON_ERROR_STOP=1/g);
- assert.match(sh,/LOCAL_POSTGRES_CHECKS_PASS/);
+ "20261116181000_ebay_erasure_work_journal.sql",
+ "tests/fixtures/ebay-local-erasure-acceptance.sql",
+ "scripts/test-ebay-tombstone-race.sh",
+ "scripts/test-ebay-reverse-lock-witness.sh",
+ "scripts/test-ebay-committed-link-first-race.sh"])assert.ok(sh.includes(path),path);
 });
-test("fixtures are synthetic and prove seven seeded queue tasks and rollback",()=>{
+test("actual link-first INSERT holds transactional advisory key",()=>{
+ assert.match(race,/insert into public\.ebay_account_item_links/);
+ assert.match(race,/insert into public\.ebay_deletion_receipts/);
+ assert.match(race,/pg_try_advisory_xact_lock/);
+ assert.match(race,/55P03/);
+ assert.match(race,/rollback;/g);
+ assert.match(race,/\$before" == "\$after/);
+ assert.match(race,/refusing non-local test database/);
  assert.match(fixture,/fixture-other/);
- assert.match(fixture,/create table public\.ebay_deletion_receipts/);
- assert.match(fixture,/create table public\.ebay_account_item_links/);
- assert.match(acceptance,/n<>7/);
- assert.match(acceptance,/ebay_claim_erasure_work/);
- assert.match(acceptance,/ebay_record_erasure_work_outcome/);
- assert.match(acceptance,/Stale attempt incorrectly accepted/);
- assert.match(acceptance,/rollback;/i);
- assert.doesNotMatch(fixture,/\b(copy|dblink|postgres_fdw)\b|https?:\/\//i);
+ assert.match(fixture,/connector_key,status,sync_enabled/);
 });
-test("both concurrent witnesses poll the real transaction advisory key",()=>{
- for(const script of [receipt,reverse]){
-  assert.match(script,/pg_try_advisory_xact_lock/);
-  assert.match(script,/avuqo-ebay-account:user_id_digest/);
-  assert.match(script,/holder_pid=\$!/);
-  assert.match(script,/55P03/);
- }
- assert.match(reverse, /\\set VERBOSITY verbose/);
- assert.doesNotMatch(reverse,/\\\\set VERBOSITY verbose/);
+test("legacy Docker entry points are removed from the repository",()=>{
+ for(const path of ["scripts/run-ebay-local-postgres-tests.ps1","scripts/ebay-local-container-tests.sh"])assert.equal(existsSync(new URL("../"+path,import.meta.url)),false);
 });
