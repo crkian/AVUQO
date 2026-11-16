@@ -2288,5 +2288,27 @@
     "docker": false,
     "awin": "unchanged",
     "ebay": "paused, sync off, quarantined, HTTP 503, unregistered"
+  },
+  "ebay_ordered_migration_rehearsal_20261116": {
+    "status": "CANDIDATE_PENDING_NATIVE_CI",
+    "runner": "scripts/test-ebay-ordered-migration-replay.sh",
+    "manifest": "tests/fixtures/ebay-migration-replay-manifest.txt",
+    "static_test": "tests/ebay-ordered-migration-replay.test.mjs",
+    "runbook": "docs/AVUQO_EBAY_ORDERED_MIGRATION_REHEARSAL_2026-11-16.md",
+    "versioned_migration_count": 12,
+    "chronological_timestamp_order": true,
+    "one_transaction": true,
+    "disposable_local_postgres_only": true,
+    "db_created_and_cleaned_by_rehearsal": true,
+    "expected_structure": "11 PASS",
+    "provider_release": "ALWAYS BLOCK",
+    "production_migration_applied": false,
+    "full_schema_clone": false,
+    "legal_retention_approved": false,
+    "webhook_2xx_enabled": false,
+    "ebay": "paused, sync off, imports quarantined, unregistered callback HTTP 503",
+    "cost": "£0",
+    "docker": false,
+    "awin": "unchanged"
   }
 }
