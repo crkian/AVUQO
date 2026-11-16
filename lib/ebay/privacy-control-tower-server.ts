@@ -41,8 +41,7 @@ export async function loadEbayPrivacyControlTower(){
   sourceId?count(db,"price_history",["source_id",sourceId]):Promise.resolve({value:null,error:true}),
   sourceId?count(db,"product_matches",["source_id",sourceId]):Promise.resolve({value:null,error:true})
  ]);
- const workByState=Object.fromEntries(statuses.map((key,i)=>[key,queue[i]]))
-  as EbayPrivacySignals["workByState"];
+ const workByState=Object.fromEntries(statuses.map((key,i)=>[key,queue[i]])) as EbayPrivacySignals["workByState"];
  const workBySurface=Object.fromEntries(EBAY_WORK_SURFACES.map(([key],i)=>[
   key,queue[statuses.length+i]
  ])) as EbayPrivacySignals["workBySurface"];
