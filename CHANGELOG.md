@@ -1,3 +1,9 @@
+## Unreleased · Post-release proof for Awin cron attempt journal · 16 Nov 2026
+
+- PR #213 merged; GitHub tests and secret checks passed. Production Vercel `dpl_2isQnD9gt7AkAsboVGARCmrhhfjq` READY for `d6c94f9e`; www.avuqo.com HTTP 200 exact marker.
+- Both versioned Supabase journal migrations applied and checked: RLS on; service-role SELECT/INSERT/UPDATE only; no anon/authenticated grants; journal empty as expected at first verification. Awin source remains paused and public offers zero.
+- Mark scheduled six-job observability deployed, **not yet observed executing**; next cycle requires outcome journal inspection and cross-checks with actual private records. Full audit and remaining work in active Git handover Markdown and JSON. Docs-only proof avoids further Vercel application builds.
+
 - Add second post-create migration to revoke Supabase default broad `service_role` grants and restore only SELECT/INSERT/UPDATE; verify RLS and no anon/authenticated grants.
 ## Unreleased · Private Awin Cron attempt journal · 16 November 2026
 

@@ -9,8 +9,8 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_6oMYNWsFCrUG1ZM37Zu8B6mfPGAY",
-    "verified_ready_sha": "3a98b50948d16599ac46d6c8a087c323e7688e7b",
+    "deployment_id": "dpl_2isQnD9gt7AkAsboVGARCmrhhfjq",
+    "verified_ready_sha": "d6c94f9ebe5e89c8d2d80dfac0d710c1d133dcbc",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
@@ -729,8 +729,8 @@
     "machine": "docs/AVUQO_ACTIVE_HANDOVER.json",
     "evidence_date": "2026-11-16",
     "status": "dated_operational_overlay_not_live_API",
-    "verified_app_commit": "3a98b50948d16599ac46d6c8a087c323e7688e7b",
-    "vercel_deployment": "dpl_6oMYNWsFCrUG1ZM37Zu8B6mfPGAY",
+    "verified_app_commit": "d6c94f9ebe5e89c8d2d80dfac0d710c1d133dcbc",
+    "vercel_deployment": "dpl_2isQnD9gt7AkAsboVGARCmrhhfjq",
     "awin_source": "paused",
     "awin_canonical_private_products": 251,
     "private_candidate_links": 273,
@@ -760,7 +760,7 @@
   ],
   "pending_private_cron_journal": {
     "snapshot_date": "2026-11-16",
-    "status": "candidate_code_not_released",
+    "status": "production_READY_awaiting_first_schedule",
     "sql_table": "public.awin_private_cron_attempts",
     "jobs": [
       "pilot_petlibro",
@@ -772,6 +772,9 @@
     ],
     "reason": "Resolve missing live Awin scheduled feed import outcomes without storing confidential feed data",
     "requirement": "CI, Supabase migration, live deployment, 17-Nov journal execution verification",
-    "grants_correction": "Supabase created service_role broad default grants; second migration revokes and regrants only SELECT/INSERT/UPDATE. Verify before release."
+    "grants_correction": "Supabase created service_role broad default grants; second migration revokes and regrants only SELECT/INSERT/UPDATE. Verify before release.",
+    "production_deployment": "dpl_2isQnD9gt7AkAsboVGARCmrhhfjq",
+    "migrations_applied": true,
+    "initial_attempts": 0
   }
 }
