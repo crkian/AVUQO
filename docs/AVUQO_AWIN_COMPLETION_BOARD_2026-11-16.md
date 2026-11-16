@@ -1,3 +1,7 @@
+## 16 Nov 2026 · Owner-run current Awin preflight/private stage and Tooled Up master, proposed PR
+
+Added owner-only `POST /api/control-centre/awin-run-now` with strict auth role and Origin, fixed supplier pair allowlist, private-write confirmation, server-only `CRON_SECRET` and no arbitrary URL/digest. It reuses current workers for Petlibro, Mozillion, Cadbury and Craft Buddy preflight/private staging and Tooled Up immutable snapshot/validation in-process. Extended private `/control-centre/awin-feed-updates` with owner buttons and service-role-read scheduled job journal after role checks. Manual operations are **not** logged as scheduled cron attempts. No source activation, rights override, customer-facing prices or offers. Require CI/preview and an actual signed-in owner click before claiming any current feed was tested. After current successful private import, release one genuinely eligible offered item with seller/rights/freshness audit and automatic withdrawal, not all historic rows.
+
 # AVUQO Awin · Completion board · 16 November 2026
 
 **Goal:** publish each truly eligible retailer offer from a fresh, authorised feed and update/withdraw it automatically. Not "turn on all historical supplier rows". The owner has approved AVUQO's use of current joined suppliers; supplier and third-party media/price/trademark rights still require evidence per merchant. The Awin source is `paused`, `sync_enabled=false`, `publication_permission=pending`; `source_ingestion=true`, emergency stop OFF, public Awin offers **0** as of this audit.

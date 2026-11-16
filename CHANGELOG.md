@@ -1,3 +1,8 @@
+## Unreleased · Owner-only Awin live preflight and private runs · 16 Nov 2026
+
+- Add owner-authenticated same-origin fixed Awin private source preflight/staging and Tooled Up snapshot/validation using existing protected workers. Owner Control Centre feed updates show buttons and six-job safe Cron journal, without falsely marking manual runs as Cron.
+- No feed URL/digest supplied by browser, no new importer, permissions bypass, source activation or public offer writes. Update complete Git feature tracker and Awin completion board with the signed-in owner acceptance gate.
+
 ## Unreleased · Live 25-branch, 14-source, 37-feature Git tracker and Awin finish board · 16 Nov 2026
 
 - Add dated full Git branch tracker (all 25 exact refs/SHAs/compare statistics, seven open PRs, two security refs, 15 unreconciled archives), original S01–S09 plus 5 affiliate terms source hashes, 37 source-derived feature groups, historic start-up/patch script risk classification and Awin release pipeline.
