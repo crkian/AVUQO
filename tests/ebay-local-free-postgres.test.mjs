@@ -14,7 +14,7 @@ test("native Ubuntu runner and Unix-socket connection only, no containers",()=>{
  assert.match(sh,/PGHOST.*\/var\/run\/postgresql/);
  assert.match(sh,/avuqo_ebay_ci_synthetic/);
  assert.match(sh,/DATABASE_URL/);
- assert.match(sh,/NATIVE_POSTGRES_CONCURRENCY_PASS/);
+ assert.match(sh,/NATIVE_POSTGRES_CONCURRENCY_AND_QUEUE_LEASE_PASS/);
  for(const x of [sh,workflow]) assert.doesNotMatch(x,/docker (run|build|pull)|services:\s*\n\s*postgres:/i);
 });
 test("actual migrations and rollback-based acceptance are executed",()=>{

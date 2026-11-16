@@ -15,9 +15,11 @@ psql_local -f supabase/migrations/20261116153000_ebay_deletion_receipt_integrity
 psql_local -f supabase/migrations/20261116165000_ebay_atomic_tombstone_admission.sql
 psql_local -f supabase/migrations/20261116181000_ebay_erasure_work_journal.sql
 psql_local -f tests/fixtures/ebay-local-erasure-acceptance.sql
+psql_local -f tests/fixtures/ebay-local-permissions-integrity.sql
 export ALLOW_EBAY_RACE_TEST=true
 export EBAY_RACE_TEST_DATABASE_URL='host=/var/run/postgresql user=postgres dbname=avuqo_ebay_ci_synthetic'
 bash scripts/test-ebay-tombstone-race.sh
 bash scripts/test-ebay-reverse-lock-witness.sh
 bash scripts/test-ebay-committed-link-first-race.sh
-echo 'NATIVE_POSTGRES_CONCURRENCY_PASS (synthetic subset only; no production approval)'
+bash scripts/test-ebay-native-queue-lease-race.sh
+echo 'NATIVE_POSTGRES_CONCURRENCY_AND_QUEUE_LEASE_PASS (synthetic subset only; no production approval)'

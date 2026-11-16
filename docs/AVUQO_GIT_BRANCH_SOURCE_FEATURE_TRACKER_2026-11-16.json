@@ -2002,5 +2002,29 @@
     "true_link_first_uncommitted_race": "PASS_SYNTHETIC_DB",
     "work_journal_acceptance": "PASS_SYNTHETIC_DB",
     "production_evidence": false
+  },
+  "ebay_queue_lease_and_privilege_acceptance_20261116": {
+    "status": "PENDING_NATIVE_GITHUB_CI",
+    "tests": [
+      "scripts/test-ebay-native-queue-lease-race.sh",
+      "tests/fixtures/ebay-local-permissions-integrity.sql",
+      "tests/ebay-native-lease-race.test.mjs"
+    ],
+    "runbook": "docs/AVUQO_EBAY_QUEUE_LEASE_AND_PRIVATE_GRANTS_2026-11-16.md",
+    "runner": "ubuntu-24.04 native postgres Github Actions synthetic Unix-socket database",
+    "additional_cost": "£0",
+    "docker": false,
+    "cloud_database_created": false,
+    "production_database_changed": false,
+    "worker_race_proven": false,
+    "rollback_replay_proven": false,
+    "private_role_grants_proven": false,
+    "receipt_completion_rejected_in_native_ci": false,
+    "full_erasure": false,
+    "backup_retention_verified": false,
+    "signed_provider_notification_verified": false,
+    "production_journal_applied": false,
+    "ebay": "NO-GO paused quarantined HTTP 503",
+    "awin": "unchanged"
   }
 }

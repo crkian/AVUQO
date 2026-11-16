@@ -46,6 +46,8 @@ jobs:
         run: bash -n scripts/test-ebay-tombstone-race.sh && node --test tests/ebay-two-session-race-harness.test.mjs
       - name: eBay reverse-direction advisory-lock witness syntax and safety contracts (not a live DB test)
         run: bash -n scripts/test-ebay-reverse-lock-witness.sh && node --test tests/ebay-reverse-lock-witness.test.mjs
+      - name: Native eBay queue lease and privilege regression contracts
+        run: bash -n scripts/test-ebay-native-queue-lease-race.sh && node --test tests/ebay-native-lease-race.test.mjs
       - name: Native PostgreSQL hosted runner contracts
         run: bash -n scripts/test-ebay-tombstone-race.sh scripts/test-ebay-reverse-lock-witness.sh scripts/test-ebay-committed-link-first-race.sh scripts/ebay-native-postgres-tests.sh && node --test tests/ebay-local-free-postgres.test.mjs
       - name: eBay durable erasure work journal and no-completion safety tests
