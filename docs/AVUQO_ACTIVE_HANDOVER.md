@@ -1,5 +1,13 @@
 # AVUQO | ACTIVE OPERATIONAL HANDOVER
 
+## 16 Nov 2026 · eBay deletion receipt integrity lock (candidate; NOT compliant)
+
+**Actual new change:** Versioned Supabase migration `20261116153000_ebay_deletion_receipt_integrity_lock.sql` creates insert/update/delete/truncate triggers for private `ebay_deletion_receipts`, permanently keeping each HMAC user identifier and original notification digest immutable and preventing receipts from being deleted/truncated, or marked `completed` until a future independently approved legal-retention/full-erasure process replaces this lock. Incoming receipts must start `pending_privacy_review`; attempts to reset blocked/processing states are restricted. This hardens the previously built signed notification journal and persistent future re-import suppression without falsely claiming any deletion. New `tests/ebay-deletion-receipt-integrity-lock.test.mjs` is wired to GitHub quality CI. **Check actual CI and migration verification before claiming installed.**
+
+**eBay official guide clarification:** eBay accepts HTTP 200/201/202/204 on receipt and requires appropriate deletion afterward, but AVUQO's webhook deliberately responds **503** because real signed production testing, secure durable processing, legal-retention/full data deletion and controlled backlog processing are not ready. Do not register the endpoint or leave it emitting 503 to eBay; prolonged failures risk non-compliance. No real producer notifications received. This protective migration is **not** full deletion.
+
+**Current gates unchanged:** DB quarantine PR #232 blocks eBay offer/match/history/ingestion and source activation. Production keyset last screenshot DISABLED, Vercel environment lacks production eBay OAuth and deletion/HMAC tokens, no confirmed Buy/Browse approval, 0 individual live-priced eBay offers. Existing Awin Petlibro, Mozillion, Cadbury, Craft Buddy, Tooled Up and tyre feeds are separate and preserved. Update MD/JSON handovers, tracker, Awin board, status and changelog after verified CI/Supabase/Vercel deployment.
+
 ## 16 November 2026 · PR #234 executable eBay signed-event crypto fixture verified on production deployment
 
 **Exact release:** [PR #234](https://github.com/crkian/AVUQO/pull/234) merged at application SHA `2535b9bc5c17642ff0c0587c6f2c09b591db1f69`, corresponding Vercel production deployment `dpl_CMUH1kgzKq9GJ2YAMN6jsCAhbg6A` **READY**. GitHub build, lint and secret-scan success at PR head `3365476a099b4b175eab0d41f5808a6e6d676d33`. The new specifically named CI job `eBay signed deletion runtime crypto and network-mock acceptance` passed. No Supabase migration or source/offer changes.
