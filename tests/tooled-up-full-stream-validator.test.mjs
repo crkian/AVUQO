@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {gzipSync} from "node:zlib";
 import {createHash} from "node:crypto";
-import {TOOLED_UP_SOURCE_FIELDS} from "../lib/awin/tooled-up-master-adapter.ts";
+import {TOOLED_UP_SOURCE_FIELDS} from "../lib/awin/tooled-up-source-fields.ts";
 import {validateTooledUpGzipStream} from "../lib/awin/tooled-up-full-stream-validator.ts";
 
 const header=[...TOOLED_UP_SOURCE_FIELDS];
