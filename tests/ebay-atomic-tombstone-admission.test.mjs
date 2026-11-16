@@ -11,8 +11,8 @@ test("receipt and ownership link share exact transaction-scoped advisory key",()
  assert.match(sql,/order by lock_key/);
  assert.match(sql,/ebay_deletion_receipt_account_lock/);
  assert.match(sql,/ebay_account_item_00_tombstone_gate/);
- assert.match(sql,/as \\$\\$/);
- assert.doesNotMatch(sql,/as \\$\\n/);
+ assert.match(sql,/as \$\$/);
+ assert.doesNotMatch(sql,/as \$(?:\n|$)/);
 });
 test("suppression checks use indexed exact fingerprints and volatile post-lock snapshot",()=>{
  assert.match(sql,/ebay_deletion_receipts_user_digest_idx/);
