@@ -6,6 +6,7 @@ returns trigger language plpgsql security invoker set search_path = ''
 as $$
 declare
  v_fk_count integer;
+ v_total_fk integer;
 begin
  if not exists(select 1 from public.sources s
    where s.id=old.source_id and s.connector_key='ebay') then
@@ -36,6 +37,17 @@ begin
   );
  if v_fk_count<>7 then
   raise exception 'eBay purge denied: cascading offer FK schema drift';
+ end if;
+ -- Full observed production dependency set includes seven reviewed CASCADE
+ -- tables, four SET NULL shopper-history tables and two intentional mapped
+ -- ownership/price-history CASCADE tables. A NEW FK must also fail closed:
+ -- otherwise the offer could silently cascade into an unexamined surface.
+ select count(*) into v_total_fk
+ from pg_catalog.pg_constraint c
+ where c.contype='f'
+   and c.confrelid='public.offers'::pg_catalog.regclass;
+ if v_total_fk<>13 then
+  raise exception 'eBay purge denied: unknown offer FK dependency';
  end if;
 
  -- None of the seven records may be silently cascaded.  Retention and
