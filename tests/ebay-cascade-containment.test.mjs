@@ -31,6 +31,7 @@ test("native PostgreSQL runs exact real purge, seven isolation tests and drift r
  "ebay-local-cascade-containment-acceptance.sql"
  ])assert.ok(runner.includes(part),part);
  for(const s of ["Cascade FK drift allowed eBay mapped purge",
+ "Unknown new offer FK allowed eBay mapped purge",
  "Unrelated retailer cascade incorrectly blocked",
  "Valid eBay mapped purge rejected by cascade guard",
  "Synthetic cascade containment residue remains",
