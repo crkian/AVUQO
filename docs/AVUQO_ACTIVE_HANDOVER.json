@@ -995,5 +995,20 @@
     "ebay_keyset": "last screenshot disabled",
     "existing_ebay_source_quarantine": true,
     "live_ebay_imported_offers": 0
+  },
+  "ebay_audited_partial_erasure_20261116": {
+    "status": "PR candidate pending CI + migration verification",
+    "migration": "supabase/migrations/20261116155500_ebay_audited_partial_erasure.sql",
+    "audit_table": "public.ebay_partial_erasure_audit",
+    "function": "public.ebay_run_audited_partial_erasure(text)",
+    "function_access": "postgres DBA only",
+    "audit_detail": "only receipt reference and counts, marker partial_rows_purged",
+    "effect": "transactional exact-mapped eBay source row partial erasure, verifies no mapped rows remain, receipt remains pending",
+    "webhook": "HTTP 503 still, no registration",
+    "full_account_deletion": false,
+    "source_quarantine": true,
+    "ebay_production_keyset": "disabled per owner screenshot",
+    "awin": "existing private importers unchanged",
+    "next": "CI, migration and ACL/negative tests, privacy full inventory and retention, then complete automated erasure; no premature eBay registration"
   }
 }
