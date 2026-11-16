@@ -1,5 +1,11 @@
 # AVUQO | ACTIVE OPERATIONAL HANDOVER
 
+## 16 Nov 2026 · eBay account-mapped partial erasure foundation (candidate, NOT completion)
+
+**New audited foundation:** [eBay account-scoped erasure design and exact limits](AVUQO_EBAY_ACCOUNT_ERASURE_FOUNDATION_2026-11-16.md). A private HMAC-only account-to-offer/ingestion ownership table and **DBA-only** scoped erasure procedure were added in migration `20261116132000_ebay_account_scoped_erasure_foundation.sql`. Its trigger rejects links to non-eBay sources, and the procedure locks a known deletion receipt, matches all recorded HMAC aliases, deletes only exact eBay-linked price-history, product-match, offer and ingestion rows transactionally. **No service role/webhook EXECUTE grant, no state='completed', no 2xx receipt acknowledgement, and no broad row deletion.** SQL is a release candidate pending checks/migration verification. At last read there were 0 eBay item rows and 0 deletion receipts; applying DDL will not erase anything existing. Follow [privacy inventory](AVUQO_EBAY_PRIVACY_INVENTORY_2026-11-16.md) for what is and is not inspected.
+
+**Still blocked:** Real deletion across other stores/backups/retention, future ingestion transactional ownership map + suppression, provider signature E2E, production OAuth/secrets and eBay Developer subscription. eBay production keyset last shown disabled; eBay Browse approval unverified. Existing webhook intentionally 503. Awin (Petlibro, Mozillion, Cadbury, Craft Buddy, Tooled Up, tyres) unchanged and not made live. Update active handover and machine trackers after CI, Supabase application and Vercel evidence.
+
 ## 16 November 2026 · PR #228 eBay re-import suppression deployed, **not** deletion-complete
 
 **Release:** [PR #228](https://github.com/crkian/AVUQO/pull/228) merged at application SHA `2b98473686af18ff89886238a53b674f6f173faa`. GitHub quality and secret scan succeeded on PR head `9a336aea113629c98ad9143f933d58353a4a6ece`. Exact production Vercel deployment `dpl_5xLi7CzRVLvrGoAoG4psGJMVP25G` is **READY**.
