@@ -46,8 +46,8 @@ jobs:
         run: bash -n scripts/test-ebay-tombstone-race.sh && node --test tests/ebay-two-session-race-harness.test.mjs
       - name: eBay reverse-direction advisory-lock witness syntax and safety contracts (not a live DB test)
         run: bash -n scripts/test-ebay-reverse-lock-witness.sh && node --test tests/ebay-reverse-lock-witness.test.mjs
-      - name: Free offline eBay PostgreSQL harness safety contracts (not a live database pass)
-        run: bash -n scripts/test-ebay-tombstone-race.sh scripts/test-ebay-reverse-lock-witness.sh scripts/ebay-local-container-tests.sh && node --test tests/ebay-local-free-postgres.test.mjs
+      - name: Native PostgreSQL hosted runner contracts
+        run: bash -n scripts/test-ebay-tombstone-race.sh scripts/test-ebay-reverse-lock-witness.sh scripts/test-ebay-committed-link-first-race.sh scripts/ebay-native-postgres-tests.sh && node --test tests/ebay-local-free-postgres.test.mjs
       - name: eBay durable erasure work journal and no-completion safety tests
         run: node --test tests/ebay-erasure-work-journal.test.mjs
       - name: eBay erasure readiness preflight read-only contract tests (not compliance proof)
@@ -173,3 +173,29 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ci-placeholder-not-a-real-key
           NEXT_TELEMETRY_DISABLED: '1'
+
+  ebay_postgres:
+    name: Native PostgreSQL eBay concurrency (synthetic, no Docker)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Verify preinstalled PostgreSQL and start local system service
+        run: |
+          command -v psql
+          command -v createdb
+          sudo systemctl start postgresql.service
+          sudo -u postgres pg_isready -h /var/run/postgresql
+      - name: Create disposable local-only synthetic database and run independent transaction tests
+        env:
+          PGHOST: /var/run/postgresql
+          PGDATABASE: avuqo_ebay_ci_synthetic
+        run: |
+          sudo -u postgres createdb -h /var/run/postgresql avuqo_ebay_ci_synthetic
+          sudo -u postgres env -u DATABASE_URL -u SUPABASE_DB_URL -u PGHOSTADDR \
+            PGHOST=/var/run/postgresql PGDATABASE=avuqo_ebay_ci_synthetic \
+            bash scripts/ebay-native-postgres-tests.sh
