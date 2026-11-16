@@ -1884,5 +1884,20 @@
     "ebay_source": "paused with DB quarantine",
     "eBay_webhook": "503, not registered",
     "full_account_deletion": "not implemented"
+  },
+  "ebay_reverse_lock_witness_20261116": {
+    "status": "candidate_static_checks_only",
+    "script": "scripts/test-ebay-reverse-lock-witness.sh",
+    "test": "tests/ebay-reverse-lock-witness.test.mjs",
+    "runbook": "docs/AVUQO_EBAY_REVERSE_RACE_AND_ERASURE_GATES_2026-11-16.md",
+    "actual_two_client_test": "NOT_RUN",
+    "actual_link_first_race": "NOT_RUN",
+    "full_account_erasure": "NOT_IMPLEMENTED",
+    "production_database_changes": false,
+    "ebay_source": "paused",
+    "webhook": "503 and unregistered",
+    "awin": "unchanged",
+    "evidence": "read-only production query found zero receipt and ownership-link rows, two active guards",
+    "next": "Authorised clone psql tests; real link-first fixture; full cross-store erasure and retention review"
   }
 }
