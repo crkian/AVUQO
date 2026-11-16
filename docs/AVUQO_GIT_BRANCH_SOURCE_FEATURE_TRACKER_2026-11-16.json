@@ -1458,5 +1458,22 @@
     "ebay_notification_subscription_registered": false,
     "ebay_production_keyset": "disabled per owner screenshot",
     "next_step": "Complete signature verification and durable idempotent deletion processing before registering endpoint"
+  },
+  "ebay_deletion_signature_phase_20261116": {
+    "state": "PR candidate, full deletion processing not implemented",
+    "code": [
+      "lib/ebay/deletion-signature.ts",
+      "app/api/ebay/account-deletion/route.ts"
+    ],
+    "test": "tests/ebay-deletion-signature.test.mjs",
+    "signature_header": "X-EBAY-SIGNATURE, kid from base64 JSON",
+    "key_retrieval": "production Notification API through server-side OAuth, cache up to 1 hour",
+    "post": "authenticated and schema-checked but 503 until durable deletion is implemented",
+    "production_credentials": "not verified",
+    "production_keyset": "disabled per owner screenshot",
+    "signed_test": "not run",
+    "ebay_subscription": "not registered",
+    "awin": "Existing staging and preflight unchanged",
+    "next": "implement durable account deletion/suppression and fully test before eBay registration"
   }
 }
