@@ -1,10 +1,14 @@
 -- Synthetic rollback-only integration of the leased executor and stubbed
 -- audited purge dependency. This DOES NOT validate live full-schema purge.
 begin;
-insert into public.ebay_deletion_receipts(notification_digest,user_id_digest)
- values(repeat('e',64),repeat('f',64));
+-- Link exists before the deletion receipt; tombstone gate forbids later links.
 insert into public.ebay_account_item_links(identity_kind,identity_digest,offer_id)
  values('user_id_digest',repeat('f',64),'00000000-0000-4000-8000-000000000004');
+insert into public.ebay_deletion_receipts(notification_digest,user_id_digest)
+ values(repeat('e',64),repeat('f',64));
+-- Only the mapped-catalogue step is eligible for this directed exercise.
+update public.ebay_erasure_work_items set state='blocked'
+ where surface<>'mapped_catalogue';
 do $$
 declare rid bigint; v_attempt integer; v_result record; rejected boolean;
 begin
