@@ -43,6 +43,7 @@ psql_local -f tests/fixtures/ebay-local-schema-drift-erasure-acceptance.sql
 psql_local -f tests/fixtures/ebay-local-cascade-reference-schema.sql
 psql_local -f supabase/migrations/20261116230000_ebay_unreviewed_offer_cascade_guard.sql
 psql_local -f tests/fixtures/ebay-local-cascade-containment-acceptance.sql
+bash scripts/test-ebay-cascade-readonly-preflight.sh
 bash scripts/test-ebay-native-queue-lease-race.sh
 bash scripts/test-ebay-full-schema-readonly-preflight.sh
 bash scripts/test-ebay-ordered-migration-replay.sh
