@@ -1670,14 +1670,29 @@
   },
   "ebay_deletion_receipt_integrity_lock_20261116": {
     "status": "PR candidate, no new account deletion completed",
-    "migration": "supabase/migrations/20261116153000_ebay_deletion_receipt_integrity_lock.sql",
+    "migration": "ebay_deletion_receipt_integrity_lock_20261116",
     "checks": "insert only pending; immutable digest identifiers; no delete/truncate; cannot mark completed; blocked and processing not silently reset",
     "ci_test": "tests/ebay-deletion-receipt-integrity-lock.test.mjs",
     "webhook": "still 503, unregistered",
     "db_quarantine": "eBay writes disabled",
     "privacy_processing_complete": false,
     "live_ebay_offers": 0,
-    "awin": "existing private importer code unchanged",
-    "next": "Pass CI, apply migration and verify rejection behavior in rollback-only transaction; then full privacy workflow and actual eBay notification tests"
+    "awin": "unchanged private import systems",
+    "next": "Full audited privacy erasure and retention/backups, durable idempotent processor and real provider signed E2E before registration",
+    "pr": 236,
+    "merged": true,
+    "application_sha": "7240fa1544b3eae95b9b4927229667c59deee188",
+    "vercel_deployment": "dpl_3DbLghqoDubLjtLtWJnHve5ZVP9K",
+    "vercel_state": "READY",
+    "github_checks": "build lint runtime contract secret scan passed",
+    "migration_applied": true,
+    "verified_enabled_triggers": 4,
+    "negative_test": "synthetic insertion then attempt completed and delete both rejected, full rollback, final receipt count zero",
+    "production_receipt_count": 0,
+    "actual_account_deletion_complete": false,
+    "webhook_status": "503, not registered",
+    "ebay_keyset": "last screenshot disabled",
+    "existing_ebay_source_quarantine": true,
+    "live_ebay_imported_offers": 0
   }
 }
