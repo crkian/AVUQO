@@ -851,7 +851,7 @@
   },
   "ebay_account_scoped_erasure_20261116": {
     "status": "PR candidate; DBA-only partial erasure, not full privacy compliance",
-    "migration": "supabase/migrations/20261116132000_ebay_account_scoped_erasure_foundation.sql",
+    "migration": "ebay_account_scoped_erasure_foundation_20261116",
     "private_mapping_table": "public.ebay_account_item_links",
     "partial_function": "public.ebay_purge_mapped_account_rows(text)",
     "service_role_function_execute": false,
@@ -861,7 +861,26 @@
     "existing_ebay_rows_last_audit": 0,
     "limits": "No complete data retention/backup audit, no future importer integration, no automatic 2xx, no real signed provider test",
     "doc": "docs/AVUQO_EBAY_ACCOUNT_ERASURE_FOUNDATION_2026-11-16.md",
-    "next": "Check CI; apply non-destructive DDL migration and verify RLS and privileges; review full privacy erasure/legal retention and future ingestion mapping, only then full compliance.",
-    "awin": "Existing staged private merchant work unchanged"
+    "next": "Complete audited legal-retention full erasure and mandatory future importer ownership/suppression, real eBay signed test, then portal registration",
+    "awin": "Existing staged private merchant work unchanged",
+    "pr": 230,
+    "merged": true,
+    "application_sha": "15e6ea77f01dde2562cb59cc30ea752f238b7d85",
+    "production_deployment": "dpl_9Uzu8G3iAkVdFEmALeZyi8xg5zW4",
+    "vercel_status": "READY",
+    "ci": "build lint secret scan success",
+    "migration_applied": true,
+    "owner_map_rls": true,
+    "owner_map_rows_at_check": 0,
+    "service_role_grants": [
+      "SELECT",
+      "INSERT"
+    ],
+    "function_execute": "postgres only",
+    "receipt_rows_at_check": 0,
+    "actual_deletion": false,
+    "webhook_ack": "503",
+    "ebay_portal_registered": false,
+    "production_keyset": "last owner screenshot DISABLED"
   }
 }
