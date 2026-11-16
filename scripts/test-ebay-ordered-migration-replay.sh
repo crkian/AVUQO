@@ -12,7 +12,7 @@ set -Eeuo pipefail
 db="avuqo_ebay_ordered_replay_ci_synthetic"
 manifest="tests/fixtures/ebay-migration-replay-manifest.txt"
 [[ -f "$manifest" ]] || { echo "FAIL: migration manifest absent"; exit 1; }
-args=(-f tests/fixtures/ebay-local-schema.sql -f tests/fixtures/ebay-local-secondary-reference-schema.sql)
+args=(-f tests/fixtures/ebay-local-schema.sql -f tests/fixtures/ebay-local-secondary-reference-schema.sql -f tests/fixtures/ebay-local-cascade-reference-schema.sql)
 previous=""
 count=0
 while IFS= read -r path || [[ -n "$path" ]]; do
@@ -28,7 +28,7 @@ while IFS= read -r path || [[ -n "$path" ]]; do
  args+=(-f "$path")
  ((count+=1))
 done < "$manifest"
-[[ "$count" -eq 12 ]] || { echo "FAIL: expected exactly twelve eBay privacy migrations"; exit 1; }
+[[ "$count" -eq 13 ]] || { echo "FAIL: expected exactly thirteen eBay privacy migrations"; exit 1; }
 # NEVER drop a pre-existing DB: createdb must fail if the name exists.
 # Only delete a database successfully created by this invocation.
 created=false
@@ -62,4 +62,6 @@ printf '%s\n' "$rows"
 # No receipt, account mapping, work item or audit is created as a side effect.
 psql -X -v ON_ERROR_STOP=1 -h /var/run/postgresql -U postgres -d "$db" \
  -f tests/fixtures/ebay-ordered-replay-invariants.sql
+# Reconcile historical production-style eBay migration version collisions.
+bash scripts/test-ebay-migration-history-readonly-preflight.sh
 echo 'EBAY_ORDERED_MIGRATION_REPLAY_PASS (isolated local synthetic; eBay activation remains NO-GO)'
