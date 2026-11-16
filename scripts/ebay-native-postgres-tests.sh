@@ -30,6 +30,8 @@ psql_local -f tests/fixtures/ebay-local-mapped-executor-acceptance.sql
 psql_local -f supabase/migrations/20261116200000_ebay_dba_bounded_mapped_purge_runner.sql
 psql_local -f tests/fixtures/ebay-local-dba-processor-acceptance.sql
 psql_local -f tests/fixtures/ebay-local-secondary-reference-schema.sql
+psql_local -f supabase/migrations/20261116211000_ebay_secondary_account_reference_counts.sql
+psql_local -f tests/fixtures/ebay-local-secondary-account-evidence.sql
 psql_local -f supabase/migrations/20261116203000_ebay_prevent_secondary_reference_orphaning.sql
 psql_local -f tests/fixtures/ebay-local-secondary-orphan-guard-acceptance.sql
 bash scripts/test-ebay-native-queue-lease-race.sh

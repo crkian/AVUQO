@@ -2135,5 +2135,41 @@
     "docker": false,
     "ebay": "paused and callback HTTP 503/unregistered",
     "awin": "unchanged"
+  },
+  "avuqo_commercial_model_clarification_20261116": {
+    "direct_inventory_supply": false,
+    "dropshipping": false,
+    "merchant_fulfilment_by_avuqo": false,
+    "model": "automated multi-retailer price comparison and bargains; approved affiliate/referral or separately authorised retailer purchase",
+    "ebay": "advanced privacy-compliant feed/marketplace integration pending provider permissions",
+    "awin": "independent preserved"
+  },
+  "ebay_secondary_account_evidence_20261116": {
+    "status": "CANDIDATE_UNAPPLIED_PENDING_NATIVE_CI",
+    "migration": "supabase/migrations/20261116211000_ebay_secondary_account_reference_counts.sql",
+    "function": "public.ebay_secondary_account_reference_counts(bigint)",
+    "counted_surfaces": [
+      "offers",
+      "analytics_events",
+      "attribution_events",
+      "user_feedback",
+      "watch_events"
+    ],
+    "exact_three_identity_aliases": true,
+    "source_isolation": true,
+    "returns_personal_values": false,
+    "native_acceptance": "tests/fixtures/ebay-local-secondary-account-evidence.sql",
+    "structural_test": "tests/ebay-secondary-account-evidence.test.mjs",
+    "runbook": "docs/AVUQO_EBAY_ACCOUNT_SECONDARY_HISTORY_2026-11-16.md",
+    "account_erasure_performed": false,
+    "zero_counts_prove_compliance": false,
+    "applied_production": false,
+    "full_store_erasure_proven": false,
+    "backup_retention_processor_verified": false,
+    "real_ebay_notification_verified": false,
+    "spend": "£0 additional",
+    "docker": false,
+    "eBay": "paused, sync off, quarantine, HTTP 503",
+    "awin": "unchanged"
   }
 }
