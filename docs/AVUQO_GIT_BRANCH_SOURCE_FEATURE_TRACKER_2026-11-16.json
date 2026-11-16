@@ -1622,5 +1622,34 @@
     "webhook_response": "503 intentionally",
     "ebay_portal_registered": false,
     "ebay_keyset": "disabled in last owner screenshot"
+  },
+  "ebay_signed_notification_runtime_tests_20261116": {
+    "status": "PR candidate; synthetic runtime test wired into CI, no live eBay signature tested",
+    "test": "tests/ebay-deletion-signature-runtime.test.mjs",
+    "ci": ".github/workflows/quality.yml",
+    "crypto": "synthetic EC sha1 signing, real verifier, mocked production OAuth and eBay Notification public-key",
+    "negatives": [
+      "tampered JSON",
+      "malformed header",
+      "wrong signing key",
+      "invalid public key",
+      "OAuth outage"
+    ],
+    "provider_reference": "https://github.com/eBay/event-notification-nodejs-sdk/blob/main/lib/validator.js",
+    "vercel_production_missing_env_names": [
+      "EBAY_CLIENT_ID",
+      "EBAY_CLIENT_SECRET",
+      "EBAY_DELETION_VERIFICATION_TOKEN",
+      "EBAY_DELETION_ENDPOINT_URL",
+      "EBAY_DELETION_HMAC_SECRET"
+    ],
+    "vercel_sandbox_env_present": true,
+    "ebay_keyset": "disabled in last owner screenshot",
+    "actual_erasure_complete": false,
+    "webhook_ack": "503 for signed notifications",
+    "source_quarantine": true,
+    "public_ebay_item_offers": 0,
+    "awin": "existing importers unchanged",
+    "next": "Check PR CI; actual production credentials and valid privacy processing must exist before eBay provider test/registration"
   }
 }
