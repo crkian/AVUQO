@@ -1,13 +1,14 @@
 import {createHash} from "node:crypto";
 import {NextRequest,NextResponse} from "next/server";
 import {verifyEbaySignature} from "../../../../lib/ebay/deletion-signature";
+import {journalVerifiedEbayDeletion} from "../../../../lib/ebay/deletion-journal";
 
 /**
  * eBay production account-deletion webhook, phase 2 (challenge and signature verification, deletion processing pending).
  *
  * IMPORTANT: Do not register this endpoint with eBay yet. Signed POST processing,
- * idempotent deletion and audit are not implemented. POST deliberately fails closed.
- * No eBay user data is accepted or persisted in this phase.
+ * idempotent deletion is not implemented. POST deliberately fails closed.
+ * Only keyed digests of identifiers may be journaled after verified signature.
  */
 const EXACT_ENDPOINT="https://www.avuqo.com/api/ebay/account-deletion";
 const headers={"Cache-Control":"no-store","X-Content-Type-Options":"nosniff"};
@@ -62,7 +63,8 @@ export async function POST(request:NextRequest){
     notice.notificationId.length>128||
     !notice.data||typeof notice.data!=="object")
   return NextResponse.json({error:"Unsupported notification"},{status:422,headers});
- // Never persist identifiers in logs or claim a deletion was completed here.
- return NextResponse.json({error:"Deletion processing not enabled"},
+ const receipt=await journalVerifiedEbayDeletion(notice.notificationId,notice.data as Record<string,unknown>);
+ // Persisting a receipt is NOT erasure, so never acknowledge success yet.
+ return NextResponse.json({error:receipt==="unavailable"?"Deletion journal unavailable":"Deletion processing not enabled"},
   {status:503,headers:{...headers,"Retry-After":"3600"}});
 }

@@ -787,5 +787,19 @@
     "webhook_post": "503 even for verified messages",
     "eBay_keyset": "disabled per owner screenshot",
     "eBay_subscription": "NOT_REGISTERED"
+  },
+  "ebay_deletion_receipt_journal_20261116": {
+    "status": "PR candidate, not yet approved or verified in production",
+    "db_migration": "supabase/migrations/20261116124500_ebay_private_deletion_receipt_journal.sql",
+    "route": "app/api/ebay/account-deletion/route.ts",
+    "helper": "lib/ebay/deletion-journal.ts",
+    "protected_data": "HMAC-SHA256 only, no raw eBay account identifiers",
+    "dedupe": "notification digest unique; duplicate digest contents verified",
+    "webhook_response": "503 even for signed and journalled messages",
+    "privacy_deletion": "NOT IMPLEMENTED",
+    "production_keyset": "disabled per owner screenshot",
+    "live_ebay_offers_last_verified": 0,
+    "live_awin_offers_last_verified": 0,
+    "next": "CI/preview then migration verification; implement audited irreversible deletion/suppression before 2xx or portal registration"
   }
 }

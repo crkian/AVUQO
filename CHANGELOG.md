@@ -1,3 +1,7 @@
+## 16 Nov 2026 · eBay account deletion private receipt journal PR candidate
+
+- New RLS/private service-role-only `ebay_deletion_receipts` SQL journal, HMAC identifier hashing and duplicate detection, verified-signature-only intake. Signed POST still deliberately HTTP 503 until actual account-data erasure and suppression exists. No eBay portal registration, no live item offers; Awin pipelines unchanged. Handover details in `docs/AVUQO_ACTIVE_HANDOVER.md`.
+
 ## 16 Nov 2026 · PR #224 eBay signed-notification validation deployed, not subscribed
 
 **Verified implementation:** [PR #224](https://github.com/crkian/AVUQO/pull/224) merged at application SHA `7a791a342d60f5dfff9326f0a8b5fb0e80250afa`. GitHub quality checks and secret scan succeeded. Exact Vercel production deployment `dpl_YJKMvcPyXzHGcrkngV4m7DDWeRuE` is **READY**. This supersedes PR #222 as the latest confirmed application code.
