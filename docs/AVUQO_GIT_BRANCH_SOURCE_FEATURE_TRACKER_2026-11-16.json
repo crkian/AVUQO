@@ -1536,6 +1536,16 @@
     "webhook_acknowledgement": "503 until real deletion implementation",
     "ebay_keyset": "disabled per last owner screenshot",
     "awin": "existing importers intact and not modified",
-    "next": "complete data erasure and reimport prevention across actual eBay ingest paths; test signed provider E2E, then eBay registration"
+    "next": "Build actual eBay data erasure/suppression and wire guard to future importer; provider-verify signed notifications before registration.",
+    "pr": 228,
+    "merged": true,
+    "application_sha": "2b98473686af18ff89886238a53b674f6f173faa",
+    "vercel_deployment": "dpl_5xLi7CzRVLvrGoAoG4psGJMVP25G",
+    "vercel_status": "READY",
+    "github_checks": "quality and secret scan passed",
+    "guard_wired_to_live_importer": false,
+    "deletion_processing_complete": false,
+    "ebay_portal_registered": false,
+    "production_keyset": "disabled per most recent owner evidence"
   }
 }
