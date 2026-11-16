@@ -44,6 +44,8 @@ jobs:
         run: node --experimental-strip-types --test tests/ebay-sandbox-awin-onboarding.test.mjs
       - name: eBay two-session race harness syntax and safety contracts (not a live DB test)
         run: bash -n scripts/test-ebay-tombstone-race.sh && node --test tests/ebay-two-session-race-harness.test.mjs
+      - name: eBay reverse-direction advisory-lock witness syntax and safety contracts (not a live DB test)
+        run: bash -n scripts/test-ebay-reverse-lock-witness.sh && node --test tests/ebay-reverse-lock-witness.test.mjs
       - name: eBay account tombstone atomic admission database-contract tests
         run: node --test tests/ebay-atomic-tombstone-admission.test.mjs
       - name: eBay private full-store privacy inventory contract tests
