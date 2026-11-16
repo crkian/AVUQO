@@ -2171,5 +2171,31 @@
     "docker": false,
     "eBay": "paused, sync off, quarantine, HTTP 503",
     "awin": "unchanged"
+  },
+  "ebay_secondary_history_disposition_20261116": {
+    "status": "CANDIDATE_UNAPPLIED_PENDING_CI",
+    "migration": "supabase/migrations/20261116214000_ebay_secondary_history_lease_disposition.sql",
+    "function": "public.ebay_assess_leased_secondary_history(bigint,integer)",
+    "runbook": "docs/AVUQO_EBAY_SECONDARY_HISTORY_DISPOSITION_2026-11-16.md",
+    "test": "tests/fixtures/ebay-local-secondary-disposition-acceptance.sql",
+    "reviews": [
+      "analytics_events",
+      "attribution_events",
+      "user_feedback",
+      "watch_events"
+    ],
+    "linked_rows_present": "blocked / SECONDARY_REVIEW_REQUIRED",
+    "linked_rows_absent": "awaiting_evidence / NEVER completed",
+    "direct_data_erasure": false,
+    "receipt_completion": false,
+    "provider_ack": false,
+    "production_migration_applied": false,
+    "owner_authorized_worker_deployed": false,
+    "external_retention_verified": false,
+    "full_erasure_proven": false,
+    "spend": "£0 additional",
+    "docker": false,
+    "awin": "unchanged",
+    "ebay": "paused; sync disabled; quarantine; HTTP 503; unregistered"
   }
 }
