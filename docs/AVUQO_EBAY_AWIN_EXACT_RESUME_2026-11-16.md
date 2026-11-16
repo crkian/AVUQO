@@ -1,3 +1,11 @@
+## 16 Nov 2026 · eBay account-deletion callback phase 1 implementation (PR candidate)
+
+**Actual new code:** `app/api/ebay/account-deletion/route.ts` provides an exact canonical-URL eBay SHA-256 GET challenge, server-only `EBAY_DELETION_VERIFICATION_TOKEN` (32-80 permitted chars), server-only `EBAY_DELETION_ENDPOINT_URL` that must equal `https://www.avuqo.com/api/ebay/account-deletion`, rejects extra query parameters/malformed tokens, never caches the response, and fails closed without correct environment. `tests/ebay-deletion-challenge.test.mjs` covers URL, digest order and POST refusal.
+
+**CRITICAL INCOMPLETE COMPLIANCE GATE:** The POST handler deliberately returns HTTP **503** and never acknowledges a deletion message until authenticated `X-EBAY-SIGNATURE` verification with eBay public key plus durable idempotent delete/retention-audit workflow have been implemented. **DO NOT enter/register this endpoint in eBay Developer. DO NOT mark production keyset enabled.** This is verified challenge groundwork, **not an operational deletion subscription**. No eBay credentials or token have been entered; no SQL/new storage/rights/source change; no imported eBay or Awin offers. eBay sandbox keys remain separate and owner screenshots prove Production keyset disabled. Next implementer task is complete signed POST verification and erasure queue after privacy/data-inventory review, with negative tests and eBay challenge verification, before any registration. Run CI/preview then merge, update exact deployed SHA and handover.
+
+**Awin unchanged:** existing Petlibro/Mozillion/Cadbury/Craft Buddy fixed private importers, Tooled Up full snapshot + 250-row batch pipeline and specialist tyre staging. Owner should run safe preflight from `/control-centre/awin-feed-updates` and capture actual outcomes, then merchant-scoped rights/price release and withdrawal. Do not reactivate paused global Awin source or treat private drafts as public offers.
+
 # AVUQO eBay + Awin exact resume checkpoint | 16 November 2026
 
 ## Mandatory first action in every new chat
