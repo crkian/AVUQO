@@ -8,20 +8,13 @@
 
 In the same SQL transaction, the new function moves only that one queue item to `awaiting_evidence` and clears its lease. If any step fails, PostgreSQL rolls back the purge, audit and work disposition. The procedure does **not** mark a receipt `completed`, process other work surfaces, make a provider API call or return an eBay webhook acknowledgement. It has no permission grants for anon/authenticated/service_role.
 
-## Evidence: native GitHub PostgreSQL synthetic test
+## Evidence: real versioned mapped purge on synthetic PostgreSQL
 
-The `ebay_postgres` job on the public repository's existing Ubuntu hosted runner applies the exact new candidate function to the isolated Unix-socket-only PostgreSQL database. The existing production audited purge dependency is **simulated** for this test by `tests/fixtures/ebay-local-mapped-purge-dependency.sql`, which deletes mapped offers/ingestion and writes a count-only audit; this simulator is not the actual production purge function and does not validate production `price_history`, `product_matches` or complete schema. The linked-offer fixture belongs to eBay; a separate non-eBay offer must survive.
+The native GitHub `ebay_postgres` job now loads the **actual committed original** `20261116132000_ebay_account_scoped_erasure_foundation.sql` migration, the exact `20261116155500_ebay_audited_partial_erasure.sql` migration, the work journal and the leased executor over a minimal **synthetic** local database. The former test-only implementation of the purge dependency was removed. This is genuine execution of the exact original database functions, not a stub.
 
-The acceptance `tests/fixtures/ebay-local-mapped-executor-acceptance.sql` tests that:
-- A deletion receipt can be created *after* an existing account link.
-- The new executor refuses an unleased or incorrect-attempt call.
-- A genuine queue claim permits one audited partial deletion.
-- Exact linked eBay offer and its ownership link disappear while a non-eBay offer survives.
-- One private count-only audit exists and the mapped work item moves to `awaiting_evidence`.
-- Duplicate execution is refused and the receipt remains `pending_privacy_review`.
-- Every synthetic mutation is rolled back and the eBay offer is restored in the fixture database.
+`tests/fixtures/ebay-local-mapped-executor-acceptance.sql` creates synthetic source-scoped `offers`, `source_ingestion_items`, `price_history` and `product_matches`, including multi-alias ownership links on one eBay account, an unrelated eBay offer and non-eBay data. It verifies exact real purge counts of one for **all four affected surfaces**, mapped ownership link removal, a single audited result, source isolation, refusal of unleased/stale/duplicate work, no receipt completion and complete transaction rollback.
 
-**Passing CI does not prove that the original production audited purge function works on the actual full AVUQO schema.** That needs a separate integration proof with actual versioned original purge migration and all linked price/match/ingestion tables, plus retention and legal review.
+**Limit:** This is the original production SQL operating on a *minimal synthetic table schema*, not a full clone of AVUQO's actual constraints, triggers, indexes, storage, processors or backups. It does not establish completed erasure, external retention compliance or signed eBay provider webhook readiness. Future cross-store audit and full-schema integration remain required.
 
 ## Operational restrictions and unfinished work
 
