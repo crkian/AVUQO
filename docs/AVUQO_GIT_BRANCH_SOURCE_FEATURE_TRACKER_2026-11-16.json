@@ -1797,5 +1797,20 @@
     "webhook": "503 signed events, not registered",
     "ebay_production_credentials": "not configured per Vercel environment inventory",
     "ebay_production_keyset": "disabled in last owner screenshot"
+  },
+  "ebay_atomic_tombstone_admission_20261116": {
+    "status": "candidate, needs CI and migration verification",
+    "migration": "supabase/migrations/20261116165000_ebay_atomic_tombstone_admission.sql",
+    "receipt_lock": "transaction keyed to each account HMAC, sorted lock keys",
+    "link_guard": "exact HMAC tombstone check on INSERT/UPDATE of ebay_account_item_links",
+    "db_indexes": "user_id_digest username_digest eias_token_digest",
+    "privacy_guarantee": "blocks new ownership association to existing receipt, no full erasure guarantee",
+    "concurrency_proof": "not yet independently two-session tested",
+    "site_importer_live": false,
+    "ebay_quarantine": true,
+    "webhook": "503 intentionally, not registered",
+    "ebay_keyset": "disabled per last screenshot",
+    "awin": "existing private importers preserved",
+    "next": "CI, apply SQL, verify trigger and negative synthetic tombstone check, then full erasure and real signed provider acceptance"
   }
 }
