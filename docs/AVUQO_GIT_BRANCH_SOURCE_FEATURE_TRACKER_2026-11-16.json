@@ -1581,5 +1581,23 @@
     "webhook_ack": "503",
     "ebay_portal_registered": false,
     "production_keyset": "last owner screenshot DISABLED"
+  },
+  "ebay_db_ingestion_quarantine_20261116": {
+    "status": "PR candidate; migration not yet applied",
+    "migration": "supabase/migrations/20261116141000_ebay_ingestion_quarantine.sql",
+    "trigger_tables": [
+      "offers",
+      "source_ingestion_items",
+      "product_matches",
+      "price_history",
+      "sources"
+    ],
+    "source_write_guard": "reject eBay old/new source INSERT/UPDATE",
+    "source_activation_guard": "reject ebay unpause, sync_enabled=true and connector relabel",
+    "review_doc": "docs/AVUQO_EBAY_DB_INGESTION_QUARANTINE_2026-11-16.md",
+    "webhook": "503 for verified deletion until actual full erasure",
+    "current_prod_keyset": "disabled per owner screenshot",
+    "awin": "19 programme and existing private merchant importers preserved unchanged",
+    "next": "Check CI; apply migration, verify triggers and real source activation fails, then verify Vercel and update all handovers; next build complete privacy erasure/atomic importer."
   }
 }
