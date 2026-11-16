@@ -1,5 +1,13 @@
 # AVUQO | ACTIVE OPERATIONAL HANDOVER
 
+## 16 Nov 2026 · Verified PR #222 eBay deletion challenge release
+
+**Merged code:** [PR #222](https://github.com/crkian/AVUQO/pull/222), production code commit `2691b5e1d7b0bf74e0f3918ee99074ec5b87275f`; exact Vercel deployment `dpl_DPzu7bNj2qGcyXkyFSeDu9zHi5m6` reported **READY**. GitHub quality checks and committed-secret scan succeeded after correcting a Next.js 16 `cacheComponents` incompatibility: the first build rejected route-level `runtime="nodejs"`, removed before merge. Live endpoint challenge-response HTTP request was **not independently tested** because network retrieval was unavailable, and runtime secrets `EBAY_DELETION_VERIFICATION_TOKEN` and `EBAY_DELETION_ENDPOINT_URL` were **not configured**. The GET route thus fails closed until properly configured.
+
+**Critical NO-GO for eBay registration:** GET SHA-256 challenge groundwork exists, but signed POST `X-EBAY-SIGNATURE` verification, durable idempotent deletion/retention audit and negative testing are **not implemented**. POST deliberately responds 503. **Do not paste the endpoint into eBay Developer, submit a token or claim eBay production keys enabled** until full receiver is implemented and verified. eBay's production keyset remains disabled as evidenced by owner screenshot, and Buy/Browse API production approval remains unverified. No individual eBay item catalogue or Awin retailer offers were published in PR #222.
+
+**Next engineering priority:** finish fully authenticated and durable eBay deletion notification receiver with test coverage, preserve source privacy, configure secrets directly in Vercel and verify challenge/POST before owner portal registration. Owner can separately save the eBay notification-down email, but saved state was not yet evidenced. Awin existing private import machinery continues unchanged; run signed-in owner preflight then merchant-specific publication with fresh rights/price checks.
+
 **CI correction 16 Nov:** Initial PR #222 GitHub build failed because `export const runtime="nodejs"` is incompatible with existing Next.js 16 `cacheComponents`; removed this segment config without changing challenge or POST refusal logic. Do not mark build/production READY until rerun checks pass. No production change arose from the failed CI.
 
 ## 16 Nov 2026 · eBay account-deletion callback phase 1 implementation (PR candidate)
