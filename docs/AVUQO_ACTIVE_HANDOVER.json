@@ -968,5 +968,17 @@
     "webhook_response": "503 for signed event",
     "deletion_processing": "not complete",
     "eBay_live_item_offers": 0
+  },
+  "ebay_deletion_receipt_integrity_lock_20261116": {
+    "status": "PR candidate, no new account deletion completed",
+    "migration": "supabase/migrations/20261116153000_ebay_deletion_receipt_integrity_lock.sql",
+    "checks": "insert only pending; immutable digest identifiers; no delete/truncate; cannot mark completed; blocked and processing not silently reset",
+    "ci_test": "tests/ebay-deletion-receipt-integrity-lock.test.mjs",
+    "webhook": "still 503, unregistered",
+    "db_quarantine": "eBay writes disabled",
+    "privacy_processing_complete": false,
+    "live_ebay_offers": 0,
+    "awin": "existing private importer code unchanged",
+    "next": "Pass CI, apply migration and verify rejection behavior in rollback-only transaction; then full privacy workflow and actual eBay notification tests"
   }
 }
