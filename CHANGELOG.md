@@ -1,3 +1,9 @@
+## Unreleased · 16 Nov 2026 existing Awin automation verification and per-task Git recording
+
+- Read-only check of 16 Nov current Awin feed-discovery, Supabase private imports, Tooled Up storage/validation, control states, Production Vercel env-key presence and historical runtime logs. Confirmed **zero public Awin offers** and **no source/merchant rights changes**.
+- Correct prior uncertainty: first Tooled Up snapshot/validator schedule went live with 16 Nov 09:47 UTC READY deployment, **after** 08:05/08:25 cron slots. The 16 Nov zero snapshot count was not a missed scheduled execution; first possible run 17 Nov. Pilot imports still need direct invocation/skip/failure verification.
+- Owner requires full Git handover update **after every material action or investigation**, including no-code audits. Updated active Markdown/JSON, historical machine state, PROJECT_STATUS and CHANGELOG together. No application code, Supabase write, image, product or publication changes, so no additional production build required.
+
 ## Unreleased · Exact post-merge active-handover deployment proof · 16 Nov 2026
 
 - PR #210 merged at `3a98b50948d16599ac46d6c8a087c323e7688e7b`, quality and secrets passed. Vercel deployment `dpl_6oMYNWsFCrUG1ZM37Zu8B6mfPGAY` READY; signed-out `www.avuqo.com` returned HTTP 200 with matching deployment identifier.
