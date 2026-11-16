@@ -1,3 +1,5 @@
+- 16 Nov eBay/Awin production release checkpoint: owner screenshot confirms eBay production Client ID but not Browse/EPN approval or account-deletion compliance; live Supabase Awin and eBay sources remain paused with zero genuine offers, six demo-only rows, and zero Awin cron attempts. No production changes. Detailed evidence and next owner actions: `docs/AVUQO_EBAY_AWIN_LIVE_RELEASE_GATE_2026-11-16.md`.
+
 ## Unreleased · Record full 19-programme Awin automatic staging-to-live scope · 16 Nov 2026
 
 - Owner confirmed all eligible Awin programmes/products should stage and ultimately publish automatically, not stop at one item or six pilots. Added complete 19-programme table/JSON, 17 numeric IDs, 16 joined registry IDs, two missing IDs, 74 observed feed IDs among 11 advertisers and precise category-specific blockers. Live Awin offers remain zero; private canonical products remain 251.
