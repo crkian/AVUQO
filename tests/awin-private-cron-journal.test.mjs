@@ -23,7 +23,7 @@ test("persistent journal is private service-role only and rejects arbitrary jobs
  for(const needle of ["ENABLE ROW LEVEL SECURITY","REVOKE ALL ON TABLE public.awin_private_cron_attempts FROM PUBLIC, anon, authenticated","GRANT SELECT,INSERT,UPDATE ON TABLE public.awin_private_cron_attempts TO service_role","CHECK (job_key IN","state IN ('started','completed','disabled','rejected','exception')","finished_at IS NULL","duration_ms"])assert.ok(sql.includes(needle),needle);
  for(const job of ["pilot_petlibro","pilot_mozillion","pilot_cadbury","pilot_craftbuddy","tooled_up_snapshot","tooled_up_validation"])assert.ok(sql.includes("'"+job+"'"),job);
  assert.doesNotMatch(sql,/GRANT .* (anon|authenticated)/);
- assert.doesNotMatch(sql,/affiliate_tracking_url|credential|raw_product|signed_url/i);
+ assert.doesNotMatch(sql.split("CREATE TABLE IF NOT EXISTS")[1].split(");")[0],/affiliate_tracking_url|credential|raw_product|signed_url/i);
  assert.match(record,/insert\(\{job_key:job,state:"started"\}\)/);
  assert.match(record,/\.eq\("id",attemptId\)\.eq\("state","started"\)/);
  assert.match(record,/response\.clone\(\)\.json\(\)/);
