@@ -733,5 +733,19 @@
     },
     "rule": "At each step update MD/JSON handover, tracker, project status, relevant affiliate board and changelog; verify true live state and never copy credentials.",
     "supersedes": "Older pre-PR219 audit statement that PR216 is latest production code."
+  },
+  "ebay_deletion_challenge_phase_20261116": {
+    "state": "PR candidate; not registered with eBay",
+    "route": "app/api/ebay/account-deletion/route.ts",
+    "url": "https://www.avuqo.com/api/ebay/account-deletion",
+    "get": "strict SHA256 challenge implemented, requires server-only EBAY_DELETION_VERIFICATION_TOKEN and EBAY_DELETION_ENDPOINT_URL",
+    "post": "503 fail-closed; signed verification/deletion not yet implemented",
+    "test": "tests/ebay-deletion-challenge.test.mjs",
+    "production_keyset": "DISABLED on owner screenshot",
+    "must_not_register_before": "verified signature POST and durable idempotent deletion processing, production deploy, eBay challenge acceptance",
+    "awin": "Unchanged, owner preflight still required",
+    "public_ebay_item_offers": 0,
+    "public_awin_offers_last_verified": 0,
+    "source_changes": false
   }
 }
