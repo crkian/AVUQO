@@ -1,12 +1,12 @@
 /** UK eBay Browse read-only owner pilot. No persistence, public offers or affiliate release. */
 export type EbayPilotItem={
  itemId:string;title:string;priceGBP:number|null;condition:string|null;
- seller:string|null;imageUrl:string|null;brand:string|null;mpn:string|null;
+ imageUrl:string|null;brand:string|null;mpn:string|null;
  categoryPath:string|null;shippingGBP:number|null;hasAffiliateTracking:boolean;
 };
 type EbaySummary={
  itemId?:unknown;title?:unknown;price?:{value?:unknown;currency?:unknown};
- condition?:unknown;seller?:{username?:unknown};image?:{imageUrl?:unknown};
+ condition?:unknown;image?:{imageUrl?:unknown};
  categories?:Array<{categoryName?:unknown}>;itemLocation?:{country?:unknown};
  shippingOptions?:Array<{shippingCost?:{value?:unknown;currency?:unknown}}>;
  itemAffiliateWebUrl?:unknown;localizedAspects?:Array<{name?:unknown;value?:unknown}>;
@@ -40,7 +40,7 @@ export function normalizeEbayUkResults(data:unknown,hasCampaign:boolean):EbayPil
   }
   return [{
    itemId:id,title,priceGBP:gbp(item.price),condition:safeText(item.condition,70)||null,
-   seller:safeText(item.seller?.username,80)||null,imageUrl:safeImage(item.image?.imageUrl),
+   imageUrl:safeImage(item.image?.imageUrl),
    brand:aspect("brand")||null,mpn:aspect("mpn")||null,
    categoryPath:Array.isArray(item.categories)?item.categories.map(x=>safeText(x.categoryName,100)).filter(Boolean).join(" > ")||null:null,
    shippingGBP:gbp(item.shippingOptions?.[0]?.shippingCost),
