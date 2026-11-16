@@ -266,6 +266,37 @@ begin
  if not rejected then raise exception 'Cascade FK drift allowed eBay mapped purge'; end if;
 end $$;
 rollback;
+-- A newly introduced offer FK is unknown to the reviewed inventory,
+-- so the original purge cannot silently delete or orphan new table records.
+begin;
+create table public.ebay_ci_unreviewed_new_fk(
+ id bigint generated always as identity primary key,
+ offer_id uuid references public.offers(id) on delete cascade
+);
+insert into public.ebay_account_item_links(identity_kind,identity_digest,offer_id)
+ values('user_id_digest',repeat('e',64),'00000000-0000-4000-8000-000000000004');
+insert into public.ebay_deletion_receipts(notification_digest,user_id_digest)
+ values(repeat('f',64),repeat('e',64));
+do $
+declare rejected boolean:=false; rid bigint;
+begin
+ select id into strict rid from public.ebay_deletion_receipts
+ where notification_digest=repeat('f',64);
+ begin
+  perform public.ebay_run_next_mapped_catalogue_erasure();
+ exception when raise_exception then
+  if position('unknown offer FK dependency' in sqlerrm)>0 then
+   rejected:=true; else raise; end if;
+ end;
+ if not rejected then raise exception 'Unknown new offer FK allowed eBay mapped purge'; end if;
+ if not exists(select 1 from public.offers where id='00000000-0000-4000-8000-000000000004')
+ or exists(select 1 from public.ebay_partial_erasure_audit where receipt_id=rid)
+ or not exists(select 1 from public.ebay_erasure_work_items
+  where receipt_id=rid and surface='mapped_catalogue' and attempts=0 and state='pending')
+ then raise exception 'Unknown FK failed atomic rollback'; end if;
+end $;
+rollback;
+
 -- Normal non-eBay retailer deletion behaviour remains unchanged.
 begin;
 insert into public.click_events(offer_id)
@@ -337,5 +368,8 @@ begin
  'public.published_deals'::regclass
  );
  if n<>7 then raise exception 'Seven cascading constraints not restored'; end if;
+ select count(*) into n from pg_catalog.pg_constraint
+ where contype='f' and confrelid='public.offers'::regclass;
+ if n<>13 then raise exception 'Thirteen offer foreign keys not restored'; end if;
 end $$;
 select 'EBAY_SEVEN_CASCADE_DEPENDENCIES_SAFE_PASS';
