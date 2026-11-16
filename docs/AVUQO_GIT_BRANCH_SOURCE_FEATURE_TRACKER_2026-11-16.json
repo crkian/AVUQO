@@ -2071,5 +2071,28 @@
     "full_erasure": false,
     "retention_verified": false,
     "signed_provider_event_verified": false
+  },
+  "ebay_portal_subscription_readiness_20261116": {
+    "status": "CANDIDATE_GATE_TEST_NOT_SUBSCRIBED",
+    "budget": "£0 additional",
+    "docker": false,
+    "source_screenshot": "Production marketplace account deletion page: alert email saved, endpoint/token blank",
+    "exact_endpoint": "https://www.avuqo.com/api/ebay/account-deletion",
+    "verification_token": "NOT_CONFIGURED_OR_SHARED",
+    "tests": "tests/ebay-portal-registration-runtime.test.mjs",
+    "runbook": "docs/AVUQO_EBAY_PORTAL_REGISTRATION_READINESS_2026-11-16.md",
+    "get_challenge_runtime_synthetic": "PENDING_GITHUB_CI",
+    "signed_post_success_acknowledged": false,
+    "production_env_changed": false,
+    "production_database_changed": false,
+    "paid_resources_created": false,
+    "provider_subscription_saved": false,
+    "true_processor_installed": false,
+    "full_account_erasure_verified": false,
+    "external_retention_and_backups_verified": false,
+    "signed_real_provider_notification_test": false,
+    "ebay_source": "paused, sync off, quarantined",
+    "callback": "HTTP 503",
+    "awin": "unchanged"
   }
 }
