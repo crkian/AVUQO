@@ -72,7 +72,7 @@ execute function public.ebay_lock_deletion_receipt_accounts();
 
 create function public.ebay_reject_tombstoned_account_item_link()
 returns trigger language plpgsql security definer set search_path = ''
-as $
+as $$
 begin
  if new.identity_kind not in ('user_id_digest','username_digest','eias_token_digest')
   or new.identity_digest is null
