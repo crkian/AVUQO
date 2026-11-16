@@ -2026,5 +2026,29 @@
     "production_journal_applied": false,
     "ebay": "NO-GO paused quarantined HTTP 503",
     "awin": "unchanged"
+  },
+  "ebay_leased_mapped_catalogue_executor_20261116": {
+    "status": "CANDIDATE_UNAPPLIED_PENDING_NATIVE_GITHUB_CI",
+    "candidate_migration": "supabase/migrations/20261116192000_ebay_leased_mapped_catalogue_executor.sql",
+    "runbook": "docs/AVUQO_EBAY_MAPPED_CATALOGUE_EXECUTOR_2026-11-16.md",
+    "native_integration_fixture": "tests/fixtures/ebay-local-mapped-executor-acceptance.sql",
+    "existing_audited_purge_in_tests": "SYNTHETIC_SIMULATOR_NOT_ORIGINAL",
+    "only_surface": "mapped_catalogue",
+    "executor_status": "no_worker_deployed",
+    "atomic_audit_and_awaiting_evidence": true,
+    "receipt_completion_enabled": false,
+    "provider_ack_enabled": false,
+    "migration_applied_production": false,
+    "queue_migration_applied_production": false,
+    "full_store_erasure_proven": false,
+    "provider_signatures_proven": false,
+    "backups_retention_proven": false,
+    "original_purge_full_schema_test": false,
+    "additional_spend": "£0",
+    "docker": false,
+    "production_db_changes": false,
+    "source": "paused, sync false, quarantined",
+    "webhook": "unregistered HTTP 503",
+    "awin": "unchanged"
   }
 }
