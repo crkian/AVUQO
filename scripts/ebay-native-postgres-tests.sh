@@ -27,5 +27,7 @@ bash scripts/test-ebay-committed-link-first-race.sh
 psql_local -f supabase/migrations/20261116155500_ebay_audited_partial_erasure.sql
 psql_local -f supabase/migrations/20261116192000_ebay_leased_mapped_catalogue_executor.sql
 psql_local -f tests/fixtures/ebay-local-mapped-executor-acceptance.sql
+psql_local -f supabase/migrations/20261116200000_ebay_dba_bounded_mapped_purge_runner.sql
+psql_local -f tests/fixtures/ebay-local-dba-processor-acceptance.sql
 bash scripts/test-ebay-native-queue-lease-race.sh
 echo 'NATIVE_POSTGRES_CONCURRENCY_AND_QUEUE_LEASE_PASS (synthetic subset only; no production approval)'

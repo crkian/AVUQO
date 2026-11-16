@@ -1395,5 +1395,28 @@
     "ebay_source": "paused, sync off, quarantined",
     "callback": "HTTP 503",
     "awin": "unchanged"
+  },
+  "ebay_bounded_dba_partial_processor_20261116": {
+    "status": "CANDIDATE_UNAPPLIED_PENDING_GITHUB_CI",
+    "migration": "supabase/migrations/20261116200000_ebay_dba_bounded_mapped_purge_runner.sql",
+    "function": "public.ebay_run_next_mapped_catalogue_erasure()",
+    "input_receipt_id_allowed": false,
+    "one_item_atomic_claim_and_real_purge": true,
+    "finish_state": "awaiting_evidence_only",
+    "native_acceptance": "tests/fixtures/ebay-local-dba-processor-acceptance.sql",
+    "static_test": "tests/ebay-dba-mapped-processor.test.mjs",
+    "runbook": "docs/AVUQO_EBAY_BOUNDED_DBA_PROCESSOR_2026-11-16.md",
+    "ci": "PENDING_GITHUB_NATIVE_POSTGRES",
+    "production_migration_applied": false,
+    "hosted_worker_deployed": false,
+    "full_erasure_complete": false,
+    "provider_callback_2xx": false,
+    "signed_provider_event_verified": false,
+    "retention_backup_external_processor_approved": false,
+    "spend": "£0 additional",
+    "docker": false,
+    "production_database_modified": false,
+    "ebay": "NO-GO paused, sync false, quarantine, HTTP 503, no portal token",
+    "awin": "unchanged"
   }
 }
