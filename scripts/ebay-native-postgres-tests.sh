@@ -21,5 +21,10 @@ export EBAY_RACE_TEST_DATABASE_URL='host=/var/run/postgresql user=postgres dbnam
 bash scripts/test-ebay-tombstone-race.sh
 bash scripts/test-ebay-reverse-lock-witness.sh
 bash scripts/test-ebay-committed-link-first-race.sh
+# The next fixture models the pre-existing audited-purge dependency on synthetic
+# data. Only the new leased wrapper is the exact proposed production migration.
+psql_local -f tests/fixtures/ebay-local-mapped-purge-dependency.sql
+psql_local -f supabase/migrations/20261116192000_ebay_leased_mapped_catalogue_executor.sql
+psql_local -f tests/fixtures/ebay-local-mapped-executor-acceptance.sql
 bash scripts/test-ebay-native-queue-lease-race.sh
 echo 'NATIVE_POSTGRES_CONCURRENCY_AND_QUEUE_LEASE_PASS (synthetic subset only; no production approval)'
