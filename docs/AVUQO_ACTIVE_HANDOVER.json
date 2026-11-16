@@ -1525,5 +1525,25 @@
     "docker": false,
     "awin": "unchanged",
     "commercial_model": "affiliate marketplace/comparison, retailer fulfils, AVUQO no stock or dropshipping"
+  },
+  "ebay_readonly_execution_preflight_20261116": {
+    "status": "CANDIDATE_UNAPPLIED_PENDING_GITHUB_CI",
+    "migration": "supabase/migrations/20261116221000_ebay_readonly_mapped_erasure_preview.sql",
+    "function": "public.ebay_preview_next_mapped_erasure()",
+    "fixture": "tests/fixtures/ebay-local-readonly-erasure-preview-acceptance.sql",
+    "static_test": "tests/ebay-readonly-erasure-preview.test.mjs",
+    "runbook": "docs/AVUQO_EBAY_READONLY_EXECUTION_PREFLIGHT_2026-11-16.md",
+    "identity_or_sensitive_data_returned": false,
+    "lease_claim_or_delete": false,
+    "receipt_completion": false,
+    "production_migration_applied": false,
+    "scheduled_worker_enabled": false,
+    "provider_registration_authorised": false,
+    "full_store_erasure_verified": false,
+    "retention_and_processors_evidenced": false,
+    "budget": "£0 additional",
+    "docker": false,
+    "awin": "untouched",
+    "ebay": "paused, sync off, callback 503, subscription unregistered"
   }
 }
