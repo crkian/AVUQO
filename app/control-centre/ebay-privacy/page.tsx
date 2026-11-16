@@ -24,7 +24,7 @@ export default async function EbayPrivacyControlTower(){
   <header className={styles.header}>
    <p className={styles.kicker}>CONTROL CENTRE / EBAY / PRIVACY &amp; OPERATIONS / OWNER ONLY</p>
    <h1>eBay privacy control tower</h1>
-   <p>A live, read-only view of eBay's deletion safety status. Counts are direct
+   <p>A live, read-only view of eBay deletion safety status. Counts are direct
     database observations, not evidence that account erasure, legal retention or
     eBay subscription has been approved. No control on this page edits records.</p>
    <nav className={styles.links}>
