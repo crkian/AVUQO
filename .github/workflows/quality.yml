@@ -46,6 +46,8 @@ jobs:
         run: bash -n scripts/test-ebay-tombstone-race.sh && node --test tests/ebay-two-session-race-harness.test.mjs
       - name: eBay reverse-direction advisory-lock witness syntax and safety contracts (not a live DB test)
         run: bash -n scripts/test-ebay-reverse-lock-witness.sh && node --test tests/ebay-reverse-lock-witness.test.mjs
+      - name: eBay actual foreign-key drift and disabled orphan guard integrity tests
+        run: node --test tests/ebay-schema-drift-interlock.test.mjs
       - name: eBay DBA-only read-only execution preview contracts
         run: node --test tests/ebay-readonly-erasure-preview.test.mjs
       - name: Owner-only eBay privacy control tower fail-closed evidence tests

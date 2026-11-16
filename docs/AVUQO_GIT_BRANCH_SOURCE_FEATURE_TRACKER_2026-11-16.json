@@ -2244,5 +2244,29 @@
     "docker": false,
     "awin": "untouched",
     "ebay": "paused, sync off, callback 503, subscription unregistered"
+  },
+  "ebay_schema_drift_integrity_interlock_20261116": {
+    "status": "CANDIDATE_UNAPPLIED_PENDING_GITHUB_CI",
+    "migration": "supabase/migrations/20261116224000_ebay_secondary_schema_drift_interlock.sql",
+    "test": "tests/fixtures/ebay-local-schema-drift-erasure-acceptance.sql",
+    "static_test": "tests/ebay-schema-drift-interlock.test.mjs",
+    "runbook": "docs/AVUQO_EBAY_SCHEMA_DRIFT_INTERLOCK_2026-11-16.md",
+    "live_schema_evidence": "Four validated ON DELETE SET NULL offer_id-to-offers.id secondary-store foreign keys",
+    "failure_modes": [
+      "dropped_FK",
+      "wrong_CASCADE_action",
+      "disabled_orphan_guard"
+    ],
+    "original_purge_rollback_proof": "PENDING_NATIVE_GITHUB_CI",
+    "unrelated_retailer_safe": "PENDING_NATIVE_GITHUB_CI",
+    "production_migration_applied": false,
+    "webhook_2xx_enabled": false,
+    "full_account_erasure_verified": false,
+    "backups_processors_checked": false,
+    "eBay": "paused; sync disabled; callback HTTP 503; unregistered",
+    "awin": "unchanged",
+    "additional_spend": "£0",
+    "docker": false,
+    "direct_supply": false
   }
 }
