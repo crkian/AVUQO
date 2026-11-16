@@ -62,4 +62,6 @@ printf '%s\n' "$rows"
 # No receipt, account mapping, work item or audit is created as a side effect.
 psql -X -v ON_ERROR_STOP=1 -h /var/run/postgresql -U postgres -d "$db" \
  -f tests/fixtures/ebay-ordered-replay-invariants.sql
+# Reconcile historical production-style eBay migration version collisions.
+bash scripts/test-ebay-migration-history-readonly-preflight.sh
 echo 'EBAY_ORDERED_MIGRATION_REPLAY_PASS (isolated local synthetic; eBay activation remains NO-GO)'
