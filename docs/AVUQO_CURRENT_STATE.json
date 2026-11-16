@@ -801,5 +801,17 @@
     "no_public_offers": true,
     "deployment": "dpl_E5cbjLHeTA1s6CHPmtJu2UFvjeuh",
     "app_commit": "d977cfa3a01265b1401235c728c089da377a256d"
+  },
+  "all_awin_live_rollout_20261116": {
+    "merchant_programmes": 19,
+    "numeric_ids": 17,
+    "joined_numeric_ids": 16,
+    "feed_ids_observed": 74,
+    "canonical_products_privately_staged": 251,
+    "public_awin_offers": 0,
+    "missing_advertiser_ids": 2,
+    "unverified_joined_record": "PlayPress Toys 101445",
+    "status": "documented_target_not_public_deployed",
+    "matrix": "docs/AVUQO_ALL_AWIN_MERCHANT_STAGING_TO_LIVE_2026-11-16.md"
   }
 }
