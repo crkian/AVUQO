@@ -46,6 +46,8 @@ jobs:
         run: bash -n scripts/test-ebay-tombstone-race.sh && node --test tests/ebay-two-session-race-harness.test.mjs
       - name: eBay reverse-direction advisory-lock witness syntax and safety contracts (not a live DB test)
         run: bash -n scripts/test-ebay-reverse-lock-witness.sh && node --test tests/ebay-reverse-lock-witness.test.mjs
+      - name: eBay secondary-history lease and privacy outcome contracts
+        run: node --test tests/ebay-secondary-history-lease-disposition.test.mjs
       - name: eBay exact-account secondary history evidence contracts
         run: node --test tests/ebay-secondary-account-evidence.test.mjs
       - name: eBay secondary event ownership orphaning guard tests
