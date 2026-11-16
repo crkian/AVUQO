@@ -10,11 +10,11 @@ create index ebay_deletion_receipts_username_digest_idx
 create index ebay_deletion_receipts_eias_digest_idx
  on public.ebay_deletion_receipts(eias_token_digest) where eias_token_digest is not null;
 
--- DBA/service-role only via existing private receipt table privileges.
+-- VOLATILE ensures the post-lock check gets a fresh READ COMMITTED snapshot.\n-- DBA/service-role only via existing private receipt table privileges.
 -- No public RPC grants. Only exact HMAC digest equality, never text markers.
 create function public.ebay_is_account_digest_suppressed(
  p_kind text, p_digest text
-) returns boolean language plpgsql stable security invoker
+) returns boolean language plpgsql volatile security invoker
 set search_path = ''
 as $$
 begin
