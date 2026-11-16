@@ -26,8 +26,9 @@ test("eBay challenge digest uses SHA256 in documented code, token, endpoint orde
 });
 
 test("notifications are not acknowledged until verified processing exists",()=>{
- assert.match(route,/export async function POST\(\)/);
- assert.match(route,/error:"Deletion receiver not enabled"/);
+ assert.match(route,/export async function POST\(request:NextRequest\)/);
+ assert.match(route,/verifyEbaySignature\(payload,request\.headers\.get\("x-ebay-signature"\)\)/);
+ assert.match(route,/error:"Deletion processing not enabled"/);
  assert.match(route,/status:503/);
- assert.doesNotMatch(route,/status:200[^]*Deletion receiver not enabled/);
+ assert.doesNotMatch(route,/status:200[^]*Deletion processing not enabled/);
 });
