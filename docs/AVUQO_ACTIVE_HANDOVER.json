@@ -1026,5 +1026,38 @@
     "webhook_ack": "503 intentionally",
     "ebay_portal_subscription": "not registered",
     "live_ebay_item_offers": 0
+  },
+  "ebay_full_store_privacy_inventory_20261116": {
+    "status": "candidate pending CI and Supabase migration",
+    "doc": "docs/AVUQO_EBAY_FULL_STORE_PRIVACY_INVENTORY_2026-11-16.md",
+    "migration": "supabase/migrations/20261116162000_ebay_privacy_inventory_counts.sql",
+    "report_function": "public.ebay_privacy_inventory_counts()",
+    "run_as": "postgres only",
+    "observed": {
+      "ebay_offers": 0,
+      "ebay_ingestion": 0,
+      "ebay_product_matches": 0,
+      "ebay_price_history": 0,
+      "receipts": 0,
+      "account_links": 0,
+      "partial_erasure_audits": 0,
+      "storage_buckets": 3,
+      "storage_objects": 0,
+      "feed_import_records_total": 122538,
+      "feed_import_records_ebay_marker": 0,
+      "products_total": 262,
+      "products_ebay_marker": 0,
+      "click_events_total": 7,
+      "click_events_ebay_marker": 0,
+      "pipeline_events_total": 8,
+      "pipeline_events_ebay_marker": 0
+    },
+    "critical_limitation": "Marker scans cannot prove absence of unlabelled user identifiers or external/backup retention",
+    "full_account_erasure": false,
+    "ebay_webhook": "503 and not registered",
+    "source_quarantine": true,
+    "production_ebay_keyset": "disabled in latest screenshot",
+    "awin": "existing private pipelines unchanged",
+    "next": "CI; apply inventory function, verify postgres-only ACL and output; then close individual lineage/backup/processor gaps and prove full erasure before eBay portal registration"
   }
 }
