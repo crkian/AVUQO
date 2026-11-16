@@ -1,6 +1,6 @@
 import {createHash} from "node:crypto";
 import {csvRowsFromChunks} from "../feed-imports/stream-csv";
-import {TOOLED_UP_SOURCE_FIELDS} from "./tooled-up-master-adapter";
+import {TOOLED_UP_SOURCE_FIELDS} from "./tooled-up-source-fields.ts";
 
 const MAX_COMPRESSED_BYTES=250*1024*1024;
 const MAX_EXPANDED_BYTES=1024*1024*1024;
