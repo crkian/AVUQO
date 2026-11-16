@@ -1305,7 +1305,7 @@
     "production_evidence": false
   },
   "ebay_committed_multi_alias_tombstone_20261116": {
-    "status": "PENDING_GITHUB_NATIVE_POSTGRES_TEST",
+    "status": "PASS_GITHUB_NATIVE_POSTGRES_RUN_43927000715",
     "fixture": "tests/fixtures/ebay-committed-multi-identity-tombstone.sql",
     "unit_contract": "tests/ebay-committed-multi-identity-tombstone.test.mjs",
     "executor": "scripts/ebay-native-postgres-tests.sh",
@@ -1327,6 +1327,10 @@
     "new_spend": "£0",
     "eBay": "paused, sync off, quarantine, webhook 503 unregistered",
     "awin": "unchanged",
-    "next": "Review native PostgreSQL CI result; then build actual erasure and process/legal retention verification"
+    "next": "Review native PostgreSQL CI result; then build actual erasure and process/legal retention verification",
+    "evidence_run_id": 43927000715,
+    "evidence_commit": "b35076d6bb4051656ed02e64c34b26b188ba1b9c",
+    "quality_lint_build": "PASS",
+    "secret_scan": "PASS"
   }
 }
