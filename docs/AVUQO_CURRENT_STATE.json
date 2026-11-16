@@ -9,13 +9,13 @@
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_Hs18EQdhAm31mh3kDKUJA4c3DZzr",
-    "verified_ready_sha": "39cb4a94ae1a9a98a80e368f8664d79d1ed0bf53",
+    "deployment_id": "dpl_6oMYNWsFCrUG1ZM37Zu8B6mfPGAY",
+    "verified_ready_sha": "3a98b50948d16599ac46d6c8a087c323e7688e7b",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "16 Nov: PR #209 merged; Tooled Up 08:05 private snapshot and 08:25 exhaustive validator scheduled; GitHub main app SHA and production Vercel READY, homepage HTTP 200 with marker. Supabase had zero Tooled Up immutable snapshots or full-file validation rows; Awin source paused, public Awin offers zero. First actual job run not confirmed.",
+    "verification": "PR #210 merged and production exact Vercel SHA 3a98b50948d16599ac46d6c8a087c323e7688e7b / dpl_6oMYNWsFCrUG1ZM37Zu8B6mfPGAY READY, homepage HTTP 200 with marker. Current operational content is docs/AVUQO_ACTIVE_HANDOVER.md + JSON; Supabase private data was read earlier 16 Nov, not rechecked after docs-only follow-up.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -729,8 +729,8 @@
     "machine": "docs/AVUQO_ACTIVE_HANDOVER.json",
     "evidence_date": "2026-11-16",
     "status": "dated_operational_overlay_not_live_API",
-    "verified_app_commit": "39cb4a94ae1a9a98a80e368f8664d79d1ed0bf53",
-    "vercel_deployment": "dpl_Hs18EQdhAm31mh3kDKUJA4c3DZzr",
+    "verified_app_commit": "3a98b50948d16599ac46d6c8a087c323e7688e7b",
+    "vercel_deployment": "dpl_6oMYNWsFCrUG1ZM37Zu8B6mfPGAY",
     "awin_source": "paused",
     "awin_canonical_private_products": 251,
     "private_candidate_links": 273,
@@ -745,6 +745,8 @@
       93,
       83,
       25
-    ]
+    ],
+    "last_verified_release_pr": 210,
+    "docs_only_commit_can_precede_app_deployment": true
   }
 }
