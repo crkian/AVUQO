@@ -5,7 +5,7 @@ import {createAdminClient} from "../supabase/admin";
 type EventData={userId?:unknown;username?:unknown;eiasToken?:unknown};
 function validated(value:unknown,max:number):string|null{
  return typeof value==="string" && value.length>=1 && value.length<=max &&
-  !/[\\x00-\\x1f\\x7f]/.test(value)?value:null;
+  !/[\x00-\x1f\x7f]/.test(value)?value:null;
 }
 
 /**
@@ -27,7 +27,7 @@ export async function journalVerifiedEbayDeletion(
  const secret=process.env.EBAY_DELETION_HMAC_SECRET;
  if(!secret||secret.length<32||secret.length>512)return "unavailable";
  const digest=(label:string,value:string)=>createHmac("sha256",secret)
-  .update(label+"\\0"+value,"utf8").digest("hex");
+  .update(label+"\0"+value,"utf8").digest("hex");
  const row={
   notification_digest:digest("notificationId",event),
   user_id_digest:id?digest("userId",id):null,
