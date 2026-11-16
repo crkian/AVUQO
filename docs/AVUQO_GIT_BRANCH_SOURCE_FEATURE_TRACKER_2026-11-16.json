@@ -1867,7 +1867,22 @@
     "eBay_source": "paused, quarantined",
     "eBay_production_keyset": "disabled per last owner screenshot",
     "live_ebay_item_offers": 0,
-    "awin": "prior private importers preserved",
-    "next": "Run authorised controlled two-connection test and capture results, then full erasure and provider E2E"
+    "awin": "existing staged private importers unchanged",
+    "next": "Run manual two-psql-session DB test on controlled clone, then reverse-order race and full privacy erasure; do not claim provider registration readiness",
+    "pr": 244,
+    "merged": true,
+    "application_sha": "6b9327da9c2d6d8d495afc71116091268ded9ce5",
+    "production_deployment": "dpl_94EkJnHRRrFAJMPHgLyMa2ie1jRR",
+    "vercel_status": "READY",
+    "github_checks": "build lint bash syntax static harness checks committed secrets success",
+    "initial_live_concurrency_attempt": "inconclusive, RACE_TEST_UNEXPECTED_NO_CONTENTION",
+    "true_independent_two_session_test": "NOT_RUN",
+    "test_program": "scripts/test-ebay-tombstone-race.sh",
+    "test_access": "requires authorised private psql URL and explicit opt-in",
+    "synthetic_account_data_remaining": 0,
+    "no_production_database_migration_this_step": true,
+    "ebay_source": "paused with DB quarantine",
+    "eBay_webhook": "503, not registered",
+    "full_account_deletion": "not implemented"
   }
 }
