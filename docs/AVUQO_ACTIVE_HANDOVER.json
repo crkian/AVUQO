@@ -770,11 +770,22 @@
     "signature_header": "X-EBAY-SIGNATURE, kid from base64 JSON",
     "key_retrieval": "production Notification API through server-side OAuth, cache up to 1 hour",
     "post": "authenticated and schema-checked but 503 until durable deletion is implemented",
-    "production_credentials": "not verified",
+    "production_credentials": "not configured or tested",
     "production_keyset": "disabled per owner screenshot",
     "signed_test": "not run",
     "ebay_subscription": "not registered",
     "awin": "Existing staging and preflight unchanged",
-    "next": "implement durable account deletion/suppression and fully test before eBay registration"
+    "next": "durable idempotent privacy deletion flow, tests and provider verification before registration",
+    "pr": 224,
+    "merged": true,
+    "application_sha": "7a791a342d60f5dfff9326f0a8b5fb0e80250afa",
+    "vercel_deployment": "dpl_YJKMvcPyXzHGcrkngV4m7DDWeRuE",
+    "vercel_status": "READY",
+    "ci": "quality and secret scan success",
+    "real_signature_test": "not performed",
+    "deletion_processing": "NOT_IMPLEMENTED",
+    "webhook_post": "503 even for verified messages",
+    "eBay_keyset": "disabled per owner screenshot",
+    "eBay_subscription": "NOT_REGISTERED"
   }
 }
