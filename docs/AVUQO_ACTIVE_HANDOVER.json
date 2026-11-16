@@ -818,5 +818,25 @@
     "keyset": "disabled per owner screenshot",
     "live_eBay_offers": 0,
     "awin": "private importers preserved, no Awin offers released in this step"
+  },
+  "ebay_reimport_suppression_20261116": {
+    "status": "PR candidate; security guard not yet connected to a live eBay importer",
+    "privacy_audit": "docs/AVUQO_EBAY_PRIVACY_INVENTORY_2026-11-16.md",
+    "live_ebay_source_offers": 0,
+    "live_ebay_source_ingestion_items": 0,
+    "live_ebay_source_price_history": 0,
+    "live_ebay_source_product_matches": 0,
+    "live_deletion_receipts": 0,
+    "privacy_audit_caveat": "Limited schema/metadata checks only; backup and other eBay identifiers not fully inventoried",
+    "identity_module": "lib/ebay/deletion-identity.ts",
+    "ingestion_guard": "lib/ebay/deletion-suppression.ts",
+    "identity_hash": "Existing HMAC SHA256 key and per-identifier domain preserved",
+    "guard": "suppressed if any present identity is in receipts; fail closed on all errors",
+    "wired_to_importer": false,
+    "actual_erasure": false,
+    "webhook_acknowledgement": "503 until real deletion implementation",
+    "ebay_keyset": "disabled per last owner screenshot",
+    "awin": "existing importers intact and not modified",
+    "next": "complete data erasure and reimport prevention across actual eBay ingest paths; test signed provider E2E, then eBay registration"
   }
 }
