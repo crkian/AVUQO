@@ -18,7 +18,8 @@ test("UK Browse response is normalized without invented manufacturer, stock or p
  assert.equal(rows[0].brand,"Bosch");
  assert.equal(rows[0].mpn,"AB-100");
  assert.equal(rows[0].hasAffiliateTracking,false);
- assert.equal(rows[0].seller,"realSeller");
+ assert.equal(JSON.stringify(rows).includes("realSeller"),false);
+ assert.equal(Object.hasOwn(rows[0],"seller"),false);
 });
 test("unsafe image hosts, absent price or non-GBP values cannot become GBP offers",()=>{
  const rows=normalizeEbayUkResults({itemSummaries:[
