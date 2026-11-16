@@ -6,7 +6,7 @@ const manifest=read("tests/fixtures/ebay-migration-replay-manifest.txt");
 const script=read("scripts/test-ebay-ordered-migration-replay.sh");
 const runner=read("scripts/ebay-native-postgres-tests.sh");
 const migrations=manifest.split("\n").filter(x=>x.startsWith("supabase/migrations/"));
-test("eBay privacy replay manifest has all twelve canonical chronological migration paths",()=>{
+test("eBay privacy replay manifest has all thirteen canonical chronological migration paths",()=>{
  assert.equal(migrations.length,13);
  assert.deepEqual(migrations,[...migrations].sort());
  assert.equal(new Set(migrations).size,migrations.length);
