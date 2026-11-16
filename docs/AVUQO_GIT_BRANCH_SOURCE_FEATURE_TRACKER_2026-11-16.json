@@ -1584,7 +1584,7 @@
   },
   "ebay_db_ingestion_quarantine_20261116": {
     "status": "PR candidate; migration not yet applied",
-    "migration": "supabase/migrations/20261116141000_ebay_ingestion_quarantine.sql",
+    "migration": "ebay_ingestion_quarantine_20261116",
     "trigger_tables": [
       "offers",
       "source_ingestion_items",
@@ -1597,7 +1597,30 @@
     "review_doc": "docs/AVUQO_EBAY_DB_INGESTION_QUARANTINE_2026-11-16.md",
     "webhook": "503 for verified deletion until actual full erasure",
     "current_prod_keyset": "disabled per owner screenshot",
-    "awin": "19 programme and existing private merchant importers preserved unchanged",
-    "next": "Check CI; apply migration, verify triggers and real source activation fails, then verify Vercel and update all handovers; next build complete privacy erasure/atomic importer."
+    "awin": "existing private importer code unchanged",
+    "next": "Build and independently test complete erasure/retention and atomic account-mapped safe importer; only after verified signed eBay callback registration",
+    "pr": 232,
+    "merged": true,
+    "app_sha": "a8e4ed201fff1d5756f55202b986a3a912ebb580",
+    "vercel_deployment": "dpl_7kYJ7Y1bV3AXcyi9vdveNjMT73YD",
+    "vercel_state": "READY",
+    "github_checks": "build lint secret scan success",
+    "migration_applied": true,
+    "triggers_verified_enabled": [
+      "ebay_offers_quarantine",
+      "ebay_ingestion_quarantine",
+      "ebay_product_matches_quarantine",
+      "ebay_price_history_quarantine",
+      "ebay_source_activation_quarantine"
+    ],
+    "activation_negative_test": "attempt to set ebay sync_enabled=true blocked by trigger; final source still paused and false",
+    "ebay_source": "paused",
+    "ebay_sync_enabled": false,
+    "ebay_offers": 0,
+    "ebay_ingestion": 0,
+    "real_deletion_complete": false,
+    "webhook_response": "503 intentionally",
+    "ebay_portal_registered": false,
+    "ebay_keyset": "disabled in last owner screenshot"
   }
 }
