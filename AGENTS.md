@@ -8,6 +8,14 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
+## Required full current Git handover (16 November 2026)
+
+**START with [docs/AVUQO_ACTIVE_HANDOVER.md](docs/AVUQO_ACTIVE_HANDOVER.md) and [docs/AVUQO_ACTIVE_HANDOVER.json](docs/AVUQO_ACTIVE_HANDOVER.json)** in current `main`. Both include the source-of-truth 13 scheduled jobs, current private vs public product status, six merchant permission reviews, 7 open PRs, 22 priority open tasks and links to the original 9 owner sources, 29 roadmap workstreams and 12 gaps. Older 14 Nov handovers and branch inventories remain valuable historical snapshots, never current counters.
+
+**Every implementation PR must commit the handover, not leave it in a chat:** Update BOTH active Markdown + JSON plus `docs/PROJECT_STATUS.md` + `CHANGELOG.md` with every completed change, verified tests/branch/merged SHA and deployment, outstanding work, new owner instructions, rights/safety/production implications and next execution. GitHub CI `scripts/check-project-register.mjs` enforces all four files in feature/scheduler/schema PRs. After merge recheck exact deployed app SHA: `vercel.json.ignoreCommand` can intentionally skip docs-only builds. Do not copy private original specs/screenshots, customer records, credentials or unlicensed media into public Git.
+
+
+
 ## Complete project and owner idea registry (14 November 2026)
 
 The durable [master Git/branch/idea index](docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md) and [machine-readable companion](docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.json) map **all 22 GitHub branch names observed on 14 Nov**, 5 draft PRs, 29 roadmap workstreams, 12 known requirement gaps, 9 original owner source assets, and the handover hierarchy. Read these when the owner asks for "everything", wants a comprehensive delivery plan, or starts a new project workstream. Re-query GitHub for the *current* branches/PRs and Vercel for production before acting. Do not commit confidential source PDFs or unpublished design binaries into the public repo to make the index look complete. Never call mapped ideas "live" without implementation, data rights, production and actual acceptance evidence.

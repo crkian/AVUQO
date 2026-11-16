@@ -1,5 +1,7 @@
 # AVUQO
 
+**Current comprehensive handover:** [ACTIVE GIT HANDOVER](docs/AVUQO_ACTIVE_HANDOVER.md) + [machine-readable state](docs/AVUQO_ACTIVE_HANDOVER.json), verified 16 November 2026. Read first. All live/private feed automation, owner permissions, 7 open PRs, 13 cron schedules, done/pending work and 29-roadmap/12-gap archives are cross-linked. Historical handovers below are dated evidence.
+
 An evidence-led UK comparison and savings application. Current customer website: https://www.avuqo.com.
 
 ## One-link live handover for new chats

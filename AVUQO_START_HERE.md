@@ -1,5 +1,8 @@
 # AVUQO · START HERE (current GitHub state)
 
+**CURRENT RESTART ORDER (16 Nov):** FIRST read [ACTIVE GIT HANDOVER](docs/AVUQO_ACTIVE_HANDOVER.md) and its [machine companion](docs/AVUQO_ACTIVE_HANDOVER.json). Then read AGENTS, the older historical handovers and original source/branch/idea index, and re-query actual GitHub/Vercel/Supabase state. Latest verified *application* at audit: `39cb4a94` / `dpl_Hs18EQdhAm31mh3kDKUJA4c3DZzr` READY; docs-only commits intentionally may not cause another Vercel build. The older 14 Nov material below is historical. Update active Git handover for every code/schema/cron change.
+
+
 **For any future ChatGPT chat, developer or coding agent:** This repository holds the latest AVUQO handover. **Read from current `main`, not conversational memory or old screenshots.**
 
 0. **[COMPLETE GIT / ALL BRANCHES / ALL IDEAS / HANDOVERS](docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md)**: the complete dated 22-ref inventory, original owner idea-source mapping, 29 workstreams, 12 gaps, live versus blocked, open PRs, and every major restart document. [Machine-readable companion](docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.json). **This is an index, not the source originals or proof of delivery.**

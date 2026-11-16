@@ -1,3 +1,7 @@
+## COMPLETE ACTIVE GIT HANDOVER (16 November 2026)
+
+**First read:** [AVUQO_ACTIVE_HANDOVER.md](AVUQO_ACTIVE_HANDOVER.md) and [AVUQO_ACTIVE_HANDOVER.json](AVUQO_ACTIVE_HANDOVER.json) are the active operational and machine-readable source of truth, with all 13 crons, six merchant rights registers, private and production data, seven open PRs, 22 prioritised work items, original source/vision indexes and every next release gate. The previous 14 November and October entries below are deliberately preserved as dated history, **not claims about today**. At audit, production application was Git `39cb4a94`, Vercel `dpl_Hs18EQdhAm31mh3kDKUJA4c3DZzr` READY, public site HTTP 200. Awin source still paused, 251 private canonical products, zero public Awin offers, and no captured/validated Tooled Up master snapshot despite the newly configured schedule.
+
 ## LIVE DATA STREAMING + AUTHENTICATION VERIFIED ON PRODUCTION · 14 November 2026
 
 PR #197 (streamed candidate-scan partition) merged at `927e60d4174d5ac58f3d0cfa8587065ea9f5dfe2`, Vercel `dpl_8KU4CnG7t2rWMVC5GKFZbpbw9YtP` READY. Its initial signed-out HTTP/RSC inspection showed login redirect metadata **alongside some private-panel UI markers/empty-state wording**, not verified private product rows. That **failed initial security acceptance** and triggered the immediately follow-up release rather than being ignored.

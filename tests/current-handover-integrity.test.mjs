@@ -31,3 +31,29 @@ test("handover uses safe product and image publication boundaries",()=>{
  assert.match(text,/open PRs/i);
  assert.doesNotMatch(text,/pkce_[a-f0-9]{24,}|Bearer\s+[a-z0-9_-]{24,}/i);
 });
+
+test("new canonical Git handover and machine backlog cover all live/private feed operations",()=>{
+ const md=read("docs/AVUQO_ACTIVE_HANDOVER.md");
+ const machine=JSON.parse(read("docs/AVUQO_ACTIVE_HANDOVER.json"));
+ assert.equal(machine.project,"AVUQO");
+ assert.equal(machine.as_of_utc,"2026-11-16");
+ assert.equal(machine.handover.current,"docs/AVUQO_ACTIVE_HANDOVER.md");
+ assert.match(machine.production.ready_app_commit,/^[a-f0-9]{40}$/);
+ assert.equal(machine.supabase.public_awin_offers,0);
+ assert.equal(machine.supabase.products.awin_canonical,251);
+ assert.equal(machine.merchants.length,6);
+ assert.equal(machine.open_prs_as_checked.length,7);
+ assert.ok(machine.priorities.length>=20);
+ const crons=JSON.parse(read("vercel.json")).crons;
+ assert.equal(machine.schedules_utc.length,crons.length);
+ assert.deepEqual(new Set(machine.schedules_utc.map(x=>x.path)),new Set(crons.map(x=>x.path)));
+ for(const p of ["README.md","AVUQO_START_HERE.md","AGENTS.md",
+  "docs/AVUQO_LIVE_HANDOVER.md","docs/AVUQO_PROJECT_COMPASS.md",
+  "docs/PROJECT_STATUS.md","docs/ROADMAP.md"])
+  assert.ok(read(p).includes("AVUQO_ACTIVE_HANDOVER.md"),p);
+ for(const s of ["Tooled Up","Mozillion","Cadbury","Craft Buddy",
+  "Petlibro","Tyres UK","Required handover procedure","GitHub PRs"])
+  assert.ok(md.includes(s),s);
+ assert.match(read("scripts/check-project-register.mjs"),/docs\/AVUQO_ACTIVE_HANDOVER\.json/);
+ assert.doesNotMatch(md,/Bearer\s+[a-z0-9_-]{24,}|pkce_[a-f0-9]{24,}/i);
+});
