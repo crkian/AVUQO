@@ -29,5 +29,8 @@ psql_local -f supabase/migrations/20261116192000_ebay_leased_mapped_catalogue_ex
 psql_local -f tests/fixtures/ebay-local-mapped-executor-acceptance.sql
 psql_local -f supabase/migrations/20261116200000_ebay_dba_bounded_mapped_purge_runner.sql
 psql_local -f tests/fixtures/ebay-local-dba-processor-acceptance.sql
+psql_local -f tests/fixtures/ebay-local-secondary-reference-schema.sql
+psql_local -f supabase/migrations/20261116203000_ebay_prevent_secondary_reference_orphaning.sql
+psql_local -f tests/fixtures/ebay-local-secondary-orphan-guard-acceptance.sql
 bash scripts/test-ebay-native-queue-lease-race.sh
 echo 'NATIVE_POSTGRES_CONCURRENCY_AND_QUEUE_LEASE_PASS (synthetic subset only; no production approval)'
