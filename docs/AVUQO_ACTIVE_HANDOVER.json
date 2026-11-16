@@ -15,12 +15,12 @@
     "url": "https://www.avuqo.com",
     "project": "avuqo",
     "platform": "Vercel",
-    "ready_app_commit": "d6c94f9ebe5e89c8d2d80dfac0d710c1d133dcbc",
-    "ready_deployment": "dpl_2isQnD9gt7AkAsboVGARCmrhhfjq",
+    "ready_app_commit": "d977cfa3a01265b1401235c728c089da377a256d",
+    "ready_deployment": "dpl_E5cbjLHeTA1s6CHPmtJu2UFvjeuh",
     "verified_http": 200,
-    "status": "verified_READY_http200_after_cron_journal_PR213",
+    "status": "production_READY_owner_manual_Awin_controls_PR216_unverified_signed_in",
     "docs_only_ignore_build_note": "Documentation commits may advance Git main without changing running application SHA. Always recheck.",
-    "verification": "PR #213 merged and exact production READY; live site HTTP 200 matched deployment. Private cron audit table now present with RLS and minimal service-role grants, zero rows at verification. Awin source paused and zero public Awin offers."
+    "verification": "Merged PR #216 owner Awin private feed preflight/staging and Tooled Up capture/validation READY at exact SHA d977cfa3, signed-out homepage HTTP 200 and private feed update route HTTP 200. POST-only API returned HTTP 405 on GET. Actual owner authenticated preflight/stage not performed. Awin source paused; public offers zero, journal zero at last check."
   },
   "supabase": {
     "project_ref": "tfoukwcruaamrtgxzshh",
@@ -293,6 +293,14 @@
     {
       "pr": 213,
       "area": "Service-role-only protected scheduled Awin execution journal for four pilots and Tooled Up capture and validation"
+    },
+    {
+      "pr": 215,
+      "area": "25 Git branch / 14 source / 37 feature tracker and mandatory Git updates"
+    },
+    {
+      "pr": 216,
+      "area": "Owner-only private Awin run-now and latest six-job Cron outcome table"
     }
   ],
   "open_prs_as_checked": [
@@ -452,6 +460,11 @@
       "id": "SOURCES-01",
       "state": "open",
       "task": "Work through 37 original feature groups with precise Git/e2e evidence; do not confuse PDF/ZIP requirements with current deployment or permissions."
+    },
+    {
+      "id": "HISTORY-01",
+      "state": "open",
+      "task": "Continue exact P0–P4 (29) / G01–G12 (12) feature acceptance evidence in tracker, retaining original inactive 1384 taxonomy, historical 50 category guide ambition, 16 mockups and original branch/asset provenance."
     }
   ],
   "handover": {
@@ -634,15 +647,26 @@
     "source_assets_inspected": 14,
     "feature_groups": 37,
     "deleted_branches": 0,
-    "action": "Reconcile all divergent refs with exact source/PR/main evidence and preserve original private sources."
+    "action": "Reconcile all divergent refs with exact source/PR/main evidence and preserve original private sources.",
+    "original_14_nov_index_reconciled": true,
+    "roadmap_workstreams_mapped": 29,
+    "granular_gaps_mapped": 12,
+    "crosswalk_file": "docs/AVUQO_GIT_BRANCH_SOURCE_FEATURE_TRACKER_2026-11-16.json"
   },
   "pending_owner_awin_run_now": {
-    "status": "PR_candidate_not_deployed",
+    "status": "production_READY_owner_signed_in_acceptance_pending",
     "page": "/control-centre/awin-feed-updates",
     "api": "/api/control-centre/awin-run-now",
     "four_pilots": true,
     "tooled_up_snapshot_validation": true,
     "public_offer_release": false,
-    "requires_signed_in_owner_acceptance": true
+    "requires_signed_in_owner_acceptance": true,
+    "application_commit": "d977cfa3a01265b1401235c728c089da377a256d",
+    "deployment": "dpl_E5cbjLHeTA1s6CHPmtJu2UFvjeuh",
+    "signed_out_checks": {
+      "homepage_http": 200,
+      "feed_monitor_route_http": 200,
+      "get_on_post_only_api_http": 405
+    }
   }
 }

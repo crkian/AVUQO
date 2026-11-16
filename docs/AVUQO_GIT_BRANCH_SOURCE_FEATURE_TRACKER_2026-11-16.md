@@ -1,3 +1,65 @@
+## 16 November 2026 · Checked against original 14 November master idea index
+
+The [original Git/branch/ideas handover](AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md) is now explicitly reconciled, **without deleting or rewriting its frozen 14 Nov history**. The original had **22 branches and 5 open draft PRs**; latest current state was **25 branches, 7 open PRs**. The three additional branches are PR #200, PR #201 and the historical product soft-404 fix. Both security refs are preserved. Original [machine index](AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.json) remains historical; this tracker's JSON holds the complete current **29-workstream and 12-gap crosswalk**.
+
+**These are thematic links, NOT completion badges.** Their original requirement/acceptance details remain in [ROADMAP](ROADMAP.md), [source gap audit](SOURCE_REQUIREMENT_GAPS_2026-11-02.md), the original source attachments and safe historical branches.
+
+### All 29 original P0–P4 roadmap tracks
+
+| Original ID | Original requirement | Current feature group(s) |
+|---|---|---|
+| `P0-01` | Event/click consent integrity | `F21`, `F22` |
+| `P0-02` | Awin/source rights pause | `F11`, `F31` |
+| `P0-03` | Signed-in customer collections acceptance | `F06`, `F29` |
+| `P0-04` | Legacy PR reconciliation | `F35`, `F33` |
+| `P0-05` | Role/release/security acceptance | `F28`, `F29`, `F33` |
+| `P1-01` | Permissioned Awin pilot | `F11`, `F09`, `F10` |
+| `P1-02` | Universal source connector registry | `F09`, `F12`, `F34` |
+| `P1-03` | Canonical products/offers/price history | `F01`, `F04`, `F09` |
+| `P1-04` | Products Deals Search Compare | `F01`, `F02`, `F03`, `F04` |
+| `P1-05` | Taxonomy/navigation | `F02`, `F09`, `F15` |
+| `P1-06` | Verified affiliate redirects/commissions | `F22`, `F25` |
+| `P1-07` | Indexed natural-language search | `F03` |
+| `P2-01` | Guest groceries/complete basket | `F14`, `F16` |
+| `P2-02` | Approved supermarket prices | `F17`, `F18` |
+| `P2-03` | Watches and alerts | `F05` |
+| `P2-04` | Shared lists and households | `F06`, `F14` |
+| `P2-05` | Budgeting/spending goals | `F19` |
+| `P2-06` | Explainable preference graph | `F07` |
+| `P3-01` | CMS/legal/media/SEO | `F28`, `F29` |
+| `P3-02` | Approved affiliate/social/Pinterest promotion | `F25`, `F26` |
+| `P3-03` | Separated site advertising | `F25`, `F29` |
+| `P3-04` | First-party analytics/experiments | `F21`, `F22`, `F23`, `F24` |
+| `P3-05` | Reality Check and feedback | `F08` |
+| `P3-06` | Seasonal calendar engine | `F27` |
+| `P4-01` | Travel/hotel/activities/hire | `F20` |
+| `P4-02` | Broadband/insurance/motoring/services | `F20` |
+| `P4-03` | Autopilot and exception monitoring | `F10`, `F31`, `F33` |
+| `P4-04` | Large-scale eligible-offer processing | `F34` |
+| `P4-05` | PWA, opt-in push, conditional native mobile | `F32` |
+
+### All 12 original requirement gaps
+
+| Original gap | Current thematic feature group(s) |
+|---|---|
+| `G01` | F03: Natural language search / intents / filters |
+| `G02` | F32: Native mobile, push and PWA |
+| `G03` | F07: Preference graph and personal intelligence |
+| `G04` | F06: Saved products, shared household lists, votes and budgets |
+| `G05` | F05: Watches: stock/price alerts, digest, quiet hours, push |
+| `G06` | F27: Seasonal campaigns, evergreen content and expiry |
+| `G07` | F04: Evidence-based AVUQO Score / confidence / buy-or-wait; F11: Awin: current authorised physical feed publication |
+| `G08` | F16: Complete vs partial basket, no zero missing prices |
+| `G09` | F14: Guest grocery baskets: local save, 1–99 quantities, 100 lines; F16: Complete vs partial basket, no zero missing prices |
+| `G10` | F22: Affiliate attribution, confirmed commission and refunds; F25: Pinterest-first AI Creative Studio and promotion score |
+| `G11` | F21: First-party event schema, consent and RLS; F22: Affiliate attribution, confirmed commission and refunds |
+| `G12` | F02: Premium visual website / consumer navigation; F36: Full branded site concepts: three distinct logo, icon and homepage options |
+
+**Important extra details preserved from the original:** PR #25's **1,384 inactive categories**, historical **50 category guides/shelves**, **16 original mockup references** and possible privately held high-resolution design assets; strict signed-in/multi-account customer collection acceptance; distinct marketing AI/social/stop controls (only historical state is known); Tyres UK draft lease/journal migration-version mismatch; eBay production Browse approval; and real confirmed/reversed/paid commission reconciliation. No superseded PDF/branch is treated as approved source prices or a ready-to-run installer.
+
+**Newest Awin code release proof:** [PR #216](https://github.com/crkian/AVUQO/pull/216) merged; Git commit `d977cfa3a01265b1401235c728c089da377a256d`, production Vercel `dpl_E5cbjLHeTA1s6CHPmtJu2UFvjeuh` READY, homepage HTTP 200 and Control Centre feed monitor HTTP 200 on exact deployment. Owner-only run-now route exists, but **no owner-signed-in operation was performed by this audit**, so current preflight/stage results, licensed prices, images, offer publication and six scheduled job executions remain unverified. Awin public offers 0, source remains paused.
+
+
 ## 16 Nov 2026 · Owner-run current Awin preflight/private stage and Tooled Up master, proposed PR
 
 Added owner-only `POST /api/control-centre/awin-run-now` with strict auth role and Origin, fixed supplier pair allowlist, private-write confirmation, server-only `CRON_SECRET` and no arbitrary URL/digest. It reuses current workers for Petlibro, Mozillion, Cadbury and Craft Buddy preflight/private staging and Tooled Up immutable snapshot/validation in-process. Extended private `/control-centre/awin-feed-updates` with owner buttons and service-role-read scheduled job journal after role checks. Manual operations are **not** logged as scheduled cron attempts. No source activation, rights override, customer-facing prices or offers. Require CI/preview and an actual signed-in owner click before claiming any current feed was tested. After current successful private import, release one genuinely eligible offered item with seller/rights/freshness audit and automatic withdrawal, not all historic rows.

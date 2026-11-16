@@ -1,3 +1,9 @@
+## 16 November 2026 · Checked against original 14 November master idea index
+
+The [original Git/branch/ideas handover](AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md) is now explicitly reconciled, **without deleting or rewriting its frozen 14 Nov history**. The original had **22 branches and 5 open draft PRs**; latest current state was **25 branches, 7 open PRs**. The three additional branches are PR #200, PR #201 and the historical product soft-404 fix. Both security refs are preserved. Original [machine index](AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.json) remains historical; this tracker's JSON holds the complete current **29-workstream and 12-gap crosswalk**.
+
+**These are thematic links, NOT completion badges.** Their original requirement/acceptance details remain in [ROADMAP](ROADMAP.md), [source gap audit](SOURCE_REQUIREMENT_GAPS_2026-11-02.md), the original source attachments and safe historical branches.
+
 ## COMPLETE ACTIVE GIT HANDOVER (16 November 2026)
 
 **First read:** [AVUQO_ACTIVE_HANDOVER.md](AVUQO_ACTIVE_HANDOVER.md) and [AVUQO_ACTIVE_HANDOVER.json](AVUQO_ACTIVE_HANDOVER.json) are the active operational and machine-readable source of truth, with all 13 crons, six merchant rights registers, private and production data, seven open PRs, 22 prioritised work items, original source/vision indexes and every next release gate. The previous 14 November and October entries below are deliberately preserved as dated history, **not claims about today**. At audit, production application was Git `39cb4a94`, Vercel `dpl_Hs18EQdhAm31mh3kDKUJA4c3DZzr` READY, public site HTTP 200. Awin source still paused, 251 private canonical products, zero public Awin offers, and no captured/validated Tooled Up master snapshot despite the newly configured schedule.

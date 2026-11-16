@@ -956,10 +956,437 @@
       "First fresh per-merchant approved public offer + automatic expiry and source withdrawal"
     ],
     "owner_run_now": {
-      "status": "candidate",
-      "url": "/control-centre/awin-feed-updates",
-      "scope": "four private pilots and Tooled Up exact master capture/validation; owner-only; no publication"
+      "status": "production_READY_signed_in_acceptance_pending",
+      "route": "/control-centre/awin-feed-updates",
+      "api": "/api/control-centre/awin-run-now",
+      "application_commit": "d977cfa3a01265b1401235c728c089da377a256d",
+      "deployment": "dpl_E5cbjLHeTA1s6CHPmtJu2UFvjeuh",
+      "owner_only": true,
+      "source_activation": false,
+      "public_offers_created": 0,
+      "first_supplier_preflight_executed": false,
+      "schedule_journal_count_at_check": 0
     }
   },
-  "source_scope": "Files inspected in attached project workspace; original private binaries are NOT published to Git; published tracker stores only filenames, checksums and high-level feature requirements."
+  "source_scope": "Files inspected in attached project workspace; original private binaries are NOT published to Git; published tracker stores only filenames, checksums and high-level feature requirements.",
+  "historical_2026_11_14_master_index_reconciliation": {
+    "original_document": "docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md",
+    "original_machine": "docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.json",
+    "original_date": "2026-11-14",
+    "original_branch_total": 22,
+    "original_open_pr_count": 5,
+    "current_branch_total_at_latest_audit": 25,
+    "current_open_pr_count": 7,
+    "branch_delta": [
+      "fix/products-request-bound-true-404-20261114",
+      "docs/petlibro-live-import-pilot-20261114",
+      "fix/product-pilot-soft-404-and-release-proof-20261114"
+    ],
+    "original_roadmap_workstreams": [
+      {
+        "id": "P0-01",
+        "original_title": "Event/click consent integrity",
+        "feature_ids": [
+          "F21",
+          "F22"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P0-02",
+        "original_title": "Awin/source rights pause",
+        "feature_ids": [
+          "F11",
+          "F31"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P0-03",
+        "original_title": "Signed-in customer collections acceptance",
+        "feature_ids": [
+          "F06",
+          "F29"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P0-04",
+        "original_title": "Legacy PR reconciliation",
+        "feature_ids": [
+          "F35",
+          "F33"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P0-05",
+        "original_title": "Role/release/security acceptance",
+        "feature_ids": [
+          "F28",
+          "F29",
+          "F33"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P1-01",
+        "original_title": "Permissioned Awin pilot",
+        "feature_ids": [
+          "F11",
+          "F09",
+          "F10"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P1-02",
+        "original_title": "Universal source connector registry",
+        "feature_ids": [
+          "F09",
+          "F12",
+          "F34"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P1-03",
+        "original_title": "Canonical products/offers/price history",
+        "feature_ids": [
+          "F01",
+          "F04",
+          "F09"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P1-04",
+        "original_title": "Products Deals Search Compare",
+        "feature_ids": [
+          "F01",
+          "F02",
+          "F03",
+          "F04"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P1-05",
+        "original_title": "Taxonomy/navigation",
+        "feature_ids": [
+          "F02",
+          "F09",
+          "F15"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P1-06",
+        "original_title": "Verified affiliate redirects/commissions",
+        "feature_ids": [
+          "F22",
+          "F25"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P1-07",
+        "original_title": "Indexed natural-language search",
+        "feature_ids": [
+          "F03"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P2-01",
+        "original_title": "Guest groceries/complete basket",
+        "feature_ids": [
+          "F14",
+          "F16"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P2-02",
+        "original_title": "Approved supermarket prices",
+        "feature_ids": [
+          "F17",
+          "F18"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P2-03",
+        "original_title": "Watches and alerts",
+        "feature_ids": [
+          "F05"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P2-04",
+        "original_title": "Shared lists and households",
+        "feature_ids": [
+          "F06",
+          "F14"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P2-05",
+        "original_title": "Budgeting/spending goals",
+        "feature_ids": [
+          "F19"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P2-06",
+        "original_title": "Explainable preference graph",
+        "feature_ids": [
+          "F07"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P3-01",
+        "original_title": "CMS/legal/media/SEO",
+        "feature_ids": [
+          "F28",
+          "F29"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P3-02",
+        "original_title": "Approved affiliate/social/Pinterest promotion",
+        "feature_ids": [
+          "F25",
+          "F26"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P3-03",
+        "original_title": "Separated site advertising",
+        "feature_ids": [
+          "F25",
+          "F29"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P3-04",
+        "original_title": "First-party analytics/experiments",
+        "feature_ids": [
+          "F21",
+          "F22",
+          "F23",
+          "F24"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P3-05",
+        "original_title": "Reality Check and feedback",
+        "feature_ids": [
+          "F08"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P3-06",
+        "original_title": "Seasonal calendar engine",
+        "feature_ids": [
+          "F27"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P4-01",
+        "original_title": "Travel/hotel/activities/hire",
+        "feature_ids": [
+          "F20"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P4-02",
+        "original_title": "Broadband/insurance/motoring/services",
+        "feature_ids": [
+          "F20"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P4-03",
+        "original_title": "Autopilot and exception monitoring",
+        "feature_ids": [
+          "F10",
+          "F31",
+          "F33"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P4-04",
+        "original_title": "Large-scale eligible-offer processing",
+        "feature_ids": [
+          "F34"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      },
+      {
+        "id": "P4-05",
+        "original_title": "PWA, opt-in push, conditional native mobile",
+        "feature_ids": [
+          "F32"
+        ],
+        "current_state": "see_linked_feature_status_and_live_evidence",
+        "original_roadmap": "docs/ROADMAP.md"
+      }
+    ],
+    "original_granular_requirement_gaps": [
+      {
+        "id": "G01",
+        "feature_ids": [
+          "F03"
+        ],
+        "details_in": "docs/SOURCE_REQUIREMENT_GAPS_2026-11-02.md",
+        "current_state": "not_proven_complete"
+      },
+      {
+        "id": "G02",
+        "feature_ids": [
+          "F32"
+        ],
+        "details_in": "docs/SOURCE_REQUIREMENT_GAPS_2026-11-02.md",
+        "current_state": "not_proven_complete"
+      },
+      {
+        "id": "G03",
+        "feature_ids": [
+          "F07"
+        ],
+        "details_in": "docs/SOURCE_REQUIREMENT_GAPS_2026-11-02.md",
+        "current_state": "not_proven_complete"
+      },
+      {
+        "id": "G04",
+        "feature_ids": [
+          "F06"
+        ],
+        "details_in": "docs/SOURCE_REQUIREMENT_GAPS_2026-11-02.md",
+        "current_state": "not_proven_complete"
+      },
+      {
+        "id": "G05",
+        "feature_ids": [
+          "F05"
+        ],
+        "details_in": "docs/SOURCE_REQUIREMENT_GAPS_2026-11-02.md",
+        "current_state": "not_proven_complete"
+      },
+      {
+        "id": "G06",
+        "feature_ids": [
+          "F27"
+        ],
+        "details_in": "docs/SOURCE_REQUIREMENT_GAPS_2026-11-02.md",
+        "current_state": "not_proven_complete"
+      },
+      {
+        "id": "G07",
+        "feature_ids": [
+          "F04",
+          "F11"
+        ],
+        "details_in": "docs/SOURCE_REQUIREMENT_GAPS_2026-11-02.md",
+        "current_state": "not_proven_complete"
+      },
+      {
+        "id": "G08",
+        "feature_ids": [
+          "F16"
+        ],
+        "details_in": "docs/SOURCE_REQUIREMENT_GAPS_2026-11-02.md",
+        "current_state": "not_proven_complete"
+      },
+      {
+        "id": "G09",
+        "feature_ids": [
+          "F14",
+          "F16"
+        ],
+        "details_in": "docs/SOURCE_REQUIREMENT_GAPS_2026-11-02.md",
+        "current_state": "not_proven_complete"
+      },
+      {
+        "id": "G10",
+        "feature_ids": [
+          "F22",
+          "F25"
+        ],
+        "details_in": "docs/SOURCE_REQUIREMENT_GAPS_2026-11-02.md",
+        "current_state": "not_proven_complete"
+      },
+      {
+        "id": "G11",
+        "feature_ids": [
+          "F21",
+          "F22"
+        ],
+        "details_in": "docs/SOURCE_REQUIREMENT_GAPS_2026-11-02.md",
+        "current_state": "not_proven_complete"
+      },
+      {
+        "id": "G12",
+        "feature_ids": [
+          "F02",
+          "F36"
+        ],
+        "details_in": "docs/SOURCE_REQUIREMENT_GAPS_2026-11-02.md",
+        "current_state": "not_proven_complete"
+      }
+    ],
+    "source_and_requirements_note": "P0–P4 workstream and G01–G12 gap crosswalk is a thematic linkage, not proof of deployed functionality. Original 14-Nov index is immutable historical evidence except the dated 16-Nov pointer added at top.",
+    "extra_historic_unique_requirements": [
+      "Open PR #25 contains a 1384-category inactive blueprint, not approved published categories",
+      "Preserve 16 original design mockup references and high resolution assets only if independently verified in branches/private source",
+      "Historical 50 category guide/shelf ambitions must not be falsely counted as full products",
+      "Actual signed-in multi-account collections/alerts acceptance is separate from route existence",
+      "Marketing AI/social publishing/stop status from original index is historical and must be live rechecked",
+      "Tyres UK PR #158 lease migration version differs from existing journal; do not replay or start PR #117",
+      "eBay production Browse permission and approved data/image reuse not established",
+      "Network confirmed vs pending vs paid commissions and returns/reversals must not be conflated"
+    ]
+  }
 }
