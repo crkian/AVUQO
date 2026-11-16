@@ -1200,5 +1200,32 @@
     "awin": "unchanged",
     "evidence": "read-only production query found zero receipt and ownership-link rows, two active guards",
     "next": "Authorised clone psql tests; real link-first fixture; full cross-store erasure and retention review"
+  },
+  "ebay_erasure_readiness_preflight_20261116": {
+    "status": "candidate_ci_pending_database_query_executed",
+    "sql": "scripts/ebay-erasure-readiness-preflight.sql",
+    "test": "tests/ebay-erasure-readiness-preflight.test.mjs",
+    "runbook": "docs/AVUQO_EBAY_ERASURE_READINESS_PREFLIGHT_2026-11-16.md",
+    "production_sql": "read_only_executed_successfully",
+    "source_paused": true,
+    "sync_enabled": false,
+    "admission_guards_enabled": 2,
+    "purge_functions_private": true,
+    "receipt_rows": 0,
+    "account_link_rows": 0,
+    "ebay_source_offers": 0,
+    "ebay_ingestion_items": 0,
+    "ebay_product_matches": 0,
+    "ebay_price_history": 0,
+    "partial_audit_rows": 0,
+    "two_session_race_verified": false,
+    "complete_erasure": false,
+    "backup_retention_verified": false,
+    "signed_provider_event_verified": false,
+    "production_approval_verified": false,
+    "production_database_changes": false,
+    "awin_integrations": "unchanged",
+    "webhook": "503 and unregistered",
+    "next": "authorised two-psql clone race and full idempotent erasure with legal/processor verification"
   }
 }
