@@ -25,6 +25,7 @@ export async function recordPrivateCronAttempt(
  const {data:attempt,error:insertError}=await db.from("awin_private_cron_attempts")
   .insert({job_key:job,state:"started"}).select("id").single();
  if(insertError||!attempt?.id)return problem("Private cron attempt journal unavailable");
+ const attemptId=attempt.id;
 
  async function finish(state:"completed"|"disabled"|"rejected"|"exception",code:string,httpStatus:number){
   const {error}=await db.from("awin_private_cron_attempts")
@@ -32,7 +33,7 @@ export async function recordPrivateCronAttempt(
     state,outcome_code:code,http_status:httpStatus,
     duration_ms:Math.min(3600000,Math.max(0,Date.now()-start)),
     finished_at:new Date().toISOString()
-   }).eq("id",attempt.id).eq("state","started");
+   }).eq("id",attemptId).eq("state","started");
   return !error;
  }
  let response:Response;
