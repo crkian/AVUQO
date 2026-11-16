@@ -1926,5 +1926,33 @@
     "awin_integrations": "unchanged",
     "webhook": "503 and unregistered",
     "next": "authorised two-psql clone race and full idempotent erasure with legal/processor verification"
+  },
+  "ebay_erasure_work_journal_20261116": {
+    "status": "candidate_not_applied",
+    "migration": "supabase/migrations/20261116181000_ebay_erasure_work_journal.sql",
+    "tests": "tests/ebay-erasure-work-journal.test.mjs",
+    "runbook": "docs/AVUQO_EBAY_ERASURE_WORK_JOURNAL_2026-11-16.md",
+    "receipt_surfaces": [
+      "mapped_catalogue",
+      "indirect_identifiers",
+      "analytics_attribution",
+      "storage_media",
+      "application_cdn_logs",
+      "backups_restoration",
+      "external_processors"
+    ],
+    "idempotent_seed": true,
+    "db_only_lease": true,
+    "retries_and_stale_attempt_guards": true,
+    "worker_deployed": false,
+    "production_migration_applied": false,
+    "two_session_race_pass": false,
+    "complete_account_erasure": false,
+    "retention_and_backups_verified": false,
+    "provider_signed_notification_verified": false,
+    "webhook": "HTTP 503 unregistered",
+    "ebay_source": "paused, sync disabled and DB quarantine",
+    "awin": "unchanged",
+    "next": "review and test migration against authorised clone; build actual erasure executor; legal and remote processor retention verification"
   }
 }
