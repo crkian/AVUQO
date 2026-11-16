@@ -1,5 +1,7 @@
 # AVUQO | ACTIVE OPERATIONAL HANDOVER
 
+**CI correction 16 Nov:** Initial PR #222 GitHub build failed because `export const runtime="nodejs"` is incompatible with existing Next.js 16 `cacheComponents`; removed this segment config without changing challenge or POST refusal logic. Do not mark build/production READY until rerun checks pass. No production change arose from the failed CI.
+
 ## 16 Nov 2026 · eBay account-deletion callback phase 1 implementation (PR candidate)
 
 **Actual new code:** `app/api/ebay/account-deletion/route.ts` provides an exact canonical-URL eBay SHA-256 GET challenge, server-only `EBAY_DELETION_VERIFICATION_TOKEN` (32-80 permitted chars), server-only `EBAY_DELETION_ENDPOINT_URL` that must equal `https://www.avuqo.com/api/ebay/account-deletion`, rejects extra query parameters/malformed tokens, never caches the response, and fails closed without correct environment. `tests/ebay-deletion-challenge.test.mjs` covers URL, digest order and POST refusal.
