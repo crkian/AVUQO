@@ -2,6 +2,7 @@ import {createHash} from "node:crypto";
 import {NextRequest,NextResponse} from "next/server";
 import {createAdminClient} from "../../../../lib/supabase/admin";
 import {tooledUpPrivateAutomationAllowed} from "../../../../lib/awin/tooled-up-private-automation";
+import {recordPrivateCronAttempt} from "../../../../lib/awin/private-cron-recorder";
 import {approvedAwinDownloadUrl} from "../../../../lib/awin/approved-feed-url";
 import {csvRowsFromChunks} from "../../../../lib/feed-imports/stream-csv";
 import {AWIN_PRIVATE_SNAPSHOT_BUCKET,privateAwinSnapshotKey} from "../../../../lib/awin/private-snapshot";
@@ -159,7 +160,9 @@ export async function GET(request:NextRequest){
  if(!secret||secret.length<16||
     request.headers.get("authorization")!==`Bearer ${secret}`)
   return reply({error:"Unauthorized"},401);
- if(process.env.AWIN_AUTO_IMPORT_ENABLED!=="true")
-  return reply({status:"disabled",private_only:true,no_snapshot:true});
- return POST(request);
+ return recordPrivateCronAttempt("tooled_up_snapshot",async()=>{
+  if(process.env.AWIN_AUTO_IMPORT_ENABLED!=="true")
+   return reply({status:"disabled",private_only:true,no_snapshot:true});
+  return POST(request);
+ });
 }
