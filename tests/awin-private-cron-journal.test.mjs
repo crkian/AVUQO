@@ -25,7 +25,7 @@ test("persistent journal is private service-role only and rejects arbitrary jobs
  assert.doesNotMatch(sql,/GRANT .* (anon|authenticated)/);
  assert.doesNotMatch(sql,/affiliate_tracking_url|credential|raw_product|signed_url/i);
  assert.match(record,/insert\(\{job_key:job,state:"started"\}\)/);
- assert.match(record,/\.eq\("id",attempt.id\)\.eq\("state","started"\)/);
+ assert.match(record,/\.eq\("id",attemptId\)\.eq\("state","started"\)/);
  assert.match(record,/response\.clone\(\)\.json\(\)/);
  assert.match(record,/if\(insertError\|\|!attempt\?\.id\)return problem/);
  assert.match(record,/if\(!\(await finish\(/);
