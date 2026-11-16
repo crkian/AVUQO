@@ -1,3 +1,13 @@
+## 16 Nov 2026 · eBay secure deletion receipt journal (implementation candidate)
+
+**Goal:** move beyond merely verifying eBay messages, without falsely acknowledging data deletion. Live DB audit found **0 eBay `offers` and 0 eBay `source_ingestion_items`**, but this is **not an exhaustive historical privacy audit** of tracking and other stores. eBay's documented MARKETPLACE_ACCOUNT_DELETION includes optional `username`, `userId`, `eiasToken`. Continue to treat production keyset as disabled and eBay Buy/Browse approval unverified.
+
+**Built in Git branch:** `supabase/migrations/20261116124500_ebay_private_deletion_receipt_journal.sql` defines a private RLS-enabled, service-role-select/insert-only `public.ebay_deletion_receipts` table. Contains only keyed HMAC-SHA256 digests of notification ID and supplied eBay identifiers, state `pending_privacy_review`, no raw user data or payload. `lib/ebay/deletion-journal.ts` records authenticated events with HMAC domain separation using server-side `EBAY_DELETION_HMAC_SECRET`, rejects invalid input, detects duplicates by exact digest parity and fails closed. `app/api/ebay/account-deletion/route.ts` journals only after signature and topic checks and still **always returns 503** until actual irreversible privacy deletion, future suppression and legal-retention checks are implemented. Tests cover RLS grants, hash separation, duplicates and deliberate no-acknowledgement.
+
+**No false completion:** journal insertion is not deletion. Do **not** register the eBay endpoint, configure fictional production credentials or enable eBay source. This change must pass GitHub lint/build/test/secret scan; then apply versioned Supabase migration and independently verify private grants/RLS, test idempotency. The owner can separately save their endpoint-down notification email, still not confirmed. Need audited privacy processor and actual signed provider notification test before using HTTP 200 or attempting eBay registration.
+
+**Awin unchanged:** previously built Petlibro/Cadbury/Craft Buddy/Mozillion/Tooled Up/tyre private pipelines and owner run-now control remain the correct path; next owner preflight, then merchant-scoped verified publication. No live customer Awin offers were created in this step.
+
 ## 16 Nov 2026 · PR #224 eBay signed-notification validation deployed, not subscribed
 
 **Verified implementation:** [PR #224](https://github.com/crkian/AVUQO/pull/224) merged at application SHA `7a791a342d60f5dfff9326f0a8b5fb0e80250afa`. GitHub quality checks and secret scan succeeded. Exact Vercel production deployment `dpl_YJKMvcPyXzHGcrkngV4m7DDWeRuE` is **READY**. This supersedes PR #222 as the latest confirmed application code.
