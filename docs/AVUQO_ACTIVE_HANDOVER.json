@@ -1255,5 +1255,27 @@
     "ebay_source": "paused, sync disabled and DB quarantine",
     "awin": "unchanged",
     "next": "review and test migration against authorised clone; build actual erasure executor; legal and remote processor retention verification"
+  },
+  "ebay_zero_cost_local_postgres_20261116": {
+    "status": "candidate_static_checks_only",
+    "budget": "£0 additional expenditure",
+    "docker_cloud_resources_created": false,
+    "test_runner": "scripts/run-ebay-local-postgres-tests.ps1",
+    "fixture": "tests/fixtures/ebay-local-schema.sql",
+    "acceptance": "tests/fixtures/ebay-local-erasure-acceptance.sql",
+    "runbook": "docs/AVUQO_EBAY_FREE_LOCAL_POSTGRES_2026-11-16.md",
+    "live_docker_tests": "NOT_RUN",
+    "read_only_production_preserved": true,
+    "local_network_isolation": true,
+    "container_cleanup": true,
+    "receipt_first_race": "NOT_RUN",
+    "reverse_advisory_witness": "NOT_RUN",
+    "real_committed_link_first": "NOT_IMPLEMENTED",
+    "full_erasure": "NOT_IMPLEMENTED",
+    "signed_provider_event": "NOT_VERIFIED",
+    "source": "paused and quarantined",
+    "webhook": "HTTP 503 unregistered",
+    "awin": "unchanged",
+    "next": "Owner runs local PowerShell script if Docker already installed; collect two-session evidence; build full erasure and legal retention coverage"
   }
 }
