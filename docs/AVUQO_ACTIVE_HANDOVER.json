@@ -746,6 +746,7 @@
     "awin": "Unchanged, owner preflight still required",
     "public_ebay_item_offers": 0,
     "public_awin_offers_last_verified": 0,
-    "source_changes": false
+    "source_changes": false,
+    "ci_correction": "Initial PR #222 build failed: Next 16 cacheComponents disallows runtime route segment config; removed export const runtime. Recheck CI before merge."
   }
 }
