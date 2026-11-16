@@ -61,6 +61,7 @@ export default async function RetailerOnboarding(){
    <nav className={styles.links}>
     <Link href="/control-centre/feed-imports">Private Awin imports <ArrowRight size={15}/></Link>
     <Link href="/preview/ebay">Private eBay preview <ArrowRight size={15}/></Link>
+    <Link href="/control-centre/ebay-privacy">eBay privacy control tower <ArrowRight size={15}/></Link>
     <Link href="/control-centre/source-readiness">Source rights review <ArrowRight size={15}/></Link>
    </nav>
   </header>
