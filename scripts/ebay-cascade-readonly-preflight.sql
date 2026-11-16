@@ -20,6 +20,10 @@ with known(rel) as (values
   and c.conkey=array[a.attnum]::smallint[]
   and c.confkey=array[parent.attnum]::smallint[]
   and c.conrelid in (select pg_catalog.to_regclass(rel) from known)
+), total_fks as (
+ select count(*)::integer as count_all from pg_catalog.pg_constraint c
+ where c.contype='f'
+  and c.confrelid=pg_catalog.to_regclass('public.offers')
 ), guard as (
  select count(*)::integer as enabled_count from pg_catalog.pg_trigger t
  where t.tgrelid=pg_catalog.to_regclass('public.offers')
@@ -30,6 +34,9 @@ with known(rel) as (values
 )
 select 'seven_validated_cascade_fks' as check_id,
  case when (select valid_count from fks)=7 then 'PASS' else 'BLOCK' end as status
+union all
+select 'exact_thirteen_offer_fks',
+ case when (select count_all from total_fks)=13 then 'PASS' else 'BLOCK' end
 union all
 select 'cascade_containment_guard_enabled',
  case when (select enabled_count from guard)=1 then 'PASS' else 'BLOCK' end
