@@ -2,7 +2,7 @@
 # Owner-approved, two-connection transaction-lock probe. NEVER commits synthetic data.
 # ALLOW_EBAY_RACE_TEST=true EBAY_RACE_TEST_DATABASE_URL=<private connection URL> bash scripts/test-ebay-tombstone-race.sh
 set -Eeuo pipefail
-if [[ "$ALLOW_EBAY_RACE_TEST" != "true" || -z "$EBAY_RACE_TEST_DATABASE_URL" ]]; then
+if [[ "$(printenv ALLOW_EBAY_RACE_TEST || true)" != "true" || -z "$(printenv EBAY_RACE_TEST_DATABASE_URL || true)" ]]; then
  echo "SKIP: explicit opt-in and a private database connection URL required"; exit 2
 fi
 command -v psql >/dev/null || { echo "psql required"; exit 2; }
