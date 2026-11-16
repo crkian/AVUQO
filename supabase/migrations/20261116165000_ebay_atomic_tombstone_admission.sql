@@ -37,7 +37,7 @@ $$;
 revoke all on function public.ebay_is_account_digest_suppressed(text,text)
  from public,anon,authenticated,service_role;
 
--- Sort by the resulting lock key, not raw domain/name, to avoid taking
+-- Account-link gate runs as its restricted function owner so it can read the\n-- private receipt ledger; it exposes no direct RPC and only returns NEW/raises.\n-- Sort by the resulting lock key, not raw domain/name, to avoid taking
 -- multiple advisory keys in divergent order between concurrent receipts.
 create function public.ebay_lock_deletion_receipt_accounts()
 returns trigger language plpgsql security invoker set search_path = ''
@@ -68,8 +68,8 @@ before insert on public.ebay_deletion_receipts for each row
 execute function public.ebay_lock_deletion_receipt_accounts();
 
 create function public.ebay_reject_tombstoned_account_item_link()
-returns trigger language plpgsql security invoker set search_path = ''
-as $$
+returns trigger language plpgsql security definer set search_path = ''
+as $
 begin
  if new.identity_kind not in ('user_id_digest','username_digest','eias_token_digest')
   or new.identity_digest is null
