@@ -1,3 +1,10 @@
+## Unreleased · Git-tracked full operational handover and mandatory updates · 16 Nov 2026
+
+- Add [the complete active operational handover](docs/AVUQO_ACTIVE_HANDOVER.md) and machine snapshot [JSON](docs/AVUQO_ACTIVE_HANDOVER.json), covering current verified main/Vercel/Supabase, all feed and permission evidence, 13 crons, 7 open PRs, 22 outstanding priorities, deployment history and original source/branch/idea index.
+- Link the living record from README, START_HERE, AGENTS, historical handover, Compass, status and roadmap. Preserve old dated material rather than rewriting original evidence.
+- Require the active Markdown and JSON to change together with status/changelog on every code/schema/cron PR in the existing GitHub CI register. No supplier rights, production source switches, customer offers or raw credentials changed.
+- Docs-only Git head may legitimately differ from the earlier Vercel READY **application** SHA due to the project's ignored-build command.
+
 ## Unreleased · Automate existing Tooled Up snapshot and full-feed validator
 
 - Connect the previously implemented Tooled Up `496:89987` exact-feed snapshot uploader and full-stream integrity validator to separate 08:05 and 08:25 UTC daily Vercel Cron paths. Guard both with cron authentication, source pause, joined programme, source-ingestion switch and global emergency stop, including rechecks before private writes.

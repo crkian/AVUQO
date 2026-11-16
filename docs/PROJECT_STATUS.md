@@ -1,3 +1,7 @@
+## COMPLETE ACTIVE GIT HANDOVER (16 November 2026)
+
+**First read:** [AVUQO_ACTIVE_HANDOVER.md](AVUQO_ACTIVE_HANDOVER.md) and [AVUQO_ACTIVE_HANDOVER.json](AVUQO_ACTIVE_HANDOVER.json) are the active operational and machine-readable source of truth, with all 13 crons, six merchant rights registers, private and production data, seven open PRs, 22 prioritised work items, original source/vision indexes and every next release gate. The previous 14 November and October entries below are deliberately preserved as dated history, **not claims about today**. At audit, production application was Git `39cb4a94`, Vercel `dpl_Hs18EQdhAm31mh3kDKUJA4c3DZzr` READY, public site HTTP 200. Awin source still paused, 251 private canonical products, zero public Awin offers, and no captured/validated Tooled Up master snapshot despite the newly configured schedule.
+
 ## Tooled Up: automated verified private snapshot and full-stream diagnostics · candidate · 15 Nov 2026
 
 - The existing Tooled Up importer was **already built**: `lib/feed-imports/tooled-up-large.ts`, exact master-feed adapter `lib/awin/tooled-up-master-adapter.ts`, full-gzip validator, private snapshot uploader/validator endpoints, and resumable feed-import infrastructure. On Nov 4 an owner-uploaded import stored 84,284 private review rows. Awin listed 84,255 products on Nov 15 in the replacement feed `496:89987`. There are **no** immutable snapshots in `awin-bulk-private-snapshots/awin/496/89987`, and no completed full-file validation reports as of this change.

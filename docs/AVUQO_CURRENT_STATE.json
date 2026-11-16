@@ -1,21 +1,21 @@
 {
   "schema_version": 1,
   "project": "AVUQO",
-  "as_of_utc": "2026-11-14",
-  "evidence_note": "Historical snapshot only. Recheck GitHub main HEAD, Vercel current production SHA and live Supabase source permissions at the start of every chat.",
+  "as_of_utc": "2026-11-16",
+  "evidence_note": "Operational snapshot updated 16 Nov 2026. Read docs/AVUQO_ACTIVE_HANDOVER.md and .json first; embedded historical release keys remain dated history. Recheck main, READY Vercel application SHA, live Supabase and Cron execution on every new session. Docs-only commits may not build.",
   "repo": "crkian/AVUQO",
   "default_branch": "main",
   "production": {
     "url": "https://www.avuqo.com",
     "platform": "Vercel",
     "project": "avuqo",
-    "deployment_id": "dpl_6J8N1ErH35V3GqY77rQR7xxAkowP",
-    "verified_ready_sha": "0f84dba3a1c9e8487c953b24c8a0ca1a4eb1838d",
+    "deployment_id": "dpl_Hs18EQdhAm31mh3kDKUJA4c3DZzr",
+    "verified_ready_sha": "39cb4a94ae1a9a98a80e368f8664d79d1ed0bf53",
     "verified_aliases": [
       "www.avuqo.com",
       "avuqo.com"
     ],
-    "verification": "PR #197 bounded Live Data candidate streaming plus urgent role-before-query PR #198. Vercel READY exact app SHA. Homepage 200 matching dpl. Signed-out live-data RSC redirected without private candidate or source metric markers. Owner browser timing pending.",
+    "verification": "16 Nov: PR #209 merged; Tooled Up 08:05 private snapshot and 08:25 exhaustive validator scheduled; GitHub main app SHA and production Vercel READY, homepage HTTP 200 with marker. Supabase had zero Tooled Up immutable snapshots or full-file validation rows; Awin source paused, public Awin offers zero. First actual job run not confirmed.",
     "status": "verified_at_snapshot_not_live_poll"
   },
   "stack": {
@@ -101,11 +101,13 @@
     }
   ],
   "open_prs_at_snapshot": [
-    25,
-    83,
-    93,
+    201,
+    200,
+    158,
     117,
-    158
+    93,
+    83,
+    25
   ],
   "merged_recent": [
     {
@@ -174,23 +176,27 @@
   "next_actions": [
     {
       "priority": 1,
-      "task": "Fix genuine HTTP 404 for unknown and draft product routes: PR #194 merged but signed-out HTTP response still 200 with unavailable markup. Preserve four legitimate research model guides."
+      "task": "Inspect 16 Nov Tooled Up 08:05/08:25 Vercel Cron logs and zero immutable snapshot/validation discrepancy."
     },
     {
       "priority": 2,
-      "task": "Get at least one fresh, rights-cleared, owner-approved retailer offer with full price, delivery and image permissions; never expose demo or unverified Awin prices."
+      "task": "Fresh preflight and staging verification for Petlibro/Mozillion/Cadbury/Craft Buddy scheduled AUTO feeds."
     },
     {
       "priority": 3,
-      "task": "Read-only signed-in owner/Work Live Data QA: measure main metric first paint vs private candidate scan; check permission and duplicate flags and 5k/40 bounds."
+      "task": "Advertiser-specific rights, price/stock, creative/commission permissions and first live public offer release and withdrawal."
     },
     {
       "priority": 4,
-      "task": "Owner/Work read-only Marketplace and Source Atlas Awin observation card check and editor post-#195 prerender warning; avoid Save/Publish."
+      "task": "Connect existing Tooled Up 250-row resumable private importer after full snapshot validation and documented GBP evidence."
     },
     {
       "priority": 5,
-      "task": "Reconcile only superseded historical Git branches after preserving unique feature and original design/security work."
+      "task": "Resolve true HTTP 404 PR #200; owner browser acceptance; Tyres UK/Pneus, eBay, grocery, user experience, analytics, marketing."
+    },
+    {
+      "priority": 6,
+      "task": "Update active Git handover Markdown and JSON, status and changelog with exact proof on every implementation release."
     }
   ],
   "required_reverification": [
@@ -207,7 +213,9 @@
     "compass": "docs/AVUQO_PROJECT_COMPASS.md",
     "status": "docs/PROJECT_STATUS.md",
     "backlog": "docs/AVUQO_LIVE_PRODUCTION_PARTNER_AND_DESIGN_BACKLOG_2026-11-13.md",
-    "design": "docs/design/AVUQO_WARM_PREMIUM_VISUAL_IDENTITY_2026-11-05.md"
+    "design": "docs/design/AVUQO_WARM_PREMIUM_VISUAL_IDENTITY_2026-11-05.md",
+    "active": "docs/AVUQO_ACTIVE_HANDOVER.md",
+    "active_structured": "docs/AVUQO_ACTIVE_HANDOVER.json"
   },
   "last_completed_visual_pass": {
     "pr": 134,
@@ -693,5 +701,50 @@
     "latency_measured": false,
     "ci_build_lint_tests_secrets_preview": "passed",
     "source_activation": false
+  },
+  "older_next_actions_at_20261114": [
+    {
+      "priority": 1,
+      "task": "Fix genuine HTTP 404 for unknown and draft product routes: PR #194 merged but signed-out HTTP response still 200 with unavailable markup. Preserve four legitimate research model guides."
+    },
+    {
+      "priority": 2,
+      "task": "Get at least one fresh, rights-cleared, owner-approved retailer offer with full price, delivery and image permissions; never expose demo or unverified Awin prices."
+    },
+    {
+      "priority": 3,
+      "task": "Read-only signed-in owner/Work Live Data QA: measure main metric first paint vs private candidate scan; check permission and duplicate flags and 5k/40 bounds."
+    },
+    {
+      "priority": 4,
+      "task": "Owner/Work read-only Marketplace and Source Atlas Awin observation card check and editor post-#195 prerender warning; avoid Save/Publish."
+    },
+    {
+      "priority": 5,
+      "task": "Reconcile only superseded historical Git branches after preserving unique feature and original design/security work."
+    }
+  ],
+  "active_operational_handover_20261116": {
+    "narrative": "docs/AVUQO_ACTIVE_HANDOVER.md",
+    "machine": "docs/AVUQO_ACTIVE_HANDOVER.json",
+    "evidence_date": "2026-11-16",
+    "status": "dated_operational_overlay_not_live_API",
+    "verified_app_commit": "39cb4a94ae1a9a98a80e368f8664d79d1ed0bf53",
+    "vercel_deployment": "dpl_Hs18EQdhAm31mh3kDKUJA4c3DZzr",
+    "awin_source": "paused",
+    "awin_canonical_private_products": 251,
+    "private_candidate_links": 273,
+    "public_awin_offers": 0,
+    "tooled_up_immutable_snapshots": 0,
+    "tooled_up_full_validation_reports": 0,
+    "open_prs": [
+      201,
+      200,
+      158,
+      117,
+      93,
+      83,
+      25
+    ]
   }
 }

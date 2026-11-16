@@ -1,0 +1,462 @@
+{
+  "schema_version": 2,
+  "project": "AVUQO",
+  "as_of_utc": "2026-11-16",
+  "snapshot_type": "observed_at_morning_not_live_API",
+  "repo": {
+    "full_name": "crkian/AVUQO",
+    "visibility": "public",
+    "default_branch": "main",
+    "code_commit_before_handover": "39cb4a94ae1a9a98a80e368f8664d79d1ed0bf53",
+    "package_version": "0.5.3"
+  },
+  "production": {
+    "url": "https://www.avuqo.com",
+    "project": "avuqo",
+    "platform": "Vercel",
+    "ready_app_commit": "39cb4a94ae1a9a98a80e368f8664d79d1ed0bf53",
+    "ready_deployment": "dpl_Hs18EQdhAm31mh3kDKUJA4c3DZzr",
+    "verified_http": 200,
+    "status": "verified_READY_at_snapshot",
+    "docs_only_ignore_build_note": "Documentation commits may advance Git main without changing running application SHA. Always recheck."
+  },
+  "supabase": {
+    "project_ref": "tfoukwcruaamrtgxzshh",
+    "awin_source": {
+      "status": "paused",
+      "sync_enabled": false,
+      "credential_status": "not_configured",
+      "publication_permission": "pending"
+    },
+    "controls": {
+      "source_ingestion": true,
+      "global_emergency_stop": false,
+      "deal_publishing": true
+    },
+    "products": {
+      "total": 262,
+      "draft": 258,
+      "active": 4,
+      "awin_canonical": 251
+    },
+    "candidate_matches": {
+      "petlibro_rows": 44,
+      "petlibro_products": 22,
+      "mozillion_rows": 229,
+      "mozillion_products": 229,
+      "all_listed_candidate_links": 273
+    },
+    "public_awin_offers": 0,
+    "approved_awin_release_reviews": 0,
+    "tooled_up_private_snapshots": 0,
+    "tooled_up_full_validation_reports": 0
+  },
+  "merchants": [
+    {
+      "name": "Petlibro",
+      "advertiser_id": "77952",
+      "feed_id": "103580",
+      "latest_private_snapshot": "2026-11-05",
+      "import_rows": 44,
+      "canonical_private_products": 22,
+      "candidate_source_links": 44,
+      "import_cron": "07:05",
+      "draft_match_cron": "07:27",
+      "publication": "pending",
+      "blockers": [
+        "merchant reply signature advertiser 77942 vs subject/feed 77952",
+        "current price/stock",
+        "current commission group",
+        "image scope and owner offer release"
+      ]
+    },
+    {
+      "name": "Mozillion",
+      "advertiser_id": "31539",
+      "feed_id": "74135",
+      "latest_private_snapshot": "2026-11-14",
+      "import_rows": 229,
+      "canonical_private_products": 229,
+      "candidate_source_links": 229,
+      "grade_split": {
+        "brand_new": 166,
+        "good_as_new": 63
+      },
+      "import_cron": "07:09",
+      "draft_match_cron": "07:37",
+      "publication": "pending",
+      "blockers": [
+        "fresh prices and individual condition",
+        "trademark/logo consent",
+        "feed image reuse licence",
+        "commission groups and owner release"
+      ]
+    },
+    {
+      "name": "Cadbury Gifts Direct",
+      "advertiser_id": "736",
+      "feed_id": "48599",
+      "latest_private_snapshot": "2026-11-04",
+      "historical_private_rows": 1367,
+      "monitored_listed_products_2026_11_15": 1371,
+      "canonical_private_products": 0,
+      "import_cron": "07:13",
+      "draft_match_cron": "07:47",
+      "publication": "pending",
+      "blockers": [
+        "no validated AUTO snapshot",
+        "tracking, explicit GBP, stock",
+        "sale-category commission exclusion",
+        "image/price rights"
+      ]
+    },
+    {
+      "name": "Craft Buddy Shop",
+      "advertiser_id": "45747",
+      "feed_id": "F1356",
+      "latest_private_snapshot": "2026-10-28",
+      "historical_private_rows": 1299,
+      "historical_review": 1233,
+      "historical_excluded": 66,
+      "monitored_listed_products_2026_11_15": 1307,
+      "canonical_private_products": 0,
+      "import_cron": "07:17",
+      "draft_match_cron": "07:57",
+      "publication": "pending",
+      "blockers": [
+        "no validated AUTO snapshot",
+        "Google format/tracking/GBP",
+        "licensed character artwork",
+        "brand consent and owner release"
+      ]
+    },
+    {
+      "name": "Tooled Up",
+      "advertiser_id": "496",
+      "feed_id": "89987",
+      "latest_private_snapshot": "2026-11-04",
+      "historical_private_rows": 84284,
+      "monitored_listed_products_2026_11_15": 84255,
+      "immutable_private_snapshots": 0,
+      "whole_validation_reports": 0,
+      "snapshot_cron": "08:05",
+      "validation_cron": "08:25",
+      "publication": "pending",
+      "blockers": [
+        "verify first actual Cron invocation/storage",
+        "missing explicit GBP currency",
+        "connect already-built 250-row resumable staging",
+        "SKU dedup / rights / publication"
+      ]
+    },
+    {
+      "name": "Tyres UK",
+      "advertiser_id": "12715",
+      "feed_id": "93988",
+      "latest_private_snapshot": "2026-11-05",
+      "historical_private_rows": 31372,
+      "historical_review": 28990,
+      "historical_excluded": 2382,
+      "publication": "pending",
+      "blockers": [
+        "fitment and landed price",
+        "final seller/redirect tracking",
+        "supplier rights",
+        "dormant worker acceptance"
+      ]
+    }
+  ],
+  "schedules_utc": [
+    {
+      "utc": "06:17",
+      "path": "/api/internal/awin-feed-check",
+      "frequency": "daily",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
+    },
+    {
+      "utc": "07:05",
+      "path": "/api/internal/awin-pilot-schedule/petlibro",
+      "frequency": "daily",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
+    },
+    {
+      "utc": "07:09",
+      "path": "/api/internal/awin-pilot-schedule/mozillion",
+      "frequency": "daily",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
+    },
+    {
+      "utc": "07:13",
+      "path": "/api/internal/awin-pilot-schedule/cadbury",
+      "frequency": "daily",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
+    },
+    {
+      "utc": "07:17",
+      "path": "/api/internal/awin-pilot-schedule/craftbuddy",
+      "frequency": "daily",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
+    },
+    {
+      "utc": "07:27",
+      "path": "/api/internal/awin-petlibro-private-reconcile",
+      "frequency": "daily",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
+    },
+    {
+      "utc": "07:37",
+      "path": "/api/internal/awin-mozillion-private-reconcile",
+      "frequency": "daily",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
+    },
+    {
+      "utc": "07:47",
+      "path": "/api/internal/awin-cadbury-private-reconcile",
+      "frequency": "daily",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
+    },
+    {
+      "utc": "07:57",
+      "path": "/api/internal/awin-craft-buddy-private-reconcile",
+      "frequency": "daily",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
+    },
+    {
+      "utc": "08:05",
+      "path": "/api/internal/awin-tooled-up-snapshot",
+      "frequency": "daily",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
+    },
+    {
+      "utc": "08:25",
+      "path": "/api/internal/awin-tooled-up-daily-validation",
+      "frequency": "daily",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
+    },
+    {
+      "utc": "08:41",
+      "path": "/api/internal/awin-pneus-private-import",
+      "frequency": "daily",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
+    },
+    {
+      "utc": "09:00",
+      "path": "/api/internal/marketing",
+      "frequency": "daily",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
+    }
+  ],
+  "merged_releases": [
+    {
+      "pr": 204,
+      "area": "Petlibro private matching"
+    },
+    {
+      "pr": 205,
+      "area": "Mozillion private matching"
+    },
+    {
+      "pr": 206,
+      "area": "Cadbury private matching"
+    },
+    {
+      "pr": 207,
+      "area": "Craft Buddy bounded Google private import"
+    },
+    {
+      "pr": 208,
+      "area": "Craft Buddy private matching"
+    },
+    {
+      "pr": 209,
+      "area": "Tooled Up private capture and full validation scheduling"
+    }
+  ],
+  "open_prs_as_checked": [
+    {
+      "number": 201,
+      "draft": true,
+      "area": "Petlibro rights docs"
+    },
+    {
+      "number": 200,
+      "draft": false,
+      "area": "true product HTTP 404"
+    },
+    {
+      "number": 158,
+      "draft": true,
+      "area": "dormant Tyres UK renewal primitives"
+    },
+    {
+      "number": 117,
+      "draft": true,
+      "area": "dormant tyre enrichment"
+    },
+    {
+      "number": 93,
+      "draft": true,
+      "area": "warm premium customer build"
+    },
+    {
+      "number": 83,
+      "draft": true,
+      "area": "design mockups"
+    },
+    {
+      "number": 25,
+      "draft": true,
+      "area": "inactive taxonomy"
+    }
+  ],
+  "priorities": [
+    {
+      "id": "OPS-01",
+      "state": "open",
+      "task": "Inspect live 16 Nov cron execution and Tooled Up 08:05/08:25 zero-snapshot discrepancy"
+    },
+    {
+      "id": "OPS-02",
+      "state": "open",
+      "task": "Verify fresh current feed preflight/staging across four active small-feed pilots"
+    },
+    {
+      "id": "RIGHTS-01",
+      "state": "open",
+      "task": "Advertiser-specific documented image, price, commission, trademark, territory rights and Petlibro advertiser ID mismatch"
+    },
+    {
+      "id": "RELEASE-01",
+      "state": "open",
+      "task": "First genuine merchant-specific fresh priced public Awin offer and release controls"
+    },
+    {
+      "id": "RELEASE-02",
+      "state": "open",
+      "task": "Automated stale/withdrawn/repriced offer suppression"
+    },
+    {
+      "id": "TOOLED-01",
+      "state": "open",
+      "task": "Connect existing resumable 250-row Tooled Up bulk importer after verified snapshot/GBP proof"
+    },
+    {
+      "id": "TOOLED-02",
+      "state": "open",
+      "task": "Dedup and draft matching across master and brand/category overlap"
+    },
+    {
+      "id": "CADBURY-01",
+      "state": "open",
+      "task": "Current Cadbury AUTO snapshot and private drafts"
+    },
+    {
+      "id": "CRAFT-01",
+      "state": "open",
+      "task": "Current Craft Buddy Google AUTO snapshot and private drafts"
+    },
+    {
+      "id": "TYRE-01",
+      "state": "open",
+      "task": "Tyres UK/Pneus fitment, true total and worker leases"
+    },
+    {
+      "id": "SITE-01",
+      "state": "open",
+      "task": "Confirm real HTTP 404 for unknown/draft product slugs; review PR 200"
+    },
+    {
+      "id": "OWNER-01",
+      "state": "open",
+      "task": "Signed-in owner Control Centre / Live Data / editor / RSC acceptance"
+    },
+    {
+      "id": "FEED-ALL",
+      "state": "open",
+      "task": "Complete all joined advertisers with format/rights-specific integrations"
+    },
+    {
+      "id": "UI-01",
+      "state": "open",
+      "task": "Warm premium design/mobile/seasonal/page fidelity"
+    },
+    {
+      "id": "MKT-01",
+      "state": "open",
+      "task": "Marketing and paid/social/consent acceptance"
+    },
+    {
+      "id": "EBAY-01",
+      "state": "open",
+      "task": "Confirm production eBay Browse credentials and merchant policy"
+    },
+    {
+      "id": "GROCERY-01",
+      "state": "open",
+      "task": "First licensed supermarket pricing partner and pack/loyalty normalization"
+    },
+    {
+      "id": "ANALYTICS-01",
+      "state": "open",
+      "task": "First-party consent, event integrity, attribution and revenue reconciliation"
+    },
+    {
+      "id": "OPS-03",
+      "state": "open",
+      "task": "Vercel build credit/ignored docs deployments and billing alert monitoring"
+    },
+    {
+      "id": "SEC-01",
+      "state": "open",
+      "task": "RLS, signed-out/private streamed pages, source/owner stop gates"
+    },
+    {
+      "id": "CAT-01",
+      "state": "open",
+      "task": "25-category and inactive taxonomy work without premature publishing"
+    },
+    {
+      "id": "FUTURE-01",
+      "state": "open",
+      "task": "Long-tail opportunities and original 29 roadmap streams/12 requirement gaps"
+    }
+  ],
+  "handover": {
+    "current": "docs/AVUQO_ACTIVE_HANDOVER.md",
+    "structured": "docs/AVUQO_ACTIVE_HANDOVER.json",
+    "entry": "AVUQO_START_HERE.md",
+    "agents": "AGENTS.md",
+    "historical_release_log": "docs/AVUQO_LIVE_HANDOVER.md",
+    "older_machine_history": "docs/AVUQO_CURRENT_STATE.json",
+    "full_original_idea_index": "docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md",
+    "source_manifest": "docs/SOURCE_MANIFEST_2026-11-02.md",
+    "status": "docs/PROJECT_STATUS.md",
+    "roadmap": "docs/ROADMAP.md"
+  },
+  "requirements": {
+    "change_control": "Substantive PRs update active Markdown and JSON handover, PROJECT_STATUS and CHANGELOG in Git before merge. GitHub CI enforces the files changed, and users verify current deployment after merge.",
+    "licence_boundary": "Owner approval for AVUQO does not independently grant merchant/third-party IP or price rights.",
+    "privacy": "Never commit secret values, user records, confidential source PDFs or raw merchant/affiliate signed URLs to public Git."
+  },
+  "required_reverification": [
+    "Read current GitHub main SHA and open pull requests",
+    "Read latest Vercel READY production deployment and www.avuqo.com response",
+    "Query live Awin source, system_controls and offers/release reviews",
+    "Query newest feed_import_runs, exact SKU match counts and immutable snapshot validator",
+    "Review Vercel Cron logs to prove actual daily job execution",
+    "Recheck rights/commission/image permission evidence before public offers"
+  ]
+}
