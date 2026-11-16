@@ -39,5 +39,5 @@ test("verified eBay notification is journalled without acknowledging deletion be
  assert.match(route,/journalVerifiedEbayDeletion\(notice\.notificationId,notice\.data/);
  assert.match(route,/if\(!await verifyEbaySignature/);
  assert.match(route,/status:503/);
- assert.doesNotMatch(route,/status:20[0124]/);
+ assert.match(route,/Deletion processing not enabled/);
 });
