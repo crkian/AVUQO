@@ -1,3 +1,8 @@
+## Unreleased · Exact post-merge active-handover deployment proof · 16 Nov 2026
+
+- PR #210 merged at `3a98b50948d16599ac46d6c8a087c323e7688e7b`, quality and secrets passed. Vercel deployment `dpl_6oMYNWsFCrUG1ZM37Zu8B6mfPGAY` READY; signed-out `www.avuqo.com` returned HTTP 200 with matching deployment identifier.
+- Refresh active handover and machine-state production proof. No supplier feeds, rights, public offers or live data source settings changed. This docs-only verification commit may be skipped by the Vercel ignored-build step.
+
 ## Unreleased · Git-tracked full operational handover and mandatory updates · 16 Nov 2026
 
 - Add [the complete active operational handover](docs/AVUQO_ACTIVE_HANDOVER.md) and machine snapshot [JSON](docs/AVUQO_ACTIVE_HANDOVER.json), covering current verified main/Vercel/Supabase, all feed and permission evidence, 13 crons, 7 open PRs, 22 outstanding priorities, deployment history and original source/branch/idea index.

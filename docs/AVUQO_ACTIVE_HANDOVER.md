@@ -1,5 +1,10 @@
 # AVUQO | ACTIVE OPERATIONAL HANDOVER
 
+### Verified post-merge handover release · 16 November 2026
+
+**[PR #210](https://github.com/crkian/AVUQO/pull/210) merged** and all GitHub quality/security checks passed. GitHub main application SHA `3a98b50948d16599ac46d6c8a087c323e7688e7b` was independently seen at Vercel production deployment `dpl_6oMYNWsFCrUG1ZM37Zu8B6mfPGAY` in **READY** state, and a signed-out fetch of `https://www.avuqo.com/` returned **HTTP 200** with that exact deployment marker. All operational/source observations in the 16 Nov audit below still describe **what was checked at the earlier morning read**, not newly re-run ingestion or advertiser permission grants. This follow-up is **docs-only** and may advance Git main without building a second application deployment. Read application SHA from Vercel, document SHA from GitHub, and actual Awin data/cron status from live Supabase/Logs separately.
+
+
 **Evidence date:** 16 November 2026, morning UTC. **Status:** Git-tracked, dated audit; not a continuously updated live API.  
 **Repository:** [crkian/AVUQO](https://github.com/crkian/AVUQO), public, `main`. **Production:** [www.avuqo.com](https://www.avuqo.com). **Application:** Next.js 16 / React / TypeScript; Supabase PostgreSQL; Vercel; package version `0.5.3`.  
 **Current verified application baseline:** GitHub `main` at `39cb4a94ae1a9a98a80e368f8664d79d1ed0bf53`, Vercel production `dpl_Hs18EQdhAm31mh3kDKUJA4c3DZzr` READY for that SHA, website returned HTTP 200 with that deployment marker. **Important:** this *documentation commit* may advance `main` without a new Vercel deployment because `vercel.json` skips documentation-only builds. Recheck actual code SHA and deployment at every restart.

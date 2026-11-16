@@ -8,17 +8,19 @@
     "visibility": "public",
     "default_branch": "main",
     "code_commit_before_handover": "39cb4a94ae1a9a98a80e368f8664d79d1ed0bf53",
-    "package_version": "0.5.3"
+    "package_version": "0.5.3",
+    "documentation_note": "The previous code_commit_before_handover field 39cb4a94 documents the pre-handover baseline. Current verified application code is production.ready_app_commit. Git main may advance through documentation-only commits without a new application build."
   },
   "production": {
     "url": "https://www.avuqo.com",
     "project": "avuqo",
     "platform": "Vercel",
-    "ready_app_commit": "39cb4a94ae1a9a98a80e368f8664d79d1ed0bf53",
-    "ready_deployment": "dpl_Hs18EQdhAm31mh3kDKUJA4c3DZzr",
+    "ready_app_commit": "3a98b50948d16599ac46d6c8a087c323e7688e7b",
+    "ready_deployment": "dpl_6oMYNWsFCrUG1ZM37Zu8B6mfPGAY",
     "verified_http": 200,
-    "status": "verified_READY_at_snapshot",
-    "docs_only_ignore_build_note": "Documentation commits may advance Git main without changing running application SHA. Always recheck."
+    "status": "verified_READY_http200_after_handover_PR210",
+    "docs_only_ignore_build_note": "Documentation commits may advance Git main without changing running application SHA. Always recheck.",
+    "verification": "PR #210 merged; GitHub quality+secret scan passed; Vercel production READY exact SHA and www homepage HTTP 200 matching dpl. No recheck of 16-Nov private source counts in this doc-only follow-up."
   },
   "supabase": {
     "project_ref": "tfoukwcruaamrtgxzshh",
@@ -283,6 +285,10 @@
     {
       "pr": 209,
       "area": "Tooled Up private capture and full validation scheduling"
+    },
+    {
+      "pr": 210,
+      "area": "Full Git operational handover, all sources/PRs/backlog and mandatory future CI handover update"
     }
   ],
   "open_prs_as_checked": [
@@ -444,7 +450,14 @@
     "full_original_idea_index": "docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md",
     "source_manifest": "docs/SOURCE_MANIFEST_2026-11-02.md",
     "status": "docs/PROJECT_STATUS.md",
-    "roadmap": "docs/ROADMAP.md"
+    "roadmap": "docs/ROADMAP.md",
+    "last_verified_release": {
+      "pr": 210,
+      "app_commit": "3a98b50948d16599ac46d6c8a087c323e7688e7b",
+      "vercel_deployment": "dpl_6oMYNWsFCrUG1ZM37Zu8B6mfPGAY",
+      "homepage_http": 200,
+      "verification_date": "2026-11-16"
+    }
   },
   "requirements": {
     "change_control": "Substantive PRs update active Markdown and JSON handover, PROJECT_STATUS and CHANGELOG in Git before merge. GitHub CI enforces the files changed, and users verify current deployment after merge.",
