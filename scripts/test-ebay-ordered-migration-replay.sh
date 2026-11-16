@@ -12,7 +12,7 @@ set -Eeuo pipefail
 db="avuqo_ebay_ordered_replay_ci_synthetic"
 manifest="tests/fixtures/ebay-migration-replay-manifest.txt"
 [[ -f "$manifest" ]] || { echo "FAIL: migration manifest absent"; exit 1; }
-args=(-f tests/fixtures/ebay-local-schema.sql -f tests/fixtures/ebay-local-secondary-reference-schema.sql)
+args=(-f tests/fixtures/ebay-local-schema.sql -f tests/fixtures/ebay-local-secondary-reference-schema.sql -f tests/fixtures/ebay-local-cascade-reference-schema.sql)
 previous=""
 count=0
 while IFS= read -r path || [[ -n "$path" ]]; do
