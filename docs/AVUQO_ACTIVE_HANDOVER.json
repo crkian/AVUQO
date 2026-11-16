@@ -1611,5 +1611,53 @@
     "cost": "£0",
     "docker": false,
     "awin": "unchanged"
+  },
+  "ebay_full_offer_cascade_and_migration_history_20261116": {
+    "status": "CANDIDATE_UNAPPLIED_PENDING_GITHUB_CI",
+    "total_real_offer_fk_count": 13,
+    "four_set_null": [
+      "analytics_events",
+      "attribution_events",
+      "user_feedback",
+      "watch_events"
+    ],
+    "seven_new_cascade_dependents": [
+      "availability",
+      "awin_offer_release_reviews",
+      "awin_release_audit",
+      "click_events",
+      "deal_scores",
+      "promotion_candidates",
+      "published_deals"
+    ],
+    "two_intentional_cascades": [
+      "ebay_account_item_links",
+      "price_history"
+    ],
+    "candidate_migration": "supabase/migrations/20261116230000_ebay_unreviewed_offer_cascade_guard.sql",
+    "test": "tests/fixtures/ebay-local-cascade-containment-acceptance.sql",
+    "live_fk_preflight": "scripts/ebay-cascade-readonly-preflight.sql",
+    "live_fk_check": "seven FK PASS, thirteen total PASS, new guard BLOCK",
+    "candidate_migrations_total": 13,
+    "synthetic_replay_requires_no_unknown_fk": true,
+    "migration_history_preflight": "scripts/ebay-migration-history-readonly-preflight.sql",
+    "live_applied_different_version_equivalents": {
+      "20261116132000": "20261116131949",
+      "20261116153000": "20261116140013",
+      "20261116155500": "20261116141927",
+      "20261116165000": "20261116160011"
+    },
+    "newer_unapplied_candidates": 9,
+    "live_migration_replay_approved": false,
+    "runbook": "docs/AVUQO_EBAY_FULL_OFFER_CASCADE_AND_MIGRATION_COLLISIONS_2026-11-16.md",
+    "production_supabase_changes": false,
+    "full_erasure_verified": false,
+    "signed_provider_event_verified": false,
+    "backups_and_processors_verified": false,
+    "eBay": "paused, sync off, quarantine, HTTP 503, unregistered",
+    "awin": "unchanged",
+    "additional_spend": "£0",
+    "docker": false,
+    "direct_supply": false
   }
 }
