@@ -848,5 +848,20 @@
     "deletion_processing_complete": false,
     "ebay_portal_registered": false,
     "production_keyset": "disabled per most recent owner evidence"
+  },
+  "ebay_account_scoped_erasure_20261116": {
+    "status": "PR candidate; DBA-only partial erasure, not full privacy compliance",
+    "migration": "supabase/migrations/20261116132000_ebay_account_scoped_erasure_foundation.sql",
+    "private_mapping_table": "public.ebay_account_item_links",
+    "partial_function": "public.ebay_purge_mapped_account_rows(text)",
+    "service_role_function_execute": false,
+    "webhook_registration": false,
+    "webhook_status": "503 deliberately even for signed messages",
+    "completed_receipts": 0,
+    "existing_ebay_rows_last_audit": 0,
+    "limits": "No complete data retention/backup audit, no future importer integration, no automatic 2xx, no real signed provider test",
+    "doc": "docs/AVUQO_EBAY_ACCOUNT_ERASURE_FOUNDATION_2026-11-16.md",
+    "next": "Check CI; apply non-destructive DDL migration and verify RLS and privileges; review full privacy erasure/legal retention and future ingestion mapping, only then full compliance.",
+    "awin": "Existing staged private merchant work unchanged"
   }
 }
