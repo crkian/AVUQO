@@ -18,7 +18,6 @@ export default function EbayPrivateImages({items}:{items:EbayPilotItem[]}){
     {item.brand&&<p><b>Listed brand:</b> {item.brand} (unverified)</p>}
     {item.mpn&&<p><b>MPN:</b> {item.mpn}</p>}
     {item.condition&&<p><b>Condition:</b> {item.condition}</p>}
-    {item.seller&&<p><b>Seller:</b> {item.seller}</p>}
     {item.categoryPath&&<p><b>Category:</b> {item.categoryPath}</p>}
     <strong className={styles.price}>{item.priceGBP===null?"GBP price unavailable":new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(item.priceGBP)}</strong>
     <small>{item.shippingGBP===null?"Delivery charge not confirmed":`Reported delivery: £${item.shippingGBP.toFixed(2)}`}</small>
