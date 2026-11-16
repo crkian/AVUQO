@@ -747,6 +747,17 @@
     "public_ebay_item_offers": 0,
     "public_awin_offers_last_verified": 0,
     "source_changes": false,
-    "ci_correction": "Initial PR #222 build failed: Next 16 cacheComponents disallows runtime route segment config; removed export const runtime. Recheck CI before merge."
+    "ci_correction": "Initial PR #222 build failed: Next 16 cacheComponents disallows runtime route segment config; removed export const runtime. Recheck CI before merge.",
+    "code_merged_pr": 222,
+    "app_sha": "2691b5e1d7b0bf74e0f3918ee99074ec5b87275f",
+    "vercel_deployment": "dpl_DPzu7bNj2qGcyXkyFSeDu9zHi5m6",
+    "vercel_state": "READY",
+    "github_checks": "quality_success_and_secret_scan_success",
+    "production_challenge_http": "not independently verified",
+    "env_vars_configured": false,
+    "signed_post_handler": false,
+    "ebay_notification_subscription_registered": false,
+    "ebay_production_keyset": "disabled per owner screenshot",
+    "next_step": "Complete signature verification and durable idempotent deletion processing before registering endpoint"
   }
 }
