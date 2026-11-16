@@ -14,6 +14,7 @@ test("read-only live-safe diagnostic pins all seven observed cascading FKs and n
  assert.match(sql,/enabled_count/);
  assert.match(sql,/cascade_containment_guard_enabled/);
  assert.match(sql,/seven_validated_cascade_fks/);
+ assert.match(sql,/exact_thirteen_offer_fks/);
  assert.doesNotMatch(sql.replace(/^--.*$/gm,""),/\b(delete|update|insert|alter|create|drop|grant|truncate)\b/i);
 });
 test("local CI and ordered replay include the thirteenth guard without provider activation",()=>{
@@ -21,6 +22,7 @@ test("local CI and ordered replay include the thirteenth guard without provider 
  assert.match(script,/avuqo_ebay_ci_synthetic/);
  assert.match(script,/DATABASE_URL/);
  assert.match(script,/EBAY_SEVEN_CASCADE_READONLY_PREFLIGHT_PASS/);
+ assert.match(script,/exact_thirteen_offer_fks/);
  assert.match(manifest,/20261116230000_ebay_unreviewed_offer_cascade_guard.sql/);
  assert.match(read("scripts/test-ebay-ordered-migration-replay.sh"),/count" -eq 13/);
  assert.match(read("scripts/ebay-full-schema-readonly-preflight.sql"),/provider_release_authorised/);
