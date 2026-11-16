@@ -1966,9 +1966,9 @@
     "script": "scripts/ebay-native-postgres-tests.sh",
     "fixture": "tests/fixtures/ebay-local-schema.sql",
     "acceptance": "tests/fixtures/ebay-local-erasure-acceptance.sql",
-    "receipt_first_race": "PENDING_NATIVE_CI",
-    "reverse_lock_witness": "PENDING_NATIVE_CI",
-    "true_link_first_uncommitted_race": "PENDING_NATIVE_CI",
+    "receipt_first_race": "PASS_SYNTHETIC_DB",
+    "reverse_lock_witness": "PASS_SYNTHETIC_DB",
+    "true_link_first_uncommitted_race": "PASS_SYNTHETIC_DB",
     "production_database_changed": false,
     "source": "paused/sync disabled/quarantined",
     "webhook": "503 unregistered",
@@ -1978,7 +1978,7 @@
     "awin": "unchanged"
   },
   "ebay_native_postgres_ci_20261116": {
-    "status": "PENDING_ACTUAL_GITHUB_JOB",
+    "status": "NATIVE_POSTGRES_JOB_SUCCESS_COMMIT_7a1ec425_20261116",
     "runner": "ubuntu-24.04",
     "cost": "free standard runner/public repository",
     "docker": false,
@@ -1994,6 +1994,13 @@
     ],
     "production_db_migrations_applied": false,
     "complete_erasure": false,
-    "provider_signatures_verified": false
+    "provider_signatures_verified": false,
+    "verified_run_id": 43925336126,
+    "verified_job": "Native PostgreSQL eBay concurrency (synthetic, no Docker)",
+    "receipt_first_race": "PASS_SYNTHETIC_DB",
+    "reverse_advisory_witness": "PASS_SYNTHETIC_DB",
+    "true_link_first_uncommitted_race": "PASS_SYNTHETIC_DB",
+    "work_journal_acceptance": "PASS_SYNTHETIC_DB",
+    "production_evidence": false
   }
 }
