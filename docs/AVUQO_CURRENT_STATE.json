@@ -771,6 +771,7 @@
       "tooled_up_validation"
     ],
     "reason": "Resolve missing live Awin scheduled feed import outcomes without storing confidential feed data",
-    "requirement": "CI, Supabase migration, live deployment, 17-Nov journal execution verification"
+    "requirement": "CI, Supabase migration, live deployment, 17-Nov journal execution verification",
+    "grants_correction": "Supabase created service_role broad default grants; second migration revokes and regrants only SELECT/INSERT/UPDATE. Verify before release."
   }
 }
