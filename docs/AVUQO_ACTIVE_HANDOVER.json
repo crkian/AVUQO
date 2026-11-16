@@ -927,7 +927,7 @@
   "ebay_signed_notification_runtime_tests_20261116": {
     "status": "PR candidate; synthetic runtime test wired into CI, no live eBay signature tested",
     "test": "tests/ebay-deletion-signature-runtime.test.mjs",
-    "ci": ".github/workflows/quality.yml",
+    "ci": "build lint signed runtime fixture and secret scan SUCCESS",
     "crypto": "synthetic EC sha1 signing, real verifier, mocked production OAuth and eBay Notification public-key",
     "negatives": [
       "tampered JSON",
@@ -945,12 +945,28 @@
       "EBAY_DELETION_HMAC_SECRET"
     ],
     "vercel_sandbox_env_present": true,
-    "ebay_keyset": "disabled in last owner screenshot",
+    "ebay_keyset": "disabled per last owner screenshot",
     "actual_erasure_complete": false,
     "webhook_ack": "503 for signed notifications",
-    "source_quarantine": true,
+    "source_quarantine": "on since PR232",
     "public_ebay_item_offers": 0,
-    "awin": "existing importers unchanged",
-    "next": "Check PR CI; actual production credentials and valid privacy processing must exist before eBay provider test/registration"
+    "awin": "existing private imports unaffected",
+    "next": "Build actual end-to-end data deletion and future atomic importer; then configure secrets securely and real eBay provider test before portal registration",
+    "pr": 234,
+    "merged": true,
+    "application_sha": "2535b9bc5c17642ff0c0587c6f2c09b591db1f69",
+    "vercel_deployment": "dpl_CMUH1kgzKq9GJ2YAMN6jsCAhbg6A",
+    "deployment_state": "READY",
+    "real_provider_signed_event": "not tested",
+    "production_ebay_env_missing": [
+      "EBAY_CLIENT_ID",
+      "EBAY_CLIENT_SECRET",
+      "EBAY_DELETION_VERIFICATION_TOKEN",
+      "EBAY_DELETION_ENDPOINT_URL",
+      "EBAY_DELETION_HMAC_SECRET"
+    ],
+    "webhook_response": "503 for signed event",
+    "deletion_processing": "not complete",
+    "eBay_live_item_offers": 0
   }
 }
