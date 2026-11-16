@@ -966,7 +966,12 @@
       "public_offers_created": 0,
       "first_supplier_preflight_executed": false,
       "schedule_journal_count_at_check": 0
-    }
+    },
+    "full_live_matrix": "docs/AVUQO_ALL_AWIN_MERCHANT_STAGING_TO_LIVE_2026-11-16.json",
+    "scope": "all_19_programme_evidence_records_independently_admitted_by_programme_not_six_as_end_state",
+    "merchants_with_numeric_id": 17,
+    "observed_feed_ids": 74,
+    "public_release_architecture": "per_merchant_automatic_latest_price_freshness_rights_and_withdrawal_not_global_Awin_switch"
   },
   "source_scope": "Files inspected in attached project workspace; original private binaries are NOT published to Git; published tracker stores only filenames, checksums and high-level feature requirements.",
   "historical_2026_11_14_master_index_reconciliation": {

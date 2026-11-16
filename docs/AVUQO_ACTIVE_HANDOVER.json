@@ -465,6 +465,11 @@
       "id": "HISTORY-01",
       "state": "open",
       "task": "Continue exact P0–P4 (29) / G01–G12 (12) feature acceptance evidence in tracker, retaining original inactive 1384 taxonomy, historical 50 category guide ambition, 16 mockups and original branch/asset provenance."
+    },
+    {
+      "id": "AWIN-ALL-LIVE",
+      "state": "open",
+      "task": "19-programme full Awin rollout: finish private staging, per-merchant approved automatic offer eligibility/refresh/withdrawal and signed-out public acceptance. Preserve specialist adapters and do not bulk activate paused global source."
     }
   ],
   "handover": {
@@ -668,5 +673,17 @@
       "feed_monitor_route_http": 200,
       "get_on_post_only_api_http": 405
     }
+  },
+  "all_awin_live_rollout": {
+    "as_of_utc": "2026-11-16",
+    "narrative": "docs/AVUQO_ALL_AWIN_MERCHANT_STAGING_TO_LIVE_2026-11-16.md",
+    "machine": "docs/AVUQO_ALL_AWIN_MERCHANT_STAGING_TO_LIVE_2026-11-16.json",
+    "programmes": 19,
+    "numeric_ids": 17,
+    "joined_numeric_ids_in_code": 16,
+    "observed_feed_ids": 74,
+    "eligible_public_offers_verified": 0,
+    "owner_goal": "Automatically stage every supported merchant and publish every valid offer with real freshness/rights/withdrawal; not one-product pilot",
+    "public_merch_activation": "not_yet_implemented"
   }
 }

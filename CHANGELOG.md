@@ -1,3 +1,9 @@
+## Unreleased · Record full 19-programme Awin automatic staging-to-live scope · 16 Nov 2026
+
+- Owner confirmed all eligible Awin programmes/products should stage and ultimately publish automatically, not stop at one item or six pilots. Added complete 19-programme table/JSON, 17 numeric IDs, 16 joined registry IDs, two missing IDs, 74 observed feed IDs among 11 advertisers and precise category-specific blockers. Live Awin offers remain zero; private canonical products remain 251.
+- Record why the current paused single Awin source, exact advertiser env and per-price offer-review gate **do not** implement safe multi-merchant automatic publication. Next build must isolate merchant licence/price and auto refresh/withdrawal, and reuse Tooled Up 250-item importer.
+- Update active handover Markdown/JSON, branch/source/feature tracker Markdown/JSON, Awin board and project status. No source status, approval, images, offers or app code changed; documentation-only production build should be ignored.
+
 ## Unreleased · Reconcile original 14 Nov index against live 25-branch / 37-feature tracker · 16 Nov 2026
 
 - Reopened the complete 14 Nov Git/branch/idea handover and its machine index. Linked **all 29 original P0–P4 workstreams and 12 G01–G12 gaps** to current source-derived feature IDs in the active tracker Markdown+JSON. Preserve original 22-ref snapshot, 1,384 inactive taxonomy seed, original high-resolution/16 mockup source references, marketing/eBay/tyre/commission acceptance gates and original 50 category-guide ambitions. Never treat an older branch requirement as a live integration.
