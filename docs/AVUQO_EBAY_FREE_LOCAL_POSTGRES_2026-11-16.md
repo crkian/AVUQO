@@ -1,32 +1,19 @@
-# Free local eBay PostgreSQL test route
+# Docker-free, £0 eBay PostgreSQL concurrency verification
 
-**Date:** 16 November 2026. **Cost:** no new cloud project or subscription. The script uses an existing local Docker installation and the public PostgreSQL 17 image. If Docker is not installed, it exits rather than installing anything or creating paid infrastructure. Image download may use internet bandwidth, but no paid cloud resources are provisioned.
+**Date:** 16 November 2026. **Scope:** synthetic database safety check, not eBay deletion completion.
 
-## Windows PowerShell
+AVUQO is a **public GitHub repository**; GitHub's standard hosted runners are free for public repositories. The standard `ubuntu-24.04` runner has PostgreSQL installed and its service initially disabled. The existing `.github/workflows/quality.yml` now includes `ebay_postgres`, which starts the local PostgreSQL service and uses a dedicated synthetic database named `avuqo_ebay_ci_synthetic`. No containers, local installation, Supabase branch, external database connection, paid resources or production data are needed. The hosted VM and synthetic test database disappear after the job.
 
-In the checked-out AVUQO repository at `C:\avuqo`, with Docker Desktop / Docker Engine already running:
+## Executed tests and limitations
 
-```powershell
-cd C:\avuqo
-git pull --ff-only
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-ebay-local-postgres-tests.ps1
-```
+The runner applies selected **real** versioned AVUQO migrations over a minimal synthetic fixture: receipt integrity trigger, account tombstone admission triggers and seven-surface private retry work journal. It checks the queue's initial seven items, stale-attempt rejection and transaction rollback, then runs independent database sessions for **receipt-first**, **advisory-lock reverse witness**, and **real ownership-link INSERT-first against receipt INSERT**. That last test uses an *uncommitted* synthetic eBay-source ownership link in one transaction; it does **not** prove a committed link followed by full erasure. All test-generated receipt/link records are rolled back. The fixture is a narrow subset of AVUQO, not a production schema clone.
 
-This launches a uniquely named, **network-isolated** (`--network none`) PostgreSQL 17 container with ephemeral database storage (`--tmpfs`). It copies only the synthetic fixture and the actual versioned receipt-lock, atomic tombstone and work-journal migrations. It runs the SQL transactional work-journal acceptance, the receipt-first two-process race and the reverse advisory-lock witness. All synthetic receipts are rolled back; the entire container is forcibly removed even on failure. No port is published. No secrets, production exports, Supabase URLs or customer data are required.
+The `ebay_postgres` GitHub job is the sole source of actual PostgreSQL test evidence. Lint/build and static contract checks must not be described as a successful concurrency test unless this job succeeds. To review its logs: open the pull request, choose **Checks**, and inspect **Native PostgreSQL eBay concurrency (synthetic, no Docker)**.
 
-A passing local test proves that these *selected source migrations* operate as expected against this purpose-built fixture. It is **not** a test of the entire live schema or the cross-store deletion process. The reverse witness still uses an advisory-key holder rather than a committed eBay link, so real link-first end-to-end proof remains outstanding. Neither test certifies all backups, processor retention, legal compliance or signed eBay notification behaviour.
+## Budget and safety
 
-## Why the original race probes changed
+No Docker anywhere in this testing path, no additional spend, no Supabase schema/data changes, no customer details. eBay remains paused; sync is disabled, ingestion quarantine stays enforced, and unregistered webhook stays HTTP 503. Awin unchanged.
 
-The previous holder synchronisation polled a marker written by `psql` to a redirected output file. Buffered output could be observed late or not at all, yielding a false inconclusive timeout. Both scripts now check `pg_try_advisory_xact_lock` using a separate PostgreSQL session on the exact same hashed account key: only failure to acquire the key establishes that the holder really holds the transactional advisory lock. The scripts still require SQLSTATE 55P03 and rolled-back synthetic records.
+## Still required
 
-## Current production restrictions
-
-The work-journal SQL stays **unapplied on production**. eBay stays `paused`, sync disabled, source quarantine in place, deletion webhook HTTP 503/unregistered. No Awin changes. Do not run fixture SQL against AVUQO production. Do not infer deletion completion from a green static unit test.
-
-## Next independent release gates
-
-1. Run the offline acceptance on a local computer that already has Docker.
-2. Establish true inverse-order committed-link and multi-identity race evidence against a faithful local/authorised clone, not just the advisory-key witness.
-3. Implement actual erasure across independently identified data surfaces, idempotent retries, exceptions and processor/backup retention under owner/legal approval.
-4. Test the genuine provider-signed notification and production permissions before any live eBay acknowledgment or activation.
+A faithful complete-schema or owner-authorised clone test, true committed ownership-link follow-on erasure, identity alias/race permutations, full cross-store erasure implementation and processor/backup/legal retention verification, signed eBay provider notification testing and production permissions. No false `completed` receipt or 2xx acknowledgment is permitted.
