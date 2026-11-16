@@ -47,7 +47,7 @@ export default function EbayUKPartnerPage(){
      )}
     </section>
     <section style={{marginTop:34,padding:23,background:"#fff",borderRadius:14,border:"1px solid #e5e0ef",display:"grid",gap:12}}>
-     <div style={{display:"flex",alignItems:"center",gap:9,color:"#332450"}}><ShieldCheck size={22}/><strong>Know what you're comparing</strong></div>
+     <div style={{display:"flex",alignItems:"center",gap:9,color:"#332450"}}><ShieldCheck size={22}/><strong>Know what you&apos;re comparing</strong></div>
      <p style={{margin:0,color:"#5d5867",lineHeight:1.65}}>
       Listings, sellers, prices, condition, delivery costs, stock and returns are supplied by eBay or the seller and may change.
       Verify details on eBay before purchasing. These are outbound partner searches, <strong>not verified AVUQO price comparisons or ranked product offers</strong>.
