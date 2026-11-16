@@ -42,4 +42,5 @@ psql_local -f supabase/migrations/20261116224000_ebay_secondary_schema_drift_int
 psql_local -f tests/fixtures/ebay-local-schema-drift-erasure-acceptance.sql
 bash scripts/test-ebay-native-queue-lease-race.sh
 bash scripts/test-ebay-full-schema-readonly-preflight.sh
+bash scripts/test-ebay-ordered-migration-replay.sh
 echo 'NATIVE_POSTGRES_CONCURRENCY_AND_QUEUE_LEASE_PASS (synthetic subset only; no production approval)'
