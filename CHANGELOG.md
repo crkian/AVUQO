@@ -1,3 +1,10 @@
+- Add second post-create migration to revoke Supabase default broad `service_role` grants and restore only SELECT/INSERT/UPDATE; verify RLS and no anon/authenticated grants.
+## Unreleased · Private Awin Cron attempt journal · 16 November 2026
+
+- Add service-role-only, RLS-enforced `awin_private_cron_attempts` for **four scheduled private feed imports plus Tooled Up snapshot/validator**, with start/finish time, sanitized fixed outcome code, HTTP status and duration. A timed-out worker remains visibly `started`.
+- Record attempts after authentication and before each worker; finish categorically without raw merchant URLs, product data, credentials or untrusted error messages. Audit errors fail closed. No new daily schedules, activation or public products/offers.
+- Add Node regression tests and migration; update active Markdown/JSON, historical machine state and project status in Git. Release/first actual run requires independent verification.
+
 ## Unreleased · 16 Nov 2026 existing Awin automation verification and per-task Git recording
 
 - Read-only check of 16 Nov current Awin feed-discovery, Supabase private imports, Tooled Up storage/validation, control states, Production Vercel env-key presence and historical runtime logs. Confirmed **zero public Awin offers** and **no source/merchant rights changes**.

@@ -2,6 +2,7 @@ import {NextRequest,NextResponse} from "next/server";
 import {createAdminClient} from "../../../../lib/supabase/admin";
 import {AWIN_PRIVATE_SNAPSHOT_BUCKET} from "../../../../lib/awin/private-snapshot";
 import {tooledUpPrivateAutomationAllowed} from "../../../../lib/awin/tooled-up-private-automation";
+import {recordPrivateCronAttempt} from "../../../../lib/awin/private-cron-recorder";
 import {newestRecentTooledUpSnapshot} from "../../../../lib/awin/tooled-up-recent-snapshot";
 import {POST as validateSnapshot} from "../awin-snapshot-validate/route";
 
@@ -22,6 +23,7 @@ export async function GET(request:NextRequest){
   return reply({error:"Unauthorized"},401);
  if(new URL(request.url).search||Number(request.headers.get("content-length")??0)>0)
   return reply({error:"No feed, object or digest override is supported"},400);
+ return recordPrivateCronAttempt("tooled_up_validation",async()=>{
  if(process.env.AWIN_AUTO_IMPORT_ENABLED!=="true")
   return reply({status:"disabled",private_only:true,no_publication:true});
  const db=createAdminClient();
@@ -43,4 +45,5 @@ export async function GET(request:NextRequest){
    "content-type":"application/json"},
   body:JSON.stringify({snapshot_sha256:recent.snapshot_sha256})
  }));
+ });
 }

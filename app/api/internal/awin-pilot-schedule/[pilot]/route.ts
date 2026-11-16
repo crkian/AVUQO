@@ -1,5 +1,6 @@
 import {NextRequest,NextResponse} from "next/server";
 import {POST as privateImport} from "../../awin-auto-import/route";
+import {recordPrivateCronAttempt,PrivateCronJob} from "../../../../../lib/awin/private-cron-recorder";
 
 const reply=(body:unknown,status=200)=>NextResponse.json(body,{
  status,headers:{"Cache-Control":"private, no-store"}
@@ -31,6 +32,8 @@ export async function GET(
  const {pilot}=await context.params;
  if(!Object.prototype.hasOwnProperty.call(PILOTS,pilot))
   return reply({error:"Unknown private pilot"},404);
+ const job=("pilot_"+pilot) as PrivateCronJob;
+ return recordPrivateCronAttempt(job,async()=>{
  if(process.env.AWIN_AUTO_IMPORT_ENABLED!=="true")
   return reply({status:"disabled",private_only:true});
  const [advertiserId,feedId]=PILOTS[pilot];
@@ -41,4 +44,5 @@ export async function GET(
  return privateImport(new NextRequest(url,{
   method:"POST",headers:{authorization:`Bearer ${secret}`}
  }));
+ });
 }

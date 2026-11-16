@@ -573,5 +573,27 @@
         }
       ]
     }
-  ]
+  ],
+  "pending_release_2026_11_16": {
+    "feature": "private_awin_six_cron_attempt_journal",
+    "status": "candidate_pr_not_deployed_at_document_authoring",
+    "new_table": "public.awin_private_cron_attempts",
+    "protected_jobs": [
+      "pilot_petlibro",
+      "pilot_mozillion",
+      "pilot_cadbury",
+      "pilot_craftbuddy",
+      "tooled_up_snapshot",
+      "tooled_up_validation"
+    ],
+    "observability": "service-only sanitized status, duration, HTTP status and start/finish, no feed data or secrets",
+    "security": "cron secret verified before audit, own RLS table, no user read permissions, no public product/offer changes",
+    "next_approval_checks": [
+      "Apply both migrations and verify service_role only SELECT/INSERT/UPDATE; anon/authenticated none",
+      "CI build/test/secrets and Vercel preview",
+      "merge and exact production READY",
+      "inspect 17 Nov jobs by outcome code and fix confirmed blockers"
+    ],
+    "grants_correction": "Two migrations: original RLS journal plus versioned revoke-all/regrant SELECT, INSERT, UPDATE service_role after Supabase default initial broad grants. Must recheck final privileges after applying."
+  }
 }

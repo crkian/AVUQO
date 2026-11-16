@@ -757,5 +757,21 @@
       "first_possible_tooled_up_cron_run": "2026-11-17",
       "new_code_or_publication": false
     }
-  ]
+  ],
+  "pending_private_cron_journal": {
+    "snapshot_date": "2026-11-16",
+    "status": "candidate_code_not_released",
+    "sql_table": "public.awin_private_cron_attempts",
+    "jobs": [
+      "pilot_petlibro",
+      "pilot_mozillion",
+      "pilot_cadbury",
+      "pilot_craftbuddy",
+      "tooled_up_snapshot",
+      "tooled_up_validation"
+    ],
+    "reason": "Resolve missing live Awin scheduled feed import outcomes without storing confidential feed data",
+    "requirement": "CI, Supabase migration, live deployment, 17-Nov journal execution verification",
+    "grants_correction": "Supabase created service_role broad default grants; second migration revokes and regrants only SELECT/INSERT/UPDATE. Verify before release."
+  }
 }
