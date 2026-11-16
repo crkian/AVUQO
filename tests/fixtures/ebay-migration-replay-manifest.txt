@@ -1,4 +1,4 @@
-# The exact candidate migrations, in strictly increasing filename order.
+# Thirteen exact candidate privacy migrations, in strictly increasing filename order.
 # Do not reorder based on existing fixture convenience. Do not add non-eBay SQL.
 supabase/migrations/20261116132000_ebay_account_scoped_erasure_foundation.sql
 supabase/migrations/20261116153000_ebay_deletion_receipt_integrity_lock.sql
