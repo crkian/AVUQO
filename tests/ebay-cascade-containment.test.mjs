@@ -12,6 +12,7 @@ test("seven verified cascading offer dependencies are protected for eBay only",(
  assert.match(sql,/before delete on public\.offers/);
  assert.match(sql,/s\.connector_key='ebay'/);
  assert.match(sql,/v_fk_count<>7/);
+ assert.match(sql,/v_total_fk<>13/);
  assert.match(sql,/c\.confdeltype='c' and c\.convalidated/);
  assert.match(sql,/c\.conkey=array\[child\.attnum\]::smallint\[\]/);
  assert.match(sql,/revoke all on function public\.ebay_guard_unreviewed_cascading_offer_records/);
