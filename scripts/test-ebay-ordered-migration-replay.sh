@@ -28,7 +28,7 @@ while IFS= read -r path || [[ -n "$path" ]]; do
  args+=(-f "$path")
  ((count+=1))
 done < "$manifest"
-[[ "$count" -eq 12 ]] || { echo "FAIL: expected exactly twelve eBay privacy migrations"; exit 1; }
+[[ "$count" -eq 13 ]] || { echo "FAIL: expected exactly thirteen eBay privacy migrations"; exit 1; }
 # NEVER drop a pre-existing DB: createdb must fail if the name exists.
 # Only delete a database successfully created by this invocation.
 created=false
