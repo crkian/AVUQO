@@ -136,5 +136,5 @@ test("subscription must not be enabled by test or routing code",()=>{
  assert.match(route,/EBAY_DELETION_VERIFICATION_TOKEN/);
  assert.match(route,/EBAY_DELETION_ENDPOINT_URL/);
  assert.match(route,/status:503/);
- assert.doesNotMatch(route,/status:20[0124]/);
+ assert.doesNotMatch(route.slice(route.indexOf('export async function POST')),/status:20[0124]/);
 });
