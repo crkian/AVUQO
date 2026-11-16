@@ -998,7 +998,7 @@
   },
   "ebay_audited_partial_erasure_20261116": {
     "status": "PR candidate pending CI + migration verification",
-    "migration": "supabase/migrations/20261116155500_ebay_audited_partial_erasure.sql",
+    "migration": "ebay_audited_partial_erasure_20261116",
     "audit_table": "public.ebay_partial_erasure_audit",
     "function": "public.ebay_run_audited_partial_erasure(text)",
     "function_access": "postgres DBA only",
@@ -1007,8 +1007,24 @@
     "webhook": "HTTP 503 still, no registration",
     "full_account_deletion": false,
     "source_quarantine": true,
-    "ebay_production_keyset": "disabled per owner screenshot",
-    "awin": "existing private importers unchanged",
-    "next": "CI, migration and ACL/negative tests, privacy full inventory and retention, then complete automated erasure; no premature eBay registration"
+    "ebay_production_keyset": "disabled per last screenshot",
+    "awin": "private merchant importers unchanged",
+    "next": "Complete whole-store privacy inventory/retention and audited idempotent end-to-end erasure before live eBay signed test and registration",
+    "pr": 238,
+    "merged": true,
+    "application_sha": "3ddab24bae8ea781113c61657e35b3819d74558a",
+    "vercel_deployment": "dpl_6QDswzjt1ZoVeB9NrBD1DJssTMjT",
+    "vercel_status": "READY",
+    "github_checks": "build lint audited erasure regression and committed secret scan success",
+    "migration_applied": true,
+    "rls": true,
+    "private_audit_rows": 0,
+    "table_acl": "postgres only; no service_role anon authenticated",
+    "function_acl": "postgres EXECUTE only, SECURITY DEFINER",
+    "negative_test": "missing receipt rejected and no audit rows created",
+    "real_customer_erasure_performed": false,
+    "webhook_ack": "503 intentionally",
+    "ebay_portal_subscription": "not registered",
+    "live_ebay_item_offers": 0
   }
 }
