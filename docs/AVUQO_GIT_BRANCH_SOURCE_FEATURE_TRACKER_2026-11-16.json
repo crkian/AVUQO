@@ -1402,5 +1402,35 @@
     "search_links": 6,
     "production_browse_approved": false,
     "public_priced_ebay_offers": 0
+  },
+  "latest_owner_checkpoint_20261116": {
+    "timestamp_day": "2026-11-16",
+    "first_read": "docs/AVUQO_ACTIVE_HANDOVER.md",
+    "exact_resume": "docs/AVUQO_EBAY_AWIN_EXACT_RESUME_2026-11-16.md",
+    "ebay": {
+      "production_keyset": "DISABLED shown on owner screenshot",
+      "deletion_notice": "endpoint empty, verification token empty, exemption off, notification-email save unconfirmed",
+      "epn_partner_discovery_pr": 219,
+      "epn_partner_discovery_deployed": true,
+      "production_browse_approved": "unverified",
+      "item_level_live_offers": 0,
+      "owner_next": "Save alert email and verify saved; developer implement complete deletion notification handler before entering endpoint"
+    },
+    "awin": {
+      "pilot_private_importers": [
+        "Petlibro",
+        "Mozillion",
+        "Cadbury",
+        "Craft Buddy"
+      ],
+      "tooled_up": "snapshot/validator/250-row resumable importer exists",
+      "tyres": "specialist private staging, fitment/price rights unresolved",
+      "programme_ledger_rows": 19,
+      "private_canonical_draft_count_last_verified": 251,
+      "public_offers_last_verified": 0,
+      "next": "Owner signed-in preflight existing /control-centre/awin-feed-updates; then safe private stage, merchant-scoped release refresh withdrawal"
+    },
+    "rule": "At each step update MD/JSON handover, tracker, project status, relevant affiliate board and changelog; verify true live state and never copy credentials.",
+    "supersedes": "Older pre-PR219 audit statement that PR216 is latest production code."
   }
 }
