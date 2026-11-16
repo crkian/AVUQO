@@ -40,7 +40,7 @@ SQL
 holder_pid=$!
 ready=0
 for ((i=0;i<75;i++)); do
- if grep -q '^EBAY_LOCK_HELD$' "$tmp/holder.out" 2>/dev/null; then ready=1; break; fi
+ if [[ "$(sql -c "select not pg_catalog.pg_try_advisory_xact_lock(pg_catalog.hashtextextended('avuqo-ebay-account:user_id_digest:$identity_digest',0))")" == "t" ]]; then ready=1; break; fi
  if ! kill -0 "$holder_pid" 2>/dev/null; then break; fi
  sleep 0.1
 done
