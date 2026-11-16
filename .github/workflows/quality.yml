@@ -116,6 +116,8 @@ jobs:
         run: node --test tests/current-handover-integrity.test.mjs
       - name: Full source features, Git branch tracker and startup safety tests
         run: node --test tests/git-branch-source-feature-tracker.test.mjs
+      - name: Owner-only current Awin private source run-now and journal tests
+        run: node --test tests/awin-owner-run-now.test.mjs
       - name: Production photographic storefront safety regression tests
         run: node --test tests/production-photographic-storefront.test.mjs
       - name: Full original live storefront restoration regression tests

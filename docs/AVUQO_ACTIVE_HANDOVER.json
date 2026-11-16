@@ -635,5 +635,14 @@
     "feature_groups": 37,
     "deleted_branches": 0,
     "action": "Reconcile all divergent refs with exact source/PR/main evidence and preserve original private sources."
+  },
+  "pending_owner_awin_run_now": {
+    "status": "PR_candidate_not_deployed",
+    "page": "/control-centre/awin-feed-updates",
+    "api": "/api/control-centre/awin-run-now",
+    "four_pilots": true,
+    "tooled_up_snapshot_validation": true,
+    "public_offer_release": false,
+    "requires_signed_in_owner_acceptance": true
   }
 }

@@ -3,17 +3,20 @@ import type {Metadata} from "next";
 import Link from "next/link";
 import {requireControlCentreAccess} from "../../../lib/auth/requireControlCentreAccess";
 import {createAdminClient} from "../../../lib/supabase/admin";
+import OwnerAwinRunNow from "./OwnerAwinRunNow";
 export const metadata:Metadata={title:"Private Awin feed updates | AVUQO",robots:{index:false,follow:false}};
 type Feed={advertiser_id:string;feed_id:string;advertiser_name:string;feed_name:string;listed_products:number;last_imported_source:string;observed_at:string;needs_private_refresh:boolean;change_count:number};
 type Run={checked_at:string;active_feeds:number;joined_feeds:number;changed_feeds:number};
 export default async function Page(){
  await connection();
- await requireControlCentreAccess();
+ const {role}=await requireControlCentreAccess();
  const admin=createAdminClient();
- const [feeds,runs,refresh]=await Promise.all([
+ const [feeds,runs,refresh,attempts]=await Promise.all([
   admin.from("awin_feed_update_observations").select("advertiser_id,feed_id,advertiser_name,feed_name,listed_products,last_imported_source,observed_at,needs_private_refresh,change_count").order("needs_private_refresh",{ascending:false}).order("advertiser_name",{ascending:true}).limit(200),
   admin.from("awin_feed_discovery_runs").select("checked_at,active_feeds,joined_feeds,changed_feeds").order("checked_at",{ascending:false}).limit(1),
-  admin.from("awin_feed_update_observations").select("feed_id",{count:"exact",head:true}).eq("needs_private_refresh",true)
+  admin.from("awin_feed_update_observations").select("feed_id",{count:"exact",head:true}).eq("needs_private_refresh",true),
+  admin.from("awin_private_cron_attempts").select("job_key,started_at,state,http_status,outcome_code,duration_ms")
+   .order("started_at",{ascending:false}).limit(24)
  ]);
  const records=(feeds.data??[]) as Feed[];
  const history=(runs.data??[]) as Run[];
@@ -39,6 +42,7 @@ export default async function Page(){
   </section>
   {stale&&enabled&&<p role="status">No successful check in the last 36 hours. Review the scheduled invocation before relying on this inventory.</p>}
   {feeds.error||runs.error||refresh.error?<p role="alert">Feed monitoring history is unavailable. Confirm the private discovery migration has been applied.</p>:null}
+  {role==="owner"&&<OwnerAwinRunNow/>}
   <div style={{overflowX:"auto",background:"white",border:"1px solid #e8e3ed",borderRadius:16}}>
    <table style={{borderCollapse:"collapse",width:"100%",minWidth:750,fontSize:13}}>
     <thead><tr>{["Advertiser","Feed","Listed products","Awin last updated","Last seen (UK)","Private refresh flag","Change count"].map(h=><th key={h} style={{background:"#f8f5fa",padding:12,textAlign:"left"}}>{h}</th>)}</tr></thead>
@@ -48,6 +52,24 @@ export default async function Page(){
    </table>
    {!feeds.error&&records.length===0&&<p style={{padding:16,color:"#655c70"}}>No automatic feed checks have been recorded.</p>}
   </div>
+  <section style={{display:"grid",gap:8}}>
+   <h2>Six private scheduled job outcomes</h2>
+   <p style={{fontSize:13,color:"#766b82"}}>Manual owner actions above do not appear as scheduled Cron attempts.</p>
+   {attempts.error&&<p role="alert">Private Cron journal unavailable.</p>}
+   <div style={{overflowX:"auto",background:"white",border:"1px solid #e8e3ed",borderRadius:12}}>
+    <table style={{width:"100%",minWidth:650,borderCollapse:"collapse",fontSize:12}}>
+     <thead><tr>{["Job","Started (UK)","State","HTTP","Outcome","Duration"].map(h=>
+       <th key={h} style={{padding:10,background:"#f8f5fa",textAlign:"left"}}>{h}</th>)}</tr></thead>
+     <tbody>{(attempts.data??[]).map((a,i)=><tr key={i}>
+       {[a.job_key,new Date(a.started_at).toLocaleString("en-GB",{timeZone:"Europe/London"}),
+         a.state,a.http_status??"–",a.outcome_code??"–",
+         typeof a.duration_ms==="number"?a.duration_ms+"ms":"–"].map((x,k)=>
+         <td key={k} style={{padding:10,borderTop:"1px solid #efeaf1"}}>{x}</td>)}
+      </tr>)}</tbody>
+    </table>
+    {!attempts.error&&!(attempts.data??[]).length&&<p style={{padding:12}}>No scheduled private attempts recorded yet.</p>}
+   </div>
+  </section>
   <p style={{fontSize:13,color:"#736b7d"}}>Only metadata from Awin&apos;s feed list is stored. Signed download URLs and API keys are never returned by this screen. A marked update is not an import and does not withdraw or publish any product.</p>
   <Link href="/control-centre/feed-imports">Review private product imports</Link>
  </main>;

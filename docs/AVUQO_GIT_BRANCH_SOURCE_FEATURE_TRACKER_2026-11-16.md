@@ -1,3 +1,7 @@
+## 16 Nov 2026 · Owner-run current Awin preflight/private stage and Tooled Up master, proposed PR
+
+Added owner-only `POST /api/control-centre/awin-run-now` with strict auth role and Origin, fixed supplier pair allowlist, private-write confirmation, server-only `CRON_SECRET` and no arbitrary URL/digest. It reuses current workers for Petlibro, Mozillion, Cadbury and Craft Buddy preflight/private staging and Tooled Up immutable snapshot/validation in-process. Extended private `/control-centre/awin-feed-updates` with owner buttons and service-role-read scheduled job journal after role checks. Manual operations are **not** logged as scheduled cron attempts. No source activation, rights override, customer-facing prices or offers. Require CI/preview and an actual signed-in owner click before claiming any current feed was tested. After current successful private import, release one genuinely eligible offered item with seller/rights/freshness audit and automatic withdrawal, not all historic rows.
+
 # AVUQO · LIVE GIT BRANCH / SOURCE / FEATURE TRACKER
 
 **Audit date:** 16 November 2026 UTC. **Repository:** [crkian/AVUQO](https://github.com/crkian/AVUQO). **Current main at inventory:** `f9e5157de0da39651d3bef9f6461c5c8579d2d57`. **Machine companion:** [JSON](AVUQO_GIT_BRANCH_SOURCE_FEATURE_TRACKER_2026-11-16.json). **Current operations:** [active handover](AVUQO_ACTIVE_HANDOVER.md). This is an observed snapshot, not a live GitHub API.

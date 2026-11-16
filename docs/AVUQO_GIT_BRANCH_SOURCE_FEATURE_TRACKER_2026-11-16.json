@@ -954,7 +954,12 @@
       "Fix only confirmed failure; preserve stop and no unverified public price/image",
       "Complete each advertiser's current rights/current feed/total-price/stock/variant gates",
       "First fresh per-merchant approved public offer + automatic expiry and source withdrawal"
-    ]
+    ],
+    "owner_run_now": {
+      "status": "candidate",
+      "url": "/control-centre/awin-feed-updates",
+      "scope": "four private pilots and Tooled Up exact master capture/validation; owner-only; no publication"
+    }
   },
   "source_scope": "Files inspected in attached project workspace; original private binaries are NOT published to Git; published tracker stores only filenames, checksums and high-level feature requirements."
 }

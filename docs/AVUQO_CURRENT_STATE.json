@@ -790,5 +790,11 @@
     "features": 37,
     "branches_deleted": 0,
     "production_app_unchanged": true
+  },
+  "pending_owner_awin_run_now": {
+    "status": "candidate",
+    "page": "/control-centre/awin-feed-updates",
+    "api": "/api/control-centre/awin-run-now",
+    "no_public_offers": true
   }
 }
