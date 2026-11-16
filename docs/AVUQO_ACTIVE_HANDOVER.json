@@ -800,6 +800,23 @@
     "production_keyset": "disabled per owner screenshot",
     "live_ebay_offers_last_verified": 0,
     "live_awin_offers_last_verified": 0,
-    "next": "CI/preview then migration verification; implement audited irreversible deletion/suppression before 2xx or portal registration"
+    "next": "Audited data erasure and future suppression, live signed test, credentials, registration; keep eBay approval separate",
+    "pr": 226,
+    "merged": true,
+    "app_sha": "fdc522e795a24e7dea5f398a8f82603c52271dd6",
+    "deployment": "dpl_DCt1bZ98keTG9CrJ5UT7nqQ7WdQs",
+    "deployment_state": "READY",
+    "migration": "ebay_private_deletion_receipt_journal_20261116",
+    "migration_applied": true,
+    "rls": true,
+    "rows_at_verification": 0,
+    "grants": "service_role SELECT INSERT only, postgres owner full, no anon/auth grants",
+    "github_checks": "build lint secret-scan success",
+    "deletion_processing": "NOT_IMPLEMENTED",
+    "post_acknowledgment": "503 intentionally",
+    "eBay_registered": false,
+    "keyset": "disabled per owner screenshot",
+    "live_eBay_offers": 0,
+    "awin": "private importers preserved, no Awin offers released in this step"
   }
 }
