@@ -1,3 +1,10 @@
+## Unreleased · Live 25-branch, 14-source, 37-feature Git tracker and Awin finish board · 16 Nov 2026
+
+- Add dated full Git branch tracker (all 25 exact refs/SHAs/compare statistics, seven open PRs, two security refs, 15 unreconciled archives), original S01–S09 plus 5 affiliate terms source hashes, 37 source-derived feature groups, historic start-up/patch script risk classification and Awin release pipeline.
+- Leave all 24 divergent refs intact until current-main content/PR/protection review. Reuse existing SHA-verified GitHub merged branch cleanup; no blind deletion, mass cherry-pick or historic build reset.
+- Require both branch/feature tracker documents alongside active handover Markdown/JSON, project status and changelog for each code/schema/cron PR, with a versioned JSON parity test.
+- Do not copy confidential source PDFs, screenshot or terms binaries into public Git. Awin source remains paused, rights and live price gates pending, 0 offers; no new source activation.
+
 ## Unreleased · Post-release proof for Awin cron attempt journal · 16 Nov 2026
 
 - PR #213 merged; GitHub tests and secret checks passed. Production Vercel `dpl_2isQnD9gt7AkAsboVGARCmrhhfjq` READY for `d6c94f9e`; www.avuqo.com HTTP 200 exact marker.

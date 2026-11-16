@@ -114,6 +114,8 @@ jobs:
         run: node --test tests/complete-git-idea-handover-index.test.mjs
       - name: Current cross-chat handover integrity tests
         run: node --test tests/current-handover-integrity.test.mjs
+      - name: Full source features, Git branch tracker and startup safety tests
+        run: node --test tests/git-branch-source-feature-tracker.test.mjs
       - name: Production photographic storefront safety regression tests
         run: node --test tests/production-photographic-storefront.test.mjs
       - name: Full original live storefront restoration regression tests

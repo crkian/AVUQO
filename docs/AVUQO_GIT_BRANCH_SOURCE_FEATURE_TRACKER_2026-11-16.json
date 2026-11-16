@@ -1,0 +1,960 @@
+{
+  "schema_version": 1,
+  "repo": "crkian/AVUQO",
+  "observed_at_utc_date": "2026-11-16",
+  "github_main_at_read": "f9e5157de0da39651d3bef9f6461c5c8579d2d57",
+  "branch_inventory": {
+    "total": 25,
+    "main": 1,
+    "open_pr_heads": 7,
+    "security_refs": 2,
+    "divergent_historical": 15,
+    "reviewed_non_main": 24,
+    "deleted_during_this_audit": 0,
+    "reason_no_deletion": "All 24 non-main refs have ahead-by unique commits and diverge from main; 7 open PRs, 2 security refs and 15 historic/visual/source branches. Exact reviewed-commit / content reconciliation needed. Existing SHA-gated cleanup workflows may separately retire eligible merged heads; requery after every main push.",
+    "branches": [
+      {
+        "name": "main",
+        "sha": "f9e5157de0da39651d3bef9f6461c5c8579d2d57",
+        "group": "main",
+        "action": "protected_default",
+        "deleted": false
+      },
+      {
+        "name": "design/warm-premium-visual-system-20261105",
+        "sha": "3d06ef862931548369b4a8b4ee207f77989d48cc",
+        "ahead": 8,
+        "behind": 129,
+        "group": "open_pr",
+        "open_pr": 83,
+        "action": "retain_original_design",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "open_pr"
+      },
+      {
+        "name": "docs/p0-03-verified-rollout-20261104",
+        "sha": "9873f5f77d336b0c25e6cc8a3db07fb8089d4586",
+        "ahead": 3,
+        "behind": 157,
+        "group": "historical",
+        "open_pr": null,
+        "action": "review_document_parity",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "needs_semantic_reconciliation"
+      },
+      {
+        "name": "docs/petlibro-live-import-pilot-20261114",
+        "sha": "6f83328267ee5eae286c439a579672188155a564",
+        "ahead": 1,
+        "behind": 13,
+        "group": "open_pr",
+        "open_pr": 201,
+        "action": "retain_rights_review",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "open_pr"
+      },
+      {
+        "name": "feature/awin-auto-import-clean-rebase-20261105",
+        "sha": "8ef676e5c656132f8cacd0f7f0953d33d47b58e0",
+        "ahead": 4,
+        "behind": 132,
+        "group": "historical",
+        "open_pr": null,
+        "action": "review_importer_parity",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "needs_semantic_reconciliation"
+      },
+      {
+        "name": "feature/awin-canonical-private-taxonomy-20261030",
+        "sha": "006bed340d648b34661937a24b53279c62cd8e72",
+        "ahead": 25,
+        "behind": 176,
+        "group": "historical",
+        "open_pr": null,
+        "action": "retain_taxonomy_source",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "needs_semantic_reconciliation"
+      },
+      {
+        "name": "feature/awin-departments-crafts-20261030",
+        "sha": "d0e91571ea46c83047dfa50cbf406c554de8a1ff",
+        "ahead": 23,
+        "behind": 176,
+        "group": "historical",
+        "open_pr": null,
+        "action": "retain_taxonomy_source",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "needs_semantic_reconciliation"
+      },
+      {
+        "name": "feature/awin-feed-catalogue-safety-20261104",
+        "sha": "aa4734ebe2b3d118a56f0c91aa38b7789431ce71",
+        "ahead": 11,
+        "behind": 148,
+        "group": "historical",
+        "open_pr": null,
+        "action": "review_monitor_parity",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "needs_semantic_reconciliation"
+      },
+      {
+        "name": "feature/awin-readonly-diagnostics-20261104",
+        "sha": "330fd4401f6501e5812817b75bef9fa74d09073c",
+        "ahead": 15,
+        "behind": 154,
+        "group": "historical",
+        "open_pr": null,
+        "action": "review_diagnostics_parity",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "needs_semantic_reconciliation"
+      },
+      {
+        "name": "feature/awin-safe-feed-change-monitor-20261104",
+        "sha": "0825b36f49ed0f82a1c42d3214e5bd8ad0d968df",
+        "ahead": 8,
+        "behind": 143,
+        "group": "historical",
+        "open_pr": null,
+        "action": "review_monitor_parity",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "needs_semantic_reconciliation"
+      },
+      {
+        "name": "feature/category-specific-product-previews-20261104",
+        "sha": "613c97939fb9f9cc946d6ba182229588f3786564",
+        "ahead": 11,
+        "behind": 148,
+        "group": "historical",
+        "open_pr": null,
+        "action": "retain_ui_source_until_diffed",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "needs_semantic_reconciliation"
+      },
+      {
+        "name": "feature/photo-led-category-pages-2026",
+        "sha": "158cc6bb91bc02a64189e6128abce937e39075e7",
+        "ahead": 21,
+        "behind": 186,
+        "group": "historical",
+        "open_pr": null,
+        "action": "retain_visual_source_until_diffed",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "needs_semantic_reconciliation"
+      },
+      {
+        "name": "feature/tooled-up-awin-programme-currency-proof-20261105",
+        "sha": "2bba72d4a014204948465ef5431d69401dbbb983",
+        "ahead": 4,
+        "behind": 111,
+        "group": "historical",
+        "open_pr": null,
+        "action": "review_currency_evidence",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "needs_semantic_reconciliation"
+      },
+      {
+        "name": "feature/tooled-up-private-catalogue-filters-20261104",
+        "sha": "e9ff0f598670c403d39953e3c6b56d696a816673",
+        "ahead": 9,
+        "behind": 144,
+        "group": "historical",
+        "open_pr": null,
+        "action": "review_owner_ui_parity",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "needs_semantic_reconciliation"
+      },
+      {
+        "name": "feature/tyres-uk-private-lease-primitives-review-20261113",
+        "sha": "226a8030800998dde1cc964b73e842b88c7b68c0",
+        "ahead": 9,
+        "behind": 53,
+        "group": "open_pr",
+        "open_pr": 158,
+        "action": "retain_until_tyre_worker_acceptance",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "open_pr"
+      },
+      {
+        "name": "feature/tyres-uk-server-auto-enrichment-v2-20261109",
+        "sha": "01ec568c28e27844e5524554279271d68a613246",
+        "ahead": 16,
+        "behind": 97,
+        "group": "open_pr",
+        "open_pr": 117,
+        "action": "retain_disabled_unsafe_worker",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "open_pr"
+      },
+      {
+        "name": "feature/universal-categories-inactive-20261030",
+        "sha": "c43d227b0c62756947b44e8f510ac6b4b3b6badd",
+        "ahead": 35,
+        "behind": 176,
+        "group": "open_pr",
+        "open_pr": 25,
+        "action": "retain_inactive_taxonomy",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "open_pr"
+      },
+      {
+        "name": "feature/warm-premium-experience-v1-20261105",
+        "sha": "9a90b4b76279cf650919c9d252653fb69104768a",
+        "ahead": 204,
+        "behind": 121,
+        "group": "open_pr",
+        "open_pr": 93,
+        "action": "retain_original_customer_design",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "open_pr"
+      },
+      {
+        "name": "fix/customer-item-links-and-roadmap-20261030",
+        "sha": "8057ce176a16aecbd550cc9d3e48d28a8b72e32b",
+        "ahead": 10,
+        "behind": 176,
+        "group": "historical",
+        "open_pr": null,
+        "action": "review_watch_link_parity",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "needs_semantic_reconciliation"
+      },
+      {
+        "name": "fix/numbered-feed-filenames-20261104",
+        "sha": "ea6a5305b601e1e2ba0108e7a89b1201413f5344",
+        "ahead": 6,
+        "behind": 148,
+        "group": "historical",
+        "open_pr": null,
+        "action": "review_import_filename_parity",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "needs_semantic_reconciliation"
+      },
+      {
+        "name": "fix/phase1-saved-watches-routing-20261030",
+        "sha": "e0a5ef7997ea46c7b667c31c2358e50818f8219e",
+        "ahead": 6,
+        "behind": 176,
+        "group": "historical",
+        "open_pr": null,
+        "action": "review_saved_watch_parity",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "needs_semantic_reconciliation"
+      },
+      {
+        "name": "fix/product-pilot-soft-404-and-release-proof-20261114",
+        "sha": "63b8b2c479bc80943b1c1f5f0c0b1ff2c6435395",
+        "ahead": 10,
+        "behind": 19,
+        "group": "historical",
+        "open_pr": null,
+        "action": "retain_until_pr200_http_acceptance",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "needs_semantic_reconciliation"
+      },
+      {
+        "name": "fix/products-request-bound-true-404-20261114",
+        "sha": "cc152190b9e4e460070185112b0d6883ace4ba3f",
+        "ahead": 12,
+        "behind": 13,
+        "group": "open_pr",
+        "open_pr": 200,
+        "action": "retain_http404_acceptance",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "open_pr"
+      },
+      {
+        "name": "security/block-future-secret-commits",
+        "sha": "a2b8a4dba69ad7d01f0cf34e4ebf4526a777e81c",
+        "ahead": 2,
+        "behind": 182,
+        "group": "security",
+        "open_pr": null,
+        "action": "retain_incident_reference",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "preserved_security"
+      },
+      {
+        "name": "security/remove-exposed-build-archive",
+        "sha": "9f018decaf92935f4a972e871c4fae80a2293052",
+        "ahead": 4,
+        "behind": 184,
+        "group": "security",
+        "open_pr": null,
+        "action": "retain_security_reference",
+        "merged_into_main": false,
+        "deleted": false,
+        "review_state": "preserved_security"
+      }
+    ]
+  },
+  "sources": [
+    {
+      "id": "S01",
+      "filename": "AVUQO_Master_Product_Build_Specification.pdf",
+      "sha256": "5e3991478a6971a3619573e16c7ec98dd295277a92555160b26446393284d907",
+      "scope": "26 pages",
+      "role": "master platform",
+      "source_inspected_2026_11_16": true,
+      "raw_source_in_public_git": false
+    },
+    {
+      "id": "S02",
+      "filename": "AVUQO_Intelligent_Supermarket_Comparison_Master_Specification.pdf",
+      "sha256": "a001a2e2136aad7c25b7032e38d0d0fde417ba42abcfee4205aa660c566a53b6",
+      "scope": "20 pages",
+      "role": "grocery basket",
+      "source_inspected_2026_11_16": true,
+      "raw_source_in_public_git": false
+    },
+    {
+      "id": "S03",
+      "filename": "# AVUQO Intelligent Affiliate Marke.txt",
+      "sha256": "a5f40ea4820156f45cefb68161ea34d85664dd78dfc2abca6ae9dddeb2d30e70",
+      "scope": "text",
+      "role": "affiliate marketing",
+      "source_inspected_2026_11_16": true,
+      "raw_source_in_public_git": false
+    },
+    {
+      "id": "S04",
+      "filename": "AVUQO_v0.8_Control_Centre_Content_Backend_Plan.md",
+      "sha256": "77d5f8cf7a501afaacfa915c683740988affaf5d130d22ea240a712aeed6f5df",
+      "scope": "markdown",
+      "role": "owner CMS",
+      "source_inspected_2026_11_16": true,
+      "raw_source_in_public_git": false
+    },
+    {
+      "id": "S05",
+      "filename": "AVUQO_MASTER_SOURCE_OF_TRUTH_2026-10-28.md",
+      "sha256": "134321cf7191e2c614cdfcadc6cb77dd094d13469a485494b9226ddce60206c9",
+      "scope": "markdown",
+      "role": "legacy vision and evidence hierarchy",
+      "source_inspected_2026_11_16": true,
+      "raw_source_in_public_git": false
+    },
+    {
+      "id": "S06",
+      "filename": "AVUQO_First_Party_Analytics_Intelligence_Master_Specification.md",
+      "sha256": "ec8e2325eb8941979f22d6954c8cb3622fed4be88ba9cf6aeef2f12902906da9",
+      "scope": "markdown",
+      "role": "first-party analytics",
+      "source_inspected_2026_11_16": true,
+      "raw_source_in_public_git": false
+    },
+    {
+      "id": "S07",
+      "filename": "Pasted text (1).txt",
+      "sha256": "74712c183a33b9fb3cafe47de4ce658d5322047293e08412cfcbb8b5a5062f47",
+      "scope": "text",
+      "role": "million-product connectors",
+      "source_inspected_2026_11_16": true,
+      "raw_source_in_public_git": false
+    },
+    {
+      "id": "S08",
+      "filename": "Pasted text (2).txt",
+      "sha256": "c16fc0bf45653fe7da0a851d0e697e1122d9df5cd64636e7f26b447c18c5039e",
+      "scope": "text",
+      "role": "historical PR20–25",
+      "source_inspected_2026_11_16": true,
+      "raw_source_in_public_git": false
+    },
+    {
+      "id": "S09",
+      "filename": "file_00000000c30c81f4b1db6a04908c02f9.png",
+      "sha256": "26470cd8ae76cf3e1cd2cc8cafd76dc7a4f5f4cc55ed3420a2b9b9f474fe9f18",
+      "scope": "concept image",
+      "role": "three design directions",
+      "source_inspected_2026_11_16": true,
+      "raw_source_in_public_git": false
+    },
+    {
+      "id": "M01",
+      "filename": "Petlibro UK Affiliate Program Terms (2).pdf",
+      "sha256": "539e66416afad07e6215d37805feebdf4071f6abb8368c7c4f08ccceabad369b",
+      "scope": "5 pages",
+      "role": "merchant terms snapshot 11 Apr 2024",
+      "source_inspected_2026_11_16": true,
+      "raw_source_in_public_git": false
+    },
+    {
+      "id": "M02",
+      "filename": "Mozillion Terms.pdf",
+      "sha256": "3bd9d2264ba87575e4a6e9dd7d09e1faa357ab460a1573e79eec897ab6cedaf8",
+      "scope": "3 pages",
+      "role": "merchant terms snapshot 25 Jul 2022",
+      "source_inspected_2026_11_16": true,
+      "raw_source_in_public_git": false
+    },
+    {
+      "id": "M03",
+      "filename": "Cadbury Gifts Direct Terms (3).pdf",
+      "sha256": "ea3cad9a3f2d59b866418a678cbf24ef358f90bfaabc55ae8b4e8c6693a28ac5",
+      "scope": "3 pages",
+      "role": "merchant terms snapshot 16 Jan 2023",
+      "source_inspected_2026_11_16": true,
+      "raw_source_in_public_git": false
+    },
+    {
+      "id": "M04",
+      "filename": "Craft Buddy Shop Terms (2).pdf",
+      "sha256": "8d9e2962f316f805af4526b831a33c02e2f8b962229b40307ac783cdd79dff43",
+      "scope": "4 pages",
+      "role": "merchant terms snapshot 02 Mar 2023",
+      "source_inspected_2026_11_16": true,
+      "raw_source_in_public_git": false
+    },
+    {
+      "id": "M05",
+      "filename": "Tooled Up Terms.pdf",
+      "sha256": "269514ac4a1e21537da3b0f34e03531daa0e2258ba3530d5a716ff385a89ae1a",
+      "scope": "3 pages",
+      "role": "merchant terms snapshot 14 Apr 2023",
+      "source_inspected_2026_11_16": true,
+      "raw_source_in_public_git": false
+    }
+  ],
+  "feature_requirements": [
+    {
+      "id": "F01",
+      "area": "One real catalogue: Compare + Discover",
+      "source": [
+        "S01",
+        "S05",
+        "S07"
+      ],
+      "status": "partial",
+      "next": "First fresh permissioned Awin offer, exact product identity and true delivered total; then bargain evidence"
+    },
+    {
+      "id": "F02",
+      "area": "Premium visual website / consumer navigation",
+      "source": [
+        "S01",
+        "S09"
+      ],
+      "status": "partial",
+      "next": "Visual comparison against three concept options, keep historical reference branches until original assets reconciled"
+    },
+    {
+      "id": "F03",
+      "area": "Natural language search / intents / filters",
+      "source": [
+        "S01"
+      ],
+      "status": "partial",
+      "next": "Test current search; build intent resolution and cross-source index, never fake results"
+    },
+    {
+      "id": "F04",
+      "area": "Evidence-based AVUQO Score / confidence / buy-or-wait",
+      "source": [
+        "S01"
+      ],
+      "status": "partial",
+      "next": "Verify real price history, merchant trust, stock, shipping and non-commission ranking"
+    },
+    {
+      "id": "F05",
+      "area": "Watches: stock/price alerts, digest, quiet hours, push",
+      "source": [
+        "S01",
+        "S05"
+      ],
+      "status": "partial",
+      "next": "Inspect stored watches and prove scheduled evaluation and delivered opt-in notifications"
+    },
+    {
+      "id": "F06",
+      "area": "Saved products, shared household lists, votes and budgets",
+      "source": [
+        "S01",
+        "S05"
+      ],
+      "status": "partial",
+      "next": "Verify real cross-account invitation, voting, purchased state, collaborative budget"
+    },
+    {
+      "id": "F07",
+      "area": "Preference graph and personal intelligence",
+      "source": [
+        "S01"
+      ],
+      "status": "roadmap",
+      "next": "Opt-in intent and explainable recommendations with privacy/decay"
+    },
+    {
+      "id": "F08",
+      "area": "Customer reports / Found Better / community trust",
+      "source": [
+        "S01"
+      ],
+      "status": "partial",
+      "next": "Moderation, verification and abuse/rate limits"
+    },
+    {
+      "id": "F09",
+      "area": "Universal source connector, GTIN/MPN/variant identity",
+      "source": [
+        "S01",
+        "S07"
+      ],
+      "status": "partial",
+      "next": "Resumable source-specific integrations with rights, freshness and failure audit"
+    },
+    {
+      "id": "F10",
+      "area": "Autopilot ingest, score, publish, expire and exception queue",
+      "source": [
+        "S01"
+      ],
+      "status": "partial",
+      "next": "Real feed-to-public-offer pipeline, safe automatic withdrawal and error retries"
+    },
+    {
+      "id": "F11",
+      "area": "Awin: current authorised physical feed publication",
+      "source": [
+        "S01",
+        "S07",
+        "M01",
+        "M02",
+        "M03",
+        "M04",
+        "M05"
+      ],
+      "status": "private_only",
+      "next": "See Awin finishing board; independent per-advertiser terms and source stop gates"
+    },
+    {
+      "id": "F12",
+      "area": "eBay, Amazon, CJ, impact, Webgains, Tradedoubler, Rakuten, direct",
+      "source": [
+        "S07"
+      ],
+      "status": "roadmap",
+      "next": "Use authorised access and provider-specific data schemas; never scrape restricted feeds"
+    },
+    {
+      "id": "F13",
+      "area": "Supermarket directory (nine stores) and grocery /groceries",
+      "source": [
+        "S02"
+      ],
+      "status": "partial",
+      "next": "Directory is not live price access; enforce inactive/missing states"
+    },
+    {
+      "id": "F14",
+      "area": "Guest grocery baskets: local save, 1–99 quantities, 100 lines",
+      "source": [
+        "S02"
+      ],
+      "status": "partial",
+      "next": "Verify live guest local persistence, product/unit and multipack maths"
+    },
+    {
+      "id": "F15",
+      "area": "Exact grocery pack/brand matching and substitutions",
+      "source": [
+        "S02"
+      ],
+      "status": "partial",
+      "next": "GTIN and pack-size distinction; own-label alternatives clearly separate"
+    },
+    {
+      "id": "F16",
+      "area": "Complete vs partial basket, no zero missing prices",
+      "source": [
+        "S02",
+        "S06"
+      ],
+      "status": "partial",
+      "next": "Integration tests for completeness and trusted lowest complete basket"
+    },
+    {
+      "id": "F17",
+      "area": "Licensed retailer grocery prices, local/user-observed prices",
+      "source": [
+        "S02"
+      ],
+      "status": "blocked_external_data",
+      "next": "First retailer data licence/API; manual observations private and labelled"
+    },
+    {
+      "id": "F18",
+      "area": "Grocery Control Centre / price freshness / provenance",
+      "source": [
+        "S02"
+      ],
+      "status": "partial",
+      "next": "Store/category/price audit and currency/stock permission checks"
+    },
+    {
+      "id": "F19",
+      "area": "Budgeting, spending and weekly household savings",
+      "source": [
+        "S05"
+      ],
+      "status": "roadmap",
+      "next": "Explicit financial/household permissions; no synthetic savings"
+    },
+    {
+      "id": "F20",
+      "area": "Travel, car hire, attractions, experiences and services",
+      "source": [
+        "S01",
+        "S05",
+        "S07"
+      ],
+      "status": "roadmap",
+      "next": "Quote-specific connectors and commercial constraints, not product SKU offers"
+    },
+    {
+      "id": "F21",
+      "area": "First-party event schema, consent and RLS",
+      "source": [
+        "S06"
+      ],
+      "status": "partial",
+      "next": "Verify consent boundaries and dedup, bots/test traffic isolation"
+    },
+    {
+      "id": "F22",
+      "area": "Affiliate attribution, confirmed commission and refunds",
+      "source": [
+        "S06",
+        "S03"
+      ],
+      "status": "partial",
+      "next": "Reconcile real Awin network conversions before declaring revenue"
+    },
+    {
+      "id": "F23",
+      "area": "Analytics funnel, cohort, timezones, growth dashboards",
+      "source": [
+        "S06"
+      ],
+      "status": "partial",
+      "next": "Controlled reconciled metrics and stale-data flags"
+    },
+    {
+      "id": "F24",
+      "area": "Controlled experiments and self-learning optimisation",
+      "source": [
+        "S06",
+        "S03"
+      ],
+      "status": "roadmap",
+      "next": "Owner-verified experiments; never modify independent score/rank"
+    },
+    {
+      "id": "F25",
+      "area": "Pinterest-first AI Creative Studio and promotion score",
+      "source": [
+        "S03"
+      ],
+      "status": "partial",
+      "next": "Separate Promotion Score from AVUQO Score; approved assets and APIs"
+    },
+    {
+      "id": "F26",
+      "area": "Facebook, Instagram, TikTok, X and email scheduling",
+      "source": [
+        "S03"
+      ],
+      "status": "partial",
+      "next": "Channel rules, approval and verified publisher APIs/consent"
+    },
+    {
+      "id": "F27",
+      "area": "Seasonal campaigns, evergreen content and expiry",
+      "source": [
+        "S03",
+        "S01"
+      ],
+      "status": "partial",
+      "next": "Verify real calendar output and expired post landing pages"
+    },
+    {
+      "id": "F28",
+      "area": "Content CMS: owner footer/nav/pages and revisions",
+      "source": [
+        "S04"
+      ],
+      "status": "partial",
+      "next": "Published-version controls, preview, rollback, signed-in owner acceptance"
+    },
+    {
+      "id": "F29",
+      "area": "Legal version approval, cookie/consent and media rights",
+      "source": [
+        "S04",
+        "S06"
+      ],
+      "status": "partial",
+      "next": "Publisher/merchant rights evidence and legal owner approvals"
+    },
+    {
+      "id": "F30",
+      "area": "Owner Source Atlas / retailer onboarding / errors",
+      "source": [
+        "S04",
+        "S01"
+      ],
+      "status": "partial",
+      "next": "Live connected source status, invoice/commission rights and error evidence"
+    },
+    {
+      "id": "F31",
+      "area": "Owner emergency stop and source-scoped controls",
+      "source": [
+        "S01",
+        "S04"
+      ],
+      "status": "partial",
+      "next": "Check signed-in stop and per-advertiser release; do not bypass pending rights"
+    },
+    {
+      "id": "F32",
+      "area": "Native mobile, push and PWA",
+      "source": [
+        "S01"
+      ],
+      "status": "roadmap",
+      "next": "PWA manifest already a foundation; delivered push/native not verified"
+    },
+    {
+      "id": "F33",
+      "area": "Fraud resilience, secrets, RLS, cost controls",
+      "source": [
+        "S01",
+        "S06"
+      ],
+      "status": "partial",
+      "next": "Maintain CI secrets, privacy, source abuse control and Vercel ignored builds"
+    },
+    {
+      "id": "F34",
+      "area": "Scale 10k → 100k → 1m+ listings",
+      "source": [
+        "S07"
+      ],
+      "status": "partial",
+      "next": "Use lease/retry, content-digest and streaming large feeds, no full-RAM shortcuts"
+    },
+    {
+      "id": "F35",
+      "area": "Original historical milestones PR #20–#25",
+      "source": [
+        "S08"
+      ],
+      "status": "historical_only",
+      "next": "Keep frozen historic branch/feature evidence; do not take old PR status as live"
+    },
+    {
+      "id": "F36",
+      "area": "Full branded site concepts: three distinct logo, icon and homepage options",
+      "source": [
+        "S09"
+      ],
+      "status": "design_reference",
+      "next": "Preserve original visual asset and track owner's chosen implementation, do not reinterpret original image as production proof"
+    },
+    {
+      "id": "F37",
+      "area": "Partner pricing and commission restrictions",
+      "source": [
+        "M01",
+        "M02",
+        "M03",
+        "M04",
+        "M05"
+      ],
+      "status": "under_review",
+      "next": "Term PDFs have older effective dates; check current Awin account-specific rate/media/trademark terms"
+    }
+  ],
+  "startup_artifacts": [
+    {
+      "path": "AVUQO_START_HERE.md",
+      "role": "CURRENT first read",
+      "action": "keep_update",
+      "risk": "must supersede old SHA wording"
+    },
+    {
+      "path": "AGENTS.md",
+      "role": "CURRENT developer rules and Next 16 boundaries",
+      "action": "keep_update",
+      "risk": "generated Next.js block preserved"
+    },
+    {
+      "path": "README.md",
+      "role": "CURRENT developer entrypoint",
+      "action": "keep_update"
+    },
+    {
+      "path": "docs/AVUQO_ACTIVE_HANDOVER.md",
+      "role": "CURRENT delivery source of truth",
+      "action": "keep_update_every_material_turn"
+    },
+    {
+      "path": "docs/AVUQO_ACTIVE_HANDOVER.json",
+      "role": "CURRENT structured state",
+      "action": "keep_update_every_material_turn"
+    },
+    {
+      "path": "docs/AVUQO_COMPLETE_GIT_BRANCH_IDEA_HANDOVER_INDEX_2026-11-14.md",
+      "role": "dated 14-Nov archive",
+      "action": "preserve_do_not_treat_live"
+    },
+    {
+      "path": "docs/SOURCE_MANIFEST_2026-11-02.md",
+      "role": "original 9-source checksum archive",
+      "action": "preserve"
+    },
+    {
+      "path": "docs/SOURCE_TO_CODE_AUDIT_2026-11-02.md",
+      "role": "old feature-to-code audit",
+      "action": "preserve_snapshot_not_live"
+    },
+    {
+      "path": "README-FIRST.md / README-FIRST-v0.6.md / README-FIRST-v0.7.md / README-v0.8-PHASE1.md",
+      "role": "historic setup/patch descriptions",
+      "action": "archive_only_no_auto_execute"
+    },
+    {
+      "path": "APPLY_PHASE2.ps1 / APPLY_PHASE3.ps1 / APPLY_PHASE4.ps1 / APPLY_STYLE_FIX.ps1 / APPLY_TO_C_DRIVE.ps1",
+      "role": "historic local Windows C:\\avuqo patch/backup installers",
+      "action": "do_not_run_on_live_without_diff"
+    },
+    {
+      "path": "AVUQO_SUPABASE_RESET_AND_SETUP.sql",
+      "role": "DESTRUCTIVE development reset",
+      "action": "NEVER_RUN_ON_PRODUCTION",
+      "risk": "deletes public schema dev records"
+    },
+    {
+      "path": "AVUQO_PHASE2_AUTH_WATCHES.sql",
+      "role": "historic migration after destructive reset",
+      "action": "do_not_run_as_new_migration"
+    },
+    {
+      "path": "AVUQO_v0.8_Feed_Review_Dashboard.zip",
+      "role": "historic code pack whose binaries were not inspected here",
+      "action": "preserve_archive_not_live_proof"
+    },
+    {
+      "path": ".github/workflows/verified-merged-branch-cleanup.yml",
+      "role": "post-main push exact merged PR head cleanup",
+      "action": "keep_sha_and_PR_gates"
+    },
+    {
+      "path": ".github/workflows/verified-historical-branch-cleanup.yml",
+      "role": "exact historical merged PR <=126 cleanup",
+      "action": "keep_sha_and_PR_gates"
+    },
+    {
+      "path": ".github/workflows/reconciled-closed-pr-branch-retirement.yml",
+      "role": "narrow #50/#51/#85 cleanup",
+      "action": "keep_frozen_head_checks"
+    },
+    {
+      "path": ".github/workflows/quality.yml / prevent-secrets.yml",
+      "role": "CI and secret protection",
+      "action": "keep"
+    },
+    {
+      "path": "vercel.json",
+      "role": "13 UTC scheduled cron routes; skip docs-only build",
+      "action": "keep_validate_after_each_release"
+    }
+  ],
+  "awin_finish": {
+    "phase": "audit_private_execution_then_first_eligible_public_offer",
+    "source_status": "paused",
+    "publication_permission": "pending",
+    "public_awin_offers": 0,
+    "private_canonical_awin_products": 251,
+    "cron_journal_rows": 0,
+    "tooled_up_immutable_snapshots": 0,
+    "tooled_up_validation_reports": 0,
+    "as_of": "2026-11-16",
+    "merchant_targets": [
+      {
+        "name": "Petlibro",
+        "id": "77952",
+        "feed": "103580",
+        "private_rows": 44,
+        "blocker": "Current price/stock, ID 77952 vs correspondence 77942, verified rights, first offered release"
+      },
+      {
+        "name": "Mozillion",
+        "id": "31539",
+        "feed": "74135",
+        "private_rows": 229,
+        "blocker": "Current physical handset price/condition and terms/image permission"
+      },
+      {
+        "name": "Cadbury",
+        "id": "736",
+        "feed": "48599",
+        "private_rows": 0,
+        "blocker": "Current validated AUTO feed first; 1,371 monitored is only feed list"
+      },
+      {
+        "name": "Craft Buddy",
+        "id": "45747",
+        "feed": "F1356",
+        "private_rows": 0,
+        "blocker": "Current Google AUTO feed; licensed character artwork restrictions"
+      },
+      {
+        "name": "Tooled Up",
+        "id": "496",
+        "feed": "89987",
+        "private_rows": 0,
+        "blocker": "First immutable master snapshot + validation, independently verified GBP, existing 250-row private stage"
+      },
+      {
+        "name": "Tyres UK",
+        "id": "12715",
+        "feed": "93988",
+        "private_rows": 31372,
+        "blocker": "Fitment and landed price; separate tyre worker and rights"
+      }
+    ],
+    "next_actions": [
+      "17 Nov after 07:17 UTC read six-job attempt journal and private run results",
+      "17 Nov after 08:05/08:25 UTC check Tooled Up SHA snapshot and validator",
+      "Fix only confirmed failure; preserve stop and no unverified public price/image",
+      "Complete each advertiser's current rights/current feed/total-price/stock/variant gates",
+      "First fresh per-merchant approved public offer + automatic expiry and source withdrawal"
+    ]
+  },
+  "source_scope": "Files inspected in attached project workspace; original private binaries are NOT published to Git; published tracker stores only filenames, checksums and high-level feature requirements."
+}
