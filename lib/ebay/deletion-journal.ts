@@ -1,5 +1,6 @@
 import "server-only";
 import {createHmac} from "node:crypto";
+import {ebayAccountDigests} from "./deletion-identity";
 import {createAdminClient} from "../supabase/admin";
 
 type EventData={userId?:unknown;username?:unknown;eiasToken?:unknown};
@@ -20,19 +21,15 @@ export async function journalVerifiedEbayDeletion(
 ):Promise<"recorded"|"duplicate"|"unavailable">{
  const event=validated(notificationId,128);
  if(!event||!data||typeof data!=="object"||Array.isArray(data))return "unavailable";
- const id=validated(data.userId,256);
- const username=validated(data.username,256);
- const eias=validated(data.eiasToken,1024);
- if(!id&&!username&&!eias)return "unavailable";
+ const identities=ebayAccountDigests(data);
+ if(!identities)return "unavailable";
  const secret=process.env.EBAY_DELETION_HMAC_SECRET;
  if(!secret||secret.length<32||secret.length>512)return "unavailable";
  const digest=(label:string,value:string)=>createHmac("sha256",secret)
   .update(label+"\0"+value,"utf8").digest("hex");
  const row={
   notification_digest:digest("notificationId",event),
-  user_id_digest:id?digest("userId",id):null,
-  username_digest:username?digest("username",username):null,
-  eias_token_digest:eias?digest("eiasToken",eias):null,
+  ...identities,
   state:"pending_privacy_review" as const
  };
  try{
