@@ -1333,7 +1333,7 @@
     "candidate_migration": "supabase/migrations/20261116192000_ebay_leased_mapped_catalogue_executor.sql",
     "runbook": "docs/AVUQO_EBAY_MAPPED_CATALOGUE_EXECUTOR_2026-11-16.md",
     "native_integration_fixture": "tests/fixtures/ebay-local-mapped-executor-acceptance.sql",
-    "existing_audited_purge_in_tests": "SYNTHETIC_SIMULATOR_NOT_ORIGINAL",
+    "existing_audited_purge_in_tests": "ORIGINAL_VERSIONED_SQL_MINIMAL_SYNTHETIC_SCHEMA",
     "only_surface": "mapped_catalogue",
     "executor_status": "no_worker_deployed",
     "atomic_audit_and_awaiting_evidence": true,
@@ -1351,5 +1351,26 @@
     "source": "paused, sync false, quarantined",
     "webhook": "unregistered HTTP 503",
     "awin": "unchanged"
+  },
+  "ebay_original_purge_native_integration_20261116": {
+    "status": "PENDING_NATIVE_GITHUB_CI",
+    "test_runner": "scripts/ebay-native-postgres-tests.sh",
+    "original_foundation": "supabase/migrations/20261116132000_ebay_account_scoped_erasure_foundation.sql",
+    "original_audited_purge": "supabase/migrations/20261116155500_ebay_audited_partial_erasure.sql",
+    "leased_executor": "supabase/migrations/20261116192000_ebay_leased_mapped_catalogue_executor.sql",
+    "acceptance": "tests/fixtures/ebay-local-mapped-executor-acceptance.sql",
+    "synthetic_substitute_removed": true,
+    "full_schema_clone": false,
+    "all_four_mapped_surfaces_exercised": "PENDING",
+    "identity_aliases_tested": 3,
+    "isolated_non_ebay_preservation": "PENDING",
+    "production_database_changed": false,
+    "paid_services": false,
+    "docker": false,
+    "eBay": "NO-GO paused, sync disabled, import quarantined, HTTP 503",
+    "awin": "unchanged",
+    "full_erasure": false,
+    "retention_verified": false,
+    "signed_provider_event_verified": false
   }
 }
