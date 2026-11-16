@@ -1844,5 +1844,30 @@
     "ebay_source_quarantined": true,
     "webhook_status": "503, unregistered",
     "live_ebay_item_offers": 0
+  },
+  "ebay_two_session_race_probe_20261116": {
+    "status": "live SQL tool attempt inconclusive; opt-in two-independent-psql-process test prepared, NOT executed",
+    "initial_attempt": "holder returned backend and zero synthetic rows; contender raised RACE_TEST_UNEXPECTED_NO_CONTENTION; concurrent overlap not established",
+    "actual_two_connection_race_pass": false,
+    "test_script": "scripts/test-ebay-tombstone-race.sh",
+    "structural_tests": "tests/ebay-two-session-race-harness.test.mjs",
+    "runbook": "docs/AVUQO_EBAY_TWO_SESSION_RACE_PROOF_2026-11-16.md",
+    "requirements": [
+      "ALLOW_EBAY_RACE_TEST=true",
+      "private EBAY_RACE_TEST_DATABASE_URL",
+      "psql",
+      "openssl",
+      "authorised privileged database"
+    ],
+    "expected_proof": "receipt-held transaction lock produces 55P03 in independent account-link attempt, synthetic receipt rollback and no row count changes",
+    "evidence_limitations": "CI checks syntax/contracts only; need actual approved two-client run, reverse-order committed race and multi-identifier cases",
+    "production_migration_in_this_step": false,
+    "eBay_deletion_full_erasure": false,
+    "webhook": "503 and unregistered",
+    "eBay_source": "paused, quarantined",
+    "eBay_production_keyset": "disabled per last owner screenshot",
+    "live_ebay_item_offers": 0,
+    "awin": "prior private importers preserved",
+    "next": "Run authorised controlled two-connection test and capture results, then full erasure and provider E2E"
   }
 }
