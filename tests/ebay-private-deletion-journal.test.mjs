@@ -6,6 +6,7 @@ import {createHmac} from "node:crypto";
 const text=(path)=>readFileSync(new URL("../"+path,import.meta.url),"utf8");
 const sql=text("supabase/migrations/20261116124500_ebay_private_deletion_receipt_journal.sql");
 const journal=text("lib/ebay/deletion-journal.ts");
+const identity=text("lib/ebay/deletion-identity.ts");
 const route=text("app/api/ebay/account-deletion/route.ts");
 
 test("new deletion receipt table is RLS-private, not public and service-role insert only",()=>{
@@ -19,12 +20,12 @@ test("new deletion receipt table is RLS-private, not public and service-role ins
 });
 
 test("journal hashes each identifier with a separate keyed domain and checks duplicate contents",()=>{
- assert.match(journal,/EBAY_DELETION_HMAC_SECRET/);
- assert.match(journal,/createHmac\("sha256",secret\)/);
+ assert.match(identity,/EBAY_DELETION_HMAC_SECRET/);
+ assert.match(identity,/createHmac\("sha256",secret\)/);
  assert.match(journal,/digest\("notificationId",event\)/);
- assert.match(journal,/digest\("userId",id\)/);
- assert.match(journal,/digest\("username",username\)/);
- assert.match(journal,/digest\("eiasToken",eias\)/);
+ assert.match(identity,/digest\("userId",id\)/);
+ assert.match(identity,/digest\("username",username\)/);
+ assert.match(identity,/digest\("eiasToken",eias\)/);
  assert.match(journal,/error\.code!=="23505"/);
  assert.match(journal,/prior\.user_id_digest===row\.user_id_digest/);
  assert.doesNotMatch(journal,/JSON\.stringify\(data\)/);
