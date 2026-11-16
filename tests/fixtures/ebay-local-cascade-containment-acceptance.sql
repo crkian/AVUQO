@@ -277,7 +277,7 @@ insert into public.ebay_account_item_links(identity_kind,identity_digest,offer_i
  values('user_id_digest',repeat('e',64),'00000000-0000-4000-8000-000000000004');
 insert into public.ebay_deletion_receipts(notification_digest,user_id_digest)
  values(repeat('f',64),repeat('e',64));
-do $
+do $ebay_new_fk$
 declare rejected boolean:=false; rid bigint;
 begin
  select id into strict rid from public.ebay_deletion_receipts
@@ -294,7 +294,7 @@ begin
  or not exists(select 1 from public.ebay_erasure_work_items
   where receipt_id=rid and surface='mapped_catalogue' and attempts=0 and state='pending')
  then raise exception 'Unknown FK failed atomic rollback'; end if;
-end $;
+end $ebay_new_fk$;
 rollback;
 
 -- Normal non-eBay retailer deletion behaviour remains unchanged.
