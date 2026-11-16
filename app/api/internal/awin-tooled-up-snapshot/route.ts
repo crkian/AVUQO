@@ -1,7 +1,7 @@
 import {createHash} from "node:crypto";
 import {NextRequest,NextResponse} from "next/server";
 import {createAdminClient} from "../../../../lib/supabase/admin";
-import {joinedInSource} from "../../../../lib/awin/joined-catalogue";
+import {tooledUpPrivateAutomationAllowed} from "../../../../lib/awin/tooled-up-private-automation";
 import {approvedAwinDownloadUrl} from "../../../../lib/awin/approved-feed-url";
 import {csvRowsFromChunks} from "../../../../lib/feed-imports/stream-csv";
 import {AWIN_PRIVATE_SNAPSHOT_BUCKET,privateAwinSnapshotKey} from "../../../../lib/awin/private-snapshot";
@@ -73,12 +73,6 @@ async function exactActiveFeedUrl(key:string,publisher:string){
  if(matches.length!==1)throw Error("feed_not_uniquely_active");
  return approvedAwinDownloadUrl(matches[0][at("URL")]??"",key,FEED);
 }
-async function pausedJoined(db:ReturnType<typeof createAdminClient>){
- const {data,error}=await db.from("sources")
-  .select("metadata,status,sync_enabled").eq("connector_key","awin").maybeSingle();
- return !error&&!!data&&data.status==="paused"&&data.sync_enabled===false&&
-  joinedInSource(data.metadata,ADVERTISER);
-}
 async function readBackDigest(db:ReturnType<typeof createAdminClient>,objectKey:string){
  const {data,error}=await db.storage.from(AWIN_PRIVATE_SNAPSHOT_BUCKET)
   .createSignedUrl(objectKey,120);
@@ -96,7 +90,7 @@ async function readBackDigest(db:ReturnType<typeof createAdminClient>,objectKey:
  return {sha256:digest(bytes),size:bytes.byteLength};
 }
 
-/** Explicit manual-only upload. No scheduler or product-import side effects. */
+/** Authenticated private-only snapshot capture; GET is scheduled, POST remains manual. */
 export async function POST(request:NextRequest){
  const secret=process.env.CRON_SECRET;
  if(!secret||secret.length<16||request.headers.get("authorization")!==`Bearer ${secret}`)
@@ -109,7 +103,7 @@ export async function POST(request:NextRequest){
  if(!/^[A-Za-z0-9_-]{16,200}$/.test(key)||!/^[0-9]{3,15}$/.test(publisher))
   return reply({error:"Awin credentials unavailable"},503);
  const db=createAdminClient();
- if(!await pausedJoined(db))return reply({error:"Joined advertiser must remain paused"},403);
+ if(!await tooledUpPrivateAutomationAllowed(db))return reply({error:"Joined advertiser must remain paused"},403);
  let objectKey="",sha256="",bytes:Uint8Array;
  try{
   const source=await exactActiveFeedUrl(key,publisher);
@@ -125,7 +119,7 @@ export async function POST(request:NextRequest){
    manual_snapshot_limit_bytes:MAX_SNAPSHOT,private_only:true,no_import:true},422);
  }
  // Recheck immediately before the only persistent operation.
- if(!await pausedJoined(db))
+ if(!await tooledUpPrivateAutomationAllowed(db))
   return reply({error:"Awin source controls changed; upload refused"},409);
  // Never overwrite a content-addressed file. A duplicate upload may race;
  // in either case an independent private Storage read verifies actual bytes.
@@ -139,7 +133,7 @@ export async function POST(request:NextRequest){
   const verified=await readBackDigest(db,objectKey);
   if(verified.sha256!==sha256||verified.size!==bytes!.byteLength)
    throw Error("snapshot_integrity_mismatch");
-  if(!await pausedJoined(db))
+  if(!await tooledUpPrivateAutomationAllowed(db))
    return reply({error:"Snapshot saved, but source state changed; no validation triggered",
     private_only:true,no_import:true},409);
   return reply({
@@ -153,4 +147,19 @@ export async function POST(request:NextRequest){
   return reply({error:"Private upload/read-back not verified; no import or validation started",
    private_only:true,no_import:true,no_publication:true},503);
  }
+}
+
+/**
+ * Vercel Cron captures the exact joined Tooled Up master feed daily.
+ * It reuses POST's strict credential, signed feed, 48 MiB, SHA-256,
+ * immutable TUS storage and read-back controls. No row import or release.
+ */
+export async function GET(request:NextRequest){
+ const secret=process.env.CRON_SECRET;
+ if(!secret||secret.length<16||
+    request.headers.get("authorization")!==`Bearer ${secret}`)
+  return reply({error:"Unauthorized"},401);
+ if(process.env.AWIN_AUTO_IMPORT_ENABLED!=="true")
+  return reply({status:"disabled",private_only:true,no_snapshot:true});
+ return POST(request);
 }

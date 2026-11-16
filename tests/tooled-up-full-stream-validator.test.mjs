@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {gzipSync} from "node:zlib";
 import {createHash} from "node:crypto";
-import {TOOLED_UP_SOURCE_FIELDS} from "../lib/awin/tooled-up-master-adapter.ts";
+import {TOOLED_UP_SOURCE_FIELDS} from "../lib/awin/tooled-up-source-fields.ts";
 import {validateTooledUpGzipStream} from "../lib/awin/tooled-up-full-stream-validator.ts";
 
 const header=[...TOOLED_UP_SOURCE_FIELDS];
@@ -48,4 +48,16 @@ test("bad source header and broken gzip fail closed",async()=>{
  await assert.rejects(()=>validateTooledUpGzipStream(
   new Response(Buffer.from("not gzip")).body
  ));
+});
+test("daily validation never uses a hardcoded historic inventory count",async()=>{
+ const {stream}=input([row("A"),row("B")]);
+ const without=await validateTooledUpGzipStream(stream);
+ assert.equal(without.expected_inventory_rows,null);
+ assert.equal(without.inventory_count_matches,null);
+ const {stream:matched}=input([row("A"),row("B")]);
+ const withCurrent=await validateTooledUpGzipStream(matched,2);
+ assert.equal(withCurrent.expected_inventory_rows,2);
+ assert.equal(withCurrent.inventory_count_matches,true);
+ const {stream:changed}=input([row("A"),row("B")]);
+ assert.equal((await validateTooledUpGzipStream(changed,84255)).inventory_count_matches,false);
 });
