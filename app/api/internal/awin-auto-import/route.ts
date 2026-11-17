@@ -2,7 +2,7 @@ import {createHash} from "node:crypto";
 import {gunzipSync} from "node:zlib";
 import {NextRequest,NextResponse} from "next/server";
 import {createAdminClient} from "../../../../lib/supabase/admin";
-import {joinedInSource,joinedName} from "../../../../lib/awin/joined-catalogue";
+
 import {csvRowsFromChunks} from "../../../../lib/feed-imports/stream-csv";
 import {identifyFormat,prepareGeneralBatch} from "../../../../lib/feed-imports/general-awin-large";
 import {approvedAwinDownloadUrl} from "../../../../lib/awin/approved-feed-url";
@@ -21,6 +21,11 @@ const approvedFeedPairs=new Map([
  ["31539:74135","Mozillion SIM-free phones"],
  ["736:48599","Cadbury Gifts Direct UK shopping feed (private only)"],
  ["45747:F1356","Craft Buddy Google-retail feed (private only)"],
+ ["101445:F5142","PlayPress Toys UK Google retail feed (private only)"],
+ ["101445:96428","PlayPress Toys UK standard retail feed (private only)"],
+ ["77952:109051","Petlibro UK sale feed (private only)"],
+ ["77952:109652","Petlibro UK hero products (private only)"],
+ ["77952:119210","Petlibro UK standard feed (private only)"],
 ]);
 const MAX_LIST_BYTES=2_500_000,MAX_COMPRESSED=3_000_000,MAX_DECOMPRESSED=12_000_000,MAX_ROWS=5000;
 const reply=(body:unknown,status=200)=>NextResponse.json(body,{status,headers:{"Cache-Control":"private, no-store"}});
@@ -140,10 +145,8 @@ export async function POST(request:NextRequest){
  // One manually authenticated, feed-specific staging action is independent
  // of the automatic scheduling flag. It cannot publish or activate cron.
  const manualStage=request.method==="POST"&&url.searchParams.get("mode")==="stage"&&
-  (url.searchParams.get("advertiser_id")==="77952"&&url.searchParams.get("feed_id")==="103580"||
-   url.searchParams.get("advertiser_id")==="31539"&&url.searchParams.get("feed_id")==="74135"||
-   url.searchParams.get("advertiser_id")==="736"&&url.searchParams.get("feed_id")==="48599"||
-   url.searchParams.get("advertiser_id")==="45747"&&url.searchParams.get("feed_id")==="F1356");
+  approvedFeedPairs.has((url.searchParams.get("advertiser_id")??"")+":"+
+   (url.searchParams.get("feed_id")??""));
  if(request.method==="POST"&&!preflight&&!manualStage)
   return reply({error:"Choose preflight or an allowlisted private staging feed"},400);
  if(!preflight&&!manualStage&&process.env.AWIN_AUTO_IMPORT_ENABLED!=="true")
@@ -153,7 +156,7 @@ export async function POST(request:NextRequest){
  if(!/^[A-Za-z0-9_-]{16,200}$/.test(key)||!/^[0-9]{3,15}$/.test(publisher))
   return reply({error:"Awin feed credentials not configured"},503);
  const scheduled=request.method==="GET";
- const pilotKeys=["77952:103580","31539:74135"];
+ const pilotKeys=["77952:103580","31539:74135","101445:F5142","101445:96428"];
  const scheduledPair=pilotKeys[Math.floor(Date.now()/86400000)%pilotKeys.length];
  const advertiser=scheduled?scheduledPair.split(":")[0]:(url.searchParams.get("advertiser_id")??"");
  const feed=scheduled?scheduledPair.split(":")[1]:(url.searchParams.get("feed_id")??"");
@@ -162,8 +165,18 @@ export async function POST(request:NextRequest){
  const db=createAdminClient();
  const {data:source,error:sourceError}=await db.from("sources")
   .select("metadata,status,sync_enabled,credential_status,connector_key,source_type").eq("connector_key","awin").maybeSingle();
- if(sourceError||!source||!joinedInSource(source.metadata,advertiser))
-  return reply({error:"Joined advertiser verification failed"},403);
+ if(sourceError||!source)return reply({error:"Awin source registry unavailable"},503);
+ // The accepted membership registry is canonical: source.metadata roster
+ // predates newly joined advertisers such as PlayPress.
+ const {data:programme,error:programmeError}=await db.from("affiliate_programs")
+  .select("programme_name,metadata").eq("provider","awin").eq("region","GB")
+  .eq("external_account_id",advertiser).maybeSingle();
+ const pmeta=programme?.metadata&&typeof programme.metadata==="object"&&!Array.isArray(programme.metadata)
+  ?programme.metadata as Record<string,unknown>:{};
+ const accepted=pmeta.owner_joined_accepted_attestation;
+ if(programmeError||!programme||!accepted||typeof accepted!=="object"||
+  Array.isArray(accepted)||(accepted as Record<string,unknown>).membership_status!=="accepted")
+  return reply({error:"Advertiser not in canonical accepted membership registry"},403);
  // Private staging is valid while globally paused. After authorised activation,
  // allow it to keep refreshing ONLY if the same source and advertiser evidence
  // required by the canonical pipeline passes. Both paths remain PRIVATE ONLY.
@@ -195,13 +208,14 @@ export async function POST(request:NextRequest){
  if(advertiser==="31539"&&!mozillionPhysicalFeedAllowed(advertiser,feed,
    feedRow[idx("Feed Name")]??""))
   return reply({error:"Mozillion non-handset or renamed feed blocked from physical import"},422);
- if(!((advertiser==="45747"&&feed==="F1356"&&
+ if(!((/^(F1356|F5142)$/.test(feed)&&
   /^google$/i.test(feedRow[idx("Datafeed Format")]?.trim()??""))||
-  (advertiser!=="45747"&&/^(awin|standard)$/i.test(feedRow[idx("Datafeed Format")]?.trim()??""))))
+  (!/^(F1356|F5142)$/.test(feed)&&
+   /^(awin|standard)$/i.test(feedRow[idx("Datafeed Format")]?.trim()??""))))
   return reply({error:"Feed format not supported by pilot"},422);
  let downloaded:Uint8Array,filename:string;
  try{
-  const downloadUrl=approvedAwinDownloadUrl(feedRow[idx("URL")]??"",key,feed);
+  const downloadUrl=approvedAwinDownloadUrl(feedRow[idx("URL")]??"",key,feed,publisher);
   const fetched=await fetch(downloadUrl,{cache:"no-store",redirect:"error",signal:AbortSignal.timeout(20000)});
   downloaded=await boundedResponse(fetched,MAX_COMPRESSED);
   filename="";
@@ -235,7 +249,8 @@ export async function POST(request:NextRequest){
   // Only the approved Mozillion SIM-free feed may be parsed with up to 256
   // raw columns. All rows are projected to <=120 validated fields before staging.
   const rawColumnBound=(advertiser==="31539"&&feed==="74135")||
-   (advertiser==="45747"&&feed==="F1356")?256:120;
+   ((advertiser==="45747"&&feed==="F1356")||
+    (advertiser==="101445"&&feed==="F5142"))?256:120;
   for await(const row of parseRows(csv,delimiter,rawColumnBound)){
    if(!header){header=row.map(v=>v.trim());rawColumnCount=header.length;parseStage="rows";}
    else{
@@ -283,7 +298,7 @@ export async function POST(request:NextRequest){
       parsed_rows:rows.length,
       no_database_writes:true,no_publication:true}: {})},422);
  }
- const name=joinedName(advertiser);
+ const name=programme.programme_name;
  if(!name)return reply({error:"Unrecognised advertiser"},403);
  if(preflight)return reply({status:"preflight_passed",advertiser_id:advertiser,feed_id:feed,
   source_format:identifyFormat(header!),columns:header!.length,source_columns:rawColumnCount,rows:rows.length,
