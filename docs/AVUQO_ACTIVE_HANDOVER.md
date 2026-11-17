@@ -1,3 +1,7 @@
+## 17 November 2026 · read-only eBay four-foundation reconciliation checkpoint (NO-GO)
+
+Live Supabase migration history still records four eBay foundations under versions `20261116131949`, `20261116140013`, `20261116141927`, `20261116160011`, different from the four repo candidates; the nine later candidate versions remain unrecorded. Inspected seven existing foundational eBay function definitions and explicit ACLs, enabled eBay trigger inventory, and RLS on the foundational private tables. Those checks support existence and preliminary body alignment but are **not yet complete machine-verifiable object equivalence**. **No production changes or migrations.** Next: exact definitions/constraints/indexes/grants/policies comparison; design a nine-only additive installation review, with eBay blocked, webhook 503 and Awin unaffected. [Checkpoint](AVUQO_EBAY_FOUNDATION_RECONCILIATION_2026-11-17.md).
+
 # AVUQO | ACTIVE OPERATIONAL HANDOVER
 
 ## 16 November 2026 · MAJOR eBay full-offer dependency containment and live migration-history reconciliation (UNAPPLIED)
