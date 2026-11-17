@@ -32,9 +32,12 @@ function sourceReady(source:Record<string,unknown>|undefined):boolean{
  }).length===0;
 }
 
-function offerFresh(row:Record<string,unknown>,now:number):boolean{
+function offerFresh(row:Record<string,unknown>,now:number,isAwin=false):boolean{
  if(row.status!=="active"||row.currency!=="GBP"||!(Number(row.price)>0)||!isHttps((row.affiliate_url||row.source_url) as string|null))return false;
- const checked=Date.parse(String(row.last_seen_at??""));if(!Number.isFinite(checked)||now-checked>7*24*3600_000||checked>now+3600_000)return false;
+ const checked=Date.parse(String(row.last_seen_at??""));const maxAge=isAwin?48*3600_000:7*24*3600_000;
+ if(!Number.isFinite(checked)||now-checked>maxAge||checked>now+3600_000)return false;
+ // Awin must automatically disappear from public pages on stock loss or stale price evidence.
+ if(isAwin&&!["in_stock","low_stock"].includes(String(row.stock_status??"")))return false;
  if(row.valid_until&&Date.parse(String(row.valid_until))<now)return false;
  // Refuse ambiguous matching confidence. Accepted scale is [0,1] or [0,100].
  const match=row.match_confidence===null?NaN:Number(row.match_confidence);
@@ -90,7 +93,7 @@ export async function verifiedOffers(options:{productId?:string;offerId?:string;
   const now=Date.now();
   return published.flatMap(d=>{
    const offer=offerMap.get(d.offer_id);if(!offer)return [];
-   const source=sourceMap.get(offer.source_id);if(!source||!sourceReady(source as Record<string,unknown>)||!offerFresh(offer as Record<string,unknown>,now))return [];
+   const source=sourceMap.get(offer.source_id);if(!source||!sourceReady(source as Record<string,unknown>)||!offerFresh(offer as Record<string,unknown>,now,source.connector_key==="awin"))return [];
    if(source.connector_key==="awin"){
     const approval=releaseMap.get(offer.id),score=scoreMap.get(offer.id);
     if(!approval||approval.status!=="approved"||approval.source_id!==source.id||
