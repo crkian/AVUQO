@@ -3455,6 +3455,17 @@
     },
     "tyre_specialism_preserved": true,
     "source_still_paused": true,
-    "next": "Observe actual authenticated feed headers and support new schema variants privately, verify canonical held offers, reconcile rights, publish only current genuine GBP offers and test public pages/withdrawal"
+    "next": "Observe actual authenticated feed headers and support new schema variants privately, verify canonical held offers, reconcile rights, publish only current genuine GBP offers and test public pages/withdrawal",
+    "production": {
+      "deployment_id": "dpl_A5hE5mUr15QRT7Mda6c6RfCMppTY",
+      "sha": "f69c465df0b35c021fe5065d708e32d0375f19d6",
+      "state": "READY",
+      "domain": "www.avuqo.com",
+      "accepted_programmes": 21,
+      "feed_observations": 76,
+      "canonical_awin_offers": 0,
+      "claim": "All accepted feed metadata is recognised and classified in owner UI; not equivalent to all feeds product-ingested or public-live",
+      "next": "Actual provider schema probes and safe quarantine for unrecognised columns, category-specific row mapping, fresh GBP and legal rights proofs before publication"
+    }
   }
 }
