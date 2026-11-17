@@ -99,8 +99,14 @@ export async function verifiedOffers(options:{productId?:string;offerId?:string;
     if(!approval||approval.status!=="approved"||approval.source_id!==source.id||
       approval.advertiser_id!==process.env.AWIN_ADVERTISER_ID||
       !score||score.score<60||score.confidence<55||
-      Date.parse(approval.reviewed_offer_at)!==Date.parse(offer.last_seen_at??"")||
-      Date.parse(approval.reviewed_score_at)!==Date.parse(score.calculated_at)||
+      // Exact-price, already-approved offers can renew with a newer source
+      // observation and score. Price changes or revoked reviews fail closed.
+      !Number.isFinite(Date.parse(approval.reviewed_offer_at))||
+      !Number.isFinite(Date.parse(approval.reviewed_score_at))||
+      Date.parse(offer.last_seen_at??"")<Date.parse(approval.reviewed_offer_at)||
+      Date.parse(score.calculated_at)<Date.parse(approval.reviewed_score_at)||
+      Date.now()-Date.parse(score.calculated_at)>48*3600_000||
+      Date.parse(score.calculated_at)>Date.now()+300000||
       Number(approval.reviewed_price)!==Number(offer.price)||
       Number(d.current_price)!==Number(offer.price)||
       !isHttps(offer.affiliate_url))return [];
