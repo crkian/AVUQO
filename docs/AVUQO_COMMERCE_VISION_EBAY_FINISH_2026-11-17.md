@@ -10,6 +10,8 @@ Preserve the existing warm-premium, photographic live design, category routes, s
 
 ## Verified same-session stack, not prior-chat inference
 
+**Production deployment separately verified:** Vercel deployment `dpl_5GUcUbCtLYWxMpvdY2evEwBzpbdj` is `READY`, target `production`, Git branch `main`, SHA `cc4e9a99e3c2874407e7ac3c5b893adac333d6d4`, matching GitHub current main. This confirms deployed commit provenance, not successful eBay onboarding or current customer purchase flows.\n\n
+
 - GitHub **main** remains `cc4e9a99e3c2874407e7ac3c5b893adac333d6d4` (PR #266). PRs #267 (foundation read-only check), #268 (Awin private launch audit), #269 (eBay 11-gate diagnostic) are DRAFT and not merged. Avoid calling them live production work.
 - Vercel `avuqo` project and domains `www.avuqo.com`, `avuqo.com` found; recent **preview** deployment results for PR #269 include canceled attempts and one READY preview, **not proof of production release**. Do not mistake project `live:false` metadata or latest canceled preview for public domain state. Production READY+alias+SHA needs separate confirmation.
 - Live Supabase source registry: both `awin` and `ebay` `paused`, `sync_enabled=false`, `credential_status=not_configured`, `health_status=unknown`. Secrets may be managed outside DB; do not print/decode them.
