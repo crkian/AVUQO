@@ -9,7 +9,7 @@ import {verifiedTyresUkRow} from "../../../../lib/awin/tyres-uk-current-row.mjs"
 
 export const maxDuration=300;
 const ADVERTISER="12715",FEED="93988",MAX_BYTES=36*1024*1024,
- MAX_EXPANDED=195*1024*1024,MAX_ROWS=100000,COHORT=1200,WINDOW=2400;
+ MAX_EXPANDED=195*1024*1024,MAX_ROWS=100000,COHORT=1200,WINDOW=1200;
 const answer=(body:unknown,status=200)=>NextResponse.json(body,{status,headers:{"Cache-Control":"private, no-store"}});
 const digest=(bytes:Uint8Array)=>createHash("sha256").update(bytes).digest("hex");
 async function fetchBytes(response:Response,max:number){
@@ -96,7 +96,7 @@ export async function GET(request:NextRequest){
   const rows=lines(text),seen=new Set<string>();let header:string[]|null=null;
   let count=0,eligible=0,sourceRows:Array<ReturnType<typeof verifiedTyresUkRow>>=[];
   // Rotate complete master-feed windows, never select a user-supplied SKU.
-  const windowCount=40,windowIndex=Math.floor(Date.now()/(15*60000))%windowCount;
+  // Awin last-observed inventory for this fixed feed has ~31,227 entries.\n  // The count will be adjusted using the last authenticated full-feed receipt.\n  const {data:last}=await db.from("awin_tyre_live_observations")\n   .select("row_count").eq("advertiser_id",ADVERTISER).eq("feed_id",FEED)\n   .order("observed_at",{ascending:false}).limit(1).maybeSingle();\n  const expected=Number(last?.row_count??31227);\n  const windowCount=Math.max(1,Math.ceil((Number.isSafeInteger(expected)&&expected>0?expected:31227)/WINDOW));\n  const windowIndex=Math.floor(Date.now()/(15*60000))%windowCount;
   const start=windowIndex*WINDOW,end=start+WINDOW;
   for await(const values of rows){
    if(!header){
