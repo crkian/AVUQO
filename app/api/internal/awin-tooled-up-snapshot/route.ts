@@ -137,11 +137,21 @@ export async function POST(request:NextRequest){
   if(!await tooledUpPrivateAutomationAllowed(db))
    return reply({error:"Snapshot saved, but source state changed; no validation triggered",
     private_only:true,no_import:true},409);
+  // Same bytes can be freshly observed without changing immutable object
+  // creation time. This receipt is written ONLY after a new authenticated
+  // download and exact private Storage SHA-256 readback.
+  const {error:observationError}=await db.from("awin_tooled_up_snapshot_observations")
+   .upsert({advertiser_id:ADVERTISER,feed_id:FEED,snapshot_sha256:sha256,
+     compressed_bytes:verified.size,observed_at:new Date().toISOString(),
+     evidence_kind:"authenticated_awin_download_and_storage_readback"},
+    {onConflict:"advertiser_id,feed_id,snapshot_sha256"});
+  if(observationError)return reply({error:"Snapshot bytes verified but fresh evidence receipt failed",
+   private_only:true,no_import:true,no_publication:true},503);
   return reply({
-   status:uploadError?"snapshot_already_present_verified":"private_snapshot_stored_verified",
+   status:uploadError?"snapshot_already_present_freshly_observed":"private_snapshot_stored_freshly_observed",
    advertiser_id:ADVERTISER,feed_id:FEED,
    snapshot_sha256:sha256,compressed_bytes:verified.size,
-   private_only:true,no_product_import:true,no_validation_run:true,
+   fresh_observation_recorded:true,private_only:true,no_product_import:true,no_validation_run:true,
    no_bulk_jobs:true,no_publication:true
   });
  }catch{
