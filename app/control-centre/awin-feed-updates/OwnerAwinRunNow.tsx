@@ -10,12 +10,14 @@ const tasks=[
 ] as const;
 export default function OwnerAwinRunNow(){
  const [busy,setBusy]=useState<string|null>(null);
+ const [rotationStep,setRotationStep]=useState(0);
  const [results,setResults]=useState<Record<string,string>>({});
  async function run(task:string){
   setBusy(task);
   setResults(v=>({...v,[task]:"Running private source check..."}));
   try{
-   const body:Record<string,string>={task};
+   const body:Record<string,string|number>={task};
+   if(task==="portfolio_stage_next")body.step=rotationStep;
    if(!task.endsWith("_preflight")&&task!=="all_feeds_check")body.confirm="private-only-"+task;
    const r=await fetch("/api/control-centre/awin-run-now",{
     method:"POST",credentials:"same-origin",cache:"no-store",
@@ -55,7 +57,10 @@ export default function OwnerAwinRunNow(){
     fresh+canonical+staged+rejected+(safeHeaders?" · columns "+safeHeaders:"")}));
   }catch{
    setResults(v=>({...v,[task]:"Private task unavailable. Check server logs."}));
-  }finally{setBusy(null);}
+  }finally{
+   if(task==="portfolio_stage_next")setRotationStep(v=>(v+1)%9);
+   setBusy(null);
+  }
  }
  return <section style={{display:"grid",gap:12}}>
   <h2 style={{margin:0}}>Run existing supplier checks now (owner only)</h2>
@@ -72,10 +77,10 @@ export default function OwnerAwinRunNow(){
    {results.all_feeds_check&&<output role="status" style={{fontSize:12,overflowWrap:"anywhere"}}>{results.all_feeds_check}</output>}
   </div>
   <div style={{padding:14,border:"1px solid #d7c8ea",borderRadius:12,background:"#fff",display:"grid",gap:8}}>
-   <strong>Scheduled accepted retail feed: automatic private import</strong>
-   <p style={{margin:0,fontSize:13}}>Run one bounded feed from the accepted retailer rotation. The server chooses the advertiser and exact source feed; no signed links or unverified product prices are exposed. Specialist tyres, travel and contracts are excluded from this retail worker.</p>
+   <strong>Accepted retail feed rotation: retry the next supplier</strong>
+   <p style={{margin:0,fontSize:13}}>Run one bounded accepted feed per click. After any failure, click again to try another supported feed; the backend chooses the exact advertiser and URL. Daily cron continues independently. Tyres, travel and contracts stay in their specialist pipelines.</p>
    <button disabled={busy!==null} onClick={()=>run("portfolio_stage_next")} style={{padding:10,borderRadius:8,color:"#30205a",background:"#f4effd",border:"1px solid #7965aa",maxWidth:330}}>
-    {busy==="portfolio_stage_next"?"Checking selected retail feed...":"Run scheduled accepted retail feed"}
+    {busy==="portfolio_stage_next"?"Checking selected retail feed...":"Try another accepted retail feed"}
    </button>
    {results.portfolio_stage_next&&<output role="status" style={{fontSize:12,overflowWrap:"anywhere"}}>{results.portfolio_stage_next}</output>}
   </div>
