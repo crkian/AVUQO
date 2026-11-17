@@ -74,8 +74,12 @@ export async function GET(request:NextRequest){
  try{
   const response=await fetch(url,{cache:"no-store",redirect:"error",signal:AbortSignal.timeout(155000)});
   if(!response.ok||!response.body)throw Error("snapshot_unavailable");
+  const decoder=new TextDecoder("utf-8",{fatal:true});
   const expanded=response.body.pipeThrough(new DecompressionStream("gzip") as unknown as ReadableWritablePair<Uint8Array,Uint8Array>)
-   .pipeThrough(new TextDecoderStream());
+   .pipeThrough(new TransformStream<Uint8Array,string>({
+    transform(bytes,controller){const part=decoder.decode(bytes,{stream:true});if(part)controller.enqueue(part);},
+    flush(controller){const tail=decoder.decode();if(tail)controller.enqueue(tail);}
+   }));
   const reader=expanded.getReader();
   const chunks=(async function*(){
    try{for(;;){const {value,done}=await reader.read();if(done)break;yield value;}}
