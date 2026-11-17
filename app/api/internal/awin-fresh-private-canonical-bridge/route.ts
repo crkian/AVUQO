@@ -3,6 +3,7 @@ import {createAdminClient} from "../../../../lib/supabase/admin";
 import {evaluateSourceControls} from "../../../../lib/pipeline/source-readiness";
 import {runDealIntelligencePipeline} from "../../../../lib/pipeline/run";
 import {fromFreshPrivateAwinRecord} from "../../../../lib/awin/fresh-private-canonical-row";
+import {stageLiveAwinCanonicalCandidates} from "../../../../lib/awin/private-live-canonical-stage";
 import {autoReleaseEligibleAwinOffers} from "../../../../lib/awin/auto-first-publication";
 
 export const maxDuration=300;
@@ -59,12 +60,63 @@ export async function GET(request:NextRequest){
    (a as Record<string,unknown>).membership_status==="accepted";
  }).map(p=>p.external_account_id));
 
- const cutoff=new Date(Date.now()-6*3600_000).toISOString();
+ // For paused Awin, a fresh authenticated digest recheck may attest an older
+ // immutable private import. Do NOT confuse import created_at with live price age.
+ // The canonical stage revalidates the exact digest, <15-minute freshness,
+ // own-publisher tracking, accepted advertiser and stock before any HELD writes.
+ const freshnessCutoff=new Date(Date.now()-14*60_000).toISOString();
  const outcomes:{advertiser_id:string;status:string;seen?:number;held?:number}[]=[];
  for(const pair of FEEDS){
   if(!accepted.has(pair.id)){
    outcomes.push({advertiser_id:pair.id,status:"not_accepted_in_canonical_registry"});continue;
   }
+  if(safelyPaused){
+   // Licensed franchise characters need independent rights evidence, not merely a feed.
+   if(pair.id==="45747"){
+    outcomes.push({advertiser_id:pair.id,status:"restricted_character_rights_review"});
+    continue;
+   }
+   const {data:attested,error:attestedError}=await db.from("feed_import_records")
+    .select("import_id,metadata,created_at")
+    .eq("merchant_id",pair.id).eq("status","review")
+    .filter("metadata->>live_feed_verified_at","gte",freshnessCutoff)
+    .limit(100);
+   if(attestedError){
+    outcomes.push({advertiser_id:pair.id,status:"fresh_attestation_lookup_unavailable"});
+    continue;
+   }
+   const candidates=(attested??[]).map(row=>{
+    const m=row.metadata&&typeof row.metadata==="object"&&!Array.isArray(row.metadata)
+      ?row.metadata as Record<string,unknown>:{};
+    return {importId:row.import_id,feed:String(m.feed_id??""),
+      digest:String(m.live_feed_digest??""),
+      observed:String(m.live_feed_verified_at??""),
+      verification:m.live_feed_verification};
+   }).filter(row=>row.feed===pair.feed&&
+      row.verification==="exact_authenticated_feed_digest_rechecked"&&
+      /^[a-f0-9]{64}$/.test(row.digest)&&
+      Number.isFinite(Date.parse(row.observed))&&
+      Date.parse(row.observed)<=Date.now()+300000&&
+      typeof row.importId==="string")
+     .sort((a,b)=>b.observed.localeCompare(a.observed));
+   if(!candidates.length){
+    outcomes.push({advertiser_id:pair.id,status:"no_recent_exact_live_feed_attestation"});
+    continue;
+   }
+   const latest=candidates[0];
+   // No client-supplied digest or run binding. The private importer produced
+   // this on a successful authenticated current Awin feed download.
+   const staged=await stageLiveAwinCanonicalCandidates(db,{
+    importId:latest.importId,advertiser:pair.id,feed:pair.feed,
+    digest:latest.digest,limit:20
+   });
+   outcomes.push({advertiser_id:pair.id,status:staged.status,
+    seen:staged.eligible,held:staged.canonicalAccepted});
+   continue;
+  }
+  // Keep the older canonical path for an independently activated and
+  // authorised source; it still requires a completed *recent* private import.
+  const cutoff=new Date(Date.now()-6*3600_000).toISOString();
   const {data:runs,error:runError}=await db.from("feed_import_runs")
    .select("id").eq("merchant_id",pair.id).eq("status","private_review")
    .gte("created_at",cutoff).order("created_at",{ascending:false}).limit(1);
@@ -85,12 +137,10 @@ export async function GET(request:NextRequest){
   if(!verified.length){
    outcomes.push({advertiser_id:pair.id,status:"no_current_verified_gbp_tracked_stocked_rows"});continue;
   }
-  // The shared pipeline rechecks exact advertiser rights and global source
-  // controls before every write and keeps first-time Awin offers HELD.
   try{
    const result=await runDealIntelligencePipeline(db,{
     sourceKey:"awin",limit:10,awinAdvertiserId:pair.id,awinVerifiedRows:verified,
-    awinPrivateStaging:safelyPaused
+    awinPrivateStaging:false
    });
    outcomes.push({advertiser_id:pair.id,status:result.status,
     seen:result.seen,held:result.accepted});
@@ -106,6 +156,7 @@ export async function GET(request:NextRequest){
  const publication=await autoReleaseEligibleAwinOffers(db,15);
  return reply({status:"private_to_held_canonical_checked",
   no_first_publication:publication.approved===0,
+  reason:seen_total===0?"fresh_exact_feed_recheck_required":undefined,
   automatic_publication:publication,
   notes:"No tyres, services, unverified links, or historical prices were imported",
   seen_total,held_total,outcomes});
