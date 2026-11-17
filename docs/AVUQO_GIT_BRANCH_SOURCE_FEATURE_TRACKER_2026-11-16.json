@@ -2383,5 +2383,16 @@
       270
     ],
     "rule": "update active handover MD+JSON and full feature tracker MD+JSON, project status and changelog per implementation PR"
+  },
+  "release_addendum_20261117_pr271": {
+    "status": "merged_production_READY",
+    "pr": 271,
+    "git_main": "8e9a764376e6a1c4b90bc7e4d37bbcd5e7bdf8eb",
+    "vercel_deployment": "dpl_6p6qKnF51P8Sr3KuwYS4bafp1Qt4",
+    "checks": "native PostgreSQL nine-only synthetic rehearsal PASS; lint PASS; build PASS; secret scan PASS",
+    "production_db": "four historical eBay foundation records, nine candidates unapplied, eBay/Awin paused",
+    "current_handover": "docs/AVUQO_ACTIVE_HANDOVER.md",
+    "next": "four-foundation exact equivalence then faithful nine-only clone rehearsal before reviewed production installation",
+    "note": "historical branch snapshot remains dated; do not infer Git branch count from snapshot"
   }
 }
