@@ -9,7 +9,7 @@ import type {RawSourceOffer,PipelineRunSummary} from "../../types/pipeline";
  * offers. This module never authorises or creates a first public release.
  */
 const PHYSICAL=new Map([
- ["77952","home"],["31539","tech"],["736","gifts"],["45747","home"],["101445","gifts"]
+ ["77952","home"],["31539","tech"],["736","gifts"],["45747","home"],["101445","gifts"],["496","tools"]
 ]);
 const stock=(v:unknown)=>{
  const x=String(v??"").trim().toLowerCase().replace(/[\s-]+/g,"_");
@@ -53,7 +53,7 @@ export function toFreshVerifiedAwinRaw(
   sourceRecordId:advertiser+":"+row.merchant_product_id,
   merchantName:advertiser==="77952"?"Petlibro UK Affiliate Program":
    advertiser==="31539"?"Mozillion":advertiser==="736"?"Cadbury Gifts Direct":
-   advertiser==="101445"?"PlayPress Toys UK":"Craft Buddy Shop",
+   advertiser==="101445"?"PlayPress Toys UK":advertiser==="496"?"Tooled Up":"Craft Buddy Shop",
   merchantExternalId:advertiser,title:row.title,description:null,
   category,brand,model:id("model"),gtin:id("gtin"),ean:id("ean"),mpn:id("mpn"),
   price:amount,currency:"GBP",deliveryCost:null,
