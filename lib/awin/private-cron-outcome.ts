@@ -41,6 +41,14 @@ const FAILURES:Record<string,string>={
 };
 /** All recorded details must come from a literal allowlist, never upstream text.
  * The 80-character DB constraint permits these stable, namespaced codes. */
+const SAFE_COHORT_FAILURES=new Set([
+ "validation_not_available","full_stream_validation_failed",
+ "fresh_authenticated_feed_observation_required",
+ "snapshot_read_unavailable","storage_origin_invalid",
+ "snapshot_stream_or_schema_unavailable","private_batch_recheck_failed",
+ "existing_import_unavailable","cohort_recheck_write_failed",
+ "tooled_up_source_or_control_blocked","no_exact_current_matches"
+]);
 const FEED_REASONS=new Set([
  "unsupported_columns","unterminated_csv_quote","invalid_csv_quote",
  "csv_column_limit","csv_field_or_column_limit","csv_field_size_limit",
@@ -77,6 +85,9 @@ export function safePrivateCronOutcome(httpStatus:number,responseBody:unknown):{
 }{
  const data=record(responseBody);
  if(httpStatus<200||httpStatus>=400){
+  const reported=typeof data?.status==="string"?data.status:"";
+  if(SAFE_COHORT_FAILURES.has(reported))
+   return {state:"rejected",code:reported};
   const error=typeof data?.error==="string"?data.error:"";
   const base=FAILURES[error]??"http_"+String(Number.isInteger(httpStatus)&&httpStatus>=100&&httpStatus<=599?httpStatus:500);
   return {state:"rejected",code:diagnostic(base,data)};
