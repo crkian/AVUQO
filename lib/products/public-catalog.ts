@@ -30,7 +30,7 @@ function verifiedSupplierGallery(raw:unknown):Array<{url:string;role:string}>{
    const u=new URL(value),host=u.hostname.toLowerCase();
    if(u.protocol!=="https:"||u.username||u.password||u.port||
     host==="localhost"||host.endsWith(".local")||host.endsWith(".internal")||
-    /^(127\\.|10\\.|192\\.168\\.|169\\.254\\.|0\\.|172\\.(1[6-9]|2[0-9]|3[01])\\.)/.test(host)||
+    /^(127\.|10\.|192\.168\.|169\.254\.|0\.|172\.(1[6-9]|2[0-9]|3[01])\.)/.test(host)||
     [...u.searchParams.keys()].some(k=>/^(token|signature|api_key|apikey|access_token|authorization|secret)$/i.test(k)))continue;
    if(seen.has(u.href))continue;seen.add(u.href);
    result.push({url:u.href,role:typeof record.role==="string"&&/^[a-z0-9_-]{1,40}$/.test(record.role)?record.role:"alternate"});
