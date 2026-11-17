@@ -1,5 +1,23 @@
 # AVUQO | ACTIVE OPERATIONAL HANDOVER
 
+## VERIFIED CHECKPOINT · 17 November 2026 · Cadbury advertiser selection configured, first live priced Awin batch still blocked
+
+**Owner action confirmed by current Vercel Production env inventory:** `AWIN_ADVERTISER_ID` is now present (the configured *value* has not been read or verified), with existing `AWIN_ACCESS_TOKEN`, `AWIN_PUBLISHER_ID` and `AWIN_DATAFEED_API_KEY` names also present. **Never store their values in Git or the public handover.** This does not change the historical 16 joined Awin advertiser registry or automatically launch offers.
+
+**Delivered to production:** PR #284 merged as `86e304ab3d9debbc585fe4327301c5122bb8efbb`; Vercel `dpl_9T56qoMbm1xC615xYA7ezCiDwi1y` READY at exact SHA. The existing, owner-only `https://www.avuqo.com/control-centre/awin-programmes` now has a per-joined-advertiser **“Check live feed access (no import)”** button. Uses an isolated, bounded, authenticated Enhanced Feed GET; status `available/empty/unavailable` only, no raw products, secrets, source activation, production DML or public priced offers. Frozen legacy importer unchanged; CI lint/build/native PostgreSQL/secret scanning for merged branch passed.
+
+**Live read-only production evidence after merge:** Awin source `paused`, `sync_enabled=false`, `credential_status=not_configured`, `publication_permission=pending`, `price_evidence_status=pending`; Cadbury Gifts Direct advertiser `736` `joined_programme_observed=true`, but `feed_permission_confirmed=false` and no `approval_evidence_ref`. Two 4-Nov private Cadbury import runs total **2,738 staged rows**, neither permission-verified. `offers` rows attributable to Awin: **0**. No current authenticated Awin feed request has yet been demonstrated as successful; mere env-name presence does not prove its value equals 736 or that the token still works.
+
+**Cadbury terms supplied by owner in this project:** historical PDF `Cadbury Gifts Direct Terms (3).pdf` (terms last updated 16 January 2023) says the **Sale category is excluded from commission** and restricts brand-keyword PPC, notwithstanding several generic paid-search permission responses in the same PDF. Use restrictive interpretation for paid brand bidding; don't call a Sale-category item commission-earning by default. This PDF records programme policy, not independent current per-publisher feed/image approval. Keep provider terms review and marketing policy separate from product-data licence.
+
+**Exact next operator step today:** owner signs in to `/control-centre/awin-programmes`, finds Cadbury `736` and clicks **Check live feed access (no import)**. Result `available` confirms only a usable current feed response (not publication rights); `empty/unavailable` requires feed-list or credential review. Then in `/control-centre/awin-advertisers`, record actual current Awin per-advertiser permission/evidence references and expiration; no fabricated refs. Follow existing `testAwinFeedConnection`, source rights, private fresh import, offer/Score and owner release gate to publish the first verified GBP price + affiliate deep links. Do not switch all sources on or publish historical rows to meet a deadline. Production offer activation is **not yet complete**.
+
+**eBay unchanged:** `/control-centre/ebay-privacy` integrated, webhook POST HTTP 503, source paused; nine privacy SQL migrations unapplied, faithful schema-only export/replay missing, no authorised production Browse/EPN launch and no real eBay offers. Awin progress must not relax privacy gates. Eight real model research pages are live, but are not retailer-priced affiliate offers.
+
+**Release discipline:** merged code and single master handover on `main`; no ongoing multiple implementation branches, £0 additional spend, no Docker or production SQL changes.
+
+---
+
 ## 17 November 2026 · first joined Awin merchant: safe LIVE PROVIDER CONNECTIVITY probe (ONE PR; no public priced offers yet)
 
 **Owner goal:** show genuinely priced, affiliate-clickable products as soon as permissible using already joined Awin programmes, starting Cadbury Gifts Direct (advertiser ID **736**). No reapplications or extra branches. Prior PR #283 recovered **16 historical joined memberships** from the 4 Nov Awin owner evidence, while distinguishing internal release-review status; deployed GitHub main `04863b3dd37eac995d4a466f3ab00849b2968d75`, matching Vercel READY `dpl_8uNtt9B1vyKXQeP7sWEZDPDFQMKs`.
