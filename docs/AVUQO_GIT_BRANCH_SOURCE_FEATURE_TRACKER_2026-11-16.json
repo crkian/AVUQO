@@ -3340,6 +3340,17 @@
       "approved_awin_releases": 0,
       "full_github_quality": "not independently confirmed"
     },
-    "next": "Execute server-side owner Run Next accepted retail feed, investigate provider parsing/current links and GBP price; prove real canonical held/public products with independently checked merchant rights. Do not claim 74 public feeds. Handovers after each change."
+    "next": "Execute server-side owner Run Next accepted retail feed, investigate provider parsing/current links and GBP price; prove real canonical held/public products with independently checked merchant rights. Do not claim 74 public feeds. Handovers after each change.",
+    "owner_diagnostics": {
+      "rotation_semantics": "one selected feed per UTC day, not every feed per click",
+      "label": "Run scheduled accepted retail feed",
+      "selected_advertiser_and_feed_reported": true,
+      "preflight_csv_column_names": "owner-only, verified safe identifiers, no row data or provider signed URLs",
+      "api_commit": "dcf1b21997f4276fc9f0bbe572eaf6535cdd54d7",
+      "ui_commit": "68dd41c0db26e9ce9880aadcb20814643948d5a7",
+      "test_commit": "e3460ae487bb968a963061510f5039efe75824a6",
+      "final_exact_deployment": "not independently READY checked yet",
+      "prior_api_deployment": "dpl_3ZwBC4nPVNVf9vKtZW8YZNrrSfU4 READY dcf1b2"
+    }
   }
 }
