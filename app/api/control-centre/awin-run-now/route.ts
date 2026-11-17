@@ -25,7 +25,7 @@ const OUTPUT_KEYS=["status","error","reason","failure_kind","diagnostic_stage","
  "advertiser_id","feed_id","currency_source","source_currency_explicit",
  "live_verified_rows","canonical_status","canonical_eligible",
  "metadata_only","joined_feeds","changed_feeds","checked_advertisers","provider_endpoint",
- "eligible","importer_status","upstream_http_status",
+ "eligible","importer_status","importer_error","upstream_http_status",
  "canonical_accepted","canonical_rejected",
  "critical_issues","compressed_bytes","actual_rows","duplicate_product_ids",
  "invalid_price_rows","unverified_affiliate_links","private_only","no_publication"] as const;
