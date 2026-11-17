@@ -1,3 +1,7 @@
+## 17 November 2026 · eBay completion gating and premium AVUQO design continuity
+
+Live read-only eBay audit: **4 PASS / 7 BLOCK** across eleven release gates; nine pending privacy migrations, work journal, cascade guard, external retention/storage/processor and signed notification release remain blocked. Added version-aware diagnostic and contract tests to the review branch with no production mutations. Owner re-confirmed original AVUQO premium visual concepts: three colour/logo directions, Search-first hero, Deals/Travel/Shopping/Cars/Hire/Experiences, AVUQO Score, and premium category cards. **No variant selected and no fabricated scores/content should be published.** This is a design objective, not implemented feature proof. eBay stays paused/webhook 503; Awin untouched. [Full checkpoint](AVUQO_EBAY_COMPLETION_AND_VISUAL_CONTINUITY_2026-11-17.md).
+
 # AVUQO | ACTIVE OPERATIONAL HANDOVER
 
 ## 16 November 2026 · MAJOR eBay full-offer dependency containment and live migration-history reconciliation (UNAPPLIED)
