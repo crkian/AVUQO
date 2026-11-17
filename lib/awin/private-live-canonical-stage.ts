@@ -18,6 +18,7 @@ const stock=(v:unknown)=>{
 type Row={
  id:string;import_id:string;merchant_product_id:string;title:string;
  price:number|string;currency:string;brand:string|null;category:string|null;
+ image_url:string|null;
  status:string;metadata:unknown;
 };
 const rec=(v:unknown):Record<string,unknown>=>
@@ -30,6 +31,8 @@ export function toFreshVerifiedAwinRaw(
  const checked=Date.parse(verified);
  const amount=Number(row.price);
  const link=typeof m.verified_awin_deep_link==="string"?m.verified_awin_deep_link:null;
+ const rightsVerified=m.source_image_rights_confirmed===true;
+ const gallery=Array.isArray(m.supplied_image_gallery)?m.supplied_image_gallery:[];
  if(!category||row.status!=="review"||m.feed_id!==feed||
     m.live_feed_digest!==digest||!/^[a-f0-9]{64}$/.test(digest)||
     m.live_feed_verification!=="exact_authenticated_feed_digest_rechecked"||
@@ -53,12 +56,17 @@ export function toFreshVerifiedAwinRaw(
   merchantExternalId:advertiser,title:row.title,description:null,
   category,brand,model:id("model"),gtin:id("gtin"),ean:id("ean"),mpn:id("mpn"),
   price:amount,currency:"GBP",deliveryCost:null,
-  affiliateUrl:link,sourceUrl:null,imageUrl:null,
+  // Only explicitly verified image rights permit downstream display.
+  affiliateUrl:link,sourceUrl:null,imageUrl:rightsVerified?row.image_url:null,
   stockStatus:stock(m.availability),
   raw:{import_id:row.import_id,feed_id:feed,merchant_product_id:row.merchant_product_id,
    live_feed_digest:digest,live_feed_verified_at:verified,
    source_currency_explicit:m.source_currency_explicit===true,
-   currency_source:typeof m.currency_source==="string"?m.currency_source:"feed_column"}
+   currency_source:typeof m.currency_source==="string"?m.currency_source:"feed_column",
+   supplier_image_count:gallery.length,
+   source_image_rights_confirmed:rightsVerified,
+   // Gallery remains private pending rights. Never copy unapproved URLs into public products.
+   permitted_image_gallery:rightsVerified?gallery:[]}
  };
 }
 export async function stageLiveAwinCanonicalCandidates(
@@ -80,7 +88,7 @@ export async function stageLiveAwinCanonicalCandidates(
     run.permission_status!=="unverified"||run.status==="importing")
   return {status:"import_not_completed",eligible:0,canonicalAccepted:0,canonicalRejected:0};
  const {data:rows,error}=await db.from("feed_import_records")
-  .select("id,import_id,merchant_product_id,title,price,currency,brand,category,status,metadata")
+  .select("id,import_id,merchant_product_id,title,price,currency,brand,category,status,metadata,image_url")
   .eq("import_id",input.importId).eq("merchant_id",input.advertiser)
   .eq("status","review")
   // Select the exact authenticated feed digest, not just the latest 100

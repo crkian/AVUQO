@@ -18,7 +18,7 @@ export default function OwnerAwinRunNow(){
   try{
    const body:Record<string,string|number>={task};
    if(task==="portfolio_stage_next")body.step=rotationStep;
-   if(!task.endsWith("_preflight")&&task!=="all_feeds_check"&&task!=="portfolio_schema_probe_next")body.confirm="private-only-"+task;
+   if(!task.endsWith("_preflight")&&task!=="all_feeds_check"&&task!=="portfolio_schema_probe_next"&&task!=="portfolio_schema_probe_batch")body.confirm="private-only-"+task;
    const r=await fetch("/api/control-centre/awin-run-now",{
     method:"POST",credentials:"same-origin",cache:"no-store",
     headers:{"content-type":"application/json"},body:JSON.stringify(body)
@@ -47,6 +47,9 @@ export default function OwnerAwinRunNow(){
    const inventory=typeof o.joined_feeds==="number"?" · joined feed entries "+o.joined_feeds.toLocaleString("en-GB"):"";
    const acceptedFeeds=typeof o.accepted_feed_count==="number"?" · accepted feed entries "+o.accepted_feed_count:"";
    const changed=typeof o.changed_feeds==="number"?" · changed "+o.changed_feeds.toLocaleString("en-GB"):"";
+   const batch=typeof o.batch_total==="number"?" · inspected "+o.batch_total+
+    " · profiled "+(o.batch_profiled??0)+" · specialist "+(o.batch_specialist??0)+
+    " · quarantined "+(o.batch_quarantined??0)+" · other "+(o.batch_errors??0):"";
    const parsed=typeof o.parsed_rows==="number"&&Number.isSafeInteger(o.parsed_rows)
     ?" · parsed "+o.parsed_rows.toLocaleString("en-GB"):"";
    const fresh=typeof o.live_verified_rows==="number"&&Number.isSafeInteger(o.live_verified_rows)
@@ -58,7 +61,7 @@ export default function OwnerAwinRunNow(){
    const rejected=typeof o.canonical_rejected==="number"&&Number.isSafeInteger(o.canonical_rejected)
     ?" · rejected "+o.canonical_rejected.toLocaleString("en-GB"):"";
    setResults(v=>({...v,[task]:(r.ok?"OK":"HTTP "+r.status)+": "+status+
-    (diagnostic?" · "+diagnostic:"")+selected+importer+eligible+inventory+acceptedFeeds+changed+parsed+
+    (diagnostic?" · "+diagnostic:"")+selected+importer+eligible+inventory+acceptedFeeds+changed+batch+parsed+
     (rows===null?"":" · "+rows.toLocaleString("en-GB")+" rows")+
     fresh+canonical+staged+rejected+schema+(schemaFields?" · recognised "+schemaFields:"")+(safeHeaders?" · columns "+safeHeaders:"")}));
   }catch{
@@ -89,6 +92,10 @@ export default function OwnerAwinRunNow(){
     {busy==="portfolio_schema_probe_next"?"Inspecting accepted feed...":"Inspect next accepted feed"}
    </button>
    {results.portfolio_schema_probe_next&&<output role="status" style={{fontSize:12,overflowWrap:"anywhere"}}>{results.portfolio_schema_probe_next}</output>}
+   <button disabled={busy!==null} onClick={()=>run("portfolio_schema_probe_batch")} style={{padding:10,borderRadius:8,color:"#30205a",background:"#e7e1fd",border:"1px solid #7965aa",maxWidth:350}}>
+    {busy==="portfolio_schema_probe_batch"?"Inspecting five accepted feeds...":"Inspect next 5 accepted feeds"}
+   </button>
+   {results.portfolio_schema_probe_batch&&<output role="status" style={{fontSize:12,overflowWrap:"anywhere"}}>{results.portfolio_schema_probe_batch}</output>}
   </div>
   <div style={{padding:14,border:"1px solid #d7c8ea",borderRadius:12,background:"#fff",display:"grid",gap:8}}>
    <strong>Accepted retail feed rotation: retry the next supplier</strong>
