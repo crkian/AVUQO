@@ -55,14 +55,13 @@ export function sourceEvidenceFailures(source: ExternalSource, context: Evidence
       problems.push("GB usage territory is not confirmed");
     if (!future(meta.rights_valid_until, now))
       problems.push("Current rights expiry evidence is missing or expired");
-  
-    }
+  }
 
   if (source.connector_key === "awin") {
     const id = context.advertiserId;
     const advertisers = Array.isArray(meta.awin_advertisers) ? meta.awin_advertisers : [];
     const match = advertisers.map(record).find(x => id && String(x.advertiser_id) === id);
-    if (!id || !/^\\d{2,12}$/.test(id) || !match ||
+    if (!id || !/^\d{2,12}$/.test(id) || !match ||
         (!ownerAttested && (
           match.feed_permission_confirmed !== true ||
           !ref(match.approval_evidence_ref) ||
