@@ -137,3 +137,42 @@ comment on function public.ebay_claim_erasure_work(integer) is
 'DBA-only SKIP LOCKED erasure work lease; no erasure execution and no provider acknowledgment.';
 comment on function public.ebay_record_erasure_work_outcome(bigint,text,integer,text,text) is
 'DBA-only retry or evidence-review disposition; NEVER completes a deletion receipt.';
+
+
+-- Service-role proof of atomic receipt-plus-seven-item queue acceptance ONLY.
+-- The existing AFTER INSERT trigger runs in the same transaction as receipt insert.
+-- This SQL-visible boolean gate cannot erase data or mark a receipt completed.
+-- It deliberately returns no receipt IDs, digests, user identifiers or work rows.
+-- This is versioned candidate SQL, not installed production SQL.
+create function public.ebay_receipt_queue_ready(p_notification_digest text)
+returns boolean
+language sql stable security definer set search_path = ''
+as $$
+ select coalesce(
+   p_notification_digest ~ '^[a-f0-9]{64}$'
+   and exists (
+     select 1
+     from public.ebay_deletion_receipts r
+     where r.notification_digest=p_notification_digest
+       and r.state in ('pending_privacy_review','processing','blocked')
+       and (select count(*) from public.ebay_erasure_work_items w
+            where w.receipt_id=r.id)=7
+       and not exists (
+         select 1 from (values
+           ('mapped_catalogue'),('indirect_identifiers'),('analytics_attribution'),
+           ('storage_media'),('application_cdn_logs'),('backups_restoration'),
+           ('external_processors')
+         ) required(surface)
+         where not exists(
+           select 1 from public.ebay_erasure_work_items w
+           where w.receipt_id=r.id and w.surface=required.surface
+             and w.state in ('pending','leased','awaiting_evidence','blocked')
+         )
+       )
+   ),false);
+$$;
+revoke all on function public.ebay_receipt_queue_ready(text)
+ from public,anon,authenticated,service_role;
+grant execute on function public.ebay_receipt_queue_ready(text) to service_role;
+comment on function public.ebay_receipt_queue_ready(text) is
+'Boolean-only proof of seven durable work items for a recorded eBay notification. Never proves erasure or provider/legal approval.';

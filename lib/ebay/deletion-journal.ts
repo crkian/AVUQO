@@ -13,8 +13,8 @@ function validated(value:unknown,max:number):string|null{
  * Only record a verified eBay notification, never raw user identifiers.
  * A successful insert is NOT account deletion completion.
  *
- * A separate future privacy processor must make deletion/suppression durable
- * and demonstrate legal-retention exclusions before a success response.
+ * A separate privacy worker must complete/record lawful erasure and retention.
+ * Provider acknowledgement of a durably queued receipt does not mean erasure.
  */
 export async function journalVerifiedEbayDeletion(
  notificationId:unknown,data:EventData
@@ -46,4 +46,26 @@ export async function journalVerifiedEbayDeletion(
    prior.username_digest===row.username_digest &&
    prior.eias_token_digest===row.eias_token_digest?"duplicate":"unavailable";
  }catch{return "unavailable";}
+}
+
+
+/**
+ * Positive acknowledgement may only follow an authentic notice, durable
+ * receipt insertion (or verified idempotent duplicate), and the atomic
+ * seven-surface queue witness installed in reviewed production SQL.
+ * Returns a boolean only. No private receipt rows leave the database.
+ */
+export async function hasDurableEbayErasureQueue(notificationId:unknown):Promise<boolean>{
+ const event=validated(notificationId,128);
+ const secret=process.env.EBAY_DELETION_HMAC_SECRET;
+ if(!event||!secret||secret.length<32||secret.length>512)return false;
+ const notificationDigest=createHmac("sha256",secret)
+  .update("notificationId\0"+event,"utf8").digest("hex");
+ try{
+  const db=createAdminClient();
+  const {data,error}=await db.rpc("ebay_receipt_queue_ready",{
+   p_notification_digest:notificationDigest
+  });
+  return !error&&data===true;
+ }catch{return false;}
 }

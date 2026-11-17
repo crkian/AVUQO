@@ -1,13 +1,13 @@
 import {createHash} from "node:crypto";
 import {NextRequest,NextResponse} from "next/server";
 import {verifyEbaySignature} from "../../../../lib/ebay/deletion-signature";
-import {journalVerifiedEbayDeletion} from "../../../../lib/ebay/deletion-journal";
+import {journalVerifiedEbayDeletion,hasDurableEbayErasureQueue} from "../../../../lib/ebay/deletion-journal";
 
 /**
- * eBay production account-deletion webhook, phase 2 (challenge and signature verification, deletion processing pending).
+ * eBay account-deletion receiver: signed durable acceptance gate, disabled until reviewed release.
  *
- * IMPORTANT: Do not register this endpoint with eBay yet. Signed POST processing,
- * idempotent deletion is not implemented. POST deliberately fails closed.
+ * IMPORTANT: Do not register with eBay until privacy operations, nine migrations
+ * and provider tests are approved. 202 means queued receipt, not completed erasure.
  * Only keyed digests of identifiers may be journaled after verified signature.
  */
 const EXACT_ENDPOINT="https://www.avuqo.com/api/ebay/account-deletion";
@@ -33,9 +33,9 @@ export async function GET(request:NextRequest){
 }
 
 /**
- * Phase 2: authenticate the received eBay payload, but do not acknowledge
- * a request while durable idempotent deletion/suppression is unfinished.
- * This explicit 503 forces retries instead of misrepresenting compliance.
+ * Authenticate before recording. A 202 is only a durable notification
+ * ACCEPTANCE after the reviewed seven-surface queue exists, never proof of
+ * completed erasure. All production release switches default to OFF.
  */
 export async function POST(request:NextRequest){
  if(!process.env.EBAY_CLIENT_ID||!process.env.EBAY_CLIENT_SECRET)
@@ -64,7 +64,18 @@ export async function POST(request:NextRequest){
     !notice.data||typeof notice.data!=="object")
   return NextResponse.json({error:"Unsupported notification"},{status:422,headers});
  const receipt=await journalVerifiedEbayDeletion(notice.notificationId,notice.data as Record<string,unknown>);
- // Persisting a receipt is NOT erasure, so never acknowledge success yet.
+ // Every operator/legal/provider gate must be independently reviewed.
+ // Neither a configured client ID nor an inserted receipt is sufficient.
+ const releaseApproved=process.env.EBAY_DELETION_ACCEPTANCE_APPROVED==="true"&&
+  process.env.EBAY_PRIVACY_OPERATIONS_CERTIFIED==="true"&&
+  process.env.EBAY_DELETION_ENDPOINT_URL===EXACT_ENDPOINT&&
+  /^[A-Za-z0-9_-]{32,80}$/.test(process.env.EBAY_DELETION_VERIFICATION_TOKEN??"");
+ if(releaseApproved&&(receipt==="recorded"||receipt==="duplicate")&&
+   await hasDurableEbayErasureQueue(notice.notificationId)){
+  // eBay explicitly permits 202 for receipt acceptance. Erasure completion
+  // is asynchronous and separately evidenced, NEVER inferred from this reply.
+  return NextResponse.json({accepted:true},{status:202,headers});
+ }
  return NextResponse.json({error:receipt==="unavailable"?"Deletion journal unavailable":"Deletion processing not enabled"},
   {status:503,headers:{...headers,"Retry-After":"3600"}});
 }

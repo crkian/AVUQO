@@ -28,5 +28,19 @@ test("safe claims and retry outcomes do not acknowledge provider",()=>{
  assert.match(sql,/revoke all on function public\.ebay_claim_erasure_work\(integer\)/);
  assert.match(sql,/revoke all on function public\.ebay_record_erasure_work_outcome\(bigint,text,integer,text,text\)/);
  assert.match(route,/status:503/);
- assert.doesNotMatch(sql,/grant execute on function|\bhttp_post\b|\bpg_net\b/i);
+ assert.match(sql,/grant execute on function public\.ebay_receipt_queue_ready\(text\) to service_role/);
+ assert.doesNotMatch(sql,/grant execute on function public\.ebay_claim_erasure_work/i);
+ assert.doesNotMatch(sql,/\bhttp_post\b|\bpg_net\b/i);
+});
+
+test("boolean-only queue witness requires seven distinct exact surfaces and cannot complete erasure",()=>{
+ assert.match(sql,/create function public\.ebay_receipt_queue_ready\(p_notification_digest text\)/);
+ assert.match(sql,/security definer set search_path = ''/);
+ assert.match(sql,/where r\.notification_digest=p_notification_digest/);
+ assert.match(sql,/count\(\*\) from public\.ebay_erasure_work_items/);
+ assert.match(sql,/\)=7/);
+ assert.match(sql,/where w\.receipt_id=r\.id and w\.surface=required\.surface/);
+ assert.match(sql,/revoke all on function public\.ebay_receipt_queue_ready\(text\)/);
+ assert.match(sql,/grant execute on function public\.ebay_receipt_queue_ready\(text\) to service_role/);
+ assert.doesNotMatch(sql,/grant execute on function public\.ebay_receipt_queue_ready\(text\) to (anon|authenticated|public)/i);
 });

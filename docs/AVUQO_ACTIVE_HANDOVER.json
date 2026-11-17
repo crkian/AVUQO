@@ -1855,5 +1855,31 @@
       "signed durable notification acceptance and portal registration",
       "Browse/EPN licences, authorised product release"
     ]
+  },
+  "ebay_signed_durable_acceptance_20261117": {
+    "state": "candidate_disabled_unmerged",
+    "runbook": "docs/AVUQO_EBAY_DURABLE_RECEIPT_ACCEPTANCE_2026-11-17.md",
+    "versioned_migration": "supabase/migrations/20261116181000_ebay_erasure_work_journal.sql",
+    "new_rpc": "ebay_receipt_queue_ready(text) service_role boolean only",
+    "route": "app/api/ebay/account-deletion/route.ts",
+    "control_tower": "/control-centre/ebay-privacy",
+    "design": "signed event => HMAC-only receipt => same-transaction seven work rows => restricted boolean witness => hard gated HTTP202 acceptance only",
+    "production_default": "HTTP503; acceptance switch off; provider registration blocked",
+    "release_flags": [
+      "EBAY_DELETION_ACCEPTANCE_APPROVED",
+      "EBAY_PRIVACY_OPERATIONS_CERTIFIED"
+    ],
+    "safety": "202 means durable receipt, never completed erasure; signed provider events, lawful retention and workers still mandatory",
+    "production_db_applied": false,
+    "remaining_unapplied_privacy_candidates": 9,
+    "awin": "unchanged",
+    "next": [
+      "run CI including nine-only native replay",
+      "complete exact whole-object schema attestation",
+      "faithful isolated production-schema migration rehearsal",
+      "review/install migrations separately",
+      "lawful seven-surface ops and real provider signed tests",
+      "production Browse/EPN rights and public offers"
+    ]
   }
 }
