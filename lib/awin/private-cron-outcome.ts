@@ -35,6 +35,34 @@ const FAILURES:Record<string,string>={
  "Private validation register unavailable":"validation_register",
  "Snapshot failed private integrity/format validation; nothing recorded":"validation_failed"
 };
+/** All recorded details must come from a literal allowlist, never upstream text.
+ * The 80-character DB constraint permits these stable, namespaced codes. */
+const FEED_REASONS=new Set([
+ "unsupported_columns","unterminated_csv_quote","invalid_csv_quote",
+ "csv_column_limit","csv_field_or_column_limit","csv_field_size_limit",
+ "empty_feed","inconsistent_row_columns","row_limit","validation_failed",
+ "cadbury_uk_schema_mismatch","cadbury_uk_feed_identity_mismatch"
+]);
+const DOWNLOAD_REASONS=new Set([
+ "feed_binding_mismatch","unsafe_feed_url","invalid_feed_binding",
+ "source_size_limit","fetch_or_validation"
+]);
+function diagnostic(base:string,data:Record<string,unknown>|null):string{
+ if(base==="feed_validation"){
+  const reason=data?.reason;
+  return typeof reason==="string"&&FEED_REASONS.has(reason)
+   ?base+"_"+reason:base;
+ }
+ if(base==="product_download"){
+  const kind=data?.failure_kind;
+  if(typeof kind==="string"&&DOWNLOAD_REASONS.has(kind))
+   return base+"_"+kind;
+  // Provider HTTP status is categorised as upstream failure, not logged text.
+  if(typeof kind==="string"&&/^upstream_http_(?:4\\d\\d|5\\d\\d)$/.test(kind))
+   return base+"_upstream_http";
+ }
+ return base;
+}
 function record(value:unknown):Record<string,unknown>|null{
  return value!==null&&typeof value==="object"&&!Array.isArray(value)
   ?value as Record<string,unknown>:null;
@@ -46,7 +74,8 @@ export function safePrivateCronOutcome(httpStatus:number,responseBody:unknown):{
  const data=record(responseBody);
  if(httpStatus<200||httpStatus>=400){
   const error=typeof data?.error==="string"?data.error:"";
-  return {state:"rejected",code:FAILURES[error]??"http_"+String(Number.isInteger(httpStatus)&&httpStatus>=100&&httpStatus<=599?httpStatus:500)};
+  const base=FAILURES[error]??"http_"+String(Number.isInteger(httpStatus)&&httpStatus>=100&&httpStatus<=599?httpStatus:500);
+  return {state:"rejected",code:diagnostic(base,data)};
  }
  const status=typeof data?.status==="string"?data.status:"";
  if(status==="disabled")return {state:"disabled",code:"disabled"};
