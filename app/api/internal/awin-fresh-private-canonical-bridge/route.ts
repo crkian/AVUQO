@@ -38,9 +38,11 @@ export async function GET(request:NextRequest){
  ]);
  if(sourceError||controlError||!source)return reply({status:"readiness_unavailable",no_publication:true},503);
  const flags=evaluateSourceControls(controls);
- if(!flags.ingestion||!flags.publishing||source.status!=="active"||source.sync_enabled!==true||
-   source.credential_status!=="ready")
-  return reply({status:"paused",no_import:true,no_publication:true});
+ const safelyPaused=source.status==="paused"&&source.sync_enabled===false;
+ const safelyActive=source.status==="active"&&source.sync_enabled===true&&
+  source.credential_status==="ready"&&flags.publishing;
+ if(!flags.ingestion||(!safelyPaused&&!safelyActive))
+  return reply({status:"blocked_by_source_controls",no_import:true,no_publication:true});
  if(!process.env.AWIN_DATAFEED_API_KEY||!process.env.AWIN_PUBLISHER_ID)
   return reply({status:"datafeed_key_unavailable",no_import:true,no_publication:true},503);
 
@@ -86,7 +88,8 @@ export async function GET(request:NextRequest){
   // controls before every write and keeps first-time Awin offers HELD.
   try{
    const result=await runDealIntelligencePipeline(db,{
-    sourceKey:"awin",limit:10,awinAdvertiserId:pair.id,awinVerifiedRows:verified
+    sourceKey:"awin",limit:10,awinAdvertiserId:pair.id,awinVerifiedRows:verified,
+    awinPrivateStaging:safelyPaused
    });
    outcomes.push({advertiser_id:pair.id,status:result.status,
     seen:result.seen,held:result.accepted});
