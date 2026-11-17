@@ -52,6 +52,8 @@ jobs:
         run: bash -n scripts/test-ebay-cascade-readonly-preflight.sh && node --test tests/ebay-cascade-readonly-preflight.test.mjs
       - name: eBay seven cascading dependency containment and rollback contracts
         run: node --test tests/ebay-cascade-containment.test.mjs
+      - name: Nine-only eBay privacy migration replay after four installed equivalents
+        run: bash -n scripts/test-ebay-nine-only-migration-replay.sh && node --test tests/ebay-nine-only-migration-replay.test.mjs
       - name: Real-order eBay privacy migration replay safety contracts
         run: bash -n scripts/test-ebay-ordered-migration-replay.sh && node --test tests/ebay-ordered-migration-replay.test.mjs
       - name: Read-only full-schema eBay release preflight and locked provider NO-GO
