@@ -36,3 +36,11 @@ test("all accepted Awin feed discovery is owner-only and metadata-only; tyre pip
  assert.match(ui,/control-centre\/tyre-spec-enrichment/);
  assert.match(ui,/fitment, delivery and fitted pricing/);
 });
+
+test("owner can see validated feed CSV column names without raw rows or signed URLs",()=>{
+ assert.match(route,/Array\.isArray\(src\.column_names\)/);
+ assert.match(route,/safe\.column_names=src\.column_names\.filter/);
+ assert.match(ui,/Array\.isArray\(o\.column_names\)/);
+ assert.match(ui,/safeHeaders/);
+ assert.doesNotMatch(route,/safe\.download_url|safe\.signed_url|safe\.feed_key/);
+});
