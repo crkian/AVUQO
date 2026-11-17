@@ -86,11 +86,11 @@ export async function verifiedOffers(options:{productId?:string;offerId?:string;
   if(merchantError||programmeError)return [];
   const merchantAdvertisers=new Map((merchantRows??[]).map(m=>{
    const id=metadata(m.metadata).external_id;
-   return [m.id,typeof id==="string"&&/^\\d{2,12}$/.test(id)?id:null] as const;
+   return [m.id,typeof id==="string"&&/^\d{2,12}$/.test(id)?id:null] as const;
   }));
   const acceptedAdvertisers=new Set((programmeRows??[]).filter(p=>
    p.region==="GB"&&metadata(metadata(p.metadata).owner_joined_accepted_attestation).membership_status==="accepted"&&
-   typeof p.external_account_id==="string"&&/^\\d{2,12}$/.test(p.external_account_id)
+   typeof p.external_account_id==="string"&&/^\d{2,12}$/.test(p.external_account_id)
   ).map(p=>p.external_account_id as string));
   // Awin requires a separate, owner-only per-offer release record in addition
   // to a published row. Admins cannot forge this through REST.
