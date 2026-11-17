@@ -134,6 +134,8 @@ jobs:
         run: node --experimental-strip-types --test tests/awin-portfolio-expansion.test.mjs
       - name: Awin private Run Now reports exact authenticated held results without leaking feed data
         run: node --test tests/awin-owner-run-now-diagnostics.test.mjs
+      - name: Recognize every accepted feed while retaining specialist tyres and private quarantine
+        run: node --experimental-strip-types --test tests/awin-recognize-all-accepted-feeds.test.mjs
       - name: Automated first Awin release under recorded standing owner permission
         run: node --test tests/awin-automatic-first-release.test.mjs
       - name: Automated Awin approved merchant refresh without first-release bypass
