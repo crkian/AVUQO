@@ -2570,5 +2570,31 @@
     "no_production_changes": true,
     "next": "faithful isolated production schema rehearsal of nine only; independent reviewed DDL approval",
     "source_status": "eBay paused callback HTTP503, Awin untouched"
+  },
+  "ebay_production_fk_topology_and_offline_schema_replay_20261117": {
+    "state": "live_readonly_4PASS_1BLOCK; offline production archive NOT yet replayed",
+    "source": "docs/AVUQO_EBAY_PRODUCTION_SCHEMA_REHEARSAL_2026-11-17.md",
+    "production_audit": "scripts/ebay-live-offer-fk-topology-readonly.sql",
+    "local_archive_rehearsal": "scripts/test-ebay-nine-only-production-schema-dump.sh",
+    "contract_test": "tests/ebay-schema-only-production-replay.test.mjs",
+    "verified_counts": {
+      "offer_fk": 13,
+      "on_delete_set_null": 4,
+      "on_delete_cascade": 9,
+      "unapplied_eBay_privacy_migrations": 9
+    },
+    "scope": "4 live readonly PASS, mandatory production release gate BLOCK; local archive-only rehearsal prepared, not yet verified on full production structure",
+    "production_sql_applied": false,
+    "provider_acknowledgement_enabled": false,
+    "ebay": "paused; callback HTTP 503",
+    "awin": "untouched",
+    "cost": "£0 extra, no Docker",
+    "next": [
+      "secure approved production schema-only archive without data",
+      "local isolated 9-only rehearsal against that exact schema",
+      "formal production DDL/backups/restore approval",
+      "install and verify 9 pending privacy migrations",
+      "complete retention/logs/media/backups/processors, signed provider tests and Browse/EPN product release"
+    ]
   }
 }
