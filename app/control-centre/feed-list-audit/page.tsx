@@ -13,6 +13,7 @@ export default async function Page(){
    <h1 style={{fontSize:38,letterSpacing:"-.045em",margin:"8px 0"}}>Awin feed discovery</h1>
    <p style={{lineHeight:1.6,maxWidth:740,color:"#6d6376"}}>Understand which joined advertisers have feed records, without exposing private download links or starting product downloads. A live feed listing is not permission to publish products, prices or photography.</p>
   </header>
+  <p style={{margin:0,padding:14,background:"#f8f3fb",borderRadius:12,color:"#564663",fontSize:13}}><strong>Automatic inventory monitor:</strong> {process.env.AWIN_FEED_MONITOR_ENABLED==="true"?"Configured to run daily at 06:17 UTC":"Not enabled"} · <strong>Automatic importer:</strong> {process.env.AWIN_AUTO_IMPORT_ENABLED==="true"?"Configured (subject to source and rights gates)":"Not enabled"}. Both jobs require their own safeguards; neither status alone permits publishing.</p>
   <FeedAuditForm/>
   <Link href="/control-centre/feed-imports" style={{color:"#634b7a",fontWeight:800}}>← Back to private product feed imports</Link>
  </main>;
