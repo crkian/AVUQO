@@ -6,9 +6,9 @@ import {RESEARCH_PRODUCT_GUIDES,researchGuideBySlug,researchGuidesByDepartment}
 
 const src=p=>readFileSync(new URL("../"+p,import.meta.url),"utf8");
 
-test("only four verified-identity editorial research guides are allowlisted, with no offer data",()=>{
- assert.equal(RESEARCH_PRODUCT_GUIDES.length,4);
- assert.equal(new Set(RESEARCH_PRODUCT_GUIDES.map(x=>x.slug)).size,4);
+test("eight real manufacturer-verified research guides are allowlisted, with no offer data",()=>{
+ assert.equal(RESEARCH_PRODUCT_GUIDES.length,8);
+ assert.equal(new Set(RESEARCH_PRODUCT_GUIDES.map(x=>x.slug)).size,8);
  for(const guide of RESEARCH_PRODUCT_GUIDES){
   assert.match(guide.slug,/^[a-z0-9][a-z0-9-]{2,159}$/);
   assert.ok(guide.title.length>15);
@@ -22,7 +22,7 @@ test("only four verified-identity editorial research guides are allowlisted, wit
   assert.doesNotMatch(JSON.stringify(guide),/£\s*\d|(?:https?:\/\/)[^"']*\.jpg/i);
   const url=new URL(guide.manufacturerInfoUrl);
   assert.equal(url.protocol,"https:");
-  assert.ok(new Set(["support.apple.com","www.sharkninja.co.uk","www.dyson.co.uk","www.lg.com"]).has(url.host));
+  assert.ok(new Set(["support.apple.com","www.apple.com","www.sharkninja.co.uk","www.dyson.co.uk","www.lg.com","www.sony.co.uk","www.samsung.com","www.lego.com"]).has(url.host));
   assert.equal(researchGuideBySlug(guide.slug),guide);
  }
 });
@@ -32,8 +32,8 @@ test("draft affiliate pilot items and arbitrary slug lookups are not public rese
  assert.equal(researchGuideBySlug("pilot-akko-shiny-kitten-5108-v5"),undefined);
  assert.equal(researchGuideBySlug("anything-else"),undefined);
  assert.equal(researchGuidesByDepartment("pets").length,0);
- assert.equal(researchGuidesByDepartment("tech").length,2);
- assert.equal(researchGuidesByDepartment("home").length,2);
+ assert.equal(researchGuidesByDepartment("tech").length,5);
+ assert.equal(researchGuidesByDepartment("home").length,3);
 });
 test("verified offer route retains admission priority and research fallback is noindex",()=>{
  const route=src("app/products/[slug]/page.tsx");
@@ -72,4 +72,21 @@ test("home, public /products, and departments reveal research guides without mod
  assert.match(department,/researchGuidesByDepartment\(department\)/);
  assert.match(department,/matching=verified\.filter/);
  assert.match(department,/No verified retailer offers yet/);
+});
+
+test("new public guides have independent official manufacturer destinations, no feed prices",()=>{
+ const additions=[
+  "sony-wh-1000xm6-noise-cancelling-headphones",
+  "apple-iphone-17",
+  "samsung-galaxy-s26",
+  "lego-botanicals-wildflower-bouquet-10313"
+ ];
+ for(const slug of additions){
+  const guide=researchGuideBySlug(slug);
+  assert.ok(guide,slug);
+  assert.equal(guide.checklist.length,3);
+  assert.ok(guide.manufacturerInfoUrl.startsWith("https://"));
+  assert.doesNotMatch(JSON.stringify(guide),/£\\s*\\d|affiliate|commission|in stock|save \\d+%/i);
+ }
+ assert.equal(RESEARCH_PRODUCT_GUIDES.length,8);
 });

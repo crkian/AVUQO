@@ -2596,5 +2596,26 @@
       "install and verify 9 pending privacy migrations",
       "complete retention/logs/media/backups/processors, signed provider tests and Browse/EPN product release"
     ]
+  },
+  "same_day_public_model_research_20261117": {
+    "state": "review_branch_pending_ci_deployment",
+    "public_route": "/products",
+    "model_count": 8,
+    "existing_models": 4,
+    "new_manufacturer_verified_models": [
+      "Sony WH-1000XM6",
+      "Apple iPhone 17",
+      "Samsung Galaxy S26",
+      "LEGO Botanicals Wildflower Bouquet 10313"
+    ],
+    "source": "lib/products/research-guides.ts",
+    "test": "tests/public-research-product-guides.test.mjs",
+    "product_nature": "genuine manufacturer-identifiable editorial models, NOT priced source offers",
+    "source_admission": "all external sources paused; no authorised fresh public retail offer sources; demo excluded",
+    "publication": "no fabricated prices, stock, images, affiliate commission, AVUQO Score or supplier approval",
+    "production_db_mutations": 0,
+    "ebay": "paused, webhook HTTP503",
+    "awin": "paused, permissions pending",
+    "next": "verify public deployment of all 8 guides, approve one current genuine supplier and publish first eligible sourced retail offers via existing admission logic"
   }
 }
