@@ -2587,5 +2587,26 @@
     "accepted_awin_memberships": 21,
     "new_automation": "bounded <=15 evidence-gated owner-authorized first releases, still dormant until source rights and current prices pass",
     "next": "Execute fresh authenticated server-side Awin physical feed stage, verify tracked links GBP prices and canonical offer creation; reconcile source and per-merchant rights; validate publication and stale withdrawal end-to-end. No public Awin product is live."
+  },
+  "latest_awin_three_hour_launch_checkpoint": {
+    "date": "2026-11-17",
+    "owner_goal": "All accepted feeds monitored and valid genuine live offers published automatically with three-hour urgency",
+    "source_reality": "21 accepted programmes, 72 feed inventory entries, 0 verified live canonical Awin offers at last database check, source paused and publication evidence pending",
+    "owner_authorization": "standing grant audited; do not ask again",
+    "fix": "Expose live_verified_rows + canonical_status,canonical_eligible,canonical_accepted,canonical_rejected from existing owner Run Now gateway while keeping provider data and secrets private",
+    "code_commits": [
+      "dab50473d746905ade743af9e7b3eeb124fded97",
+      "ca97f6bb85f9b80d684b2b50ba0dd4e1f3292de5"
+    ],
+    "test_commit": "7d07f26b59ea9604b1e3fd0f664cf580567537a8",
+    "quality_registration_commit": "8a342e5d140deeb49a39c2f8cd82c581afbd1212",
+    "exact_action": "Owner authenticated browser Control Centre /control-centre/awin-feed-updates preflight and stage four pilots, inspect live_verified_rows and canonical accepted; no connected tool can directly execute CRON_SECRET-protected URL without secret",
+    "blockers": [
+      "No fresh current GBP product rows attested",
+      "Cadbury feed schema validation 422",
+      "Craft Buddy feed download 502",
+      "Awin source and advertiser-specific rights/credential readiness unverified",
+      "Tyres/services require differentiated price and usage models"
+    ]
   }
 }
