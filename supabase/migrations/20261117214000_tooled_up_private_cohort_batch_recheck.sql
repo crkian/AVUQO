@@ -45,10 +45,10 @@ begin
    and length(r.title) between 1 and 1200
    and r.price>0 and r.price<=1000000
    and r.stock in ('in_stock','low_stock')
-   and r.link ~ '^https://www\\.awin1\\.com/pclick\\.php\\?'
-   and r.link ~ '(\\?|&)m=496(&|$)'
-   and r.link ~ '(\\?|&)a=3135746(&|$)'
-   and r.link ~ '(\\?|&)p=[^&]+'
+   and r.link ~ '^https://www[.]awin1[.]com/pclick[.]php[?]'
+   and r.link ~ '([?]|&)m=496(&|$)'
+   and r.link ~ '([?]|&)a=3135746(&|$)'
+   and r.link ~ '([?]|&)p=[^&]+'
    and r.image ~ '^https://[^/]+/'
    and length(r.image)<=2048
    and jsonb_typeof(r.images)='array'
