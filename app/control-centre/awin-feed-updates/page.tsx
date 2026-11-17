@@ -14,7 +14,7 @@ export default async function Page(){
  await connection();
  const {role}=await requireControlCentreAccess();
  const admin=createAdminClient();
- const [feeds,runs,refresh,attempts,programmes,source,profiles,readiness]=await Promise.all([
+ const [feeds,runs,refresh,attempts,programmes,source,profiles,readiness,tooledValidation]=await Promise.all([
   admin.from("awin_feed_update_observations").select("advertiser_id,feed_id,advertiser_name,feed_name,listed_products,last_imported_source,observed_at,needs_private_refresh,change_count").order("needs_private_refresh",{ascending:false}).order("advertiser_name",{ascending:true}).limit(200),
   admin.from("awin_feed_discovery_runs").select("checked_at,active_feeds,joined_feeds,changed_feeds").order("checked_at",{ascending:false}).limit(1),
   admin.from("awin_feed_update_observations").select("feed_id",{count:"exact",head:true}).eq("needs_private_refresh",true),
@@ -24,7 +24,8 @@ export default async function Page(){
    .eq("provider","awin").limit(100),
   admin.from("sources").select("metadata,status,sync_enabled").eq("connector_key","awin").maybeSingle(),
   admin.from("awin_feed_schema_profiles").select("advertiser_id,feed_id,status,schema_status,recognition_kind,schema_reason,checked_at").order("checked_at",{ascending:false}).limit(200),
-  admin.from("awin_private_product_readiness").select("advertiser_id,private_rows,review_rows,gbp_priced_rows,tracking_marked_rows,stock_field_rows,primary_image_rows,image_rights_marked_rows,live_rechecked_rows,latest_private_import_at").limit(100)
+  admin.from("awin_private_product_readiness").select("advertiser_id,private_rows,review_rows,gbp_priced_rows,tracking_marked_rows,stock_field_rows,primary_image_rows,image_rights_marked_rows,live_rechecked_rows,latest_private_import_at").limit(100),
+  admin.from("awin_private_snapshot_validations").select("actual_rows,critical_issues,duplicate_product_ids,invalid_price_rows,unverified_affiliate_links,currency_verified,rights_verified,ready_to_stage,validated_at").eq("advertiser_id","496").eq("feed_id","89987").order("validated_at",{ascending:false}).limit(1)
  ]);
  const portfolio=acceptedAwinPortfolio(
   programmes.data??[],feeds.data??[],source.data??null
@@ -135,6 +136,18 @@ export default async function Page(){
       })}</tbody>
      </table>
     </div>}
+  </section>}
+  {role==="owner"&&<section aria-label="Tooled Up large-feed automation" style={{background:"white",border:"1px solid #d7c9e6",borderRadius:16,padding:18,display:"grid",gap:10}}>
+   <h2 style={{margin:0}}>Tooled Up: 84,000+ product master feed</h2>
+   <p style={{margin:0,lineHeight:1.6,color:"#5f5669"}}>The existing private, content-addressed gzip capture and exhaustive stream validator are connected to the active Awin source. Every four hours AVUQO captures an immutable snapshot, validates the complete feed 20 minutes later, then checks a bounded SKU cohort 10 minutes after validation. Exact matches enter HELD review; this does not automatically approve every item.</p>
+   {tooledValidation.error?<p role="alert">Latest private Tooled Up snapshot audit unavailable.</p>:
+   tooledValidation.data?.[0]?<div style={{display:"flex",gap:16,flexWrap:"wrap",fontSize:13}}>
+    <span><strong>{Number(tooledValidation.data[0].actual_rows).toLocaleString("en-GB")}</strong> rows in last validated master feed</span>
+    <span><strong>{tooledValidation.data[0].critical_issues}</strong> critical structural issues</span>
+    <span>Validated {new Date(tooledValidation.data[0].validated_at).toLocaleString("en-GB",{timeZone:"Europe/London"})}</span>
+    <span>Currency evidence: <strong>{tooledValidation.data[0].currency_verified?"Verified":"Still requires exact feed evidence"}</strong></span>
+   </div>:<p>No complete snapshot validation recorded yet.</p>}
+   <p style={{fontSize:13,margin:0}}>Public release stays separate: exact current UK-storefront GBP price evidence, source-matched photo, stock, affiliate tracking, SKU identity, score and atomic approval. The master feed has no explicit currency column; an exact historical GBP match plus verified UK merchant storefront is required. Historic private import rows do not become public merely because the snapshot validated.</p>
   </section>}
   {role==="owner"&&<OwnerAwinFirstRelease/>}
   {role==="owner"&&<OwnerAwinRunNow/>}

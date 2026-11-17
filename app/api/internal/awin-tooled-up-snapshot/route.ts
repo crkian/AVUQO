@@ -104,7 +104,7 @@ export async function POST(request:NextRequest){
  if(!/^[A-Za-z0-9_-]{16,200}$/.test(key)||!/^[0-9]{3,15}$/.test(publisher))
   return reply({error:"Awin credentials unavailable"},503);
  const db=createAdminClient();
- if(!await tooledUpPrivateAutomationAllowed(db))return reply({error:"Joined advertiser must remain paused"},403);
+ if(!await tooledUpPrivateAutomationAllowed(db))return reply({error:"Tooled Up accepted source or ingestion controls not ready"},403);
  let objectKey="",sha256="",bytes:Uint8Array;
  try{
   const source=await exactActiveFeedUrl(key,publisher);
