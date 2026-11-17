@@ -3351,6 +3351,24 @@
       "test_commit": "e3460ae487bb968a963061510f5039efe75824a6",
       "final_exact_deployment": "not independently READY checked yet",
       "prior_api_deployment": "dpl_3ZwBC4nPVNVf9vKtZW8YZNrrSfU4 READY dcf1b2"
+    },
+    "final_verified_production": {
+      "site": "www.avuqo.com",
+      "deployment_id": "dpl_9rNLRGP4Y4NxMj4M16zQztRo56DD",
+      "application_sha": "e3460ae487bb968a963061510f5039efe75824a6",
+      "state": "READY",
+      "vercel_commit_status": "success",
+      "full_github_actions_quality": "not independently confirmed",
+      "source_status": "paused",
+      "sync_enabled": false,
+      "credential_registry": "not_configured",
+      "publication_permission": "pending",
+      "last_verified_fresh_rows": 0,
+      "last_verified_canonical_awin_offers": 0,
+      "last_verified_public_awin_releases": 0,
+      "owner_grant": "granted and audited",
+      "next": "Run signed-in owner Run scheduled accepted retail feed or PlayPress/Craft Buddy exact preflight+stage, report actual provider outcome; do not count private inventory as public launch",
+      "tyres": "retained specialists, do not generalise fitted quotes"
     }
   }
 }
