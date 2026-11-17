@@ -31,6 +31,56 @@ async function privateStagingAllowed(db:ReturnType<typeof createAdminClient>){
  return evaluateSourceControls(data,!!error).ingestion;
 }
 
+/** A fresh authenticated download matched an ALREADY completed immutable
+ * feed digest. Record a new observation ONLY for exact, unchanged GBP/stocked
+ * product rows and VERIFIED own-publisher links; never rewrite created_at,
+ * historic price, approval or image rights. Bounded to the first 20 items.
+ */
+async function attestUnchangedLiveRows(
+ db:ReturnType<typeof createAdminClient>,runId:string,advertiser:string,
+ feed:string,header:string[],rows:string[][],digest:string
+){
+ const idPos=header.indexOf(header.includes("merchant_product_id")?"merchant_product_id":"id");
+ if(idPos<0||!/^[a-f0-9]{64}$/.test(digest))throw Error("unbound_live_recheck");
+ const originals=new Map(rows.map(r=>[r[idPos],r]));
+ const {data:stored,error}=await db.from("feed_import_records")
+  .select("id,import_id,merchant_product_id,title,price,currency,status,metadata,reviewed_at")
+  .eq("import_id",runId).eq("merchant_id",advertiser).eq("status","review")
+  .is("reviewed_at",null).limit(20);
+ if(error)throw Error("live_recheck_private_rows_unavailable");
+ const now=new Date().toISOString();
+ let verified=0;
+ for(const old of stored??[]){
+  const cells=originals.get(old.merchant_product_id);
+  if(!cells)continue;
+  const next=prepareGeneralBatch(advertiser,feed,header,[cells])[0];
+  const availability=String(next.metadata.availability??"").toLowerCase().replace(/[\\s-]+/g,"_");
+  if(next.status!=="review"||!next.metadata.verified_awin_deep_link||
+    !["in_stock","instock","available","low_stock","limited"].includes(availability)||
+    next.title!==old.title||next.currency!=="GBP"||old.currency!=="GBP"||
+    Number(next.price)!==Number(old.price))continue;
+  const existing=old.metadata&&typeof old.metadata==="object"&&!Array.isArray(old.metadata)
+   ?old.metadata as Record<string,unknown>:{};
+  if(existing.feed_id!==feed)continue;
+  const {data:changed,error:updateError}=await db.from("feed_import_records")
+   .update({metadata:{...existing,
+     verified_awin_deep_link:next.metadata.verified_awin_deep_link,
+     tracking_link_verified:true,
+     live_feed_verified_at:now,
+     live_feed_digest:digest,
+     live_feed_verification:"exact_authenticated_feed_digest_rechecked",
+     availability:next.metadata.availability
+   }})
+   .eq("id",old.id).eq("import_id",runId)
+   .eq("merchant_product_id",old.merchant_product_id)
+   .eq("price",next.price).eq("currency","GBP")
+   .is("reviewed_at",null).select("id").maybeSingle();
+  if(updateError)throw Error("live_recheck_private_update_failed");
+  if(changed?.id)verified++;
+ }
+ return verified;
+}
+
 async function boundedResponse(response:Response,max:number){
  if(!response.ok)throw Error("upstream_http_"+response.status);
  if(!response.body)throw Error("empty_upstream_body");
@@ -278,8 +328,13 @@ export async function POST(request:NextRequest){
   if(sessionError||!session)return reply({error:"Could not load private import session"},503);
  }
  if(session.source_digest!==digest)return reply({error:"Resume fingerprint mismatch"},409);
- if(session.completed_at&&session.committed_count===rows.length)
-  return reply({status:"already_staged",advertiser_id:advertiser,feed_id:feed,records:rows.length,private_only:true});
+ if(session.completed_at&&session.committed_count===rows.length){
+  try{
+   const verified=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest);
+   return reply({status:"already_staged",advertiser_id:advertiser,feed_id:feed,
+    records:rows.length,live_verified_rows:verified,private_only:true,no_publication:true});
+  }catch{return reply({error:"Exact live feed recheck could not be recorded",private_only:true},503);}
+ }
  if(session.completed_at||run.status!=="importing"||run.permission_status!=="unverified")
   return reply({error:"Private import is not writable"},409);
  let committed=session.committed_count;
@@ -300,8 +355,13 @@ export async function POST(request:NextRequest){
   });
   if(error){
    const {data:latest}=await loadSession();
-   if(latest?.completed_at&&latest.source_digest===digest&&latest.committed_count===rows.length)
-    return reply({status:"already_staged",advertiser_id:advertiser,feed_id:feed,records:rows.length,private_only:true});
+   if(latest?.completed_at&&latest.source_digest===digest&&latest.committed_count===rows.length){
+    try{
+     const verified=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest);
+     return reply({status:"already_staged",advertiser_id:advertiser,feed_id:feed,
+      records:rows.length,live_verified_rows:verified,private_only:true,no_publication:true});
+    }catch{return reply({error:"Exact live feed retry evidence unavailable",private_only:true},503);}
+   }
    return reply({error:"Private batch rejected",saved_records:committed,run_id:runId,private_only:true},503);
   }
   committed=Number(done?.committed??0);
