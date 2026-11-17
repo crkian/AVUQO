@@ -11,6 +11,46 @@ const obj=(v:unknown):Record<string,unknown>=>v&&typeof v==="object"&&!Array.isA
 const fresh=(v:string|null,now:number)=>Boolean(v&&Number.isFinite(Date.parse(v))&&
  Date.parse(v)<=now+300000&&Date.parse(v)>=now-48*3600_000);
 
+/** Portfolio-wide owner visibility. Feed discovery is not equivalent to
+ * permission, product ingestion or a verified customer-facing offer.
+ * All accepted programmes remain visible even if no numeric Awin ID/feed exists.
+ */
+async function readPortfolio(db:ReturnType<typeof createAdminClient>){
+ const [{data:programmes,error:programmeError},{data:feeds,error:feedError}]=await Promise.all([
+  db.from("affiliate_programs").select("programme_name,external_account_id,region,metadata")
+   .eq("provider","awin").eq("region","GB"),
+  db.from("awin_feed_update_observations")
+   .select("advertiser_id,feed_id,feed_format,listed_products,needs_private_refresh").limit(300),
+ ]);
+ if(programmeError||feedError)return null;
+ const accepted=(programmes??[]).filter(p=>
+  obj(obj(p.metadata).owner_joined_accepted_attestation).membership_status==="accepted");
+ const byAdvertiser=new Map<string,{feeds:number;listed:number;needsRefresh:number}>();
+ for(const f of feeds??[]){
+  const current=byAdvertiser.get(f.advertiser_id)??{feeds:0,listed:0,needsRefresh:0};
+  current.feeds++;
+  current.listed+=Number(f.listed_products)||0;
+  if(f.needs_private_refresh)current.needsRefresh++;
+  byAdvertiser.set(f.advertiser_id,current);
+ }
+ const programmesView=accepted.map(p=>{
+  const id=p.external_account_id;
+  const counts=id?byAdvertiser.get(id):undefined;
+  const pipeline=id==="77952"||id==="31539"||id==="736"||id==="45747"
+   ?"physical_pilot":id==="12715"||id==="15236"
+   ?"tyre_specific":id==="496"?"large_feed_streaming"
+   :!id?"advertiser_id_missing":"feed_or_category_adapter_pending";
+  return {name:p.programme_name,advertiserId:id??null,
+   discoveredFeeds:counts?.feeds??0,listedRows:counts?.listed??0,
+   needsPrivateRefresh:counts?.needsRefresh??0,pipeline,
+   publicationState:"awaiting_current_eligible_canonical_offer"};
+ });
+ return {acceptedProgrammes:accepted.length,
+  numericIdsMapped:programmesView.filter(p=>p.advertiserId).length,
+  discoveredFeeds:programmesView.reduce((n,p)=>n+p.discoveredFeeds,0),
+  programmes:programmesView};
+}
+
 /**
  * Separate owner-authenticated FIRST offer release. This endpoint never
  * activates Awin, creates products, fabricates rights or refreshes timestamps.
@@ -134,6 +174,7 @@ export async function GET(){
   const {count,error:countError}=await db.from("offers")
    .select("id",{head:true,count:"exact"}).eq("source_id",source.id);
   if(countError)return respond({error:"Offer count unavailable"},503);
+  const portfolio=await readPortfolio(db);
   if(source.status!=="active"||source.sync_enabled!==true||
      source.credential_status!=="ready"||meta.publication_permission!=="verified"||
      meta.price_evidence_status!=="verified")
@@ -143,7 +184,7 @@ export async function GET(){
       credentialRegistry:source.credential_status,
       publicationPermission:meta.publication_permission??"pending",
       priceEvidence:meta.price_evidence_status??"pending"},
-    acceptance:"21 programmes recorded as accepted",
+    portfolio,acceptance:"Accepted Awin membership is stored separately from release readiness",
     next:"Fresh authenticated source, merchant rights and current GBP price evidence must pass before release"});
   const {data:offers,error:offerError}=await db.from("offers")
    .select("id,title,merchant_id,price,currency,last_seen_at,stock_status,affiliate_url,match_confidence")
@@ -151,7 +192,7 @@ export async function GET(){
    .eq("currency","GBP").order("last_seen_at",{ascending:false}).limit(50);
   if(offerError)return respond({error:"Offer review list unavailable"},503);
   const ids=(offers??[]).map(o=>o.id);
-  if(!ids.length)return respond({status:"no_canonical_offers",totalCanonicalOffers:count??0,candidates:[]});
+  if(!ids.length)return respond({status:"no_canonical_offers",totalCanonicalOffers:count??0,candidates:[],portfolio});
   const merchants=[...new Set((offers??[]).map(o=>o.merchant_id))];
   const [{data:held,error:heldError},{data:scores,error:scoresError},{data:merchantRows,error:merchantError},
    {data:reviews,error:reviewsError}]=await Promise.all([
@@ -184,7 +225,7 @@ export async function GET(){
     score:Number(s.score),confidence:Number(s.confidence)}];
   }).slice(0,10);
   return respond({status:candidates.length?"review_ready":"no_current_eligible_offers",
-   totalCanonicalOffers:count??0,candidates,
+   totalCanonicalOffers:count??0,candidates,portfolio,
    note:"Final POST independently rechecks accepted merchant, source rights and all immutable offer evidence"});
  }catch{return respond({error:"Owner launch queue unavailable"},503);}
 }
