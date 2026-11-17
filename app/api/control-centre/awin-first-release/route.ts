@@ -1,0 +1,114 @@
+import {NextRequest,NextResponse} from "next/server";
+import {createClient} from "../../../../lib/supabase/server";
+import {createAdminClient} from "../../../../lib/supabase/admin";
+import {evaluateSourceControls,sourceEvidenceFailures} from "../../../../lib/pipeline/source-readiness";
+import {ownAffiliateLink} from "../../../../lib/awin/approved-offer-renewal";
+
+const respond=(body:unknown,status=200)=>NextResponse.json(body,{
+ status,headers:{"Cache-Control":"private, no-store","X-Content-Type-Options":"nosniff"}
+});
+const obj=(v:unknown):Record<string,unknown>=>v&&typeof v==="object"&&!Array.isArray(v)?v as Record<string,unknown>:{};
+const fresh=(v:string|null,now:number)=>Boolean(v&&Number.isFinite(Date.parse(v))&&
+ Date.parse(v)<=now+300000&&Date.parse(v)>=now-48*3600_000);
+
+/**
+ * Separate owner-authenticated FIRST offer release. This endpoint never
+ * activates Awin, creates products, fabricates rights or refreshes timestamps.
+ * All important fields are read from Supabase, never accepted from the client.
+ */
+export async function POST(request:NextRequest){
+ try{
+  const session=await createClient();
+  const {data:{user},error:authError}=await session.auth.getUser();
+  if(authError||!user)return respond({error:"Sign in required"},401);
+  const {data:role,error:roleError}=await session.from("user_roles")
+   .select("role").eq("user_id",user.id).maybeSingle();
+  if(roleError||role?.role!=="owner")return respond({error:"Owner only"},403);
+  const origin=request.headers.get("origin");
+  if(!origin||new URL(origin).origin!==new URL(request.url).origin)return respond({error:"Same origin required"},403);
+  if(!request.headers.get("content-type")?.toLowerCase().startsWith("application/json"))
+   return respond({error:"JSON required"},415);
+  if(new URL(request.url).search||Number(request.headers.get("content-length")??0)>300)
+   return respond({error:"Invalid request"},400);
+  const input=await request.text();
+  if(input.length>300)return respond({error:"Invalid request"},400);
+  const data=JSON.parse(input) as Record<string,unknown>;
+  const offerId=data?.offer_id;
+  const action=data?.action;
+  if(!data||Array.isArray(data)||Object.keys(data).some(k=>!["offer_id","action","confirm"].includes(k))||
+   typeof offerId!=="string"||!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(offerId)||
+   !["approve","pause"].includes(String(action))||data.confirm!==`owner-${action}-${offerId}`)
+   return respond({error:"Explicit exact-offer confirmation required"},400);
+
+  const db=createAdminClient();
+  const {data:offer,error:offerError}=await db.from("offers")
+   .select("id,source_id,product_id,merchant_id,price,currency,stock_status,status,affiliate_url,last_seen_at,match_confidence")
+   .eq("id",offerId).maybeSingle();
+  if(offerError||!offer)return respond({error:"Offer unavailable"},404);
+  const [{data:source,error:sourceError},{data:merchant,error:merchantError},
+         {data:score,error:scoreError},{data:published,error:publishedError}]=await Promise.all([
+   db.from("sources").select("id,status,sync_enabled,credential_status,connector_key,source_type,metadata").eq("id",offer.source_id).maybeSingle(),
+   db.from("merchants").select("id,metadata").eq("id",offer.merchant_id).maybeSingle(),
+   db.from("deal_scores").select("score,confidence,calculated_at").eq("offer_id",offer.id).maybeSingle(),
+   db.from("published_deals").select("status,product_id,current_price").eq("offer_id",offer.id).maybeSingle()
+  ]);
+  if(sourceError||merchantError||scoreError||publishedError||!source||source.connector_key!=="awin"||!merchant)
+   return respond({error:"Awin release evidence unavailable"},409);
+  const advertiserId=obj(merchant.metadata).external_id;
+  if(typeof advertiserId!=="string"||!/^\d{2,12}$/.test(advertiserId))
+   return respond({error:"Awin merchant identity unavailable"},409);
+
+  if(action==="pause"){
+   // A pause may always withdraw an existing offer even after price/rights expiry.
+   const {error}=await db.rpc("record_awin_owner_release",{
+    p_offer_id:offer.id,p_source_id:source.id,p_advertiser_id:advertiserId,
+    p_status:"paused",p_actor_id:user.id,p_review_note:"Owner manual withdrawal",
+    p_reviewed_price:offer.price,p_reviewed_offer_at:offer.last_seen_at,
+    p_reviewed_score_at:score?.calculated_at??offer.last_seen_at
+   });
+   return error?respond({error:"Withdrawal could not be confirmed"},409):
+    respond({status:"held",offer_id:offer.id});
+  }
+
+  const now=Date.now(),meta=obj(source.metadata);
+  const [{data:programme,error:programmeError},{data:controls,error:controlError},
+         {data:product,error:productError}]=await Promise.all([
+   db.from("affiliate_programs").select("metadata,region").eq("provider","awin")
+    .eq("external_account_id",advertiserId).eq("region","GB").maybeSingle(),
+   db.from("system_controls").select("control_key,enabled")
+    .in("control_key",["source_ingestion","deal_publishing","global_emergency_stop"]),
+   db.from("products").select("id,status").eq("id",offer.product_id).maybeSingle()
+  ]);
+  const accepted=!programmeError&&programme&&
+   obj(obj(programme.metadata).owner_joined_accepted_attestation).membership_status==="accepted";
+  const controlsOk=!controlError&&evaluateSourceControls(controls).ingestion&&
+   evaluateSourceControls(controls).publishing;
+  const credentials=Boolean(process.env.AWIN_PUBLISHER_ID&&process.env.AWIN_ACCESS_TOKEN);
+  const rightsOk=sourceEvidenceFailures(source,{advertiserId,connectorConfigured:credentials}).length===0;
+  const match=Number(offer.match_confidence);
+  const matching=Number.isFinite(match)&&(match>1?match>=85:match>=0.85);
+  const offerOk=offer.status==="active"&&offer.currency==="GBP"&&
+   Number(offer.price)>0&&fresh(offer.last_seen_at,now)&&
+   ["in_stock","low_stock"].includes(offer.stock_status)&&
+   ownAffiliateLink(offer.affiliate_url,advertiserId)&&matching;
+  const scoreOk=score&&Number(score.score)>=60&&Number(score.confidence)>=55&&
+   fresh(score.calculated_at,now);
+  const finalOk=published?.status==="held"&&published.product_id===offer.product_id&&
+   Number(published.current_price)===Number(offer.price)&&product?.status==="active";
+  if(!accepted||!controlsOk||!rightsOk||
+   meta.publication_permission!=="verified"||meta.price_evidence_status!=="verified"||
+   !offerOk||!scoreOk||!finalOk)
+   return respond({error:"First-release gate incomplete: source, current price, stock, score, tracking or owner release candidate"},409);
+
+  // Existing atomic SQL function rechecks price, source, score and held row
+  // at write time and records owner ID plus audit. No direct REST publication.
+  const {error}=await db.rpc("record_awin_owner_release",{
+   p_offer_id:offer.id,p_source_id:source.id,p_advertiser_id:advertiserId,
+   p_status:"approved",p_actor_id:user.id,p_review_note:"Owner first live product release",
+   p_reviewed_price:offer.price,p_reviewed_offer_at:offer.last_seen_at,
+   p_reviewed_score_at:score.calculated_at
+  });
+  return error?respond({error:"First release failed atomic evidence recheck"},409):
+   respond({status:"approved",offer_id:offer.id,price_gbp:Number(offer.price)});
+ }catch{return respond({error:"First-release control unavailable"},503);}
+}
