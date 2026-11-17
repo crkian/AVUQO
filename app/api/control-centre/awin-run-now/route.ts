@@ -86,7 +86,7 @@ export async function POST(request:NextRequest){
   if(raw.length>256)return result({error:"Request too long"},413);
   const body=JSON.parse(raw) as Record<string,unknown>;
   if(!body||typeof body!=="object"||Array.isArray(body)||
-   Object.keys(body).some(key=>!["task","confirm"].includes(key))||
+   Object.keys(body).some(key=>!["task","confirm","step"].includes(key))||
    typeof body.task!=="string")return result({error:"Invalid task"},400);
   const task=body.task;
   const parts=task.split("_");
@@ -98,6 +98,11 @@ export async function POST(request:NextRequest){
   const isBridge=task==="canonical_bridge";
   const isInventory=task==="all_feeds_check";
   const isPortfolio=task==="portfolio_stage_next";
+  const step=body.step;
+  if(isPortfolio){
+   if(!Number.isSafeInteger(step)||typeof step!=="number"||step<0||step>8)
+    return result({error:"Invalid bounded rotation step"},400);
+  }else if(step!==undefined)return result({error:"Unexpected rotation step"},400);
   if(!isPilot&&!isTooledUp&&!isBridge&&!isInventory&&!isPortfolio)return result({error:"Task not approved"},403);
   if(action==="preflight"||isInventory){
    if(body.confirm!==undefined)return result({error:"Unexpected confirmation"},400);
@@ -112,6 +117,7 @@ export async function POST(request:NextRequest){
   }
   if(isPortfolio){
    const url=new URL("/api/internal/awin-portfolio-private-rotation",request.url);
+   url.searchParams.set("offset",String(step));
    return sanitized(runPortfolioRotation(new NextRequest(url,{method:"GET",headers:auth})));
   }
   if(isBridge){
