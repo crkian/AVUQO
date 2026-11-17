@@ -587,21 +587,30 @@ async function processOffer(
 
 export async function runDealIntelligencePipeline(
   supabase: SupabaseClient,
-  options: { sourceKey: PipelineConnectorKey; limit?: number }
+  options: { sourceKey: PipelineConnectorKey; limit?: number;
+    awinAdvertiserId?:string; awinVerifiedRows?:RawSourceOffer[] }
 ): Promise<PipelineRunSummary> {
   const connector = getConnector(options.sourceKey);
+  const freshPrivate=options.awinVerifiedRows!==undefined;
+  if(freshPrivate&&(options.sourceKey!=="awin"||
+     !/^\\d{2,12}$/.test(options.awinAdvertiserId??"")||
+     !Array.isArray(options.awinVerifiedRows)))
+   throw new Error("Private Awin source binding unavailable");
   const limit = Math.max(1, Math.min(options.limit ?? 25, options.sourceKey === "awin" ? 250 : 50));
+  const configured=freshPrivate
+    ?Boolean(process.env.AWIN_PUBLISHER_ID&&process.env.AWIN_DATAFEED_API_KEY)
+    :connector.configured();
   const source = await ensureSource(supabase, options.sourceKey);
   const controls = await getControls(supabase);
 
   if (controls.emergencyStop) throw new Error("Global emergency stop is enabled.");
   if (!controls.sourceIngestion) throw new Error("Source ingestion is disabled in AVUQO system controls.");
-  if (!connector.configured()) throw new Error(`${connector.displayName} is not configured.`);
+  if (!configured) throw new Error(`${connector.displayName} is not configured.`);
   // Registry activation is not permission to import data. Awin must have
   // current, advertiser-matching evidence before the first external request.
   const rightsContext = {
-    advertiserId: options.sourceKey === "awin" ? process.env.AWIN_ADVERTISER_ID : undefined,
-    connectorConfigured: connector.configured(),
+    advertiserId: options.sourceKey === "awin" ? (options.awinAdvertiserId??process.env.AWIN_ADVERTISER_ID) : undefined,
+    connectorConfigured: configured,
   };
   if (options.sourceKey !== "demo") {
     const failures = sourceIngestionFailures(source, rightsContext);
@@ -635,7 +644,7 @@ export async function runDealIntelligencePipeline(
 
   try {
     await event(supabase, run.id, "run_started", `${connector.displayName} pipeline run started.`, { limit });
-    const rows = await connector.fetchOffers({ limit });
+    const rows = freshPrivate ? options.awinVerifiedRows!.slice(0,limit) : await connector.fetchOffers({ limit });
     summary.seen = rows.length;
 
     for (const raw of rows) {
@@ -643,7 +652,7 @@ export async function runDealIntelligencePipeline(
       // The Awin adapter reads only the configured advertiser feed, but this
       // second check protects against mixed or incorrectly labelled records.
       if (options.sourceKey === "awin" &&
-          raw.merchantExternalId !== process.env.AWIN_ADVERTISER_ID) {
+          raw.merchantExternalId !== rightsContext.advertiserId) {
         summary.rejected += 1;
         await writeIngestionItem(supabase,run.id,source.id,raw,null,"rejected",
           "Feed merchant ID does not match authorised Awin advertiser");
@@ -714,7 +723,7 @@ export async function runDealIntelligencePipeline(
         last_sync_at: now(),
         last_successful_sync_at: now(),
         health_status: summary.rejected ? "degraded" : "healthy",
-        credential_status: connector.configured() ? "ready" : source.credential_status,
+        credential_status: configured ? "ready" : source.credential_status,
         updated_at: now(),
       })
       .eq("id", source.id);
