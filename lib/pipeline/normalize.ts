@@ -13,6 +13,7 @@ export function slugify(input: string) {
 
 function categorySlug(input?: string | null) {
   const value = (input ?? "").toLowerCase();
+  if (["tools","garden","motoring","home","fashion"].includes(value)) return value;
   if (/travel|holiday|hotel|flight|airport|cruise/.test(value)) return "travel";
   if (/beauty|skincare|makeup|cosmetic|fragrance/.test(value)) return "beauty";
   if (/tool|hardware|diy|power tool|hand tool|drill|saw|workshop|industrial|welding/.test(value)) return "tools";
