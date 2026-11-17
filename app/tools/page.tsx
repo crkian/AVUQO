@@ -19,6 +19,18 @@ type Product={sku:string;title:string;price:number|string;category_name:string|n
  image_url:string;affiliate_url:string;images:unknown;feed_observed_at:string};
 const safeImage=(value:string)=>typeof value==="string"&&
  /^https:\/\/(www[.]tooled-up[.]com|images2[.]productserve[.]com)\//.test(value)&&value.length<=2048;
+function productGallery(raw:unknown,primary:string):string[]{
+ const items=Array.isArray(raw)?raw:[],images:string[]=[];
+ const seen=new Set<string>([primary]);
+ for(const value of items.slice(0,40)){
+  const url=value&&typeof value==="object"&&!Array.isArray(value)?
+   (value as {url?:unknown}).url:null;
+  if(typeof url!=="string"||!safeImage(url)||seen.has(url))continue;
+  seen.add(url);images.push(url);
+  if(images.length>=24)break;
+ }
+ return images;
+}
 const safeLink=(value:string)=>typeof value==="string"&&value.length<=2400&&
  /^https:\/\/www[.]awin1[.]com\/pclick[.]php[?]/.test(value)&&
  /[?&]m=496(&|$)/.test(value)&&/[?&]a=3135746(&|$)/.test(value)&&
@@ -69,6 +81,18 @@ export default async function ToolsPage(){
        <span className={styles.category}>{product.category_name??"Tools & DIY"} · Tooled Up</span>
        <h2>{product.title}</h2>
        <p className={styles.sku}>Supplier SKU {product.sku}</p>
+       {productGallery(product.images,product.image_url).length>0&&
+        <details className={styles.gallery}>
+         <summary>See all supplier photos</summary>
+         <div className={styles.galleryPhotos}>
+          {productGallery(product.images,product.image_url).map((url,i)=>
+           <a key={url} href={url} target="_blank" rel="noopener noreferrer"
+              aria-label={`View alternate photo ${i+1} for ${product.title}`}>
+            <img src={url} alt={`Alternate supplier view ${i+1} of ${product.title}`}
+               loading="lazy" referrerPolicy="no-referrer"/>
+           </a>)}
+         </div>
+        </details>}
        <strong className={styles.price}>{money(Number(product.price))}</strong>
        <p className={styles.delivery}>Product price · delivery calculated by retailer</p>
        <a className={styles.visit} href={product.affiliate_url} target="_blank"
