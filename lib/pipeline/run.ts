@@ -203,7 +203,7 @@ async function ensureProduct(
   // Existing Tooled Up imports incorrectly associated distinct EANs with
   // same-title products. Do not propagate those historical cross-SKU matches.
   // Preserve identifiers in ingestion evidence for later verified GTIN cleanup.
-  const skuScopedTools=offer.merchantExternalId==="496"&&offer.category==="tools";
+  const skuScopedTools=offer.merchantExternalId==="496";
   let productId = skuScopedTools?null:await findProductByIdentifier(supabase, offer);
   let matchMethod = "identifier";
   let matchConfidence = 99;
