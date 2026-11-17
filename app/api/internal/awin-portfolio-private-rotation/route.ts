@@ -89,15 +89,17 @@ export async function GET(request:NextRequest){
  const safeColumnNames=Array.isArray(body.column_names)?
   body.column_names.filter((v:unknown):v is string=>typeof v==="string"&&
    /^[A-Za-z][A-Za-z0-9_ -]{0,63}$/.test(v)).slice(0,60):[];
- const safeError=typeof body.error==="string"&&[
-  "Feed preflight failed; nothing imported",
-  "Feed format not supported by pilot",
-  "Awin product download failed",
-  "Selected active feed missing or ambiguous",
-  "Exact live feed recheck could not be recorded",
-  "Awin feed credentials not configured",
-  "Advertiser not in canonical accepted membership registry"
- ].includes(body.error)?body.error:"Import validation or provider request failed";
+ const knownErrorCodes:Record<string,string>={
+  "Feed preflight failed; nothing imported":"feed_preflight_failed",
+  "Feed format not supported by pilot":"feed_format_unsupported",
+  "Awin product download failed":"awin_product_download_failed",
+  "Selected active feed missing or ambiguous":"feed_inventory_binding_missing",
+  "Exact live feed recheck could not be recorded":"exact_live_recheck_failed",
+  "Awin feed credentials not configured":"awin_feed_credentials_unavailable",
+  "Advertiser not in canonical accepted membership registry":"accepted_membership_missing"
+ };
+ const safeError=typeof body.error==="string"?
+  knownErrorCodes[body.error]??"import_validation_or_provider_failure":"unknown";
  return reply({status:result.ok?"private_rotation_checked":"private_rotation_failed",
   advertiser_id:selected.advertiser,feed_id:selected.feed,
   eligible:available.length,upstream_http_status:result.status,
