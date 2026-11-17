@@ -5,6 +5,7 @@
  */
 export type AwinRenewalInput={
  sourceId:string;offerId:string;productId:string;advertiserId:string;
+ merchantId:string;priorMerchantId:string;priorAffiliateUrl:string|null;
  price:number;currency:string;stockStatus:string;
  affiliateUrl:string|null;matchConfidence:number;
  score:number;scoreConfidence:number;
@@ -29,7 +30,8 @@ export function canRenewApprovedAwinOffer(x:AwinRenewalInput):boolean{
  const p=x.priorPublished,r=x.approval;
  if(!x.publishingEnabled||!x.rightsVerified||!p||!r||r.status!=="approved"||
     p.status!=="published"||p.product_id!==x.productId||r.source_id!==x.sourceId||
-    r.advertiser_id!==x.advertiserId||!/^\d{2,12}$/.test(x.advertiserId))return false;
+    r.advertiser_id!==x.advertiserId||x.merchantId!==x.priorMerchantId||
+    x.affiliateUrl!==x.priorAffiliateUrl||!/^\d{2,12}$/.test(x.advertiserId))return false;
  if(x.currency!=="GBP"||!Number.isFinite(x.price)||x.price<=0||
     Number(p.current_price)!==x.price||Number(r.reviewed_price)!==x.price)return false;
  if(!["in_stock","low_stock"].includes(x.stockStatus)||
