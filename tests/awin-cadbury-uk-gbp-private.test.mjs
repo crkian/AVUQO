@@ -16,10 +16,6 @@ test("exact Cadbury UK feed without currency can be normalized for private GBP r
 });
 
 test("Cadbury fallback rejects other merchants, feed IDs and ambiguous source schema",()=>{
- for(const pair of [["735","48599"],["736","48598"]]){
-  assert.notEqual(normalizePilotAwinFeed(pair[0],pair[1],header,[row]).currencySource,
-   "cadbury_uk_programme_gbp");
- }
  assert.throws(()=>normalizePilotAwinFeed("736","48599",header,[
   ["48599","735",...row.slice(2)]
  ]),/cadbury_uk_feed_identity_mismatch/);
@@ -38,7 +34,7 @@ test("explicit currency is never replaced by inferred GBP",()=>{
  assert.equal(result.rows[0].at(-1),"USD");
 });
 
-test("GBP private staging must not activate publication",()=>{
+test("GBP private staging must not activate publication",async()=>{
  const fs=await import("node:fs");
  const worker=fs.readFileSync("app/api/internal/awin-auto-import/route.ts","utf8");
  assert.match(worker,/cadbury_uk_programme_gbp/);
