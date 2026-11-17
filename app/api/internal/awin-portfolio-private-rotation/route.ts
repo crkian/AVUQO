@@ -1,6 +1,7 @@
 import {NextRequest,NextResponse} from "next/server";
 import {createAdminClient} from "../../../../lib/supabase/admin";
 import {sourceIngestionFailures,evaluateSourceControls} from "../../../../lib/pipeline/source-readiness";
+import {autoReleaseEligibleAwinOffers} from "../../../../lib/awin/auto-first-publication";
 import {POST as runPrivateImport} from "../awin-auto-import/route";
 
 export const maxDuration=300;
@@ -117,6 +118,13 @@ export async function GET(request:NextRequest){
  };
  const safeError=typeof body.error==="string"?
   knownErrorCodes[body.error]??"import_validation_or_provider_failure":"unknown";
+ // A successful, exact authenticated live feed refresh can create HELD
+ // canonical offers. A separate bounded release worker independently checks
+ // exact SKU/source/photo/price/stock and invokes the atomic release RPC.
+ // A failed feed or paused source must never initiate first publication.
+ const publication=result.ok&&activeMode&&safeStatus(canonical.status)==="canonical_held"
+  ?await autoReleaseEligibleAwinOffers(db,5)
+  :{status:"not_attempted",checked:0,approved:0,skipped:0,failed:0};
  return reply({status:result.ok?"private_rotation_checked":"private_rotation_failed",
   advertiser_id:selected.advertiser,feed_id:selected.feed,
   eligible:available.length,upstream_http_status:result.status,
@@ -128,5 +136,6 @@ export async function GET(request:NextRequest){
   live_verified_rows:safeCount(body.live_verified_rows),
   canonical_status:safeStatus(canonical.status),
   canonical_accepted:safeCount(canonical.canonicalAccepted),
-  private_only:true,no_publication:true,source_mode:activeMode?"active":"paused"},result.status);
+  private_only:true,automatic_publication:publication,
+  no_publication:publication.approved===0,source_mode:activeMode?"active":"paused"},result.status);
 }
