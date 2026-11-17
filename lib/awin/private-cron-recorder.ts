@@ -4,7 +4,7 @@ import {safePrivateCronOutcome} from "./private-cron-outcome";
 
 export type PrivateCronJob=
  "pilot_petlibro"|"pilot_mozillion"|"pilot_cadbury"|"pilot_craftbuddy"|
- "tooled_up_snapshot"|"tooled_up_validation";
+ "tooled_up_snapshot"|"tooled_up_validation"|"tooled_up_cohort";
 
 const problem=(message:string)=>NextResponse.json({error:message,private_only:true},{
  status:503,headers:{"Cache-Control":"private, no-store"}
