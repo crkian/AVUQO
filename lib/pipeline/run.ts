@@ -200,7 +200,11 @@ async function ensureProduct(
   categoryId: string,
   privateOnly=false
 ) {
-  let productId = await findProductByIdentifier(supabase, offer);
+  // Existing Tooled Up imports incorrectly associated distinct EANs with
+  // same-title products. Do not propagate those historical cross-SKU matches.
+  // Preserve identifiers in ingestion evidence for later verified GTIN cleanup.
+  const skuScopedTools=offer.merchantExternalId==="496";
+  let productId = skuScopedTools?null:await findProductByIdentifier(supabase, offer);
   let matchMethod = "identifier";
   let matchConfidence = 99;
   let created = false;
@@ -232,7 +236,8 @@ async function ensureProduct(
         primary_image_url: privateOnly?null:(offer.imageUrl ?? null),
         status: privateOnly?"draft":"active",
         product_type: "product",
-        metadata: { auto_created: true, created_by: "deal-intelligence-pipeline" },
+        metadata: { auto_created: true, created_by: "deal-intelligence-pipeline",
+          ...(skuScopedTools?{merchant_sku_scoped_identity:true,merchant_advertiser_id:"496"}:{}) },
       })
       .select("id")
       .single();
@@ -243,7 +248,7 @@ async function ensureProduct(
     created = true;
   }
 
-  for (const identifier of offer.identifiers) {
+  for (const identifier of skuScopedTools?[]:offer.identifiers) {
     await supabase.from("product_identifiers").upsert(
       {
         product_id: productId,
