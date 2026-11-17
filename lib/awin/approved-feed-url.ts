@@ -26,7 +26,7 @@ export function approvedAwinDownloadUrl(value:string,key:string,feedId:string,pu
      parts[1]!=="productdata-darwin-download"||parts[2]!=="publisher"||
      parts[3]!==publisher||parts[4]!==key||parts[5]!=="1"||
      parts[6]!=="feed"||parts[7]!==feedId+".csv.gz")
-    throw Error("feed_binding_mismatch");
+    throw Error("unsafe_feed_url");
  }
  return value;
 }
