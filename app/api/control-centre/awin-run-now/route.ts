@@ -7,6 +7,7 @@ import {POST as validateMaster} from "../../internal/awin-snapshot-validate/rout
 import {GET as bridgeFreshOffers} from "../../internal/awin-fresh-private-canonical-bridge/route";
 import {GET as discoverFeeds} from "../../internal/awin-feed-check/route";
 import {GET as runPortfolioRotation} from "../../internal/awin-portfolio-private-rotation/route";
+import {GET as probeFeedSchema} from "../../internal/awin-feed-schema-probe/route";
 import {AWIN_PRIVATE_SNAPSHOT_BUCKET} from "../../../../lib/awin/private-snapshot";
 import {newestRecentTooledUpSnapshot} from "../../../../lib/awin/tooled-up-recent-snapshot";
 
@@ -28,6 +29,8 @@ const OUTPUT_KEYS=["status","error","reason","failure_kind","diagnostic_stage","
  "eligible","importer_status","importer_error","upstream_http_status",
  "canonical_accepted","canonical_rejected",
  "critical_issues","compressed_bytes","actual_rows","duplicate_product_ids",
+ "schema_status","schema_reason","schema_delimiter",
+ "recognition_kind","next_action","accepted_feed_count",
  "invalid_price_rows","unverified_affiliate_links","private_only","no_publication"] as const;
 
 async function sanitized(response:Promise<Response>){
@@ -52,6 +55,10 @@ async function sanitized(response:Promise<Response>){
  // Importer preflight already redacts malformed header names. Expose only
  // safe column identifiers for owner-only schema debugging (Cadbury/Google),
  // never row contents, URLs, tokens, or source response bodies.
+ if(Array.isArray(src.schema_fields)){
+  safe.schema_fields=src.schema_fields.filter((x:unknown):x is string=>
+   typeof x==="string"&&["identity","title","price","link","currency","availability"].includes(x));
+ }
  if(Array.isArray(src.column_names)){
   safe.column_names=src.column_names.filter((x:unknown):x is string=>
    typeof x==="string"&&/^[A-Za-z][A-Za-z0-9_ -]{0,63}$/.test(x)).slice(0,120);
@@ -98,13 +105,14 @@ export async function POST(request:NextRequest){
   const isBridge=task==="canonical_bridge";
   const isInventory=task==="all_feeds_check";
   const isPortfolio=task==="portfolio_stage_next";
+  const isSchemaProbe=task==="portfolio_schema_probe_next";
   const step=body.step;
-  if(isPortfolio){
-   if(!Number.isSafeInteger(step)||typeof step!=="number"||step<0||step>8)
+  if(isPortfolio||isSchemaProbe){
+   if(!Number.isSafeInteger(step)||typeof step!=="number"||step<0||step>(isSchemaProbe?199:8))
     return result({error:"Invalid bounded rotation step"},400);
   }else if(step!==undefined)return result({error:"Unexpected rotation step"},400);
-  if(!isPilot&&!isTooledUp&&!isBridge&&!isInventory&&!isPortfolio)return result({error:"Task not approved"},403);
-  if(action==="preflight"||isInventory){
+  if(!isPilot&&!isTooledUp&&!isBridge&&!isInventory&&!isPortfolio&&!isSchemaProbe)return result({error:"Task not approved"},403);
+  if(action==="preflight"||isInventory||isSchemaProbe){
    if(body.confirm!==undefined)return result({error:"Unexpected confirmation"},400);
   }else if(body.confirm!=="private-only-"+task)
    return result({error:"Explicit private confirmation required"},400);
@@ -114,6 +122,11 @@ export async function POST(request:NextRequest){
   if(isInventory){
    const url=new URL("/api/internal/awin-feed-check",request.url);
    return sanitized(discoverFeeds(new NextRequest(url,{method:"GET",headers:auth})));
+  }
+  if(isSchemaProbe){
+   const url=new URL("/api/internal/awin-feed-schema-probe",request.url);
+   url.searchParams.set("offset",String(step));
+   return sanitized(probeFeedSchema(new NextRequest(url,{method:"GET",headers:auth})));
   }
   if(isPortfolio){
    const url=new URL("/api/internal/awin-portfolio-private-rotation",request.url);

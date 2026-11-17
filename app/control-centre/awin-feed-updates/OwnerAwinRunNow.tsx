@@ -11,6 +11,7 @@ const tasks=[
 export default function OwnerAwinRunNow(){
  const [busy,setBusy]=useState<string|null>(null);
  const [rotationStep,setRotationStep]=useState(0);
+ const [probeStep,setProbeStep]=useState(0);
  const [results,setResults]=useState<Record<string,string>>({});
  async function run(task:string){
   setBusy(task);
@@ -18,7 +19,8 @@ export default function OwnerAwinRunNow(){
   try{
    const body:Record<string,string|number>={task};
    if(task==="portfolio_stage_next")body.step=rotationStep;
-   if(!task.endsWith("_preflight")&&task!=="all_feeds_check")body.confirm="private-only-"+task;
+   if(task==="portfolio_schema_probe_next")body.step=probeStep;
+   if(!task.endsWith("_preflight")&&task!=="all_feeds_check"&&task!=="portfolio_schema_probe_next")body.confirm="private-only-"+task;
    const r=await fetch("/api/control-centre/awin-run-now",{
     method:"POST",credentials:"same-origin",cache:"no-store",
     headers:{"content-type":"application/json"},body:JSON.stringify(body)
@@ -30,8 +32,13 @@ export default function OwnerAwinRunNow(){
     typeof o.records==="number"?o.records:
     typeof o.rows==="number"?o.rows:
     typeof o.actual_rows==="number"?o.actual_rows:null;
-   const diagnostic=[o.importer_error,o.reason,o.failure_kind,o.diagnostic_stage].filter(v=>
+   const diagnostic=[o.importer_error,o.reason,o.failure_kind,o.diagnostic_stage,o.schema_reason,o.schema_delimiter,o.recognition_kind].filter(v=>
     typeof v==="string"&&/^[a-z0-9_]{2,80}$/.test(v)).join(" · ");
+   const schema=typeof o.schema_status==="string"&&/^[a-z_]{3,40}$/.test(o.schema_status)
+    ?" · schema "+o.schema_status:"";
+   const schemaFields=Array.isArray(o.schema_fields)?o.schema_fields.filter(
+    (x):x is string=>typeof x==="string"&&/^[a-z_]{2,40}$/.test(x))
+    .slice(0,6).join(", "):"";
    const safeHeaders=Array.isArray(o.column_names)?o.column_names.filter(
     (v):v is string=>typeof v==="string"&&/^[A-Za-z][A-Za-z0-9_ -]{0,63}$/.test(v))
     .slice(0,50).join(", "):"";
@@ -40,6 +47,7 @@ export default function OwnerAwinRunNow(){
    const importer=typeof o.importer_status==="string"?" · importer "+o.importer_status:"";
    const eligible=typeof o.eligible==="number"?" · supported live feeds "+o.eligible:"";
    const inventory=typeof o.joined_feeds==="number"?" · joined feed entries "+o.joined_feeds.toLocaleString("en-GB"):"";
+   const acceptedFeeds=typeof o.accepted_feed_count==="number"?" · accepted feed entries "+o.accepted_feed_count:"";
    const changed=typeof o.changed_feeds==="number"?" · changed "+o.changed_feeds.toLocaleString("en-GB"):"";
    const parsed=typeof o.parsed_rows==="number"&&Number.isSafeInteger(o.parsed_rows)
     ?" · parsed "+o.parsed_rows.toLocaleString("en-GB"):"";
@@ -52,13 +60,14 @@ export default function OwnerAwinRunNow(){
    const rejected=typeof o.canonical_rejected==="number"&&Number.isSafeInteger(o.canonical_rejected)
     ?" · rejected "+o.canonical_rejected.toLocaleString("en-GB"):"";
    setResults(v=>({...v,[task]:(r.ok?"OK":"HTTP "+r.status)+": "+status+
-    (diagnostic?" · "+diagnostic:"")+selected+importer+eligible+inventory+changed+parsed+
+    (diagnostic?" · "+diagnostic:"")+selected+importer+eligible+inventory+acceptedFeeds+changed+parsed+
     (rows===null?"":" · "+rows.toLocaleString("en-GB")+" rows")+
-    fresh+canonical+staged+rejected+(safeHeaders?" · columns "+safeHeaders:"")}));
+    fresh+canonical+staged+rejected+schema+(schemaFields?" · recognised "+schemaFields:"")+(safeHeaders?" · columns "+safeHeaders:"")}));
   }catch{
    setResults(v=>({...v,[task]:"Private task unavailable. Check server logs."}));
   }finally{
    if(task==="portfolio_stage_next")setRotationStep(v=>(v+1)%9);
+   if(task==="portfolio_schema_probe_next")setProbeStep(v=>(v+1)%200);
    setBusy(null);
   }
  }
@@ -75,6 +84,14 @@ export default function OwnerAwinRunNow(){
     {busy==="all_feeds_check"?"Checking all feed entries...":"Check all accepted feeds now"}
    </button>
    {results.all_feeds_check&&<output role="status" style={{fontSize:12,overflowWrap:"anywhere"}}>{results.all_feeds_check}</output>}
+  </div>
+  <div style={{padding:14,border:"1px solid #d7c8ea",borderRadius:12,background:"#f7f5ff",display:"grid",gap:8}}>
+   <strong>Universal schema inspection: all accepted feeds</strong>
+   <p style={{margin:0,fontSize:13}}>Inspect one server-selected accepted feed per click, including unfamiliar formats. This is read-only: no product staging, public prices, permissions changes or signed URL exposure. Large and specialist feeds remain on their dedicated routes. Oversized files will be identified for a streamed adapter.</p>
+   <button disabled={busy!==null} onClick={()=>run("portfolio_schema_probe_next")} style={{padding:10,borderRadius:8,color:"#30205a",background:"#eee7ff",border:"1px solid #7965aa",maxWidth:350}}>
+    {busy==="portfolio_schema_probe_next"?"Inspecting accepted feed...":"Inspect next accepted feed"}
+   </button>
+   {results.portfolio_schema_probe_next&&<output role="status" style={{fontSize:12,overflowWrap:"anywhere"}}>{results.portfolio_schema_probe_next}</output>}
   </div>
   <div style={{padding:14,border:"1px solid #d7c8ea",borderRadius:12,background:"#fff",display:"grid",gap:8}}>
    <strong>Accepted retail feed rotation: retry the next supplier</strong>
