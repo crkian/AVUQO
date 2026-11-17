@@ -6,6 +6,7 @@ import {sourceIngestionFailures,evaluateSourceControls} from "../../../../lib/pi
 import {approvedAwinDownloadUrl} from "../../../../lib/awin/approved-feed-url";
 import {csvRowsFromChunks} from "../../../../lib/feed-imports/stream-csv";
 import {verifiedTyresUkRow} from "../../../../lib/awin/tyres-uk-current-row.mjs";
+import {recordPrivateCronAttempt} from "../../../../lib/awin/private-cron-recorder";
 
 export const maxDuration=300;
 const ADVERTISER="12715",FEED="93988",MAX_BYTES=36*1024*1024,
@@ -79,6 +80,9 @@ export async function GET(request:NextRequest){
  if(!secret||secret.length<16||request.headers.get("authorization")!==`Bearer ${secret}`)
   return answer({error:"Unauthorized"},401);
  if(new URL(request.url).search)return answer({error:"Query overrides unsupported"},400);
+ return recordPrivateCronAttempt("tyres_uk_recheck",()=>recheck());
+}
+async function recheck(){
  if(process.env.AWIN_AUTO_IMPORT_ENABLED!=="true")return answer({status:"disabled",private_only:true});
  const started=Date.now(),db=createAdminClient();
  try{
