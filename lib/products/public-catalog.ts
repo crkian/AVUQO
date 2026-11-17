@@ -1,6 +1,7 @@
 import "server-only";
 import {createAdminClient} from "../supabase/admin";
 import {sourceEvidenceFailures, evaluateSourceControls} from "../pipeline/source-readiness";
+import {ownAffiliateLink} from "../awin/approved-offer-renewal";
 
 /** Public offer admission. Deny by default: imported, demo and stale rows are not commercial evidence. */
 export type PublicOffer={
@@ -13,7 +14,7 @@ export type PublicProduct={
 };
 function metadata(raw:unknown):Record<string,unknown>{return raw&&typeof raw==="object"&&!Array.isArray(raw)?raw as Record<string,unknown>:{};}
 function isHttps(value:string|null){if(!value)return false;try{const u=new URL(value);return u.protocol==="https:"&&!u.username&&!u.password&&u.hostname.length>3;}catch{return false;}}
-function sourceReady(source:Record<string,unknown>|undefined):boolean{
+function sourceReady(source:Record<string,unknown>|undefined,advertiserId?:string):boolean{
  if(!source || source.status!=="active" || source.sync_enabled!==true ||
    !source.connector_key || source.connector_key==="demo" || source.source_type==="internal_test") return false;
  const rights=metadata(source.metadata);
@@ -25,9 +26,9 @@ function sourceReady(source:Record<string,unknown>|undefined):boolean{
    source_type:typeof source.source_type==="string"?source.source_type:null,
    metadata:source.metadata,
  },{
-   advertiserId:source.connector_key==="awin"?process.env.AWIN_ADVERTISER_ID:undefined,
+   advertiserId:source.connector_key==="awin"?advertiserId:undefined,
    connectorConfigured:source.connector_key==="awin"
-     ?Boolean(process.env.AWIN_PUBLISHER_ID&&process.env.AWIN_ADVERTISER_ID&&process.env.AWIN_ACCESS_TOKEN)
+     ?Boolean(process.env.AWIN_PUBLISHER_ID&&process.env.AWIN_ACCESS_TOKEN)
      :false,
  }).length===0;
 }
@@ -45,7 +46,7 @@ function offerFresh(row:Record<string,unknown>,now:number,isAwin=false):boolean{
  return true;
 }
 const SELECT_DEAL="offer_id,product_id,title,category,merchant,current_price,typical_price,saving_amount,avuqo_score,confidence,label,decision,image_url,stock_status,reason,updated_at";
-const SELECT_OFFER="id,product_id,source_id,price,total_price,currency,status,source_url,affiliate_url,last_seen_at,valid_until,stock_status,match_confidence";
+const SELECT_OFFER="id,product_id,source_id,merchant_id,price,total_price,currency,status,source_url,affiliate_url,last_seen_at,valid_until,stock_status,match_confidence";
 export async function verifiedOffers(options:{productId?:string;offerId?:string;limit?:number}={}):Promise<PublicOffer[]>{
  try{
   const db=createAdminClient();
@@ -67,6 +68,30 @@ export async function verifiedOffers(options:{productId?:string;offerId?:string;
   if(!sourceIds.length)return [];
   const {data:sources,error:sourceError}=await db.from("sources").select("id,name,status,sync_enabled,credential_status,connector_key,source_type,metadata").in("id",sourceIds);
   if(sourceError||!sources?.length)return [];
+  // Resolve each Awin offer to its own canonical merchant/advertiser identity.
+  // A single AWIN_ADVERTISER_ID environment variable must not govern every
+  // joined merchant's customer-facing offer.
+  const awinSourceIdSet=new Set(sources.filter(s=>s.connector_key==="awin").map(s=>s.id));
+  const awinOffers=offers.filter(o=>awinSourceIdSet.has(o.source_id));
+  const merchantIds=[...new Set(awinOffers.map(o=>o.merchant_id).filter(Boolean))];
+  const [{data:merchantRows,error:merchantError},{data:programmeRows,error:programmeError}]=await Promise.all([
+   merchantIds.length
+    ?db.from("merchants").select("id,metadata").in("id",merchantIds)
+    :Promise.resolve({data:[],error:null}),
+   awinOffers.length
+    ?db.from("affiliate_programs").select("external_account_id,region,metadata")
+      .eq("provider","awin")
+    :Promise.resolve({data:[],error:null})
+  ]);
+  if(merchantError||programmeError)return [];
+  const merchantAdvertisers=new Map((merchantRows??[]).map(m=>{
+   const id=metadata(m.metadata).external_id;
+   return [m.id,typeof id==="string"&&/^\\d{2,12}$/.test(id)?id:null] as const;
+  }));
+  const acceptedAdvertisers=new Set((programmeRows??[]).filter(p=>
+   p.region==="GB"&&metadata(metadata(p.metadata).owner_joined_accepted_attestation).membership_status==="accepted"&&
+   typeof p.external_account_id==="string"&&/^\\d{2,12}$/.test(p.external_account_id)
+  ).map(p=>p.external_account_id as string));
   // Awin requires a separate, owner-only per-offer release record in addition
   // to a published row. Admins cannot forge this through REST.
   const awinSourceIds=new Set(sources.filter(s=>s.connector_key==="awin").map(s=>s.id));
@@ -93,11 +118,15 @@ export async function verifiedOffers(options:{productId?:string;offerId?:string;
   const now=Date.now();
   return published.flatMap(d=>{
    const offer=offerMap.get(d.offer_id);if(!offer)return [];
-   const source=sourceMap.get(offer.source_id);if(!source||!sourceReady(source as Record<string,unknown>)||!offerFresh(offer as Record<string,unknown>,now,source.connector_key==="awin"))return [];
+   const source=sourceMap.get(offer.source_id);if(!source)return [];
+   const advertiserId=source.connector_key==="awin"?merchantAdvertisers.get(offer.merchant_id):undefined;
+   if(source.connector_key==="awin"&&(!advertiserId||!acceptedAdvertisers.has(advertiserId)))return [];
+   if(!sourceReady(source as Record<string,unknown>,advertiserId??undefined)||
+      !offerFresh(offer as Record<string,unknown>,now,source.connector_key==="awin"))return [];
    if(source.connector_key==="awin"){
     const approval=releaseMap.get(offer.id),score=scoreMap.get(offer.id);
     if(!approval||approval.status!=="approved"||approval.source_id!==source.id||
-      approval.advertiser_id!==process.env.AWIN_ADVERTISER_ID||
+      approval.advertiser_id!==advertiserId||
       !score||score.score<60||score.confidence<55||
       // Exact-price, already-approved offers can renew with a newer source
       // observation and score. Price changes or revoked reviews fail closed.
@@ -109,7 +138,7 @@ export async function verifiedOffers(options:{productId?:string;offerId?:string;
       Date.parse(score.calculated_at)>Date.now()+300000||
       Number(approval.reviewed_price)!==Number(offer.price)||
       Number(d.current_price)!==Number(offer.price)||
-      !isHttps(offer.affiliate_url))return [];
+      !ownAffiliateLink(offer.affiliate_url,advertiserId!))return [];
    }
    if(offer.product_id!==d.product_id||!(Number(d.current_price)>0)||!Number.isFinite(Number(d.avuqo_score)))return [];
    const rights=metadata(source.metadata);
