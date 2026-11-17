@@ -514,6 +514,16 @@
   "audit_updates": [
     {
       "date_utc": "2026-11-17",
+      "type": "live_main_existing_approved_awin_price_and_stock_auto_renewal",
+      "status": "committed_CI_and_production_pending_check",
+      "no_branch": true,
+      "first_public_offers": 0,
+      "source_activation": false,
+      "production_sql": false,
+      "description": "17 November 2026 DIRECT MAIN RELEASE, owner requests first genuine Awin priced offers and no new branches/PRs: new lib/awin/approved-offer-renewal.ts with strict previously-approved Awin offer renewal. When the existing live Awin pipeline next runs with source/network/merchant rights already verified and publication enabled, an offer already owner-approved and previously published may automatically remain published if a fresh feed confirms same canonical product, merchant, exact GBP price, unchanged own-publisher Awin tracking URL, stock available, match confidence >=0.85 and Score >=60/confidence >=55. Changes/missing approval/rights/score/publisher link halt by setting published_deals.status held; public-catalog checks source controls, review status, last_seen_at and score <=48h and GBP price equality. First-time Awin offers STILL require owner release; no hidden bulk activation. Synthetic regression test and main CI step added. No production SQL, rights attestation, Awin source activation or raw private historical offer publication. Verified database BEFORE this change: Awin paused, sync=false, credential_status not_configured, 16 registered advertiser entries vs 21 owner-reported, price and publication permissions pending, zero offers and zero release reviews. Today's actual private downloads occurred for Tooled Up but not eligible for public offers. Goal first real, verified, independently authorised 3–10 GBP offers remains BLOCKED by rights/connection/fresh source data. Production exact SHA and CI must be checked after release commits."
+    },
+    {
+      "date_utc": "2026-11-17",
       "type": "direct_main_awin_public_freshness_and_stock_automatic_suppression",
       "commit_stage": "code_committed_CI_deployment_pending_verification",
       "no_branch": true,
