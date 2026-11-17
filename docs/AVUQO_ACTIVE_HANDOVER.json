@@ -1973,5 +1973,38 @@
     "ebay": "paused, webhook HTTP503",
     "awin": "paused, permissions pending",
     "next": "verify public deployment of all 8 guides, approve one current genuine supplier and publish first eligible sourced retail offers via existing admission logic"
+  },
+  "awin_joined_release_reconciliation_20261117": {
+    "status": "candidate_live_readonly_audit_ci_pending",
+    "source": "live Supabase + original owner Awin joined register 4 Nov 2026",
+    "observed_joined_advertisers": 16,
+    "internal_awin_programmes": 19,
+    "internal_awin_pending": 19,
+    "internal_awin_approved": 0,
+    "advertiser_feed_rights_recorded": 0,
+    "advertiser_approval_refs_recorded": 0,
+    "advertiser_future_validity_recorded": 0,
+    "private_import_rows": 122538,
+    "private_import_runs": 13,
+    "live_awin_offer_rows": 0,
+    "vercel_production_key_names_present": [
+      "AWIN_PUBLISHER_ID",
+      "AWIN_ACCESS_TOKEN",
+      "AWIN_DATAFEED_API_KEY"
+    ],
+    "vercel_production_advertiser_selector_present": false,
+    "owner_route": "/control-centre/awin-programmes",
+    "action_route": "/control-centre/awin-advertisers",
+    "verified_distinction": "historical joined network membership is NOT equivalent to owner-cleared feed, prices, images and per-offer public release",
+    "no_prod_dml": true,
+    "next": "reconcile one real joined merchant ID and permission references, read-only feed probe, refresh 3-10 source offers, review exact SKUs/prices, owner release; preserve fail-closed gates",
+    "ebay": {
+      "privacy_migrations_pending": 9,
+      "production_schema_only_rehearsal_completed": false,
+      "webhook": "HTTP503",
+      "source": "paused; no live product offers",
+      "control_tower": "/control-centre/ebay-privacy",
+      "next": "reviewed isolated production-derived nine-only schema rehearsal then privacy and provider approval"
+    }
   }
 }
