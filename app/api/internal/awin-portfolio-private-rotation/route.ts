@@ -80,12 +80,32 @@ export async function GET(request:NextRequest){
  try{const data=await result.json();if(data&&typeof data==="object"&&!Array.isArray(data))body=data;}catch{}
  const canonical=body.canonical&&typeof body.canonical==="object"&&!Array.isArray(body.canonical)
   ?body.canonical as Record<string,unknown>:{};
- const safeCount=(v:unknown)=>typeof v==="number"&&Number.isSafeInteger(v)&&v>=0?v:0;
- const safeStatus=(v:unknown)=>typeof v==="string"&&/^[a-z_]{1,80}$/.test(v)?v:"unavailable";
+ const safeCount=(v:unknown)=>typeof v==="number"&&Number.isSafeInteger(v)&&v>=0&&v<=5000?v:0;
+ const safeStatus=(v:unknown)=>typeof v==="string"&&/^[a-z_0-9]{1,80}$/.test(v)?v:"unavailable";
+ // The importer uses fixed, internal failure messages. Return the structured
+ // validation code, rather than the generic "unavailable" shown on HTTP 422.
+ const importerReason=safeStatus(body.reason);
+ const failureKind=safeStatus(body.failure_kind);
+ const safeColumnNames=Array.isArray(body.column_names)?
+  body.column_names.filter((v:unknown):v is string=>typeof v==="string"&&
+   /^[A-Za-z][A-Za-z0-9_ -]{0,63}$/.test(v)).slice(0,60):[];
+ const safeError=typeof body.error==="string"&&[
+  "Feed preflight failed; nothing imported",
+  "Feed format not supported by pilot",
+  "Awin product download failed",
+  "Selected active feed missing or ambiguous",
+  "Exact live feed recheck could not be recorded",
+  "Awin feed credentials not configured",
+  "Advertiser not in canonical accepted membership registry"
+ ].includes(body.error)?body.error:"Import validation or provider request failed";
  return reply({status:result.ok?"private_rotation_checked":"private_rotation_failed",
   advertiser_id:selected.advertiser,feed_id:selected.feed,
   eligible:available.length,upstream_http_status:result.status,
-  importer_status:safeStatus(body.status),failure_kind:safeStatus(body.failure_kind),
+  importer_status:safeStatus(body.status),importer_error:safeError,
+  reason:importerReason,failure_kind:failureKind,
+  diagnostic_stage:safeStatus(body.diagnostic_stage),
+  detected_delimiter:safeStatus(body.detected_delimiter),
+  parsed_rows:safeCount(body.parsed_rows),column_names:safeColumnNames,
   live_verified_rows:safeCount(body.live_verified_rows),
   canonical_status:safeStatus(canonical.status),
   canonical_accepted:safeCount(canonical.canonicalAccepted),
