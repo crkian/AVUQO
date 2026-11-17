@@ -46,6 +46,8 @@ jobs:
         run: bash -n scripts/test-ebay-tombstone-race.sh && node --test tests/ebay-two-session-race-harness.test.mjs
       - name: eBay reverse-direction advisory-lock witness syntax and safety contracts (not a live DB test)
         run: bash -n scripts/test-ebay-reverse-lock-witness.sh && node --test tests/ebay-reverse-lock-witness.test.mjs
+      - name: eBay production release gate eleven-check fail-closed contracts
+        run: node --test tests/ebay-production-release-gate.test.mjs
       - name: eBay production migration version collision and no-reapply contracts
         run: bash -n scripts/test-ebay-migration-history-readonly-preflight.sh && node --test tests/ebay-migration-history-readonly.test.mjs
       - name: eBay seven production FK read-only guard preflight contracts
