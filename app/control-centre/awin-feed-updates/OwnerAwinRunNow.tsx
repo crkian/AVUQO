@@ -13,7 +13,7 @@ export default function OwnerAwinRunNow(){
   setResults(v=>({...v,[task]:"Running private source check..."}));
   try{
    const body:Record<string,string>={task};
-   if(!task.endsWith("_preflight"))body.confirm="private-only-"+task;
+   if(!task.endsWith("_preflight")&&task!=="all_feeds_check")body.confirm="private-only-"+task;
    const r=await fetch("/api/control-centre/awin-run-now",{
     method:"POST",credentials:"same-origin",cache:"no-store",
     headers:{"content-type":"application/json"},body:JSON.stringify(body)
@@ -27,6 +27,8 @@ export default function OwnerAwinRunNow(){
     typeof o.actual_rows==="number"?o.actual_rows:null;
    const diagnostic=[o.reason,o.failure_kind,o.diagnostic_stage].filter(v=>
     typeof v==="string"&&/^[a-z0-9_]{2,80}$/.test(v)).join(" · ");
+   const inventory=typeof o.joined_feeds==="number"?" · joined feed entries "+o.joined_feeds.toLocaleString("en-GB"):"";
+   const changed=typeof o.changed_feeds==="number"?" · changed "+o.changed_feeds.toLocaleString("en-GB"):"";
    const parsed=typeof o.parsed_rows==="number"&&Number.isSafeInteger(o.parsed_rows)
     ?" · parsed "+o.parsed_rows.toLocaleString("en-GB"):"";
    const fresh=typeof o.live_verified_rows==="number"&&Number.isSafeInteger(o.live_verified_rows)
@@ -38,7 +40,7 @@ export default function OwnerAwinRunNow(){
    const rejected=typeof o.canonical_rejected==="number"&&Number.isSafeInteger(o.canonical_rejected)
     ?" · rejected "+o.canonical_rejected.toLocaleString("en-GB"):"";
    setResults(v=>({...v,[task]:(r.ok?"OK":"HTTP "+r.status)+": "+status+
-    (diagnostic?" · "+diagnostic:"")+parsed+
+    (diagnostic?" · "+diagnostic:"")+inventory+changed+parsed+
     (rows===null?"":" · "+rows.toLocaleString("en-GB")+" rows")+
     fresh+canonical+staged+rejected}));
   }catch{
@@ -51,6 +53,20 @@ export default function OwnerAwinRunNow(){
    only private review records. Tooled Up captures an immutable master snapshot, then validates it.
    Fresh canonical preparation converts only recently validated GBP private feed products into HELD
    offers with AVUQO Scores, never public listings. All actions retain source and emergency controls.</p>
+  <div style={{padding:14,border:"1px solid #d7c8ea",borderRadius:12,background:"#f8f5ff",display:"grid",gap:8}}>
+   <strong>All accepted Awin feed entries</strong>
+   <p style={{margin:0,fontSize:13}}>Check every joined feed in Awin's authenticated feed inventory, not just the four pilot retailers. Inventory monitoring does not download products or publish prices.</p>
+   <button disabled={busy!==null} onClick={()=>run("all_feeds_check")} style={{padding:10,borderRadius:8,color:"#30205a",background:"#eee7ff",border:"1px solid #7965aa",maxWidth:330}}>
+    {busy==="all_feeds_check"?"Checking all feed entries...":"Check all accepted feeds now"}
+   </button>
+   {results.all_feeds_check&&<output role="status" style={{fontSize:12,overflowWrap:"anywhere"}}>{results.all_feeds_check}</output>}
+  </div>
+  <div style={{padding:14,border:"1px solid #d7c8ea",borderRadius:12,display:"grid",gap:8}}>
+   <strong>Advanced tyre feeds: Tyres UK and Pneus Online</strong>
+   <p style={{margin:0,fontSize:13}}>Both suppliers stay in the specialised tyre pipeline. Size, load, speed, exact variant, fitment, delivery and fitted pricing require independent checks. Their private imports must never be sold as confirmed fitted quotes.</p>
+   <a href="/control-centre/tyres">Open specialist tyre operations</a>
+   <a href="/control-centre/tyre-spec-enrichment">Review tyre specification enrichment</a>
+  </div>
   <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(200px,1fr))",gap:12}}>
    {tasks.map(([slug,name])=><article key={slug} style={{background:"white",border:"1px solid #e7dfed",
     borderRadius:12,padding:13,display:"grid",gap:7}}>
