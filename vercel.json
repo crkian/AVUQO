@@ -59,6 +59,10 @@
     {
       "path": "/api/internal/awin-fresh-private-canonical-bridge",
       "schedule": "43 9 * * *"
+    },
+    {
+      "path": "/api/internal/awin-portfolio-private-rotation",
+      "schedule": "53 10 * * *"
     }
   ],
   "ignoreCommand": "git diff --quiet HEAD^ HEAD -- . ':(exclude)docs/**' ':(exclude)*.md' ':(exclude).github/**'"
