@@ -51,7 +51,7 @@ export function ebayPrivacyReadiness(s:EbayPrivacySignals){
  const receiptCountKnown=!s.receipts.error&&s.receipts.value!==null;
  // Aggregate counts are only a necessary signal. They cannot certify exact per-receipt
  // queue coverage or establish lawful erasure, even when all counts are zero.
- const queueAggregateComplete=receiptCountKnown&&s.receipts.value!>0&&
+ const queueAggregateComplete=receiptCountKnown&&(s.receipts.value??0)>0&&
   Object.values(s.workBySurface).length===EBAY_WORK_SURFACES.length&&
   Object.values(s.workBySurface).every(c=>!c.error&&c.value===s.receipts.value);
  const browseConfigurationPresent=s.browse.environment==="production"&&
