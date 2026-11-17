@@ -174,7 +174,8 @@ async function ensureProduct(
   supabase: SupabaseClient,
   sourceId: string,
   offer: NormalizedOffer,
-  categoryId: string
+  categoryId: string,
+  privateOnly=false
 ) {
   let productId = await findProductByIdentifier(supabase, offer);
   let matchMethod = "identifier";
@@ -206,8 +207,8 @@ async function ensureProduct(
         brand: offer.brand ?? null,
         model: offer.model ?? null,
         description: offer.description ?? null,
-        primary_image_url: offer.imageUrl ?? null,
-        status: "active",
+        primary_image_url: privateOnly?null:(offer.imageUrl ?? null),
+        status: privateOnly?"draft":"active",
         product_type: "product",
         metadata: { auto_created: true, created_by: "deal-intelligence-pipeline" },
       })
@@ -292,7 +293,8 @@ async function processOffer(
   runId: string,
   source: Awaited<ReturnType<typeof ensureSource>>,
   raw: RawSourceOffer,
-  dealPublishing: boolean
+  dealPublishing: boolean,
+  privateOnly=false
 ) {
   const normalized = normalizeOffer(raw);
   await writeIngestionItem(supabase, runId, source.id, raw, normalized, "normalized");
@@ -301,10 +303,10 @@ async function processOffer(
   const merchant = await ensureMerchant(
     supabase,
     normalized,
-    source.source_type === "affiliate_network" && source.connector_key !== "demo"
+    !privateOnly&&source.source_type === "affiliate_network" && source.connector_key !== "demo"
   );
 
-  const product = await ensureProduct(supabase, source.id, normalized, categoryId);
+  const product = await ensureProduct(supabase, source.id, normalized, categoryId,privateOnly);
 
   const { data: priorOffer, error: priorOfferError } = await supabase
     .from("offers")
@@ -435,7 +437,9 @@ async function processOffer(
     offer_id: offer.id,
     stock_status: normalized.normalizedStockStatus,
     quantity: normalized.stockQuantity ?? null,
-    delivery_summary: normalized.deliveryCost ? `Delivery £${normalized.deliveryCost.toFixed(2)}` : "Free delivery",
+    delivery_summary: normalized.deliveryCost===null||normalized.deliveryCost===undefined
+      ?"Delivery cost not independently verified":normalized.deliveryCost>0
+      ?`Delivery £${normalized.deliveryCost.toFixed(2)}`:"Free delivery",
     available_from: normalized.validFrom ?? null,
     available_until: normalized.validUntil ?? null,
     observed_at: now(),
@@ -588,13 +592,16 @@ async function processOffer(
 export async function runDealIntelligencePipeline(
   supabase: SupabaseClient,
   options: { sourceKey: PipelineConnectorKey; limit?: number;
-    awinAdvertiserId?:string; awinVerifiedRows?:RawSourceOffer[] }
+    awinAdvertiserId?:string; awinVerifiedRows?:RawSourceOffer[];
+    awinPrivateStaging?:boolean }
 ): Promise<PipelineRunSummary> {
   const connector = getConnector(options.sourceKey);
   const freshPrivate=options.awinVerifiedRows!==undefined;
-  if(freshPrivate&&(options.sourceKey!=="awin"||
+  const privateOnly=freshPrivate&&options.awinPrivateStaging===true;
+  if((options.awinPrivateStaging===true&&!freshPrivate)||
+     (freshPrivate&&(options.sourceKey!=="awin"||
      !/^\\d{2,12}$/.test(options.awinAdvertiserId??"")||
-     !Array.isArray(options.awinVerifiedRows)))
+     !Array.isArray(options.awinVerifiedRows))))
    throw new Error("Private Awin source binding unavailable");
   const limit = Math.max(1, Math.min(options.limit ?? 25, options.sourceKey === "awin" ? 250 : 50));
   const configured=freshPrivate
@@ -630,9 +637,14 @@ export async function runDealIntelligencePipeline(
     if(programmeError||!accepted)
       throw Error("Awin advertiser missing from accepted programme evidence registry");
   }
-  if (options.sourceKey !== "demo") {
-    const failures = sourceIngestionFailures(source, rightsContext);
-    if (failures.length) throw new Error(`External source not approved: ${failures.join("; ")}`);
+  if(privateOnly){
+    // Only a paused Awin source may prepare DRAFT/HELD canonical candidates.
+    // Never interpret accepted membership as approval to make products public.
+    if(source.status!=="paused"||source.sync_enabled!==false)
+      throw Error("Private Awin canonical staging requires a paused source");
+  }else if(options.sourceKey!=="demo"){
+    const failures=sourceIngestionFailures(source,rightsContext);
+    if(failures.length)throw Error(`External source not approved: ${failures.join("; ")}`);
   }
 
   const { data: run, error: runError } = await supabase
@@ -688,11 +700,17 @@ export async function runDealIntelligencePipeline(
           .select("status,sync_enabled,credential_status,connector_key,source_type,metadata")
           .eq("id", source.id).single();
         if (sourceError || !currentSource) throw new Error("External source readiness could not be rechecked.");
-        const failures = sourceIngestionFailures(currentSource, rightsContext);
-        if (failures.length) throw new Error(`Source was paused or permissions changed: ${failures.join("; ")}`);
+        if(privateOnly){
+          if(currentSource.status!=="paused"||currentSource.sync_enabled!==false)
+            throw Error("Private Awin staging interrupted by source state change");
+        }else{
+          const failures=sourceIngestionFailures(currentSource,rightsContext);
+          if(failures.length)throw Error(`Source was paused or permissions changed: ${failures.join("; ")}`);
+        }
       }
       try {
-        const result = await processOffer(supabase, run.id, source, raw, controls.dealPublishing);
+        const result = await processOffer(supabase, run.id, source, raw,
+          privateOnly?false:controls.dealPublishing,privateOnly);
         summary.accepted += 1;
         summary.productsCreated += result.productCreated ? 1 : 0;
         summary.offersUpserted += 1;
@@ -741,7 +759,7 @@ export async function runDealIntelligencePipeline(
         last_sync_at: now(),
         last_successful_sync_at: now(),
         health_status: summary.rejected ? "degraded" : "healthy",
-        credential_status: configured ? "ready" : source.credential_status,
+        credential_status: privateOnly?source.credential_status:(configured ? "ready" : source.credential_status),
         updated_at: now(),
       })
       .eq("id", source.id);
