@@ -4,6 +4,7 @@ import {createAdminClient} from "../../../../lib/supabase/admin";
 import {POST as importFeed} from "../../internal/awin-auto-import/route";
 import {POST as captureMaster} from "../../internal/awin-tooled-up-snapshot/route";
 import {POST as validateMaster} from "../../internal/awin-snapshot-validate/route";
+import {GET as bridgeFreshOffers} from "../../internal/awin-fresh-private-canonical-bridge/route";
 import {AWIN_PRIVATE_SNAPSHOT_BUCKET} from "../../../../lib/awin/private-snapshot";
 import {newestRecentTooledUpSnapshot} from "../../../../lib/awin/tooled-up-recent-snapshot";
 
@@ -15,7 +16,7 @@ const FEEDS:Record<string,readonly [string,string]>={
  petlibro:["77952","103580"],mozillion:["31539","74135"],
  cadbury:["736","48599"],craftbuddy:["45747","F1356"]
 };
-const OUTPUT_KEYS=["status","error","reason","failure_kind","diagnostic_stage","detected_delimiter","columns","parsed_rows","rows","records",
+const OUTPUT_KEYS=["status","error","reason","failure_kind","diagnostic_stage","detected_delimiter","columns","parsed_rows","rows","records","seen_total","held_total","no_first_publication",
  "advertiser_id","feed_id","currency_source","source_currency_explicit",
  "critical_issues","compressed_bytes","actual_rows","duplicate_product_ids",
  "invalid_price_rows","unverified_affiliate_links","private_only","no_publication"] as const;
@@ -66,7 +67,8 @@ export async function POST(request:NextRequest){
   const pair=Object.prototype.hasOwnProperty.call(FEEDS,merchant)?FEEDS[merchant]:null;
   const isPilot=!!pair&&(action==="preflight"||action==="stage");
   const isTooledUp=merchant==="tooled_up"&&(action==="snapshot"||action==="validate");
-  if(!isPilot&&!isTooledUp)return result({error:"Task not approved"},403);
+  const isBridge=task==="canonical_bridge";
+  if(!isPilot&&!isTooledUp&&!isBridge)return result({error:"Task not approved"},403);
   if(action==="preflight"){
    if(body.confirm!==undefined)return result({error:"Unexpected confirmation"},400);
   }else if(body.confirm!=="private-only-"+task)
@@ -74,6 +76,10 @@ export async function POST(request:NextRequest){
   const secret=process.env.CRON_SECRET;
   if(!secret||secret.length<16)return result({error:"Importer unavailable"},503);
   const auth={authorization:`Bearer ${secret}`};
+  if(isBridge){
+   const url=new URL("/api/internal/awin-fresh-private-canonical-bridge",request.url);
+   return sanitized(bridgeFreshOffers(new NextRequest(url,{method:"GET",headers:auth})));
+  }
   if(pair){
    const [advertiser,feed]=pair;
    const url=new URL("/api/internal/awin-auto-import",request.url);
