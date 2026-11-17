@@ -186,3 +186,31 @@ export const awinConnector: SourceConnector = {
     return readJsonLines(response, Math.max(1, Math.min(limit, 250)));
   },
 };
+
+/**
+ * Owner-only, non-persisting, single-advertiser Awin Enhanced Feed probe.
+ * Unlike the global ingestion connector this does NOT require setting an
+ * AWIN_ADVERTISER_ID environment variable for each joined programme.
+ * Successful access proves only feed connectivity, never commercial rights,
+ * live price accuracy, image permission or AVUQO publication authorisation.
+ */
+export async function probeAwinEnhancedFeed(advertiserId:string):Promise<"available"|"empty"|"unavailable">{
+ if(!/^[0-9]{2,12}$/.test(advertiserId))return "unavailable";
+ const publisherId=process.env.AWIN_PUBLISHER_ID;
+ const token=process.env.AWIN_ACCESS_TOKEN;
+ if(!publisherId||!token||!/^\\d{3,15}$/.test(publisherId))return "unavailable";
+ const locale=process.env.AWIN_LOCALE||"en_GB";
+ if(!/^[a-z]{2}_[A-Z]{2}$/.test(locale))return "unavailable";
+ const endpoint=new URL(
+  `https://api.awin.com/publishers/${encodeURIComponent(publisherId)}/awinfeeds/download/${encodeURIComponent(advertiserId)}-retail-${locale}.jsonl`
+ );
+ try{
+  const response=await fetch(endpoint,{
+   method:"GET",headers:{Authorization:`Bearer ${token}`,Accept:"application/x-ndjson, application/json"},
+   cache:"no-store",signal:AbortSignal.timeout(15000),
+  });
+  if(!response.ok)return "unavailable";
+  const offers=await readJsonLines(response,3);
+  return offers.length>0?"available":"empty";
+ }catch{return "unavailable";}
+}
