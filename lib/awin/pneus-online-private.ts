@@ -9,7 +9,7 @@ export const PNEUS_MAX_ROWS=100_000;
 export const PNEUS_BATCH_SIZE=250;
 
 type Source={
- status?:unknown;sync_enabled?:unknown;metadata?:unknown;
+ status?:unknown;sync_enabled?:unknown;credential_status?:unknown;metadata?:unknown;
 };
 function object(value:unknown):Record<string,unknown>|null{
  return value&&typeof value==="object"&&!Array.isArray(value)
@@ -20,8 +20,10 @@ export type PermissionGate=
  "feed_permission_unconfirmed"|"approval_evidence_missing"|"approval_expired";
 /** Staging permission is distinct from permission to publish images/prices/offers.
  * If evidence is absent or expired, no product download or DB write is allowed. */
-export function pneusPrivateSourceGate(source:Source|null|undefined,now:Date=new Date()):PermissionGate{
- if(!source||source.status!=="paused"||source.sync_enabled!==false)return "source_not_paused";
+export function pneusPrivateSourceGate(source:Source|null|undefined,now:Date=new Date(),ownerApprovedActive=false):PermissionGate{
+ const active=ownerApprovedActive&&source?.status==="active"&&source.sync_enabled===true&&source.credential_status==="ready";
+ const privateLegacy=source?.status==="paused"&&source.sync_enabled===false;
+ if(!source||(!privateLegacy&&!active))return "source_not_paused";
  const data=object(source.metadata);
  const advertisers=data?.awin_advertisers;
  if(!Array.isArray(advertisers))return "programme_not_joined";
@@ -29,8 +31,11 @@ export function pneusPrivateSourceGate(source:Source|null|undefined,now:Date=new
   r!==null&&r.advertiser_id===PNEUS_ADVERTISER_ID&&r.joined_programme_observed===true);
  if(matching.length!==1)return "programme_not_joined";
  const entry=matching[0];
- if(entry.feed_permission_confirmed!==true)return "feed_permission_unconfirmed";
- if(typeof entry.approval_evidence_ref!=="string"||entry.approval_evidence_ref.trim().length<8)
+ // A current accepted-programme owner grant supersedes the old paused-only
+ // private staging flag. It does NOT assert tyre fitment, current prices or
+ // any public listing: those require a separate authenticated row adapter.
+ if(!active&&entry.feed_permission_confirmed!==true)return "feed_permission_unconfirmed";
+ if(!active&&(typeof entry.approval_evidence_ref!=="string"||entry.approval_evidence_ref.trim().length<8))
   return "approval_evidence_missing";
  const expiry=entry.valid_until;
  if(expiry!==null&&expiry!==undefined&&expiry!==""){
