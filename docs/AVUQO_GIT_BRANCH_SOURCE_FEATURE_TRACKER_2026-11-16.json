@@ -3272,6 +3272,19 @@
       "308a2eb6c3d9a959366738e15b47533eabb216bb",
       "4167bdfc96e16e27214daa7225593a25ca5c11ef"
     ],
-    "live_product_status": "Last independently verified Awin canonical offers 0; source paused for rights/price evidence. Inventory entries are not live products."
+    "live_product_status": "Last independently verified Awin canonical offers 0; source paused for rights/price evidence. Inventory entries are not live products.",
+    "production": {
+      "deployment_id": "dpl_E2VyxLyHEshYSz4ooyzTTVGWy46v",
+      "app_sha": "4167bdfc96e16e27214daa7225593a25ca5c11ef",
+      "ready": true,
+      "vercel_status": "success",
+      "database": {
+        "accepted_programmes": 21,
+        "feed_entries": 74,
+        "canonical_awin_offers": 0
+      },
+      "actual_owner_run": "not invoked from connector",
+      "note": "New all-feed monitoring and advanced tyre navigation deployed; no public Awin products or fitted tyre quotes proven"
+    }
   }
 }
