@@ -9,7 +9,10 @@ import {approvedAwinDownloadUrl} from "../../../../lib/awin/approved-feed-url";
 import {normalizePilotAwinFeed} from "../../../../lib/awin/pilot-feed-normalizer";
 import {mozillionPhysicalFeedAllowed} from "../../../../lib/awin/mozillion-feed-types";
 import {evaluateSourceControls,sourceIngestionFailures} from "../../../../lib/pipeline/source-readiness";
+import {stageLiveAwinCanonicalCandidates} from "../../../../lib/awin/private-live-canonical-stage";
 
+
+export const maxDuration=300;
 
 /** Explicit physical-product pilot only. Never auto-fetch plan, parking, insurance,
  * contract, tyre fitting, or certification feeds until category-specific adapters exist. */
@@ -331,8 +334,11 @@ export async function POST(request:NextRequest){
  if(session.completed_at&&session.committed_count===rows.length){
   try{
    const verified=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest);
+   const canonical=verified>0?await stageLiveAwinCanonicalCandidates(db,{
+    importId:runId,advertiser,feed,digest,limit:20
+   }):{status:"no_fresh_exact_feed_rows",eligible:0,canonicalAccepted:0,canonicalRejected:0};
    return reply({status:"already_staged",advertiser_id:advertiser,feed_id:feed,
-    records:rows.length,live_verified_rows:verified,private_only:true,no_publication:true});
+    records:rows.length,live_verified_rows:verified,canonical,private_only:true,no_publication:true});
   }catch{return reply({error:"Exact live feed recheck could not be recorded",private_only:true},503);}
  }
  if(session.completed_at||run.status!=="importing"||run.permission_status!=="unverified")
@@ -358,8 +364,11 @@ export async function POST(request:NextRequest){
    if(latest?.completed_at&&latest.source_digest===digest&&latest.committed_count===rows.length){
     try{
      const verified=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest);
+     const canonical=verified>0?await stageLiveAwinCanonicalCandidates(db,{
+      importId:runId,advertiser,feed,digest,limit:20
+     }):{status:"no_fresh_exact_feed_rows",eligible:0,canonicalAccepted:0,canonicalRejected:0};
      return reply({status:"already_staged",advertiser_id:advertiser,feed_id:feed,
-      records:rows.length,live_verified_rows:verified,private_only:true,no_publication:true});
+      records:rows.length,live_verified_rows:verified,canonical,private_only:true,no_publication:true});
     }catch{return reply({error:"Exact live feed retry evidence unavailable",private_only:true},503);}
    }
    return reply({error:"Private batch rejected",saved_records:committed,run_id:runId,private_only:true},503);
@@ -370,9 +379,23 @@ export async function POST(request:NextRequest){
   return reply({error:"Private import stopped before completion",saved_records:committed,run_id:runId,private_only:true},423);
  const {data:finish,error:finishError}=await db.rpc("finish_general_awin_feed_import",{p_import_id:runId,p_total:rows.length});
  if(finishError)return reply({error:"Private import finish failed",run_id:runId},503);
+ // The authenticated, exact same feed digest is rechecked after commit.
+ // Only rechecked rows may enter the EXISTING scoring pipeline as draft/held.
+ let verified=0;
+ let canonical:{status:string;eligible:number;canonicalAccepted:number;canonicalRejected:number}={
+  status:"no_fresh_exact_feed_rows",eligible:0,canonicalAccepted:0,canonicalRejected:0
+ };
+ try{
+  verified=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest);
+  if(verified>0)canonical=await stageLiveAwinCanonicalCandidates(db,{
+   importId:runId,advertiser,feed,digest,limit:20
+  });
+ }catch{canonical={status:"canonical_private_staging_unavailable",eligible:0,
+  canonicalAccepted:0,canonicalRejected:0};}
  return reply({status:"private_review",advertiser_id:advertiser,feed_id:feed,
   run_id:runId,records:rows.length,review:finish?.review,excluded:finish?.excluded,
-  private_only:true,no_publication:true,source_remains_paused:true});
+  live_verified_rows:verified,canonical,private_only:true,no_publication:true,
+  source_remains_paused:true});
 }
  
 /** Vercel Cron invokes GET; the selected allowlisted feed rotates by UTC day. */
