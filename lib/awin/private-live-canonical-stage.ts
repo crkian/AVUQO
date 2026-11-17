@@ -1,5 +1,6 @@
 import type {createAdminClient} from "../supabase/admin";
 import {ownAffiliateLink} from "./approved-offer-renewal.ts";
+import {sourceIngestionFailures} from "../pipeline/source-readiness";
 
 import type {RawSourceOffer,PipelineRunSummary} from "../../types/pipeline";
 
@@ -79,9 +80,16 @@ export async function stageLiveAwinCanonicalCandidates(
   return {status:"unsupported_private_feed",eligible:0,canonicalAccepted:0,canonicalRejected:0};
  const limit=Math.max(1,Math.min(input.limit??20,20));
  const {data:source,error:sourceError}=await db.from("sources")
-  .select("status,sync_enabled").eq("connector_key","awin").maybeSingle();
- if(sourceError||!source||source.status!=="paused"||source.sync_enabled!==false)
-  return {status:"source_not_private",eligible:0,canonicalAccepted:0,canonicalRejected:0};
+  .select("status,sync_enabled,credential_status,connector_key,source_type,metadata")
+  .eq("connector_key","awin").maybeSingle();
+ if(sourceError||!source)
+  return {status:"source_unavailable",eligible:0,canonicalAccepted:0,canonicalRejected:0};
+ const privateMode=source.status==="paused"&&source.sync_enabled===false;
+ const activeMode=source.status==="active"&&source.sync_enabled===true&&
+  sourceIngestionFailures(source,{advertiserId:input.advertiser,
+   connectorConfigured:Boolean(process.env.AWIN_PUBLISHER_ID&&process.env.AWIN_DATAFEED_API_KEY)}).length===0;
+ if(!privateMode&&!activeMode)
+  return {status:"source_not_ready",eligible:0,canonicalAccepted:0,canonicalRejected:0};
  const {data:run,error:runError}=await db.from("feed_import_runs")
   .select("id,merchant_id,status,permission_status").eq("id",input.importId).maybeSingle();
  if(runError||!run||run.merchant_id!==input.advertiser||
@@ -103,7 +111,7 @@ export async function stageLiveAwinCanonicalCandidates(
  const {runDealIntelligencePipeline}=await import("../pipeline/run");
  const result:PipelineRunSummary=await runDealIntelligencePipeline(db,{
   sourceKey:"awin",limit:ready.length,awinAdvertiserId:input.advertiser,
-  awinVerifiedRows:ready,awinPrivateStaging:true
+  awinVerifiedRows:ready,awinPrivateStaging:privateMode
  });
  if(result.status!=="completed")
   return {status:"canonical_pipeline_failed",eligible:ready.length,
