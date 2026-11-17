@@ -15,12 +15,12 @@
     "url": "https://www.avuqo.com",
     "project": "avuqo",
     "platform": "Vercel",
-    "ready_app_commit": "7a2c918d0f44d9c3094c0efca363d83f87fedf1f",
-    "ready_deployment": "dpl_DHeM4RDSEfrKXf1L2YpLwaBZgtwr",
+    "ready_app_commit": "5da9c37fe68110aa8763605691989bf0b12fdd2b",
+    "ready_deployment": "dpl_GvnS9rbwFBzhwH8gbjAcJsT1UfKs",
     "verified_http": 200,
-    "status": "READY_PR287_verified_live_2026_11_17",
+    "status": "production_READY_2026_11_17_existing_approved_awin_cron_while_source_paused",
     "docs_only_ignore_build_note": "Documentation commits may advance Git main without changing running application SHA. Always recheck.",
-    "verification": "PR287 merged and Vercel production READY matching exact commit; Awin still paused with zero real public offers"
+    "verification": "Vercel production READY exact application SHA 5da9c37f; live Awin source paused, zero public offers/release reviews; final GitHub CI not independently verified"
   },
   "supabase": {
     "project_ref": "tfoukwcruaamrtgxzshh",
@@ -512,6 +512,18 @@
     "Recheck rights/commission/image permission evidence before public offers"
   ],
   "audit_updates": [
+    {
+      "date_utc": "2026-11-17",
+      "type": "verified_production_ready_and_zero_public_offer_release_checkpoint",
+      "app_commit": "5da9c37fe68110aa8763605691989bf0b12fdd2b",
+      "vercel_deployment": "dpl_GvnS9rbwFBzhwH8gbjAcJsT1UfKs",
+      "status": "READY",
+      "github_ci_final_main": "unverified",
+      "awin_status": "paused",
+      "awin_public_offers": 0,
+      "approved_release_reviews": 0,
+      "details": "FINAL VERIFIED PRODUCTION CHECKPOINT 17 NOV 2026: Vercel production READY deployment dpl_GvnS9rbwFBzhwH8gbjAcJsT1UfKs built at exact main application commit 5da9c37fe68110aa8763605691989bf0b12fdd2b; that application commit includes the automatic approved Awin live Cron route at /api/internal/awin-approved-refresh, vercel.json 09:16 UTC schedule, and already-approved same-price offer renewal logic. Later main implementation CI workflow updates and documentary Git commits are not independently verified as deployed from matching SHA and some were cancelled as expected by newer direct-main pushes. Separate complete GitHub Actions quality status for final main head was not retrievable from the available PR-filtered GitHub workflow interface; do not claim all CI jobs passed. Live read-only Supabase after deployment: Awin paused, sync=false, 0 offers and 0 approved release records. Daily Cron is dormant and no commercial priced Awin offers can be claimed live. No production source rights or approval statuses were changed. Owner's policy remains live main only, no development branches/PRs and all master handovers updated. Remaining gates for FIRST 3–10 live products: exact merchant/Awin publisher permissions including Petlibro Awin ID discrepancy; working public connector feed, fresh GBP price/stock and tracked links; original score and owner first release. UK/GBP is price expectation, not rights evidence."
+    },
     {
       "date_utc": "2026-11-17",
       "type": "direct_main_awin_rights_gated_daily_approved_refresh_cron",
