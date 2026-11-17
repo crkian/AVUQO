@@ -2607,6 +2607,19 @@
       "Craft Buddy feed download 502",
       "Awin source and advertiser-specific rights/credential readiness unverified",
       "Tyres/services require differentiated price and usage models"
-    ]
+    ],
+    "verified_deployment": {
+      "id": "dpl_4zkHfaVp3FtZD8A5HwzCfJSfRpSd",
+      "application_sha": "7d07f26b59ea9604b1e3fd0f664cf580567537a8",
+      "status": "READY",
+      "site": "www.avuqo.com",
+      "github_quality": "not independently verified"
+    },
+    "production_verification": {
+      "feed_inventory_rows": 74,
+      "live_rechecks": 0,
+      "canonical_awin_offers": 0,
+      "approved_releases": 0
+    }
   }
 }
