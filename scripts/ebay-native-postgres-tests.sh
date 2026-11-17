@@ -47,4 +47,5 @@ bash scripts/test-ebay-cascade-readonly-preflight.sh
 bash scripts/test-ebay-native-queue-lease-race.sh
 bash scripts/test-ebay-full-schema-readonly-preflight.sh
 bash scripts/test-ebay-ordered-migration-replay.sh
+bash scripts/test-ebay-nine-only-migration-replay.sh
 echo 'NATIVE_POSTGRES_CONCURRENCY_AND_QUEUE_LEASE_PASS (synthetic subset only; no production approval)'
