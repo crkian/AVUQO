@@ -15,6 +15,7 @@ function categorySlug(input?: string | null) {
   const value = (input ?? "").toLowerCase();
   if (/travel|holiday|hotel|flight|airport|cruise/.test(value)) return "travel";
   if (/beauty|skincare|makeup|cosmetic|fragrance/.test(value)) return "beauty";
+  if (/tool|hardware|diy|power tool|hand tool|drill|saw|workshop|industrial|welding/.test(value)) return "tools";
   if (/gift|toy/.test(value)) return "gifts";
   if (/fashion|clothing|shoe|apparel|jacket|dress/.test(value)) return "fashion";
   if (/car|vehicle|motoring|tyre|automotive/.test(value)) return "motoring";
@@ -46,8 +47,16 @@ export function normalizeOffer(raw: RawSourceOffer): NormalizedOffer {
 
   // Never collapse a merchant’s whole brand into one canonical product when
   // the model is missing. Brand-only Awin feeds contain many unrelated SKUs.
-  const identityText = raw.brand?.trim() && raw.model?.trim()
-    ? `${raw.brand.trim()} ${raw.model.trim()}` : raw.title;
+  // The Tooled Up feed contains many DIFFERENT physical variants with
+  // identical marketing titles but distinct SKU/EAN/MPN and prices.
+  // A title-based canonical key must never merge discs, sizes or pack counts.
+  // Use exact advertiser + merchant SKU as the provisional product identity;
+  // cross-merchant grouping can be added later using validated GTIN matches.
+  const skuScopedTooledUp=raw.merchantExternalId==="496"&&raw.category==="tools";
+  const identityText=skuScopedTooledUp
+    ?`${raw.title} Tooled Up SKU ${raw.sourceRecordId}`
+    :raw.brand?.trim() && raw.model?.trim()
+      ?`${raw.brand.trim()} ${raw.model.trim()}` : raw.title;
   const canonicalKey = slugify(identityText);
   const deliveryCost = raw.deliveryCost ?? 0;
 
