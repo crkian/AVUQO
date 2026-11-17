@@ -167,7 +167,8 @@ export async function GET(request:NextRequest){
  // The exact existing canonical stage independently checks every record
  // again and always creates HELD, never public first-release offers.
  const stage=await stageLiveAwinCanonicalCandidates(db,{
-  importId,advertiser:ID,feed:FEED,digest:validation.snapshot_sha256,limit:20
+  importId,advertiser:ID,feed:FEED,digest:validation.snapshot_sha256,
+  limit:20,merchantProductIds:ids
  });
  return reply({status:"tooled_up_exact_cohort_checked",
   scanned:visited,candidate_rows:candidates.length,matched,

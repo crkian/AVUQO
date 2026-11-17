@@ -74,13 +74,20 @@ export function toFreshVerifiedAwinRaw(
 }
 export async function stageLiveAwinCanonicalCandidates(
  db:ReturnType<typeof createAdminClient>,input:{
-  importId:string;advertiser:string;feed:string;digest:string;limit?:number
+  importId:string;advertiser:string;feed:string;digest:string;limit?:number;
+  merchantProductIds?:string[]
  }):Promise<{status:string;eligible:number;canonicalAccepted:number;canonicalRejected:number}>{
  if(!PHYSICAL.has(input.advertiser)||!/^[0-9]{2,12}$/.test(input.advertiser)||
     !/^[a-zA-Z0-9_-]{1,30}$/.test(input.feed)||
     !/^[a-f0-9]{64}$/.test(input.digest))
   return {status:"unsupported_private_feed",eligible:0,canonicalAccepted:0,canonicalRejected:0};
  const limit=Math.max(1,Math.min(input.limit??20,20));
+ if(input.merchantProductIds&&
+   (!Array.isArray(input.merchantProductIds)||
+    input.merchantProductIds.length<1||input.merchantProductIds.length>100||
+    input.merchantProductIds.some(sku=>typeof sku!=="string"||
+      !sku.trim()||sku.length>250)))
+  return {status:"invalid_exact_sku_cohort",eligible:0,canonicalAccepted:0,canonicalRejected:0};
  const {data:source,error:sourceError}=await db.from("sources")
   .select("status,sync_enabled,credential_status,connector_key,source_type,metadata")
   .eq("connector_key","awin").maybeSingle();
@@ -97,14 +104,15 @@ export async function stageLiveAwinCanonicalCandidates(
  if(runError||!run||run.merchant_id!==input.advertiser||
     run.permission_status!=="unverified"||run.status==="importing")
   return {status:"import_not_completed",eligible:0,canonicalAccepted:0,canonicalRejected:0};
- const {data:rows,error}=await db.from("feed_import_records")
+ let query=db.from("feed_import_records")
   .select("id,import_id,merchant_product_id,title,price,currency,brand,category,status,metadata,image_url")
   .eq("import_id",input.importId).eq("merchant_id",input.advertiser)
   .eq("status","review")
-  // Select the exact authenticated feed digest, not just the latest 100
-  // historical rows. Rechecking an immutable older import must remain discoverable.
-  .contains("metadata",{live_feed_digest:input.digest})
-  .order("created_at",{ascending:false}).limit(100);
+  .contains("metadata",{live_feed_digest:input.digest});
+ // When a rotating cohort submits exact newly verified SKUs, do NOT let
+ // an earlier digest-matched cohort monopolise the first 100 rows.
+ if(input.merchantProductIds)query=query.in("merchant_product_id",input.merchantProductIds);
+ const {data:rows,error}=await query.order("created_at",{ascending:false}).limit(100);
  if(error)return {status:"private_review_unavailable",eligible:0,canonicalAccepted:0,canonicalRejected:0};
  const checked=Date.now();
  const ready=(rows??[]).map(r=>toFreshVerifiedAwinRaw(r,input.advertiser,input.feed,input.digest,checked))
