@@ -7,7 +7,7 @@ import {newestRecentTooledUpSnapshot} from "../../../../lib/awin/tooled-up-recen
 import {POST as validateSnapshot} from "../awin-snapshot-validate/route";
 
 /**
- * Daily validation of one newly captured Tooled Up master snapshot.
+ * Scheduled validation of one newly captured Tooled Up master snapshot.
  * The only input to the existing validator is a SHA-256 derived from a
  * recent, private Storage object under the fixed 496/89987 prefix.
  * No raw URL, API key, object path, price or product data reaches the client.
