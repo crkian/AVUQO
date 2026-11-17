@@ -4,6 +4,7 @@ import Link from "next/link";
 import {requireControlCentreAccess} from "../../../lib/auth/requireControlCentreAccess";
 import {createAdminClient} from "../../../lib/supabase/admin";
 import OwnerAwinRunNow from "./OwnerAwinRunNow";
+import {acceptedAwinPortfolio} from "../../../lib/awin/portfolio-evidence";
 export const metadata:Metadata={title:"Private Awin feed updates | AVUQO",robots:{index:false,follow:false}};
 type Feed={advertiser_id:string;feed_id:string;advertiser_name:string;feed_name:string;listed_products:number;last_imported_source:string;observed_at:string;needs_private_refresh:boolean;change_count:number};
 type Run={checked_at:string;active_feeds:number;joined_feeds:number;changed_feeds:number};
@@ -11,13 +12,21 @@ export default async function Page(){
  await connection();
  const {role}=await requireControlCentreAccess();
  const admin=createAdminClient();
- const [feeds,runs,refresh,attempts]=await Promise.all([
+ const [feeds,runs,refresh,attempts,programmes,source]=await Promise.all([
   admin.from("awin_feed_update_observations").select("advertiser_id,feed_id,advertiser_name,feed_name,listed_products,last_imported_source,observed_at,needs_private_refresh,change_count").order("needs_private_refresh",{ascending:false}).order("advertiser_name",{ascending:true}).limit(200),
   admin.from("awin_feed_discovery_runs").select("checked_at,active_feeds,joined_feeds,changed_feeds").order("checked_at",{ascending:false}).limit(1),
   admin.from("awin_feed_update_observations").select("feed_id",{count:"exact",head:true}).eq("needs_private_refresh",true),
   admin.from("awin_private_cron_attempts").select("job_key,started_at,state,http_status,outcome_code,duration_ms")
-   .order("started_at",{ascending:false}).limit(24)
+   .order("started_at",{ascending:false}).limit(24),
+  admin.from("affiliate_programs").select("programme_name,external_account_id,status,metadata")
+   .eq("provider","awin").limit(100),
+  admin.from("sources").select("metadata,status,sync_enabled").eq("connector_key","awin").maybeSingle()
  ]);
+ const portfolio=acceptedAwinPortfolio(
+  programmes.data??[],feeds.data??[],source.data??null
+ );
+ const acceptedCount=portfolio.filter(p=>p.membership==="accepted").length;
+ const unlinkedCount=portfolio.filter(p=>!p.sourceRegistryLinked).length;
  const records=(feeds.data??[]) as Feed[];
  const history=(runs.data??[]) as Run[];
  const enabled=process.env.AWIN_FEED_MONITOR_ENABLED==="true";
@@ -42,6 +51,36 @@ export default async function Page(){
   </section>
   {stale&&enabled&&<p role="status">No successful check in the last 36 hours. Review the scheduled invocation before relying on this inventory.</p>}
   {feeds.error||runs.error||refresh.error?<p role="alert">Feed monitoring history is unavailable. Confirm the private discovery migration has been applied.</p>:null}
+  <section aria-label="Accepted Awin publisher portfolio" style={{display:"grid",gap:10}}>
+   <h2>Accepted Awin publisher portfolio</h2>
+   <p style={{color:"#60586c",lineHeight:1.6}}>
+    The owner has confirmed acceptance for the full joined Awin portfolio, recorded per
+    programme in the existing affiliate programme evidence registry. These are not pending
+    applications. Public product admission still checks fresh GBP prices, tracking, stock
+    and the exact first-offer release. No additional API endpoint has been added.
+   </p>
+   <p><strong>{acceptedCount} accepted of {portfolio.length} recorded programmes</strong>
+    {" · "}{unlinkedCount} not yet linked to the older source registry
+    {" · "}{portfolio.filter(p=>!p.advertiserId).length} without mapped advertiser IDs
+   </p>
+   {programmes.error||source.error?<p role="alert">Accepted-programme evidence unavailable. Do not infer membership was revoked.</p>:null}
+   <div style={{overflowX:"auto",background:"white",border:"1px solid #e8e3ed",borderRadius:14}}>
+    <table style={{borderCollapse:"collapse",width:"100%",minWidth:850,fontSize:12}}>
+     <thead><tr>{["Accepted publisher","Advertiser ID","Membership","Source registry","Observed feeds","Latest inventory (UK)","Live-data next step"].map(h=>
+      <th key={h} style={{background:"#f8f5fa",padding:10,textAlign:"left"}}>{h}</th>)}</tr></thead>
+     <tbody>{portfolio.map(p=><tr key={p.programme}>
+      <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{p.programme}</td>
+      <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{p.advertiserId??"Needs ID mapping"}</td>
+      <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{p.membership==="accepted"?"Accepted · "+(p.acceptedOn??"owner evidenced"):"Evidence review"}</td>
+      <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{p.sourceRegistryLinked?"Linked":"Not linked"}</td>
+      <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{p.liveFeeds}</td>
+      <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{p.mostRecentFeedObservation?
+       new Date(p.mostRecentFeedObservation).toLocaleDateString("en-GB",{timeZone:"Europe/London"}):"No observed feed"}</td>
+      <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{p.next}</td>
+     </tr>)}</tbody>
+    </table>
+   </div>
+  </section>
   {role==="owner"&&<OwnerAwinRunNow/>}
   <div style={{overflowX:"auto",background:"white",border:"1px solid #e8e3ed",borderRadius:16}}>
    <table style={{borderCollapse:"collapse",width:"100%",minWidth:750,fontSize:13}}>
