@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
   "project": "AVUQO",
-  "as_of_utc": "2026-11-16",
-  "snapshot_type": "observed_november_16_live_audit_plus_original_morning_snapshot",
+  "as_of_utc": "2026-11-17",
+  "snapshot_type": "2026-11-17_master_full_project_handover_plus_nine_only_replay_candidate",
   "repo": {
     "full_name": "crkian/AVUQO",
     "visibility": "public",
@@ -494,7 +494,8 @@
       "vercel_deployment": "dpl_6oMYNWsFCrUG1ZM37Zu8B6mfPGAY",
       "homepage_http": 200,
       "verification_date": "2026-11-16"
-    }
+    },
+    "latest_unified_top": "## MASTER READ THIS FIRST · 17 November 2026"
   },
   "requirements": {
     "change_control": "For every substantive task, read current Git main and all active handovers/tracker; commit active Markdown+JSON, branch/feature tracker Markdown+JSON, PROJECT_STATUS and CHANGELOG, updating branch/feature rows and next Awin gate. CI enforces these on implementation PRs. Documentation-only investigations must voluntarily update the same records.",
@@ -1659,5 +1660,83 @@
     "additional_spend": "£0",
     "docker": false,
     "direct_supply": false
+  },
+  "unified_master_checkpoint_20261117": {
+    "authority": "docs/AVUQO_ACTIVE_HANDOVER.md TOP MASTER READ THIS FIRST",
+    "state": "review_branch_candidate_not_merged",
+    "owner_vision": {
+      "brand": "AVUQO | Find what's worth it",
+      "business": "automated multi-network affiliate/referral shopping, real bargains, comparisons, evidence-led scoring, internal marketing, future authorised embedded checkout and dropshipping/resale",
+      "design": "preserve current warm-premium photo-led production design",
+      "backend": "Next.js Vercel plus Supabase/PostgreSQL, private source feeds, canonical products/price/offers, rights, Control Centre, schedules, analytics, marketing, accounts and specialised verticals",
+      "network_scope": [
+        "Awin",
+        "eBay EPN and Browse",
+        "Amazon",
+        "CJ",
+        "impact.com",
+        "Webgains",
+        "Tradedoubler",
+        "Rakuten",
+        "approved direct suppliers",
+        "dropship/wholesale applicants",
+        "travel/hire/experiences and specialist data providers"
+      ],
+      "current_checkout_scope": "affiliate referral only where licensed; embedded purchase and seller-of-record flows require separate approved design, contracts and compliance"
+    },
+    "production_verified_at": "2026-11-17",
+    "git_main_commit": "cc4e9a99e3c2874407e7ac3c5b893adac333d6d4",
+    "vercel_production": {
+      "state": "READY",
+      "deployment": "dpl_5GUcUbCtLYWxMpvdY2evEwBzpbdj",
+      "sha": "cc4e9a99e3c2874407e7ac3c5b893adac333d6d4"
+    },
+    "supabase": {
+      "project": "tfoukwcruaamrtgxzshh",
+      "ebay": "paused sync off; webhook 503; candidate guard not applied",
+      "awin": "paused sync off; rights/publication pending",
+      "foundation_versions": [
+        "20261116131949",
+        "20261116140013",
+        "20261116141927",
+        "20261116160011"
+      ],
+      "later_migrations_unapplied": 9,
+      "offer_fk_total": 13,
+      "additional_cascade_fk_total": 7
+    },
+    "nine_only_rehearsal": {
+      "state": "code_in_review_not_yet_verified_by_ci",
+      "manifest": "tests/fixtures/ebay-nine-only-migration-manifest.txt",
+      "runner": "scripts/test-ebay-nine-only-migration-replay.sh",
+      "test": "tests/ebay-nine-only-migration-replay.test.mjs",
+      "native_ci": "scripts/ebay-native-postgres-tests.sh",
+      "scope": "synthetic local Postgres 4 foundation equivalents with historical versions + nine only, preflight 11 structural PASS expected and provider BLOCK",
+      "excludes": [
+        "production SQL changes",
+        "eBay activation",
+        "provider 2xx",
+        "product publication",
+        "Awin change",
+        "new costs",
+        "Docker"
+      ]
+    },
+    "other_draft_prs_unmerged": [
+      267,
+      268,
+      269,
+      270
+    ],
+    "next_steps": [
+      "Validate new CI and preview",
+      "Machine-compare exact installed foundation SQL/objects, roles and grants",
+      "Rehearse nine only on faithful production-derived isolated schema",
+      "Review production migration/backups/rollback and obtain explicit safe release approval",
+      "Complete seven-surface privacy and durable signed provider acknowledgement workflow",
+      "Register production eBay portal only after genuine acceptance",
+      "Verify Browse/EPN and launch licensed, current products"
+    ],
+    "handover_rule": "Every substantive PR updates master MD+JSON, PROJECT_STATUS, CHANGELOG, full tracker MD+JSON; exact release verification added after merge."
   }
 }
