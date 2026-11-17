@@ -11,6 +11,7 @@ import { normalizeOffer, slugify } from "./normalize";
 import { promotionPotential } from "./promotion";
 import { calculateAvuqoScore } from "./score";
 import { evaluateSourceControls, sourceIngestionFailures } from "./source-readiness";
+import { canRenewApprovedAwinOffer } from "../awin/approved-offer-renewal";
 
 const now = () => new Date().toISOString();
 const numeric = (value: unknown, fallback = 0) => {
@@ -449,14 +450,39 @@ async function processOffer(
     sourceMeta.publication_permission === "verified" &&
     sourceMeta.price_evidence_status === "verified";
   const referencePrice = numeric(score.explanation.referencePrice, normalized.previousPrice ?? normalized.rrp ?? normalized.price);
+  // Fresh feed changes must never create a FIRST public Awin release.
+  // Existing owner-approved, already-published offers may renew only when
+  // price, product, advertiser, verified link, stock and score are unchanged/valid.
+  // On any mismatch the normal held state withdraws the public deal.
+  let renewExistingAwin=false;
+  if(source.connector_key==="awin"&&priorOffer?.id&&publicationEligible&&dealPublishing){
+    const [{data:approval,error:approvalError},{data:priorPublic,error:publicError}]=await Promise.all([
+      supabase.from("awin_offer_release_reviews")
+        .select("status,source_id,advertiser_id,reviewed_price,reviewed_offer_at,reviewed_score_at")
+        .eq("offer_id",offer.id).maybeSingle(),
+      supabase.from("published_deals")
+        .select("status,product_id,current_price").eq("offer_id",offer.id).maybeSingle(),
+    ]);
+    if(approvalError||publicError)throw Error("Existing Awin owner release evidence unavailable");
+    renewExistingAwin=canRenewApprovedAwinOffer({
+      sourceId:source.id,offerId:offer.id,productId:product.productId,
+      advertiserId:normalized.merchantExternalId??"",
+      price:normalized.price,currency:normalized.currency,
+      stockStatus:normalized.normalizedStockStatus,
+      affiliateUrl:normalized.affiliateUrl??null,matchConfidence:product.matchConfidence,
+      score:score.score,scoreConfidence:score.confidence,
+      publishingEnabled:dealPublishing,rightsVerified:publicationEligible,
+      priorPublished:priorPublic,approval
+    });
+  }
   const shouldPublish =
     source.connector_key !== "demo" &&
     dealPublishing &&
-    source.connector_key !== "awin" && // Every Awin offer requires separate owner release.
     publicationEligible &&
     score.score >= 60 &&
     score.confidence >= 55 &&
-    normalized.normalizedStockStatus !== "out_of_stock";
+    normalized.normalizedStockStatus !== "out_of_stock" &&
+    (source.connector_key!=="awin"||renewExistingAwin);
 
   await supabase.from("published_deals").upsert(
     {
