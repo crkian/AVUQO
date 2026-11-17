@@ -72,3 +72,17 @@ test("first owner release atomically activates only the approved exact private d
  assert.match(sql,/now\(\)-interval '48 hours'/);
  assert.match(route,/product\?\.status==="draft"/);
 });
+
+test("owner can run the same guarded held bridge now without adding a second scoring engine",()=>{
+ const owner=readFileSync("app/api/control-centre/awin-run-now/route.ts","utf8");
+ const ui=readFileSync("app/control-centre/awin-feed-updates/OwnerAwinRunNow.tsx","utf8");
+ assert.match(owner,/const isBridge=task==="canonical_bridge"/);
+ assert.match(owner,/bridgeFreshOffers\(new NextRequest\(url,\{method:"GET",headers:auth\}\)\)/);
+ assert.match(owner,/role\?\.role!=="owner"/);
+ assert.match(owner,/Same origin required/);
+ assert.match(owner,/private-only-"\+task/);
+ assert.match(ui,/"canonical","Fresh canonical offers"/);
+ assert.match(ui,/slug==="canonical"\?\["bridge"\]/);
+ assert.match(ui,/mode==="bridge"\?"Prepare held offers"/);
+ assert.match(ui,/never public listings/);
+});
