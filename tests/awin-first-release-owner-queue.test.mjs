@@ -1,0 +1,44 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {readFileSync} from "node:fs";
+const route=readFileSync("app/api/control-centre/awin-first-release/route.ts","utf8");
+const page=readFileSync("app/control-centre/awin-feed-updates/page.tsx","utf8");
+const ui=readFileSync("app/control-centre/awin-feed-updates/OwnerAwinFirstRelease.tsx","utf8");
+test("existing release endpoint now exposes owner-only current held offers without a second endpoint",()=>{
+ assert.match(route,/export async function GET\(/);
+ assert.match(route,/export async function POST\(/);
+ assert.match(route,/role\?\.role!=="owner"/);
+ assert.match(route,/source\.status!=="active"/);
+ assert.match(route,/source\.sync_enabled!==true/);
+ assert.match(route,/credential_status!=="ready"/);
+ assert.match(route,/meta\.price_evidence_status!=="verified"/);
+ assert.match(route,/\.from\("offers"\)/);
+ assert.match(route,/\.from\("deal_scores"\)/);
+ assert.match(route,/\.from\("published_deals"\)/);
+ assert.match(route,/\.from\("awin_offer_release_reviews"\)/);
+ assert.match(route,/ownAffiliateLink/);
+ assert.match(route,/fresh\(o\.last_seen_at,now\)/);
+ assert.match(route,/48\*3600_000/);
+ assert.match(route,/status:"source_not_launch_ready"/);
+ assert.doesNotMatch(route,/export async function GET\([\s\S]*?export async function POST\(/);
+});
+test("owner approval preserves authenticated exact-offer binding and atomic SQL verification",()=>{
+ assert.match(route,/request\.headers\.get\("origin"\)/);
+ assert.match(route,/owner-\$\{action\}-\$\{offerId\}/);
+ assert.match(route,/sourceEvidenceFailures\(source/);
+ assert.match(route,/record_awin_owner_release/);
+ assert.match(route,/p_actor_id:user\.id/);
+ assert.match(route,/p_reviewed_price:offer\.price/);
+ assert.match(route,/p_reviewed_offer_at:offer\.last_seen_at/);
+ assert.match(route,/p_reviewed_score_at:score\.calculated_at/);
+ assert.doesNotMatch(route,/\.from\("offers"\)\.upsert/);
+});
+test("owner UI never auto-approves or silently activates sources",()=>{
+ assert.match(page,/role==="owner"&&<OwnerAwinFirstRelease\/>/);
+ assert.match(ui,/approve-current-offer/);
+ assert.match(ui,/owner-approve-/);
+ assert.match(ui,/confirmId!==c\.offerId/);
+ assert.match(ui,/I approve this exact currently displayed GBP offer/);
+ assert.doesNotMatch(ui,/useEffect\(\(\)=>.*act\(/);
+ assert.doesNotMatch(ui,/\.update\(|\.upsert\(|\.insert\(/);
+});
