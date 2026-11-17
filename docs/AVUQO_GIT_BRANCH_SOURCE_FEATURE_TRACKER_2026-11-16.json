@@ -2741,6 +2741,16 @@
   "audit_updates": [
     {
       "date_utc": "2026-11-17",
+      "type": "owner_live_main_no_new_branch_release_policy",
+      "source": "explicit_owner_direction",
+      "main_commit_baseline": "7a2c918d0f44d9c3094c0efca363d83f87fedf1f",
+      "production_deployment": "dpl_DHeM4RDSEfrKXf1L2YpLwaBZgtwr",
+      "production_state": "READY",
+      "awin_offers": 0,
+      "notes": "17 November 2026 owner instruction: AVUQO operates LIVE on main; no more development branches or pull requests for routine next releases. Work directly against current main using the existing GitHub/Vercel connections, preserve tests and deployment verification, and update ACTIVE_HANDOVER.md + JSON, full feature tracker MD + JSON, PROJECT_STATUS.md, CHANGELOG.md and Awin completion board in the SAME release. Never claim a Git commit is deployed until exact production Vercel READY SHA is observed. Current production baseline verified: main commit 7a2c918d0f44d9c3094c0efca363d83f87fedf1f, Vercel dpl_DHeM4RDSEfrKXf1L2YpLwaBZgtwr READY. Live Supabase Awin source remains paused with sync disabled and credential_status not_configured, publication_permission pending, and 0 offers; do not bypass genuine merchant rights, price freshness, matching or affiliate link gates. First 3–10 lawful verified priced offers remain the priority."
+    },
+    {
+      "date_utc": "2026-11-17",
       "type": "awin_safe_private_cron_failure_diagnostics_candidate",
       "pull_request": 287,
       "production_writes": false,
