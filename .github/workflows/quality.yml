@@ -112,6 +112,8 @@ jobs:
         run: node --experimental-strip-types --test tests/ebay-epn-public-search.test.mjs
       - name: Saved, Watches and shared-list offer links
         run: node --test tests/deal-links.test.mjs
+      - name: Accepted Awin portfolio evidence and existing owner-screen reconciliation
+        run: node --experimental-strip-types --test tests/awin-accepted-portfolio-evidence.test.mjs
       - name: Automated Awin approved merchant refresh without first-release bypass
         run: node --test tests/awin-approved-refresh-cron.test.mjs
       - name: Awin approved same-price offer renewal with first-release prohibition
