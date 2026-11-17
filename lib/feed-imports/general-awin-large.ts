@@ -44,7 +44,8 @@ export function prepareGeneralBatch(merchant:string,feedId:string,header:string[
   const title=get(r,format==="google-retail"?"title":"product_name").slice(0,500);
   const {currency,price}=parsePrice(get(r,format==="google-retail"?"price":"search_price"),format,get(r,"currency"));
   const tracking=get(r,"aw_deep_link"),verified=ownTracking(tracking,merchant);
-  const availability=get(r,format==="google-retail"?"availability":"stock_status","in_stock");
+  // Missing stock is UNKNOWN, never silently assumed in stock.
+  const availability=get(r,format==="google-retail"?"availability":"stock_status");
   const reasons:string[]=[];
   const serviceOrContract=serviceAdvertisers.has(merchant)||serviceFeeds.has(feedId);
   if(serviceOrContract)reasons.push("service_contract_adapter_pending");
