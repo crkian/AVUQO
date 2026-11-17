@@ -15,8 +15,8 @@
     "url": "https://www.avuqo.com",
     "project": "avuqo",
     "platform": "Vercel",
-    "ready_app_commit": "676e9cde4a2e0c0cef5cfb09087d7b7fbd709142",
-    "ready_deployment": "dpl_4SgDMcudAS9qD9yzdmPGkBDWURXB",
+    "ready_app_commit": "86e304ab3d9debbc585fe4327301c5122bb8efbb",
+    "ready_deployment": "dpl_9T56qoMbm1xC615xYA7ezCiDwi1y",
     "verified_http": 200,
     "status": "production_READY_PR271_verified_ebay_nine_only_synthetic_no_live_DB",
     "docs_only_ignore_build_note": "Documentation commits may advance Git main without changing running application SHA. Always recheck.",
@@ -489,11 +489,11 @@
     "status": "docs/PROJECT_STATUS.md",
     "roadmap": "docs/ROADMAP.md",
     "last_verified_release": {
-      "pr": 278,
-      "app_commit": "676e9cde4a2e0c0cef5cfb09087d7b7fbd709142",
-      "vercel_deployment": "dpl_4SgDMcudAS9qD9yzdmPGkBDWURXB",
+      "pr": 284,
+      "app_commit": "86e304ab3d9debbc585fe4327301c5122bb8efbb",
+      "vercel_deployment": "dpl_9T56qoMbm1xC615xYA7ezCiDwi1y",
       "verification_date": "2026-11-17",
-      "checks": "native Postgres, signed route, lint/build/secret PASS",
+      "checks": "build/lint/native PostgreSQL/secret scan pass",
       "database_change": false
     },
     "latest_unified_top": "## MASTER READ THIS FIRST · 17 November 2026"
@@ -2035,5 +2035,34 @@
       "provider_activation": false
     },
     "next": "owner click on Cadbury live feed probe; verify real permissions/price, configure legitimate per-advertiser ingestion and release first authorised 3-10 priced offers"
+  },
+  "cadbury_production_selection_20261117": {
+    "stage": "Awin advertiser selection env name present; first priced public Cadbury offer not yet released",
+    "awin_advertiser_id": "736 (historic joined registry; configured environment value not read)",
+    "vercel_key_present": true,
+    "vercel_key_value_verified": false,
+    "probe_production": {
+      "pr": 284,
+      "merged_sha": "86e304ab3d9debbc585fe4327301c5122bb8efbb",
+      "deployment": "dpl_9T56qoMbm1xC615xYA7ezCiDwi1y",
+      "state": "READY",
+      "owner_action": "/control-centre/awin-programmes -> Cadbury 736 -> Check live feed access (no import)",
+      "authenticated_probe_result": "not yet run/observed"
+    },
+    "database": {
+      "awin_paused": true,
+      "awin_sync_enabled": false,
+      "feed_permission_confirmed_for_736": false,
+      "approval_reference_present_for_736": false,
+      "cadbury_private_runs": 2,
+      "cadbury_staged_rows": 2738,
+      "cadbury_verified_runs": 0,
+      "public_awin_offer_rows": 0
+    },
+    "cadbury_terms": "Sale category excluded from commission; restricted brand keyword PPC. Owner-uploaded 2023 programme terms do not independently prove current feed or image licence.",
+    "next": "Verify actual Cadbury live Enhanced Feed via owner probe, record genuine licence evidence, run permitted private fresh ingestion, release small reviewed priced GBP affiliate cohort",
+    "ebay": "paused, deletion POST HTTP503; nine privacy migrations pending, no production Browse/EPN release",
+    "production_sql_mutations": 0,
+    "additional_cost": "£0"
   }
 }
