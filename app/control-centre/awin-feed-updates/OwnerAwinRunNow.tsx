@@ -6,7 +6,7 @@ const tasks=[
  ["playpress_google","PlayPress Toys · Google"],["playpress_standard","PlayPress Toys · Awin"],
  ["petlibro_sale","Petlibro · Sale feed"],["petlibro_hero","Petlibro · Hero SKUs"],
  ["petlibro_standard","Petlibro · Standard feed"],
- ["tooled_up","Tooled Up master"],["canonical","Fresh canonical offers"]
+ ["tooled_up","Tooled Up master"],["pneus","Pneus Online tyres"],["canonical","Fresh canonical offers"]
 ] as const;
 export default function OwnerAwinRunNow(){
  const [busy,setBusy]=useState<string|null>(null);
@@ -50,6 +50,7 @@ export default function OwnerAwinRunNow(){
    const tooled=typeof o.live_rechecked==="number"
     ?" · live rechecked "+o.live_rechecked+
      " · HELD "+(o.canonical_held??0)+" · rejected "+(o.canonical_rejected??0):"";
+   const pneus=typeof o.committed==="number"?" · committed "+o.committed+" / "+(o.total??"?")+" rows":"";
    const batch=typeof o.batch_total==="number"?" · inspected "+o.batch_total+
     " · profiled "+(o.batch_profiled??0)+" · specialist "+(o.batch_specialist??0)+
     " · quarantined "+(o.batch_quarantined??0)+" · other "+(o.batch_errors??0):"";
@@ -64,7 +65,7 @@ export default function OwnerAwinRunNow(){
    const rejected=typeof o.canonical_rejected==="number"&&Number.isSafeInteger(o.canonical_rejected)
     ?" · rejected "+o.canonical_rejected.toLocaleString("en-GB"):"";
    setResults(v=>({...v,[task]:(r.ok?"OK":"HTTP "+r.status)+": "+status+
-    (diagnostic?" · "+diagnostic:"")+selected+importer+eligible+inventory+acceptedFeeds+changed+batch+tooled+parsed+
+    (diagnostic?" · "+diagnostic:"")+selected+importer+eligible+inventory+acceptedFeeds+changed+batch+tooled+pneus+parsed+
     (rows===null?"":" · "+rows.toLocaleString("en-GB")+" rows")+
     fresh+canonical+staged+rejected+schema+(schemaFields?" · recognised "+schemaFields:"")+(safeHeaders?" · columns "+safeHeaders:"")}));
   }catch{
@@ -118,10 +119,10 @@ export default function OwnerAwinRunNow(){
    {tasks.map(([slug,name])=><article key={slug} style={{background:"white",border:"1px solid #e7dfed",
     borderRadius:12,padding:13,display:"grid",gap:7}}>
     <strong>{name}</strong>
-    {(slug==="tooled_up"?["snapshot","validate","cohort"]:slug==="canonical"?["bridge"]:["preflight","stage"]).map(mode=>{
+    {(slug==="tooled_up"?["snapshot","validate","cohort"]:slug==="canonical"?["bridge"]:slug==="pneus"?["import"]:["preflight","stage"]).map(mode=>{
      const task=slug+"_"+mode;
      const caption=mode==="preflight"?"Check live feed":mode==="stage"?"Stage privately":
-      mode==="snapshot"?"Capture snapshot":mode==="bridge"?"Prepare held offers":mode==="cohort"?"Stage current tool cohort to HELD":"Validate snapshot";
+      mode==="snapshot"?"Capture snapshot":mode==="bridge"?"Prepare held offers":mode==="cohort"?"Stage current tool cohort to HELD":mode==="import"?"Import tyre feed privately":"Validate snapshot";
      return <div key={task} style={{display:"grid",gap:3}}>
       <button disabled={busy!==null} onClick={()=>run(task)} style={{padding:9,borderRadius:8,
        color:"#30205a",background:"#f4effd",border:"1px solid #7965aa"}}>
