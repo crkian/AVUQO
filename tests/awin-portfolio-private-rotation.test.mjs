@@ -45,3 +45,13 @@ test("existing owner-protected Run Now can invoke rotation without accepting raw
  assert.match(ui,/control-centre\/tyres/);
  assert.ok(cron.crons.some(x=>x.path==="/api/internal/awin-portfolio-private-rotation"&&x.schedule==="53 10 * * *"));
 });
+
+test("HTTP 422 private import failures retain safe machine-readable reasons for owners",()=>{
+ assert.match(worker,/reason:importerReason/);
+ assert.match(worker,/importer_error:safeError/);
+ assert.match(worker,/diagnostic_stage:safeStatus\(body\.diagnostic_stage\)/);
+ assert.match(worker,/column_names:safeColumnNames/);
+ assert.match(owner,/importer_error/);
+ assert.match(ui,/o\.importer_error/);
+ assert.doesNotMatch(worker,/return reply\(\{.*signed_url/);
+});
