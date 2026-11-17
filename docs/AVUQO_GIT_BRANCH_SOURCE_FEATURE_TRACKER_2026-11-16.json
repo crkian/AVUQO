@@ -2452,5 +2452,30 @@
     "ebay_source": "paused; callback HTTP503",
     "awin": "untouched",
     "next": "exact whole-object equivalence and production-schema clone nine-only rehearsal before separate production installation approval"
+  },
+  "ebay_control_tower_integrated_release_20261117": {
+    "state": "candidate_review_not_production_activation",
+    "owner_route": "/control-centre/ebay-privacy",
+    "source_code": [
+      "app/control-centre/ebay-privacy/page.tsx",
+      "lib/ebay/privacy-control-tower.ts",
+      "lib/ebay/privacy-control-tower-server.ts"
+    ],
+    "safety": "owner access before private queries, seven-surface counts, no raw ids/keys, read-only, no false 2xx",
+    "new_gates": [
+      "aggregate queue coverage excludes zero receipts and errors",
+      "Browse production configuration is not provider approval",
+      "purchase flows separated by actual provider contract"
+    ],
+    "platform": "Awin/eBay affiliate referrals plus future authorised Buy checkout and supplier/dropship transactions",
+    "database": "four foundation migrations installed, nine privacy migrations still unapplied, no production mutations",
+    "provider": "eBay paused, callback HTTP 503, portal not approved",
+    "next": [
+      "whole-object schema equivalence",
+      "faithful nine-only isolated rehearsal",
+      "reviewed installation",
+      "legal/retention/provider processing and signed durable acceptance",
+      "production Browse/EPN permissions and authorised published listings"
+    ]
   }
 }

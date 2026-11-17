@@ -68,6 +68,31 @@ export default async function EbayPrivacyControlTower(){
     Credentials and token values are never shown.</p>
   </section>
 
+  <section className={styles.panel} aria-label="eBay production buying and notification readiness">
+   <div className={styles.panelHead}><h2><ShieldAlert size={20}/> eBay release evidence</h2>
+    <p>Live configuration checks and aggregate queue observations, not eBay contractual approval or account-erasure completion.</p>
+   </div>
+   <div className={styles.grid}>
+    <article className={styles.metric}><small>Seven-surface queue coverage</small>
+     <strong>{readiness.queueAggregateComplete?"Aggregate counts aligned":"NOT VERIFIED"}</strong>
+     <p>Count alignment alone cannot prove each notification has all seven associated work items.</p>
+    </article>
+    <article className={styles.metric}><small>Browse / EPN configuration</small>
+     <strong>{readiness.browseConfigurationPresent?"Configured, approval unverified":"NOT READY"}</strong>
+     <p>Environment: {signals.browse.environment}; production key flags, limited-release approval flag and campaign ID must all be present.</p>
+    </article>
+    <article className={styles.metric}><small>Deletion acknowledgement</small>
+     <strong>HTTP 503 / NOT ENABLED</strong>
+     <p>No successful provider receipt acknowledgement until signed, durable acceptance and operational/legal safeguards are reviewed.</p>
+    </article>
+    <article className={styles.metric}><small>Checkout on AVUQO</small>
+     <strong>NOT AUTHORISED</strong>
+     <p>eBay Browse affiliate referrals and Buy API checkout require different provider approvals.</p>
+    </article>
+   </div>
+   <div className={styles.notice}>Configuration flags are not independent evidence of provider rights. The user-facing shopping experience can include affiliate referrals and future separately authorised embedded checkout or dropshipping without claiming those purchase modes are live.</div>
+  </section>
+
   <section className={styles.panel} aria-label="eBay account deletion work queue">
    <div className={styles.panelHead}>
     <h2><Database size={20}/> Private work journal</h2>
@@ -104,12 +129,13 @@ export default async function EbayPrivacyControlTower(){
 
   <section className={styles.panel}>
    <div className={styles.panelHead}><h2>Next release steps</h2>
-    <p>Operational sequence for the advanced eBay comparison integration, without direct stock supply or AVUQO fulfilment.</p></div>
+    <p>Operational sequence for the advanced eBay comparison, affiliate and separately authorised commerce integration.</p></div>
    <ol>
     <li>Review and test the unapplied private work-journal, account-specific audit and erasure migrations against full referential constraints.</li>
     <li>Implement lawful per-surface erasure or retention decisions for account-linked analytics, feedback, watch history, logs, assets and outside processors.</li>
     <li>Validate signed real-provider notifications and idempotent durable processing without premature success acknowledgement.</li>
     <li>Only after release approval: provision the verification token, configure the canonical endpoint, subscribe and verify a real test notification.</li>
+    <li>Separately verify eBay Browse, EPN tracking, item data licence, production access and any checkout permissions before introducing live products or on-site purchasing.</li>
    </ol>
    <nav className={styles.links}><Link href="/control-centre/source-readiness">Review source permissions</Link>
     <Link href="/control-centre/retailers">Back to all retailers</Link></nav>

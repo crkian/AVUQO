@@ -2,6 +2,7 @@ import "server-only";
 import {createAdminClient} from "../supabase/admin";
 import {ebayPrivacyReadiness,EBAY_WORK_SURFACES} from "./privacy-control-tower";
 import type {CountEvidence,EbayPrivacySignals,SourceEvidence} from "./privacy-control-tower";
+import {ebayPilotReadiness} from "./private-uk-browse";
 
 const statuses=["pending","leased","awaiting_evidence","blocked"] as const;
 type Db=ReturnType<typeof createAdminClient>;
@@ -54,7 +55,12 @@ export async function loadEbayPrivacyControlTower(){
    /^[A-Za-z0-9_-]{32,80}$/.test(process.env.EBAY_DELETION_VERIFICATION_TOKEN)
   ),
   endpointUrlMatches:process.env.EBAY_DELETION_ENDPOINT_URL===
-   "https://www.avuqo.com/api/ebay/account-deletion"
+   "https://www.avuqo.com/api/ebay/account-deletion",
+  browse:(()=>{
+   const cfg=ebayPilotReadiness();
+   return {environment:cfg.environment,credentialsConfigured:cfg.credentialsConfigured,
+    productionFlag:cfg.productionApproved,campaignConfigured:cfg.campaignConfigured};
+  })()
  };
  return {signals,readiness:ebayPrivacyReadiness(signals)};
 }
