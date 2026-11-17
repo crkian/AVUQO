@@ -2432,5 +2432,25 @@
     "ebay": "paused; deletion POST 503",
     "awin": "unchanged",
     "next": "whole-object attestation then faithful isolated nine-only replay; explicit production DDL authorisation separately required"
+  },
+  "ebay_four_foundation_verified_release_20261117": {
+    "status": "merged_production_READY",
+    "prs": [
+      273,
+      274
+    ],
+    "git_main_sha": "2ec9f1492cb471f15ff01008407103d1bd1aae81",
+    "vercel_deployment": "dpl_6aaBhWJB573mEpMBXUFG9nSQxWBk",
+    "checks": "lint/build/native PostgreSQL/secret scan passed",
+    "live_foundation_structural_checks": {
+      "pass": 7,
+      "block": 2
+    },
+    "live_function_body_hash_matches": 7,
+    "live_function_body_hash_mismatches": 0,
+    "production_migrations_applied": 0,
+    "ebay_source": "paused; callback HTTP503",
+    "awin": "untouched",
+    "next": "exact whole-object equivalence and production-schema clone nine-only rehearsal before separate production installation approval"
   }
 }
