@@ -11,7 +11,6 @@ const tasks=[
 export default function OwnerAwinRunNow(){
  const [busy,setBusy]=useState<string|null>(null);
  const [rotationStep,setRotationStep]=useState(0);
- const [probeStep,setProbeStep]=useState(0);
  const [results,setResults]=useState<Record<string,string>>({});
  async function run(task:string){
   setBusy(task);
@@ -19,7 +18,6 @@ export default function OwnerAwinRunNow(){
   try{
    const body:Record<string,string|number>={task};
    if(task==="portfolio_stage_next")body.step=rotationStep;
-   if(task==="portfolio_schema_probe_next")body.step=probeStep;
    if(!task.endsWith("_preflight")&&task!=="all_feeds_check"&&task!=="portfolio_schema_probe_next")body.confirm="private-only-"+task;
    const r=await fetch("/api/control-centre/awin-run-now",{
     method:"POST",credentials:"same-origin",cache:"no-store",
@@ -67,7 +65,6 @@ export default function OwnerAwinRunNow(){
    setResults(v=>({...v,[task]:"Private task unavailable. Check server logs."}));
   }finally{
    if(task==="portfolio_stage_next")setRotationStep(v=>(v+1)%9);
-   if(task==="portfolio_schema_probe_next")setProbeStep(v=>(v+1)%200);
    setBusy(null);
   }
  }
@@ -87,7 +84,7 @@ export default function OwnerAwinRunNow(){
   </div>
   <div style={{padding:14,border:"1px solid #d7c8ea",borderRadius:12,background:"#f7f5ff",display:"grid",gap:8}}>
    <strong>Universal schema inspection: all accepted feeds</strong>
-   <p style={{margin:0,fontSize:13}}>Inspect one server-selected accepted feed per click, including unfamiliar formats. This is read-only: no product staging, public prices, permissions changes or signed URL exposure. Large and specialist feeds remain on their dedicated routes. Oversized files will be identified for a streamed adapter.</p>
+   <p style={{margin:0,fontSize:13}}>Inspect the next uninspected accepted feed per click. The server remembers inspection results between sessions and retries the oldest when coverage is complete. This is read-only: no product staging, public prices, permissions changes or signed URL exposure. Large and specialist feeds remain on their dedicated routes. Oversized files will be identified for a streamed adapter.</p>
    <button disabled={busy!==null} onClick={()=>run("portfolio_schema_probe_next")} style={{padding:10,borderRadius:8,color:"#30205a",background:"#eee7ff",border:"1px solid #7965aa",maxWidth:350}}>
     {busy==="portfolio_schema_probe_next"?"Inspecting accepted feed...":"Inspect next accepted feed"}
    </button>
