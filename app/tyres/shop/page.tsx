@@ -83,7 +83,7 @@ export default async function TyreShop({searchParams}:{searchParams:Promise<Filt
     <Link href="/tyres/shop">All available sizes</Link>
    </form>
    {!params.valid&&<p role="alert" className={styles.notice}>Select all three dimensions, or clear all filters. A partial size is not a complete tyre match.</p>}
-   <p className={styles.notice}>**Important:** Supplier product prices exclude delivery, fitting, balancing, valves and disposal unless the retailer confirms those charges. A matching tyre size alone does not certify vehicle fitment, load or speed requirements. Products shown here are retailer listings, not AVUQO-scored deals.</p>
+   <p className={styles.notice}><strong>Important:</strong> Supplier product prices exclude delivery, fitting, balancing, valves and disposal unless the retailer confirms those charges. A matching tyre size alone does not certify vehicle fitment, load or speed requirements. Products shown here are retailer listings, not AVUQO-scored deals.</p>
    <p className={styles.count}>{shown.length} currently source-verified products on this page</p>
    {shown.length?<section className={styles.grid}>
     {shown.map(t=><article key={t.sku} className={styles.card}>
