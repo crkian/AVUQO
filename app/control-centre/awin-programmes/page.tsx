@@ -4,11 +4,12 @@ import type {Metadata} from "next";
 import {requireControlCentreAccess} from "../../../lib/auth/requireControlCentreAccess";
 import {createAdminClient} from "../../../lib/supabase/admin";
 import {joinedAwinAdvertisers,joinedInSource} from "../../../lib/awin/joined-catalogue";
+import {reconcileJoinedAwin} from "../../../lib/awin/joined-launch-reconciliation";
 import styles from "./programmes.module.css";
 export const instant=false;
 export const metadata:Metadata={title:"All joined Awin programmes | AVUQO",robots:{index:false,follow:false}};
 
-type Run={merchant_id:string;merchant_name:string;created_at:string;total_count:number;status:string};
+type Run={merchant_id:string;merchant_name:string;created_at:string;total_count:number;status:string;permission_status:string};
 type Feed={advertiser_id:string;feed_id:string;feed_name:string;listed_products:number;last_imported_source:string;observed_at:string;needs_private_refresh:boolean};
 const known:Record<string,{feedId:string;description:string;products:number}[]>={
  "496":[{feedId:"89987",description:"All Products, historical Tooled-Up upload",products:84284}],
@@ -29,11 +30,12 @@ export default async function Page(){
  await connection();
  await requireControlCentreAccess();
  const admin=createAdminClient();
- const [registry,imports,observations]=await Promise.all([
+ const [registry,imports,observations,programmeEvidence]=await Promise.all([
   admin.from("sources").select("metadata").eq("connector_key","awin").maybeSingle(),
-  admin.from("feed_import_runs").select("merchant_id,merchant_name,created_at,total_count,status")
+  admin.from("feed_import_runs").select("merchant_id,merchant_name,created_at,total_count,status,permission_status")
    .in("status",["private_review","importing"]).order("created_at",{ascending:false}).limit(150),
-  admin.from("awin_feed_update_observations").select("advertiser_id,feed_id,feed_name,listed_products,last_imported_source,observed_at,needs_private_refresh").limit(1000)
+  admin.from("awin_feed_update_observations").select("advertiser_id,feed_id,feed_name,listed_products,last_imported_source,observed_at,needs_private_refresh").limit(1000),
+  admin.from("affiliate_programs").select("external_account_id,programme_name,status,terms_checked_at").eq("provider","awin").limit(100)
  ]);
  const validRegistry=registry.data&&!registry.error;
  const rows=(imports.data??[]) as Run[],feeds=(observations.data??[]) as Feed[];
@@ -50,20 +52,51 @@ export default async function Page(){
    status:statusText(run,recorded.length,remaining.length)};
  });
  const staged=joined.filter(p=>p.run?.status==="private_review").length;
+ const reconciled=reconcileJoinedAwin(registry.data?.metadata,programmeEvidence.data??[],rows);
+ const joinedCount=reconciled.filter(p=>p.joinedObserved).length;
+ const readyCount=reconciled.filter(p=>p.needsEvidence.length===0).length;
+ const canProbeToken=Boolean(process.env.AWIN_ACCESS_TOKEN&&process.env.AWIN_PUBLISHER_ID);
+ const specificAdvertiserConfigured=Boolean(process.env.AWIN_ADVERTISER_ID);
  return <main className={styles.page}>
   <nav className={styles.breadcrumb}><Link href="/control-centre">Control Centre</Link><span>/</span><Link href="/control-centre/feed-imports">Feed imports</Link><span>/</span>All Awin programmes</nav>
   <header className={styles.header}>
    <p className={styles.eyebrow}>SOURCE CONTROL · ALL JOINED ADVERTISERS</p>
    <h1>Every accepted Awin programme, in one place.</h1>
-   <p>Nothing is excluded because its feed is large or because it offers a service rather than physical products. This register covers all 16 programmes observed as joined on 4 November 2026. Membership is checked against the live source registry and is not permission to reuse images or publish offers.</p>
+   <p>Nothing is excluded because its feed is large or because it offers a service rather than physical products. This register preserves 16 programmes observed as joined on 4 November 2026. Those are genuine historical membership observations, distinct from internal permission for product-feed use, refreshed prices, images and public affiliate offers.</p>
   </header>
   <div className={styles.metrics}>
-   <div><strong>{joined.length}</strong><span>Accepted programme records</span></div>
+   <div><strong>{joinedCount}</strong><span>Joined observed on 4 Nov (historical)</span></div>
    <div><strong>{staged}</strong><span>With completed private imports</span></div>
    <div><strong>{joined.filter(p=>p.listed>0).length}</strong><span>With recorded or historical feed references</span></div>
-   <div><strong>0</strong><span>Public offers activated here</span></div>
+   <div><strong>{readyCount}</strong><span>Advertisers with all recorded release evidence</span></div>
   </div>
-  {(registry.error||imports.error||observations.error)&&<p className={styles.warning} role="alert">Some live source information is unavailable. Historical feed references are labelled separately and no merchant activation is assumed.</p>}
+  {(registry.error||imports.error||observations.error||programmeEvidence.error)&&<p className={styles.warning} role="alert">Some live source information is unavailable. Historical feed references are labelled separately and no merchant activation is assumed.</p>}
+  <section className={styles.guidance} aria-labelledby="awin-reconciliation-heading">
+   <h2 id="awin-reconciliation-heading">Joined with Awin is not the same as cleared for an AVUQO offer</h2>
+   <p><strong>{joinedCount} joined programmes were observed on 4 November.</strong> Their historic network membership has not been discarded. The independent internal programme register, feed/price rights and per-offer releases must still be reconciled. No new application is implied by a pending internal status.</p>
+   <p><strong>Awin connectivity:</strong> publisher ID and access token {canProbeToken?"present":"incomplete"}; single-advertiser selection {specificAdvertiserConfigured?"configured":"not configured"}. These are presence checks only, not a provider API test, merchant approval or a licence. No credentials are displayed.</p>
+   <p>To get real priced products live: check the exact Awin advertiser ID and current membership, record approval/feed/image permissions and expiry, verify the provider feed and fresh prices, then release the first qualifying offer through the existing owner-only approval workflow.</p>
+   <div className={styles.actions}>
+    <Link href="/control-centre/awin-advertisers">Record existing approvals and release offers</Link>
+    <Link href="/control-centre/awin-feed-updates">Check feed freshness</Link>
+    <Link href="/control-centre/product-readiness">Verify canonical products</Link>
+    <Link href="/products">See current public products</Link>
+   </div>
+  </section>
+  <section className={styles.guidance} aria-labelledby="merchant-evidence-heading">
+   <h2 id="merchant-evidence-heading">Merchant-by-merchant reconciliation</h2>
+   <p>Evidence status below is from AVUQO records, not a fresh API membership check. A recorded staged import is private and may contain duplicate rows across uploads.</p>
+   <div className={styles.reconciliationList}>
+    {reconciled.map(merchant=><article key={merchant.id} className={styles.reconciliationItem}>
+     <div><strong>{merchant.name}</strong> <small>Awin {merchant.id}</small></div>
+     <p>Membership: {merchant.joinedObserved?"joined observed 4 Nov":"not independently confirmed"} · Internal programme: {merchant.internalStatus} · Historic staged rows: {merchant.historicalImportRows.toLocaleString("en-GB")} across {merchant.privateImportRuns} runs</p>
+     {merchant.needsEvidence.length?
+      <p><strong>Still required:</strong> {merchant.needsEvidence.join("; ")}</p>:
+      <p><strong>Recorded evidence complete.</strong> Current product, price, tracking and image checks still apply.</p>}
+     <Link href="/control-centre/awin-advertisers">Complete this merchant&apos;s release review</Link>
+    </article>)}
+   </div>
+  </section>
   <section className={styles.guidance}>
    <strong>Full-range ingestion approach</strong>
    <p>Use the existing CSV importer for feeds up to 2,500 rows. The 84,284-row Tooled-Up importer is presently merchant-specific and cannot be used for tyres or other advertisers. Bigger and specialised feeds require a generalised resumable importer with merchant validation, careful overlap deduplication and separate service/contract taxonomy. Feed credentials and authorised product usage must be verified before automation.</p>
