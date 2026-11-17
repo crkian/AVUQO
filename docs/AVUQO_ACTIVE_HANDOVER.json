@@ -15,12 +15,12 @@
     "url": "https://www.avuqo.com",
     "project": "avuqo",
     "platform": "Vercel",
-    "ready_app_commit": "86e304ab3d9debbc585fe4327301c5122bb8efbb",
-    "ready_deployment": "dpl_9T56qoMbm1xC615xYA7ezCiDwi1y",
+    "ready_app_commit": "7a2c918d0f44d9c3094c0efca363d83f87fedf1f",
+    "ready_deployment": "dpl_DHeM4RDSEfrKXf1L2YpLwaBZgtwr",
     "verified_http": 200,
-    "status": "production_READY_PR271_verified_ebay_nine_only_synthetic_no_live_DB",
+    "status": "READY_PR287_verified_live_2026_11_17",
     "docs_only_ignore_build_note": "Documentation commits may advance Git main without changing running application SHA. Always recheck.",
-    "verification": "PR278 merged, Vercel production READY at exact SHA 676e9cde, native PostgreSQL, lint/build/secret tests passed; eBay signed receipt 202 path remains OFF; no production database migrations installed."
+    "verification": "PR287 merged and Vercel production READY matching exact commit; Awin still paused with zero real public offers"
   },
   "supabase": {
     "project_ref": "tfoukwcruaamrtgxzshh",
@@ -499,7 +499,7 @@
     "latest_unified_top": "## MASTER READ THIS FIRST · 17 November 2026"
   },
   "requirements": {
-    "change_control": "For every substantive task, read current Git main and all active handovers/tracker; commit active Markdown+JSON, branch/feature tracker Markdown+JSON, PROJECT_STATUS and CHANGELOG, updating branch/feature rows and next Awin gate. CI enforces these on implementation PRs. Documentation-only investigations must voluntarily update the same records.",
+    "change_control": "Owner direction 2026-11-17: direct main only; no new branches/PRs for routine work. Update master handover MD+JSON, feature tracker MD+JSON, status, changelog, Awin board together; verify production READY SHA and live source state. Preserve tests and security gates.",
     "licence_boundary": "Owner approval for AVUQO does not independently grant merchant/third-party IP or price rights.",
     "privacy": "Never commit secret values, user records, confidential source PDFs or raw merchant/affiliate signed URLs to public Git."
   },
@@ -512,6 +512,16 @@
     "Recheck rights/commission/image permission evidence before public offers"
   ],
   "audit_updates": [
+    {
+      "date_utc": "2026-11-17",
+      "type": "owner_live_main_no_new_branch_release_policy",
+      "source": "explicit_owner_direction",
+      "main_commit_baseline": "7a2c918d0f44d9c3094c0efca363d83f87fedf1f",
+      "production_deployment": "dpl_DHeM4RDSEfrKXf1L2YpLwaBZgtwr",
+      "production_state": "READY",
+      "awin_offers": 0,
+      "notes": "17 November 2026 owner instruction: AVUQO operates LIVE on main; no more development branches or pull requests for routine next releases. Work directly against current main using the existing GitHub/Vercel connections, preserve tests and deployment verification, and update ACTIVE_HANDOVER.md + JSON, full feature tracker MD + JSON, PROJECT_STATUS.md, CHANGELOG.md and Awin completion board in the SAME release. Never claim a Git commit is deployed until exact production Vercel READY SHA is observed. Current production baseline verified: main commit 7a2c918d0f44d9c3094c0efca363d83f87fedf1f, Vercel dpl_DHeM4RDSEfrKXf1L2YpLwaBZgtwr READY. Live Supabase Awin source remains paused with sync disabled and credential_status not_configured, publication_permission pending, and 0 offers; do not bypass genuine merchant rights, price freshness, matching or affiliate link gates. First 3–10 lawful verified priced offers remain the priority."
+    },
     {
       "date_utc": "2026-11-17",
       "type": "awin_safe_private_cron_failure_diagnostics_candidate",
