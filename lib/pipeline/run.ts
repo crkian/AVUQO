@@ -612,6 +612,24 @@ export async function runDealIntelligencePipeline(
     advertiserId: options.sourceKey === "awin" ? (options.awinAdvertiserId??process.env.AWIN_ADVERTISER_ID) : undefined,
     connectorConfigured: configured,
   };
+  // Canonical accepted membership lives in affiliate_programs, not the
+  // older sources.metadata roster. Check it for ALL Awin run modes, including
+  // Enhanced API and fresh private CSV/Google batches, before any writes.
+  if(options.sourceKey==="awin"){
+    const advertiser=rightsContext.advertiserId??"";
+    if(!/^\\d{2,12}$/.test(advertiser))throw Error("Awin advertiser identity is required");
+    const {data:programme,error:programmeError}=await supabase
+      .from("affiliate_programs").select("metadata")
+      .eq("provider","awin").eq("region","GB")
+      .eq("external_account_id",advertiser).maybeSingle();
+    const m=programme?.metadata&&typeof programme.metadata==="object"&&!Array.isArray(programme.metadata)
+      ?programme.metadata as Record<string,unknown>:{};
+    const att=m.owner_joined_accepted_attestation;
+    const accepted=att&&typeof att==="object"&&!Array.isArray(att)&&
+      (att as Record<string,unknown>).membership_status==="accepted";
+    if(programmeError||!accepted)
+      throw Error("Awin advertiser missing from accepted programme evidence registry");
+  }
   if (options.sourceKey !== "demo") {
     const failures = sourceIngestionFailures(source, rightsContext);
     if (failures.length) throw new Error(`External source not approved: ${failures.join("; ")}`);
