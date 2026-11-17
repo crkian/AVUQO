@@ -2621,5 +2621,36 @@
       "canonical_awin_offers": 0,
       "approved_releases": 0
     }
+  },
+  "latest_awin_all_accepted_and_advanced_tyres_checkpoint": {
+    "date": "2026-11-17",
+    "user_screen": "Only 4 pilot controls plus Tooled Up existed despite 21 accepted programme registry and 74 observed feed entries",
+    "owner_inventory_action": "all_feeds_check added to owner Run Now, delegates authenticated metadata-only monitoring using CRON_SECRET; never claims product publication",
+    "accepted_feed_discovery": "Now uses accepted numeric advertiser IDs from public.affiliate_programs, not original hardcoded joined pilot roster",
+    "specialist_tyres": {
+      "tyres_uk": {
+        "advertiser_id": "12715",
+        "feed_id": "93988"
+      },
+      "pneus_online": {
+        "advertiser_id": "15236",
+        "feed_id": "26513"
+      },
+      "rules": "Preserve exact width/profile/rim, load/speed, variant, fitment, delivered/fitted price separation and genuine quote evidence; no generic physical-product release bypass",
+      "control_centre_urls": [
+        "/control-centre/tyres",
+        "/control-centre/tyre-spec-enrichment"
+      ]
+    },
+    "application_commits": [
+      "de6e04f861087c5f543dbe4c26927e846b4df770",
+      "702d7eb27640d9ee81b62861583029a9ff3f2808",
+      "674a58c7a6acaabc5dbabd7b178480f88af75cdb"
+    ],
+    "test_commits": [
+      "308a2eb6c3d9a959366738e15b47533eabb216bb",
+      "4167bdfc96e16e27214daa7225593a25ca5c11ef"
+    ],
+    "live_product_status": "Last independently verified Awin canonical offers 0; source paused for rights/price evidence. Inventory entries are not live products."
   }
 }
