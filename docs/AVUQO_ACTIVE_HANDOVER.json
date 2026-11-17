@@ -2778,6 +2778,15 @@
     ],
     "test_commit": "6e0df3480da3a9a7b45d9e536f8667ec4709dbdd",
     "product_release_status": "No verified live Awin products; owner permission granted; actual source importer error unresolved until rerun",
-    "next": "Refresh signed-in Control Centre, click Try another accepted retail feed or Petlibro sale Check live feed. Capture exact safe reason and preflight columns. Fix observed provider schema issue, verify canonical fresh rows and first live offer. Keep all handovers synced."
+    "next": "Refresh signed-in Control Centre, click Try another accepted retail feed or Petlibro sale Check live feed. Capture exact safe reason and preflight columns. Fix observed provider schema issue, verify canonical fresh rows and first live offer. Keep all handovers synced.",
+    "production": {
+      "status": "READY",
+      "deployment_id": "dpl_2Ef1M8Wf7SzoLPjxDmTNMA6UUMF2",
+      "application_sha": "6e0df3480da3a9a7b45d9e536f8667ec4709dbdd",
+      "vercel_commit_status": "success",
+      "github_full_quality": "not independently certified",
+      "provider_retest": "not yet verified after patch",
+      "canonical_public_product_claim": "none"
+    }
   }
 }
