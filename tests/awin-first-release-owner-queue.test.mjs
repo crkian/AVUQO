@@ -42,3 +42,12 @@ test("owner UI never auto-approves or silently activates sources",()=>{
  assert.doesNotMatch(ui,/useEffect\(\(\)=>.*act\(/);
  assert.doesNotMatch(ui,/\.update\(|\.upsert\(|\.insert\(/);
 });
+
+test("owner readiness shows granted standing authorization without bypassing source evidence",()=>{
+ assert.match(route,/ownerAuthorization:obj\(meta\.owner_publication_authorization\)\.status==="granted"/);
+ assert.match(route,/credentialRegistry:source\.credential_status/);
+ assert.match(route,/priceEvidence:meta\.price_evidence_status/);
+ assert.match(ui,/Publication authorisation:/);
+ assert.match(ui,/not yet fully automated/);
+ assert.match(ui,/not a request for another owner approval/);
+});
