@@ -2,7 +2,7 @@ import {NextRequest,NextResponse} from "next/server";
 import {createAdminClient} from "../../../../lib/supabase/admin";
 import {tooledUpPrivateAutomationAllowed} from "../../../../lib/awin/tooled-up-private-automation";
 import {AWIN_PRIVATE_SNAPSHOT_BUCKET,privateAwinSnapshotKey} from "../../../../lib/awin/private-snapshot";
-import {newestRecentTooledUpSnapshot} from "../../../../lib/awin/tooled-up-recent-snapshot";
+import {latestTooledUpObservedDigest} from "../../../../lib/awin/tooled-up-observation";
 import {TOOLED_UP_SOURCE_FIELDS} from "../../../../lib/awin/tooled-up-source-fields";
 import {csvRowsFromChunks} from "../../../../lib/feed-imports/stream-csv";
 import {ownAffiliateLink} from "../../../../lib/awin/approved-offer-renewal";
@@ -41,19 +41,18 @@ export async function GET(request:NextRequest){
   .eq("advertiser_id",ID).eq("feed_id",FEED)
   .order("validated_at",{ascending:false}).limit(1).maybeSingle();
  if(validationError||!validation)return reply({status:"validation_not_available",no_publication:true},503);
- const validatedAt=Date.parse(validation.validated_at??"");
+ // Full-stream integrity validation applies to immutable content. Live
+ // price/stock freshness comes from a NEW authenticated Awin download that
+ // was independently checked against the stored SHA-256, not validated_at
+ // or storage.created_at. Reusing validation cannot refresh price evidence.
  const now=Date.now();
  if(validation.critical_issues!==0||validation.duplicate_product_ids!==0||
    validation.invalid_price_rows!==0||validation.unverified_affiliate_links!==0||
-   !Number.isSafeInteger(validation.actual_rows)||validation.actual_rows<100||
-   !Number.isFinite(validatedAt)||validatedAt>now+120000||now-validatedAt>12*60_000)
-  return reply({status:"fresh_validated_snapshot_required",no_publication:true});
- const {data:files,error:listError}=await db.storage.from(AWIN_PRIVATE_SNAPSHOT_BUCKET)
-  .list("awin/496/89987",{limit:100,offset:0,sortBy:{column:"created_at",order:"desc"}});
- if(listError)return reply({status:"snapshot_inventory_unavailable",no_publication:true},503);
- const recent=newestRecentTooledUpSnapshot(files);
+   !Number.isSafeInteger(validation.actual_rows)||validation.actual_rows<100)
+  return reply({status:"full_stream_validation_failed",no_publication:true});
+ const recent=await latestTooledUpObservedDigest(db);
  if(!recent||recent.snapshot_sha256!==validation.snapshot_sha256)
-  return reply({status:"validated_digest_not_recent_snapshot",no_publication:true});
+  return reply({status:"fresh_authenticated_feed_observation_required",no_publication:true});
  const key=privateAwinSnapshotKey(ID,FEED,validation.snapshot_sha256,"csv.gz");
  const {data:signed,error:signError}=await db.storage.from(AWIN_PRIVATE_SNAPSHOT_BUCKET)
   .createSignedUrl(key,60);
@@ -133,7 +132,7 @@ export async function GET(request:NextRequest){
   matched++;
   const sourceMetadata=meta(old.metadata);
   // Do not overwrite customer-facing price or fabricate a feed currency field.
-  const metadata={...sourceMetadata,live_feed_verified_at:validation.validated_at,
+  const metadata={...sourceMetadata,live_feed_verified_at:recent.observed_at,
    live_feed_digest:validation.snapshot_sha256,
    live_feed_verification:"exact_authenticated_feed_digest_rechecked",
    live_digest_kind:"gzip_storage_snapshot_sha256",
