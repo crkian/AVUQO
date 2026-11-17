@@ -4,7 +4,7 @@ import {redirect} from "next/navigation";
 import {requireControlCentreAccess} from "../../../lib/auth/requireControlCentreAccess";
 import {createAdminClient} from "../../../lib/supabase/admin";
 import {joinedInSource} from "../../../lib/awin/joined-catalogue";
-import {probeAwinEnhancedFeed} from "../../../lib/connectors/awin";
+import {probeAwinEnhancedFeed} from "../../../lib/awin/private-feed-probe";
 
 /**
  * Owner-initiated, read-only Awin feed connectivity test.
