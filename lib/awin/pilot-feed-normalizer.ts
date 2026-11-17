@@ -35,20 +35,21 @@ export function normalizePilotAwinFeed(advertiser:string,feedId:string,header:st
   identifyFormat(projected);
   return {header:projected,rows:projectedRows,currencySource:"feed_column" as const};
  }
- if(advertiser==="45747"&&feedId==="F1356"){
+ if((advertiser==="45747"&&feedId==="F1356")||
+    (advertiser==="101445"&&feedId==="F5142")){
   if(header.length<6||header.length>256||new Set(header).size!==header.length)
-   throw Error("invalid_craft_buddy_google_columns");
+   throw Error("invalid_google_retail_columns");
   const required=["advertiser_id","id","title","price","availability","aw_deep_link"];
   if(required.some(name=>header.filter(h=>h===name).length!==1))
-   throw Error("invalid_craft_buddy_google_required_columns");
+   throw Error("invalid_google_retail_required_columns");
   const selected=[...required,"brand","product_type","google_product_category",
    "image_link","gtin","ean","mpn","condition","last_updated"];
   const projected=selected.filter(name=>header.includes(name));
   const positions=projected.map(name=>header.indexOf(name));
   const merchantCol=header.indexOf("advertiser_id");
   const projectedRows=rows.map(row=>{
-   if(row.length!==header.length||row[merchantCol]?.trim()!=="45747")
-    throw Error("craft_buddy_google_advertiser_mismatch");
+   if(row.length!==header.length||row[merchantCol]?.trim()!==advertiser)
+    throw Error("google_retail_advertiser_mismatch");
    return positions.map(i=>row[i]);
   });
   identifyFormat(projected);
