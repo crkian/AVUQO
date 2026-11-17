@@ -94,7 +94,9 @@ export async function GET(request:NextRequest){
    outcomes.push({advertiser_id:pair.id,status:"canonical_admission_blocked"});
   }
  }
+ const seen_total=outcomes.reduce((n,x)=>n+(x.seen??0),0);
+ const held_total=outcomes.reduce((n,x)=>n+(x.held??0),0);
  return reply({status:"private_to_held_canonical_checked",no_first_publication:true,
   notes:"No tyres, services, unverified links, or historical prices were imported",
-  outcomes});
+  seen_total,held_total,outcomes});
 }
