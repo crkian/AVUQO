@@ -1,4 +1,4 @@
-import {inspectAwinFeedList} from "./feed-list-audit";
+import {inspectAwinFeedList} from "./feed-list-audit.ts";
 import type {SafeFeed} from "./feed-list-audit";
 
 export type AwinLiveInventoryResult={
