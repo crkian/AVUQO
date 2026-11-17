@@ -3370,5 +3370,35 @@
       "next": "Run signed-in owner Run scheduled accepted retail feed or PlayPress/Craft Buddy exact preflight+stage, report actual provider outcome; do not count private inventory as public launch",
       "tyres": "retained specialists, do not generalise fitted quotes"
     }
+  },
+  "latest_awin_petlibro_422_remediation": {
+    "date": "2026-11-17",
+    "user_observed": {
+      "at": "17:25 Europe/London",
+      "selected_advertiser": "77952",
+      "selected_feed": "109051",
+      "http_status": 422,
+      "status": "private_rotation_failed",
+      "old_display": "importer unavailable; fresh verified 0; held candidates 0"
+    },
+    "root_cause": "unconfirmed until safe provider validation reason is observed",
+    "changes": [
+      "Explicit safe importer_error/reason/stage/headers through private rotator to owner UI",
+      "Petlibro sale/hero/standard exact reviewed UK 20-column schema allowed only with advertiser 77952 and matched data_feed_id; inferred GBP private only",
+      "Bounded 0–8 owner-scoped rotating offset; retry button advances after each attempt while Cron unchanged"
+    ],
+    "code_commits": [
+      "11cb961d4fd8075937d1aba2f8fda05bed14cf8a",
+      "626f9e450cb2f09b855e9ae8b7afd98289130120",
+      "0a4f6c57b3399b48dad3d5834c593cb40a00564a",
+      "c898e962c1142c02a3d844e482b77c2e00d29915",
+      "78f43811eca9826e8f3886b781e433e139036cad",
+      "dd40546158aadb05449442684d196d34a1340ccf",
+      "14a2eda76374f800b36106bf23a604d7c1e1066a",
+      "aa6fe2220d9674c9fd6c67d5abe07146ec90a693"
+    ],
+    "test_commit": "6e0df3480da3a9a7b45d9e536f8667ec4709dbdd",
+    "product_release_status": "No verified live Awin products; owner permission granted; actual source importer error unresolved until rerun",
+    "next": "Refresh signed-in Control Centre, click Try another accepted retail feed or Petlibro sale Check live feed. Capture exact safe reason and preflight columns. Fix observed provider schema issue, verify canonical fresh rows and first live offer. Keep all handovers synced."
   }
 }
