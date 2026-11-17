@@ -1,0 +1,12 @@
+# eBay candidate migrations NOT already installed in production.
+# Production has four foundation equivalents recorded under different timestamps.
+# This list is for local nine-only rehearsal, NOT a production install command.
+supabase/migrations/20261116181000_ebay_erasure_work_journal.sql
+supabase/migrations/20261116192000_ebay_leased_mapped_catalogue_executor.sql
+supabase/migrations/20261116200000_ebay_dba_bounded_mapped_purge_runner.sql
+supabase/migrations/20261116203000_ebay_prevent_secondary_reference_orphaning.sql
+supabase/migrations/20261116211000_ebay_secondary_account_reference_counts.sql
+supabase/migrations/20261116214000_ebay_secondary_history_lease_disposition.sql
+supabase/migrations/20261116221000_ebay_readonly_mapped_erasure_preview.sql
+supabase/migrations/20261116224000_ebay_secondary_schema_drift_interlock.sql
+supabase/migrations/20261116230000_ebay_unreviewed_offer_cascade_guard.sql
