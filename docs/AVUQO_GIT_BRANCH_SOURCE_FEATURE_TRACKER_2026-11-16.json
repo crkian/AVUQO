@@ -2741,6 +2741,21 @@
   "audit_updates": [
     {
       "date_utc": "2026-11-17",
+      "type": "multi_merchant_public_admission_exact_vercel_ready_and_real_offer_blockers",
+      "application_sha": "647c1061b0cc48ebaa6d0a7c2fe12a2311e35b35",
+      "deployment": "dpl_75EJYySsGbaJezAE5WqCfMK28YqV",
+      "production_status": "READY",
+      "accepted_count": 21,
+      "public_offers": 0,
+      "first_release_reviews": 0,
+      "source_status": "paused",
+      "source_sync_enabled": false,
+      "credential_status": "not_configured",
+      "ci_final_head": "not_independently_confirmed",
+      "description": "17 November 2026 final verified REAL production application checkpoint for direct-main multi-advertiser accepted merchant link and public offer release identity: Vercel production deployment dpl_75EJYySsGbaJezAE5WqCfMK28YqV is READY for exact application SHA 647c1061b0cc48ebaa6d0a7c2fe12a2311e35b35, which contains multi-advertiser public catalogue fix. Later direct-main CI-test and Markdown/JSON documentary commits were cancelled by Vercel or excluded from rebuild; do NOT claim their exact SHA is deployed, and do NOT claim final GitHub Actions quality suite passed without evidence. Fresh read-only Supabase: 21 owner-attested accepted Awin programmes, 17 mapped advertiser IDs, 4 accepted awaiting ID mapping; global Awin source remains paused, sync_enabled=false, credential_status=not_configured, publication_permission=pending, price_evidence_status=pending. Public Awin offers count=0, first owner releases=0. Private Cron today: Tooled Up snapshot+validation 200/200, 84,240 structural rows; Craft Buddy 502 product download; Cadbury 422 validation; Petlibro and Mozillion already staged historical snapshots. Critical NEXT execution: secure operational Awin source runtime credentials and independently verifiable current GBP product data through existing owner-only preflight/stage; establish per-merchant valid source/asset evidence and complete exact owner first-offer release path with real prices; verify public page and subsequent refresh. Do NOT flip paused global source blindly, do NOT convert old feed observations into current price evidence. Ownership of membership proof is affiliate_programs and never needs to be re-requested as general advertiser acceptance. Accepted screenshot count is 21; pending invitations 4 not accepted; tyre adapters and service-specific quote requirements remain."
+    },
+    {
+      "date_utc": "2026-11-17",
       "type": "live_main_multi_merchant_awin_public_admission_acceptance_bridge",
       "status": "code_committed_prod_verification_pending",
       "accepted_programmes": 21,
