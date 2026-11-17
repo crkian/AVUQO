@@ -34,3 +34,16 @@ Branch: `feature/awin-universal-schema-probe-20261117`.
 5. Connect product identity, stock, GBP price, affiliate tracking, rights validation and the existing canonical HELD review pipeline.
 6. Test non-owner rejection, emergency stop boundaries, malformed provider feeds, giant compressed files and provider rate limits.
 7. Promote to production only after preview checks, review and explicit release decision.
+
+## Production and live database audit at 2026-11-17
+- PR #288 merged into main: `4eabef766354c67ade5d695244828dae92637be3`.
+- Vercel production READY: `dpl_CJjNthnvjj3H8rEiU24cUuvFZWvK`, aliased to `www.avuqo.com`.
+- Live Supabase: 21 accepted Awin programmes; 76 observed feed entries; 122,538 private feed import records (119,843 review status). These are NOT published products.
+- All 13 `feed_import_runs` have `permission_status=unverified` and `status=private_review`.
+- Zero `feed_import_records` include the `live_feed_verified_at` metadata key at audit time.
+- `awin_offer_release_reviews` currently has zero records.
+- General `offers` has six active GBP rows, none with a `last_seen_at` within the past seven days; not counted as verified Awin live products.
+- Nine of 21 accepted programmes have zero observed feeds; four have no advertiser ID mapping. All-publisher live publication is NOT accomplished and cannot be inferred from accepted Awin membership.
+- New read-only owner inspection action is deployed, but actual authenticated Awin probe results have not yet been collected in this conversation.
+- Keep public publication gated on verified feed schema, exact advertiser/feed binding, product price/currency/availability/link, rights and owner release evidence. Do not bulk-activate unverified records.
+- Next decisive step is authenticated owner probe of accepted feeds and importer verification; then implement per-feed adapters, resumable jobs and rights reviews before canonical HELD and public release.
