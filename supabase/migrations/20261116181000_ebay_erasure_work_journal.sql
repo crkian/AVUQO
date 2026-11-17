@@ -154,7 +154,7 @@ as $$
      select 1
      from public.ebay_deletion_receipts r
      where r.notification_digest=p_notification_digest
-       and r.state in ('pending_privacy_review','processing')
+       and r.state in ('pending_privacy_review','processing','blocked')
        and (select count(*) from public.ebay_erasure_work_items w
             where w.receipt_id=r.id)=7
        and not exists (
