@@ -137,7 +137,8 @@ export async function POST(request:NextRequest){
    db.from("products").select("id,status").eq("id",offer.product_id).maybeSingle()
   ]);
   const accepted=!programmeError&&programme&&
-   obj(obj(programme.metadata).owner_joined_accepted_attestation).membership_status==="accepted";
+   obj(obj(programme.metadata).owner_joined_accepted_attestation).membership_status==="accepted"&&
+   obj(programme.metadata).publication_approved===true;
   const controlsOk=!controlError&&evaluateSourceControls(controls).ingestion&&
    evaluateSourceControls(controls).publishing;
   const credentials=Boolean(process.env.AWIN_PUBLISHER_ID&&process.env.AWIN_ACCESS_TOKEN);
