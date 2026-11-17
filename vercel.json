@@ -83,6 +83,10 @@
     {
       "path": "/api/internal/awin-tooled-up-catalogue-index",
       "schedule": "* * * * *"
+    },
+    {
+      "path": "/api/internal/awin-tyres-uk-live-recheck",
+      "schedule": "7,22,37,52 * * * *"
     }
   ],
   "ignoreCommand": "git diff --quiet HEAD^ HEAD -- . ':(exclude)docs/**' ':(exclude)*.md' ':(exclude).github/**'"
