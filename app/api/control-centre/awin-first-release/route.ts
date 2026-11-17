@@ -94,7 +94,8 @@ export async function POST(request:NextRequest){
   const scoreOk=score&&Number(score.score)>=60&&Number(score.confidence)>=55&&
    fresh(score.calculated_at,now);
   const finalOk=published?.status==="held"&&published.product_id===offer.product_id&&
-   Number(published.current_price)===Number(offer.price)&&product?.status==="active";
+   Number(published.current_price)===Number(offer.price)&&
+   (product?.status==="active"||product?.status==="draft");
   if(!accepted||!controlsOk||!rightsOk||
    meta.publication_permission!=="verified"||meta.price_evidence_status!=="verified"||
    !offerOk||!scoreOk||!finalOk)
