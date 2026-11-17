@@ -22,3 +22,12 @@
 .disclaimer{font-size:12px;line-height:1.7;color:#756a76;margin:0}.warning{padding:13px;border-radius:10px;background:#fff2ee;color:#89484c}
 @media(max-width:880px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.programmes{grid-template-columns:1fr}}
 @media(max-width:500px){.page{padding:18px 0 65px;gap:19px}.metrics{gap:9px}.metrics div{padding:14px}.metrics strong{font-size:26px}.guidance{padding:16px}.card{padding:16px;border-radius:15px}.feed{flex-direction:column;gap:3px}.cardActions a{width:100%;justify-content:center}.actions a{flex:1 1 100%;justify-content:center}}
+
+/* Read-only Awin membership versus publishing reconciliation, owner-only. */
+.reconciliationList{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.reconciliationItem{display:grid;gap:8px;align-content:start;padding:15px;border:1px solid #e7dfe7;background:#fffdfb;border-radius:13px}
+.reconciliationItem>div{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.reconciliationItem strong{color:#3e2951}.reconciliationItem small{color:#756779;font-size:11px}
+.reconciliationItem p{font-size:12px;color:#655b6a;margin:0;line-height:1.55}
+.reconciliationItem a{font-size:12px;font-weight:800;color:#5d368d}
+@media(max-width:700px){.reconciliationList{grid-template-columns:1fr}}
