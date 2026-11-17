@@ -8,6 +8,7 @@ import type {
   RawSourceOffer,
 } from "../../types/pipeline";
 import { normalizeOffer, slugify } from "./normalize";
+import { canonicalProductSlug } from "./product-slug.mjs";
 import { promotionPotential } from "./promotion";
 import { calculateAvuqoScore } from "./score";
 import { evaluateSourceControls, sourceIngestionFailures } from "./source-readiness";
@@ -217,8 +218,7 @@ async function ensureProduct(
   }
 
   if (!productId) {
-    const productSlugBase = slugify(`${offer.brand ?? ""} ${offer.model ?? ""}`.trim() || offer.title);
-    const productSlug = `${productSlugBase}-${offer.canonicalKey.slice(0, 16)}`.slice(0, 110);
+    const productSlug = canonicalProductSlug(offer.canonicalKey, offer.title);
     const { data, error } = await supabase
       .from("products")
       .insert({
