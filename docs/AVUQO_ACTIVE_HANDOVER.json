@@ -2665,5 +2665,60 @@
       "actual_owner_run": "not invoked from connector",
       "note": "New all-feed monitoring and advanced tyre navigation deployed; no public Awin products or fitted tyre quotes proven"
     }
+  },
+  "latest_awin_major_retail_expansion": {
+    "date": "2026-11-17",
+    "owner_goal": "Accepted feeds across all categories automatically monitored and eligible products live without repeated publication consent",
+    "uploaded_feed_csv_evidence": {
+      "total_feed_list_rows": 958,
+      "active_entries": 74,
+      "non_joined_entries": 884,
+      "active_advertisers": 12,
+      "awin_format": 72,
+      "google_format": 2,
+      "playpress_google": {
+        "advertiser_id": "101445",
+        "feed_id": "F5142",
+        "listed_rows": 40
+      },
+      "playpress_standard": {
+        "advertiser_id": "101445",
+        "feed_id": "96428",
+        "listed_rows": 41
+      }
+    },
+    "exact_supported_retail_pairs": [
+      "77952:103580",
+      "77952:109051",
+      "77952:109652",
+      "77952:119210",
+      "31539:74135",
+      "736:48599",
+      "45747:F1356",
+      "101445:F5142",
+      "101445:96428"
+    ],
+    "new_fixes": [
+      "Google publisher-hosted Awin signed product feed URL exact validator",
+      "Canonical accepted programme verification for new advertiser",
+      "PlayPress strict Google row normalisation and held canonical bridge",
+      "Owner additional 5 feed buttons",
+      "Private daily rotator for accepted fresh small physical feeds",
+      "Owner Run next accepted retail feed action"
+    ],
+    "specialist_tyres": "Tyres UK 12715:93988 and Pneus Online 15236:26513 remain independent with exact specs, fitment, variants and delivered/fitted price evidence; not classified retail",
+    "automatic_rotation": "10:53 UTC daily private only; owner immediate action via Run Now; not evidence of public launch",
+    "production": {
+      "deployment": "dpl_9v5vvP9RPLUHDg2KBceFGNCFRAsa",
+      "sha": "04b3df4caaeb27df9d32cee420146397138b7182",
+      "status": "READY",
+      "vercel_check": "success",
+      "feed_observation_rows": 76,
+      "live_verified_rows": 0,
+      "canonical_awin_offers": 0,
+      "approved_awin_releases": 0,
+      "full_github_quality": "not independently confirmed"
+    },
+    "next": "Execute server-side owner Run Next accepted retail feed, investigate provider parsing/current links and GBP price; prove real canonical held/public products with independently checked merchant rights. Do not claim 74 public feeds. Handovers after each change."
   }
 }
