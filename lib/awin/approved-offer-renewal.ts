@@ -14,7 +14,7 @@ export type AwinRenewalInput={
  approval:{status:string;source_id:string;advertiser_id:string;reviewed_price:number;
   reviewed_offer_at:string;reviewed_score_at:string}|null;
 };
-function ownAffiliateLink(value:string|null,advertiser:string):boolean{
+export function ownAffiliateLink(value:string|null,advertiser:string):boolean{
  if(!value)return false;
  try{
   const u=new URL(value);
