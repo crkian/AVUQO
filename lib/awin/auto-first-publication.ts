@@ -73,7 +73,10 @@ export async function autoReleaseEligibleAwinOffers(db:Db,limit=15){
  const approved=new Set((programmes??[]).filter(p=>
   meta(meta(p.metadata).owner_joined_accepted_attestation).membership_status==="accepted" && meta(p.metadata).publication_approved===true
   &&typeof p.external_account_id==="string").map(p=>p.external_account_id));
- const reviewed=new Set((reviews??[]).filter(x=>x.status==="approved").map(x=>x.offer_id));
+ // First publication is ONE-TIME per offer. A manual pause is a safety
+ // withdrawal and must never be silently auto-overridden by the worker.
+ // An explicit signed-in owner release is required to reconsider any paused row.
+ const reviewed=new Set((reviews??[]).map(x=>x.offer_id));
  const now=Date.now();
  let checked=0,skipped=0,failed=0,released=0;
  for(const offer of offers){
