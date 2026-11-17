@@ -3184,5 +3184,14 @@
       "craft_buddy": "HTTP 502 product download"
     },
     "remaining": "Execute current provider feed download and canonical stage; fix source/provider mismatches; independently verify rights and live GBP stock links; test public pages and stale withdraw; verify CI and deployment. Not yet all accepted feeds product-live."
+  },
+  "latest_awin_authenticated_recheck_fix": {
+    "date": "2026-11-17",
+    "application_commit": "ec070563f1d8d1f2d68ba60656ee996f23c3458a",
+    "test_commit": "3980ef280f7f67e1ba85ef895e8cbdd8450157c0",
+    "behavior": "Existing server-side worker examines bounded 300 private review candidates and records no more than 20 exact authenticated rechecks; never fabricates freshness",
+    "live_product_status": "0 canonical Awin offers at last verified read; full 21 accepted programme inventory visible, automatic first release gated by source rights, current GBP/stock and own links",
+    "credential_evidence": "Actual successful metadata-only Awin feed inventory persisted separately; does not authorize product publishing",
+    "still_needed": "Provider live product feed run, product-specific validation, per-advertiser permission reconciliation, source activation with evidence, verified public pages/links, stale withdrawal runtime test; full CI verification."
   }
 }
