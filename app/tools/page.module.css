@@ -24,3 +24,9 @@
 .empty{padding:50px 26px;border:1px solid #e3dbea;background:white;border-radius:16px}
 .empty h2{margin-top:0}.empty a{color:#624594;font-weight:650}
 @media(max-width:600px){.wrap{padding:20px 14px 70px}.photo{height:185px}.card{min-height:380px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.body{padding:12px}.body h2{font-size:13px}.price{font-size:21px}.visit{font-size:12px}}
+
+.gallery{font-size:12px;color:#624594;margin-top:2px}
+.gallery summary{cursor:pointer;font-weight:700}
+.galleryPhotos{display:flex;gap:7px;padding:9px 0;max-width:100%;overflow-x:auto}
+.galleryPhotos a{width:56px;height:56px;flex:0 0 56px;border:1px solid #e6dfe8;border-radius:8px;display:grid;place-items:center;background:#fff;overflow:hidden}
+.galleryPhotos img{max-width:100%;max-height:100%;object-fit:contain}
