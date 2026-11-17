@@ -54,6 +54,27 @@ export function normalizePilotAwinFeed(advertiser:string,feedId:string,header:st
   identifyFormat(projected);
   return {header:projected,rows:projectedRows,currencySource:"feed_column" as const};
  }
+ // UK-only Cadbury standard feed may omit the optional currency column.
+ // The owner's UK/GBP convention permits PRIVATE review only, never public
+ // price verification or a merchant image/affiliate permission grant.
+ // Bind every row to the exact joined advertiser and feed before inferring GBP.
+ if(advertiser==="736"&&feedId==="48599"&&!header.includes("currency")){
+  const required=["data_feed_id","merchant_id","merchant_product_id",
+   "product_name","search_price","aw_deep_link"];
+  if(header.length<required.length||header.length>120||
+     new Set(header).size!==header.length||
+     required.some(name=>header.filter(h=>h===name).length!==1))
+   throw Error("cadbury_uk_schema_mismatch");
+  const merchant=header.indexOf("merchant_id"),sourceFeed=header.indexOf("data_feed_id");
+  if(rows.some(row=>row.length!==header.length||
+     row[merchant]?.trim()!=="736"||row[sourceFeed]?.trim()!=="48599"))
+   throw Error("cadbury_uk_feed_identity_mismatch");
+  const normalizedHeader=[...header,"currency"];
+  const normalizedRows=rows.map(row=>[...row,"GBP"]);
+  identifyFormat(normalizedHeader);
+  return {header:normalizedHeader,rows:normalizedRows,
+   currencySource:"cadbury_uk_programme_gbp" as const};
+ }
  if(advertiser!=="77952"||feedId!=="103580"){
   identifyFormat(header);
   return {header,rows,currencySource:"feed_column" as const};
