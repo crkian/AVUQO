@@ -273,9 +273,10 @@ export async function POST(request:NextRequest){
    ids.add(identity);
   }
  }catch(e){
-  // Authenticated preflight may reveal safe COLUMN NAMES, never sample values,
-  // signed URLs, product data or free-form parser errors.
-  const safeHeaderNames=preflight&&header?header.slice(0,120).map(name=>
+  // Header IDENTIFIERS, not product rows, are safe for the authenticated
+  // owner diagnostic even when the private stage fails. Sanitize every value:
+  // never return provider bodies, signed URLs or sample product values.
+  const safeHeaderNames=header?header.slice(0,120).map(name=>
    /^[A-Za-z][A-Za-z0-9_ -]{0,63}$/.test(name)?name:"[redacted]"
   ):undefined;
   const message=e instanceof Error?e.message:"";
@@ -292,11 +293,10 @@ export async function POST(request:NextRequest){
    message==="cadbury_uk_feed_identity_mismatch"?"cadbury_uk_feed_identity_mismatch":
    "validation_failed";
   return reply({error:"Feed preflight failed; nothing imported",
-   reason:code,
-   ...(preflight?{columns:header?.length??0,column_names:safeHeaderNames,
-      diagnostic_stage:parseStage,detected_delimiter:detectedDelimiter,
-      parsed_rows:rows.length,
-      no_database_writes:true,no_publication:true}: {})},422);
+   reason:code,columns:header?.length??0,column_names:safeHeaderNames,
+   diagnostic_stage:parseStage,detected_delimiter:detectedDelimiter,
+   parsed_rows:rows.length,
+   no_database_writes:true,no_publication:true},422);
  }
  const name=programme.programme_name;
  if(!name)return reply({error:"Unrecognised advertiser"},403);
