@@ -1,5 +1,5 @@
 import type {RawSourceOffer} from "../../types/pipeline";
-import {ownAffiliateLink} from "./approved-offer-renewal";
+import {ownAffiliateLink} from "./approved-offer-renewal.ts";
 
 /** A PRIVATE row is eligible for held canonical processing only if the
  * CURRENT Awin feed supplied a verified own-publisher deep link and price.
