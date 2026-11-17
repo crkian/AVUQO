@@ -21,6 +21,7 @@ export type EbayPrivacySignals={
   CountEvidence>;
  verificationTokenConfigured:boolean;
  endpointUrlMatches:boolean;
+ browse:{environment:"sandbox"|"production";credentialsConfigured:boolean;productionFlag:boolean;campaignConfigured:boolean};
 };
 export const EBAY_WORK_SURFACES=[
  ["mapped_catalogue","Mapped catalogue and ownership"],
@@ -47,18 +48,28 @@ export function ebayPrivacyReadiness(s:EbayPrivacySignals){
  const outstandingReview=journalReadable?(s.workByState.awaiting_evidence.value??0):null;
  const receiptCount=s.receipts.error?null:s.receipts.value;
  const configurationComplete=s.verificationTokenConfigured&&s.endpointUrlMatches;
+ const receiptCountKnown=!s.receipts.error&&s.receipts.value!==null;
+ // Aggregate counts are only a necessary signal. They cannot certify exact per-receipt
+ // queue coverage or establish lawful erasure, even when all counts are zero.
+ const queueAggregateComplete=receiptCountKnown&&s.receipts.value!>0&&
+  Object.values(s.workBySurface).length===EBAY_WORK_SURFACES.length&&
+  Object.values(s.workBySurface).every(c=>!c.error&&c.value===s.receipts.value);
+ const browseConfigurationPresent=s.browse.environment==="production"&&
+  s.browse.credentialsConfigured&&s.browse.productionFlag&&s.browse.campaignConfigured;
  // NEVER infer production eBay approval from local credentials and counts.
  const blockers=[
   ...(!sourceQuarantined?["Source quarantine not verified"] : []),
   ...(!countsKnown?["Database evidence unavailable or work journal unapplied"] : []),
   ...(!configurationComplete?["eBay verification configuration intentionally incomplete"] : []),
+  ...(!queueAggregateComplete?["Seven-surface work queue coverage not evidenced"] : []),
+  ...(!browseConfigurationPresent?["Production Browse credentials, approval flag or EPN campaign not fully configured"] : []),
   "Full account erasure and lawful retention are not independently certified",
   "Genuine provider-signed notification acceptance is not proven",
   "eBay subscription is not approved for activation"
  ];
  return {
   sourceQuarantined,countsKnown,journalReadable,activeWork,outstandingReview,
-  receiptCount,configurationComplete,
+  receiptCount,configurationComplete,queueAggregateComplete,browseConfigurationPresent,
   registrationReady:false as const,
   completionAuthorised:false as const,
   blockers
