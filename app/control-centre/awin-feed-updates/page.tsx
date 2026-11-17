@@ -14,7 +14,7 @@ export default async function Page(){
  await connection();
  const {role}=await requireControlCentreAccess();
  const admin=createAdminClient();
- const [feeds,runs,refresh,attempts,programmes,source]=await Promise.all([
+ const [feeds,runs,refresh,attempts,programmes,source,profiles]=await Promise.all([
   admin.from("awin_feed_update_observations").select("advertiser_id,feed_id,advertiser_name,feed_name,listed_products,last_imported_source,observed_at,needs_private_refresh,change_count").order("needs_private_refresh",{ascending:false}).order("advertiser_name",{ascending:true}).limit(200),
   admin.from("awin_feed_discovery_runs").select("checked_at,active_feeds,joined_feeds,changed_feeds").order("checked_at",{ascending:false}).limit(1),
   admin.from("awin_feed_update_observations").select("feed_id",{count:"exact",head:true}).eq("needs_private_refresh",true),
@@ -22,7 +22,8 @@ export default async function Page(){
    .order("started_at",{ascending:false}).limit(24),
   admin.from("affiliate_programs").select("programme_name,external_account_id,status,metadata")
    .eq("provider","awin").limit(100),
-  admin.from("sources").select("metadata,status,sync_enabled").eq("connector_key","awin").maybeSingle()
+  admin.from("sources").select("metadata,status,sync_enabled").eq("connector_key","awin").maybeSingle(),
+  admin.from("awin_feed_schema_profiles").select("advertiser_id,feed_id,status,schema_status,recognition_kind,schema_reason,checked_at").order("checked_at",{ascending:false}).limit(200)
  ]);
  const portfolio=acceptedAwinPortfolio(
   programmes.data??[],feeds.data??[],source.data??null
@@ -30,6 +31,11 @@ export default async function Page(){
  const acceptedCount=portfolio.filter(p=>p.membership==="accepted").length;
  const unlinkedCount=portfolio.filter(p=>!p.sourceRegistryLinked).length;
  const records=(feeds.data??[]) as Feed[];
+ const inspected=profiles.data??[];
+ const acceptedIds=new Set(portfolio.filter(p=>p.membership==="accepted").map(p=>p.advertiserId).filter(Boolean));
+ const eligibleObserved=records.filter(f=>acceptedIds.has(f.advertiser_id));
+ const acceptedKeys=new Set(eligibleObserved.map(f=>f.advertiser_id+":"+f.feed_id));
+ const covered=inspected.filter(p=>acceptedKeys.has(p.advertiser_id+":"+p.feed_id));
  const history=(runs.data??[]) as Run[];
  const enabled=process.env.AWIN_FEED_MONITOR_ENABLED==="true";
  const configured=/^[a-zA-Z0-9_-]{16,200}$/.test(process.env.AWIN_DATAFEED_API_KEY??"")
@@ -82,6 +88,27 @@ export default async function Page(){
      </tr>)}</tbody>
     </table>
    </div>
+  </section>
+  <section style={{display:"grid",gap:12,background:"white",border:"1px solid #ddd2e9",borderRadius:16,padding:18}}>
+   <h2 style={{margin:0}}>Accepted feed schema inspection progress</h2>
+   <p style={{margin:0,fontSize:13,color:"#625b70"}}>Private structural evidence only. These results do not authorise product publication or imply usable current prices.</p>
+   {profiles.error?<p role="alert">Private profile ledger unavailable. Apply the versioned schema migration before inspecting feeds.</p>:
+    <>
+     <p><strong>{covered.length} / {eligibleObserved.length}</strong> currently observed accepted feeds inspected · <strong>{Math.max(0,eligibleObserved.length-covered.length)}</strong> still to inspect</p>
+     <div style={{overflowX:"auto"}}>
+      <table style={{borderCollapse:"collapse",width:"100%",minWidth:670,fontSize:12}}>
+       <thead><tr>{["Advertiser","Feed","Inspection","Schema","Checked (UK)"].map(h=><th key={h} style={{textAlign:"left",padding:9,background:"#f8f5fa"}}>{h}</th>)}</tr></thead>
+       <tbody>{covered.slice(0,25).map(p=><tr key={p.advertiser_id+":"+p.feed_id}>
+        <td style={{padding:9,borderTop:"1px solid #eee7f4"}}>{p.advertiser_id}</td>
+        <td style={{padding:9,borderTop:"1px solid #eee7f4"}}>{p.feed_id}</td>
+        <td style={{padding:9,borderTop:"1px solid #eee7f4"}}>{p.status}</td>
+        <td style={{padding:9,borderTop:"1px solid #eee7f4"}}>{p.schema_status??"Requires inspection"}</td>
+        <td style={{padding:9,borderTop:"1px solid #eee7f4"}}>{new Date(p.checked_at).toLocaleString("en-GB",{timeZone:"Europe/London"})}</td>
+       </tr>)}</tbody>
+      </table>
+     </div>
+     {covered.length===0?<p>No private schema inspections recorded yet. Use the inspection action below to begin.</p>:null}
+    </>}
   </section>
   {role==="owner"&&<OwnerAwinFirstRelease/>}
   {role==="owner"&&<OwnerAwinRunNow/>}
