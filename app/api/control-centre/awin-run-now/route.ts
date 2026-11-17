@@ -36,7 +36,7 @@ async function sanitized(response:Promise<Response>){
  try{payload=await r.json();}catch{payload=null;}
  const src=payload&&typeof payload==="object"&&!Array.isArray(payload)
   ?payload as Record<string,unknown>:{};
- const safe:Record<string,string|number|boolean>={private_only:true,no_publication:true};
+ const safe:Record<string,string|number|boolean|string[]>={private_only:true,no_publication:true};
  // The internal import worker returns a bounded canonical summary. Expose
  // fixed-key counts and status only, never the raw provider response.
  const canonical=src.canonical&&typeof src.canonical==="object"&&!Array.isArray(src.canonical)
@@ -48,6 +48,13 @@ async function sanitized(response:Promise<Response>){
   ["canonical_rejected","canonicalRejected"]] as const){
   const value=canonical[key];
   if(typeof value==="number"&&Number.isSafeInteger(value)&&value>=0&&value<=5000)safe[out]=value;
+ }
+ // Importer preflight already redacts malformed header names. Expose only
+ // safe column identifiers for owner-only schema debugging (Cadbury/Google),
+ // never row contents, URLs, tokens, or source response bodies.
+ if(Array.isArray(src.column_names)){
+  safe.column_names=src.column_names.filter((x:unknown):x is string=>
+   typeof x==="string"&&/^[A-Za-z][A-Za-z0-9_ -]{0,63}$/.test(x)).slice(0,120);
  }
  for(const key of OUTPUT_KEYS){
   const value=src[key];
