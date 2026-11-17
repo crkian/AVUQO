@@ -32,6 +32,11 @@ export default function OwnerAwinRunNow(){
     typeof o.actual_rows==="number"?o.actual_rows:null;
    const diagnostic=[o.importer_error,o.reason,o.failure_kind,o.diagnostic_stage].filter(v=>
     typeof v==="string"&&/^[a-z0-9_]{2,80}$/.test(v)).join(" · ");
+   const schema=typeof o.schema_status==="string"&&/^[a-z_]{3,40}$/.test(o.schema_status)
+    ?" · schema "+o.schema_status:"";
+   const schemaFields=Array.isArray(o.schema_fields)?o.schema_fields.filter(
+    (x):x is string=>typeof x==="string"&&/^[a-z_]{2,40}$/.test(x))
+    .slice(0,6).join(", "):"";
    const safeHeaders=Array.isArray(o.column_names)?o.column_names.filter(
     (v):v is string=>typeof v==="string"&&/^[A-Za-z][A-Za-z0-9_ -]{0,63}$/.test(v))
     .slice(0,50).join(", "):"";
@@ -54,7 +59,7 @@ export default function OwnerAwinRunNow(){
    setResults(v=>({...v,[task]:(r.ok?"OK":"HTTP "+r.status)+": "+status+
     (diagnostic?" · "+diagnostic:"")+selected+importer+eligible+inventory+changed+parsed+
     (rows===null?"":" · "+rows.toLocaleString("en-GB")+" rows")+
-    fresh+canonical+staged+rejected+(safeHeaders?" · columns "+safeHeaders:"")}));
+    fresh+canonical+staged+rejected+schema+(schemaFields?" · recognised "+schemaFields:"")+(safeHeaders?" · columns "+safeHeaders:"")}));
   }catch{
    setResults(v=>({...v,[task]:"Private task unavailable. Check server logs."}));
   }finally{
