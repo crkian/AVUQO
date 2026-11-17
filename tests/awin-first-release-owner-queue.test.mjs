@@ -35,7 +35,7 @@ test("owner approval preserves authenticated exact-offer binding and atomic SQL 
 });
 test("owner UI never auto-approves or silently activates sources",()=>{
  assert.match(page,/role==="owner"&&<OwnerAwinFirstRelease\/>/);
- assert.match(ui,/approve-current-offer/);
+ assert.match(ui,/Approve exact offer for public release/);
  assert.match(ui,/owner-approve-/);
  assert.match(ui,/confirmId!==c\.offerId/);
  assert.match(ui,/I approve this exact currently displayed GBP offer/);
