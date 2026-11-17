@@ -71,7 +71,7 @@ export async function autoReleaseEligibleAwinOffers(db:Db,limit=15){
  const s=new Map((scores??[]).map(x=>[x.offer_id,x]));
  const m=new Map((merchants??[]).map(x=>[x.id,x]));
  const approved=new Set((programmes??[]).filter(p=>
-  meta(meta(p.metadata).owner_joined_accepted_attestation).membership_status==="accepted"
+  meta(meta(p.metadata).owner_joined_accepted_attestation).membership_status==="accepted" && meta(p.metadata).publication_approved===true
   &&typeof p.external_account_id==="string").map(p=>p.external_account_id));
  const reviewed=new Set((reviews??[]).filter(x=>x.status==="approved").map(x=>x.offer_id));
  const now=Date.now();
