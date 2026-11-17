@@ -140,6 +140,8 @@ jobs:
         run: node --test tests/awin-three-pilot-scheduler.test.mjs
       - name: Private Awin scheduled execution journaling and error redaction
         run: node --experimental-strip-types --test tests/awin-private-cron-journal.test.mjs
+      - name: Cadbury exact UK GBP private staging and release-boundary regression
+        run: node --experimental-strip-types --test tests/awin-cadbury-uk-gbp-private.test.mjs
       - name: Craft Buddy exact Google retail private-feed checks
         run: node --experimental-strip-types --test tests/craft-buddy-google-private-feed.test.mjs tests/awin-approved-feed-url.test.mjs
       - name: Craft Buddy private catalogue reconciliation and chronological cron safety

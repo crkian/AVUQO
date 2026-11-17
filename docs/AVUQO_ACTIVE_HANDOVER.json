@@ -513,6 +513,19 @@
   ],
   "audit_updates": [
     {
+      "date_utc": "2026-11-17",
+      "type": "live_awin_cron_outcomes_and_cadbury_uk_gbp_private_patch",
+      "status": "candidate_not_deployed",
+      "pr": "pending",
+      "details": "17 November 2026: live production read-only Awin audit confirmed feed discovery at 06:17 UTC (74 active feeds, 72 joined-registry feeds, 49 changes); Tooled Up 496/89987 private snapshot and full validation completed (84,240 rows, zero structural issues) but GBP/right-to-publish NOT independently verified and ready_to_stage=false; Cadbury 736 private cron failed validation (HTTP 422); Craft Buddy 45747 download failed (HTTP 502); Petlibro/Mozillion had already_staged. Awin source remains paused, 19 internal programmes pending, 13 historical import runs unverified, zero public Awin offers. Owner specifies joined UK merchant feeds are GBP. This candidate patch adds exact Cadbury 736/48599 no-currency-column private GBP normalization only, with exact identity guards and tests; it does not verify rights, mark public offers valid, or activate publication. Craft Buddy and Petlibro rights/ID remain open.",
+      "production_writes": false,
+      "public_offer_changes": false,
+      "verified_tooled_up_rows": 84240,
+      "cadbury_cron_http": 422,
+      "craft_buddy_cron_http": 502,
+      "awin_public_offers": 0
+    },
+    {
       "date_utc": "2026-11-16",
       "type": "read_only_live_cron_timing_and_feed_status_audit",
       "code_changes": false,

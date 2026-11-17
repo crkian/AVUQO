@@ -1,3 +1,7 @@
+## 17 November 2026 · Cadbury UK GBP private normalization candidate (PR #286)
+
+Live source audit: 74 active Awin feeds recorded at 06:17 UTC; Tooled Up private 84,240-row snapshot validated structurally but GBP and usage rights unverified. Cadbury private scheduled feed validation 422 and Craft Buddy download 502. Private Cadbury 736/48599 feed now conditionally normalizes a missing currency column to inferred GBP only for matching advertiser/feed rows. Public source remains paused; no product release or rights approval.
+
 ## 17 November 2026 · AWIN AUTOMATIC MULTI-ADVERTISER FEED DISCOVERY, SAME BACKEND
 
 **Owner direction:** The whole AVUQO product experience must be **hands-off/automatic** once provider rights and data-quality gates are satisfied. Do not require manual Vercel advertiser-ID switching or CSV upload for each joined programme. Auto-discover current feed inventory, map advertiser-specific formats, schedule refreshes, deduplicate/score/prioritise and publish or withdraw genuine priced affiliate offers within the existing source controls. Owner action reserved for initial permission review, exceptions and approval gates. Front end remains the existing premium shopping and comparison experience.

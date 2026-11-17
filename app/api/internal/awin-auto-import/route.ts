@@ -153,7 +153,7 @@ export async function POST(request:NextRequest){
  }catch{return reply({error:"Unsupported or oversized compressed feed"},422);}
  let header:string[]|null=null;let rows:string[][]=[];
  let rawColumnCount=0;
- let currencySource:"feed_column"|"petlibro_uk_programme_gbp"="feed_column";
+ let currencySource:"feed_column"|"petlibro_uk_programme_gbp"|"cadbury_uk_programme_gbp"="feed_column";
  let parseStage:"header"|"rows"|"normalize"|"validate"="header";
  let detectedDelimiter:"comma"|"tab"="comma";
  try{
