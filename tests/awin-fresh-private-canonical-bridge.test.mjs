@@ -99,7 +99,7 @@ test("numeric Awin IDs work, and missing availability is never invented",()=>{
  const p=readFileSync("lib/pipeline/run.ts","utf8");
  const publicCatalog=readFileSync("lib/products/public-catalog.ts","utf8");
  const parser=readFileSync("lib/feed-imports/general-awin-large.ts","utf8");
- const bad=String.raw`\\\\d{2,12}`;
+ const bad=String.raw`\\d{2,12}`;
  assert.equal(p.includes(bad),false);
  assert.equal(publicCatalog.includes(bad),false);
  assert.match(parser,/Missing stock is UNKNOWN/);
