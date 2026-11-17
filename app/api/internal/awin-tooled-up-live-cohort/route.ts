@@ -12,7 +12,7 @@ import {stageLiveAwinCanonicalCandidates} from "../../../../lib/awin/private-liv
 
 export const maxDuration=300;
 const reply=(data:unknown,status=200)=>NextResponse.json(data,{status,headers:{"Cache-Control":"private, no-store"}});
-const ID="496",FEED="89987",MAX_SCANNED=1500,MAX_CANDIDATES=60;
+const ID="496",FEED="89987",MAX_SCANNED=3000,MAX_CANDIDATES=1500;
 type Row={id:string;import_id:string;merchant_product_id:string;title:string;price:number|string;
  currency:string;status:string;reviewed_at:string|null;metadata:unknown;image_url:string|null};
 const meta=(x:unknown):Record<string,unknown>=>x&&typeof x==="object"&&!Array.isArray(x)?x as Record<string,unknown>:{};
@@ -69,7 +69,7 @@ export async function GET(request:NextRequest){
  const candidates:Candidate[]=[];
  let rowNumber=0,visited=0;
  const windows=Math.max(1,Math.ceil(validation.actual_rows/MAX_SCANNED));
- const cohortStart=(Math.floor(now/(4*3600_000))%windows)*MAX_SCANNED;
+ const cohortStart=(Math.floor(now/(15*60_000))%windows)*MAX_SCANNED;
  try{
   const response=await fetch(url,{cache:"no-store",redirect:"error",signal:AbortSignal.timeout(155000)});
   if(!response.ok||!response.body)throw Error("snapshot_unavailable");
@@ -116,11 +116,19 @@ export async function GET(request:NextRequest){
  }catch{return reply({status:"snapshot_stream_or_schema_unavailable",no_publication:true},422);}
  if(!candidates.length)return reply({status:"no_stocked_candidates_in_cohort",scanned:visited,
   no_publication:true});
- const ids=candidates.map(c=>c.sku);
+ const {data:confirmed,error:bulkError}=await db.rpc("recheck_tooled_up_exact_private_cohort",{
+   p_sha256:validation.snapshot_sha256,p_rows:candidates
+  });
+ if(bulkError)return reply({status:"private_batch_recheck_failed",scanned:visited,
+  candidates:candidates.length,no_publication:true},503);
+ const confirmedSkus=new Set((confirmed??[]).map((r:{merchant_product_id:string})=>r.merchant_product_id));
+ if(!confirmedSkus.size)return reply({status:"no_exact_current_matches",scanned:visited,
+  candidates:candidates.length,no_publication:true});
+ const ids=candidates.filter(c=>confirmedSkus.has(c.sku)).slice(0,20).map(c=>c.sku);
  const {data:previous,error:previousError}=await db.from("feed_import_records")
   .select("id,import_id,merchant_product_id,title,price,currency,status,reviewed_at,metadata,image_url")
   .eq("merchant_id",ID).eq("status","review").is("reviewed_at",null)
-  .in("merchant_product_id",ids).limit(MAX_CANDIDATES);
+  .in("merchant_product_id",ids).limit(20);
  if(previousError)return reply({status:"existing_import_unavailable",no_publication:true},503);
  const bySku=new Map((previous??[] as Row[]).map(row=>[row.merchant_product_id,row]));
  let matched=0,updated=0;
@@ -153,13 +161,17 @@ export async function GET(request:NextRequest){
  }
  if(!updated||!importId)return reply({status:"no_exact_current_matches",scanned:visited,
   candidate_rows:candidates.length,matched,no_publication:true});
+ // The SQL batch has already attested up to 1,500 exact private SKUs.
+ // Only the bounded first 20 are immediately promoted for canonical HELD
+ // evaluation; remaining matches stay private and still require release gates.
  // The exact existing canonical stage independently checks every record
  // again and always creates HELD, never public first-release offers.
  const stage=await stageLiveAwinCanonicalCandidates(db,{
   importId,advertiser:ID,feed:FEED,digest:validation.snapshot_sha256,limit:20
  });
  return reply({status:"tooled_up_exact_cohort_checked",
-  scanned:visited,candidate_rows:candidates.length,matched,live_rechecked:updated,
+  scanned:visited,candidate_rows:candidates.length,matched,
+  live_rechecked:confirmedSkus.size,canonical_sample_rechecked:updated,
   canonical_status:stage.status,canonical_held:stage.canonicalAccepted,
   canonical_rejected:stage.canonicalRejected,
   currency_basis:"merchant_uk_gbp_storefront_and_exact_staged_price_match",
