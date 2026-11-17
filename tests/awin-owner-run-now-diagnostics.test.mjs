@@ -22,3 +22,17 @@ test("owner panel shows fresh rows and canonical acceptance rather than only tot
  assert.match(ui,/canonical_rejected/);
  assert.match(ui,/credentials:"same-origin"/);
 });
+
+test("all accepted Awin feed discovery is owner-only and metadata-only; tyre pipeline remains specialised",()=>{
+ assert.match(route,/const isInventory=task==="all_feeds_check"/);
+ assert.match(route,/GET as discoverFeeds/);
+ assert.match(route,/return sanitized\(discoverFeeds\(/);
+ assert.match(route,/metadata_only/);
+ assert.match(route,/joined_feeds/);
+ assert.match(route,/changed_feeds/);
+ assert.match(ui,/Check all accepted feeds now/);
+ assert.match(ui,/task!=="all_feeds_check"/);
+ assert.match(ui,/control-centre\/tyres/);
+ assert.match(ui,/control-centre\/tyre-spec-enrichment/);
+ assert.match(ui,/fitment, delivery and fitted pricing/);
+});
