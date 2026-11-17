@@ -28,8 +28,8 @@ as $function$
    and invalid_price_rows=0 and unverified_affiliate_links=0
  ), eligible as (
  select f.merchant_product_id,f.title,f.price,f.category,
-  f.image_url,f.metadata->>'verified_awin_deep_link',
-  coalesce(f.metadata->'supplied_image_gallery','[]'::jsonb),
+  f.image_url,f.metadata->>'verified_awin_deep_link' as affiliate_url,
+  coalesce(f.metadata->'supplied_image_gallery','[]'::jsonb) as images,
   observation.observed_at,
   case
    when coalesce(f.category,'') ~* 'footwear|shoe|boot|clothing|trouser|tops|outerwear|hi.vis|high.visibility|workwear|glove|sock|apparel|jacket|men.s|women.s' then 'workwear'
