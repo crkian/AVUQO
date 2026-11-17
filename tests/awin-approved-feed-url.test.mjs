@@ -36,3 +36,18 @@ test("allow exactly Craft Buddy alphanumeric signed Awin feed ID",()=>{
  for(const feed of ["F1357","XYZ","F1356evil"])
   assert.throws(()=>approvedAwinDownloadUrl(google,key,feed));
 });
+
+test("Google product feeds use exact publisher-hosted Awin URL, never arbitrary hosts or mismatched identities",()=>{
+ const google=`https://ui.awin.com/productdata-darwin-download/publisher/3135746/${key}/1/feed/F5142.csv.gz`;
+ assert.equal(approvedAwinDownloadUrl(google,key,"F5142","3135746"),google);
+ for(const bad of [
+  google.replace("F5142","F1356"),
+  google.replace("/3135746/","/3135747/"),
+  google.replace(`/${key}/`,`/${"b".repeat(32)}/`),
+  google.replace("ui.awin.com","ui.awin.com.example.test"),
+  google+"?other=1",
+  google+"/redirect",
+  google.replace("https:","http:"),
+  google.replace("/1/feed/","/1/feedList/")
+ ])assert.throws(()=>approvedAwinDownloadUrl(bad,key,"F5142","3135746"));
+});
