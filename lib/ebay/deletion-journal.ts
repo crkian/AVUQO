@@ -13,8 +13,8 @@ function validated(value:unknown,max:number):string|null{
  * Only record a verified eBay notification, never raw user identifiers.
  * A successful insert is NOT account deletion completion.
  *
- * A separate future privacy processor must make deletion/suppression durable
- * and demonstrate legal-retention exclusions before a success response.
+ * A separate privacy worker must complete/record lawful erasure and retention.
+ * Provider acknowledgement of a durably queued receipt does not mean erasure.
  */
 export async function journalVerifiedEbayDeletion(
  notificationId:unknown,data:EventData
