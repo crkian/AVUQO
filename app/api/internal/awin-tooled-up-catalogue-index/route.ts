@@ -74,14 +74,14 @@ export async function GET(request:NextRequest){
    if(!sku||sku.length>250||!title||title.length>1200)return [];
    const rawCat=merchantCategory(row.category);
    const category=classifyTooledUpCategory(rawCat),sourceRecordId="496:"+sku;
-   const key=slugify(`${title} Tooled Up SKU ${sourceRecordId}`);
+   const key=slugify(`Tooled Up SKU ${sourceRecordId} ${title}`);
    if(!key)return [];
    return [{
     slug:canonicalProductSlug(key,title),canonical_key:key,
     canonical_title:title,brand:row.brand??null,
     category_id:categoryId.get(category),primary_image_url:safeImage(row.image_url),
     product_type:"product",status:"draft",
-    metadata:{created_by:"toold_up_private_catalogue_backfill",
+    metadata:{created_by:"tooled_up_private_catalogue_backfill",
      merchant_advertiser_id:"496",feed_id:"89987",merchant_product_id:sku,
      merchant_category:rawCat,category_classification:category,
      owner_image_permission_basis:"owner_attested_all_accepted_programmes_2026_11_17",
