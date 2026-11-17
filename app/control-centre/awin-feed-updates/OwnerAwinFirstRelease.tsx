@@ -3,7 +3,10 @@ import {useEffect,useState} from "react";
 
 type Candidate={offerId:string;title:string;merchant:string;advertiserId:string;priceGbp:number;lastSeenAt:string;score:number;confidence:number};
 type Programme={name:string;advertiserId:string|null;discoveredFeeds:number;listedRows:number;needsPrivateRefresh:number;pipeline:string;publicationState:string};
-type Portfolio={acceptedProgrammes:number;numericIdsMapped:number;discoveredFeeds:number;programmes:Programme[]};
+type RecognizedFeed={advertiserId:string;feedId:string;feedName:string;feedFormat:string;
+ listedProducts:number;needsPrivateRefresh:boolean;observedAt:string;kind:string;next:string;schemaStatus:string};
+type Portfolio={acceptedProgrammes:number;numericIdsMapped:number;discoveredFeeds:number;
+ recognizedFeeds:number;unlinkedFeedRows:number;programmes:Programme[];feeds:RecognizedFeed[]};
 type Queue={status:string;totalCanonicalOffers?:number;candidates?:Candidate[];note?:string;next?:string;error?:string;
  ownerAuthorization?:boolean;readiness?:{sourceStatus:string;syncEnabled:boolean;credentialRegistry:string;
  publicationPermission:string;priceEvidence:string};portfolio?:Portfolio};
@@ -83,6 +86,29 @@ export default function OwnerAwinFirstRelease(){
       <td style={{padding:"7px 5px",borderTop:"1px solid #eee"}}>{p.pipeline.replaceAll("_"," ")}</td>
      </tr>)}</tbody>
     </table>
+   </div>
+   <details style={{marginTop:12}}>
+    <summary style={{cursor:"pointer",fontWeight:600}}>
+     Feed-by-feed recognition · {queue.portfolio.recognizedFeeds} accepted inventory entries
+    </summary>
+    <p style={{fontSize:12,color:"#62576e"}}>All accepted feed formats are inventoried before product mapping.
+     Unknown formats remain recognised and private. Neither inventory classification nor an accepted membership makes an offer live.</p>
+    <div style={{overflowX:"auto",maxHeight:450,overflowY:"auto"}}>
+     <table style={{borderCollapse:"collapse",width:"100%",fontSize:12,textAlign:"left"}}>
+      <thead><tr><th>Advertiser / feed</th><th>Source format</th><th>Listed rows</th>
+       <th>Recognition / next adapter</th></tr></thead>
+      <tbody>{queue.portfolio.feeds.map(f=><tr key={f.advertiserId+":"+f.feedId}>
+       <td style={{padding:6,borderTop:"1px solid #eee"}}>{f.advertiserId} / {f.feedId}
+        {f.feedName?" · "+f.feedName:""}</td>
+       <td style={{padding:6,borderTop:"1px solid #eee"}}>{f.feedFormat}</td>
+       <td style={{padding:6,borderTop:"1px solid #eee"}}>{f.listedProducts.toLocaleString("en-GB")}</td>
+       <td style={{padding:6,borderTop:"1px solid #eee"}}><strong>{f.kind.replaceAll("_"," ")}</strong>
+        {" · "}{f.schemaStatus.replaceAll("_"," ")}
+        <span style={{display:"block",color:"#64586d"}}>{f.next}</span></td>
+      </tr>)}</tbody>
+     </table>
+    </div>
+   </details>
    </div>
   </details>}
   {queue?.error&&<p role="alert">{queue.error}</p>}
