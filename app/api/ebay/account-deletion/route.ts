@@ -76,6 +76,6 @@ export async function POST(request:NextRequest){
   // is asynchronous and separately evidenced, NEVER inferred from this reply.
   return NextResponse.json({accepted:true},{status:202,headers});
  }
- return NextResponse.json({error:receipt==="unavailable"?"Deletion journal unavailable":"Deletion acceptance not enabled"},
+ return NextResponse.json({error:receipt==="unavailable"?"Deletion journal unavailable":"Deletion processing not enabled"},
   {status:503,headers:{...headers,"Retry-After":"3600"}});
 }
