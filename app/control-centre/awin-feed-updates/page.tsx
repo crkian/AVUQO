@@ -4,6 +4,7 @@ import Link from "next/link";
 import {requireControlCentreAccess} from "../../../lib/auth/requireControlCentreAccess";
 import {createAdminClient} from "../../../lib/supabase/admin";
 import OwnerAwinRunNow from "./OwnerAwinRunNow";
+import OwnerAwinFirstRelease from "./OwnerAwinFirstRelease";
 import OwnerAwinReleaseQueue from "./OwnerAwinReleaseQueue";
 import {acceptedAwinPortfolio} from "../../../lib/awin/portfolio-evidence";
 export const metadata:Metadata={title:"Private Awin feed updates | AVUQO",robots:{index:false,follow:false}};
@@ -82,6 +83,7 @@ export default async function Page(){
     </table>
    </div>
   </section>
+  {role==="owner"&&<OwnerAwinFirstRelease/>}
   {role==="owner"&&<OwnerAwinRunNow/>}
   {role==="owner"&&<OwnerAwinReleaseQueue/>}
   <div style={{overflowX:"auto",background:"white",border:"1px solid #e8e3ed",borderRadius:16}}>
