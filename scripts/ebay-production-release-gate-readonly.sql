@@ -44,7 +44,7 @@ with candidate(version, foundation_name) as (
 ), queue_state as (
   select to_regclass('public.ebay_erasure_work_items') is not null as journal_present
 ), rpc_privileges as (
-  select coalesce(bool_or(
+  select count(*) filter(where p.proname in ('ebay_purge_mapped_account_rows','ebay_run_audited_partial_erasure')) as existing_baseline_functions, coalesce(bool_or(
      has_function_privilege('anon',p.oid,'EXECUTE') or
      has_function_privilege('authenticated',p.oid,'EXECUTE') or
      has_function_privilege('service_role',p.oid,'EXECUTE')
@@ -76,7 +76,7 @@ from (
    (select cascade_guard=1 from trigger_state),
    'Fail closed on unreviewed event, Awin and publication dependents'
  union all select 7,'private_erasure_functions',
-   (select not exposed from rpc_privileges),
+   (select existing_baseline_functions=2 and not exposed from rpc_privileges),
    'DBA-only erasure must not be directly executable by app roles'
  union all select 8,'storage_log_backup_account_scope',
    false,'External verified per-account storage/log/CDN/backup inventory and handling required'
