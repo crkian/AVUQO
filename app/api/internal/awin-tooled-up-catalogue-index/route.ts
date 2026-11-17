@@ -33,13 +33,29 @@ export async function GET(request:NextRequest){
  if(progressError)return reply({status:"private_cursor_unavailable",no_publication:true},503);
  if(progress?.completed)return reply({status:"all_historical_tooled_up_products_indexed",
   total_scanned:progress.scanned,private_only:true,no_publication:true});
- let query=db.from("feed_import_records")
-  .select("id,merchant_product_id,title,brand,category,image_url,metadata")
-  .eq("merchant_id","496").eq("status","review")
-  .order("id",{ascending:true}).limit(BATCH);
- if(progress?.last_record_id)query=query.gt("id",progress.last_record_id);
- const {data:rows,error:rowsError}=await query;
- if(rowsError)return reply({status:"historical_inventory_read_failed",no_publication:true},503);
+ // Supabase's PostgREST default max_rows=1000 silently caps .limit(1800).
+ // Never interpret that cap as end-of-catalogue. Fetch TWO sub-1000 pages
+ // using the stable UUID cursor and mark completion only on an ACTUAL short
+ // response or zero rows, not on a server-capped oversized request.
+ const PAGE=900;
+ type Item={id:string;merchant_product_id:string;title:string;brand:string|null;
+  category:string|null;image_url:string|null;metadata:unknown};
+ const rows:Item[]=[];
+ let localCursor:string|null=progress?.last_record_id??null;
+ let exhausted=false;
+ while(rows.length<BATCH){
+  let query=db.from("feed_import_records")
+   .select("id,merchant_product_id,title,brand,category,image_url,metadata")
+   .eq("merchant_id","496").eq("status","review")
+   .order("id",{ascending:true}).limit(PAGE);
+  if(localCursor)query=query.gt("id",localCursor);
+  const {data:page,error:readError}=await query;
+  if(readError)return reply({status:"historical_inventory_read_failed",no_publication:true},503);
+  if(!page?.length){exhausted=true;break;}
+  rows.push(...page);
+  localCursor=page[page.length-1].id;
+  if(page.length<PAGE){exhausted=true;break;}
+ }
  if(!rows?.length){
   const {error}=await db.from("awin_private_catalogue_backfill_progress")
    .upsert({job_key:JOB,last_record_id:progress?.last_record_id??null,
@@ -104,10 +120,10 @@ export async function GET(request:NextRequest){
  const newAttempted=Number(progress?.attempted_drafts??0)+attempts;
  const {error:cursorError}=await db.from("awin_private_catalogue_backfill_progress")
   .upsert({job_key:JOB,last_record_id:last,scanned:newScanned,attempted_drafts:newAttempted,
-   completed:rows.length<BATCH,updated_at:new Date().toISOString()},{onConflict:"job_key"});
+   completed:exhausted,updated_at:new Date().toISOString()},{onConflict:"job_key"});
  if(cursorError)return reply({status:"drafts_indexed_cursor_update_failed",attempted:attempts,
   private_only:true,no_publication:true},503);
- return reply({status:rows.length<BATCH?"all_historical_tooled_up_products_indexed":"private_catalogue_batch_indexed",
+ return reply({status:exhausted?"all_historical_tooled_up_products_indexed":"private_catalogue_batch_indexed",
   scanned_now:rows.length,attempted_drafts_now:attempts,total_scanned:newScanned,
   total_attempted_drafts:newAttempted,private_only:true,no_publication:true});
 }
