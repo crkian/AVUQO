@@ -20,14 +20,17 @@ function harness({
  clientId,
  clientSecret,
  signatureValid=false,
- journalResult="recorded"
+ journalResult="recorded",
+ approval=false,operations=false,queueReady=false
 }={}){
- const calls={signature:0,journal:0};
+ const calls={signature:0,journal:0,queue:0};
  const env={
   EBAY_DELETION_ENDPOINT_URL:configured,
   EBAY_DELETION_VERIFICATION_TOKEN:verificationToken,
   EBAY_CLIENT_ID:clientId,
-  EBAY_CLIENT_SECRET:clientSecret
+  EBAY_CLIENT_SECRET:clientSecret,
+  EBAY_DELETION_ACCEPTANCE_APPROVED:approval?"true":"false",
+  EBAY_PRIVACY_OPERATIONS_CERTIFIED:operations?"true":"false"
  };
  class Response {
   constructor(json,init={}) {
@@ -48,7 +51,8 @@ function harness({
    if(path==="../../../../lib/ebay/deletion-signature")
     return {verifyEbaySignature:async()=>{calls.signature++;return signatureValid;}};
    if(path==="../../../../lib/ebay/deletion-journal")
-    return {journalVerifiedEbayDeletion:async()=>{calls.journal++;return journalResult;}};
+    return {journalVerifiedEbayDeletion:async()=>{calls.journal++;return journalResult;},
+     hasDurableEbayErasureQueue:async()=>{calls.queue++;return queueReady;}};
    throw new Error("Unexpected import: "+path);
   },
   process:{env}, URL, Object,Array,String,Number,JSON,Error
@@ -136,5 +140,38 @@ test("subscription must not be enabled by test or routing code",()=>{
  assert.match(route,/EBAY_DELETION_VERIFICATION_TOKEN/);
  assert.match(route,/EBAY_DELETION_ENDPOINT_URL/);
  assert.match(route,/status:503/);
- assert.doesNotMatch(route.slice(route.indexOf('export async function POST')),/status:20[0124]/);
+ assert.match(route,/EBAY_DELETION_ACCEPTANCE_APPROVED==="true"/);
+ assert.match(route,/EBAY_PRIVACY_OPERATIONS_CERTIFIED==="true"/);
+ assert.match(route,/await hasDurableEbayErasureQueue\(notice\.notificationId\)/);
+ assert.match(route,/status:202/);
+});
+
+test("signed duplicate or new receipt gets 202 only with both approved switches and durable queue",async()=>{
+ for(const journalResult of ["recorded","duplicate"]){
+  const h=harness({clientId:"synthetic-id",clientSecret:"synthetic-secret",
+   signatureValid:true,journalResult,approval:true,operations:true,queueReady:true});
+  const r=await h.post(notice);
+  assert.equal(r.status,202);
+  assert.equal((await r.json()).accepted,true);
+  assert.equal(h.calls.signature,1);
+  assert.equal(h.calls.journal,1);
+  assert.equal(h.calls.queue,1);
+  assert.equal(r.headers.get("Retry-After"),undefined);
+ }
+});
+test("single approvals, missing seven-surface queue or failed journal NEVER acknowledge",async()=>{
+ for(const options of [
+  {approval:false,operations:true,queueReady:true,journalResult:"recorded"},
+  {approval:true,operations:false,queueReady:true,journalResult:"recorded"},
+  {approval:true,operations:true,queueReady:false,journalResult:"recorded"},
+  {approval:true,operations:true,queueReady:true,journalResult:"unavailable"}
+ ]){
+  const h=harness({clientId:"synthetic-id",clientSecret:"synthetic-secret",
+   signatureValid:true,...options});
+  const r=await h.post(notice);
+  assert.equal(r.status,503);
+  assert.ok(![200,201,202,204].includes(r.status));
+  assert.equal(h.calls.queue,options.approval&&options.operations&&
+   options.journalResult!=="unavailable"?1:0);
+ }
 });
