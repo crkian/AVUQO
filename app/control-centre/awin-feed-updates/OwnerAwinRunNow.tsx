@@ -47,6 +47,9 @@ export default function OwnerAwinRunNow(){
    const inventory=typeof o.joined_feeds==="number"?" · joined feed entries "+o.joined_feeds.toLocaleString("en-GB"):"";
    const acceptedFeeds=typeof o.accepted_feed_count==="number"?" · accepted feed entries "+o.accepted_feed_count:"";
    const changed=typeof o.changed_feeds==="number"?" · changed "+o.changed_feeds.toLocaleString("en-GB"):"";
+   const tooled=typeof o.live_rechecked==="number"
+    ?" · live rechecked "+o.live_rechecked+
+     " · HELD "+(o.canonical_held??0)+" · rejected "+(o.canonical_rejected??0):"";
    const batch=typeof o.batch_total==="number"?" · inspected "+o.batch_total+
     " · profiled "+(o.batch_profiled??0)+" · specialist "+(o.batch_specialist??0)+
     " · quarantined "+(o.batch_quarantined??0)+" · other "+(o.batch_errors??0):"";
@@ -61,7 +64,7 @@ export default function OwnerAwinRunNow(){
    const rejected=typeof o.canonical_rejected==="number"&&Number.isSafeInteger(o.canonical_rejected)
     ?" · rejected "+o.canonical_rejected.toLocaleString("en-GB"):"";
    setResults(v=>({...v,[task]:(r.ok?"OK":"HTTP "+r.status)+": "+status+
-    (diagnostic?" · "+diagnostic:"")+selected+importer+eligible+inventory+acceptedFeeds+changed+batch+parsed+
+    (diagnostic?" · "+diagnostic:"")+selected+importer+eligible+inventory+acceptedFeeds+changed+batch+tooled+parsed+
     (rows===null?"":" · "+rows.toLocaleString("en-GB")+" rows")+
     fresh+canonical+staged+rejected+schema+(schemaFields?" · recognised "+schemaFields:"")+(safeHeaders?" · columns "+safeHeaders:"")}));
   }catch{
@@ -115,10 +118,10 @@ export default function OwnerAwinRunNow(){
    {tasks.map(([slug,name])=><article key={slug} style={{background:"white",border:"1px solid #e7dfed",
     borderRadius:12,padding:13,display:"grid",gap:7}}>
     <strong>{name}</strong>
-    {(slug==="tooled_up"?["snapshot","validate"]:slug==="canonical"?["bridge"]:["preflight","stage"]).map(mode=>{
+    {(slug==="tooled_up"?["snapshot","validate","cohort"]:slug==="canonical"?["bridge"]:["preflight","stage"]).map(mode=>{
      const task=slug+"_"+mode;
      const caption=mode==="preflight"?"Check live feed":mode==="stage"?"Stage privately":
-      mode==="snapshot"?"Capture snapshot":mode==="bridge"?"Prepare held offers":"Validate snapshot";
+      mode==="snapshot"?"Capture snapshot":mode==="bridge"?"Prepare held offers":mode==="cohort"?"Stage current tool cohort to HELD":"Validate snapshot";
      return <div key={task} style={{display:"grid",gap:3}}>
       <button disabled={busy!==null} onClick={()=>run(task)} style={{padding:9,borderRadius:8,
        color:"#30205a",background:"#f4effd",border:"1px solid #7965aa"}}>
