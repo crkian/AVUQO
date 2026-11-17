@@ -1,6 +1,7 @@
 import type {createAdminClient} from "../supabase/admin";
 import {ownAffiliateLink} from "./approved-offer-renewal.ts";
 import {sourceIngestionFailures} from "../pipeline/source-readiness";
+import {classifyTooledUpCategory} from "./tooled-up-taxonomy.mjs";
 
 import type {RawSourceOffer,PipelineRunSummary} from "../../types/pipeline";
 
@@ -27,7 +28,7 @@ const rec=(v:unknown):Record<string,unknown>=>
 export function toFreshVerifiedAwinRaw(
  row:Row,advertiser:string,feed:string,digest:string,now=Date.now()
 ):RawSourceOffer|null{
- const category=PHYSICAL.get(advertiser);
+ const category=advertiser==="496"?classifyTooledUpCategory(row.category):PHYSICAL.get(advertiser);
  const m=rec(row.metadata),verified=String(m.live_feed_verified_at??"");
  const checked=Date.parse(verified);
  const amount=Number(row.price);
@@ -66,6 +67,7 @@ export function toFreshVerifiedAwinRaw(
    currency_source:typeof m.currency_source==="string"?m.currency_source:"feed_column",
    supplier_image_count:gallery.length,
    source_image_rights_confirmed:rightsVerified,
+   merchant_category:advertiser==="496"?row.category:null,
    // Gallery remains private pending rights. Never copy unapproved URLs into public products.
    permitted_image_gallery:rightsVerified?gallery:[]}
  };
