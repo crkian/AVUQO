@@ -140,7 +140,15 @@ export async function POST(request:NextRequest){
   const fetched=await fetch(downloadUrl,{cache:"no-store",redirect:"error",signal:AbortSignal.timeout(20000)});
   downloaded=await boundedResponse(fetched,MAX_COMPRESSED);
   filename="";
- }catch(e){return reply({error:"Awin product download failed",failure_kind:e instanceof Error&&/^upstream_http_\d+$/.test(e.message)?e.message:"fetch_or_validation"},502);}
+ }catch(e){
+  const message=e instanceof Error?e.message:"";
+  const failureKind=/^upstream_http_(?:4\d\d|5\d\d)$/.test(message)?message:
+   message==="feed_binding_mismatch"?"feed_binding_mismatch":
+   message==="unsafe_feed_url"?"unsafe_feed_url":
+   message==="invalid_feed_binding"?"invalid_feed_binding":
+   message==="source_size_limit"?"source_size_limit":"fetch_or_validation";
+  return reply({error:"Awin product download failed",failure_kind:failureKind},502);
+ }
  let digest:string;
  let csv:string;
  try{
@@ -200,6 +208,8 @@ export async function POST(request:NextRequest){
    message==="empty_feed"?"empty_feed":
    message==="invalid_fields"?"inconsistent_row_columns":
    message==="too_many_rows"?"row_limit":
+   message==="cadbury_uk_schema_mismatch"?"cadbury_uk_schema_mismatch":
+   message==="cadbury_uk_feed_identity_mismatch"?"cadbury_uk_feed_identity_mismatch":
    "validation_failed";
   return reply({error:"Feed preflight failed; nothing imported",
    reason:code,

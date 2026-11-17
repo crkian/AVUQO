@@ -514,6 +514,15 @@
   "audit_updates": [
     {
       "date_utc": "2026-11-17",
+      "type": "awin_safe_private_cron_failure_diagnostics_candidate",
+      "pull_request": 287,
+      "production_writes": false,
+      "merchant_rights_changed": false,
+      "public_offers_changed": false,
+      "note": "17 November 2026, after PR #286 production READY: read-only audit continues to show zero public Awin offers, Awin source paused, no newer private import than 14 Nov, and last four pilot Cron outcomes (Cadbury feed_validation HTTP 422; Craft Buddy product_download HTTP 502; Petlibro/Mozillion already_staged). PR #287 candidate safely categorises exact, allowlisted worker error reasons in the existing service-role-only Cron journal and signed-in owner diagnostics; unknown/provider-derived errors remain generic and no raw URLs, signed keys, products or feed bodies are persisted. Added regression tests for sanitization and no change to merchant permissions, public release, Awin currency rights, source activation or eBay. New codes apply to FUTURE runs only; earlier generic failures cannot be retroactively diagnosed."
+    },
+    {
+      "date_utc": "2026-11-17",
       "type": "live_awin_cron_outcomes_and_cadbury_uk_gbp_private_patch",
       "status": "candidate_not_deployed",
       "pr": "pending",

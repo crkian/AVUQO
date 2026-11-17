@@ -15,7 +15,7 @@ const FEEDS:Record<string,readonly [string,string]>={
  petlibro:["77952","103580"],mozillion:["31539","74135"],
  cadbury:["736","48599"],craftbuddy:["45747","F1356"]
 };
-const OUTPUT_KEYS=["status","error","reason","rows","records",
+const OUTPUT_KEYS=["status","error","reason","failure_kind","diagnostic_stage","detected_delimiter","columns","parsed_rows","rows","records",
  "advertiser_id","feed_id","currency_source","source_currency_explicit",
  "critical_issues","compressed_bytes","actual_rows","duplicate_product_ids",
  "invalid_price_rows","unverified_affiliate_links","private_only","no_publication"] as const;

@@ -24,7 +24,12 @@ export default function OwnerAwinRunNow(){
    const rows=typeof o.records==="number"?o.records:
     typeof o.rows==="number"?o.rows:
     typeof o.actual_rows==="number"?o.actual_rows:null;
+   const diagnostic=[o.reason,o.failure_kind,o.diagnostic_stage].filter(v=>
+    typeof v==="string"&&/^[a-z0-9_]{2,80}$/.test(v)).join(" · ");
+   const parsed=typeof o.parsed_rows==="number"&&Number.isSafeInteger(o.parsed_rows)
+    ?" · parsed "+o.parsed_rows.toLocaleString("en-GB"):"";
    setResults(v=>({...v,[task]:(r.ok?"OK":"HTTP "+r.status)+": "+status+
+    (diagnostic?" · "+diagnostic:"")+parsed+
     (rows===null?"":" · "+rows.toLocaleString("en-GB")+" rows")}));
   }catch{
    setResults(v=>({...v,[task]:"Private task unavailable. Check server logs."}));

@@ -49,3 +49,42 @@ test("all six existing daily private cron jobs are journaled after authorization
  for(const tail of ["awin-tooled-up-snapshot","awin-tooled-up-daily-validation"])assert.ok(schedule.crons.some(c=>c.path.endsWith("/"+tail)),tail);
  assert.equal(schedule.crons.length,13);
 });
+
+test("daily Awin failures retain only allowlisted actionable diagnostics",()=>{
+ assert.deepEqual(safePrivateCronOutcome(422,{error:"Feed preflight failed; nothing imported",
+  reason:"cadbury_uk_schema_mismatch"}),{
+   state:"rejected",code:"feed_validation_cadbury_uk_schema_mismatch"
+ });
+ assert.deepEqual(safePrivateCronOutcome(422,{error:"Feed preflight failed; nothing imported",
+  reason:"cadbury_uk_feed_identity_mismatch"}),{
+   state:"rejected",code:"feed_validation_cadbury_uk_feed_identity_mismatch"
+ });
+ assert.deepEqual(safePrivateCronOutcome(502,{error:"Awin product download failed",
+  failure_kind:"feed_binding_mismatch"}),{
+   state:"rejected",code:"product_download_feed_binding_mismatch"
+ });
+ assert.deepEqual(safePrivateCronOutcome(502,{error:"Awin product download failed",
+  failure_kind:"upstream_http_403"}),{
+   state:"rejected",code:"product_download_upstream_http"
+ });
+ for(const field of [
+  {reason:"https://example.test/secret"},
+  {failure_kind:"https://example.test/secret"},
+  {reason:"not_whitelisted_code"}
+ ]) {
+  const pre=field.reason!==undefined;
+  const code=pre?"Feed preflight failed; nothing imported":"Awin product download failed";
+  const x=safePrivateCronOutcome(pre?422:502,{error:code,...field,token:"never_log"});
+  assert.equal(x.code,pre?"feed_validation":"product_download");
+  assert.doesNotMatch(JSON.stringify(x),/secret|token|example/);
+ }
+ const worker=read("app/api/internal/awin-auto-import/route.ts");
+ const owner=read("app/api/control-centre/awin-run-now/route.ts");
+ const ui=read("app/control-centre/awin-feed-updates/OwnerAwinRunNow.tsx");
+ for(const value of ["cadbury_uk_schema_mismatch","cadbury_uk_feed_identity_mismatch",
+  "feed_binding_mismatch","unsafe_feed_url","source_size_limit"])
+  assert.ok(worker.includes(value));
+ assert.match(owner,/"failure_kind","diagnostic_stage","detected_delimiter","columns","parsed_rows"/);
+ assert.match(ui,/o\.failure_kind/);
+ assert.doesNotMatch(worker,/console\.log\(.*(downloadUrl|key|feedRow)/);
+});
