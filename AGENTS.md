@@ -1,3 +1,5 @@
+**17 November 2026: READ THE CURRENT MASTER HANDOVER FIRST:** [`docs/AVUQO_ACTIVE_HANDOVER.md`](docs/AVUQO_ACTIVE_HANDOVER.md), especially its top *MASTER READ THIS FIRST* chapter, then the JSON companion. It supersedes the dated 16-Nov snapshots below. One platform includes existing premium design, major backend/Control Centre, networked affiliate comparison/deals, optional authorised future checkout/dropshipping, marketing, accounts and eBay privacy release. Every substantive PR must update the master MD+JSON, status, changelog and feature tracker MD+JSON. eBay production remains NO-GO pending four-foundation exact reconciliation and nine-only additive release.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 ## This is NOT the Next.js you know

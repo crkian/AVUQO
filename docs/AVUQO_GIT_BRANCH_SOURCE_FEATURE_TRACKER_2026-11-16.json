@@ -2358,5 +2358,30 @@
     "additional_spend": "£0",
     "docker": false,
     "direct_supply": false
+  },
+  "addendum_20261117_unified_master_and_ebay_replay": {
+    "status": "review_candidate",
+    "canonical_handover": "docs/AVUQO_ACTIVE_HANDOVER.md",
+    "machine_handover": "docs/AVUQO_ACTIVE_HANDOVER.json",
+    "notes": "Original 16 Nov branch counts are dated and preserved; requery GitHub on next session. Do not represent new PR as in main.",
+    "product_vision": "one premium affiliate/bargain/comparison/autonomous marketing site with future authorised in-site purchase and optional dropshipping",
+    "visual_protection": "existing warm-premium design stays",
+    "backend_modules": "Supabase canonical products/offers/sources, importer, jobs/cron, rights, approval/release, Control Centre, analytics, scoring, collections, marketing and wider sector verticals",
+    "ebay_engineering": {
+      "prior_main": "PR266 cc4e9a99",
+      "four_foundations": "production legacy versions present; exact object equivalence pending",
+      "nine_pending": "synthetic native PostgreSQL nine-only replay in review",
+      "manifest": "tests/fixtures/ebay-nine-only-migration-manifest.txt",
+      "script": "scripts/test-ebay-nine-only-migration-replay.sh",
+      "test": "tests/ebay-nine-only-migration-replay.test.mjs",
+      "provider": "NO-GO, 503 until durable signed workflow and legal/retention evidence"
+    },
+    "drafts_not_merged": [
+      267,
+      268,
+      269,
+      270
+    ],
+    "rule": "update active handover MD+JSON and full feature tracker MD+JSON, project status and changelog per implementation PR"
   }
 }
