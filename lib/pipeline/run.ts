@@ -308,7 +308,7 @@ async function processOffer(
 
   const { data: priorOffer, error: priorOfferError } = await supabase
     .from("offers")
-    .select("id")
+    .select("id,product_id,merchant_id,affiliate_url")
     .eq("source_id", source.id)
     .eq("source_offer_id", normalized.sourceRecordId)
     .maybeSingle();
@@ -455,7 +455,8 @@ async function processOffer(
   // price, product, advertiser, verified link, stock and score are unchanged/valid.
   // On any mismatch the normal held state withdraws the public deal.
   let renewExistingAwin=false;
-  if(source.connector_key==="awin"&&priorOffer?.id&&publicationEligible&&dealPublishing){
+  if(source.connector_key==="awin"&&priorOffer?.id&&
+     priorOffer.product_id===product.productId&&publicationEligible&&dealPublishing){
     const [{data:approval,error:approvalError},{data:priorPublic,error:publicError}]=await Promise.all([
       supabase.from("awin_offer_release_reviews")
         .select("status,source_id,advertiser_id,reviewed_price,reviewed_offer_at,reviewed_score_at")
@@ -467,6 +468,8 @@ async function processOffer(
     renewExistingAwin=canRenewApprovedAwinOffer({
       sourceId:source.id,offerId:offer.id,productId:product.productId,
       advertiserId:normalized.merchantExternalId??"",
+      merchantId:merchant.id,priorMerchantId:priorOffer.merchant_id,
+      priorAffiliateUrl:priorOffer.affiliate_url,
       price:normalized.price,currency:normalized.currency,
       stockStatus:normalized.normalizedStockStatus,
       affiliateUrl:normalized.affiliateUrl??null,matchConfidence:product.matchConfidence,
