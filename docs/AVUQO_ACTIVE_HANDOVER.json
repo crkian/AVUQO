@@ -2813,5 +2813,27 @@
       "full_quality": "unverified"
     },
     "remaining": "Observe exact actual feed header from owner Petlibro Sale Check live feed or stage result; implement true schema-specific safe adapter, verify live product data, rights and public release. Never invent mapping or live product."
+  },
+  "latest_awin_recognize_first": {
+    "date": "2026-11-17",
+    "owner_decision": "Inventory all accepted programmes and their feed IDs first; classify adapters and products after. Unknown CSV header must not make an accepted feed disappear.",
+    "backend": "Owner-authenticated launch queue now includes every observed feed attached to an accepted numeric advertiser ID, with format, listed products, classification and next adapter",
+    "frontend": "Expandable feed-by-feed recognition table including specialist tyres, contracts/services, large retail, known retail with unverified provider schema and unknown formats",
+    "code_commits": [
+      "607a6f8c2b412e23ca672131c4d475e022e6c21d",
+      "113748e2a4a1c46b4af125db2896b674154a0a54",
+      "df5394540e29f40e9092911339960289c62bbfec",
+      "330dd51bb13bebd9ed599aa156adbab075f2dc84"
+    ],
+    "test_commit": "f542b13d48b25b1b81db64cd2a50e1d0669cd2a4",
+    "recognized_means": "metadata inventory only, not accepted live product, current GBP price, public usage rights or merchant classification proof",
+    "petlibro_sale_109051": {
+      "error": "HTTP 422 unsupported_columns",
+      "resolution": "Actual source header still unobserved; keep as recognised with needs_schema_probe",
+      "no_public_product_claim": true
+    },
+    "tyre_specialism_preserved": true,
+    "source_still_paused": true,
+    "next": "Observe actual authenticated feed headers and support new schema variants privately, verify canonical held offers, reconcile rights, publish only current genuine GBP offers and test public pages/withdrawal"
   }
 }
