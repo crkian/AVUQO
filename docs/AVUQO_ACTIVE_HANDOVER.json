@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "project": "AVUQO",
-  "as_of_utc": "2026-11-16",
+  "as_of_utc": "2026-11-17",
   "snapshot_type": "observed_november_16_live_audit_plus_original_morning_snapshot",
   "repo": {
     "full_name": "crkian/AVUQO",
@@ -1659,5 +1659,26 @@
     "additional_spend": "£0",
     "docker": false,
     "direct_supply": false
+  },
+  "commerce_vision_and_ebay_finish_20261117": {
+    "state": "draft_readonly_reconciliation_unmerged",
+    "source": "docs/AVUQO_COMMERCE_VISION_EBAY_FINISH_2026-11-17.md",
+    "owner_intent": "automated shopping, bargains, product comparisons, scoring, marketing; affiliates, partner-permitted embedded commerce and future contractually authorised AVUQO dropshipping",
+    "historical_clarification": "no direct fulfilment was a 16 Nov operational state, not a permanent strategy ban",
+    "live_main_sha": "cc4e9a99e3c2874407e7ac3c5b893adac333d6d4",
+    "draft_prs": [
+      267,
+      268,
+      269
+    ],
+    "database": {
+      "ebay": "paused_sync_off",
+      "awin": "paused_sync_off",
+      "unapplied_privacy_candidates": 9,
+      "foundation_version_collisions": 4
+    },
+    "notification": "POST 503 until signature, atomic durable receipt/queue, full cross-store privacy workflow and provider release are evidenced. Future 2xx acknowledges durable receipt, not synchronous erasure.",
+    "deployment": "Recent previews not evidence of production release",
+    "safety": "No DDL/DML, provider activation, product publication, secrets or commerce authorisation."
   }
 }
