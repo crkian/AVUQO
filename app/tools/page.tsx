@@ -35,10 +35,18 @@ const safeLink=(value:string)=>typeof value==="string"&&value.length<=2400&&
  /^https:\/\/www[.]awin1[.]com\/pclick[.]php[?]/.test(value)&&
  /[?&]m=496(&|$)/.test(value)&&/[?&]a=3135746(&|$)/.test(value)&&
  /[?&]p=[^&]+/.test(value);
-async function liveCatalogue():Promise<Product[]>{
+type BrowseParams={department?:string;page?:string};
+const DEPARTMENTS=[
+ {id:"all",label:"All products"},{id:"tools",label:"Tools & DIY"},
+ {id:"garden",label:"Garden"},{id:"workwear",label:"Workwear"},
+ {id:"home",label:"Home"},{id:"motoring",label:"Motoring"}
+];
+const PER_PAGE=48;
+async function liveCatalogue(department:string,page:number):Promise<Product[]>{
+
  try{
-  const {data,error}=await createAdminClient().rpc("get_verified_tooled_up_catalogue",{
-   p_limit:100,p_offset:0
+  const {data,error}=await createAdminClient().rpc("get_verified_tooled_up_department",{
+   p_department:department,p_limit:PER_PAGE+1,p_offset:(page-1)*PER_PAGE
   });
   if(error||!Array.isArray(data))return [];
   return data.filter((p:Product)=>p&&typeof p.title==="string"&&
@@ -46,9 +54,19 @@ async function liveCatalogue():Promise<Product[]>{
    safeImage(p.image_url)&&safeLink(p.affiliate_url));
  }catch{return [];}
 }
-export default async function ToolsPage(){
+export default async function ToolsPage({searchParams}:{
+ searchParams:Promise<BrowseParams>
+}){
  await connection();
- const entries=await liveCatalogue();
+ const params=await searchParams;
+ const department=DEPARTMENTS.some(d=>d.id===params?.department)?params.department!:"all";
+ const requestedPage=Number(params?.page??"1");
+ const page=Number.isSafeInteger(requestedPage)&&requestedPage>=1&&requestedPage<=2000
+  ?requestedPage:1;
+ const results=await liveCatalogue(department,page);
+ const hasNext=results.length>PER_PAGE;
+ const entries=results.slice(0,PER_PAGE);
+ const href=(dept:string,number:number)=>`/tools?department=${encodeURIComponent(dept)}&page=${number}`;
  const freshest=entries.length?new Date(entries[0].feed_observed_at):null;
  const seenAt=freshest&&Number.isFinite(freshest.getTime())
   ?new Intl.DateTimeFormat("en-GB",{dateStyle:"medium",timeStyle:"short",timeZone:"Europe/London"}).format(freshest):null;
@@ -61,14 +79,19 @@ export default async function ToolsPage(){
     <h1>Tools, materials &amp; work essentials</h1>
     <p>Real supplier products, with product prices and images checked against the authorised Tooled Up Awin feed. Browse the current listings without mistaking an ordinary price for a special deal.</p>
     <div className={styles.meta}>
-     <span>{entries.length?entries.length+" verified products shown":"Awaiting the next authenticated update"}</span>
+     <span>{entries.length?entries.length+" products on this page":"Awaiting the next authenticated update"}</span>
      {seenAt&&<span>Feed last authenticated: {seenAt} UK</span>}
     </div>
    </section>
+   <nav className={styles.departments} aria-label="Supplier product departments">
+    {DEPARTMENTS.map(d=><Link key={d.id} href={href(d.id,1)}
+     aria-current={department===d.id?"page":undefined}
+     className={department===d.id?styles.departmentActive:styles.department}>{d.label}</Link>)}
+   </nav>
    {entries.length===0?<section className={styles.empty} role="status">
     <h2>No currently verified tools to display</h2>
     <p>Products are hidden when the authenticated supplier-feed evidence is too old or the publication controls do not pass. The private catalogue is still being refreshed.</p>
-    <Link href="/categories">Explore other departments</Link>
+    <Link href={href("all",1)}>Browse all currently verified supplier products</Link>
    </section>:<>
     <p className={styles.disclosure}>These are verified supplier product listings, <strong>not AVUQO-scored deals</strong>. Prices are in GBP for the product alone; delivery, any options and final availability must be checked with Tooled Up before purchase. Links are affiliate links and may earn AVUQO a commission.</p>
     <section className={styles.grid} aria-label="Current supplier product listings">
@@ -100,6 +123,11 @@ export default async function ToolsPage(){
       </div>
      </article>)}
     </section>
+    <nav className={styles.pagination} aria-label="Product catalogue pagination">
+     {page>1&&<Link href={href(department,page-1)}>Previous page</Link>}
+     <span>Page {page}</span>
+     {hasNext&&<Link href={href(department,page+1)}>Next page</Link>}
+    </nav>
    </>}
   </div>
   <Footer/>

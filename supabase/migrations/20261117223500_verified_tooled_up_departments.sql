@@ -1,0 +1,87 @@
+-- Public source-verified department browsing, not a scored deal feed.
+-- Keep every restriction of the existing authenticated 496/89987 catalogue,
+-- and classify the supplier's own category without inventing availability.
+create or replace function public.get_verified_tooled_up_department(
+ p_department text default 'all',
+ p_limit integer default 49,
+ p_offset integer default 0
+)
+returns table(
+ sku text,title text,price numeric,category_name text,
+ image_url text,affiliate_url text,images jsonb,feed_observed_at timestamptz
+)
+language sql stable security definer
+set search_path=''
+as $function$
+ with fresh_observation as (
+  select snapshot_sha256,observed_at
+  from public.awin_tooled_up_snapshot_observations
+  where advertiser_id='496' and feed_id='89987'
+   and evidence_kind='authenticated_awin_download_and_storage_readback'
+   and observed_at>=now()-interval '2 hours'
+   and observed_at<=now()+interval '2 minutes'
+  order by observed_at desc limit 1
+ ), validated as (
+  select snapshot_sha256 from public.awin_private_snapshot_validations
+  where advertiser_id='496' and feed_id='89987'
+   and critical_issues=0 and duplicate_product_ids=0
+   and invalid_price_rows=0 and unverified_affiliate_links=0
+ ), eligible as (
+ select f.merchant_product_id,f.title,f.price,f.category,
+  f.image_url,f.metadata->>'verified_awin_deep_link' as affiliate_url,
+  coalesce(f.metadata->'supplied_image_gallery','[]'::jsonb) as images,
+  observation.observed_at,
+  case
+   when coalesce(f.category,'') ~* 'footwear|shoe|boot|clothing|trouser|tops|outerwear|hi.vis|high.visibility|workwear|glove|sock|apparel|jacket|men.s|women.s' then 'workwear'
+   when coalesce(f.category,'') ~* 'garden|lawn|mower|hedge|plant|watering|outdoor|pressure washer' then 'garden'
+   when coalesce(f.category,'') ~* 'vehicle|motor|auto care|car care|garage|automotive|servicing|battery charger' then 'motoring'
+   when coalesce(f.category,'') ~* 'household|home security|vacuum|lighting|kitchen|heating|cleaning|bathroom|electrical fittings' then 'home'
+   else 'tools'
+  end as department
+ from public.feed_import_records f
+ join fresh_observation observation
+   on observation.snapshot_sha256=f.metadata->>'live_feed_digest'
+ join validated v on v.snapshot_sha256=observation.snapshot_sha256
+ where f.merchant_id='496'
+   and f.status='review' and f.reviewed_at is null
+   and f.currency='GBP' and f.price>0 and f.price<=1000000
+   and f.merchant_product_id is not null and length(f.merchant_product_id)>0
+   and length(f.title)>0
+   and f.metadata->>'feed_id'='89987'
+   and f.metadata->>'live_feed_verification'='exact_authenticated_feed_digest_rechecked'
+   and f.metadata->>'tracking_link_verified'='true'
+   and f.metadata->>'source_image_rights_confirmed'='true'
+   and f.metadata->>'listing_kind'='physical_product'
+   and f.metadata->>'availability' in ('in_stock','low_stock','available')
+   and f.image_url ~ '^https://(www[.]tooled-up[.]com|images2[.]productserve[.]com)/'
+   and f.metadata->>'verified_awin_deep_link' ~ '^https://www[.]awin1[.]com/pclick[.]php[?]'
+   and f.metadata->>'verified_awin_deep_link' ~ '([?]|&)m=496(&|$)'
+   and f.metadata->>'verified_awin_deep_link' ~ '([?]|&)a=3135746(&|$)'
+   and f.metadata->>'verified_awin_deep_link' ~ '([?]|&)p=[^&]+'
+   and exists(select 1 from public.sources s
+    where s.connector_key='awin' and s.status='active'
+     and s.sync_enabled and s.credential_status='ready'
+     and s.metadata->>'owner_attested_release_enabled'='true'
+     and s.metadata->>'image_rights_confirmed'='true')
+   and exists(select 1 from public.affiliate_programs a
+    where a.provider='awin' and a.region='GB'
+     and a.external_account_id='496'
+     and a.metadata->>'publication_approved'='true'
+     and a.metadata->'owner_joined_accepted_attestation'->>'membership_status'='accepted')
+   and (select count(*) from public.system_controls c where
+     (c.control_key='source_ingestion' and c.enabled=true)
+     or (c.control_key='global_emergency_stop' and c.enabled=false)
+   )=2
+ )
+ select e.merchant_product_id,e.title,e.price,e.category,e.image_url,
+  e.affiliate_url,e.images,e.observed_at
+ from eligible e
+ where p_department='all' or e.department=p_department
+ order by e.title asc,e.merchant_product_id asc
+ limit least(greatest(coalesce(p_limit,49),1),100)
+ offset least(greatest(coalesce(p_offset,0),0),100000);
+$function$;
+revoke all on function public.get_verified_tooled_up_department(text,integer,integer)
+ from public,anon,authenticated;
+grant execute on function public.get_verified_tooled_up_department(text,integer,integer)
+ to service_role;
