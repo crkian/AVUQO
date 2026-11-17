@@ -49,6 +49,9 @@ test("bridge uses the one existing scoring pipeline and cannot auto-publish firs
  assert.match(stage,/runDealIntelligencePipeline\(db/);
  assert.match(stage,/awinPrivateStaging:true/);
  assert.match(stage,/limit\?\?20,20/);
+ // Every canonical batch must be bound to the digest that an authenticated
+ // Awin download just verified, regardless of historical created_at order.
+ assert.match(stage,/\.contains\("metadata",\{live_feed_digest:input\.digest\}\)/);
  assert.match(stage,/source\.status!=="paused"/);
  assert.match(worker,/attestUnchangedLiveRows/);
  assert.match(worker,/stageLiveAwinCanonicalCandidates/);
