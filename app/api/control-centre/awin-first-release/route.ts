@@ -113,3 +113,73 @@ export async function POST(request:NextRequest){
    respond({status:"approved",offer_id:offer.id,price_gbp:Number(offer.price)});
  }catch{return respond({error:"First-release control unavailable"},503);}
 }
+
+/** Read-only, owner-scoped live launch queue. First release still uses POST and
+ * the existing atomic SQL function. Only current canonical held offers appear.
+ */
+export async function GET(){
+ try{
+  const session=await createClient();
+  const {data:{user},error:authError}=await session.auth.getUser();
+  if(authError||!user)return respond({error:"Sign in required"},401);
+  const {data:role,error:roleError}=await session.from("user_roles")
+   .select("role").eq("user_id",user.id).maybeSingle();
+  if(roleError||role?.role!=="owner")return respond({error:"Owner only"},403);
+  const db=createAdminClient();
+  const {data:source,error:sourceError}=await db.from("sources")
+   .select("id,status,sync_enabled,credential_status,metadata")
+   .eq("connector_key","awin").maybeSingle();
+  if(sourceError||!source)return respond({error:"Source unavailable"},503);
+  const meta=obj(source.metadata);
+  const {count,error:countError}=await db.from("offers")
+   .select("id",{head:true,count:"exact"}).eq("source_id",source.id);
+  if(countError)return respond({error:"Offer count unavailable"},503);
+  if(source.status!=="active"||source.sync_enabled!==true||
+     source.credential_status!=="ready"||meta.publication_permission!=="verified"||
+     meta.price_evidence_status!=="verified")
+   return respond({status:"source_not_launch_ready",totalCanonicalOffers:count??0,
+    candidates:[],acceptance:"21 programmes recorded as accepted",
+    next:"Source and current-price evidence must pass before release"});
+  const {data:offers,error:offerError}=await db.from("offers")
+   .select("id,title,merchant_id,price,currency,last_seen_at,stock_status,affiliate_url,match_confidence")
+   .eq("source_id",source.id).eq("status","active")
+   .eq("currency","GBP").order("last_seen_at",{ascending:false}).limit(50);
+  if(offerError)return respond({error:"Offer review list unavailable"},503);
+  const ids=(offers??[]).map(o=>o.id);
+  if(!ids.length)return respond({status:"no_canonical_offers",totalCanonicalOffers:count??0,candidates:[]});
+  const merchants=[...new Set((offers??[]).map(o=>o.merchant_id))];
+  const [{data:held,error:heldError},{data:scores,error:scoresError},{data:merchantRows,error:merchantError},
+   {data:reviews,error:reviewsError}]=await Promise.all([
+   db.from("published_deals").select("offer_id,status,current_price").in("offer_id",ids),
+   db.from("deal_scores").select("offer_id,score,confidence,calculated_at").in("offer_id",ids),
+   db.from("merchants").select("id,name,metadata").in("id",merchants),
+   db.from("awin_offer_release_reviews").select("offer_id,status").in("offer_id",ids)
+  ]);
+  if(heldError||scoresError||merchantError||reviewsError)
+   return respond({error:"Candidate evidence unavailable"},503);
+  const heldMap=new Map((held??[]).map(x=>[x.offer_id,x]));
+  const scoresMap=new Map((scores??[]).map(x=>[x.offer_id,x]));
+  const merchantsMap=new Map((merchantRows??[]).map(x=>[x.id,x]));
+  const reviewMap=new Map((reviews??[]).map(x=>[x.offer_id,x]));
+  const candidates=(offers??[]).flatMap(o=>{
+   const h=heldMap.get(o.id),s=scoresMap.get(o.id),m=merchantsMap.get(o.merchant_id);
+   const ad=obj(m?.metadata).external_id;
+   if(!h||h.status!=="held"||!s||!m||typeof ad!=="string"||
+      !/^\\d{2,12}$/.test(ad))return [];
+   const now=Date.now(),match=Number(o.match_confidence);
+   const valid=fresh(o.last_seen_at,now)&&fresh(s.calculated_at,now)&&
+    Number(o.price)>0&&Number(h.current_price)===Number(o.price)&&
+    ["in_stock","low_stock"].includes(o.stock_status)&&
+    Number(s.score)>=60&&Number(s.confidence)>=55&&
+    Number.isFinite(match)&&(match>1?match>=85:match>=0.85)&&
+    ownAffiliateLink(o.affiliate_url,ad)&&reviewMap.get(o.id)?.status!=="approved";
+   if(!valid)return [];
+   return [{offerId:o.id,title:o.title,merchant:m.name,advertiserId:ad,
+    priceGbp:Number(o.price),lastSeenAt:o.last_seen_at,
+    score:Number(s.score),confidence:Number(s.confidence)}];
+  }).slice(0,10);
+  return respond({status:candidates.length?"review_ready":"no_current_eligible_offers",
+   totalCanonicalOffers:count??0,candidates,
+   note:"Final POST independently rechecks accepted merchant, source rights and all immutable offer evidence"});
+ }catch{return respond({error:"Owner launch queue unavailable"},503);}
+}
