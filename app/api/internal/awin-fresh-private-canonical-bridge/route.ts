@@ -71,6 +71,11 @@ export async function GET(request:NextRequest){
    outcomes.push({advertiser_id:pair.id,status:"not_accepted_in_canonical_registry"});continue;
   }
   if(safelyPaused){
+   // Licensed franchise characters need independent rights evidence, not merely a feed.
+   if(pair.id==="45747"){
+    outcomes.push({advertiser_id:pair.id,status:"restricted_character_rights_review"});
+    continue;
+   }
    const {data:attested,error:attestedError}=await db.from("feed_import_records")
     .select("import_id,metadata,created_at")
     .eq("merchant_id",pair.id).eq("status","review")
@@ -151,6 +156,7 @@ export async function GET(request:NextRequest){
  const publication=await autoReleaseEligibleAwinOffers(db,15);
  return reply({status:"private_to_held_canonical_checked",
   no_first_publication:publication.approved===0,
+  reason:seen_total===0?"fresh_exact_feed_recheck_required":undefined,
   automatic_publication:publication,
   notes:"No tyres, services, unverified links, or historical prices were imported",
   seen_total,held_total,outcomes});
