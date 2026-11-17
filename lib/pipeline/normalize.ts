@@ -1,4 +1,5 @@
 import type { NormalizedOffer, RawSourceOffer } from "../../types/pipeline";
+import {tooledUpIdentityText} from "../awin/tooled-up-identity.mjs";
 
 export function slugify(input: string) {
   return input
@@ -55,7 +56,7 @@ export function normalizeOffer(raw: RawSourceOffer): NormalizedOffer {
   // cross-merchant grouping can be added later using validated GTIN matches.
   const skuScopedTooledUp=raw.merchantExternalId==="496";
   const identityText=skuScopedTooledUp
-    ?`${raw.title} Tooled Up SKU ${raw.sourceRecordId}`
+    ?tooledUpIdentityText(raw.title,raw.sourceRecordId)
     :raw.brand?.trim() && raw.model?.trim()
       ?`${raw.brand.trim()} ${raw.model.trim()}` : raw.title;
   const canonicalKey = slugify(identityText);

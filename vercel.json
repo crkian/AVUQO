@@ -46,11 +46,11 @@
     },
     {
       "path": "/api/internal/awin-tooled-up-snapshot",
-      "schedule": "5 */4 * * *"
+      "schedule": "0,15,30,45 * * * *"
     },
     {
       "path": "/api/internal/awin-tooled-up-daily-validation",
-      "schedule": "10 */4 * * *"
+      "schedule": "4,19,34,49 * * * *"
     },
     {
       "path": "/api/internal/awin-approved-refresh",
@@ -74,11 +74,15 @@
     },
     {
       "path": "/api/internal/awin-tooled-up-live-cohort",
-      "schedule": "14 */4 * * *"
+      "schedule": "8,23,38,53 * * * *"
     },
     {
       "path": "/api/internal/awin-automatic-first-release",
       "schedule": "18,38,58 * * * *"
+    },
+    {
+      "path": "/api/internal/awin-tooled-up-catalogue-index",
+      "schedule": "* * * * *"
     }
   ],
   "ignoreCommand": "git diff --quiet HEAD^ HEAD -- . ':(exclude)docs/**' ':(exclude)*.md' ':(exclude).github/**'"
