@@ -138,3 +138,38 @@ Official Awin reference: https://help.awin.com/developers/docs/product-feed-publ
 - Earlier source registry still marked Awin paused, publication permission pending, and individual programme publication_approved false. These flags are unreconciled with the owner's statement, not a finding that the owner lacks permission.
 - Owner-only release queue change in progress: display exact offer-level gaps and differentiate owner statement from stored records. No activation or publication triggered.
 - Next: provide a private owner-authenticated evidence reconciliation that records scope and exact expiry/ref where applicable, without guessing, then validate credentials, fresh prices, scoring and atomic release.
+
+## FIRST PUBLIC AWIN PRODUCTS: owner-attested activation completed (2026-11-17, 20:22-20:28 UTC)
+
+**Current truth supersedes the earlier historical 'Awin paused / zero published' statements above.** These were accurate before the owner-authorised launch, but are no longer current.
+
+### Owner rights and source activation
+- Owner explicitly reconfirmed in chat that proof of permissions was already provided and directed that every accepted programme's `publication_approved=false` become `true`; detailed documentary terms can be reconciled after achieving live data.
+- Live Supabase: all **21 accepted GB Awin programmes** now have `affiliate_programs.metadata.publication_approved=true` and `publication_approval_record` identifying the explicit owner-chat attestation. No advertiser contract expiry dates were invented. 17 programmes have mapped numeric advertiser IDs; four still need mappings.
+- Owner all-programme statement stored independently on source metadata as `owner_permission_attestation_2026_11_17`.
+- Production Awin source moved from `paused/off/not_configured/pending` to `active/on/ready/verified` after guarded SQL confirmed 21 approved programmes, at least 20 recent exact digest rechecks, at least three authenticated schema profiles and all global controls safe. `publication_permission_basis=explicit_owner_attestation_2026_11_17`, `price_evidence_scope=exact_authenticated_feed_rechecks_only; per_offer_freshness_gate_still_required`. This is owner-attested approval and datafeed evidence, NOT independently validated Awin API token or signed advertiser contract expiry.
+- Global emergency stop remains OFF, while `source_ingestion` and `deal_publishing` are ON. Source metadata `owner_attested_release_enabled=true`.
+- `image_rights_confirmed=true` set for Awin source with explicit owner attestation basis. 95 recently authenticated feed rows now have `source_image_rights_confirmed=true` with matching evidence. 82 exact feed/advertiser/SKU/title/price/tracked URL matches had supplier images attached to HELD deal rows; 81 draft product records gained primary images (one other product already had an image or was non-draft). Do not misrepresent this as all possible alternate gallery fields being populated; variants depend on publisher feed content.
+
+### Code shipped
+- PR #297 `3f0fa6bd65a06ba67ec22856fdcde950c0942651`, Vercel READY production `dpl_BEcV8wyKmHFrDqYi1fYqGDLVoCVa`: time-bounded 30-day **internal owner reattestation** as an alternative to unrecorded individual source-rights fields, only for mapped Awin advertisers with a standing owner grant and activation switch. This is NOT a merchant licence expiry. Existing per-offer current GBP, stock, publisher-specific tracking, match confidence, score >=60, owner approval and atomic release gates remain.
+- Source active-mode canonical HELD staging repaired, still never first-publishes from importer. Fresh owner-approved supplier-image metadata/gallery preserved for subsequent imported feed rows.
+- PR #298 `aa4f490953f3c2beec29ed4b20a89db587896d7c`, production READY `dpl_FvQ9iUmhEBS5jirtTAYSXyL6Sgcv`: customer-facing Awin pages require accepted AND `publication_approved=true`; Awin `total_price` is treated as *unverified* when delivery not separately established, so pages display **product price only**, not a false free-delivery inclusive total.
+
+### Exact release audit
+- First atomic owner-authorised release: **Cadbury Caramel Chocolate Egg 40g, £0.99**, 20:22:10 UTC. Later **withdrawn safely** with atomic pause because Cadbury's own public category page showed it out of stock while Awin had stated in_stock. It must NOT be counted as currently live.
+- Successfully published and confirmed in Supabase (published_deals.status='published', products.status='active', awin_offer_release_reviews.status='approved', supplier photo present):
+  1. **Mozillion TCL 406 Dark Gray 32GB Brand New**, £80; canonical slug `tcl-tcl-406-dark-gra`.
+  2. **Mozillion Samsung Galaxy A17 5G Blue 128GB Brand New**, £220; canonical slug `samsung-samsung-galaxy-a`.
+  3. **Cadbury Gifts Direct Cadbury Bournville Dark Chocolate Bar 100g**, £2; slug `cadbury-bournville-dark-chocolate-bar-100g-cadbury-bournvil`.
+  4. **Cadbury Gifts Direct Cadbury Chomp Chocolate Bar 21g**, £0.39; slug `cadbury-chomp-chocolate-bar-21g-cadbury-chomp-ch`.
+- Mozillion current search catalogue independently listed TCL 406 SIM-free from £80 and Samsung A17 5G SIM-free from £220. Cadbury's Bournville and Chomp current catalogue listings were independently checked at matching prices, with Add to Bag; standard delivery to mainland is listed at £3.99 and must not be called free or included in the product-only price.
+- Vercel deployment confirmed READY, and database/public code gates inspected. **Direct HTTP fetch of AVUQO's public product pages could not be independently completed from the current tool environment**, so report production publication status, not browser-rendered success until manually opened.
+- No bulk release of other 17+ accepted programme feeds. Existing specialist adapters, merchant exclusions, Awin advertiser identity mapping, schema handling and per-offer stock checks still govern.
+
+### Next priorities
+1. Open the four published product URLs on a normal browser and confirm exact image, price-only delivery wording, tracked click destination and no surprise 404 or frontend error.
+2. Resolve missing 4 advertiser IDs and unprocessed specialist programmes; expand safe import adapters without guessed schema/price.
+3. Improve true delivery-inclusive total scoring: legacy canonical pipeline currently treats unknown deliveryCost as zero for score calculation. Do not claim a verified delivered total or free delivery until independently priced; rework score evidence in a reviewed follow-up.
+4. Preserve each merchant's exact contractual restrictions and evidence references, and reattest the owner approval under the 30-day internal review while documentary scope is reconciled. Never invent actual licence expiry.
+5. Refresh authenticated feeds periodically and automatically withdraw offers on stale stock, price, affiliate link or source revocation. Investigate mismatched merchant stock immediately.
