@@ -1,7 +1,7 @@
 import { NextRequest,NextResponse } from "next/server";
 import { createAdminClient } from "../../../../lib/supabase/admin";
 import { inspectAwinFeedList } from "../../../../lib/awin/feed-list-audit";
-import { joinedAwinAdvertisers } from "../../../../lib/awin/joined-catalogue";
+
 
 /**
  * Metadata discovery only. Never download retailer product feeds or persist Awin
@@ -37,19 +37,20 @@ export async function GET(request:NextRequest){
  if(!/^[a-zA-Z0-9_-]{16,200}$/.test(key))
   return send({error:"Awin datafeed key not configured"},503);
  const admin=createAdminClient();
- const {data:source,error:sourceError}=await admin.from("sources")
-  .select("metadata").eq("connector_key","awin").maybeSingle();
- if(sourceError||!source)return send({error:"Awin source registry unavailable"},503);
- const metadata=source.metadata&&typeof source.metadata==="object"&&!Array.isArray(source.metadata)
-  ?source.metadata as {awin_advertisers?:unknown}:{};
+ // The canonical accepted-programme registry supersedes the historical
+ // static pilot roster. An accepted programme with no mapped numeric ID
+ // remains visible in the Control Centre but cannot bind a source feed.
+ const {data:programmes,error:programmeError}=await admin.from("affiliate_programs")
+  .select("external_account_id,region,metadata").eq("provider","awin").eq("region","GB");
+ if(programmeError)return send({error:"Accepted advertiser registry unavailable"},503);
  const joined=new Set<string>();
- if(Array.isArray(metadata.awin_advertisers)){
-  for(const row of metadata.awin_advertisers){
-   if(!row||typeof row!=="object"||Array.isArray(row))continue;
-   const entry=row as {advertiser_id?:unknown;joined_programme_observed?:unknown};
-   if(entry.joined_programme_observed===true&&typeof entry.advertiser_id==="string"
-     &&joinedAwinAdvertisers.some(([id])=>id===entry.advertiser_id))joined.add(entry.advertiser_id);
-  }
+ for(const p of programmes??[]){
+  const m=p.metadata&&typeof p.metadata==="object"&&!Array.isArray(p.metadata)
+   ?p.metadata as Record<string,unknown>:{};
+  const a=m.owner_joined_accepted_attestation;
+  const att=a&&typeof a==="object"&&!Array.isArray(a)?a as Record<string,unknown>:{};
+  if(att.membership_status==="accepted"&&typeof p.external_account_id==="string"&&
+    /^\d{2,12}$/.test(p.external_account_id))joined.add(p.external_account_id);
  }
  if(joined.size===0)return send({error:"No observed joined advertisers"},403);
  // Retry through the documented publisher download endpoint if the productdata
