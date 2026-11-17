@@ -8,6 +8,7 @@ import {GET as bridgeFreshOffers} from "../../internal/awin-fresh-private-canoni
 import {GET as discoverFeeds} from "../../internal/awin-feed-check/route";
 import {GET as runPortfolioRotation} from "../../internal/awin-portfolio-private-rotation/route";
 import {GET as probeFeedSchema} from "../../internal/awin-feed-schema-probe/route";
+import {GET as tooledUpCohort} from "../../internal/awin-tooled-up-live-cohort/route";
 import {AWIN_PRIVATE_SNAPSHOT_BUCKET} from "../../../../lib/awin/private-snapshot";
 import {newestRecentTooledUpSnapshot} from "../../../../lib/awin/tooled-up-recent-snapshot";
 
@@ -32,7 +33,8 @@ const OUTPUT_KEYS=["status","error","reason","failure_kind","diagnostic_stage","
  "schema_status","schema_reason","schema_delimiter",
  "recognition_kind","next_action","accepted_feed_count",
  "batch_total","batch_profiled","batch_specialist","batch_quarantined","batch_errors",
- "invalid_price_rows","unverified_affiliate_links","private_only","no_publication"] as const;
+ "invalid_price_rows","unverified_affiliate_links","private_only","no_publication",
+ "scanned","candidate_rows","matched","live_rechecked","canonical_held","currency_basis","no_first_publication"] as const;
 
 async function sanitized(response:Promise<Response>){
  const r=await response;
@@ -102,7 +104,7 @@ export async function POST(request:NextRequest){
   const merchant=parts.join("_");
   const pair=Object.prototype.hasOwnProperty.call(FEEDS,merchant)?FEEDS[merchant]:null;
   const isPilot=!!pair&&(action==="preflight"||action==="stage");
-  const isTooledUp=merchant==="tooled_up"&&(action==="snapshot"||action==="validate");
+  const isTooledUp=merchant==="tooled_up"&&(action==="snapshot"||action==="validate"||action==="cohort");
   const isBridge=task==="canonical_bridge";
   const isInventory=task==="all_feeds_check";
   const isPortfolio=task==="portfolio_stage_next";
@@ -168,6 +170,10 @@ export async function POST(request:NextRequest){
    url.searchParams.set("advertiser_id",advertiser);
    url.searchParams.set("feed_id",feed);
    return sanitized(importFeed(new NextRequest(url,{method:"POST",headers:auth})));
+  }
+  if(task==="tooled_up_cohort"){
+   const url=new URL("/api/internal/awin-tooled-up-live-cohort",request.url);
+   return sanitized(tooledUpCohort(new NextRequest(url,{method:"GET",headers:auth})));
   }
   if(action==="snapshot"){
    const url=new URL("/api/internal/awin-tooled-up-snapshot",request.url);
