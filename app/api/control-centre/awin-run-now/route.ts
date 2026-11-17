@@ -107,8 +107,8 @@ export async function POST(request:NextRequest){
   const isPortfolio=task==="portfolio_stage_next";
   const isSchemaProbe=task==="portfolio_schema_probe_next";
   const step=body.step;
-  if(isPortfolio||isSchemaProbe){
-   if(!Number.isSafeInteger(step)||typeof step!=="number"||step<0||step>(isSchemaProbe?199:8))
+  if(isPortfolio){
+   if(!Number.isSafeInteger(step)||typeof step!=="number"||step<0||step>8)
     return result({error:"Invalid bounded rotation step"},400);
   }else if(step!==undefined)return result({error:"Unexpected rotation step"},400);
   if(!isPilot&&!isTooledUp&&!isBridge&&!isInventory&&!isPortfolio&&!isSchemaProbe)return result({error:"Task not approved"},403);
@@ -125,7 +125,7 @@ export async function POST(request:NextRequest){
   }
   if(isSchemaProbe){
    const url=new URL("/api/internal/awin-feed-schema-probe",request.url);
-   url.searchParams.set("offset",String(step));
+   url.searchParams.set("offset","next");
    return sanitized(probeFeedSchema(new NextRequest(url,{method:"GET",headers:auth})));
   }
   if(isPortfolio){
