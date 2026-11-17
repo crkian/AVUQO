@@ -2477,5 +2477,27 @@
       "legal/retention/provider processing and signed durable acceptance",
       "production Browse/EPN permissions and authorised published listings"
     ]
+  },
+  "ebay_control_tower_release_20261117": {
+    "state": "merged_verified_production_READY",
+    "pr": 276,
+    "git_main_sha": "30f735dff2f2cca0c4d767453768def43e7f21b4",
+    "vercel_deployment": "dpl_HMrKxaLab7EpPB7AXLiGcwQUVpdY",
+    "tests": "lint/build/native PostgreSQL/secret scanning PASS",
+    "owner_path": "/control-centre/ebay-privacy",
+    "new": "conservative seven-surface aggregate queue/readiness and Browse EPN config flags, rights and checkout not falsely approved",
+    "ebay": "paused sync off callback 503; nine privacy migrations not installed",
+    "awin": "paused sync off unchanged",
+    "production_database_mutations": 0,
+    "provider_registration": false,
+    "live_products": false,
+    "next": [
+      "whole object equivalence",
+      "faithful 9-only clone rehearsal",
+      "reviewed migrations",
+      "lawful seven-surface erasure/retention",
+      "signed durable notification acceptance and portal registration",
+      "Browse/EPN licences, authorised product release"
+    ]
   }
 }
