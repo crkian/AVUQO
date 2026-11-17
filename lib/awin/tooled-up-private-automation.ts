@@ -4,7 +4,7 @@ import {evaluateSourceControls,sourceIngestionFailures} from "../pipeline/source
 
 /**
  * Authorize PRIVATE Tooled Up snapshot capture/diagnostics only.
- * Does not assess or grant public advertiser rights or active source state.
+ * Requires accepted owner-approved programme membership; does not grant or publish offers.
  * Fail closed if the emergency stop, ingestion control, source registry,
  * or joined-programme observation cannot be read.
  */
