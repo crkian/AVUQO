@@ -5,6 +5,7 @@ import {requireControlCentreAccess} from "../../../lib/auth/requireControlCentre
 import {createAdminClient} from "../../../lib/supabase/admin";
 import {joinedAwinAdvertisers,joinedInSource} from "../../../lib/awin/joined-catalogue";
 import {reconcileJoinedAwin} from "../../../lib/awin/joined-launch-reconciliation";
+import {probeJoinedAwinMerchant} from "./actions";
 import styles from "./programmes.module.css";
 export const instant=false;
 export const metadata:Metadata={title:"All joined Awin programmes | AVUQO",robots:{index:false,follow:false}};
@@ -26,9 +27,12 @@ const statusText=(run:Run|undefined,feedCount:number,knownCount:number)=>{
  if(feedCount>0||knownCount>0)return "Feed listed; not imported";
  return "Feed availability unconfirmed";
 };
-export default async function Page(){
+export default async function Page({searchParams}:{searchParams:Promise<{probe?:string;result?:string}>}){
  await connection();
- await requireControlCentreAccess();
+ const {role}=await requireControlCentreAccess();
+ const params=await searchParams;
+ const probeId=/^\d{2,12}$/.test(params.probe??"")?params.probe:"";
+ const probeResult=["available","empty","unavailable"].includes(params.result??"")?params.result:null;
  const admin=createAdminClient();
  const [registry,imports,observations,programmeEvidence]=await Promise.all([
   admin.from("sources").select("metadata").eq("connector_key","awin").maybeSingle(),
@@ -74,7 +78,7 @@ export default async function Page(){
   <section className={styles.guidance} aria-labelledby="awin-reconciliation-heading">
    <h2 id="awin-reconciliation-heading">Joined with Awin is not the same as cleared for an AVUQO offer</h2>
    <p><strong>{joinedCount} joined programmes were observed on 4 November.</strong> Their historic network membership has not been discarded. Joining is not permission to reuse images or publish product prices; the independent internal programme register, feed/price rights and per-offer releases must still be reconciled. No new application is implied by a pending internal status.</p>
-   <p><strong>Awin connectivity:</strong> publisher ID and access token {canProbeToken?"present":"incomplete"}; single-advertiser selection {specificAdvertiserConfigured?"configured":"not configured"}. These are presence checks only, not a provider API test, merchant approval or a licence. No credentials are displayed.</p>
+   <p><strong>Awin connectivity:</strong> publisher ID and access token {canProbeToken?"present":"incomplete"}; legacy single-advertiser ingestion selection {specificAdvertiserConfigured?"configured":"not configured"}. The owner can now test each historically joined merchant\u0027s Enhanced Feed independently without changing the production advertiser selection or writing imported rows. These are presence/access checks, never publication permission. No credentials are displayed.</p>
    <p>To get real priced products live: check the exact Awin advertiser ID and current membership, record approval/feed/image permissions and expiry, verify the provider feed and fresh prices, then release the first qualifying offer through the existing owner-only approval workflow.</p>
    <div className={styles.actions}>
     <Link href="/control-centre/awin-advertisers">Record existing approvals and release offers</Link>
@@ -83,6 +87,8 @@ export default async function Page(){
     <Link href="/products">See current public products</Link>
    </div>
   </section>
+  {probeId&&probeResult&&joined.some(x=>x.id===probeId&&x.membership)&&
+    <p role="status" className={styles.warning}>Awin {probeId} feed probe: {probeResult==="available"?"Awin returned recognisable offer records (private connectivity only)":probeResult==="empty"?"Feed responded, but no usable offers were returned":"Feed could not be verified at this time"}. This is not evidence of publication rights, image permissions, current prices, tracking or approval to turn on ingestion.</p>}
   <section className={styles.guidance} aria-labelledby="merchant-evidence-heading">
    <h2 id="merchant-evidence-heading">Merchant-by-merchant reconciliation</h2>
    <p>Evidence status below is from AVUQO records, not a fresh API membership check. A recorded staged import is private and may contain duplicate rows across uploads.</p>
@@ -94,6 +100,10 @@ export default async function Page(){
       <p><strong>Still required:</strong> {merchant.needsEvidence.join("; ")}</p>:
       <p><strong>Recorded evidence complete.</strong> Current product, price, tracking and image checks still apply.</p>}
      <Link href="/control-centre/awin-advertisers">Complete this merchant&apos;s release review</Link>
+     {role==="owner"&&merchant.joinedObserved&&canProbeToken&&<form action={probeJoinedAwinMerchant}>
+       <input type="hidden" name="advertiser_id" value={merchant.id}/>
+       <button type="submit" className={styles.probeAction}>Check live feed access (no import)</button>
+      </form>}
     </article>)}
    </div>
   </section>

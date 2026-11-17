@@ -2006,5 +2006,34 @@
       "control_tower": "/control-centre/ebay-privacy",
       "next": "reviewed isolated production-derived nine-only schema rehearsal then privacy and provider approval"
     }
+  },
+  "awin_first_joined_merchant_live_probe_20261117": {
+    "status": "candidate_ci_pending",
+    "purpose": "owner-only read-only provider feed test before ever publishing priced Awin affiliate offers",
+    "selected_first_advertiser": "Cadbury Gifts Direct 736",
+    "historically_joined_programmes": 16,
+    "vercel_prod_credential_names_present": [
+      "AWIN_PUBLISHER_ID",
+      "AWIN_ACCESS_TOKEN",
+      "AWIN_DATAFEED_API_KEY"
+    ],
+    "missing_legacy_selector": "AWIN_ADVERTISER_ID",
+    "owner_route": "/control-centre/awin-programmes",
+    "manual_approval_route": "/control-centre/awin-advertisers",
+    "server_action": "app/control-centre/awin-programmes/actions.ts",
+    "connector": "lib/connectors/awin.ts:probeAwinEnhancedFeed",
+    "private_probe": "GET up to 3 feed rows, no persistent rows and only summary available/empty/unavailable",
+    "provider_test_actually_run": false,
+    "production_sql_changes": false,
+    "public_awin_offers": 0,
+    "existing_8_research_guides": "live, no retailer-priced offers",
+    "ebay": {
+      "owner_route": "/control-centre/ebay-privacy",
+      "privacy_migrations_unapplied": 9,
+      "webhook": "503",
+      "source": "paused",
+      "provider_activation": false
+    },
+    "next": "owner click on Cadbury live feed probe; verify real permissions/price, configure legitimate per-advertiser ingestion and release first authorised 3-10 priced offers"
   }
 }

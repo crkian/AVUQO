@@ -31,3 +31,6 @@
 .reconciliationItem p{font-size:12px;color:#655b6a;margin:0;line-height:1.55}
 .reconciliationItem a{font-size:12px;font-weight:800;color:#5d368d}
 @media(max-width:700px){.reconciliationList{grid-template-columns:1fr}}
+
+.probeAction{min-height:42px;border:1px solid #71559a;background:#f5eefc;color:#442b64;border-radius:10px;font-weight:800;padding:9px 12px;cursor:pointer;text-align:left}
+.probeAction:hover{background:#e9dcf4}

@@ -34,6 +34,8 @@ jobs:
         env:
           PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
           PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      - name: Awin private per-advertiser Enhanced Feed probe safety tests
+        run: node --test tests/awin-joined-private-feed-probe.test.mjs
       - name: Awin joined memberships versus per-merchant public release reconciliation
         run: node --test tests/awin-joined-launch-reconciliation.test.mjs
       - name: Four-brand marketing policy tests
