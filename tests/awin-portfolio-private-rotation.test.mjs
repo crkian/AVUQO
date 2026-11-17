@@ -34,7 +34,8 @@ test("existing owner-protected Run Now can invoke rotation without accepting raw
  assert.match(owner,/return sanitized\(runPortfolioRotation/);
  assert.match(owner,/role\?\.role!=="owner"/);
  assert.match(owner,/Same origin required/);
- assert.match(ui,/Run next accepted retail feed/);
+ assert.match(ui,/Run scheduled accepted retail feed/);
+ assert.match(ui,/advertiser .* \/ feed /);
  assert.match(ui,/private-only-/);
  assert.match(ui,/control-centre\/tyres/);
  assert.ok(cron.crons.some(x=>x.path==="/api/internal/awin-portfolio-private-rotation"&&x.schedule==="53 10 * * *"));
