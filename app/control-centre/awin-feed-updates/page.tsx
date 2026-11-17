@@ -14,7 +14,7 @@ export default async function Page(){
  await connection();
  const {role}=await requireControlCentreAccess();
  const admin=createAdminClient();
- const [feeds,runs,refresh,attempts,programmes,source,profiles,readiness,tooledValidation]=await Promise.all([
+ const [feeds,runs,refresh,attempts,programmes,source,profiles,readiness,tooledValidation,tooledIndex]=await Promise.all([
   admin.from("awin_feed_update_observations").select("advertiser_id,feed_id,advertiser_name,feed_name,listed_products,last_imported_source,observed_at,needs_private_refresh,change_count").order("needs_private_refresh",{ascending:false}).order("advertiser_name",{ascending:true}).limit(200),
   admin.from("awin_feed_discovery_runs").select("checked_at,active_feeds,joined_feeds,changed_feeds").order("checked_at",{ascending:false}).limit(1),
   admin.from("awin_feed_update_observations").select("feed_id",{count:"exact",head:true}).eq("needs_private_refresh",true),
@@ -25,7 +25,8 @@ export default async function Page(){
   admin.from("sources").select("metadata,status,sync_enabled").eq("connector_key","awin").maybeSingle(),
   admin.from("awin_feed_schema_profiles").select("advertiser_id,feed_id,status,schema_status,recognition_kind,schema_reason,checked_at").order("checked_at",{ascending:false}).limit(200),
   admin.from("awin_private_product_readiness").select("advertiser_id,private_rows,review_rows,gbp_priced_rows,tracking_marked_rows,stock_field_rows,primary_image_rows,image_rights_marked_rows,live_rechecked_rows,latest_private_import_at").limit(100),
-  admin.from("awin_private_snapshot_validations").select("actual_rows,critical_issues,duplicate_product_ids,invalid_price_rows,unverified_affiliate_links,currency_verified,rights_verified,ready_to_stage,validated_at").eq("advertiser_id","496").eq("feed_id","89987").order("validated_at",{ascending:false}).limit(1)
+  admin.from("awin_private_snapshot_validations").select("actual_rows,critical_issues,duplicate_product_ids,invalid_price_rows,unverified_affiliate_links,currency_verified,rights_verified,ready_to_stage,validated_at").eq("advertiser_id","496").eq("feed_id","89987").order("validated_at",{ascending:false}).limit(1),
+  admin.from("awin_private_catalogue_backfill_progress").select("scanned,attempted_drafts,completed,updated_at").eq("job_key","tooled_up_496_89987").maybeSingle()
  ]);
  const portfolio=acceptedAwinPortfolio(
   programmes.data??[],feeds.data??[],source.data??null
@@ -139,7 +140,14 @@ export default async function Page(){
   </section>}
   {role==="owner"&&<section aria-label="Tooled Up large-feed automation" style={{background:"white",border:"1px solid #d7c9e6",borderRadius:16,padding:18,display:"grid",gap:10}}>
    <h2 style={{margin:0}}>Tooled Up: 84,000+ product master feed</h2>
-   <p style={{margin:0,lineHeight:1.6,color:"#5f5669"}}>The existing private, content-addressed gzip capture and exhaustive stream validator are connected to the active Awin source. Every four hours AVUQO captures an immutable snapshot, validates the complete feed 20 minutes later, then checks a bounded SKU cohort 10 minutes after validation. Exact matches enter HELD review; this does not automatically approve every item.</p>
+   <p style={{margin:0,lineHeight:1.6,color:"#5f5669"}}>The existing private, content-addressed gzip capture and exhaustive stream validator are connected to the active Awin source. The full private product catalogue is indexed automatically into category-specific SKU drafts. A fresh authenticated master feed is captured every 15 minutes, integrity-validated and used to recheck up to 1,500 exact-matching private rows per cohort. Only individually qualified offers enter HELD review and atomic release.</p>
+   {tooledIndex.error?<p role="alert">Private catalogue indexing progress currently unavailable.</p>:
+     <p role="status" style={{margin:0,fontSize:13}}>
+      Full catalogue draft indexing: <strong>{Number(tooledIndex.data?.scanned??0).toLocaleString("en-GB")}</strong> legacy items scanned ·
+      <strong> {Number(tooledIndex.data?.attempted_drafts??0).toLocaleString("en-GB")}</strong> draft attempts ·
+      <strong> {tooledIndex.data?.completed?"Complete":"Automatic indexing in progress"}</strong>.
+      Drafts are private until current stock and price evidence qualifies an offer.
+     </p>}
    {tooledValidation.error?<p role="alert">Latest private Tooled Up snapshot audit unavailable.</p>:
    tooledValidation.data?.[0]?<div style={{display:"flex",gap:16,flexWrap:"wrap",fontSize:13}}>
     <span><strong>{Number(tooledValidation.data[0].actual_rows).toLocaleString("en-GB")}</strong> rows in last validated master feed</span>
