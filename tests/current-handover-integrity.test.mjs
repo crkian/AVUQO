@@ -36,7 +36,9 @@ test("new canonical Git handover and machine backlog cover all live/private feed
  const md=read("docs/AVUQO_ACTIVE_HANDOVER.md");
  const machine=JSON.parse(read("docs/AVUQO_ACTIVE_HANDOVER.json"));
  assert.equal(machine.project,"AVUQO");
- assert.equal(machine.as_of_utc,"2026-11-16");
+ assert.match(machine.as_of_utc,/^\\d{4}-\\d{2}-\\d{2}$/);
+ assert.ok(machine.as_of_utc>="2026-11-16", "latest snapshot must not predate 16 November");
+ assert.ok(machine.unified_master_checkpoint_20261117, "full-current master handover checkpoint missing");
  assert.equal(machine.handover.current,"docs/AVUQO_ACTIVE_HANDOVER.md");
  assert.match(machine.production.ready_app_commit,/^[a-f0-9]{40}$/);
  assert.equal(machine.supabase.public_awin_offers,0);
