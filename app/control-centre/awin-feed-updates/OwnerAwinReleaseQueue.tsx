@@ -27,6 +27,7 @@ export default async function OwnerAwinReleaseQueue(){
   meta(meta(p.metadata).owner_joined_accepted_attestation).membership_status==="accepted"
  ).map(p=>p.external_account_id));
  const candidate=(offers??[]).filter(o=>d.get(o.id)?.status==="held"||d.get(o.id)?.status==="published");
+ const runtimeKeysInstalled=Boolean(process.env.AWIN_ACCESS_TOKEN&&process.env.AWIN_DATAFEED_API_KEY&&process.env.AWIN_PUBLISHER_ID);
  const enabled=source.status==="active"&&source.sync_enabled===true&&source.credential_status==="ready"&&
   meta(source.metadata).publication_permission==="verified"&&meta(source.metadata).price_evidence_status==="verified";
  return <section aria-label="Owner Awin first-product release" style={{display:"grid",gap:10}}>
@@ -38,6 +39,7 @@ export default async function OwnerAwinReleaseQueue(){
    Every approval is independently rechecked by the server and atomic release function.
   </p>
   <p role="status" style={{fontWeight:650}}>Source: {source.status} · Synchronisation: {source.sync_enabled?"on":"off"} · Credentials: {source.credential_status}
+   {" · "}Server keys: {runtimeKeysInstalled?"installed, not independently validated":"incomplete"}
    {" · "}Held or released offers in latest query: {candidate.length}</p>
   {candidate.length===0?<p>No genuine canonical Awin offers are ready for owner release. Run current private imports, then pass the source-to-offer pipeline. Historical private feed rows are not public offers.</p>:
    <div style={{overflowX:"auto",background:"white",border:"1px solid #e8e3ed",borderRadius:14}}>
