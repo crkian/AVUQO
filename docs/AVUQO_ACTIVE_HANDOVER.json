@@ -15,12 +15,12 @@
     "url": "https://www.avuqo.com",
     "project": "avuqo",
     "platform": "Vercel",
-    "ready_app_commit": "d977cfa3a01265b1401235c728c089da377a256d",
-    "ready_deployment": "dpl_E5cbjLHeTA1s6CHPmtJu2UFvjeuh",
+    "ready_app_commit": "8e9a764376e6a1c4b90bc7e4d37bbcd5e7bdf8eb",
+    "ready_deployment": "dpl_6p6qKnF51P8Sr3KuwYS4bafp1Qt4",
     "verified_http": 200,
-    "status": "production_READY_owner_manual_Awin_controls_PR216_unverified_signed_in",
+    "status": "production_READY_PR271_verified_ebay_nine_only_synthetic_no_live_DB",
     "docs_only_ignore_build_note": "Documentation commits may advance Git main without changing running application SHA. Always recheck.",
-    "verification": "Merged PR #216 owner Awin private feed preflight/staging and Tooled Up capture/validation READY at exact SHA d977cfa3, signed-out homepage HTTP 200 and private feed update route HTTP 200. POST-only API returned HTTP 405 on GET. Actual owner authenticated preflight/stage not performed. Awin source paused; public offers zero, journal zero at last check."
+    "verification": "GitHub main 8e9a7643 exactly matched Vercel production READY dpl_6p6qKnF51P8Sr3KuwYS4bafp1Qt4 on 17 Nov 2026. Native PostgreSQL synthetic nine-only replay, lint, build, secret scan passed. Database eBay remains paused, four historical foundations present, nine unapplied, webhook 503."
   },
   "supabase": {
     "project_ref": "tfoukwcruaamrtgxzshh",
@@ -489,11 +489,12 @@
     "status": "docs/PROJECT_STATUS.md",
     "roadmap": "docs/ROADMAP.md",
     "last_verified_release": {
-      "pr": 210,
-      "app_commit": "3a98b50948d16599ac46d6c8a087c323e7688e7b",
-      "vercel_deployment": "dpl_6oMYNWsFCrUG1ZM37Zu8B6mfPGAY",
-      "homepage_http": 200,
-      "verification_date": "2026-11-16"
+      "pr": 271,
+      "app_commit": "8e9a764376e6a1c4b90bc7e4d37bbcd5e7bdf8eb",
+      "vercel_deployment": "dpl_6p6qKnF51P8Sr3KuwYS4bafp1Qt4",
+      "verification_date": "2026-11-17",
+      "checks": "lint/build/native PostgreSQL/secret scan PASS",
+      "database_change": false
     },
     "latest_unified_top": "## MASTER READ THIS FIRST · 17 November 2026"
   },
@@ -1663,7 +1664,7 @@
   },
   "unified_master_checkpoint_20261117": {
     "authority": "docs/AVUQO_ACTIVE_HANDOVER.md TOP MASTER READ THIS FIRST",
-    "state": "review_branch_candidate_not_merged",
+    "state": "verified_merged_and_prod_READY_no_live_DB",
     "owner_vision": {
       "brand": "AVUQO | Find what's worth it",
       "business": "automated multi-network affiliate/referral shopping, real bargains, comparisons, evidence-led scoring, internal marketing, future authorised embedded checkout and dropshipping/resale",
@@ -1685,11 +1686,11 @@
       "current_checkout_scope": "affiliate referral only where licensed; embedded purchase and seller-of-record flows require separate approved design, contracts and compliance"
     },
     "production_verified_at": "2026-11-17",
-    "git_main_commit": "cc4e9a99e3c2874407e7ac3c5b893adac333d6d4",
+    "git_main_commit": "8e9a764376e6a1c4b90bc7e4d37bbcd5e7bdf8eb",
     "vercel_production": {
       "state": "READY",
-      "deployment": "dpl_5GUcUbCtLYWxMpvdY2evEwBzpbdj",
-      "sha": "cc4e9a99e3c2874407e7ac3c5b893adac333d6d4"
+      "deployment": "dpl_6p6qKnF51P8Sr3KuwYS4bafp1Qt4",
+      "sha": "8e9a764376e6a1c4b90bc7e4d37bbcd5e7bdf8eb"
     },
     "supabase": {
       "project": "tfoukwcruaamrtgxzshh",
@@ -1706,7 +1707,7 @@
       "additional_cascade_fk_total": 7
     },
     "nine_only_rehearsal": {
-      "state": "code_in_review_not_yet_verified_by_ci",
+      "state": "native_PostgreSQL_CI_PASS_synthetic_only",
       "manifest": "tests/fixtures/ebay-nine-only-migration-manifest.txt",
       "runner": "scripts/test-ebay-nine-only-migration-replay.sh",
       "test": "tests/ebay-nine-only-migration-replay.test.mjs",
@@ -1737,6 +1738,17 @@
       "Register production eBay portal only after genuine acceptance",
       "Verify Browse/EPN and launch licensed, current products"
     ],
-    "handover_rule": "Every substantive PR updates master MD+JSON, PROJECT_STATUS, CHANGELOG, full tracker MD+JSON; exact release verification added after merge."
+    "handover_rule": "Every substantive PR updates master MD+JSON, PROJECT_STATUS, CHANGELOG, full tracker MD+JSON; exact release verification added after merge.",
+    "release": {
+      "pr": 271,
+      "merged": true,
+      "checks": [
+        "lint PASS",
+        "build PASS",
+        "native PostgreSQL PASS",
+        "secret scan PASS"
+      ],
+      "production_database_migrations_applied": 0
+    }
   }
 }
