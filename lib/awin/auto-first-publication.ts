@@ -48,7 +48,7 @@ export async function autoReleaseEligibleAwinOffers(db:Db,limit=15){
  if(ownerError||owners?.length!==1)return {...outcome,status:"unique_owner_unavailable"};
 
  const {data:offers,error:offersError}=await db.from("offers")
-  .select("id,source_id,product_id,merchant_id,status,price,currency,last_seen_at,stock_status,affiliate_url,match_confidence")
+  .select("id,source_id,product_id,merchant_id,status,title,price,currency,last_seen_at,stock_status,affiliate_url,match_confidence,raw_data")
   .eq("source_id",source.id).eq("status","active").eq("currency","GBP")
   .order("last_seen_at",{ascending:false}).limit(Math.min(Math.max(limit*4,20),100));
  if(offersError)return {...outcome,status:"offers_unavailable"};
@@ -57,19 +57,21 @@ export async function autoReleaseEligibleAwinOffers(db:Db,limit=15){
  const merchantIds=[...new Set(offers.map(o=>o.merchant_id))];
  const [{data:deals,error:dealsError},{data:scores,error:scoresError},
   {data:merchants,error:merchantsError},{data:programmes,error:programmesError},
-  {data:reviews,error:reviewsError}]=await Promise.all([
+  {data:reviews,error:reviewsError},{data:products,error:productsError}]=await Promise.all([
   db.from("published_deals").select("offer_id,product_id,status,current_price").in("offer_id",ids),
   db.from("deal_scores").select("offer_id,score,confidence,calculated_at").in("offer_id",ids),
   db.from("merchants").select("id,metadata").in("id",merchantIds),
   db.from("affiliate_programs").select("external_account_id,region,metadata")
    .eq("provider","awin").eq("region","GB"),
   db.from("awin_offer_release_reviews").select("offer_id,status").in("offer_id",ids),
+  db.from("products").select("id,status,primary_image_url").in("id",[...new Set(offers.map(o=>o.product_id))]),
  ]);
- if(dealsError||scoresError||merchantsError||programmesError||reviewsError)
+ if(dealsError||scoresError||merchantsError||programmesError||reviewsError||productsError)
   return {...outcome,status:"release_evidence_unavailable"};
  const d=new Map((deals??[]).map(x=>[x.offer_id,x]));
  const s=new Map((scores??[]).map(x=>[x.offer_id,x]));
  const m=new Map((merchants??[]).map(x=>[x.id,x]));
+ const p=new Map((products??[]).map(x=>[x.id,x]));
  const approved=new Set((programmes??[]).filter(p=>
   meta(meta(p.metadata).owner_joined_accepted_attestation).membership_status==="accepted" && meta(p.metadata).publication_approved===true
   &&typeof p.external_account_id==="string").map(p=>p.external_account_id));
@@ -84,12 +86,12 @@ export async function autoReleaseEligibleAwinOffers(db:Db,limit=15){
   // Previously approved offers are renewed by the normal price pipeline.
   // They must not consume the bounded first-release capacity.
   if(reviewed.has(offer.id))continue;
-  checked++;
   const advertiser=meta(m.get(offer.merchant_id)?.metadata).external_id;
-  const deal=d.get(offer.id),score=s.get(offer.id);
+  const deal=d.get(offer.id),score=s.get(offer.id),product=p.get(offer.product_id);
   if(typeof advertiser!=="string"||!/^[0-9]{2,12}$/.test(advertiser)||
      !approved.has(advertiser)||reviewed.has(offer.id)||
      !deal||deal.status!=="held"||deal.product_id!==offer.product_id||
+     !product||product.status!=="draft"||!product.primary_image_url||
      Number(deal.current_price)!==Number(offer.price)||
      !(Number(offer.price)>0)||!recent(offer.last_seen_at,now)||
      !["in_stock","low_stock"].includes(offer.stock_status)||
@@ -100,6 +102,28 @@ export async function autoReleaseEligibleAwinOffers(db:Db,limit=15){
      sourceEvidenceFailures(source,{advertiserId:advertiser,connectorConfigured:configured}).length){
    skipped++;continue;
   }
+  // First releases require a current authenticated feed row, matching this
+  // exact advertiser, SKU, title, GBP price, own tracked link and its approved
+  // supplier photo. A score and an active source alone are never sufficient.
+  const raw=meta(offer.raw_data),sku=raw.merchant_product_id,feed=raw.feed_id;
+  if(typeof sku!=="string"||!sku||typeof feed!=="string"||!feed){
+   skipped++;continue;
+  }
+  const {data:sourceRows,error:rowsError}=await db.from("feed_import_records")
+   .select("id,metadata,image_url,price,currency,title")
+   .eq("merchant_id",advertiser).eq("merchant_product_id",sku)
+   .eq("title",offer.title).eq("currency","GBP").eq("price",offer.price)
+   .filter("metadata->>feed_id","eq",feed).limit(5);
+  if(rowsError||!sourceRows?.some(row=>{
+   const evidence=meta(row.metadata),checkedAt=Date.parse(String(evidence.live_feed_verified_at??""));
+   return evidence.live_feed_verification==="exact_authenticated_feed_digest_rechecked"&&
+    evidence.source_image_rights_confirmed===true&&
+    evidence.tracking_link_verified===true&&
+    evidence.verified_awin_deep_link===offer.affiliate_url&&
+    typeof row.image_url==="string"&&row.image_url.startsWith("https://")&&
+    Number.isFinite(checkedAt)&&checkedAt<=now+300000&&now-checkedAt<2*3600_000;
+  })){skipped++;continue;}
+  checked++;
   // The SQL function rechecks source, offer, price, score, global controls,
   // exact advertiser and held row atomically, then persists the release audit.
   const {error}=await db.rpc("record_awin_owner_release",{
