@@ -3,6 +3,7 @@ import {createClient} from "../../../../lib/supabase/server";
 import {createAdminClient} from "../../../../lib/supabase/admin";
 import {evaluateSourceControls,sourceEvidenceFailures} from "../../../../lib/pipeline/source-readiness";
 import {ownAffiliateLink} from "../../../../lib/awin/approved-offer-renewal";
+import {recognizeAwinFeed} from "../../../../lib/awin/feed-recognition";
 
 const respond=(body:unknown,status=200)=>NextResponse.json(body,{
  status,headers:{"Cache-Control":"private, no-store","X-Content-Type-Options":"nosniff"}
@@ -20,11 +21,25 @@ async function readPortfolio(db:ReturnType<typeof createAdminClient>){
   db.from("affiliate_programs").select("programme_name,external_account_id,region,metadata")
    .eq("provider","awin").eq("region","GB"),
   db.from("awin_feed_update_observations")
-   .select("advertiser_id,feed_id,feed_format,listed_products,needs_private_refresh").limit(300),
+   .select("advertiser_id,feed_id,feed_name,feed_format,listed_products,needs_private_refresh,observed_at").limit(300),
  ]);
  if(programmeError||feedError)return null;
  const accepted=(programmes??[]).filter(p=>
   obj(obj(p.metadata).owner_joined_accepted_attestation).membership_status==="accepted");
+ const acceptedIds=new Set(accepted.map(p=>p.external_account_id).filter(
+  (id):id is string=>typeof id==="string"&&/^\d{2,12}$/.test(id)));
+ const recognizedFeeds=(feeds??[]).filter(f=>acceptedIds.has(f.advertiser_id))
+  .map(f=>({
+   advertiserId:f.advertiser_id,feedId:f.feed_id,
+   feedName:typeof f.feed_name==="string"?f.feed_name:"",feedFormat:f.feed_format,
+   listedProducts:Math.max(0,Number(f.listed_products)||0),
+   needsPrivateRefresh:Boolean(f.needs_private_refresh),
+   observedAt:f.observed_at,
+   ...recognizeAwinFeed({advertiserId:f.advertiser_id,feedId:f.feed_id,
+    feedName:f.feed_name??"",feedFormat:f.feed_format,
+    listedProducts:Number(f.listed_products)||0})
+  })).sort((a,b)=>a.advertiserId.localeCompare(b.advertiserId)||
+   a.feedId.localeCompare(b.feedId));
  const byAdvertiser=new Map<string,{feeds:number;listed:number;needsRefresh:number}>();
  for(const f of feeds??[]){
   const current=byAdvertiser.get(f.advertiser_id)??{feeds:0,listed:0,needsRefresh:0};
@@ -48,7 +63,9 @@ async function readPortfolio(db:ReturnType<typeof createAdminClient>){
  return {acceptedProgrammes:accepted.length,
   numericIdsMapped:programmesView.filter(p=>p.advertiserId).length,
   discoveredFeeds:programmesView.reduce((n,p)=>n+p.discoveredFeeds,0),
-  programmes:programmesView};
+  programmes:programmesView,feeds:recognizedFeeds,
+  recognizedFeeds:recognizedFeeds.length,
+  unlinkedFeedRows:(feeds??[]).length-recognizedFeeds.length};
 }
 
 /**
