@@ -6,6 +6,7 @@ import {POST as captureMaster} from "../../internal/awin-tooled-up-snapshot/rout
 import {POST as validateMaster} from "../../internal/awin-snapshot-validate/route";
 import {GET as bridgeFreshOffers} from "../../internal/awin-fresh-private-canonical-bridge/route";
 import {GET as discoverFeeds} from "../../internal/awin-feed-check/route";
+import {GET as runPortfolioRotation} from "../../internal/awin-portfolio-private-rotation/route";
 import {AWIN_PRIVATE_SNAPSHOT_BUCKET} from "../../../../lib/awin/private-snapshot";
 import {newestRecentTooledUpSnapshot} from "../../../../lib/awin/tooled-up-recent-snapshot";
 
@@ -24,6 +25,7 @@ const OUTPUT_KEYS=["status","error","reason","failure_kind","diagnostic_stage","
  "advertiser_id","feed_id","currency_source","source_currency_explicit",
  "live_verified_rows","canonical_status","canonical_eligible",
  "metadata_only","joined_feeds","changed_feeds","checked_advertisers","provider_endpoint",
+ "eligible","importer_status","upstream_http_status",
  "canonical_accepted","canonical_rejected",
  "critical_issues","compressed_bytes","actual_rows","duplicate_product_ids",
  "invalid_price_rows","unverified_affiliate_links","private_only","no_publication"] as const;
@@ -88,7 +90,8 @@ export async function POST(request:NextRequest){
   const isTooledUp=merchant==="tooled_up"&&(action==="snapshot"||action==="validate");
   const isBridge=task==="canonical_bridge";
   const isInventory=task==="all_feeds_check";
-  if(!isPilot&&!isTooledUp&&!isBridge&&!isInventory)return result({error:"Task not approved"},403);
+  const isPortfolio=task==="portfolio_stage_next";
+  if(!isPilot&&!isTooledUp&&!isBridge&&!isInventory&&!isPortfolio)return result({error:"Task not approved"},403);
   if(action==="preflight"||isInventory){
    if(body.confirm!==undefined)return result({error:"Unexpected confirmation"},400);
   }else if(body.confirm!=="private-only-"+task)
@@ -99,6 +102,10 @@ export async function POST(request:NextRequest){
   if(isInventory){
    const url=new URL("/api/internal/awin-feed-check",request.url);
    return sanitized(discoverFeeds(new NextRequest(url,{method:"GET",headers:auth})));
+  }
+  if(isPortfolio){
+   const url=new URL("/api/internal/awin-portfolio-private-rotation",request.url);
+   return sanitized(runPortfolioRotation(new NextRequest(url,{method:"GET",headers:auth})));
   }
   if(isBridge){
    const url=new URL("/api/internal/awin-fresh-private-canonical-bridge",request.url);
