@@ -78,6 +78,9 @@ export async function autoReleaseEligibleAwinOffers(db:Db,limit=15){
  let checked=0,skipped=0,failed=0,released=0;
  for(const offer of offers){
   if(checked>=Math.min(Math.max(limit,1),15))break;
+  // Previously approved offers are renewed by the normal price pipeline.
+  // They must not consume the bounded first-release capacity.
+  if(reviewed.has(offer.id))continue;
   checked++;
   const advertiser=meta(m.get(offer.merchant_id)?.metadata).external_id;
   const deal=d.get(offer.id),score=s.get(offer.id);
