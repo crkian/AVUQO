@@ -1750,5 +1750,28 @@
       ],
       "production_database_migrations_applied": 0
     }
+  },
+  "ebay_four_foundation_exact_audit_20261117": {
+    "state": "review_branch_not_production_migration",
+    "source": "docs/AVUQO_EBAY_FOUR_FOUNDATION_EXACT_AUDIT_2026-11-17.md",
+    "production_readonly": true,
+    "sql": "scripts/ebay-four-foundation-exact-readonly-preflight.sql",
+    "test": "tests/ebay-four-foundation-exact-readonly-preflight.test.mjs",
+    "function_bodies_checked": 7,
+    "function_body_matches": 7,
+    "structural_gate_pass": 7,
+    "structural_gate_block": 2,
+    "trigger_bindings": 7,
+    "indexes": 8,
+    "rls_tables": 3,
+    "historical_foundation_migrations": 4,
+    "pending_later_migrations": 9,
+    "protection_status": "No live DDL/DML, eBay remains paused webhook HTTP503, Awin unchanged",
+    "remaining": [
+      "Exact source/object attestation for column defaults, checks, FK types, sequence/role grants",
+      "Faithful isolated production schema nine-only rehearsal",
+      "Independent reviewed production DDL release authorisation",
+      "Storage/backup/retention/processor and signed provider notification acceptance"
+    ]
   }
 }
