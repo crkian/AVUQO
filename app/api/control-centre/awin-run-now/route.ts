@@ -15,7 +15,10 @@ const result=(data:unknown,status=200)=>NextResponse.json(data,{
 });
 const FEEDS:Record<string,readonly [string,string]>={
  petlibro:["77952","103580"],mozillion:["31539","74135"],
- cadbury:["736","48599"],craftbuddy:["45747","F1356"]
+ cadbury:["736","48599"],craftbuddy:["45747","F1356"],
+ playpress_google:["101445","F5142"],playpress_standard:["101445","96428"],
+ petlibro_sale:["77952","109051"],petlibro_hero:["77952","109652"],
+ petlibro_standard:["77952","119210"]
 };
 const OUTPUT_KEYS=["status","error","reason","failure_kind","diagnostic_stage","detected_delimiter","columns","parsed_rows","rows","records","seen_total","held_total","no_first_publication",
  "advertiser_id","feed_id","currency_source","source_currency_explicit",
