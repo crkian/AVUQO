@@ -44,7 +44,10 @@ export function normalizeOffer(raw: RawSourceOffer): NormalizedOffer {
     identifier("mpn", raw.mpn),
   ].filter((item): item is NonNullable<typeof item> => Boolean(item));
 
-  const identityText = [raw.brand, raw.model].filter(Boolean).join(" ").trim() || raw.title;
+  // Never collapse a merchant’s whole brand into one canonical product when
+  // the model is missing. Brand-only Awin feeds contain many unrelated SKUs.
+  const identityText = raw.brand?.trim() && raw.model?.trim()
+    ? `${raw.brand.trim()} ${raw.model.trim()}` : raw.title;
   const canonicalKey = slugify(identityText);
   const deliveryCost = raw.deliveryCost ?? 0;
 
