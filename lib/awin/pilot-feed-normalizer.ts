@@ -1,4 +1,4 @@
-import {identifyFormat} from "../feed-imports/general-awin-large";
+import {identifyFormat} from "../feed-imports/general-awin-large.ts";
 
 /**
  * Petlibro UK's Awin standard CSV omits the optional "currency" column.
