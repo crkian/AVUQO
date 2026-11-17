@@ -14,7 +14,7 @@ export default async function Page(){
  await connection();
  const {role}=await requireControlCentreAccess();
  const admin=createAdminClient();
- const [feeds,runs,refresh,attempts,programmes,source,profiles]=await Promise.all([
+ const [feeds,runs,refresh,attempts,programmes,source,profiles,readiness]=await Promise.all([
   admin.from("awin_feed_update_observations").select("advertiser_id,feed_id,advertiser_name,feed_name,listed_products,last_imported_source,observed_at,needs_private_refresh,change_count").order("needs_private_refresh",{ascending:false}).order("advertiser_name",{ascending:true}).limit(200),
   admin.from("awin_feed_discovery_runs").select("checked_at,active_feeds,joined_feeds,changed_feeds").order("checked_at",{ascending:false}).limit(1),
   admin.from("awin_feed_update_observations").select("feed_id",{count:"exact",head:true}).eq("needs_private_refresh",true),
@@ -23,7 +23,8 @@ export default async function Page(){
   admin.from("affiliate_programs").select("programme_name,external_account_id,status,metadata")
    .eq("provider","awin").limit(100),
   admin.from("sources").select("metadata,status,sync_enabled").eq("connector_key","awin").maybeSingle(),
-  admin.from("awin_feed_schema_profiles").select("advertiser_id,feed_id,status,schema_status,recognition_kind,schema_reason,checked_at").order("checked_at",{ascending:false}).limit(200)
+  admin.from("awin_feed_schema_profiles").select("advertiser_id,feed_id,status,schema_status,recognition_kind,schema_reason,checked_at").order("checked_at",{ascending:false}).limit(200),
+  admin.from("awin_private_product_readiness").select("advertiser_id,private_rows,review_rows,gbp_priced_rows,tracking_marked_rows,stock_field_rows,primary_image_rows,image_rights_marked_rows,live_rechecked_rows,latest_private_import_at").limit(100)
  ]);
  const portfolio=acceptedAwinPortfolio(
   programmes.data??[],feeds.data??[],source.data??null
@@ -36,6 +37,9 @@ export default async function Page(){
  const eligibleObserved=records.filter(f=>acceptedIds.has(f.advertiser_id));
  const acceptedKeys=new Set(eligibleObserved.map(f=>f.advertiser_id+":"+f.feed_id));
  const covered=inspected.filter(p=>acceptedKeys.has(p.advertiser_id+":"+p.feed_id));
+ const summaryById=new Map((readiness.data??[]).map(p=>[p.advertiser_id,p]));
+ const sourceMeta=source.data?.metadata&&typeof source.data.metadata==="object"&&!Array.isArray(source.data.metadata)?source.data.metadata as Record<string,unknown>:{};
+ const sourcePaused=source.data?.status!=="active"||source.data?.sync_enabled!==true||sourceMeta.publication_permission!=="verified"||sourceMeta.price_evidence_status!=="verified";
  const history=(runs.data??[]) as Run[];
  const enabled=process.env.AWIN_FEED_MONITOR_ENABLED==="true";
  const configured=/^[a-zA-Z0-9_-]{16,200}$/.test(process.env.AWIN_DATAFEED_API_KEY??"")
@@ -110,6 +114,28 @@ export default async function Page(){
      {covered.length===0?<p>No private schema inspections recorded yet. Use the inspection action below to begin.</p>:null}
     </>}
   </section>
+  {role==="owner"&&<section aria-label="Awin live launch blockers by publisher" style={{display:"grid",gap:12,background:"white",border:"1px solid #d5c5e3",borderRadius:16,padding:18}}>
+   <h2 style={{margin:0}}>Publisher-by-publisher launch evidence</h2>
+   <p style={{margin:0,fontSize:13,color:"#5f5669",lineHeight:1.6}}>Private staging counts, not live or authorised products. Verification marks are shown independently; a stock field or image URL alone never establishes current stock or image rights.</p>
+   <p role="status" style={{fontSize:13,margin:0}}><strong>Awin source publication:</strong> {sourcePaused?"Blocked pending verified source rights, current price evidence and activation":"Source evidence checks appear enabled; individual offer and first-release gates still apply"}.</p>
+   {readiness.error?<p role="alert">Private readiness aggregates unavailable. Confirm the service-only migration has been applied.</p>:
+    <div style={{overflowX:"auto"}}>
+     <table style={{borderCollapse:"collapse",width:"100%",minWidth:1080,fontSize:12}}>
+      <thead><tr>{["Accepted publisher","Private rows","GBP priced","Tracking marked","Stock field","Primary image","Image rights marked","Fresh rechecked","Next operational blocker"].map(h=>
+       <th key={h} style={{background:"#f8f5fa",padding:10,textAlign:"left"}}>{h}</th>)}</tr></thead>
+      <tbody>{portfolio.filter(p=>p.membership==="accepted").map(p=>{
+       const row=p.advertiserId?summaryById.get(p.advertiserId):undefined;
+       const number=(key:"private_rows"|"gbp_priced_rows"|"tracking_marked_rows"|"stock_field_rows"|"primary_image_rows"|"image_rights_marked_rows"|"live_rechecked_rows")=>Number(row?.[key]??0).toLocaleString("en-GB");
+       const next=!p.advertiserId?"Map advertiser ID":p.liveFeeds===0?"Find approved feed or specialist referral":!row||Number(row.private_rows)===0?"Stage and validate feed privately":Number(row.live_rechecked_rows)===0?"Recheck exact current price, stock and Awin tracking":Number(row.image_rights_marked_rows)===0?"Verify merchant image-use rights":"Review release evidence";
+       return <tr key={p.programme}>
+        <th scope="row" style={{padding:9,borderTop:"1px solid #ede7f3",textAlign:"left"}}>{p.programme}</th>
+        {[number("private_rows"),number("gbp_priced_rows"),number("tracking_marked_rows"),number("stock_field_rows"),number("primary_image_rows"),number("image_rights_marked_rows"),number("live_rechecked_rows"),next].map((value,i)=>
+         <td key={i} style={{padding:9,borderTop:"1px solid #ede7f3"}}>{value}</td>)}
+       </tr>;
+      })}</tbody>
+     </table>
+    </div>}
+  </section>}
   {role==="owner"&&<OwnerAwinFirstRelease/>}
   {role==="owner"&&<OwnerAwinRunNow/>}
   {role==="owner"&&<OwnerAwinReleaseQueue/>}
