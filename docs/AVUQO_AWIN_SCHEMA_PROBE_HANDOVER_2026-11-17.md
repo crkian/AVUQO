@@ -56,3 +56,28 @@ Branch: `feature/awin-universal-schema-probe-20261117`.
 - Owner button now selects the oldest/uninspected accepted feed, rather than browser-local rotation. Dashboard lists inspected coverage, recent outcomes and remaining count.
 - Database at release had **zero** recorded profile inspections; no authenticated owner scan executed here. Do not claim products or feed schemas have been verified as a result of deploying code.
 - Next: run authenticated owner inspections, develop streamed adapters for oversized sources, verify source rights and fresh product rows, then match into HELD canonical offers before owner-controlled publication.
+
+## Owner Awin field and supplied-image directive (2026-11-17)
+Owner provided screenshots of Awin Classic Create-a-Feed column picker, plus a successful AVUQO schema profile for PlayPress Toys feed `101445:96428` (candidate retail adapter; recognised identity/title/price/link). The UI is evidence of selectable field vocabulary, NOT evidence that every actual merchant feed contains or populates every possible column.
+
+**Product field groups shown in owner's Awin screenshots**:
+- Core: `aw_deep_link`, `aw_product_id`, `merchant_product_id`, `merchant_image_url`, `merchant_category`, `product_name`, `description`, `search_price`.
+- Recommended: `merchant_name`, `merchant_id`, `category_name`, `category_id`, `aw_image_url`, `currency`, `store_price`, `delivery_cost`, `merchant_deep_link`, `language`, `last_updated`, `display_price`, `data_feed_id`.
+- Product specification: `brand_name`, `brand_id`, `colour`, `product_short_description`, `specifications`, `condition`, `product_model`, `model_number`, `dimensions`, `keywords`, `promotional_text`, `product_type`.
+- Category: `commission_group`, `merchant_product_category_path`, `merchant_product_second_category`, `merchant_product_third_category`.
+- Price: `rrp_price`, `saving`, `savings_percent`, `base_price`, `base_price_amount`, `base_price_text`, `product_price_old`.
+- Terms: `delivery_restrictions`, `delivery_weight`, `warranty`, `terms_of_contract`, `delivery_time`.
+- Availability: `in_stock`, `stock_quantity`, `valid_from`, `valid_to`, `is_for_sale`, `web_offer`, `pre_order`, `stock_status`, `size_stock_status`, `size_stock_amount`.
+- Images: `merchant_thumb_url`, `large_image`, `alternate_image`, `aw_thumb_url`, `alternate_image_two`, `alternate_image_three`, `alternate_image_four` (plus core `merchant_image_url`, `aw_image_url`).
+- Ratings: `reviews`, `average_rating`, `rating`, `number_available`.
+- Custom: `custom_1` through `custom_9`.
+- IDs: `ean`, `isbn`, `upc`, `mpn`, `parent_product_id`, `product_GTIN`.
+- Other: `basket_link`.
+- Google format also uses `image_link`, `additional_image_link`, `lifestyle_image_link` and possibly per-vertical fields.
+This is an inventory of screenshot-visible fields, not a guarantee that no other Awin-supported fields exist. Maintain a flexible, versioned recognition registry and preserve unknown fields safely for private adapter investigation.
+
+**Image handling owner requirement:** Use publisher-supplied Awin product imagery when covered by applicable Awin/advertiser terms, including primary image, thumbnails, alternates and gallery images. Keep origin, advertiser/feed binding, rights/expiry, image role and source URL provenance; validate HTTPS and do not assume every image is licensed for copying, caching, editing or republishing outside authorised product promotion. Never invent images or substitute images for mismatched SKUs. Distinguish eligible Awin promotion permission from unconditional third-party image copyright permission.
+
+**Known code gap:** `lib/feed-imports/general-awin-large.ts` stores a single primary image in `feed_import_records.image_url` and hardcodes `source_image_rights_confirmed:false`. `lib/awin/private-live-canonical-stage.ts` currently sets `imageUrl:null` for held Awin canonical candidates. Therefore multiple publisher-supplied image fields and canonical image handoff are NOT complete. Improve this in a separate reviewed patch, preserving publication rights gates and preventing URL/credential leaks.
+
+Official Awin reference: https://help.awin.com/developers/docs/product-feed-publisher-guide-intro and https://help.awin.com/developers/docs/enhanced-telco-data-feeds-overview and https://help.awin.com/developers/docs/enhanced-feeds-prod-spec
