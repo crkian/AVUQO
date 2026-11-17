@@ -1,3 +1,7 @@
+## 17 November 2026 · corrected multi-channel AVUQO commercial model and eBay completion (DRAFT, NO ACTIVATION)
+
+Owner reaffirmed AVUQO as a premium, automated comparison/bargains/commerce platform spanning permissioned affiliate referrals, eBay/Browse/EPN, wider approved networks, optional authorised embedded checkout, and **future** seller-of-record/dropshipping if properly contracted and built. Historical 'does not dropship/fulfil' describes the existing phase, not an exclusion of future authorised commerce. Preserve existing warm-premium live design and photo-led browsing, no unsolicited redesign. Git `main` remains PR #266 `cc4e9a99`; PRs #267–269 are unmerged drafts. Live Supabase Awin/eBay source records remain paused/sync-off; nine eBay privacy candidates unapplied. Current POST 503 is intentional while durable notification queue, lawful cross-store privacy/retention, provider signature and operational acceptance are incomplete. A future **2xx acknowledges durable receipt, not synchronous completion of erasure**; do not turn it on without atomic idempotent enqueue plus independent review. Vercel recent previews not proof of production release. **No schema, eBay portal, secrets, product publication or production app changes.** [Full reconciliation and ordered completion plan](AVUQO_COMMERCE_VISION_EBAY_FINISH_2026-11-17.md).
+
 # AVUQO | ACTIVE OPERATIONAL HANDOVER
 
 ## 16 November 2026 · MAJOR eBay full-offer dependency containment and live migration-history reconciliation (UNAPPLIED)
