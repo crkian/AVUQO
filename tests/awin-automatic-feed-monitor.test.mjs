@@ -9,7 +9,10 @@ test("scheduled Awin metadata monitor is explicitly opt-in and cron-authenticate
  assert.match(s,/redirect:"error"/);
  assert.match(s,/readLimitedCsv/);
  assert.match(s,/AbortController/);
- assert.match(s,/joinedAwinAdvertisers/);
+ assert.match(s,/\.from\("affiliate_programs"\)/);
+ assert.match(s,/owner_joined_accepted_attestation/);
+ assert.match(s,/membership_status==="accepted"/);
+ assert.doesNotMatch(s,/joinedAwinAdvertisers/);
  assert.match(s,/inspectAwinFeedList/);
  assert.match(s,/record_awin_feed_discovery/);
  assert.match(s,/no_product_downloads:true/);
