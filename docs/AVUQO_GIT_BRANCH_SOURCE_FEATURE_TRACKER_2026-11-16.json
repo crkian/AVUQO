@@ -2525,5 +2525,29 @@
       "lawful seven-surface ops and real provider signed tests",
       "production Browse/EPN rights and public offers"
     ]
+  },
+  "ebay_durable_signed_receipt_release_20261117": {
+    "state": "merged_production_READY_feature_disabled",
+    "pr": 278,
+    "git_main_sha": "676e9cde4a2e0c0cef5cfb09087d7b7fbd709142",
+    "vercel_deployment": "dpl_4SgDMcudAS9qD9yzdmPGkBDWURXB",
+    "ci": "native PostgreSQL nine-only replay, signed POST tests, lint/build/secret PASS",
+    "code": "signed new/verified-duplicate HMAC receipt + 7 atomic work items + restricted boolean service-role RPC + two default-off approval switches => gated HTTP202 receipt acceptance",
+    "production_release_flags": "absent/not enabled",
+    "production_key_inventory": "only EBAY_SANDBOX_CLIENT_ID/SECRET present among EBAY_ env keys, no eBay production client keyset",
+    "production_migrations_applied": 0,
+    "later_privacy_migrations_still_unapplied": 9,
+    "ebay": "paused; POST HTTP503; no real listing publication",
+    "awin": "paused untouched",
+    "provider_registration": false,
+    "legal_processing_complete": false,
+    "live_checkout": false,
+    "next": [
+      "whole-object and isolated production-schema test",
+      "review/install nine additive migrations",
+      "complete seven-surface legal/operational processing",
+      "configure production keys and perform genuine provider test",
+      "enable consented/rights-verified Browse/EPN publication after legal approval"
+    ]
   }
 }
