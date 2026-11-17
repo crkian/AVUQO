@@ -47,3 +47,12 @@ Branch: `feature/awin-universal-schema-probe-20261117`.
 - New read-only owner inspection action is deployed, but actual authenticated Awin probe results have not yet been collected in this conversation.
 - Keep public publication gated on verified feed schema, exact advertiser/feed binding, product price/currency/availability/link, rights and owner release evidence. Do not bulk-activate unverified records.
 - Next decisive step is authenticated owner probe of accepted feeds and importer verification; then implement per-feed adapters, resumable jobs and rights reviews before canonical HELD and public release.
+
+## Persisted schema inspection release (2026-11-17)
+- PR #289 merged onto main at `1e752135654cf02ea52397c08a717a8f8cb69143`.
+- Production deployment `dpl_EVxz6Jmf8NNpsLusZz2YhycHQXnf` confirmed READY and aliased to `www.avuqo.com`.
+- Database migration `awin_feed_schema_profiles` applied: private per-feed status, safe field names, reason, route and inspection timestamp. No product rows, signed links or credentials in this table.
+- Security audit: RLS enabled, no direct anon/authenticated table SELECT, server service role insert allowed. Advisory flags lack of RLS policy as informational, intentional for private service-only access.
+- Owner button now selects the oldest/uninspected accepted feed, rather than browser-local rotation. Dashboard lists inspected coverage, recent outcomes and remaining count.
+- Database at release had **zero** recorded profile inspections; no authenticated owner scan executed here. Do not claim products or feed schemas have been verified as a result of deploying code.
+- Next: run authenticated owner inspections, develop streamed adapters for oversized sources, verify source rights and fresh product rows, then match into HELD canonical offers before owner-controlled publication.
