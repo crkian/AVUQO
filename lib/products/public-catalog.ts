@@ -11,9 +11,33 @@ export type PublicOffer={
 };
 export type PublicProduct={
  id:string;slug:string;canonical_title:string;brand:string|null;model:string|null;description:string|null;primary_image_url:string|null;specifications:unknown;status:string;product_type:string|null;
+ image_gallery?:Array<{url:string;role:string}>;
 };
 function metadata(raw:unknown):Record<string,unknown>{return raw&&typeof raw==="object"&&!Array.isArray(raw)?raw as Record<string,unknown>:{};}
 function isHttps(value:string|null){if(!value)return false;try{const u=new URL(value);return u.protocol==="https:"&&!u.username&&!u.password&&u.hostname.length>3;}catch{return false;}}
+/** Public supplier gallery: all images require an eligible Awin release,
+ * exact source mapping and a previously owner-confirmed image-rights scope.
+ * Do not emit private, signed API, local network or executable URLs.
+ */
+function verifiedSupplierGallery(raw:unknown):Array<{url:string;role:string}>{
+ const candidate=metadata(raw).source_supplied_gallery;
+ if(!Array.isArray(candidate))return [];
+ const seen=new Set<string>(),result:Array<{url:string;role:string}>=[];
+ for(const item of candidate.slice(0,24)){
+  const record=metadata(item),value=record.url;
+  if(typeof value!=="string"||value.length>2048)continue;
+  try{
+   const u=new URL(value),host=u.hostname.toLowerCase();
+   if(u.protocol!=="https:"||u.username||u.password||u.port||
+    host==="localhost"||host.endsWith(".local")||host.endsWith(".internal")||
+    /^(127\.|10\.|192\.168\.|169\.254\.|0\.|172\.(1[6-9]|2[0-9]|3[01])\.)/.test(host)||
+    [...u.searchParams.keys()].some(k=>/^(token|signature|api_key|apikey|access_token|authorization|secret)$/i.test(k)))continue;
+   if(seen.has(u.href))continue;seen.add(u.href);
+   result.push({url:u.href,role:typeof record.role==="string"&&/^[a-z0-9_-]{1,40}$/.test(record.role)?record.role:"alternate"});
+  }catch{}
+ }
+ return result;
+}
 function sourceReady(source:Record<string,unknown>|undefined,advertiserId?:string):boolean{
  if(!source || source.status!=="active" || source.sync_enabled!==true ||
    !source.connector_key || source.connector_key==="demo" || source.source_type==="internal_test") return false;
@@ -157,11 +181,14 @@ export async function verifiedProduct(slug:string):Promise<{product:PublicProduc
  if(!/^[a-z0-9][a-z0-9-]{2,159}$/.test(slug))return null;
  try{
   const db=createAdminClient();
-  const {data,error}=await db.from("products").select("id,slug,canonical_title,brand,model,description,primary_image_url,specifications,status,product_type").eq("slug",slug).eq("status","active").maybeSingle();
+  const {data,error}=await db.from("products").select("id,slug,canonical_title,brand,model,description,primary_image_url,specifications,status,product_type,metadata").eq("slug",slug).eq("status","active").maybeSingle();
   if(error||!data)return null;
   const offers=await verifiedOffers({productId:data.id,limit:35});
   if(!offers.length)return null;
-  return {product:data as PublicProduct,offers};
+  const {metadata:privateMetadata,...publicProduct}=data;
+  const gallery=offers.some(o=>o.source.imageAllowed)
+   ?verifiedSupplierGallery(privateMetadata):[];
+  return {product:{...publicProduct,image_gallery:gallery} as PublicProduct,offers};
  }catch{return null;}
 }
 export async function verifiedProductIndex(limit=60):Promise<{product:PublicProduct;offers:PublicOffer[]}[]>{

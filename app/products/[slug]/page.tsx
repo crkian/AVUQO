@@ -54,8 +54,25 @@ function ProductDetails({entry,guide}:{
    :[]
   :candidateSpecs;
  const photo=offers.find(({published})=>published.image_url)?.published.image_url;
+ const gallery=[...new Map(
+   [photo,...(product.image_gallery??[]).map(image=>image.url)]
+     .filter((url):url is string=>typeof url==="string"&&url.startsWith("https://"))
+     .map(url=>[url,url] as const)
+  ).values()].slice(0,24);
  return <div className={`${styles.productPage} ${styles[presentation.template]??""}`} data-department-theme={presentation.template==="general"?department?.theme:undefined}><section className={styles.hero}><div className="shell"><Link className={styles.back} href="/products"><ArrowLeft size={17}/> All products</Link><div className={`${styles.heroGrid} ${presentation.imageShape==="wide"?styles.wideImage:presentation.imageShape==="portrait"?styles.portraitImage:""}`}>
- <div className={styles.art}>{photo?<img src={photo} alt={product.canonical_title} referrerPolicy="no-referrer"/>:<div className={styles.placeholder}><ImageOff size={36} aria-hidden="true"/><span>No approved product photo</span></div>}</div>
+ <div className={styles.art}>
+  <div className={styles.productVisual}>
+   {photo?<img src={photo} alt={product.canonical_title} referrerPolicy="no-referrer"/>:
+    <div className={styles.placeholder}><ImageOff size={36} aria-hidden="true"/><span>No approved product photo</span></div>}
+  </div>
+  {gallery.length>1&&<div className={styles.galleryStrip} aria-label="Publisher-supplied product image gallery">
+   {gallery.map((url,i)=><a key={url} href={url} target="_blank" rel="noopener noreferrer"
+      aria-label={`View supplier product image ${i+1} of ${gallery.length}`}>
+     <img src={url} alt={`${product.canonical_title}, publisher image ${i+1}`}
+      loading="lazy" referrerPolicy="no-referrer"/>
+    </a>)}
+  </div>}
+ </div>
  <div className={styles.copy}><p className={styles.kicker}>{presentation.eyebrow}</p><h1>{product.canonical_title}</h1>{(product.brand||product.model)&&<p className={styles.variant}>{product.brand&&<span>{product.brand}</span>}{product.model&&<span>{product.model}</span>}</p>}
  <p className={styles.intro}>{product.description||"Compare eligible retailer offers and understand what the price evidence can, and cannot, show."}</p>
  <div className={styles.topPrice}><span>{presentation.template==="tyres"?"Lowest eligible tyre offer · fitting may be extra":"Lowest displayed price"}</span><strong>{gbp(Number(best.offer.total_price??best.offer.price))}</strong><small>From {best.published.merchant}. {best.offer.total_price===null?"Product price only. ":""}{presentation.template==="tyres"
