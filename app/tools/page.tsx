@@ -6,6 +6,8 @@ import Footer from "../../components/layout/Footer";
 import {createAdminClient} from "../../lib/supabase/admin";
 import styles from "./page.module.css";
 
+// Authenticated source recency must be evaluated on each request, not during static prerender.
+export const instant = false;
 export const metadata:Metadata={
  title:"Verified Tools & DIY Products | AVUQO",
  description:"Browse Tooled Up products with recently authenticated Awin prices, supplier photos and tracked shopping links. Product prices exclude unverified delivery charges.",
