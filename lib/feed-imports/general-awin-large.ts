@@ -71,6 +71,9 @@ export function prepareGeneralBatch(merchant:string,feedId:string,header:string[
     gtin:get(r,"product_GTIN","gtin")||null,
     source_updated_at:get(r,"last_updated")||null,
     tracking_link_verified:verified,tracking_link_present:Boolean(tracking),
+    // Retain ONLY a validated own-publisher Awin PRODUCT deep link for a later
+    // canonical offer bridge; never store signed feed-download credentials.
+    verified_awin_deep_link:verified?safeHttps(tracking):null,
     image_present:Boolean(image),source_image_rights_confirmed:false,
     canonical_category_approved:false,category_classification_status:"needs_review",
     permission_status:"unverified",price_observation_kind:"private_import",
