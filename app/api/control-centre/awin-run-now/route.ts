@@ -31,6 +31,7 @@ const OUTPUT_KEYS=["status","error","reason","failure_kind","diagnostic_stage","
  "critical_issues","compressed_bytes","actual_rows","duplicate_product_ids",
  "schema_status","schema_reason","schema_delimiter",
  "recognition_kind","next_action","accepted_feed_count",
+ "batch_total","batch_profiled","batch_specialist","batch_quarantined","batch_errors",
  "invalid_price_rows","unverified_affiliate_links","private_only","no_publication"] as const;
 
 async function sanitized(response:Promise<Response>){
@@ -106,13 +107,14 @@ export async function POST(request:NextRequest){
   const isInventory=task==="all_feeds_check";
   const isPortfolio=task==="portfolio_stage_next";
   const isSchemaProbe=task==="portfolio_schema_probe_next";
+  const isBatchProbe=task==="portfolio_schema_probe_batch";
   const step=body.step;
   if(isPortfolio){
    if(!Number.isSafeInteger(step)||typeof step!=="number"||step<0||step>8)
     return result({error:"Invalid bounded rotation step"},400);
   }else if(step!==undefined)return result({error:"Unexpected rotation step"},400);
-  if(!isPilot&&!isTooledUp&&!isBridge&&!isInventory&&!isPortfolio&&!isSchemaProbe)return result({error:"Task not approved"},403);
-  if(action==="preflight"||isInventory||isSchemaProbe){
+  if(!isPilot&&!isTooledUp&&!isBridge&&!isInventory&&!isPortfolio&&!isSchemaProbe&&!isBatchProbe)return result({error:"Task not approved"},403);
+  if(action==="preflight"||isInventory||isSchemaProbe||isBatchProbe){
    if(body.confirm!==undefined)return result({error:"Unexpected confirmation"},400);
   }else if(body.confirm!=="private-only-"+task)
    return result({error:"Explicit private confirmation required"},400);
@@ -122,6 +124,28 @@ export async function POST(request:NextRequest){
   if(isInventory){
    const url=new URL("/api/internal/awin-feed-check",request.url);
    return sanitized(discoverFeeds(new NextRequest(url,{method:"GET",headers:auth})));
+  }
+  if(isBatchProbe){
+   const attempts:Record<string,number>={schema_profiled:0,recognised_specialist_route:0,
+    schema_probe_quarantined:0,other:0};
+   const pairs:string[]=[];
+   for(let i=0;i<5;i++){
+    const url=new URL("/api/internal/awin-feed-schema-probe",request.url);
+    url.searchParams.set("offset","next");
+    const response=await probeFeedSchema(new NextRequest(url,{method:"GET",headers:auth}));
+    let data:Record<string,unknown>={};
+    try{data=await response.json() as Record<string,unknown>;}catch{}
+    const status=typeof data.status==="string"?data.status:"other";
+    if(status==="profile_recording_failed"||status==="registry_or_profile_ledger_unavailable"||
+       status==="credentials_unavailable"||status==="no_accepted_feed_observations")break;
+    attempts[Object.prototype.hasOwnProperty.call(attempts,status)?status:"other"]++;
+    if(typeof data.advertiser_id==="string"&&typeof data.feed_id==="string")
+     pairs.push(data.advertiser_id+":"+data.feed_id);
+   }
+   return result({status:"private_schema_batch_completed",batch_total:pairs.length,
+    batch_profiled:attempts.schema_profiled,batch_specialist:attempts.recognised_specialist_route,
+    batch_quarantined:attempts.schema_probe_quarantined,batch_errors:attempts.other,
+    private_only:true,no_publication:true});
   }
   if(isSchemaProbe){
    const url=new URL("/api/internal/awin-feed-schema-probe",request.url);
