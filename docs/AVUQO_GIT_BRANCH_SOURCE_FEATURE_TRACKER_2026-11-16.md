@@ -1,3 +1,7 @@
+### 17 November 2026 | Feed-first owner UI build repair
+
+Vercel discovered JSX parse error in app/control-centre/awin-feed-updates/OwnerAwinFirstRelease.tsx (extra closing div after the feed-by-feed table) that prevented first full UI deployment of all-feed recognition. Fixed directly on main at f69c465df0b35c021fe5065d708e32d0375f19d6. This is a build repair, not a change to accepted membership or public product rights. Vercel build dpl_A5hE5mUr15QRT7Mda6c6RfCMppTY started BUILDING, final READY must be independently checked. Prior API-only recognition version was READY dpl_CAJz2W4jEMvQMF4LL3bAYPfw5KRV; do not count UI complete until latest build passes. Actual last DB check: 21 accepted programmes, 76 observed feed entries and ZERO canonical Awin offers. Unknown schemas remain recognised for later inspection, not force-imported. Standing owner approval and advanced tyre specialism retained.
+
 ## 17 November 2026 | Owner direction: recognise every accepted feed first, choose adapters afterward
 
 User explicitly directed AVUQO to recognise ALL accepted Awin feed entries first and sort/classify what to use afterward; screenshot repeated the same Petlibro 109051 HTTP 422 unsupported_columns. DO NOT confuse an accepted Awin feed inventory entry with an imported live GBP product or infer an unknown CSV mapping. First-class recognition must never reject the PROGRAMME/FEED from inventory just because row schema is unknown. Publication evidence and specialist tyre rules still apply.
