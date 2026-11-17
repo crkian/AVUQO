@@ -2,7 +2,9 @@
 import {useEffect,useState} from "react";
 
 type Candidate={offerId:string;title:string;merchant:string;advertiserId:string;priceGbp:number;lastSeenAt:string;score:number;confidence:number};
-type Queue={status:string;totalCanonicalOffers?:number;candidates?:Candidate[];note?:string;next?:string;error?:string};
+type Queue={status:string;totalCanonicalOffers?:number;candidates?:Candidate[];note?:string;next?:string;error?:string;
+ ownerAuthorization?:boolean;readiness?:{sourceStatus:string;syncEnabled:boolean;credentialRegistry:string;
+ publicationPermission:string;priceEvidence:string}};
 export default function OwnerAwinFirstRelease(){
  const [queue,setQueue]=useState<Queue|null>(null);
  const [busy,setBusy]=useState(false);
@@ -41,9 +43,10 @@ export default function OwnerAwinFirstRelease(){
   <h2 style={{margin:0}}>First live priced products</h2>
   <p style={{margin:0,fontSize:13,lineHeight:1.6,color:"#62576e"}}>
    These are verified, current GBP offers already in the canonical product pipeline.
-   Awin membership approval is recorded for 21 publishers. The first offer release
-   remains an explicit owner decision and is rechecked in an atomic database transaction.
-   No historical private feed rows can be launched from this panel.
+   Awin membership is recorded for 21 accepted publishers. Your standing approval
+   for eligible product publication is recorded in the backend. The current first-release
+   mechanism still requires an exact-offer confirmation and atomic safety recheck;
+   it is not yet fully automated. Historical private rows cannot be published as live prices.
   </p>
   <div style={{display:"flex",gap:12,alignItems:"center",flexWrap:"wrap"}}>
    <strong>{queue?.totalCanonicalOffers??0} canonical Awin offers</strong>
@@ -53,9 +56,14 @@ export default function OwnerAwinFirstRelease(){
     {busy?"Checking...":"Refresh live readiness"}
    </button>
   </div>
-  {queue?.status==="source_not_launch_ready"&&
-   <p role="status" style={{margin:0}}>Awin accepted membership is recorded. Live source,
-   feed and price-evidence readiness has not passed. No product is eligible for first release.</p>}
+  {queue?.status==="source_not_launch_ready"&&<div role="status" style={{display:"grid",gap:5,
+    padding:12,borderRadius:10,background:"#f8f5ff",fontSize:13}}>
+   <strong>Publication authorisation: {queue.ownerAuthorization?"Recorded and granted":"Not confirmed in source registry"}</strong>
+   <span>Source: {queue.readiness?.sourceStatus??"unknown"} · automatic synchronisation: {queue.readiness?.syncEnabled?"on":"off"}</span>
+   <span>Credential registry: {queue.readiness?.credentialRegistry??"unknown"} · merchant/source publication evidence: {queue.readiness?.publicationPermission??"pending"}</span>
+   <span>Current GBP price evidence: {queue.readiness?.priceEvidence??"pending"}</span>
+   <span>These are operational evidence checks, not a request for another owner approval. {queue.next??""}</span>
+  </div>}
   {queue?.error&&<p role="alert">{queue.error}</p>}
   {queue?.status!=="source_not_launch_ready"&&!queue?.candidates?.length&&!queue?.error&&
    <p role="status">No current, price-verified offers are ready for owner release.</p>}
