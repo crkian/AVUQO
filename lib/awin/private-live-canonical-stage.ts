@@ -1,6 +1,6 @@
-import {createAdminClient} from "../supabase/admin";
-import {ownAffiliateLink} from "./approved-offer-renewal";
-import {runDealIntelligencePipeline} from "../pipeline/run";
+import type {createAdminClient} from "../supabase/admin";
+import {ownAffiliateLink} from "./approved-offer-renewal.ts";
+
 import type {RawSourceOffer,PipelineRunSummary} from "../../types/pipeline";
 
 /** Strict live Awin feed bridge. Only previously authenticated, exact-digest
@@ -87,6 +87,7 @@ export async function stageLiveAwinCanonicalCandidates(
  const ready=(rows??[]).map(r=>toFreshVerifiedAwinRaw(r,input.advertiser,input.feed,input.digest,checked))
   .filter((r):r is RawSourceOffer=>r!==null).slice(0,limit);
  if(!ready.length)return {status:"no_fresh_exact_feed_rows",eligible:0,canonicalAccepted:0,canonicalRejected:0};
+ const {runDealIntelligencePipeline}=await import("../pipeline/run");
  const result:PipelineRunSummary=await runDealIntelligencePipeline(db,{
   sourceKey:"awin",limit:ready.length,awinAdvertiserId:input.advertiser,
   awinVerifiedRows:ready,awinPrivateStaging:true
