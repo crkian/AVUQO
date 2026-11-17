@@ -600,7 +600,7 @@ export async function runDealIntelligencePipeline(
   const privateOnly=freshPrivate&&options.awinPrivateStaging===true;
   if((options.awinPrivateStaging===true&&!freshPrivate)||
      (freshPrivate&&(options.sourceKey!=="awin"||
-     !/^\\d{2,12}$/.test(options.awinAdvertiserId??"")||
+     !/^\d{2,12}$/.test(options.awinAdvertiserId??"")||
      !Array.isArray(options.awinVerifiedRows))))
    throw new Error("Private Awin source binding unavailable");
   const limit = Math.max(1, Math.min(options.limit ?? 25, options.sourceKey === "awin" ? 250 : 50));
@@ -624,7 +624,7 @@ export async function runDealIntelligencePipeline(
   // Enhanced API and fresh private CSV/Google batches, before any writes.
   if(options.sourceKey==="awin"){
     const advertiser=rightsContext.advertiserId??"";
-    if(!/^\\d{2,12}$/.test(advertiser))throw Error("Awin advertiser identity is required");
+    if(!/^\d{2,12}$/.test(advertiser))throw Error("Awin advertiser identity is required");
     const {data:programme,error:programmeError}=await supabase
       .from("affiliate_programs").select("metadata")
       .eq("provider","awin").eq("region","GB")
