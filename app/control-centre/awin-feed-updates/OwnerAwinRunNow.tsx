@@ -30,7 +30,7 @@ export default function OwnerAwinRunNow(){
     typeof o.records==="number"?o.records:
     typeof o.rows==="number"?o.rows:
     typeof o.actual_rows==="number"?o.actual_rows:null;
-   const diagnostic=[o.reason,o.failure_kind,o.diagnostic_stage].filter(v=>
+   const diagnostic=[o.importer_error,o.reason,o.failure_kind,o.diagnostic_stage].filter(v=>
     typeof v==="string"&&/^[a-z0-9_]{2,80}$/.test(v)).join(" · ");
    const safeHeaders=Array.isArray(o.column_names)?o.column_names.filter(
     (v):v is string=>typeof v==="string"&&/^[A-Za-z][A-Za-z0-9_ -]{0,63}$/.test(v))
