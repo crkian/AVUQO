@@ -53,11 +53,12 @@
     "tooled_up_private_snapshots": 0,
     "tooled_up_full_validation_reports": 0,
     "awin_membership": {
-      "accepted_programmes": 19,
+      "accepted_programmes": 21,
       "known_numeric_ids": 17,
       "source_roster_linked": 17,
-      "unknown_numeric_ids": 2,
-      "evidence_source": "public.affiliate_programs"
+      "unknown_numeric_ids": 4,
+      "evidence_source": "public.affiliate_programs",
+      "separate_pending_invitations": 4
     }
   },
   "merchants": [
@@ -519,6 +520,30 @@
     "Recheck rights/commission/image permission evidence before public offers"
   ],
   "audit_updates": [
+    {
+      "date_utc": "2026-11-17",
+      "observed_time_uk": "14:40",
+      "type": "awin_21_accepted_directory_full_screenshot_correction",
+      "accepted_programmes": 21,
+      "known_advertiser_ids": 17,
+      "unmapped_names": [
+        "Simply MOT (UK)",
+        "Broadband Genie",
+        "Your Co-op Energy",
+        "BroadbandCoop & MobileCoop"
+      ],
+      "separate_pending_invitations": [
+        "World Businesses for Sale",
+        "WorldSIM",
+        "Lush Lobster Affiliate Program (UK)",
+        "Willow Parking Ltd"
+      ],
+      "not_accepted_invitation_count": 4,
+      "owner_screenshot_source": "Authenticated Awin Your Advertisers (21), pages 1-3, 2026-11-17",
+      "playbook": "docs/AVUQO_ACCEPTED_AWIN_PORTFOLIO_AND_LIVE_DATA_HANDOVER_2026-11-17.md",
+      "live_offers_at_last_check": 0,
+      "description": "17 Nov 2026 ~14:40 GMT: OWNER PROVIDED FRESH AUTHENTICATED Awin 'Your Advertisers (21)' screenshots on all three pages for publisher 3135746. EXACT count 21 joined/accepted, not 19. Two newly captured accepted programmes: Simply MOT (UK) and Broadband Genie. Existing 19 kept; Supabase public.affiliate_programs now has 21 owner-attested acceptance rows, 17 numeric Awin IDs, 4 awaiting ID mapping: Simply MOT (UK), Broadband Genie, Your Co-op Energy, BroadbandCoop & MobileCoop. Legacy public.sources.metadata.awin_advertisers retains 17 exact identified advertisers; portfolio acceptance count updated to 21 in public.sources.metadata.owner_portfolio_membership_attestation. Separate screenshot tab 'Pending Invitations (4)' contains World Businesses for Sale, WorldSIM, Lush Lobster Affiliate Program (UK), Willow Parking Ltd: NOT JOINED, NOT ACCEPTED, EXCLUDED from 21. Do not activate them. Green link status or Awin product feed Yes is not a fresh product price, full image licence, or per-SKU first public release. Existing processing and tyre adapters preserved. As last checked Awin source status paused, sync=false, 0 public Awin offers. Authoritative detailed owner handover: docs/AVUQO_ACCEPTED_AWIN_PORTFOLIO_AND_LIVE_DATA_HANDOVER_2026-11-17.md top 14:40 correction, supersedes older 19-count sections. WHAT 21 accepted; WHERE affiliate_programs metadata owner_joined_accepted_attestation canonical, sources metadata portfolio summary and 17-ID legacy roster, Awin feed observations live inventory; WHEN 17 Nov 2026 14:40; DONE two new acceptance rows, source count and comprehensive handover correction; NEXT map four missing IDs, target live GBP priced product feeds from joined advertisers, verify current stock and tracking, tyre fitted-vs-tyre-only basis, manually first-release 3-10 safely verified public offers, auto refresh. No new branches or PRs; direct main."
+    },
     {
       "date_utc": "2026-11-17",
       "type": "all_19_awin_accepted_proof_single_source_live_data_plan",
@@ -2198,21 +2223,26 @@
   },
   "awin_accepted_portfolio_release_checkpoint": {
     "date_utc": "2026-11-17",
-    "type": "all_19_awin_accepted_proof_single_source_live_data_plan",
-    "owner_membership_attested": "accepted",
-    "accepted_programmes": 19,
+    "observed_time_uk": "14:40",
+    "type": "awin_21_accepted_directory_full_screenshot_correction",
+    "accepted_programmes": 21,
     "known_advertiser_ids": 17,
-    "source_roster_ids": 17,
-    "missing_numeric_ids": [
+    "unmapped_names": [
+      "Simply MOT (UK)",
+      "Broadband Genie",
       "Your Co-op Energy",
       "BroadbandCoop & MobileCoop"
     ],
-    "playbook_path": "docs/AVUQO_ACCEPTED_AWIN_PORTFOLIO_AND_LIVE_DATA_HANDOVER_2026-11-17.md",
-    "canonical_membership": "public.affiliate_programs.metadata.owner_joined_accepted_attestation",
-    "owner_ui": "app/control-centre/awin-feed-updates/page.tsx",
-    "new_api_endpoints": 0,
-    "release_status": "code_committed_production_verification_pending",
-    "public_awin_offers": 0,
-    "scope_note": "17 Nov 2026 direct-main accepted-Awin proof reconciliation (owner requested all joined AND accepted publishers, NOT just six): Supabase public.affiliate_programs has 19 owner-attested accepted programmes; 17 concrete advertiser IDs, 2 accepted screenshot entries without IDs (Your Co-op Energy; BroadbandCoop & MobileCoop). Membership is NOT a pending application even when internal affiliate_programs.status remains pending for first public SKU release. Source registry public.sources.metadata.awin_advertisers now includes PlayPress Toys UK 101445, correcting old 16 vs known 17. All 19 per-programme owner_joined_accepted_attestation records and portfolio-wide source metadata reference are persisted, retaining existing PDF hashes, Awin screenshot hashes, Gmail evidence and programme restrictions. Added code lib/awin/portfolio-evidence.ts, changed existing owner Awin feed-update page to read affiliate_programs + feed inventory, regression tests/awin-accepted-portfolio-evidence.test.mjs and CI step; NO new API endpoint and no duplicate affiliate membership table. Full WHERE/WHEN/WHAT/DONE/NEXT 19-row playbook: docs/AVUQO_ACCEPTED_AWIN_PORTFOLIO_AND_LIVE_DATA_HANDOVER_2026-11-17.md. Existing endpoints for feed-list metadata, private pilot CSV/Google, leased Pneus 15236, Tyres UK 12715 adapter, Tooled Up snapshots, cron scheduling, Enhanced Awin pipeline and public-catalog are different processing stages, NOT duplicate data sources. Membership records are canonical in affiliate_programs; historical sources.metadata status and rights expiry are still an independent legacy ingestion gate. Keep first offer release / product data freshness separate from accepted membership. Latest 17 Nov feed inventory: Tyres UK 12715 feed 93988=31020 listed, Pneus 15236 feed 26513=19862, Petlibro 77952 feed 103580=44, Cadbury 736/48599=1372, CraftBuddy 45747/F1356=1318, TooledUp 496/89987=84240 validated, structural only. 17 Nov Cron Cadbury 422 validation and Craft Buddy 502 download; Tooled Up 84240 real snapshot with rights_verified=false, currency_verified=false. Public Awin offers remain zero; Awin status paused/sync=false. NEXT: verify exact live feed rows/GBP prices/stock/Awin click URL, tyre size + fitted/delivered totals; resolve two IDs; use guarded first 3-10 SKU release and then automatic refresh. Never restamp historical private price rows as live or override source and per-offer emergency stops. Direct main only, no branches/PRs. Validate final GitHub commit and corresponding Vercel production READY before claiming this release deployed."
+    "separate_pending_invitations": [
+      "World Businesses for Sale",
+      "WorldSIM",
+      "Lush Lobster Affiliate Program (UK)",
+      "Willow Parking Ltd"
+    ],
+    "not_accepted_invitation_count": 4,
+    "owner_screenshot_source": "Authenticated Awin Your Advertisers (21), pages 1-3, 2026-11-17",
+    "playbook": "docs/AVUQO_ACCEPTED_AWIN_PORTFOLIO_AND_LIVE_DATA_HANDOVER_2026-11-17.md",
+    "live_offers_at_last_check": 0,
+    "description": "17 Nov 2026 ~14:40 GMT: OWNER PROVIDED FRESH AUTHENTICATED Awin 'Your Advertisers (21)' screenshots on all three pages for publisher 3135746. EXACT count 21 joined/accepted, not 19. Two newly captured accepted programmes: Simply MOT (UK) and Broadband Genie. Existing 19 kept; Supabase public.affiliate_programs now has 21 owner-attested acceptance rows, 17 numeric Awin IDs, 4 awaiting ID mapping: Simply MOT (UK), Broadband Genie, Your Co-op Energy, BroadbandCoop & MobileCoop. Legacy public.sources.metadata.awin_advertisers retains 17 exact identified advertisers; portfolio acceptance count updated to 21 in public.sources.metadata.owner_portfolio_membership_attestation. Separate screenshot tab 'Pending Invitations (4)' contains World Businesses for Sale, WorldSIM, Lush Lobster Affiliate Program (UK), Willow Parking Ltd: NOT JOINED, NOT ACCEPTED, EXCLUDED from 21. Do not activate them. Green link status or Awin product feed Yes is not a fresh product price, full image licence, or per-SKU first public release. Existing processing and tyre adapters preserved. As last checked Awin source status paused, sync=false, 0 public Awin offers. Authoritative detailed owner handover: docs/AVUQO_ACCEPTED_AWIN_PORTFOLIO_AND_LIVE_DATA_HANDOVER_2026-11-17.md top 14:40 correction, supersedes older 19-count sections. WHAT 21 accepted; WHERE affiliate_programs metadata owner_joined_accepted_attestation canonical, sources metadata portfolio summary and 17-ID legacy roster, Awin feed observations live inventory; WHEN 17 Nov 2026 14:40; DONE two new acceptance rows, source count and comprehensive handover correction; NEXT map four missing IDs, target live GBP priced product feeds from joined advertisers, verify current stock and tracking, tyre fitted-vs-tyre-only basis, manually first-release 3-10 safely verified public offers, auto refresh. No new branches or PRs; direct main."
   }
 }
