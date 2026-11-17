@@ -139,7 +139,7 @@ export default async function Page(){
   </section>}
   {role==="owner"&&<section aria-label="Tooled Up large-feed automation" style={{background:"white",border:"1px solid #d7c9e6",borderRadius:16,padding:18,display:"grid",gap:10}}>
    <h2 style={{margin:0}}>Tooled Up: 84,000+ product master feed</h2>
-   <p style={{margin:0,lineHeight:1.6,color:"#5f5669"}}>The existing private, content-addressed gzip capture and exhaustive stream validator are connected to the active Awin source. Automated capture runs every four hours, with a separate validation run 20 minutes later. A verified snapshot is not a release approval.</p>
+   <p style={{margin:0,lineHeight:1.6,color:"#5f5669"}}>The existing private, content-addressed gzip capture and exhaustive stream validator are connected to the active Awin source. Every four hours AVUQO captures an immutable snapshot, validates the complete feed 20 minutes later, then checks a bounded SKU cohort 10 minutes after validation. Exact matches enter HELD review; this does not automatically approve every item.</p>
    {tooledValidation.error?<p role="alert">Latest private Tooled Up snapshot audit unavailable.</p>:
    tooledValidation.data?.[0]?<div style={{display:"flex",gap:16,flexWrap:"wrap",fontSize:13}}>
     <span><strong>{Number(tooledValidation.data[0].actual_rows).toLocaleString("en-GB")}</strong> rows in last validated master feed</span>
@@ -147,7 +147,7 @@ export default async function Page(){
     <span>Validated {new Date(tooledValidation.data[0].validated_at).toLocaleString("en-GB",{timeZone:"Europe/London"})}</span>
     <span>Currency evidence: <strong>{tooledValidation.data[0].currency_verified?"Verified":"Still requires exact feed evidence"}</strong></span>
    </div>:<p>No complete snapshot validation recorded yet.</p>}
-   <p style={{fontSize:13,margin:0}}>Public release remains separate: exact fresh GBP price, stock, source-matched photo, affiliate tracking, identity, score and atomic approval. Historic private import rows cannot become public merely because the snapshot validated.</p>
+   <p style={{fontSize:13,margin:0}}>Public release stays separate: exact current UK-storefront GBP price evidence, source-matched photo, stock, affiliate tracking, SKU identity, score and atomic approval. The master feed has no explicit currency column; an exact historical GBP match plus verified UK merchant storefront is required. Historic private import rows do not become public merely because the snapshot validated.</p>
   </section>}
   {role==="owner"&&<OwnerAwinFirstRelease/>}
   {role==="owner"&&<OwnerAwinRunNow/>}
