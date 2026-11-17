@@ -29,9 +29,18 @@ export default function OwnerAwinRunNow(){
     typeof v==="string"&&/^[a-z0-9_]{2,80}$/.test(v)).join(" · ");
    const parsed=typeof o.parsed_rows==="number"&&Number.isSafeInteger(o.parsed_rows)
     ?" · parsed "+o.parsed_rows.toLocaleString("en-GB"):"";
+   const fresh=typeof o.live_verified_rows==="number"&&Number.isSafeInteger(o.live_verified_rows)
+    ?" · fresh verified "+o.live_verified_rows.toLocaleString("en-GB"):"";
+   const canonical=typeof o.canonical_status==="string"?
+    " · canonical "+o.canonical_status:"";
+   const staged=typeof o.canonical_accepted==="number"&&Number.isSafeInteger(o.canonical_accepted)
+    ?" · held candidates "+o.canonical_accepted.toLocaleString("en-GB"):"";
+   const rejected=typeof o.canonical_rejected==="number"&&Number.isSafeInteger(o.canonical_rejected)
+    ?" · rejected "+o.canonical_rejected.toLocaleString("en-GB"):"";
    setResults(v=>({...v,[task]:(r.ok?"OK":"HTTP "+r.status)+": "+status+
     (diagnostic?" · "+diagnostic:"")+parsed+
-    (rows===null?"":" · "+rows.toLocaleString("en-GB")+" rows")}));
+    (rows===null?"":" · "+rows.toLocaleString("en-GB")+" rows")+
+    fresh+canonical+staged+rejected}));
   }catch{
    setResults(v=>({...v,[task]:"Private task unavailable. Check server logs."}));
   }finally{setBusy(null);}
