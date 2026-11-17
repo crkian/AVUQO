@@ -2788,5 +2788,30 @@
       "provider_retest": "not yet verified after patch",
       "canonical_public_product_claim": "none"
     }
+  },
+  "latest_awin_petlibro_unsupported_columns": {
+    "date": "2026-11-17",
+    "observed_owner_screenshot": {
+      "time": "17:40 Europe/London",
+      "advertiser": "77952",
+      "feed": "109051",
+      "http": 422,
+      "reason": "unsupported_columns",
+      "stage_reported_old": "unavailable",
+      "parsed_reported_old": 0,
+      "real_header_status": "not yet visible in user screenshot",
+      "fresh_verified": 0,
+      "canonical_accepted": 0
+    },
+    "implementation": {
+      "fix": "Failed private stage now exposes only safe header identifiers, actual parsed count, diagnostic stage and delimiter to authenticated owner; previously only preflight mode did so",
+      "commit": "9398e1950283a40438c414fff7f12ff2c20ed248",
+      "test_commit": "b34274e726406575080285b86164253033bd6d90",
+      "production_deployment": "dpl_DPtyihzgr8sNDZ2146HdeQMWSCBD",
+      "production_sha": "9398e1950283a40438c414fff7f12ff2c20ed248",
+      "vercel_status": "READY",
+      "full_quality": "unverified"
+    },
+    "remaining": "Observe exact actual feed header from owner Petlibro Sale Check live feed or stage result; implement true schema-specific safe adapter, verify live product data, rights and public release. Never invent mapping or live product."
   }
 }
