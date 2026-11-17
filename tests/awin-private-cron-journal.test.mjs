@@ -47,7 +47,7 @@ test("all six existing daily private cron jobs are journaled after authorization
  assert.match(validation,/return validateSnapshot\(new NextRequest/);
  for(const job of ["petlibro","mozillion","cadbury","craftbuddy"])assert.ok(schedule.crons.some(c=>c.path.endsWith("/"+job)),job);
  for(const tail of ["awin-tooled-up-snapshot","awin-tooled-up-daily-validation"])assert.ok(schedule.crons.some(c=>c.path.endsWith("/"+tail)),tail);
- assert.equal(schedule.crons.length,14);
+ assert.equal(schedule.crons.length,15);
 });
 
 test("daily Awin failures retain only allowlisted actionable diagnostics",()=>{
