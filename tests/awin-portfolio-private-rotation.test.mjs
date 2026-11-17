@@ -25,7 +25,9 @@ test("rotator delegates to strict existing importer and cannot claim first publi
  assert.match(worker,/POST as runPrivateImport/);
  assert.match(worker,/url\.searchParams\.set\("mode","stage"\)/);
  assert.match(worker,/runPrivateImport\(new NextRequest/);
- assert.match(worker,/Math\.floor\(now\/86400000\)%available\.length/);
+ assert.match(worker,/Math\.floor\(now\/86400000\)\+offset\)\%available\.length/);
+ assert.match(worker,/offsetString!==null/);
+ assert.match(worker,/Invalid rotation offset/);
  assert.match(worker,/private_only:true,no_publication:true/);
  assert.doesNotMatch(worker,/\.from\("offers"\)|\.from\("published_deals"\)|\.update\(\{/);
 });
@@ -34,7 +36,10 @@ test("existing owner-protected Run Now can invoke rotation without accepting raw
  assert.match(owner,/return sanitized\(runPortfolioRotation/);
  assert.match(owner,/role\?\.role!=="owner"/);
  assert.match(owner,/Same origin required/);
- assert.match(ui,/Run scheduled accepted retail feed/);
+ assert.match(ui,/Try another accepted retail feed/);
+ assert.match(ui,/setRotationStep\(v=>\(v\+1\)%9\)/);
+ assert.match(owner,/url\.searchParams\.set\("offset",String\(step\)\)/);
+ assert.match(owner,/Number\.isSafeInteger\(step\)/);
  assert.match(ui,/advertiser .* \/ feed /);
  assert.match(ui,/private-only-/);
  assert.match(ui,/control-centre\/tyres/);
