@@ -25,8 +25,8 @@ export function recognizeAwinFeed(input:{
   return {kind:"large_retail",schemaStatus:"specialist_adapter",
    next:"Tooled Up streamed/snapshot importer and duplicate-aware catalog matching"};
  if(supported.has(key))
-  return {kind:"retail_physical",schemaStatus:"known_adapter",
-   next:"Download and validate privately; quarantine unknown header variants"};
+  return {kind:"retail_physical",schemaStatus:"needs_schema_probe",
+   next:"Retail importer configured; verify actual CSV headers before staging"};
  if(["awin","standard","google"].includes(feedFormat.toLowerCase()))
   return {kind:"format_review",schemaStatus:"needs_schema_probe",
    next:"Recognised accepted feed; inspect actual header before selecting adapter"};
