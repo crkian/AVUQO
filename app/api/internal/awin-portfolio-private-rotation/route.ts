@@ -1,5 +1,7 @@
 import {NextRequest,NextResponse} from "next/server";
 import {createAdminClient} from "../../../../lib/supabase/admin";
+import {sourceIngestionFailures,evaluateSourceControls} from "../../../../lib/pipeline/source-readiness";
+import {autoReleaseEligibleAwinOffers} from "../../../../lib/awin/auto-first-publication";
 import {POST as runPrivateImport} from "../awin-auto-import/route";
 
 export const maxDuration=300;
@@ -39,7 +41,7 @@ export async function GET(request:NextRequest){
  const db=createAdminClient();
  const [{data:source,error:sourceError},{data:controls,error:controlError},
   {data:programmes,error:programmesError},{data:observations,error:observationsError}]=await Promise.all([
-  db.from("sources").select("status,sync_enabled").eq("connector_key","awin").maybeSingle(),
+  db.from("sources").select("status,sync_enabled,credential_status,connector_key,source_type,metadata").eq("connector_key","awin").maybeSingle(),
   db.from("system_controls").select("control_key,enabled")
    .in("control_key",["global_emergency_stop","source_ingestion"]),
   db.from("affiliate_programs").select("external_account_id,metadata")
@@ -50,12 +52,12 @@ export async function GET(request:NextRequest){
  ]);
  if(sourceError||controlError||programmesError||observationsError||!source)
   return reply({status:"source_or_portfolio_unavailable",private_only:true,no_publication:true},503);
- if(source.status!=="paused"||source.sync_enabled!==false||
-    controls?.some(c=>(c.control_key==="global_emergency_stop"&&c.enabled)||
-     (c.control_key==="source_ingestion"&&!c.enabled))||
-    controls?.filter(c=>c.control_key==="global_emergency_stop"&&c.enabled===false).length!==1||
-    controls?.filter(c=>c.control_key==="source_ingestion"&&c.enabled===true).length!==1)
-  return reply({status:"private_staging_paused",private_only:true,no_publication:true});
+ const controlsReady=evaluateSourceControls(controls,!!controlError);
+ const pausedMode=source.status==="paused"&&source.sync_enabled===false;
+ const activeMode=source.status==="active"&&source.sync_enabled===true&&
+  source.credential_status==="ready";
+ if((!pausedMode&&!activeMode)||!controlsReady.ingestion)
+  return reply({status:"ingestion_disabled_or_source_not_ready",private_only:true,no_publication:true});
  const accepted=new Set((programmes??[]).filter(p=>{
   const m=p.metadata&&typeof p.metadata==="object"&&!Array.isArray(p.metadata)
    ?p.metadata as Record<string,unknown>:{};
@@ -65,6 +67,12 @@ export async function GET(request:NextRequest){
  }).map(p=>p.external_account_id));
  const now=Date.now(),freshCutoff=now-48*3600_000;
  const available=PAIRS.filter(pair=>{
+  // Active-mode staged feeds must pass the same source/advertiser readiness
+  // checks as the core importer; unlike old paused-only daily rotation.
+  if(activeMode&&sourceIngestionFailures(source,{
+   advertiserId:pair.advertiser,
+   connectorConfigured:Boolean(process.env.AWIN_PUBLISHER_ID&&process.env.AWIN_DATAFEED_API_KEY)
+  }).length)return false;
   if(!accepted.has(pair.advertiser))return false;
   const observed=(observations??[]).find(o=>
    o.advertiser_id===pair.advertiser&&o.feed_id===pair.feed&&
@@ -76,7 +84,9 @@ export async function GET(request:NextRequest){
  if(!available.length)return reply({status:"no_current_supported_retail_feeds",
   private_only:true,no_publication:true,eligible:0});
  // Rotate across supported feeds, no client-controlled feed ID, URL or token.
- const selected=available[(Math.floor(now/86400000)+offset)%available.length];
+ // Stable 20-minute rotation, not a once-per-day selection that starves
+ // publishers during frequent cron runs. Offset is limited to owner diagnostics.
+ const selected=available[(Math.floor(now/1_200_000)+offset)%available.length];
  const url=new URL("/api/internal/awin-auto-import",request.url);
  url.searchParams.set("mode","stage");
  url.searchParams.set("advertiser_id",selected.advertiser);
@@ -108,6 +118,13 @@ export async function GET(request:NextRequest){
  };
  const safeError=typeof body.error==="string"?
   knownErrorCodes[body.error]??"import_validation_or_provider_failure":"unknown";
+ // A successful, exact authenticated live feed refresh can create HELD
+ // canonical offers. A separate bounded release worker independently checks
+ // exact SKU/source/photo/price/stock and invokes the atomic release RPC.
+ // A failed feed or paused source must never initiate first publication.
+ const publication=result.ok&&activeMode&&safeStatus(canonical.status)==="canonical_held"
+  ?await autoReleaseEligibleAwinOffers(db,5)
+  :{status:"not_attempted",checked:0,approved:0,skipped:0,failed:0};
  return reply({status:result.ok?"private_rotation_checked":"private_rotation_failed",
   advertiser_id:selected.advertiser,feed_id:selected.feed,
   eligible:available.length,upstream_http_status:result.status,
@@ -119,5 +136,6 @@ export async function GET(request:NextRequest){
   live_verified_rows:safeCount(body.live_verified_rows),
   canonical_status:safeStatus(canonical.status),
   canonical_accepted:safeCount(canonical.canonicalAccepted),
-  private_only:true,no_publication:true},result.status);
+  private_only:true,automatic_publication:publication,
+  no_publication:publication.approved===0,source_mode:activeMode?"active":"paused"},result.status);
 }
