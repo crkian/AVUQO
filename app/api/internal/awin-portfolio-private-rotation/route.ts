@@ -28,6 +28,14 @@ export async function GET(request:NextRequest){
  const secret=process.env.CRON_SECRET;
  if(!secret||secret.length<16||request.headers.get("authorization")!==`Bearer ${secret}`)
   return reply({error:"Unauthorized"},401);
+ // Cron uses zero offset. The signed-in owner gateway can pass a bounded
+ // ordinal to inspect a different supported feed after a validation failure.
+ // The ordinal never supplies a feed URL, advertiser or arbitrary feed ID.
+ const offsetString=new URL(request.url).searchParams.get("offset");
+ const offset=offsetString===null?0:Number(offsetString);
+ if((offsetString!==null&&!/^[0-8]$/.test(offsetString))||
+    !Number.isSafeInteger(offset)||offset<0||offset>8)
+  return reply({error:"Invalid rotation offset"},400);
  const db=createAdminClient();
  const [{data:source,error:sourceError},{data:controls,error:controlError},
   {data:programmes,error:programmesError},{data:observations,error:observationsError}]=await Promise.all([
@@ -68,7 +76,7 @@ export async function GET(request:NextRequest){
  if(!available.length)return reply({status:"no_current_supported_retail_feeds",
   private_only:true,no_publication:true,eligible:0});
  // Rotate across supported feeds, no client-controlled feed ID, URL or token.
- const selected=available[Math.floor(now/86400000)%available.length];
+ const selected=available[(Math.floor(now/86400000)+offset)%available.length];
  const url=new URL("/api/internal/awin-auto-import",request.url);
  url.searchParams.set("mode","stage");
  url.searchParams.set("advertiser_id",selected.advertiser);
