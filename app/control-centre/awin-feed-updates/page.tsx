@@ -4,6 +4,7 @@ import Link from "next/link";
 import {requireControlCentreAccess} from "../../../lib/auth/requireControlCentreAccess";
 import {createAdminClient} from "../../../lib/supabase/admin";
 import OwnerAwinRunNow from "./OwnerAwinRunNow";
+import OwnerAwinReleaseQueue from "./OwnerAwinReleaseQueue";
 import {acceptedAwinPortfolio} from "../../../lib/awin/portfolio-evidence";
 export const metadata:Metadata={title:"Private Awin feed updates | AVUQO",robots:{index:false,follow:false}};
 type Feed={advertiser_id:string;feed_id:string;advertiser_name:string;feed_name:string;listed_products:number;last_imported_source:string;observed_at:string;needs_private_refresh:boolean;change_count:number};
@@ -82,6 +83,7 @@ export default async function Page(){
    </div>
   </section>
   {role==="owner"&&<OwnerAwinRunNow/>}
+  {role==="owner"&&<OwnerAwinReleaseQueue/>}
   <div style={{overflowX:"auto",background:"white",border:"1px solid #e8e3ed",borderRadius:16}}>
    <table style={{borderCollapse:"collapse",width:"100%",minWidth:750,fontSize:13}}>
     <thead><tr>{["Advertiser","Feed","Listed products","Awin last updated","Last seen (UK)","Private refresh flag","Change count"].map(h=><th key={h} style={{background:"#f8f5fa",padding:12,textAlign:"left"}}>{h}</th>)}</tr></thead>
