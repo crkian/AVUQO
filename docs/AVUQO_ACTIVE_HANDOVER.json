@@ -2514,5 +2514,19 @@
       "quality_status": "unverified"
     },
     "next": "Execute live authenticated Awin stage, confirm canonical_held count >0; reconcile legitimate rights and credentials, publish eligible products; prove public links and automated stale withdrawal. Never fabricate public completion."
+  },
+  "latest_awin_frontend_readiness_checkpoint": {
+    "date": "2026-11-17",
+    "api_commit": "8595d39ca053d9be6b9f3032a80b70e8e95e39e0",
+    "ui_commit": "ec043e6919b22f563aa9e555a873835d932ab6fe",
+    "test_commits": [
+      "d4b0349e001f73a9021f15203485c14a551d2a52",
+      "aee1bf9318046e1189f84594ee26fd27adcd3215"
+    ],
+    "ready_production_deployment": "dpl_FUhz16dUJiX9VGoLRiZS4Q59g9sj",
+    "live_backend": "0 Awin canonical offers; source paused; no fresh verified price rows",
+    "private_cron": "Petlibro and Mozillion already_staged 200; Cadbury validation 422; Craft Buddy download 502; Tooled Up structural snapshot and validation 200; Awin discovery 74 active feeds/72 joined/49 changed, metadata only",
+    "owner_permission": "granted in Supabase and audited; not a missing prerequisite",
+    "remaining": "Real fresh authenticated products and advertiser rights; source readiness; approved GBP offers and public tracked links; automatic first-publication not implemented"
   }
 }
