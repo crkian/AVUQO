@@ -55,6 +55,10 @@
     {
       "path": "/api/internal/awin-approved-refresh",
       "schedule": "16 9 * * *"
+    },
+    {
+      "path": "/api/internal/awin-fresh-private-canonical-bridge",
+      "schedule": "43 9 * * *"
     }
   ],
   "ignoreCommand": "git diff --quiet HEAD^ HEAD -- . ':(exclude)docs/**' ':(exclude)*.md' ':(exclude).github/**'"
