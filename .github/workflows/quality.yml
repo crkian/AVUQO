@@ -118,6 +118,8 @@ jobs:
         run: node --experimental-strip-types --test tests/awin-private-validated-link-retention.test.mjs
       - name: Owner first live Awin offer release, withdrawal and exact evidence regression
         run: node --test tests/awin-first-live-owner-release.test.mjs
+      - name: Owner first Awin live SKU price-and-score approval queue
+        run: node --test tests/awin-first-release-owner-queue.test.mjs
       - name: Multi-advertiser public Awin identity and click-link release isolation
         run: node --experimental-strip-types --test tests/awin-multi-advertiser-public-admission.test.mjs
       - name: Accepted Awin portfolio evidence and existing owner-screen reconciliation
