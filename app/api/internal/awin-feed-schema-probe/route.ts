@@ -84,6 +84,11 @@ export async function GET(request:NextRequest){
   const bt=scanned.get(b.advertiser_id+":"+b.feed_id)??"";
   return at.localeCompare(bt);
  });
+ const onlyNew=new URL(request.url).searchParams.get("only_new")==="1";
+ if(onlyNew&&stepRaw==="next"&&next.every(f=>
+  scanned.has(f.advertiser_id+":"+f.feed_id)))
+  return json({status:"all_accepted_feeds_inspected",accepted_feed_count:feeds.length,
+   private_only:true,no_publication:true});
  const selected=stepRaw==="next"?next[0]:feeds[Number(stepRaw)%feeds.length];
  const base={private_only:true,no_product_writes:true,no_publication:true,
   advertiser_id:selected.advertiser_id,feed_id:selected.feed_id,accepted_feed_count:feeds.length};
