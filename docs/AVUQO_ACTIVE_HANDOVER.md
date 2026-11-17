@@ -1,3 +1,7 @@
+## 17 November 2026 · real-product launch audit and staged Awin scale (NO PUBLIC ACTIVATION)
+
+Live read-only Supabase audit found **122,538 private Awin import records**, **119,843 review / 2,695 excluded**, across 7 merchants / 13 runs; counts include repeat snapshots and must not be called distinct products. All import permissions still **unverified**; all 19 Awin affiliate programme records **pending**; both Awin/eBay sources **paused, sync off, credentials not configured**. Six active offer rows are from **demo** (none observed within seven days), not a verified Awin production catalogue. Added read-only `scripts/affiliate-launch-readiness-readonly.sql` and an evidence-based Awin-first, small-batch authorised-publication plan. **No production changes, public Awin release, eBay activation or additional spend.** eBay privacy webhook remains intentionally 503 and independent release NO-GO. [Launch gate and inventory](AVUQO_REAL_PRODUCT_LAUNCH_GATE_2026-11-17.md).
+
 # AVUQO | ACTIVE OPERATIONAL HANDOVER
 
 ## 16 November 2026 · MAJOR eBay full-offer dependency containment and live migration-history reconciliation (UNAPPLIED)
