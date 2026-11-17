@@ -198,7 +198,7 @@ export async function probeAwinEnhancedFeed(advertiserId:string):Promise<"availa
  if(!/^[0-9]{2,12}$/.test(advertiserId))return "unavailable";
  const publisherId=process.env.AWIN_PUBLISHER_ID;
  const token=process.env.AWIN_ACCESS_TOKEN;
- if(!publisherId||!token||!/^\\d{3,15}$/.test(publisherId))return "unavailable";
+ if(!publisherId||!token||!/^\d{3,15}$/.test(publisherId))return "unavailable";
  const locale=process.env.AWIN_LOCALE||"en_GB";
  if(!/^[a-z]{2}_[A-Z]{2}$/.test(locale))return "unavailable";
  const endpoint=new URL(
