@@ -2,9 +2,11 @@
 import {useEffect,useState} from "react";
 
 type Candidate={offerId:string;title:string;merchant:string;advertiserId:string;priceGbp:number;lastSeenAt:string;score:number;confidence:number};
+type Programme={name:string;advertiserId:string|null;discoveredFeeds:number;listedRows:number;needsPrivateRefresh:number;pipeline:string;publicationState:string};
+type Portfolio={acceptedProgrammes:number;numericIdsMapped:number;discoveredFeeds:number;programmes:Programme[]};
 type Queue={status:string;totalCanonicalOffers?:number;candidates?:Candidate[];note?:string;next?:string;error?:string;
  ownerAuthorization?:boolean;readiness?:{sourceStatus:string;syncEnabled:boolean;credentialRegistry:string;
- publicationPermission:string;priceEvidence:string}};
+ publicationPermission:string;priceEvidence:string};portfolio?:Portfolio};
 export default function OwnerAwinFirstRelease(){
  const [queue,setQueue]=useState<Queue|null>(null);
  const [busy,setBusy]=useState(false);
@@ -64,6 +66,25 @@ export default function OwnerAwinFirstRelease(){
    <span>Current GBP price evidence: {queue.readiness?.priceEvidence??"pending"}</span>
    <span>These are operational evidence checks, not a request for another owner approval. {queue.next??""}</span>
   </div>}
+  {queue?.portfolio&&<details style={{borderTop:"1px solid #eee7f4",paddingTop:12}}>
+   <summary style={{cursor:"pointer",fontWeight:600}}>Accepted Awin portfolio and feed automation coverage
+    {" · "}{queue.portfolio.acceptedProgrammes} accepted programmes
+    {" · "}{queue.portfolio.discoveredFeeds} discovered feed entries</summary>
+   <p style={{fontSize:13,color:"#62576e"}}>A feed listing is not a current public offer.
+    Every joined programme is tracked, including unmapped advertiser IDs and category-specific adapters.</p>
+   <div style={{overflowX:"auto"}}>
+    <table style={{borderCollapse:"collapse",width:"100%",fontSize:12,textAlign:"left"}}>
+     <thead><tr><th scope="col">Programme</th><th scope="col">ID</th>
+      <th scope="col">Feeds</th><th scope="col">Pipeline</th></tr></thead>
+     <tbody>{queue.portfolio.programmes.map(p=><tr key={p.name}>
+      <th scope="row" style={{padding:"7px 5px",borderTop:"1px solid #eee"}}>{p.name}</th>
+      <td style={{padding:"7px 5px",borderTop:"1px solid #eee"}}>{p.advertiserId??"Missing"}</td>
+      <td style={{padding:"7px 5px",borderTop:"1px solid #eee"}}>{p.discoveredFeeds}</td>
+      <td style={{padding:"7px 5px",borderTop:"1px solid #eee"}}>{p.pipeline.replaceAll("_"," ")}</td>
+     </tr>)}</tbody>
+    </table>
+   </div>
+  </details>}
   {queue?.error&&<p role="alert">{queue.error}</p>}
   {queue?.status!=="source_not_launch_ready"&&!queue?.candidates?.length&&!queue?.error&&
    <p role="status">No current, price-verified offers are ready for owner release.</p>}
