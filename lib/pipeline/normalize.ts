@@ -55,7 +55,7 @@ export function normalizeOffer(raw: RawSourceOffer): NormalizedOffer {
   // cross-merchant grouping can be added later using validated GTIN matches.
   const skuScopedTooledUp=raw.merchantExternalId==="496";
   const identityText=skuScopedTooledUp
-    ?`${raw.title} Tooled Up SKU ${raw.sourceRecordId}`
+    ?`Tooled Up SKU ${raw.sourceRecordId} ${raw.title}`
     :raw.brand?.trim() && raw.model?.trim()
       ?`${raw.brand.trim()} ${raw.model.trim()}` : raw.title;
   const canonicalKey = slugify(identityText);
