@@ -109,7 +109,6 @@ export default function OwnerAwinFirstRelease(){
      </table>
     </div>
    </details>
-   </div>
   </details>}
   {queue?.error&&<p role="alert">{queue.error}</p>}
   {queue?.status!=="source_not_launch_ready"&&!queue?.candidates?.length&&!queue?.error&&
