@@ -4,10 +4,10 @@ import {verifyEbaySignature} from "../../../../lib/ebay/deletion-signature";
 import {journalVerifiedEbayDeletion,hasDurableEbayErasureQueue} from "../../../../lib/ebay/deletion-journal";
 
 /**
- * eBay production account-deletion webhook, phase 2 (challenge and signature verification, deletion processing pending).
+ * eBay account-deletion receiver: signed durable acceptance gate, disabled until reviewed release.
  *
- * IMPORTANT: Do not register this endpoint with eBay yet. Signed POST processing,
- * idempotent deletion is not implemented. POST deliberately fails closed.
+ * IMPORTANT: Do not register with eBay until privacy operations, nine migrations
+ * and provider tests are approved. 202 means queued receipt, not completed erasure.
  * Only keyed digests of identifiers may be journaled after verified signature.
  */
 const EXACT_ENDPOINT="https://www.avuqo.com/api/ebay/account-deletion";
