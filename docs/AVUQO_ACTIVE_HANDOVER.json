@@ -2487,5 +2487,32 @@
     "new_branches": 0,
     "next_steps": "Execute authenticated current feed, validate held canonical offers, reconcile source evidence, owner release 3–10 and verify public GBP prices, tracking, stale withdrawal",
     "details": "17 November 2026, ~16:02 GMT, new-chat continuity. The MASTER source of truth is docs/AVUQO_ACTIVE_HANDOVER.md and docs/AVUQO_ACTIVE_HANDOVER.json, NOT a new replacement. Read alongside docs/AVUQO_NEW_CHAT_START_HERE_2026-11-17.md. OWNER instruction: direct main only, no branches/PRs, all master and feature tracker handovers, project status, changelog and Awin completion board updated for every live change. All 21 Awin publishers accepted and evidenced, 17 numeric IDs mapped, 4 remaining ID mappings, four pending invitations excluded. Implemented owner-only first GBP-priced Awin offer release panel in existing /control-centre/awin-feed-updates, reusing existing /api/control-centre/awin-first-release GET and atomic owner POST/RPC. Added lib/awin/private-live-canonical-stage.ts to map up to 20 exact newly authenticated and digest-rechecked rows from physical pilot feeds Petlibro 77952, Mozillion 31539, Cadbury 736 and Craft Buddy 45747 to EXISTING canonical pipeline as draft products + held offers, never public, while Awin source remains paused; connected app/api/internal/awin-auto-import/route.ts. Fixed brand-only canonical SKU collisions in lib/pipeline/normalize.ts. Tests and quality workflow steps added, full GitHub Actions result not independently verified. Vercel exact READY application SHA dc717014a89aadd0d98977b742270f25231b2c3d, deployment dpl_4pwuaYUxe4oAUiknubmJAA3V46GU. Live Supabase checked: 21 accepted, 0 canonical Awin offers, 0 first owner release rows; Awin source paused, sync_enabled=false, credential_status not_configured. Vercel production contains Awin credential variable NAMES, contents and actual readiness not verified, do not claim credentials absent. Historical feed_import_records are not fresh prices. Tyres UK 12715 and Pneus 15236 adapters preserved but NOT in this new four-merchant canonical bridge. NEXT: actual fresh Awin feed execution from existing owner control / scheduled Cron, verify canonical_held + accepted rows in DB, reconcile genuine source evidence/config, make first 3–10 exact GBP owner releases, verify live customer pages and affiliate redirects, automatic stale withdrawal. No public products were released in this work; do not overclaim."
+  },
+  "latest_live_release_checkpoint": {
+    "date": "2026-11-17",
+    "summary": "Owner granted blanket publication for eligible Awin feeds and requested fully automated product lifecycle. No fresh verified canonical Awin offers exist yet; publication remains blocked by real source/rights/price evidence.",
+    "owner_publication_authorization": "granted and audited in public.sources.metadata.owner_publication_authorization and public.audit_logs",
+    "production_backend": {
+      "private_feed_records": 122538,
+      "feed_import_runs": 13,
+      "accepted_membership_evidence": 21,
+      "internal_programme_status_pending": 21,
+      "canonical_awin_offers": 0,
+      "awin_release_reviews": 0,
+      "live_feed_verified_rows": 0,
+      "awin_source_status": "paused",
+      "sync_enabled": false,
+      "credential_status": "not_configured",
+      "publication_permission": "pending",
+      "price_evidence_status": "pending"
+    },
+    "code_fix": {
+      "commit": "a1ce8b2339700c6fc9d8e8d758e3298ccebeb600",
+      "test_commit": "cce98122b9dd47912121cb1c02b119a7bd4425ca",
+      "summary": "Filter canonical bridge candidates by exact reverified digest before bounded selection",
+      "vercel_ready_deployment": "dpl_CYrGEVpSRN4efD78n67u4bFWwuHd",
+      "quality_status": "unverified"
+    },
+    "next": "Execute live authenticated Awin stage, confirm canonical_held count >0; reconcile legitimate rights and credentials, publish eligible products; prove public links and automated stale withdrawal. Never fabricate public completion."
   }
 }
