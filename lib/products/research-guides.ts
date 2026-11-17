@@ -1,9 +1,10 @@
 /**
  * Curated editorial research starters, not retailer listings or verified offers.
  *
- * These four product/model identities were observed in AVUQO's active demo-only
- * catalogue on 14 November 2026 and independently cross-checked against the
- * manufacturers' public information. No demo price, stock, image, score,
+ * Original four model identities were checked against manufacturers on 14 Nov.
+ * Four further standalone model identities were verified against official UK
+ * manufacturer product pages on 17 Nov 2026. Neither set is an affiliate offer.
+ * No demo price, stock, image, score,
  * affiliate URL, specification blob, or merchant claim is copied to this list.
  *
  * A guide becomes a verified comparison only through public-catalog's existing
@@ -71,7 +72,60 @@ export const RESEARCH_PRODUCT_GUIDES:readonly ResearchProductGuide[]=[
    "Review delivery, installation, warranty and any bundled extras."
   ],
   manufacturerInfoUrl:"https://www.lg.com/uk/tvs-soundbars/oled-evo/oled65c43la/"
+ } ,
+ {
+  slug:"sony-wh-1000xm6-noise-cancelling-headphones",
+  title:"Sony WH-1000XM6 Wireless Noise Cancelling Headphones",
+  brand:"Sony",department:"tech",
+  teaser:"Explore Sony's WH-1000XM6 headset and check the exact colour, retailer bundle and warranty before choosing.",
+  modelNote:"The official Sony UK WH-1000XM6 product page confirms this product family. Retailer variants, accessories, stock and today's pricing require separate checking.",
+  checklist:[
+   "Match the WH-1000XM6 model code, chosen colour and included accessories.",
+   "Compare fit, controls and connectivity with your intended devices.",
+   "Check warranty, returns and the complete delivered price directly with the seller."
+  ],
+  manufacturerInfoUrl:"https://www.sony.co.uk/headphones/products/wh-1000xm6"
+ },
+ {
+  slug:"apple-iphone-17",
+  title:"Apple iPhone 17",
+  brand:"Apple",department:"tech",
+  teaser:"Start with the current Apple iPhone 17 range, then match storage, colour, network and exact UK variant.",
+  modelNote:"Apple's official UK iPhone 17 page identifies the model. This guide does not assert that any retailer currently stocks a particular configuration.",
+  checklist:[
+   "Confirm it is an iPhone 17 and check storage, colour and network-lock status.",
+   "Compare SIM or eSIM compatibility, warranty and any contractual obligations.",
+   "Check trade-in terms separately and compare the true upfront or contract total."
+  ],
+  manufacturerInfoUrl:"https://www.apple.com/uk/iphone-17/"
+ },
+ {
+  slug:"samsung-galaxy-s26",
+  title:"Samsung Galaxy S26",
+  brand:"Samsung",department:"tech",
+  teaser:"Understand the Samsung Galaxy S26 choice before comparing the exact storage, finish or contract.",
+  modelNote:"Samsung UK's Galaxy S26 product page confirms the model family. Distinguish the standard S26 from S26+ and other variants before matching offers.",
+  checklist:[
+   "Identify the precise S26 model and storage rather than matching an S26+ listing.",
+   "Check UK network compatibility, warranty and any included accessories.",
+   "Compare the delivered price or full contract cost, not promotional trade-in headlines."
+  ],
+  manufacturerInfoUrl:"https://www.samsung.com/uk/smartphones/galaxy-s26/buy/"
+ },
+ {
+  slug:"lego-botanicals-wildflower-bouquet-10313",
+  title:"LEGO Botanicals Wildflower Bouquet (10313)",
+  brand:"LEGO",department:"home",
+  teaser:"Research the exact LEGO Botanicals 10313 Wildflower Bouquet set and check the set contents before gifting.",
+  modelNote:"The official LEGO UK product page identifies set 10313. AVUQO does not infer a retailer's current stock, packaging, price or promotional savings.",
+  checklist:[
+   "Check set number 10313 and confirm the box and included elements.",
+   "Review the intended age guidance, assembly and display needs on LEGO's site.",
+   "Compare delivery, retailer returns and the current total price before buying."
+  ],
+  manufacturerInfoUrl:"https://www.lego.com/en-gb/product/wildflower-bouquet-10313"
  }
+
 ];
 
 export function researchGuideBySlug(slug:string):ResearchProductGuide|undefined{
