@@ -3,6 +3,7 @@ import {createAdminClient} from "../../../../lib/supabase/admin";
 import {evaluateSourceControls} from "../../../../lib/pipeline/source-readiness";
 import {runDealIntelligencePipeline} from "../../../../lib/pipeline/run";
 import {fromFreshPrivateAwinRecord} from "../../../../lib/awin/fresh-private-canonical-row";
+import {autoReleaseEligibleAwinOffers} from "../../../../lib/awin/auto-first-publication";
 
 export const maxDuration=300;
 const reply=(data:unknown,status=200)=>NextResponse.json(data,{
@@ -99,7 +100,13 @@ export async function GET(request:NextRequest){
  }
  const seen_total=outcomes.reduce((n,x)=>n+(x.seen??0),0);
  const held_total=outcomes.reduce((n,x)=>n+(x.held??0),0);
- return reply({status:"private_to_held_canonical_checked",no_first_publication:true,
+ // The first-release worker separately validates the standing owner grant,
+ // source/merchant rights and genuinely current offers. It cannot publish
+ // while Awin is paused, and it never treats private rows as public evidence.
+ const publication=await autoReleaseEligibleAwinOffers(db,15);
+ return reply({status:"private_to_held_canonical_checked",
+  no_first_publication:publication.approved===0,
+  automatic_publication:publication,
   notes:"No tyres, services, unverified links, or historical prices were imported",
   seen_total,held_total,outcomes});
 }
