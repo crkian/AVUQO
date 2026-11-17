@@ -138,8 +138,13 @@ export async function GET(){
      source.credential_status!=="ready"||meta.publication_permission!=="verified"||
      meta.price_evidence_status!=="verified")
    return respond({status:"source_not_launch_ready",totalCanonicalOffers:count??0,
-    candidates:[],acceptance:"21 programmes recorded as accepted",
-    next:"Source and current-price evidence must pass before release"});
+    candidates:[],ownerAuthorization:obj(meta.owner_publication_authorization).status==="granted",
+    readiness:{sourceStatus:source.status,syncEnabled:source.sync_enabled,
+      credentialRegistry:source.credential_status,
+      publicationPermission:meta.publication_permission??"pending",
+      priceEvidence:meta.price_evidence_status??"pending"},
+    acceptance:"21 programmes recorded as accepted",
+    next:"Fresh authenticated source, merchant rights and current GBP price evidence must pass before release"});
   const {data:offers,error:offerError}=await db.from("offers")
    .select("id,title,merchant_id,price,currency,last_seen_at,stock_status,affiliate_url,match_confidence")
    .eq("source_id",source.id).eq("status","active")
