@@ -29,7 +29,7 @@ test("new Google-format PlayPress feed validates exact merchant, GBP and own pub
  assert.equal(outcome.currencySource,"feed_column");
  assert.deepEqual(outcome.header,header);
  assert.deepEqual(outcome.rows,[row]);
- assert.throws(()=>normalizePilotAwinFeed("101445","F5142",header,[[...row.slice(0,1),"NOT-IDENTITY",...row.slice(2)]]),/google_retail_advertiser_mismatch/);
+ assert.throws(()=>normalizePilotAwinFeed("101445","F5142",header,[["999999",...row.slice(1)]]),/google_retail_advertiser_mismatch/);
 });
 test("accepted PlayPress exact fresh feed may only enter private held canonical offers",()=>{
  const digest="a".repeat(64);
