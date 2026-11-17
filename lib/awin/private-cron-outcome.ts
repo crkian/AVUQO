@@ -9,7 +9,8 @@ const SUCCESS_CODES=new Set([
  "tooled_up_exact_cohort_checked","no_exact_current_matches",
  "no_stocked_candidates_in_cohort","fresh_authenticated_feed_observation_required",
  "full_stream_validation_failed","snapshot_read_unavailable",
- "snapshot_stream_or_schema_unavailable","private_batch_recheck_failed"
+ "snapshot_stream_or_schema_unavailable","private_batch_recheck_failed",
+ "tyre_live_source_cohort_checked"
 ]);
 const FAILURES:Record<string,string>={
  "Awin feed credentials not configured":"credentials",
@@ -47,7 +48,11 @@ const SAFE_COHORT_FAILURES=new Set([
  "snapshot_read_unavailable","storage_origin_invalid",
  "snapshot_stream_or_schema_unavailable","private_batch_recheck_failed",
  "existing_import_unavailable","cohort_recheck_write_failed",
- "tooled_up_source_or_control_blocked","no_exact_current_matches"
+ "tooled_up_source_or_control_blocked","no_exact_current_matches",
+ "accepted_tyre_feed_not_found","authenticated_feed_unavailable","feed_too_large",
+ "empty_feed","invalid_feed_schema","invalid_feed_row","bad_feed_row_count",
+ "private_batch_unavailable","source_control_blocked","credentials_unavailable",
+ "tyre_feed_recheck_failed"
 ]);
 const FEED_REASONS=new Set([
  "unsupported_columns","unterminated_csv_quote","invalid_csv_quote",
