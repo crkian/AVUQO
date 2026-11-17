@@ -47,7 +47,9 @@ test("the scheduled bridge and shared scorer stay first-publication blocked",()=
  const pipeline=readFileSync("lib/pipeline/run.ts","utf8");
  const privateImporter=readFileSync("app/api/internal/awin-auto-import/route.ts","utf8");
  assert.match(route,/runDealIntelligencePipeline\(db/);
- assert.match(route,/source\.status!=="active"\|\|source\.sync_enabled!==true/);
+ assert.match(route,/const safelyPaused=source\.status==="paused"&&source\.sync_enabled===false/);
+ assert.match(route,/const safelyActive=source\.status==="active"&&source\.sync_enabled===true/);
+ assert.match(route,/awinPrivateStaging:safelyPaused/);
  assert.match(route,/\.eq\("status","private_review"\)/);
  assert.match(route,/\.gte\("created_at",cutoff\)/);
  assert.match(route,/no_first_publication:true/);
@@ -57,7 +59,10 @@ test("the scheduled bridge and shared scorer stay first-publication blocked",()=
  assert.match(pipeline,/owner_joined_accepted_attestation/);
  assert.match(pipeline,/accepted programme evidence registry/);
  assert.match(pipeline,/raw\.merchantExternalId !== rightsContext\.advertiserId/);
- assert.match(pipeline,/sourceIngestionFailures\(currentSource, rightsContext\)/);
+ assert.match(pipeline,/sourceIngestionFailures\(currentSource,rightsContext\)/);
+ assert.match(pipeline,/privateOnly\?false:controls\.dealPublishing,privateOnly/);
+ assert.match(pipeline,/status: privateOnly\?"draft":"active"/);
+ assert.match(pipeline,/Private Awin canonical staging requires a paused source/);
  assert.match(pipeline,/source\.connector_key!=="awin"\|\|renewExistingAwin/);
  assert.match(privateImporter,/sourceIngestionFailures\(source/);
  assert.match(privateImporter,/safelyPaused/);
@@ -88,4 +93,15 @@ test("owner can run the same guarded held bridge now without adding a second sco
  assert.match(ui,/slug==="canonical"\?\["bridge"\]/);
  assert.match(ui,/mode==="bridge"\?"Prepare held offers"/);
  assert.match(ui,/never public listings/);
+});
+
+test("numeric Awin IDs work, and missing availability is never invented",()=>{
+ const p=readFileSync("lib/pipeline/run.ts","utf8");
+ const publicCatalog=readFileSync("lib/products/public-catalog.ts","utf8");
+ const parser=readFileSync("lib/feed-imports/general-awin-large.ts","utf8");
+ const bad=String.raw`\\\\d{2,12}`;
+ assert.equal(p.includes(bad),false);
+ assert.equal(publicCatalog.includes(bad),false);
+ assert.match(parser,/Missing stock is UNKNOWN/);
+ assert.doesNotMatch(parser,/stock_status","in_stock"/);
 });
