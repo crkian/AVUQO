@@ -91,7 +91,7 @@ export async function autoReleaseEligibleAwinOffers(db:Db,limit=15){
   if(typeof advertiser!=="string"||!/^[0-9]{2,12}$/.test(advertiser)||
      !approved.has(advertiser)||reviewed.has(offer.id)||
      !deal||deal.status!=="held"||deal.product_id!==offer.product_id||
-     !product||product.status!=="draft"||!product.primary_image_url||
+     !product||!["draft","active"].includes(product.status)||!product.primary_image_url||
      Number(deal.current_price)!==Number(offer.price)||
      !(Number(offer.price)>0)||!recent(offer.last_seen_at,now)||
      !["in_stock","low_stock"].includes(offer.stock_status)||
