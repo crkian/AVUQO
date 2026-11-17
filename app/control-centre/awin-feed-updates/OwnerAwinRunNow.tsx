@@ -30,6 +30,8 @@ export default function OwnerAwinRunNow(){
     typeof o.actual_rows==="number"?o.actual_rows:null;
    const diagnostic=[o.reason,o.failure_kind,o.diagnostic_stage].filter(v=>
     typeof v==="string"&&/^[a-z0-9_]{2,80}$/.test(v)).join(" · ");
+   const selected=typeof o.advertiser_id==="string"&&typeof o.feed_id==="string"?
+    " · advertiser "+o.advertiser_id+" / feed "+o.feed_id:"";
    const importer=typeof o.importer_status==="string"?" · importer "+o.importer_status:"";
    const eligible=typeof o.eligible==="number"?" · supported live feeds "+o.eligible:"";
    const inventory=typeof o.joined_feeds==="number"?" · joined feed entries "+o.joined_feeds.toLocaleString("en-GB"):"";
@@ -45,7 +47,7 @@ export default function OwnerAwinRunNow(){
    const rejected=typeof o.canonical_rejected==="number"&&Number.isSafeInteger(o.canonical_rejected)
     ?" · rejected "+o.canonical_rejected.toLocaleString("en-GB"):"";
    setResults(v=>({...v,[task]:(r.ok?"OK":"HTTP "+r.status)+": "+status+
-    (diagnostic?" · "+diagnostic:"")+importer+eligible+inventory+changed+parsed+
+    (diagnostic?" · "+diagnostic:"")+selected+importer+eligible+inventory+changed+parsed+
     (rows===null?"":" · "+rows.toLocaleString("en-GB")+" rows")+
     fresh+canonical+staged+rejected}));
   }catch{
@@ -67,10 +69,10 @@ export default function OwnerAwinRunNow(){
    {results.all_feeds_check&&<output role="status" style={{fontSize:12,overflowWrap:"anywhere"}}>{results.all_feeds_check}</output>}
   </div>
   <div style={{padding:14,border:"1px solid #d7c8ea",borderRadius:12,background:"#fff",display:"grid",gap:8}}>
-   <strong>Next accepted retail feed: automatic private import</strong>
+   <strong>Scheduled accepted retail feed: automatic private import</strong>
    <p style={{margin:0,fontSize:13}}>Run one bounded feed from the accepted retailer rotation. The server chooses the advertiser and exact source feed; no signed links or unverified product prices are exposed. Specialist tyres, travel and contracts are excluded from this retail worker.</p>
    <button disabled={busy!==null} onClick={()=>run("portfolio_stage_next")} style={{padding:10,borderRadius:8,color:"#30205a",background:"#f4effd",border:"1px solid #7965aa",maxWidth:330}}>
-    {busy==="portfolio_stage_next"?"Checking selected retail feed...":"Run next accepted retail feed"}
+    {busy==="portfolio_stage_next"?"Checking selected retail feed...":"Run scheduled accepted retail feed"}
    </button>
    {results.portfolio_stage_next&&<output role="status" style={{fontSize:12,overflowWrap:"anywhere"}}>{results.portfolio_stage_next}</output>}
   </div>
