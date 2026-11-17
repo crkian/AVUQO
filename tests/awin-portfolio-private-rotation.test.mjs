@@ -55,3 +55,13 @@ test("HTTP 422 private import failures retain safe machine-readable reasons for 
  assert.match(ui,/o\.importer_error/);
  assert.doesNotMatch(worker,/return reply\(\{.*signed_url/);
 });
+
+test("failed private stage discloses only vetted header names and true parsed row count to owner",()=>{
+ const importer=readFileSync("app/api/internal/awin-auto-import/route.ts","utf8");
+ assert.match(importer,/const safeHeaderNames=header\?header\.slice\(0,120\)/);
+ assert.match(importer,/column_names:safeHeaderNames/);
+ assert.match(importer,/diagnostic_stage:parseStage/);
+ assert.match(importer,/parsed_rows:rows\.length/);
+ assert.match(importer,/no_database_writes:true,no_publication:true/);
+ assert.doesNotMatch(importer,/safeHeaderNames=preflight&&header/);
+});
