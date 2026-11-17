@@ -96,7 +96,14 @@ export async function GET(request:NextRequest){
   const rows=lines(text),seen=new Set<string>();let header:string[]|null=null;
   let count=0,eligible=0,sourceRows:Array<ReturnType<typeof verifiedTyresUkRow>>=[];
   // Rotate complete master-feed windows, never select a user-supplied SKU.
-  // Awin last-observed inventory for this fixed feed has ~31,227 entries.\n  // The count will be adjusted using the last authenticated full-feed receipt.\n  const {data:last}=await db.from("awin_tyre_live_observations")\n   .select("row_count").eq("advertiser_id",ADVERTISER).eq("feed_id",FEED)\n   .order("observed_at",{ascending:false}).limit(1).maybeSingle();\n  const expected=Number(last?.row_count??31227);\n  const windowCount=Math.max(1,Math.ceil((Number.isSafeInteger(expected)&&expected>0?expected:31227)/WINDOW));\n  const windowIndex=Math.floor(Date.now()/(15*60000))%windowCount;
+  // Awin last-observed inventory for this fixed feed has ~31,227 entries.
+  // The count will be adjusted using the last authenticated full-feed receipt.
+  const {data:last}=await db.from("awin_tyre_live_observations")
+   .select("row_count").eq("advertiser_id",ADVERTISER).eq("feed_id",FEED)
+   .order("observed_at",{ascending:false}).limit(1).maybeSingle();
+  const expected=Number(last?.row_count??31227);
+  const windowCount=Math.max(1,Math.ceil((Number.isSafeInteger(expected)&&expected>0?expected:31227)/WINDOW));
+  const windowIndex=Math.floor(Date.now()/(15*60000))%windowCount;
   const start=windowIndex*WINDOW,end=start+WINDOW;
   for await(const values of rows){
    if(!header){
