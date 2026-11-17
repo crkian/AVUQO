@@ -18,6 +18,8 @@ const FEEDS:Record<string,readonly [string,string]>={
 };
 const OUTPUT_KEYS=["status","error","reason","failure_kind","diagnostic_stage","detected_delimiter","columns","parsed_rows","rows","records","seen_total","held_total","no_first_publication",
  "advertiser_id","feed_id","currency_source","source_currency_explicit",
+ "live_verified_rows","canonical_status","canonical_eligible",
+ "canonical_accepted","canonical_rejected",
  "critical_issues","compressed_bytes","actual_rows","duplicate_product_ids",
  "invalid_price_rows","unverified_affiliate_links","private_only","no_publication"] as const;
 
@@ -28,6 +30,18 @@ async function sanitized(response:Promise<Response>){
  const src=payload&&typeof payload==="object"&&!Array.isArray(payload)
   ?payload as Record<string,unknown>:{};
  const safe:Record<string,string|number|boolean>={private_only:true,no_publication:true};
+ // The internal import worker returns a bounded canonical summary. Expose
+ // fixed-key counts and status only, never the raw provider response.
+ const canonical=src.canonical&&typeof src.canonical==="object"&&!Array.isArray(src.canonical)
+  ?src.canonical as Record<string,unknown>:{};
+ const safeCanonicalStatus=canonical.status;
+ if(typeof safeCanonicalStatus==="string"&&
+    /^[a-z_]{1,80}$/.test(safeCanonicalStatus))safe.canonical_status=safeCanonicalStatus;
+ for(const [out,key] of [["canonical_eligible","eligible"],["canonical_accepted","canonicalAccepted"],
+  ["canonical_rejected","canonicalRejected"]] as const){
+  const value=canonical[key];
+  if(typeof value==="number"&&Number.isSafeInteger(value)&&value>=0&&value<=5000)safe[out]=value;
+ }
  for(const key of OUTPUT_KEYS){
   const value=src[key];
   if(typeof value==="boolean"||typeof value==="number"&&Number.isFinite(value))
