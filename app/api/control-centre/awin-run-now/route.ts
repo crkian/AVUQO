@@ -10,6 +10,7 @@ import {GET as runPortfolioRotation} from "../../internal/awin-portfolio-private
 import {GET as probeFeedSchema} from "../../internal/awin-feed-schema-probe/route";
 import {GET as tooledUpCohort} from "../../internal/awin-tooled-up-live-cohort/route";
 import {GET as importPneus} from "../../internal/awin-pneus-private-import/route";
+import {GET as checkTyresUk} from "../../internal/awin-tyres-uk-live-recheck/route";
 import {latestTooledUpObservedDigest} from "../../../../lib/awin/tooled-up-observation";
 
 export const maxDuration=300;
@@ -35,7 +36,7 @@ const OUTPUT_KEYS=["status","error","reason","failure_kind","diagnostic_stage","
  "batch_total","batch_profiled","batch_specialist","batch_quarantined","batch_errors",
  "invalid_price_rows","unverified_affiliate_links","private_only","no_publication",
  "scanned","candidate_rows","matched","live_rechecked","canonical_held","currency_basis","no_first_publication",
- "committed","total","review","excluded"] as const;
+ "committed","total","review","excluded","source_rows","source_candidates","live_verified","window_index"] as const;
 
 async function sanitized(response:Promise<Response>){
  const r=await response;
@@ -107,6 +108,7 @@ export async function POST(request:NextRequest){
   const isPilot=!!pair&&(action==="preflight"||action==="stage");
   const isTooledUp=merchant==="tooled_up"&&(action==="snapshot"||action==="validate"||action==="cohort");
   const isPneus=task==="pneus_import";
+  const isTyresUk=task==="tyres_uk_recheck";
   const isBridge=task==="canonical_bridge";
   const isInventory=task==="all_feeds_check";
   const isPortfolio=task==="portfolio_stage_next";
@@ -117,7 +119,7 @@ export async function POST(request:NextRequest){
    if(!Number.isSafeInteger(step)||typeof step!=="number"||step<0||step>8)
     return result({error:"Invalid bounded rotation step"},400);
   }else if(step!==undefined)return result({error:"Unexpected rotation step"},400);
-  if(!isPilot&&!isTooledUp&&!isPneus&&!isBridge&&!isInventory&&!isPortfolio&&!isSchemaProbe&&!isBatchProbe)return result({error:"Task not approved"},403);
+  if(!isPilot&&!isTooledUp&&!isPneus&&!isTyresUk&&!isBridge&&!isInventory&&!isPortfolio&&!isSchemaProbe&&!isBatchProbe)return result({error:"Task not approved"},403);
   if(action==="preflight"||isInventory||isSchemaProbe||isBatchProbe){
    if(body.confirm!==undefined)return result({error:"Unexpected confirmation"},400);
   }else if(body.confirm!=="private-only-"+task)
@@ -125,6 +127,10 @@ export async function POST(request:NextRequest){
   const secret=process.env.CRON_SECRET;
   if(!secret||secret.length<16)return result({error:"Importer unavailable"},503);
   const auth={authorization:`Bearer ${secret}`};
+  if(isTyresUk){
+   const url=new URL("/api/internal/awin-tyres-uk-live-recheck",request.url);
+   return sanitized(checkTyresUk(new NextRequest(url,{method:"GET",headers:auth})));
+  }
   if(isPneus){
    const url=new URL("/api/internal/awin-pneus-private-import",request.url);
    return sanitized(importPneus(new NextRequest(url,{method:"GET",headers:auth})));

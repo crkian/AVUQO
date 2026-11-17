@@ -29,6 +29,7 @@ export default function TyresPage(){
      <div className={styles.heroActions}>
       <a className={styles.premiumButton} href="#size-finder">Explore by tyre size <ArrowRight size={18}/></a>
       <Link className={styles.lightButton} href="/tyres/brands">Browse tyre brands <ArrowUpRight size={17}/></Link>
+      <Link className={styles.lightButton} href="/tyres/shop">Shop current retailer tyres <ArrowRight size={17}/></Link>
       <Link className={styles.lightButton} href="/tyres/find">Find verified tyres <ArrowRight size={17}/></Link>
       <Link className={styles.lightButton} href="/tyres/compare">Compare models <ArrowRight size={17}/></Link>
      </div>
@@ -124,9 +125,9 @@ export default function TyresPage(){
      <div className={styles.info}><CheckCircle2 size={25}/><b>Evidence before claims</b><p>Specifications, stock, imagery and availability need verified sources. Historical imports never become live offers by default.</p></div>
     </div>
    </section>
-   <aside className={styles.comingSoon}><span className={styles.pill}>IN PREPARATION</span>
-    <div><h2>An exact-variant comparison engine, waiting for approved goods.</h2><p>The find, model and retailer comparison pages are built. They will only show public products when technical evidence, image and supplier rights and current offer checks pass. This is not a vehicle-fitment or installed-quote service.</p></div>
-    <Link href="/tyres/find">Explore the verified product finder <ArrowUpRight size={18}/></Link>
+   <aside className={styles.comingSoon}><span className={styles.pill}>TYRE SHOPPING / SPECIALIST FINDER</span>
+    <div><h2>Source-verified tyres, with the right distinctions.</h2><p>Shop ordinary supplier tyre listings when fresh authenticated prices, original images and exact links are available. The stricter technical comparison tool remains separate, and no listing is a vehicle-fitment or installed-price approval.</p></div>
+    <Link href="/tyres/shop">Browse authenticated retailer tyres <ArrowUpRight size={18}/></Link>
    </aside>
   </div>
   <Footer/>
