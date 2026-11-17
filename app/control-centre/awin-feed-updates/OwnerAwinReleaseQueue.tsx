@@ -26,6 +26,7 @@ export default async function OwnerAwinReleaseQueue(){
  const accepted=new Set((programmes??[]).filter(p=>
   meta(meta(p.metadata).owner_joined_accepted_attestation).membership_status==="accepted"
  ).map(p=>p.external_account_id));
+ const programmeById=new Map((programmes??[]).map(p=>[p.external_account_id,meta(p.metadata)]));
  const candidate=(offers??[]).filter(o=>d.get(o.id)?.status==="held"||d.get(o.id)?.status==="published");
  const runtimeKeysInstalled=Boolean(process.env.AWIN_ACCESS_TOKEN&&process.env.AWIN_DATAFEED_API_KEY&&process.env.AWIN_PUBLISHER_ID);
  const enabled=source.status==="active"&&source.sync_enabled===true&&source.credential_status==="ready"&&
@@ -41,10 +42,11 @@ export default async function OwnerAwinReleaseQueue(){
   <p role="status" style={{fontWeight:650}}>Source: {source.status} · Synchronisation: {source.sync_enabled?"on":"off"} · Credentials: {source.credential_status}
    {" · "}Server keys: {runtimeKeysInstalled?"installed, not independently validated":"incomplete"}
    {" · "}Held or released offers in latest query: {candidate.length}</p>
+  <p style={{fontSize:13,color:"#5c5366"}}>Owner has attested that accepted programmes grant listing and supplier-image permission. This owner statement is separate from stored advertiser-specific terms, rights expiry and current price evidence. The following checks still govern public release.</p>
   {candidate.length===0?<p>No genuine canonical Awin offers are ready for owner release. Run current private imports, then pass the source-to-offer pipeline. Historical private feed rows are not public offers.</p>:
    <div style={{overflowX:"auto",background:"white",border:"1px solid #e8e3ed",borderRadius:14}}>
     <table style={{borderCollapse:"collapse",width:"100%",minWidth:880,fontSize:12}}>
-     <thead><tr>{["Merchant","Product","Current GBP","Stock","Checked","Score","Release status","Owner action"].map(x=>
+     <thead><tr>{["Merchant","Product","Current GBP","Stock","Checked","Score","Release status","Remaining release checks","Owner action"].map(x=>
       <th key={x} style={{background:"#f8f5fa",padding:10,textAlign:"left"}}>{x}</th>)}</tr></thead>
      <tbody>{candidate.map(o=>{
       const merchant=m.get(o.merchant_id),id=meta(merchant?.metadata).external_id;
@@ -54,6 +56,17 @@ export default async function OwnerAwinReleaseQueue(){
       const scoreOk=!!score&&score.score>=60&&Number(score.confidence)>=55;
       const priceOk=o.currency==="GBP"&&Number(o.price)>0&&
        Number(deal?.current_price)===Number(o.price);
+      const merchantRights=typeof id==="string"?programmeById.get(id):undefined;
+      const documented=merchantRights?.publication_approved===true;
+      const blockers=[
+       ...(!membership?["accepted advertiser identity"]:[]),
+       ...(!documented?["merchant licence scope not recorded as verified"]:[]),
+       ...(!enabled?["source activation and evidence"]:[]),
+       ...(!latest?["fresh price and score"]:[]),
+       ...(!scoreOk?["score/confidence threshold"]:[]),
+       ...(!priceOk?["verified GBP price"]:[]),
+       ...(!["in_stock","low_stock"].includes(o.stock_status)?["stock validation"]:[])
+      ];
       const canAttempt=enabled&&membership&&latest&&scoreOk&&priceOk&&
        ["in_stock","low_stock"].includes(o.stock_status)&&
        deal?.status==="held";
@@ -65,6 +78,7 @@ export default async function OwnerAwinReleaseQueue(){
        <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{o.last_seen_at?new Date(o.last_seen_at).toLocaleString("en-GB",{timeZone:"Europe/London"}):"Missing"}</td>
        <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{score?.score??"Not scored"}</td>
        <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{deal?.status} {!canAttempt&&deal?.status==="held"?"(not release-ready)":""}</td>
+       <td style={{padding:10,borderTop:"1px solid #efeaf1",maxWidth:290}}>{blockers.length?blockers.join(" · "):"Ready for atomic server recheck"}</td>
        <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>
         {deal?.status==="published"?<OwnerAwinReleaseButton offerId={o.id} action="pause"/>:
          <OwnerAwinReleaseButton offerId={o.id} action="approve" disabled={!canAttempt}/>}
