@@ -1905,5 +1905,26 @@
       "configure production keys and perform genuine provider test",
       "enable consented/rights-verified Browse/EPN publication after legal approval"
     ]
+  },
+  "ebay_foundation_object_release_gate_20261117": {
+    "status": "CI_candidate",
+    "production_readonly": true,
+    "live_results": {
+      "pass": 6,
+      "block": 1,
+      "columns": 22,
+      "foundation_tables": 3,
+      "identity_sequences": 3,
+      "foreign_keys": 3,
+      "unapplied_migrations": 9
+    },
+    "files": [
+      "scripts/ebay-foundation-objects-release-readonly.sql",
+      "tests/ebay-foundation-objects-release-readonly.test.mjs"
+    ],
+    "scope": "exact columns, grants, sequences, RLS policy absence, FKs, pending history; intentionally blocks migration authorisation",
+    "no_production_changes": true,
+    "next": "faithful isolated production schema rehearsal of nine only; independent reviewed DDL approval",
+    "source_status": "eBay paused callback HTTP503, Awin untouched"
   }
 }

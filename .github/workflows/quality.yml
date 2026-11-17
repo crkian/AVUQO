@@ -46,6 +46,8 @@ jobs:
         run: bash -n scripts/test-ebay-tombstone-race.sh && node --test tests/ebay-two-session-race-harness.test.mjs
       - name: eBay reverse-direction advisory-lock witness syntax and safety contracts (not a live DB test)
         run: bash -n scripts/test-ebay-reverse-lock-witness.sh && node --test tests/ebay-reverse-lock-witness.test.mjs
+      - name: Exact eBay production foundation object schema gate
+        run: node --test tests/ebay-foundation-objects-release-readonly.test.mjs
       - name: Seven eBay foundation function-body source hash drift contracts
         run: node --test tests/ebay-seven-foundation-body-hash.test.mjs
       - name: Four foundation live read-only structure and safe release checks
