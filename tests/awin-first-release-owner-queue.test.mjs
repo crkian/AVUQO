@@ -51,3 +51,17 @@ test("owner readiness shows granted standing authorization without bypassing sou
  assert.match(ui,/not yet fully automated/);
  assert.match(ui,/not a request for another owner approval/);
 });
+
+test("owner-first-release readiness inventories all accepted Awin programmes without publishing from feed metadata",()=>{
+ assert.match(route,/async function readPortfolio\(/);
+ assert.match(route,/awin_feed_update_observations/);
+ assert.match(route,/owner_joined_accepted_attestation/);
+ assert.match(route,/feed_or_category_adapter_pending/);
+ assert.match(route,/advertiser_id_missing/);
+ assert.match(route,/large_feed_streaming/);
+ assert.match(route,/tyre_specific/);
+ assert.match(route,/portfolio,acceptance:/);
+ assert.match(ui,/Accepted Awin portfolio and feed automation coverage/);
+ assert.match(ui,/queue\.portfolio\.programmes\.map/);
+ assert.match(ui,/A feed listing is not a current public offer/);
+});
