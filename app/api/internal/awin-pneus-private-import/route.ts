@@ -295,7 +295,22 @@ export async function GET(request:NextRequest){
    return response({error:"server_feed_credentials_missing"},503);
   const staged=await stageSnapshot(db,key,publisher);
   return response({...staged,private_only:true,no_publication:true});
- }catch{
-  return response({error:"private_pneus_import_unavailable",no_publication:true},503);
+ }catch(error){
+  // Safe categorical operator diagnostics, no signed URLs, feed rows or secrets.
+  const code=error instanceof Error?error.message:"";
+  const allowed=new Set([
+   "active_feed_not_verified","format_not_supported","feed_row_limit",
+   "no_eligible_private_rows","snapshot_unavailable","snapshot_digest_mismatch",
+   "append_private_batch_failed","snapshot_format_changed",
+   "permission_not_ready","permission_revoked","permission_changed_before_import",
+   "private_bulk_job_creation_failed","private_snapshot_store_failed",
+   "upstream_http","upstream_empty","upstream_too_large","feed_size_limit",
+   "feed_expanded_limit","invalid_inventory_header","missing_or_ambiguous_active_feed",
+   "unsupported_feed_format","invalid_product_columns","cross_advertiser_product",
+   "invalid_or_duplicate_product_id","source_registry_error"
+  ]);
+  return response({error:"private_pneus_import_unavailable",
+   reason:allowed.has(code)?code:"private_import_failed",
+   no_publication:true},503);
  }
 }
