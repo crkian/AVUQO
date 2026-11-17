@@ -2,6 +2,7 @@ import {NextRequest,NextResponse} from "next/server";
 import {createAdminClient} from "../../../../lib/supabase/admin";
 import {sourceIngestionFailures,evaluateSourceControls} from "../../../../lib/pipeline/source-readiness";
 import {runDealIntelligencePipeline} from "../../../../lib/pipeline/run";
+import {autoReleaseEligibleAwinOffers} from "../../../../lib/awin/auto-first-publication";
 
 export const maxDuration=300;
 const reply=(data:unknown,status=200)=>NextResponse.json(data,{
@@ -41,9 +42,13 @@ export async function GET(request:NextRequest){
   // Bounded first-cohort refresh. The existing worker validates the
   // advertiser, source controls, matches, scores and release status per row.
   const run=await runDealIntelligencePipeline(admin,{sourceKey:"awin",limit:25});
+  // Only after the normal authenticated source refresh, evaluate other
+  // held GBP offers from accepted advertisers against the recorded standing
+  // owner grant. The existing atomic release RPC remains the only publisher.
+  const publication=await autoReleaseEligibleAwinOffers(admin,15);
   return reply({status:run.status,seen:run.seen,accepted:run.accepted,
-   rejected:run.rejected,private_details:false,
-   first_time_publication_requires_existing_owner_release:true});
+   rejected:run.rejected,private_details:false,automatic_publication:publication,
+   first_time_publication_requires_verified_source_and_owner_grant:true});
  }catch{
   return reply({error:"Approved Awin refresh failed",no_publication_claim:true},503);
  }
