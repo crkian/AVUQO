@@ -67,7 +67,7 @@ export default async function OwnerAwinReleaseQueue(){
        ...(!priceOk?["verified GBP price"]:[]),
        ...(!["in_stock","low_stock"].includes(o.stock_status)?["stock validation"]:[])
       ];
-      const canAttempt=enabled&&membership&&latest&&scoreOk&&priceOk&&
+      const canAttempt=enabled&&membership&&documented&&latest&&scoreOk&&priceOk&&
        ["in_stock","low_stock"].includes(o.stock_status)&&
        deal?.status==="held";
       return <tr key={o.id}>
