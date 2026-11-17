@@ -9,8 +9,7 @@ import {GET as discoverFeeds} from "../../internal/awin-feed-check/route";
 import {GET as runPortfolioRotation} from "../../internal/awin-portfolio-private-rotation/route";
 import {GET as probeFeedSchema} from "../../internal/awin-feed-schema-probe/route";
 import {GET as tooledUpCohort} from "../../internal/awin-tooled-up-live-cohort/route";
-import {AWIN_PRIVATE_SNAPSHOT_BUCKET} from "../../../../lib/awin/private-snapshot";
-import {newestRecentTooledUpSnapshot} from "../../../../lib/awin/tooled-up-recent-snapshot";
+import {latestTooledUpObservedDigest} from "../../../../lib/awin/tooled-up-observation";
 
 export const maxDuration=300;
 const result=(data:unknown,status=200)=>NextResponse.json(data,{
@@ -179,14 +178,12 @@ export async function POST(request:NextRequest){
    const url=new URL("/api/internal/awin-tooled-up-snapshot",request.url);
    return sanitized(captureMaster(new NextRequest(url,{method:"POST",headers:auth})));
   }
-  // No user-supplied signed URL or hash; always latest recent immutable key.
+  // Owner validation selects ONLY the server-recorded current Awin download.
+  // Reusing an older identical immutable object cannot falsify its timestamp.
   const admin=createAdminClient();
-  const {data,error}=await admin.storage.from(AWIN_PRIVATE_SNAPSHOT_BUCKET)
-   .list("awin/496/89987",{limit:100,offset:0,
-     sortBy:{column:"created_at",order:"desc"}});
-  if(error)return result({error:"Snapshot listing unavailable"},503);
-  const latest=newestRecentTooledUpSnapshot(data);
-  if(!latest)return result({status:"no_recent_private_snapshot",private_only:true,no_publication:true});
+  const latest=await latestTooledUpObservedDigest(admin);
+  if(!latest)return result({status:"no_recent_authenticated_feed_observation",
+   private_only:true,no_publication:true});
   const url=new URL("/api/internal/awin-snapshot-validate",request.url);
   return sanitized(validateMaster(new NextRequest(url,{
    method:"POST",headers:{...auth,"content-type":"application/json"},
