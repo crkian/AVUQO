@@ -49,7 +49,10 @@ async function attestUnchangedLiveRows(
  const {data:stored,error}=await db.from("feed_import_records")
   .select("id,import_id,merchant_product_id,title,price,currency,status,metadata,reviewed_at")
   .eq("import_id",runId).eq("merchant_id",advertiser).eq("status","review")
-  .is("reviewed_at",null).limit(20);
+  // A feed may begin with review rows that lack confirmed stock/link. Inspect
+  // a bounded wider window to find up to 20 exact eligible rechecks instead
+  // of starving the bridge on the first 20 arbitrary stored rows.
+  .is("reviewed_at",null).limit(300);
  if(error)throw Error("live_recheck_private_rows_unavailable");
  const now=new Date().toISOString();
  let verified=0;
@@ -80,6 +83,7 @@ async function attestUnchangedLiveRows(
    .is("reviewed_at",null).select("id").maybeSingle();
   if(updateError)throw Error("live_recheck_private_update_failed");
   if(changed?.id)verified++;
+  if(verified>=20)break;
  }
  return verified;
 }
