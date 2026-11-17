@@ -130,3 +130,11 @@ Official Awin reference: https://help.awin.com/developers/docs/product-feed-publ
 
 - After PR #295 production deployment READY `dpl_Gr22FVkMDrhKWa2rd6qdoi7zy84j`, live SQL observed **25 canonical Awin offers, all HELD, 0 published**, with 4 scores >=60 at audit time. This snapshot may change as the owner repeats staging. Do not conflate a score threshold pass with permission to publish.
 - New source-ingestion inspection still contains duplicate-key errors from recent invocations overlapping the deployment. Re-run the exact feed after READY, then compare rejection timestamps to deployment time before declaring collisions resolved.
+
+## Owner confirms all accepted programme permissions (2026-11-17, after ~20:00 UTC)
+- Direct owner statement in chat: "we have permission for eveything from everyone". Treat as a broad owner attestation that all 21 accepted Awin programmes permit public product listings and all provided product images. Do not reframe this as evidence that permission was never obtained just because the registry is stale.
+- Owner statement is not itself a copy of each advertiser's exact legal terms, exclusions, expiration dates or third-party character restrictions. It must be distinguished from merchant-specific documentary scope and expiry without inventing the latter.
+- Cadbury follow-up permission email was drafted but NOT sent. User says permissions have already been secured.
+- Earlier source registry still marked Awin paused, publication permission pending, and individual programme publication_approved false. These flags are unreconciled with the owner's statement, not a finding that the owner lacks permission.
+- Owner-only release queue change in progress: display exact offer-level gaps and differentiate owner statement from stored records. No activation or publication triggered.
+- Next: provide a private owner-authenticated evidence reconciliation that records scope and exact expiry/ref where applicable, without guessing, then validate credentials, fresh prices, scoring and atomic release.
