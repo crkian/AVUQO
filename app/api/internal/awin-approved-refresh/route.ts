@@ -31,13 +31,17 @@ export async function GET(request:NextRequest){
  const flags=evaluateSourceControls(controls,!!controlsError);
  if(!flags.ingestion||!flags.publishing||source.status!=="active"||source.sync_enabled!==true)
   return reply({status:"paused",no_import:true,no_publication:true});
+ // Multi-merchant held offers must not depend on one default Enhanced API
+ // advertiser. The automatic publisher independently validates each merchant.
+ const publication=await autoReleaseEligibleAwinOffers(admin,15);
  const advertiser=process.env.AWIN_ADVERTISER_ID??"";
  const configured=/^\d{3,15}$/.test(process.env.AWIN_PUBLISHER_ID??"")&&
   /^\d{2,12}$/.test(advertiser)&&Boolean(process.env.AWIN_ACCESS_TOKEN);
  const problems=sourceIngestionFailures(source,{
   advertiserId:advertiser,connectorConfigured:configured
  });
- if(problems.length)return reply({status:"approval_pending",no_import:true,no_publication:true});
+ if(problems.length)return reply({status:"approval_pending",no_import:true,
+  automatic_publication:publication,enhanced_api_skipped:true});
  try{
   // Bounded first-cohort refresh. The existing worker validates the
   // advertiser, source controls, matches, scores and release status per row.
@@ -45,11 +49,11 @@ export async function GET(request:NextRequest){
   // Only after the normal authenticated source refresh, evaluate other
   // held GBP offers from accepted advertisers against the recorded standing
   // owner grant. The existing atomic release RPC remains the only publisher.
-  const publication=await autoReleaseEligibleAwinOffers(admin,15);
   return reply({status:run.status,seen:run.seen,accepted:run.accepted,
    rejected:run.rejected,private_details:false,automatic_publication:publication,
    first_time_publication_requires_verified_source_and_owner_grant:true});
  }catch{
-  return reply({error:"Approved Awin refresh failed",no_publication_claim:true},503);
+  return reply({error:"Enhanced Awin refresh failed",automatic_publication:publication,
+   no_unverified_publication_claim:true},503);
  }
 }
