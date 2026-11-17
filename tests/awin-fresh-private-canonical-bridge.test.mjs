@@ -53,6 +53,9 @@ test("the scheduled bridge and shared scorer stay first-publication blocked",()=
  assert.match(route,/no_first_publication:true/);
  assert.match(route,/restricted\.test\(row\.title/);
  assert.match(pipeline,/awinVerifiedRows/);
+ assert.match(pipeline,/\.from\("affiliate_programs"\)\.select\("metadata"\)/);
+ assert.match(pipeline,/owner_joined_accepted_attestation/);
+ assert.match(pipeline,/accepted programme evidence registry/);
  assert.match(pipeline,/raw\.merchantExternalId !== rightsContext\.advertiserId/);
  assert.match(pipeline,/sourceIngestionFailures\(currentSource, rightsContext\)/);
  assert.match(pipeline,/source\.connector_key!=="awin"\|\|renewExistingAwin/);
