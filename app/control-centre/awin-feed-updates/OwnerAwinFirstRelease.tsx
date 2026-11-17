@@ -9,7 +9,7 @@ export default function OwnerAwinFirstRelease(){
  const [result,setResult]=useState("");
  const [confirmId,setConfirmId]=useState("");
  async function refresh(){
-  setBusy(true);setResult("");
+  setBusy(true);
   try{
    const response=await fetch("/api/control-centre/awin-first-release",{cache:"no-store",credentials:"same-origin"});
    const data=await response.json() as Queue;
