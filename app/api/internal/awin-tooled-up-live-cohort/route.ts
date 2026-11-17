@@ -9,6 +9,7 @@ import {ownAffiliateLink} from "../../../../lib/awin/approved-offer-renewal";
 import {collectAwinImages,selectAwinPrimaryImage} from "../../../../lib/awin/collect-images.mjs";
 import {normalizeAwinAvailability} from "../../../../lib/awin/stock-availability.mjs";
 import {stageLiveAwinCanonicalCandidates} from "../../../../lib/awin/private-live-canonical-stage";
+import {autoReleaseEligibleAwinOffers} from "../../../../lib/awin/auto-first-publication";
 
 export const maxDuration=300;
 const reply=(data:unknown,status=200)=>NextResponse.json(data,{status,headers:{"Cache-Control":"private, no-store"}});
@@ -170,11 +171,24 @@ export async function GET(request:NextRequest){
   importId,advertiser:ID,feed:FEED,digest:validation.snapshot_sha256,
   limit:20,merchantProductIds:ids
  });
+ // A fresh staged offer is only a HELD candidate. Run the separate audited
+ // release worker NOW instead of waiting for another cron. That worker
+ // independently rechecks exact Awin source, advertiser/SKU/price/link,
+ // image rights, live stock, confidence, AVUQO score and global stop.
+ // The atomic release RPC remains final authority; no direct publishing here.
+ const publication=stage.canonicalAccepted>0&&
+  process.env.AWIN_AUTO_IMPORT_ENABLED==="true"
+   ?await autoReleaseEligibleAwinOffers(db,5)
+   :{status:"not_attempted",checked:0,approved:0,skipped:0,failed:0};
  return reply({status:"tooled_up_exact_cohort_checked",
   scanned:visited,candidate_rows:candidates.length,matched,
   live_rechecked:confirmedSkus.size,canonical_sample_rechecked:updated,
   canonical_status:stage.status,canonical_held:stage.canonicalAccepted,
   canonical_rejected:stage.canonicalRejected,
+  automatic_release_status:publication.status,
+  atomic_release_attempts:publication.checked,
+  atomic_release_approved:publication.approved,
+  atomic_release_rejected:publication.failed,
   currency_basis:"merchant_uk_gbp_storefront_and_exact_staged_price_match",
-  no_first_publication:true,private_only:true});
+  no_first_publication:publication.approved===0,private_only:true});
 }
