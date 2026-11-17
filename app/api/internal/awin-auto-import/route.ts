@@ -54,7 +54,7 @@ async function attestUnchangedLiveRows(
   const cells=originals.get(old.merchant_product_id);
   if(!cells)continue;
   const next=prepareGeneralBatch(advertiser,feed,header,[cells])[0];
-  const availability=String(next.metadata.availability??"").toLowerCase().replace(/[\\s-]+/g,"_");
+  const availability=String(next.metadata.availability??"").toLowerCase().replace(/[\s-]+/g,"_");
   if(next.status!=="review"||!next.metadata.verified_awin_deep_link||
     !["in_stock","instock","available","low_stock","limited"].includes(availability)||
     next.title!==old.title||next.currency!=="GBP"||old.currency!=="GBP"||
