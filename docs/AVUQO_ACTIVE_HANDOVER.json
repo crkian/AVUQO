@@ -2528,5 +2528,40 @@
     "private_cron": "Petlibro and Mozillion already_staged 200; Cadbury validation 422; Craft Buddy download 502; Tooled Up structural snapshot and validation 200; Awin discovery 74 active feeds/72 joined/49 changed, metadata only",
     "owner_permission": "granted in Supabase and audited; not a missing prerequisite",
     "remaining": "Real fresh authenticated products and advertiser rights; source readiness; approved GBP offers and public tracked links; automatic first-publication not implemented"
+  },
+  "latest_awin_portfolio_automatic_publication_checkpoint": {
+    "date": "2026-11-17",
+    "owner_publication_authorization": "granted audited in public.sources, no further generic owner approval",
+    "accepted_programmes": 21,
+    "mapped_numeric_ids": 17,
+    "unmapped_accepted_ids": 4,
+    "discovered_active_feeds": 74,
+    "joined_feed_entries": 72,
+    "advertisers_with_discovered_feeds": 11,
+    "private_import_records": 122538,
+    "live_verified_rows": 0,
+    "canonical_awin_offers": 0,
+    "source_status": "paused",
+    "source_sync_enabled": false,
+    "source_credentials_registry": "not_configured",
+    "source_publication_permission": "pending",
+    "source_price_evidence_status": "pending",
+    "new_application_code": [
+      "lib/awin/auto-first-publication.ts",
+      "app/api/internal/awin-approved-refresh/route.ts",
+      "app/api/internal/awin-fresh-private-canonical-bridge/route.ts",
+      "app/api/control-centre/awin-first-release/route.ts",
+      "app/control-centre/awin-feed-updates/OwnerAwinFirstRelease.tsx",
+      "tests/awin-automatic-first-release.test.mjs",
+      "tests/awin-first-release-owner-queue.test.mjs",
+      ".github/workflows/quality.yml"
+    ],
+    "automatic_first_release": "implemented as eligibility-gated bounded <=15 offers per scheduled run, dormant while source paused or evidence absent",
+    "source_live_auth_evidence": "successfully authenticated metadata-only feed discovery stored in sources.metadata.datafeed_authenticated_evidence, no generic credential flag promoted",
+    "known_feed_failures": {
+      "cadbury": "HTTP 422 feed validation",
+      "craft_buddy": "HTTP 502 product download"
+    },
+    "remaining": "Execute current provider feed download and canonical stage; fix source/provider mismatches; independently verify rights and live GBP stock links; test public pages and stale withdraw; verify CI and deployment. Not yet all accepted feeds product-live."
   }
 }
