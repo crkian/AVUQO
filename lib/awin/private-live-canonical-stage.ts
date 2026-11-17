@@ -81,7 +81,11 @@ export async function stageLiveAwinCanonicalCandidates(
  const {data:rows,error}=await db.from("feed_import_records")
   .select("id,import_id,merchant_product_id,title,price,currency,brand,category,status,metadata")
   .eq("import_id",input.importId).eq("merchant_id",input.advertiser)
-  .eq("status","review").order("created_at",{ascending:false}).limit(100);
+  .eq("status","review")
+  // Select the exact authenticated feed digest, not just the latest 100
+  // historical rows. Rechecking an immutable older import must remain discoverable.
+  .contains("metadata",{live_feed_digest:input.digest})
+  .order("created_at",{ascending:false}).limit(100);
  if(error)return {status:"private_review_unavailable",eligible:0,canonicalAccepted:0,canonicalRejected:0};
  const checked=Date.now();
  const ready=(rows??[]).map(r=>toFreshVerifiedAwinRaw(r,input.advertiser,input.feed,input.digest,checked))
