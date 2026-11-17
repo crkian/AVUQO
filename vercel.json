@@ -10,7 +10,7 @@
     },
     {
       "path": "/api/internal/awin-pneus-private-import",
-      "schedule": "41 8 * * *"
+      "schedule": "46 * * * *"
     },
     {
       "path": "/api/internal/awin-pilot-schedule/petlibro",

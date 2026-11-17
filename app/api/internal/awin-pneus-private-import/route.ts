@@ -3,6 +3,7 @@ import {gzipSync,gunzipSync} from "node:zlib";
 import {NextRequest,NextResponse} from "next/server";
 import {createAdminClient} from "../../../../lib/supabase/admin";
 import {approvedAwinDownloadUrl} from "../../../../lib/awin/approved-feed-url";
+import {sourceIngestionFailures,evaluateSourceControls} from "../../../../lib/pipeline/source-readiness";
 import {identifyFormat,prepareGeneralBatch} from "../../../../lib/feed-imports/general-awin-large";
 import {csvRowsFromChunks} from "../../../../lib/feed-imports/stream-csv";
 import {PNEUS_ADVERTISER_ID,PNEUS_FEED_ID,PNEUS_NAME,PNEUS_PRIVATE_BUCKET,
@@ -108,10 +109,33 @@ type Job={id:string;state:string;private_import_id:string;validated_total:number
  lease_expires_at:string|null};
 type Admin=ReturnType<typeof createAdminClient>;
 async function readySource(db:Admin){
- const {data,error}=await db.from("sources").select("metadata,status,sync_enabled")
-  .eq("connector_key","awin").maybeSingle();
- if(error)throw Error("source_registry_error");
- return pneusPrivateSourceGate(data);
+ const [{data:source,error:sourceError},{data:programme,error:programmeError},
+  {data:controls,error:controlError}]=await Promise.all([
+  db.from("sources").select("metadata,status,sync_enabled,credential_status,connector_key,source_type")
+   .eq("connector_key","awin").maybeSingle(),
+  db.from("affiliate_programs").select("metadata,status").eq("provider","awin")
+   .eq("region","GB").eq("external_account_id",PNEUS_ADVERTISER_ID).maybeSingle(),
+  db.from("system_controls").select("control_key,enabled")
+   .in("control_key",["source_ingestion","global_emergency_stop"])
+ ]);
+ if(sourceError||programmeError||controlError)throw Error("source_registry_error");
+ const gates=evaluateSourceControls(controls??[],false);
+ if(!gates.ingestion||gates.emergencyStop)return "source_not_paused";
+ const p=programme?.metadata&&typeof programme.metadata==="object"&&!Array.isArray(programme.metadata)
+  ?programme.metadata as Record<string,unknown>:{};
+ const accepted=p.owner_joined_accepted_attestation;
+ const programmeApproved=p.publication_approved===true&&accepted&&
+  typeof accepted==="object"&&!Array.isArray(accepted)&&
+  (accepted as Record<string,unknown>).membership_status==="accepted";
+ const m=source?.metadata&&typeof source.metadata==="object"&&!Array.isArray(source.metadata)
+  ?source.metadata as Record<string,unknown>:{};
+ const active=programmeApproved&&m.owner_attested_release_enabled===true&&
+  source?.status==="active"&&source?.sync_enabled===true&&
+  sourceIngestionFailures(source,{
+   advertiserId:PNEUS_ADVERTISER_ID,
+   connectorConfigured:Boolean(process.env.AWIN_DATAFEED_API_KEY&&process.env.AWIN_PUBLISHER_ID)
+  }).length===0;
+ return pneusPrivateSourceGate(source,undefined,Boolean(active));
 }
 async function stageSnapshot(db:Admin,key:string,publisher:string){
  // Source rights are checked immediately before any remote product download.
@@ -242,8 +266,11 @@ export async function GET(request:NextRequest){
  const secret=process.env.CRON_SECRET;
  if(!secret||secret.length<16||request.headers.get("authorization")!=="Bearer "+secret)
   return response({error:"Unauthorized"},401);
- if(process.env.AWIN_PNEUS_PRIVATE_IMPORT_ENABLED!=="true")
-  return response({status:"disabled",private_only:true,required_setting:"AWIN_PNEUS_PRIVATE_IMPORT_ENABLED"});
+ // Owner accepted the Awin shopping-catalogue programme. Reuse the global
+ // automated-feed activation plus the exact advertiser membership/source gate,
+ // instead of a missing retired Pneus-only environment flag.
+ if(process.env.AWIN_AUTO_IMPORT_ENABLED!=="true")
+  return response({status:"disabled",private_only:true,required_setting:"AWIN_AUTO_IMPORT_ENABLED"});
  const started=Date.now();
  try{
   const db=createAdminClient();
@@ -268,7 +295,22 @@ export async function GET(request:NextRequest){
    return response({error:"server_feed_credentials_missing"},503);
   const staged=await stageSnapshot(db,key,publisher);
   return response({...staged,private_only:true,no_publication:true});
- }catch{
-  return response({error:"private_pneus_import_unavailable",no_publication:true},503);
+ }catch(error){
+  // Safe categorical operator diagnostics, no signed URLs, feed rows or secrets.
+  const code=error instanceof Error?error.message:"";
+  const allowed=new Set([
+   "active_feed_not_verified","format_not_supported","feed_row_limit",
+   "no_eligible_private_rows","snapshot_unavailable","snapshot_digest_mismatch",
+   "append_private_batch_failed","snapshot_format_changed",
+   "permission_not_ready","permission_revoked","permission_changed_before_import",
+   "private_bulk_job_creation_failed","private_snapshot_store_failed",
+   "upstream_http","upstream_empty","upstream_too_large","feed_size_limit",
+   "feed_expanded_limit","invalid_inventory_header","missing_or_ambiguous_active_feed",
+   "unsupported_feed_format","invalid_product_columns","cross_advertiser_product",
+   "invalid_or_duplicate_product_id","source_registry_error"
+  ]);
+  return response({error:"private_pneus_import_unavailable",
+   reason:allowed.has(code)?code:"private_import_failed",
+   no_publication:true},503);
  }
 }
