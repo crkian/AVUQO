@@ -52,7 +52,7 @@ export function normalizeOffer(raw: RawSourceOffer): NormalizedOffer {
   // A title-based canonical key must never merge discs, sizes or pack counts.
   // Use exact advertiser + merchant SKU as the provisional product identity;
   // cross-merchant grouping can be added later using validated GTIN matches.
-  const skuScopedTooledUp=raw.merchantExternalId==="496"&&raw.category==="tools";
+  const skuScopedTooledUp=raw.merchantExternalId==="496";
   const identityText=skuScopedTooledUp
     ?`${raw.title} Tooled Up SKU ${raw.sourceRecordId}`
     :raw.brand?.trim() && raw.model?.trim()
