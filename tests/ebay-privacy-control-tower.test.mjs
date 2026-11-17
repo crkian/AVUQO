@@ -9,7 +9,8 @@ const missing=()=>({value:null,error:true});
 function signals({
  source={status:"paused",syncEnabled:false,error:false},
  receipts=present(),links=present(),queue=present(),
- token=false,endpoint=false
+ token=false,endpoint=false,
+ browse={environment:"sandbox",credentialsConfigured:false,productionFlag:false,campaignConfigured:false}
 }={}){
  const catalogue=Object.fromEntries([
   "offers","source_ingestion_items","price_history","product_matches"
@@ -21,7 +22,7 @@ function signals({
   EBAY_WORK_SURFACES.map(([key])=>[key,queue])
  );
  return {source,receipts,links,catalogue,workByState,workBySurface,
- verificationTokenConfigured:token,endpointUrlMatches:endpoint};
+ verificationTokenConfigured:token,endpointUrlMatches:endpoint,browse};
 }
 test("even perfect zero-count technical signals NEVER self-authorize eBay",()=>{
  const r=ebayPrivacyReadiness(signals({token:true,endpoint:true}));
@@ -83,7 +84,35 @@ test("all seven mandatory deletion surfaces remain visible with cautious wording
  assert.match(page,/EBAY_WORK_SURFACES\.map/);
  assert.match(page,/not an empty queue/);
  assert.match(page,/No automatic activation/);
- assert.match(page,/without direct stock supply/);
+ assert.match(page,/separately authorised commerce integration/);
  const retailers=read("app/control-centre/retailers/page.tsx");
  assert.match(retailers,/href="\/control-centre\/ebay-privacy"/);
+});
+
+test("Control Tower never treats zero counts or a Browse flag as operational approval",()=>{
+ const productionBrowse={environment:"production",credentialsConfigured:true,
+  productionFlag:true,campaignConfigured:true};
+ const zero=ebayPrivacyReadiness(signals({token:true,endpoint:true,browse:productionBrowse}));
+ assert.equal(zero.browseConfigurationPresent,true);
+ assert.equal(zero.queueAggregateComplete,false);
+ assert.equal(zero.registrationReady,false);
+ assert.equal(zero.completionAuthorised,false);
+ const withReceipt=signals({token:true,endpoint:true,browse:productionBrowse,receipts:present(1),queue:present(1)});
+ const aligned=ebayPrivacyReadiness(withReceipt);
+ assert.equal(aligned.queueAggregateComplete,true);
+ assert.equal(aligned.registrationReady,false);
+ assert.equal(aligned.completionAuthorised,false);
+ withReceipt.workBySurface.external_processors=missing();
+ assert.equal(ebayPrivacyReadiness(withReceipt).queueAggregateComplete,false);
+});
+test("owner eBay dashboard shows actual Browse and privacy gates without private key values",()=>{
+ const page=read("app/control-centre/ebay-privacy/page.tsx");
+ const server=read("lib/ebay/privacy-control-tower-server.ts");
+ assert.match(server,/ebayPilotReadiness/);
+ assert.match(page,/eBay production buying and notification readiness/);
+ assert.match(page,/readiness\.queueAggregateComplete/);
+ assert.match(page,/readiness\.browseConfigurationPresent/);
+ assert.match(page,/NOT AUTHORISED/);
+ assert.match(page,/affiliate referrals and future separately authorised embedded checkout or dropshipping/);
+ assert.doesNotMatch(page,/EBAY_CLIENT_SECRET|EBAY_DELETION_HMAC_SECRET/);
 });
