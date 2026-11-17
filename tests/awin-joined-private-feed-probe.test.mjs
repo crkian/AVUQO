@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
-import {probeAwinEnhancedFeed} from "../lib/connectors/awin.ts";
+import {probeAwinEnhancedFeed} from "../lib/awin/private-feed-probe.ts";
 
 const code=path=>readFileSync(new URL("../"+path,import.meta.url),"utf8");
 test("Awin live probe rejects an invalid ID and missing credentials before any request",async()=>{
@@ -63,6 +63,6 @@ test("Awin probe is owner authenticated, joined-only, does not mutate, and never
  assert.match(page,/Check live feed access \(no import\)/);
  assert.doesNotMatch(a,/\.update\(|\.insert\(|\.upsert\(|record_awin_owner_release/);
  assert.doesNotMatch(a,/AWIN_ACCESS_TOKEN|console\.log/);
- const connector=code("lib/connectors/awin.ts");
- assert.match(connector,/return offers\.length>0\?"available":"empty"/);
+ const connector=code("lib/awin/private-feed-probe.ts");
+ assert.match(connector,/return found\?"available":"empty"/);
 });
