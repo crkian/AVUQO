@@ -3,6 +3,9 @@ import {useState} from "react";
 const tasks=[
  ["petlibro","Petlibro"],["mozillion","Mozillion"],
  ["cadbury","Cadbury Gifts"],["craftbuddy","Craft Buddy"],
+ ["playpress_google","PlayPress Toys · Google"],["playpress_standard","PlayPress Toys · Awin"],
+ ["petlibro_sale","Petlibro · Sale feed"],["petlibro_hero","Petlibro · Hero SKUs"],
+ ["petlibro_standard","Petlibro · Standard feed"],
  ["tooled_up","Tooled Up master"],["canonical","Fresh canonical offers"]
 ] as const;
 export default function OwnerAwinRunNow(){
