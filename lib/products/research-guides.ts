@@ -88,7 +88,7 @@ export const RESEARCH_PRODUCT_GUIDES:readonly ResearchProductGuide[]=[
  },
  {
   slug:"apple-iphone-17",
-  title:"Apple iPhone 17",
+  title:"Apple iPhone 17 smartphone",
   brand:"Apple",department:"tech",
   teaser:"Start with the current Apple iPhone 17 range, then match storage, colour, network and exact UK variant.",
   modelNote:"Apple's official UK iPhone 17 page identifies the model. This guide does not assert that any retailer currently stocks a particular configuration.",
