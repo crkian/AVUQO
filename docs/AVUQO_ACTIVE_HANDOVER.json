@@ -1773,5 +1773,20 @@
       "Independent reviewed production DDL release authorisation",
       "Storage/backup/retention/processor and signed provider notification acceptance"
     ]
+  },
+  "ebay_seven_function_hash_attestation_20261117": {
+    "status": "draft_review_live_readonly_evidence",
+    "report": "docs/AVUQO_EBAY_SEVEN_FUNCTION_HASH_ATTESTATION_2026-11-17.md",
+    "sql": "scripts/ebay-seven-foundation-body-hash-readonly.sql",
+    "test": "tests/ebay-seven-foundation-body-hash.test.mjs",
+    "source": "four existing SQL migration candidate files",
+    "verified_date": "2026-11-17",
+    "production_body_hashes_matched": 7,
+    "production_body_hashes_expected": 7,
+    "production_migration_authorised": false,
+    "actual_live_ddl_applied": false,
+    "ebay": "paused; deletion POST 503",
+    "awin": "unchanged",
+    "next": "whole-object attestation then faithful isolated nine-only replay; explicit production DDL authorisation separately required"
   }
 }
