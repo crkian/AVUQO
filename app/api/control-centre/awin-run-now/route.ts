@@ -28,6 +28,7 @@ const OUTPUT_KEYS=["status","error","reason","failure_kind","diagnostic_stage","
  "eligible","importer_status","importer_error","upstream_http_status",
  "canonical_accepted","canonical_rejected",
  "critical_issues","compressed_bytes","actual_rows","duplicate_product_ids",
+ "schema_status","schema_reason","schema_delimiter",
  "invalid_price_rows","unverified_affiliate_links","private_only","no_publication"] as const;
 
 async function sanitized(response:Promise<Response>){
@@ -52,6 +53,10 @@ async function sanitized(response:Promise<Response>){
  // Importer preflight already redacts malformed header names. Expose only
  // safe column identifiers for owner-only schema debugging (Cadbury/Google),
  // never row contents, URLs, tokens, or source response bodies.
+ if(Array.isArray(src.schema_fields)){
+  safe.schema_fields=src.schema_fields.filter((x:unknown):x is string=>
+   typeof x==="string"&&["identity","title","price","link","currency","availability"].includes(x));
+ }
  if(Array.isArray(src.column_names)){
   safe.column_names=src.column_names.filter((x:unknown):x is string=>
    typeof x==="string"&&/^[A-Za-z][A-Za-z0-9_ -]{0,63}$/.test(x)).slice(0,120);
