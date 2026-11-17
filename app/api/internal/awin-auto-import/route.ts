@@ -7,6 +7,7 @@ import {csvRowsFromChunks} from "../../../../lib/feed-imports/stream-csv";
 import {identifyFormat,prepareGeneralBatch} from "../../../../lib/feed-imports/general-awin-large";
 import {approvedAwinDownloadUrl} from "../../../../lib/awin/approved-feed-url";
 import {normalizePilotAwinFeed} from "../../../../lib/awin/pilot-feed-normalizer";
+import {profileAwinHeader} from "../../../../lib/awin/feed-schema-profile.mjs";
 import {mozillionPhysicalFeedAllowed} from "../../../../lib/awin/mozillion-feed-types";
 import {evaluateSourceControls,sourceIngestionFailures} from "../../../../lib/pipeline/source-readiness";
 import {stageLiveAwinCanonicalCandidates} from "../../../../lib/awin/private-live-canonical-stage";
@@ -279,6 +280,7 @@ export async function POST(request:NextRequest){
   const safeHeaderNames=header?header.slice(0,120).map(name=>
    /^[A-Za-z][A-Za-z0-9_ -]{0,63}$/.test(name)?name:"[redacted]"
   ):undefined;
+  const schemaProfile=profileAwinHeader(csv);
   const message=e instanceof Error?e.message:"";
   const code=message.startsWith("Unsupported feed format")?"unsupported_columns":
    message==="Incomplete quoted CSV field"?"unterminated_csv_quote":
@@ -296,6 +298,9 @@ export async function POST(request:NextRequest){
    reason:code,columns:header?.length??0,column_names:safeHeaderNames,
    diagnostic_stage:parseStage,detected_delimiter:detectedDelimiter,
    parsed_rows:rows.length,
+   schema_status:schemaProfile.status,schema_reason:schemaProfile.reason,
+   schema_fields:schemaProfile.fields,
+   schema_delimiter:schemaProfile.delimiter,
    no_database_writes:true,no_publication:true},422);
  }
  const name=programme.programme_name;
@@ -303,6 +308,9 @@ export async function POST(request:NextRequest){
  if(preflight)return reply({status:"preflight_passed",advertiser_id:advertiser,feed_id:feed,
   source_format:identifyFormat(header!),columns:header!.length,source_columns:rawColumnCount,rows:rows.length,
   currency_source:currencySource,source_currency_explicit:currencySource==="feed_column",
+  schema_status:profileAwinHeader(csv).status,
+  schema_fields:profileAwinHeader(csv).fields,
+  schema_delimiter:profileAwinHeader(csv).delimiter,
   sample_headers:header!.filter(x=>/^(merchant_id|merchant_product_id|product_name|search_price|currency|stock_status|aw_deep_link|ean|gtin|mpn|advertiser_id|id|title|price|availability)$/i.test(x)).slice(0,20),
   private_only:true,no_database_writes:true,no_publication:true});
  // Recheck after the potentially slow provider download and full-file validation.
