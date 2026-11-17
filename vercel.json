@@ -50,7 +50,7 @@
     },
     {
       "path": "/api/internal/awin-tooled-up-daily-validation",
-      "schedule": "25 */4 * * *"
+      "schedule": "10 */4 * * *"
     },
     {
       "path": "/api/internal/awin-approved-refresh",
@@ -74,7 +74,7 @@
     },
     {
       "path": "/api/internal/awin-tooled-up-live-cohort",
-      "schedule": "35 */4 * * *"
+      "schedule": "14 */4 * * *"
     }
   ],
   "ignoreCommand": "git diff --quiet HEAD^ HEAD -- . ':(exclude)docs/**' ':(exclude)*.md' ':(exclude).github/**'"
