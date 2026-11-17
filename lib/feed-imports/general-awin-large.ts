@@ -1,4 +1,5 @@
 import {collectAwinImages,selectAwinPrimaryImage} from "../awin/collect-images.mjs";
+import {normalizeAwinAvailability} from "../awin/stock-availability.mjs";
 /** Strict private Awin feed dialect detection; never guess an unsupported schema. */
 export type RawRow=Record<string,string>;
 export type Format="awin-csv"|"google-retail";
@@ -46,7 +47,8 @@ export function prepareGeneralBatch(merchant:string,feedId:string,header:string[
   const {currency,price}=parsePrice(get(r,format==="google-retail"?"price":"search_price"),format,get(r,"currency"));
   const tracking=get(r,"aw_deep_link"),verified=ownTracking(tracking,merchant);
   // Missing stock is UNKNOWN, never silently assumed in stock.
-  const availability=get(r,format==="google-retail"?"availability":"stock_status");
+  const observedAvailability=normalizeAwinAvailability(r,format);
+  const availability=observedAvailability.value;
   const reasons:string[]=[];
   const serviceOrContract=serviceAdvertisers.has(merchant)||serviceFeeds.has(feedId);
   if(serviceOrContract)reasons.push("service_contract_adapter_pending");
@@ -70,7 +72,8 @@ export function prepareGeneralBatch(merchant:string,feedId:string,header:string[
     source_format:format,feed_id:feedId,
     manufacturer_brand:brand.slice(0,250)||null,manufacturer_brand_source:"retailer_supplied_unverified",
     merchant_category_path:get(r,"merchant_product_category_path","product_type")||null,
-    availability:availability||null,model:model||null,ean:ean||null,mpn:mpn||null,
+    availability:availability||null,availability_source:observedAvailability.source,
+    model:model||null,ean:ean||null,mpn:mpn||null,
     gtin:get(r,"product_GTIN","gtin")||null,
     source_updated_at:get(r,"last_updated")||null,
     tracking_link_verified:verified,tracking_link_present:Boolean(tracking),
