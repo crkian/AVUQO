@@ -76,7 +76,11 @@ export function normalizePilotAwinFeed(advertiser:string,feedId:string,header:st
   return {header:normalizedHeader,rows:normalizedRows,
    currencySource:"cadbury_uk_programme_gbp" as const};
  }
- if(advertiser!=="77952"||feedId!=="103580"){
+ // Additional accepted Petlibro feeds may share the established UK
+ // standard schema. Inference is private-only, for an exact observed schema
+ // and exact retailer/feed IDs. Explicit currency values are never overwritten.
+ if(advertiser!=="77952"||
+    !["103580","109051","109652","119210"].includes(feedId)){
   identifyFormat(header);
   return {header,rows,currencySource:"feed_column" as const};
  }
@@ -93,8 +97,10 @@ export function normalizePilotAwinFeed(advertiser:string,feedId:string,header:st
  // field mappings or change a currency explicitly supplied by the source.
  if(header.length===required.length&&required.every(field=>header.includes(field))){
   const merchantIndex=header.indexOf("merchant_id");
-  if(rows.some(row=>row.length!==header.length||row[merchantIndex]?.trim()!=="77952"))
-   throw Error("petlibro_advertiser_mismatch");
+  const feedIndex=header.indexOf("data_feed_id");
+  if(rows.some(row=>row.length!==header.length||
+    row[merchantIndex]?.trim()!=="77952"||row[feedIndex]?.trim()!==feedId))
+   throw Error("petlibro_feed_identity_mismatch");
   const normalizedHeader=[...header,"currency"];
   const normalizedRows=rows.map(row=>[...row,"GBP"]);
   identifyFormat(normalizedHeader);
