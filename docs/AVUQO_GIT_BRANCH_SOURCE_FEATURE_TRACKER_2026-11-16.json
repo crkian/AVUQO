@@ -3193,5 +3193,20 @@
     "live_product_status": "0 canonical Awin offers at last verified read; full 21 accepted programme inventory visible, automatic first release gated by source rights, current GBP/stock and own links",
     "credential_evidence": "Actual successful metadata-only Awin feed inventory persisted separately; does not authorize product publishing",
     "still_needed": "Provider live product feed run, product-specific validation, per-advertiser permission reconciliation, source activation with evidence, verified public pages/links, stale withdrawal runtime test; full CI verification."
+  },
+  "latest_awin_verified_production_release": {
+    "date": "2026-11-17",
+    "deployment_id": "dpl_64D2dDNuQWqbCQbRgL8ZuCBoZGXt",
+    "application_sha": "3980ef280f7f67e1ba85ef895e8cbdd8450157c0",
+    "deployment_status": "READY production aliases www.avuqo.com and avuqo.com",
+    "vercel_check": "success",
+    "github_full_quality": "not independently verified",
+    "canonical_awin_offers": 0,
+    "approved_release_reviews": 0,
+    "live_exact_authenticated_feed_rechecks": 0,
+    "owner_permission": "granted, audited",
+    "accepted_awin_memberships": 21,
+    "new_automation": "bounded <=15 evidence-gated owner-authorized first releases, still dormant until source rights and current prices pass",
+    "next": "Execute fresh authenticated server-side Awin physical feed stage, verify tracked links GBP prices and canonical offer creation; reconcile source and per-merchant rights; validate publication and stale withdrawal end-to-end. No public Awin product is live."
   }
 }
