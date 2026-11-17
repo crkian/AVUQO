@@ -8,7 +8,7 @@ import {identifyFormat,prepareGeneralBatch} from "../../../../lib/feed-imports/g
 import {approvedAwinDownloadUrl} from "../../../../lib/awin/approved-feed-url";
 import {normalizePilotAwinFeed} from "../../../../lib/awin/pilot-feed-normalizer";
 import {mozillionPhysicalFeedAllowed} from "../../../../lib/awin/mozillion-feed-types";
-import {evaluateSourceControls} from "../../../../lib/pipeline/source-readiness";
+import {evaluateSourceControls,sourceIngestionFailures} from "../../../../lib/pipeline/source-readiness";
 
 
 /** Explicit physical-product pilot only. Never auto-fetch plan, parking, insurance,
@@ -104,11 +104,19 @@ export async function POST(request:NextRequest){
   return reply({error:"Feed not approved for physical-product auto import"},403);
  const db=createAdminClient();
  const {data:source,error:sourceError}=await db.from("sources")
-  .select("metadata,status,sync_enabled").eq("connector_key","awin").maybeSingle();
+  .select("metadata,status,sync_enabled,credential_status,connector_key,source_type").eq("connector_key","awin").maybeSingle();
  if(sourceError||!source||!joinedInSource(source.metadata,advertiser))
   return reply({error:"Joined advertiser verification failed"},403);
- if(source.status!=="paused"||source.sync_enabled!==false)
-  return reply({error:"All Awin private imports require the publication source to remain paused"},409);
+ // Private staging is valid while globally paused. After authorised activation,
+ // allow it to keep refreshing ONLY if the same source and advertiser evidence
+ // required by the canonical pipeline passes. Both paths remain PRIVATE ONLY.
+ const safelyPaused=source.status==="paused"&&source.sync_enabled===false;
+ const safelyActive=source.status==="active"&&source.sync_enabled===true&&
+  sourceIngestionFailures(source,{
+   advertiserId:advertiser,connectorConfigured:Boolean(key&&publisher)
+  }).length===0;
+ if(!safelyPaused&&!safelyActive)
+  return reply({error:"Awin source cannot safely stage this advertiser's private feed"},409);
  // A paused Awin source is intentional for private staging; the owner global
  // emergency stop and ingestion switch still govern all product-row writes.
  if(!preflight&&!(await privateStagingAllowed(db)))
