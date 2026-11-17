@@ -25,6 +25,7 @@ test("advanced tyres, service contracts, Tooled Up and known product adapters re
  assert.equal(recognizeAwinFeed(input("118401","109311")).kind,"contract_or_service");
  assert.equal(recognizeAwinFeed(input("496","89987")).kind,"large_retail");
  assert.equal(recognizeAwinFeed(input("77952","109051")).kind,"retail_physical");
+ assert.equal(recognizeAwinFeed(input("77952","109051")).schemaStatus,"needs_schema_probe");
 });
 test("recognition does not alter source controls or publish prices",()=>{
  const src=readFileSync("lib/awin/feed-recognition.ts","utf8");
