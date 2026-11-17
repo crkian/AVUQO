@@ -1,9 +1,8 @@
 import {NextRequest,NextResponse} from "next/server";
 import {createAdminClient} from "../../../../lib/supabase/admin";
-import {AWIN_PRIVATE_SNAPSHOT_BUCKET} from "../../../../lib/awin/private-snapshot";
 import {tooledUpPrivateAutomationAllowed} from "../../../../lib/awin/tooled-up-private-automation";
 import {recordPrivateCronAttempt} from "../../../../lib/awin/private-cron-recorder";
-import {newestRecentTooledUpSnapshot} from "../../../../lib/awin/tooled-up-recent-snapshot";
+import {latestTooledUpObservedDigest} from "../../../../lib/awin/tooled-up-observation";
 import {POST as validateSnapshot} from "../awin-snapshot-validate/route";
 
 /**
@@ -29,15 +28,11 @@ export async function GET(request:NextRequest){
  const db=createAdminClient();
  if(!(await tooledUpPrivateAutomationAllowed(db)))
   return reply({error:"Private snapshot controls prohibit validation"},423);
- const {data,error}=await db.storage.from(AWIN_PRIVATE_SNAPSHOT_BUCKET)
-  .list("awin/496/89987",{limit:100,offset:0,
-   sortBy:{column:"created_at",order:"desc"}});
- if(error)return reply({error:"Private snapshot inventory unavailable"},503);
- const recent=newestRecentTooledUpSnapshot(data);
- if(!recent)return reply({
-  status:"no_recent_private_snapshot",private_only:true,
-  no_product_import:true,no_publication:true
- });
+ // Storage created_at cannot be used as freshness proof for immutable
+ // content-addressed objects. Require the latest authenticated download receipt.
+ const recent=await latestTooledUpObservedDigest(db);
+ if(!recent)return reply({status:"no_recent_authenticated_feed_observation",
+  private_only:true,no_product_import:true,no_publication:true});
  const url=new URL("/api/internal/awin-snapshot-validate",request.url);
  return validateSnapshot(new NextRequest(url,{
   method:"POST",
