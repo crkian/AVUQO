@@ -1,3 +1,24 @@
+# 17 November 2026, 14:40 GMT · LATEST AUTHORITATIVE SCREENSHOT CORRECTION: 21 JOINED AND ACCEPTED
+
+**This update supersedes the 19-count in the older body below.** The owner supplied authenticated Awin publisher 3135746 directory screenshots showing **Your Advertisers (21)** across pages 1, 2 and 3. All 21 are listed in `public.affiliate_programs` with `metadata.owner_joined_accepted_attestation.membership_status=accepted`; 17 have recorded advertiser IDs, and four accepted programmes lack exact IDs. The two newly evidenced accepted merchants are **Simply MOT (UK)** and **Broadband Genie**; exact Awin advertiser IDs not visible in those screenshots and must not be guessed. Previously unmapped accepted programmes **Your Co-op Energy** and **BroadbandCoop & MobileCoop** remain accepted and ID mapping is still pending.
+
+**Critical separate tab:** screenshots show **Pending Invitations (4)**, NOT joined. Those are **World Businesses for Sale, WorldSIM, Lush Lobster Affiliate Program (UK), Willow Parking Ltd**. They are not counted among the 21, not accepted on current evidence and must NOT be made live or inserted as accepted programmes.
+
+**Proof and provenance:** user-shared 17 Nov 2026 Awin `Your Advertisers (21)` page 1, page 2 and page 3 screenshots; separately uploaded same-day `Pending Invitations (4)` screenshot. Captured owner attestation and reference in `public.sources.metadata.owner_portfolio_membership_attestation` plus merchant records in `public.affiliate_programs`. The Awin screen's green Link Status is an indicator of link health, not a fresh GBP price, image caching licence or first SKU release.
+
+**WHAT:** 21 accepted Awin advertiser programmes. **WHERE:** `public.affiliate_programs` canonical accepted membership; `public.sources` source-wide operational switch and 17 ID legacy roster; existing owner-only `/control-centre/awin-feed-updates` reads canonical evidence. **WHEN:** 17 Nov 2026 at approximately 14:40 GMT. **DONE:** added Simply MOT and Broadband Genie, amended source registry portfolio metadata to 21, preserved all previously accepted programmes, explicitly separated four invitations. **NOW:** 17 numeric advertiser IDs/4 unknown; don't invent identifiers. `affiliate_programs.status=pending` is an internal publication status and must not be presented as unaccepted Awin membership. **NEXT:** retrieve four advertiser IDs via authenticated Awin account, map live product/feed vs non-product referral routes, verify GBP price/availability/affiliate link per item, preserve product/image restrictions and tyre fitted-vs-tyre-only pricing; release first 3–10 verified products through existing public-offer approval gate; verify price refresh and withdrawal. Awin source still paused and zero public Awin offers on last live check. No credential, permission expiry, item price or owner first-release records were fabricated.
+
+## New accepted programmes, added to 19-row historic table
+
+| Programme | ID | Product feed in screenshot | Correct path |
+|---|---|---|---|
+| Simply MOT (UK) | Unknown | No | Approved service referral/deep-link plus accurate MOT service/booking scope, not fabricated SKU |
+| Broadband Genie | Unknown | No | Broadband comparison/referral; require full-term tariff and contract disclosures before any numerical live comparison |
+
+The 19-record table below is the **historical pre-14:40 snapshot**. Current canonical count is 21, not 19. The four invitations are entirely separate from both accepted portfolio and live product inventory.
+
+---
+
 # AVUQO · COMPLETE ACCEPTED AWIN PORTFOLIO + LIVE DATA HANDOVER
 
 **Observed and owner-attested 17 November 2026, Europe/London.** Replaces repeated generic permission requests. Covers **all 19 accepted programmes**, not merely six physical retailers.
