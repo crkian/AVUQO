@@ -514,6 +514,19 @@
   "audit_updates": [
     {
       "date_utc": "2026-11-17",
+      "type": "direct_main_awin_rights_gated_daily_approved_refresh_cron",
+      "path": "/api/internal/awin-approved-refresh",
+      "schedule_utc": "09:16",
+      "bounded_offers": 25,
+      "public_offers": 0,
+      "production_sql": false,
+      "source_activation": false,
+      "publication_rights_unchanged": true,
+      "production_verification": "pending",
+      "description": "17 November 2026 FINAL DIRECT-MAIN Awin automatic refresh gate: installed fixed 09:16 UTC Vercel Cron `/api/internal/awin-approved-refresh`, 25-row bounded execution of the EXISTING `runDealIntelligencePipeline` (Enhanced Awin connector only), not a new product feed downloader. Requires CRON_SECRET, global controls, Awin status=active, sync_enabled=true, credentials, current source/network/advertiser rights and valid GB permission evidence before any import writes. When paused/pending it returns no_import and produces zero product writes. Existing pipeline continues rechecking source and emergency controls for every row. Newly fetched, scored offers remain held until a FIRST owner release; previously published owner-approved unchanged-price/unchanged-product/merchant/affiliate-link GBP offers may renew automatically. Price change, stock loss, low score, revoked/expired rights or link change fails closed; public admission hides stale >48h Awin offers. Strict regression tests for renewal and Cron are wired into quality.yml, existing Cron count test adjusted to 14. All changes committed directly to main per owner instruction, no development branches or PRs. Live Supabase still Awin paused, credential_status not_configured, publication_permission and price evidence pending, 0 live Awin offers and 0 release reviews. This work does NOT verify first public products; production READY deployment and GitHub CI to be verified against exact main implementation commit. Next unavoidable launch condition is documenting real publisher+merchant permission, verified live Enhanced feed and current prices for exact advertiser, then owner release of the first 3–10 offers. This 09:16 job is NOT a complete general adapter for all joined Awin legacy/Google CSV feeds."
+    },
+    {
+      "date_utc": "2026-11-17",
       "type": "live_main_existing_approved_awin_price_and_stock_auto_renewal",
       "status": "committed_CI_and_production_pending_check",
       "no_branch": true,
