@@ -15,12 +15,12 @@
     "url": "https://www.avuqo.com",
     "project": "avuqo",
     "platform": "Vercel",
-    "ready_app_commit": "2ec9f1492cb471f15ff01008407103d1bd1aae81",
-    "ready_deployment": "dpl_6aaBhWJB573mEpMBXUFG9nSQxWBk",
+    "ready_app_commit": "30f735dff2f2cca0c4d767453768def43e7f21b4",
+    "ready_deployment": "dpl_HMrKxaLab7EpPB7AXLiGcwQUVpdY",
     "verified_http": 200,
     "status": "production_READY_PR271_verified_ebay_nine_only_synthetic_no_live_DB",
     "docs_only_ignore_build_note": "Documentation commits may advance Git main without changing running application SHA. Always recheck.",
-    "verification": "PRs #273/#274 merged, exact PR #274 app SHA 2ec9f149 deployed on Vercel production READY dpl_6aaBhWJB573mEpMBXUFG9nSQxWBk. Read-only four-foundation structural preflight 7 PASS 2 deliberate BLOCK and seven real source hashes match. No Supabase production migration."
+    "verification": "PR276 merged and Vercel production READY on exact main SHA 30f735df; native PostgreSQL, lint, build, secret scan passed; eBay/Awin paused; no production DB migrations."
   },
   "supabase": {
     "project_ref": "tfoukwcruaamrtgxzshh",
@@ -489,11 +489,11 @@
     "status": "docs/PROJECT_STATUS.md",
     "roadmap": "docs/ROADMAP.md",
     "last_verified_release": {
-      "pr": 274,
-      "app_commit": "2ec9f1492cb471f15ff01008407103d1bd1aae81",
-      "vercel_deployment": "dpl_6aaBhWJB573mEpMBXUFG9nSQxWBk",
+      "pr": 276,
+      "app_commit": "30f735dff2f2cca0c4d767453768def43e7f21b4",
+      "vercel_deployment": "dpl_HMrKxaLab7EpPB7AXLiGcwQUVpdY",
       "verification_date": "2026-11-17",
-      "checks": "lint/build/native Postgres/secret PASS",
+      "checks": "lint/build/native PostgreSQL/secret PASS",
       "database_change": false
     },
     "latest_unified_top": "## MASTER READ THIS FIRST · 17 November 2026"
@@ -1832,6 +1832,28 @@
       "reviewed installation",
       "legal/retention/provider processing and signed durable acceptance",
       "production Browse/EPN permissions and authorised published listings"
+    ]
+  },
+  "ebay_control_tower_release_20261117": {
+    "state": "merged_verified_production_READY",
+    "pr": 276,
+    "git_main_sha": "30f735dff2f2cca0c4d767453768def43e7f21b4",
+    "vercel_deployment": "dpl_HMrKxaLab7EpPB7AXLiGcwQUVpdY",
+    "tests": "lint/build/native PostgreSQL/secret scanning PASS",
+    "owner_path": "/control-centre/ebay-privacy",
+    "new": "conservative seven-surface aggregate queue/readiness and Browse EPN config flags, rights and checkout not falsely approved",
+    "ebay": "paused sync off callback 503; nine privacy migrations not installed",
+    "awin": "paused sync off unchanged",
+    "production_database_mutations": 0,
+    "provider_registration": false,
+    "live_products": false,
+    "next": [
+      "whole object equivalence",
+      "faithful 9-only clone rehearsal",
+      "reviewed migrations",
+      "lawful seven-surface erasure/retention",
+      "signed durable notification acceptance and portal registration",
+      "Browse/EPN licences, authorised product release"
     ]
   }
 }
