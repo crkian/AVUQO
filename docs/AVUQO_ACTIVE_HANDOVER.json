@@ -514,6 +514,15 @@
   "audit_updates": [
     {
       "date_utc": "2026-11-17",
+      "type": "direct_main_awin_public_freshness_and_stock_automatic_suppression",
+      "commit_stage": "code_committed_CI_deployment_pending_verification",
+      "no_branch": true,
+      "public_offers": 0,
+      "production_db_writes": false,
+      "description": "17 November 2026 DIRECT LIVE MAIN RELEASE: implemented automatic no-write public Awin stale/stock suppression in lib/products/public-catalog.ts. For Awin only, last_seen_at must be within 48 hours (previous public filter allowed 7 days) and stock_status must explicitly be in_stock or low_stock; otherwise formerly approved offer is automatically hidden at admission time. Existing per-offer owner review, exact price/score evidence, merchant rights, source/global stop and safe deep-link checks remain unchanged. Added tests/awin-public-stale-stock-withdrawal.test.mjs and main CI quality step. This is visibility withdrawal, NOT physical deletion, automatic price ingestion or rights approval. Production verification and CI need to match final main commit before asserting release ready. Owner requires direct main only, no branches or PRs, with all operational handovers updated in the same deployment chain. Latest DB Awin: paused, no sync, zero public offers. First real priced 3-10 Awin release remains the priority."
+    },
+    {
+      "date_utc": "2026-11-17",
       "type": "owner_live_main_no_new_branch_release_policy",
       "source": "explicit_owner_direction",
       "main_commit_baseline": "7a2c918d0f44d9c3094c0efca363d83f87fedf1f",
