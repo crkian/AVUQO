@@ -5,7 +5,11 @@
 const SUCCESS_CODES=new Set([
  "private_review","already_staged","disabled",
  "private_snapshot_stored_verified","snapshot_already_present_verified",
- "private_validation_recorded","already_validated","no_recent_private_snapshot"
+ "private_validation_recorded","already_validated","no_recent_private_snapshot",
+ "tooled_up_exact_cohort_checked","no_exact_current_matches",
+ "no_stocked_candidates_in_cohort","fresh_authenticated_feed_observation_required",
+ "full_stream_validation_failed","snapshot_read_unavailable",
+ "snapshot_stream_or_schema_unavailable","private_batch_recheck_failed"
 ]);
 const FAILURES:Record<string,string>={
  "Awin feed credentials not configured":"credentials",

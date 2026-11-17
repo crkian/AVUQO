@@ -10,6 +10,7 @@ import {collectAwinImages,selectAwinPrimaryImage} from "../../../../lib/awin/col
 import {normalizeAwinAvailability} from "../../../../lib/awin/stock-availability.mjs";
 import {stageLiveAwinCanonicalCandidates} from "../../../../lib/awin/private-live-canonical-stage";
 import {autoReleaseEligibleAwinOffers} from "../../../../lib/awin/auto-first-publication";
+import {recordPrivateCronAttempt} from "../../../../lib/awin/private-cron-recorder";
 
 export const maxDuration=300;
 const reply=(data:unknown,status=200)=>NextResponse.json(data,{status,headers:{"Cache-Control":"private, no-store"}});
@@ -29,6 +30,14 @@ const meta=(x:unknown):Record<string,unknown>=>x&&typeof x==="object"&&!Array.is
  * storefront, never described as an explicit feed currency field.
  */
 export async function GET(request:NextRequest){
+ const secret=process.env.CRON_SECRET;
+ if(!secret||secret.length<16||request.headers.get("authorization")!==`Bearer ${secret}`)
+  return reply({error:"Unauthorized"},401);
+ if(new URL(request.url).search)
+  return reply({error:"No snapshot, SKU, feed or offset override supported"},400);
+ return recordPrivateCronAttempt("tooled_up_cohort",()=>runCohort(request));
+}
+async function runCohort(request:NextRequest){
  const secret=process.env.CRON_SECRET;
  if(!secret||secret.length<16||request.headers.get("authorization")!==`Bearer ${secret}`)
   return reply({error:"Unauthorized"},401);
@@ -70,7 +79,9 @@ export async function GET(request:NextRequest){
  const candidates:Candidate[]=[];
  let rowNumber=0,visited=0;
  const windows=Math.max(1,Math.ceil(validation.actual_rows/MAX_SCANNED));
- const cohortStart=(Math.floor(now/(15*60_000))%windows)*MAX_SCANNED;
+ // Five-minute slots provide three distinct source windows per authenticated
+ // 15-minute download, without repeatedly retrying the same cohort.
+ const cohortStart=(Math.floor(now/(5*60_000))%windows)*MAX_SCANNED;
  try{
   const response=await fetch(url,{cache:"no-store",redirect:"error",signal:AbortSignal.timeout(155000)});
   if(!response.ok||!response.body)throw Error("snapshot_unavailable");

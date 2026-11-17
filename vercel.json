@@ -74,7 +74,7 @@
     },
     {
       "path": "/api/internal/awin-tooled-up-live-cohort",
-      "schedule": "8,23,38,53 * * * *"
+      "schedule": "3,8,13,18,23,28,33,38,43,48,53,58 * * * *"
     },
     {
       "path": "/api/internal/awin-automatic-first-release",
