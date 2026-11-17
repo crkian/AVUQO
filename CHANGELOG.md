@@ -1,3 +1,7 @@
+## 17 November 2026 · Next Awin launch blocker: exact safe Cron diagnostics (PR #287 candidate)
+
+17 November 2026, after PR #286 production READY: read-only audit continues to show zero public Awin offers, Awin source paused, no newer private import than 14 Nov, and last four pilot Cron outcomes (Cadbury feed_validation HTTP 422; Craft Buddy product_download HTTP 502; Petlibro/Mozillion already_staged). PR #287 candidate safely categorises exact, allowlisted worker error reasons in the existing service-role-only Cron journal and signed-in owner diagnostics; unknown/provider-derived errors remain generic and no raw URLs, signed keys, products or feed bodies are persisted. Added regression tests for sanitization and no change to merchant permissions, public release, Awin currency rights, source activation or eBay. New codes apply to FUTURE runs only; earlier generic failures cannot be retroactively diagnosed.
+
 ## 17 November 2026 · Cadbury UK GBP private normalization candidate (PR #286)
 
 Live source audit: 74 active Awin feeds recorded at 06:17 UTC; Tooled Up private 84,240-row snapshot validated structurally but GBP and usage rights unverified. Cadbury private scheduled feed validation 422 and Craft Buddy download 502. Private Cadbury 736/48599 feed now conditionally normalizes a missing currency column to inferred GBP only for matching advertiser/feed rows. Public source remains paused; no product release or rights approval.
