@@ -73,13 +73,12 @@ export default async function ToolsPage(){
     <p className={styles.disclosure}>These are verified supplier product listings, <strong>not AVUQO-scored deals</strong>. Prices are in GBP for the product alone; delivery, any options and final availability must be checked with Tooled Up before purchase. Links are affiliate links and may earn AVUQO a commission.</p>
     <section className={styles.grid} aria-label="Current supplier product listings">
      {entries.map(product=><article className={styles.card} key={product.sku}>
-      <div className={styles.photo}>
-       {/* The supplied image is an authorised original feed URL, not a substitute. */}
+      <Link href={`/tools/${encodeURIComponent(product.sku)}`} className={styles.photo} aria-label={`View ${product.title} product details on AVUQO`}>
        <img src={product.image_url} alt={product.title} loading="lazy" referrerPolicy="no-referrer"/>
-      </div>
+      </Link>
       <div className={styles.body}>
        <span className={styles.category}>{product.category_name??"Tools & DIY"} · Tooled Up</span>
-       <h2>{product.title}</h2>
+       <h2><Link href={`/tools/${encodeURIComponent(product.sku)}`} className={styles.productLink}>{product.title}</Link></h2>
        <p className={styles.sku}>Supplier SKU {product.sku}</p>
        {productGallery(product.images,product.image_url).length>0&&
         <details className={styles.gallery}>
@@ -95,6 +94,7 @@ export default async function ToolsPage(){
         </details>}
        <strong className={styles.price}>{money(Number(product.price))}</strong>
        <p className={styles.delivery}>Product price · delivery calculated by retailer</p>
+       <Link className={styles.details} href={`/tools/${encodeURIComponent(product.sku)}`}>See product details and photos</Link>
        <a className={styles.visit} href={product.affiliate_url} target="_blank"
          rel="sponsored nofollow noopener noreferrer">View at Tooled Up <span aria-hidden="true">↗</span></a>
       </div>
