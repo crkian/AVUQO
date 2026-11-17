@@ -4,6 +4,7 @@ import {tooledUpPrivateAutomationAllowed} from "../../../../lib/awin/tooled-up-p
 import {AWIN_PRIVATE_SNAPSHOT_BUCKET,privateAwinSnapshotKey} from "../../../../lib/awin/private-snapshot";
 import {validateTooledUpGzipStream} from "../../../../lib/awin/tooled-up-full-stream-validator";
 import {privateTooledUpValidationRow} from "../../../../lib/awin/private-validation-report";
+import {latestTooledUpObservedDigest} from "../../../../lib/awin/tooled-up-observation";
 
 export const maxDuration=300;
 const send=(v:unknown,status=200)=>NextResponse.json(v,{status,headers:{"Cache-Control":"private, no-store"}});
@@ -41,12 +42,18 @@ export async function POST(request:NextRequest){
  const db=createAdminClient();
  if(!(await tooledUpPrivateAutomationAllowed(db)))
   return send({error:"Private validation blocked by source/stop controls"},423);
+ // A current Awin fetch, followed by SHA-256 Storage read-back, is required
+ // even if the immutable object and its prior full validation already exist.
+ const observed=await latestTooledUpObservedDigest(db);
+ if(!observed||observed.snapshot_sha256!==digest)
+  return send({status:"fresh_authenticated_feed_observation_required",
+   private_only:true,no_publication:true},409);
  const key=privateAwinSnapshotKey("496","89987",digest,"csv.gz");
  const {data:prior,error:priorError}=await db.from("awin_private_snapshot_validations")
   .select("snapshot_sha256,actual_rows,compressed_bytes,expanded_bytes,critical_issues,duplicate_product_ids,invalid_price_rows,unverified_affiliate_links")
   .eq("advertiser_id","496").eq("feed_id","89987").eq("snapshot_sha256",digest).maybeSingle();
  if(priorError)return send({error:"Private validation register unavailable"},503);
- if(prior)return send({status:"already_validated",...safeReport(prior)});
+ if(prior)return send({status:"previous_integrity_validation_reused_on_fresh_feed_observation",...safeReport(prior),fresh_observation_recorded:true});
  // Generate a short-lived, private signed read URL only inside the server.
  // Never return, log, persist or redirect to this signed URL.
  const {data:signed,error:signedError}=await db.storage
