@@ -1,3 +1,4 @@
+import {collectAwinImages,selectAwinPrimaryImage} from "../awin/collect-images.mjs";
 /** Strict private Awin feed dialect detection; never guess an unsupported schema. */
 export type RawRow=Record<string,string>;
 export type Format="awin-csv"|"google-retail";
@@ -57,7 +58,8 @@ export function prepareGeneralBatch(merchant:string,feedId:string,header:string[
   if(title.toLowerCase().includes("shipping protection"))reasons.push("non_product_shipping_protection");
   const brand=get(r,format==="google-retail"?"brand":"brand_name");
   const category=get(r,format==="google-retail"?"product_type":"category_name","google_product_category");
-  const image=safeHttps(get(r,format==="google-retail"?"image_link":"merchant_image_url","aw_image_url"));
+  const images=collectAwinImages(r,feedId);
+  const image=selectAwinPrimaryImage(images)?.url??null;
   const ean=get(r,"ean","gtin"),mpn=get(r,"mpn"),model=get(r,"model_number","product_model");
   return {
    merchant_id:merchant,merchant_product_id:productId,
@@ -76,6 +78,9 @@ export function prepareGeneralBatch(merchant:string,feedId:string,header:string[
     // canonical offer bridge; never store signed feed-download credentials.
     verified_awin_deep_link:verified?safeHttps(tracking):null,
     image_present:Boolean(image),source_image_rights_confirmed:false,
+    // Private provenance only: never inferred to permit public display.
+    supplied_image_gallery:images,
+    image_usage_status:"awaiting_advertiser_terms_verification",
     canonical_category_approved:false,category_classification_status:"needs_review",
     permission_status:"unverified",price_observation_kind:"private_import",
     listing_kind:serviceOrContract?"service_or_contract":"physical_product",
