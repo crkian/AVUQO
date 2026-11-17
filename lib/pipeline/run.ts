@@ -204,6 +204,22 @@ async function ensureProduct(
   // same-title products. Do not propagate those historical cross-SKU matches.
   // Preserve identifiers in ingestion evidence for later verified GTIN cleanup.
   const skuScopedTools=offer.merchantExternalId==="496";
+  // Identity confidence is derived from an exact authenticated source SKU,
+  // never from a broad shared title or a contaminated historical GTIN.
+  // The verified private feed adapter supplies these provenance fields.
+  const record=offer.raw&&typeof offer.raw==="object"&&!Array.isArray(offer.raw)
+    ?offer.raw as Record<string,unknown>:{};
+  const observed=typeof record.live_feed_verified_at==="string"
+    ?Date.parse(record.live_feed_verified_at):NaN;
+  const exactLiveToolIdentity=skuScopedTools&&
+    typeof record.merchant_product_id==="string"&&
+    offer.sourceRecordId==="496:"+record.merchant_product_id&&
+    typeof record.live_feed_digest==="string"&&
+    /^[a-f0-9]{64}$/.test(record.live_feed_digest)&&
+    Number.isFinite(observed)&&observed<=Date.now()+120000&&
+    Date.now()-observed<15*60_000&&
+    record.source_image_rights_confirmed===true&&
+    offer.currency==="GBP"&&offer.affiliateUrl?.startsWith("https://www.awin1.com/pclick.php?");
   let productId = skuScopedTools?null:await findProductByIdentifier(supabase, offer);
   let matchMethod = "identifier";
   let matchConfidence = 99;
@@ -218,7 +234,7 @@ async function ensureProduct(
     if (error) throw error;
     productId = data?.id ?? null;
     matchMethod = "canonical_key";
-    matchConfidence = offer.brand && offer.model ? 94 : 82;
+    matchConfidence = exactLiveToolIdentity ? 94 : offer.brand && offer.model ? 94 : 82;
   }
 
   if (!productId) {
@@ -244,7 +260,7 @@ async function ensureProduct(
     if (error) throw error;
     productId = data.id as string;
     matchMethod = offer.identifiers.length ? "new_identifier_product" : "new_canonical_product";
-    matchConfidence = offer.identifiers.length ? 92 : offer.brand && offer.model ? 86 : 76;
+    matchConfidence = exactLiveToolIdentity ? 92 : offer.identifiers.length ? 92 : offer.brand && offer.model ? 86 : 76;
     created = true;
   }
 
@@ -269,6 +285,9 @@ async function ensureProduct(
       status: matchConfidence >= 85 ? "auto_matched" : "candidate",
       evidence: {
         canonical_key: offer.canonicalKey,
+        identity_basis:exactLiveToolIdentity?"fresh_authenticated_merchant_scoped_sku":
+          "existing_identifier_or_canonical_key",
+        merchant_sku:exactLiveToolIdentity?record.merchant_product_id:null,
         identifiers: offer.identifiers,
         brand: offer.brand ?? null,
         model: offer.model ?? null,
