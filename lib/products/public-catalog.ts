@@ -90,6 +90,7 @@ export async function verifiedOffers(options:{productId?:string;offerId?:string;
   }));
   const acceptedAdvertisers=new Set((programmeRows??[]).filter(p=>
    p.region==="GB"&&metadata(metadata(p.metadata).owner_joined_accepted_attestation).membership_status==="accepted"&&
+   metadata(p.metadata).publication_approved===true&&
    typeof p.external_account_id==="string"&&/^\d{2,12}$/.test(p.external_account_id)
   ).map(p=>p.external_account_id as string));
   // Awin requires a separate, owner-only per-offer release record in addition
@@ -143,7 +144,12 @@ export async function verifiedOffers(options:{productId?:string;offerId?:string;
    if(offer.product_id!==d.product_id||!(Number(d.current_price)>0)||!Number.isFinite(Number(d.avuqo_score)))return [];
    const rights=metadata(source.metadata);
    const imageAllowed=rights.image_rights_confirmed===true;
-   return [{published:{...d,image_url:imageAllowed&&isHttps(d.image_url)?d.image_url:null},offer,source:{id:source.id,name:source.name,imageAllowed}} as PublicOffer];
+   // Awin feed price is a product price. Do not misrepresent unknown delivery
+   // charges as a verified delivered total, even when legacy DB total_price=price.
+   // A separate delivery-cost verification is required before showing a total.
+   const displayedOffer=source.connector_key==="awin"?{...offer,total_price:null}:offer;
+   return [{published:{...d,image_url:imageAllowed&&isHttps(d.image_url)?d.image_url:null},
+     offer:displayedOffer,source:{id:source.id,name:source.name,imageAllowed}} as PublicOffer];
   }).slice(0,limit);
  }catch{return [];}
 }
