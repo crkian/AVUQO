@@ -19,12 +19,29 @@ export default function FeedAuditForm(){
   }catch(e){setError(e instanceof Error?e.message:"Unable to inspect file");}
   finally{setLoading(false);}
  }
+ async function discoverLive(){
+  setLoading(true);setError("");setResult(null);
+  try{
+   const r=await fetch("/api/control-centre/awin-live-feed-list",{
+    method:"POST",cache:"no-store",credentials:"same-origin"
+   });
+   const j=await r.json();
+   if(!r.ok)throw new Error(j.error??"Unable to inspect live Awin feed list");
+   setResult(j);
+  }catch(e){setError(e instanceof Error?e.message:"Live Awin feed discovery failed");}
+  finally{setLoading(false);}
+ }
  const matrix=result?buildAwinFeedMatrix(result.feeds):null;
  const shown=result?.feeds.filter(f=>(merchant==="all"||f.advertiserId===merchant)&&(format==="all"||classifyFeedFormat(f.format)===format))??[];
  async function copySafeMatrix(){if(!result)return;try{await navigator.clipboard.writeText(redactedFeedMatrixCsv(shown));setCopyMessage("Copied redacted feed metadata. No download URLs or keys included.");}catch{setCopyMessage("Clipboard not available; use the visible feed matrix.");}}
  return <div style={{display:"grid",gap:18,maxWidth:1100}}>
+  <section style={{display:"grid",gap:11,padding:22,background:"#fff",border:"1px solid #d9c9e7",borderRadius:17}} aria-label="Automatic Awin inventory discovery">
+   <strong>Automatically discover joined advertiser feeds</strong>
+   <p style={{margin:0,color:"#6c6375",fontSize:13}}>Use the Awin datafeed key already stored in Vercel to inspect the current accessible feed list for all joined advertisers. No manual CSV, no product import, no credentials or signed URLs exposed.</p>
+   <button type="button" onClick={discoverLive} disabled={loading} style={{border:0,borderRadius:11,background:"#543c72",color:"white",padding:14,fontWeight:800,cursor:"pointer"}}>{loading?"Checking Awin…":"Discover available feeds automatically"}</button>
+  </section>
   <form action={inspect} style={{display:"grid",gap:11,padding:22,background:"#fff",border:"1px solid #e7e2ea",borderRadius:17}}>
-   <label htmlFor="awin-feed-list"><strong>Awin Product Feed List CSV</strong></label>
+   <label htmlFor="awin-feed-list"><strong>Manual CSV fallback (only if automatic discovery is unavailable)</strong></label>
    <p style={{margin:0,color:"#6c6375",fontSize:13}}>Upload the CSV from Awin to audit its available feeds. This screen never fetches the product URLs, stores the file, or returns signed links. Feed access and publishing remain disabled.</p>
    <input id="awin-feed-list" name="file" type="file" accept=".csv,text/csv" required disabled={loading}/>
    <button type="submit" disabled={loading} style={{border:0,borderRadius:11,background:"#543c72",color:"white",padding:14,fontWeight:800,cursor:"pointer"}}>{loading?"Checking safely…":"Inspect feed list privately"}</button>

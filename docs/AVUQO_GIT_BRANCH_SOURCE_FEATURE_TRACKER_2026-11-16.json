@@ -2708,5 +2708,34 @@
     "ebay": "paused, deletion POST HTTP503; nine privacy migrations pending, no production Browse/EPN release",
     "production_sql_mutations": 0,
     "additional_cost": "£0"
+  },
+  "awin_automatic_multi_advertiser_feed_discovery_20261117": {
+    "stage": "candidate_ci_pending, live provider inventory not yet verified",
+    "user_goal": "hands-off automated joined-advertiser discovery, compliant fresh affiliate offer imports, scoring and publication/withdrawal",
+    "provider": "Awin official Product Feed List Download, dedicated datafeed key separate from API token",
+    "owner_screenshots": "21 joined advertisers observed 17 Nov vs 16 historic IDs in AVUQO registry",
+    "source_of_truth": "Awin current feed inventory with per-feed formats and update metadata",
+    "files": [
+      "lib/awin/live-feed-inventory.ts",
+      "app/api/control-centre/awin-live-feed-list/route.ts",
+      "app/control-centre/feed-list-audit/FeedAuditForm.tsx",
+      "tests/awin-live-feed-inventory.test.mjs"
+    ],
+    "endpoint": "/api/control-centre/awin-live-feed-list owner-only POST metadata; no signed URLs or raw feed content returned",
+    "existing_automation": "/api/internal/awin-feed-check cron daily at 06:17 UTC; opt-in AWIN_FEED_MONITOR_ENABLED and CRON_SECRET; no new cron",
+    "source_activation": false,
+    "actual_current_priced_awin_offers": 0,
+    "first_target": "Cadbury Gifts Direct 736; enhanced-only prior probe unavailable, legacy feed possible",
+    "next": "Run live inventory discovery, reconcile five missing joined accounts, verify provider feed formats and permissions; preflight fresh small batch and release valid products via existing owner gates",
+    "ebay": {
+      "source": "paused",
+      "webhook": "503",
+      "remaining_privacy_migrations": 9,
+      "production_schema_replay": false,
+      "control_tower": "/control-centre/ebay-privacy",
+      "public_real_offers": 0
+    },
+    "production_db_mutations": 0,
+    "spend": "£0 extra"
   }
 }
