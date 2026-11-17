@@ -2358,5 +2358,13 @@
     "additional_spend": "£0",
     "docker": false,
     "direct_supply": false
+  },
+  "addendum_20261117": {
+    "status": "draft_not_live",
+    "owner_commerce_clarification": "affiliate referrals plus partner-authorised checkout and future supplier dropshipping/resale; do not imply currently operational",
+    "ebay_priority": "reconcile 4 installed foundation migrations, review nine-only additive migration, seven-surface privacy plus provider acceptance, then permitted Browse products",
+    "state": "eBay/Awin paused; no production mutation",
+    "source": "docs/AVUQO_COMMERCE_VISION_EBAY_FINISH_2026-11-17.md",
+    "original_branch_snapshot_preserved": true
   }
 }
