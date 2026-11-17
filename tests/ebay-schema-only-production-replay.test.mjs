@@ -36,7 +36,6 @@ test("Production schema-only runner fails closed before touching a database",()=
  '--no-owner --no-privileges',
  'scripts/ebay-seven-foundation-body-hash-readonly.sql',
  'scripts/ebay-nine-only-migration-manifest.txt',
- 'scripts/ebay-nine-only-migration-manifest.txt',
  '13|9|4|t','ON_ERROR_STOP=1 -1','ebay_receipt_queue_ready',
  'ebay_offer_02_unreviewed_cascade_gate',
  'EBAY_PRODUCTION_SCHEMA_ONLY_NINE_REPLAY_PASS'
