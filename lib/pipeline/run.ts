@@ -14,6 +14,28 @@ import { evaluateSourceControls, sourceIngestionFailures } from "./source-readin
 import { canRenewApprovedAwinOffer } from "../awin/approved-offer-renewal";
 
 const now = () => new Date().toISOString();
+/** Supabase JS throws plain PostgREST error objects, not Error instances.
+ * Keep diagnostic codes private and redact message values before writing logs.
+ */
+function safePipelineFailure(error:unknown):string{
+ if(error instanceof Error)return error.message.slice(0,300).replace(/https?:\/\/\S+/g,"[url-redacted]");
+ if(error&&typeof error==="object"&&!Array.isArray(error)){
+  const v=error as Record<string,unknown>;
+  const code=typeof v.code==="string"&&/^[A-Z0-9_]{2,20}$/.test(v.code)?v.code:"unknown";
+  const detail=typeof v.message==="string"?v.message:"";
+  const summary=/duplicate key value violates unique constraint/i.test(detail)?"duplicate_key":
+   /foreign key constraint/i.test(detail)?"foreign_key":
+   /null value in column/i.test(detail)?"null_column":
+   /invalid input syntax/i.test(detail)?"invalid_syntax":
+   /permission denied/i.test(detail)?"permission_denied":
+   /column .* does not exist/i.test(detail)?"missing_column":
+   /row level security/i.test(detail)?"rls_denied":
+   /check constraint/i.test(detail)?"check_constraint":"database_operation";
+  return "database_"+code+"_"+summary;
+ }
+ return "unknown_processing_error";
+}
+
 const numeric = (value: unknown, fallback = 0) => {
   const parsed = typeof value === "number" ? value : Number(value);
   return Number.isFinite(parsed) ? parsed : fallback;
@@ -719,7 +741,7 @@ export async function runDealIntelligencePipeline(
         summary.promotionCandidates += result.promotionCreated ? 1 : 0;
       } catch (error) {
         summary.rejected += 1;
-        const message = error instanceof Error ? error.message : "Unknown offer-processing error";
+        const message = safePipelineFailure(error);
         await writeIngestionItem(supabase, run.id, source.id, raw, null, "rejected", message);
         await event(
           supabase,
