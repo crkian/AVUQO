@@ -58,7 +58,7 @@ function diagnostic(base:string,data:Record<string,unknown>|null):string{
   if(typeof kind==="string"&&DOWNLOAD_REASONS.has(kind))
    return base+"_"+kind;
   // Provider HTTP status is categorised as upstream failure, not logged text.
-  if(typeof kind==="string"&&/^upstream_http_(?:4\\d\\d|5\\d\\d)$/.test(kind))
+  if(typeof kind==="string"&&/^upstream_http_(?:4\d\d|5\d\d)$/.test(kind))
    return base+"_upstream_http";
  }
  return base;
