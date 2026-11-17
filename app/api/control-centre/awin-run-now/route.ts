@@ -5,6 +5,7 @@ import {POST as importFeed} from "../../internal/awin-auto-import/route";
 import {POST as captureMaster} from "../../internal/awin-tooled-up-snapshot/route";
 import {POST as validateMaster} from "../../internal/awin-snapshot-validate/route";
 import {GET as bridgeFreshOffers} from "../../internal/awin-fresh-private-canonical-bridge/route";
+import {GET as discoverFeeds} from "../../internal/awin-feed-check/route";
 import {AWIN_PRIVATE_SNAPSHOT_BUCKET} from "../../../../lib/awin/private-snapshot";
 import {newestRecentTooledUpSnapshot} from "../../../../lib/awin/tooled-up-recent-snapshot";
 
@@ -19,6 +20,7 @@ const FEEDS:Record<string,readonly [string,string]>={
 const OUTPUT_KEYS=["status","error","reason","failure_kind","diagnostic_stage","detected_delimiter","columns","parsed_rows","rows","records","seen_total","held_total","no_first_publication",
  "advertiser_id","feed_id","currency_source","source_currency_explicit",
  "live_verified_rows","canonical_status","canonical_eligible",
+ "metadata_only","joined_feeds","changed_feeds","checked_advertisers","provider_endpoint",
  "canonical_accepted","canonical_rejected",
  "critical_issues","compressed_bytes","actual_rows","duplicate_product_ids",
  "invalid_price_rows","unverified_affiliate_links","private_only","no_publication"] as const;
@@ -82,14 +84,19 @@ export async function POST(request:NextRequest){
   const isPilot=!!pair&&(action==="preflight"||action==="stage");
   const isTooledUp=merchant==="tooled_up"&&(action==="snapshot"||action==="validate");
   const isBridge=task==="canonical_bridge";
-  if(!isPilot&&!isTooledUp&&!isBridge)return result({error:"Task not approved"},403);
-  if(action==="preflight"){
+  const isInventory=task==="all_feeds_check";
+  if(!isPilot&&!isTooledUp&&!isBridge&&!isInventory)return result({error:"Task not approved"},403);
+  if(action==="preflight"||isInventory){
    if(body.confirm!==undefined)return result({error:"Unexpected confirmation"},400);
   }else if(body.confirm!=="private-only-"+task)
    return result({error:"Explicit private confirmation required"},400);
   const secret=process.env.CRON_SECRET;
   if(!secret||secret.length<16)return result({error:"Importer unavailable"},503);
   const auth={authorization:`Bearer ${secret}`};
+  if(isInventory){
+   const url=new URL("/api/internal/awin-feed-check",request.url);
+   return sanitized(discoverFeeds(new NextRequest(url,{method:"GET",headers:auth})));
+  }
   if(isBridge){
    const url=new URL("/api/internal/awin-fresh-private-canonical-bridge",request.url);
    return sanitized(bridgeFreshOffers(new NextRequest(url,{method:"GET",headers:auth})));
