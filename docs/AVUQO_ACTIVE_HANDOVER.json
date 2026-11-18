@@ -3010,6 +3010,9 @@
     "currency_inferred": false,
     "source_permissions_changed": false,
     "public_offer_publication_changed": false,
-    "need_real_feed_verification": true
+    "need_real_feed_verification": true,
+    "pneus_private_job_key": "pneus_private_import",
+    "pneus_audit_migration": "20261118214000_pneus_private_cron_audit.sql",
+    "journal_status": "awaiting_pr_release_and_migration"
   }
 }
