@@ -4,7 +4,7 @@ import {NextRequest,NextResponse} from "next/server";
 import {createAdminClient} from "../../../../lib/supabase/admin";
 import {approvedAwinDownloadUrl} from "../../../../lib/awin/approved-feed-url";
 import {sourceIngestionFailures,evaluateSourceControls} from "../../../../lib/pipeline/source-readiness";
-import {identifyFormat,prepareGeneralBatch} from "../../../../lib/feed-imports/general-awin-large";
+import {preparePneusPrivateBatch,pneusPrivateHeader} from "../../../../lib/awin/pneus-online-private";
 import {csvRowsFromChunks} from "../../../../lib/feed-imports/stream-csv";
 import {PNEUS_ADVERTISER_ID,PNEUS_FEED_ID,PNEUS_NAME,PNEUS_PRIVATE_BUCKET,
  PNEUS_MAX_DOWNLOADED,PNEUS_MAX_EXPANDED,PNEUS_MAX_ROWS,PNEUS_BATCH_SIZE,
@@ -80,11 +80,11 @@ function delimiterOf(text:string){
 }
 async function inspect(text:string){
  const delimiter=delimiterOf(text),seen=new Set<string>();
- let header:string[]|null=null,count=0,review=0,excluded=0;
+ let header:string[]|null=null,count=0,review=0,excluded=0,sourceCurrencyExplicit=true;
  let batch:string[][]=[];
  async function validate(){
   if(!header||!batch.length)return;
-  const mapped=prepareGeneralBatch(PNEUS_ADVERTISER_ID,PNEUS_FEED_ID,header,batch);
+  const mapped=preparePneusPrivateBatch(PNEUS_ADVERTISER_ID,PNEUS_FEED_ID,header,batch);
   review+=mapped.filter(x=>x.status==="review").length;
   excluded+=mapped.length-mapped.filter(x=>x.status==="review").length;
   batch=[];
@@ -92,7 +92,7 @@ async function inspect(text:string){
  for await(const cells of parse(text,delimiter)){
   if(!header){
    header=cells.map(x=>x.trim());
-   if(identifyFormat(header)!=="awin-csv")throw Error("format_not_supported");
+   sourceCurrencyExplicit=pneusPrivateHeader(header).sourceCurrencyExplicit;
    continue;
   }
   validatePneusIdentity(header,cells,seen);
@@ -101,8 +101,10 @@ async function inspect(text:string){
   if(batch.length===PNEUS_BATCH_SIZE)await validate();
  }
  await validate();
- if(!header||count<1||review<1)throw Error("no_eligible_private_rows");
- return {count,review,excluded};
+ if(!header||count<1||(sourceCurrencyExplicit&&review<1))throw Error("no_eligible_private_rows");
+ // Unknown currency remains EXCLUDED and cannot enter a public offer feed.
+ if(!sourceCurrencyExplicit&&excluded!==count)throw Error("pneus_currency_quarantine_failed");
+ return {count,review,excluded,sourceCurrencyExplicit};
 }
 type Job={id:string;state:string;private_import_id:string;validated_total:number;
  snapshot_sha256:string;snapshot_object_key:string;next_sequence:number;committed_rows:number;
@@ -195,7 +197,8 @@ async function stageSnapshot(db:Admin,key:string,publisher:string){
   await db.from("feed_import_runs").delete().eq("id",run.id);
   throw Error("private_bulk_job_creation_failed");
  }
- return {status:"snapshot_ready",job_id:job.id,records:stats.count,review:stats.review,excluded:stats.excluded};
+ return {status:"snapshot_ready",job_id:job.id,records:stats.count,review:stats.review,excluded:stats.excluded,
+  source_currency_explicit:stats.sourceCurrencyExplicit,no_publication:true};
 }
 async function processSnapshot(db:Admin,job:Job,started:number){
  const {data:lease,error:claimError}=await db.rpc("claim_private_awin_bulk_job",
@@ -219,7 +222,7 @@ async function processSnapshot(db:Admin,job:Job,started:number){
   async function flush(){
    if(!header||!batch.length)return;
    if(await readySource(db)!=="ready")throw Error("permission_revoked");
-   const mapped=prepareGeneralBatch(PNEUS_ADVERTISER_ID,PNEUS_FEED_ID,header,batch);
+   const mapped=preparePneusPrivateBatch(PNEUS_ADVERTISER_ID,PNEUS_FEED_ID,header,batch);
    const batchDigest=createHash("sha256").update(JSON.stringify({
     headers:header,rows:batch,feedId:PNEUS_FEED_ID})).digest("hex");
    const {data,error}=await db.rpc("append_general_awin_feed_chunk",{
@@ -231,8 +234,7 @@ async function processSnapshot(db:Admin,job:Job,started:number){
    batch=[];
   }
   for await(const cells of parse(text,delimiter)){
-   if(!header){header=cells.map(c=>c.trim());if(identifyFormat(header)!=="awin-csv")
-     throw Error("snapshot_format_changed");continue;}
+   if(!header){header=cells.map(c=>c.trim());pneusPrivateHeader(header);continue;}
    if(cells.length!==header.length)throw Error("snapshot_invalid_columns");
    scanned++;
    if(scanned<=skip)continue;
@@ -312,7 +314,10 @@ export async function GET(request:NextRequest){
    "upstream_http","upstream_empty","upstream_too_large","feed_size_limit",
    "feed_expanded_limit","invalid_inventory_header","missing_or_ambiguous_active_feed",
    "unsupported_feed_format","invalid_product_columns","cross_advertiser_product",
-   "invalid_or_duplicate_product_id","source_registry_error"
+   "invalid_or_duplicate_product_id","source_registry_error",
+   "pneus_invalid_column_layout","pneus_required_fields_missing",
+   "pneus_unsupported_format","pneus_stock_evidence_missing",
+   "pneus_currency_quarantine_failed","pneus_bad_row_shape"
   ]);
   return response({error:"private_pneus_import_unavailable",
    reason:allowed.has(code)?code:"private_import_failed",
