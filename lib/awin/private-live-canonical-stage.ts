@@ -1,6 +1,6 @@
 import type {createAdminClient} from "../supabase/admin";
 import {ownAffiliateLink} from "./approved-offer-renewal.ts";
-import {sourceIngestionFailures} from "../pipeline/source-readiness";
+import {sourceIngestionFailures} from "../pipeline/source-readiness.ts";
 import {classifyTooledUpCategory} from "./tooled-up-taxonomy.mjs";
 
 import type {RawSourceOffer,PipelineRunSummary} from "../../types/pipeline";
