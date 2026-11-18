@@ -48,7 +48,8 @@ test("daily jobs reuse existing authenticated snapshot uploader and full stream 
  assert.match(source,/return POST\(request\)/);
  assert.match(cron,/POST as validateSnapshot/);
  assert.match(cron,/return validateSnapshot\(new NextRequest/);
- assert.match(cron,/\.list\("awin\/496\/89987"/);
+ assert.match(cron,/latestTooledUpObservedDigest\(db\)/);
+ assert.match(cron,/no_recent_authenticated_feed_observation/);
  assert.match(cron,/No feed, object or digest override/);
  assert.match(cron,/process\.env\.CRON_SECRET/);
  assert.match(cron,/AWIN_AUTO_IMPORT_ENABLED/);
