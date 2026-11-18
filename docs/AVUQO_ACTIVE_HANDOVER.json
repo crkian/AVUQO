@@ -2965,5 +2965,21 @@
     "checked_for_duplicate_paths": [
       "/api/internal/awin-portfolio-private-rotation"
     ]
+  },
+  "pneus_worker_20261118": {
+    "status": "candidate_requires_production_validation",
+    "merchant_id": "15236",
+    "feed_id": "26513",
+    "listed_inventory_rows": 19877,
+    "large_worker_max_duration_seconds": 300,
+    "diagnostic_stages": [
+      "source_gate",
+      "job_lookup",
+      "resume_snapshot",
+      "credentials",
+      "capture_snapshot"
+    ],
+    "private_only": true,
+    "no_publication_bypass": true
   }
 }
