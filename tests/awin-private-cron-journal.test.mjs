@@ -97,3 +97,22 @@ test("Tyres UK post-release stage labels survive the private audit without leaki
  assert.deepEqual(safePrivateCronOutcome(503,{status:"tyre_download_failed_credential_secret"}),
   {state:"rejected",code:"http_503"});
 });
+
+test("Pneus private worker audits only known diagnostic stages and never raw source text",()=>{
+ const migration=read("supabase/migrations/20261118214000_pneus_private_cron_audit.sql");
+ const route=read("app/api/internal/awin-pneus-private-import/route.ts");
+ const recorder=read("lib/awin/private-cron-recorder.ts");
+ assert.match(migration,/pneus_private_import/);
+ assert.match(migration,/awin_private_cron_attempts_job_key_check/);
+ assert.doesNotMatch(migration,/GRANT|DISABLE ROW LEVEL SECURITY|DROP TABLE/);
+ assert.match(route,/recordPrivateCronAttempt\("pneus_private_import",runPrivatePneus\)/);
+ assert.match(recorder,/pneus_private_import/);
+ assert.deepEqual(safePrivateCronOutcome(503,{error:"private_pneus_import_unavailable",
+  reason:"pneus_required_fields_missing",diagnostic_stage:"capture_snapshot"}),
+  {state:"rejected",code:"pneus_pneus_required_fields_missing"});
+ assert.deepEqual(safePrivateCronOutcome(503,{error:"private_pneus_import_unavailable",
+  reason:"https://supplier.invalid/key",diagnostic_stage:"capture_snapshot"}),
+  {state:"rejected",code:"pneus_capture_snapshot_failed"});
+ assert.deepEqual(safePrivateCronOutcome(200,{status:"snapshot_ready"}),
+  {state:"completed",code:"snapshot_ready"});
+});
