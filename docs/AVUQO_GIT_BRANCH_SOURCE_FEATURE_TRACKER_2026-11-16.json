@@ -3508,5 +3508,21 @@
     ],
     "private_only": true,
     "no_publication_bypass": true
+  },
+  "shopping_and_tyres_production_release_20261118": {
+    "status": "production_ready_verified",
+    "shopping_commit": "3d0f697d7ea1eaa4fbf2304fc79a8f6348e921cd",
+    "shopping_deployment": "dpl_EGBeM97aE2uJ3WHt2r88AN6oqzyJ",
+    "pneus_diagnostics_commit": "a1a260ec20e4a9c498d0e22c4ee6a818f7c5c81a",
+    "pneus_diagnostics_deployment": "dpl_6J4Q8syqSmNbMAdDKQZ1Frvk9UMU",
+    "public_domain_tested": "https://www.avuqo.com",
+    "quality": "lint_build_postgresql_success",
+    "accepted_programmes": 21,
+    "discovered_feed_entries": 76,
+    "latest_published_deal_rows_observed": 116,
+    "tyre_uk_authenticated_receipts": 0,
+    "pneus_private_rows": 0,
+    "tyre_products_live_claim": false,
+    "note": "Product and tyre route navigation is live; tyre source processing remains blocked."
   }
 }
