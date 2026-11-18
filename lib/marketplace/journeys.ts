@@ -20,7 +20,8 @@ export function departmentJourneys(department:BrowseDepartment){
   is("travel","experiences")?"/travel":"/products";
  return {
   explore:departmentHref(department),
-  shop:"/categories/"+department.slug+"/products",
+  shop:is("diy-building","garden-outdoors")?"/tools":
+   is("motoring")?"/tyres/shop":"/categories/"+department.slug+"/products",
   compare,
   whosWho:"/whos-who"
  };

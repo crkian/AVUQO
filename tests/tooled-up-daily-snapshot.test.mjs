@@ -34,8 +34,8 @@ test("reject arbitrary file types and malformed digests/paths and excessive list
 test("daily jobs reuse existing authenticated snapshot uploader and full stream validator",()=>{
  const snap=v.crons.filter(x=>x.path==="/api/internal/awin-tooled-up-snapshot");
  const valid=v.crons.filter(x=>x.path==="/api/internal/awin-tooled-up-daily-validation");
- assert.deepEqual(snap,[{path:"/api/internal/awin-tooled-up-snapshot",schedule:"5 8 * * *"}]);
- assert.deepEqual(valid,[{path:"/api/internal/awin-tooled-up-daily-validation",schedule:"25 8 * * *"}]);
+ assert.deepEqual(snap,[{path:"/api/internal/awin-tooled-up-snapshot",schedule:"0,15,30,45 * * * *"}]);
+ assert.deepEqual(valid,[{path:"/api/internal/awin-tooled-up-daily-validation",schedule:"4,19,34,49 * * * *"}]);
  for(const p of [
   "/api/internal/awin-feed-check","/api/internal/marketing",
   "/api/internal/awin-pilot-schedule/petlibro",
@@ -48,7 +48,8 @@ test("daily jobs reuse existing authenticated snapshot uploader and full stream 
  assert.match(source,/return POST\(request\)/);
  assert.match(cron,/POST as validateSnapshot/);
  assert.match(cron,/return validateSnapshot\(new NextRequest/);
- assert.match(cron,/\.list\("awin\/496\/89987"/);
+ assert.match(cron,/latestTooledUpObservedDigest\(db\)/);
+ assert.match(cron,/no_recent_authenticated_feed_observation/);
  assert.match(cron,/No feed, object or digest override/);
  assert.match(cron,/process\.env\.CRON_SECRET/);
  assert.match(cron,/AWIN_AUTO_IMPORT_ENABLED/);

@@ -17,14 +17,16 @@ export const DEFAULT_NAVIGATION:NavigationContent={schemaVersion:2,groups:[
   ["Browse sales","/sales","Explore offers and seasonal collections"],
   ["Black Friday","/black-friday","Look beyond headline discounts"],
   ["Christmas","/christmas","Plan gifts and seasonal spending"],
-  ["Product guides","/products","Examine eligible, verified product listings"]]),
+  ["Product guides","/products","Examine eligible, verified product listings"],
+  ["Verified Tools & DIY","/tools","Shop source-verified retailer tools and equipment"]]),
  group("compare","Compare","/compare","Understand the full price before you decide.",2,[
   ["Choose your comparison","/marketplace/compare","Products, grocery baskets, tyres, contracts and travel"],
   ["Compare contracts","/compare","Compare total costs and terms"],
   ["Product guides","/products","Compare available eligible offers"],
   ["Broadband","/broadband","Understand the contract, not just the monthly fee"],
   ["Insurance explained","/insurance","Understand cover and exclusions"],
-  ["Motoring","/motoring","Explore running costs and buying decisions"]]),
+  ["Motoring","/motoring","Explore running costs and buying decisions"],
+  ["Shop tyres by size","/tyres/shop","Check current retailer tyre listings with exact dimensions"]]),
  group("groceries","Groceries","/groceries","One list. Clearer supermarket decisions.",3,[
   ["Your grocery basket","/groceries","Build a list and review available prices"],
   ["Shared lists","/lists","Organise shopping with others"],

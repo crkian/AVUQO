@@ -3,6 +3,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import {BROWSE_DEPARTMENTS} from "../lib/categories/browse-tree.ts";
+import {departmentJourneys} from "../lib/marketplace/journeys.ts";
 import {DEPARTMENT_BLUEPRINTS,departmentBlueprint,eligibleDepartmentProduct,identifiedDepartment}
  from "../lib/products/department-showrooms.ts";
 import {assessMarketingReadiness,MARKETING_CHANNEL_ROADMAP}
@@ -38,7 +39,11 @@ test("Every curated department has a distinct product blueprint and prepared sho
  assert.equal(departmentBlueprint("fake"),undefined);
  assert.match(file("app/categories/[department]/products/page.tsx"),/verifiedProductIndex\(120\)/);
  assert.match(file("app/categories/[department]/products/page.tsx"),/robots:\{index:false,follow:true\}/);
- assert.match(file("lib/marketplace/journeys.ts"),/shop:"\/categories\/"\+department.slug\+"\/products"/);
+ for(const [slug,expected] of [["motoring","/tyres/shop"],["diy-building","/tools"],["garden-outdoors","/tools"],["tech","/categories/tech/products"]]){
+  const department=BROWSE_DEPARTMENTS.find(d=>d.slug===slug);
+  assert.ok(department);
+  assert.equal(departmentJourneys(department).shop,expected);
+ }
 });
 test("No product is assigned to a department merely because its name mentions the category",()=>{
  const tech=departmentBlueprint("tech");

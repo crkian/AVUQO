@@ -16,9 +16,10 @@ test("one daily fixed live Awin refresh uses the existing pipeline",()=>{
 test("live Awin refresh cannot activate sources, approve rights or bypass first owner release",()=>{
  assert.doesNotMatch(route,/\.insert\(|\.upsert\(|\.update\(|\.delete\(|\.rpc\(/);
  assert.doesNotMatch(route,/published_deals|record_awin_owner_release|feed_import_records|fetch\(/);
- assert.match(route,/first_time_publication_requires_existing_owner_release:true/);
+ assert.match(route,/autoReleaseEligibleAwinOffers\(admin,15\)/);
+ assert.match(route,/first_time_publication_requires_verified_source_and_owner_grant:true/);
  const pipeline=readFileSync("lib/pipeline/run.ts","utf8");
- assert.match(pipeline,/sourceIngestionFailures\(source, rightsContext\)/);
+ assert.match(pipeline,/sourceIngestionFailures\(source,rightsContext\)/);
  assert.match(pipeline,/Source was paused or permissions changed/);
  assert.match(pipeline,/canRenewApprovedAwinOffer/);
 });

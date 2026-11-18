@@ -16,8 +16,10 @@ test("scheduled private cohort only selects observed accepted physical retail fe
  for(const pair of ["101445","77952","45747","736","31539"])assert.ok(worker.includes(pair));
  for(const restricted of ["12715","15236","3496","128157","118401"])
   assert.doesNotMatch(worker,new RegExp('advertiser:"'+restricted+'"'));
- assert.match(worker,/source\.status!=="paused"/);
- assert.match(worker,/source\.sync_enabled!==false/);
+ assert.match(worker,/const pausedMode=source\.status==="paused"&&source\.sync_enabled===false/);
+ assert.match(worker,/const activeMode=source\.status==="active"&&source\.sync_enabled===true/);
+ assert.match(worker,/!pausedMode&&!activeMode/);
+ assert.match(worker,/source\.credential_status==="ready"/);
  assert.match(worker,/global_emergency_stop/);
  assert.match(worker,/source_ingestion/);
 });
@@ -25,7 +27,7 @@ test("rotator delegates to strict existing importer and cannot claim first publi
  assert.match(worker,/POST as runPrivateImport/);
  assert.match(worker,/url\.searchParams\.set\("mode","stage"\)/);
  assert.match(worker,/runPrivateImport\(new NextRequest/);
- assert.match(worker,/Math\.floor\(now\/86400000\)\+offset\)\%available\.length/);
+ assert.match(worker,/Math\.floor\(now\/1_200_000\)\+offset\)\%available\.length/);
  assert.match(worker,/offsetString!==null/);
  assert.match(worker,/Invalid rotation offset/);
  assert.match(worker,/private_only:true,no_publication:true/);

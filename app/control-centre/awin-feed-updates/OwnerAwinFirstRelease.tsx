@@ -24,7 +24,18 @@ export default function OwnerAwinFirstRelease(){
   }catch{setQueue({status:"unavailable",error:"Current offer review unavailable"});}
   finally{setBusy(false);}
  }
- useEffect(()=>{void refresh();},[]);
+ useEffect(()=>{
+  let mounted=true;
+  async function loadInitialQueue(){
+   try{
+    const response=await fetch("/api/control-centre/awin-first-release",{cache:"no-store",credentials:"same-origin"});
+    const data=await response.json() as Queue;
+    if(mounted)setQueue(response.ok?data:{status:"unavailable",error:data.error??"Readiness service unavailable"});
+   }catch{if(mounted)setQueue({status:"unavailable",error:"Current offer review unavailable"});}
+  }
+  void loadInitialQueue();
+  return ()=>{mounted=false;};
+ },[]);
  async function act(c:Candidate){
   if(confirmId!==c.offerId)return;
   setBusy(true);setResult("Rechecking the exact current GBP offer and release evidence...");

@@ -28,7 +28,7 @@ test("owner route only accepts exact Petlibro pilot feed and explicit private-st
 });
 
 test("global emergency stop and ingestion off halt private Awin staging, including mid-import",()=>{
- assert.match(worker,/import \{evaluateSourceControls\}/);
+ assert.match(worker,/activeOwnerAwinAttestation,evaluateSourceControls,sourceIngestionFailures/);
  assert.match(worker,/async function privateStagingAllowed/);
  assert.match(worker,/evaluateSourceControls\(data,!!error\)\.ingestion/);
  assert.match(worker,/if\(!preflight&&!?\(await privateStagingAllowed\(db\)\)\)/);
@@ -42,7 +42,9 @@ test("global emergency stop and ingestion off halt private Awin staging, includi
  const finish=worker.indexOf('db.rpc("finish_general_awin_feed_import"');
  assert.ok(chunkGate>writeStart&&chunkGate<append);
  assert.ok(finishGate>append&&finishGate<finish);
- assert.match(worker,/source\.status!=="paused"\|\|source\.sync_enabled!==false/);
+ assert.match(worker,/const safelyPaused=source\.status==="paused"&&source\.sync_enabled===false/);
+ assert.match(worker,/const safelyActive=source\.status==="active"&&source\.sync_enabled===true/);
+ assert.match(worker,/sourceIngestionFailures\(source/);
 });
 
 test("private pilot UI is request-bound and access-controlled before service-role reads",()=>{

@@ -39,6 +39,8 @@ test("GBP private staging must not activate publication",async()=>{
  const worker=fs.readFileSync("app/api/internal/awin-auto-import/route.ts","utf8");
  assert.match(worker,/cadbury_uk_programme_gbp/);
  assert.match(worker,/permission_status:"unverified"/);
- assert.match(worker,/source\.status!=="paused"\|\|source\.sync_enabled!==false/);
+ assert.match(worker,/const safelyPaused=source\.status==="paused"&&source\.sync_enabled===false/);
+ assert.match(worker,/const safelyActive=source\.status==="active"&&source\.sync_enabled===true/);
+ assert.match(worker,/if\(!safelyPaused&&!safelyActive\)/);
  assert.match(worker,/no_publication:true/);
 });

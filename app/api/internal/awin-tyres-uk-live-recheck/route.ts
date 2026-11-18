@@ -7,6 +7,7 @@ import {approvedAwinDownloadUrl} from "../../../../lib/awin/approved-feed-url";
 import {csvRowsFromChunks} from "../../../../lib/feed-imports/stream-csv";
 import {verifiedTyresUkRow} from "../../../../lib/awin/tyres-uk-current-row.mjs";
 import {recordPrivateCronAttempt} from "../../../../lib/awin/private-cron-recorder";
+import {redactedTyreRecheckFailure} from "../../../../lib/awin/tyre-recheck-failure.mjs";
 
 export const maxDuration=300;
 const ADVERTISER="12715",FEED="93988",MAX_BYTES=36*1024*1024,
@@ -72,9 +73,6 @@ async function sourceReady(db:ReturnType<typeof createAdminClient>){
   connectorConfigured:Boolean(process.env.AWIN_PUBLISHER_ID&&process.env.AWIN_DATAFEED_API_KEY)
  }).length===0;
 }
-const allowedReasons=new Set(["accepted_tyre_feed_not_found","feed_too_large","empty_feed",
- "authenticated_feed_unavailable","invalid_feed_schema","invalid_feed_row",
- "bad_feed_row_count","private_batch_unavailable","source_control_blocked"]);
 export async function GET(request:NextRequest){
  const secret=process.env.CRON_SECRET;
  if(!secret||secret.length<16||request.headers.get("authorization")!==`Bearer ${secret}`)
@@ -85,20 +83,25 @@ export async function GET(request:NextRequest){
 async function recheck(){
  if(process.env.AWIN_AUTO_IMPORT_ENABLED!=="true")return answer({status:"disabled",private_only:true});
  const started=Date.now(),db=createAdminClient();
+ let stage="source_controls";
  try{
   if(!await sourceReady(db))return answer({status:"source_control_blocked",no_publication:true},423);
   const key=process.env.AWIN_DATAFEED_API_KEY??"",publisher=process.env.AWIN_PUBLISHER_ID??"";
   if(!/^[A-Za-z0-9_-]{16,200}$/.test(key)||!/^[0-9]{3,15}$/.test(publisher))
    return answer({status:"credentials_unavailable",no_publication:true},503);
+  stage="inventory";
   const download=await joinedFeed(key,publisher);
+  stage="download";
   const response=await fetch(download,{redirect:"error",cache:"no-store",signal:AbortSignal.timeout(115000)});
   const raw=await fetchBytes(response,MAX_BYTES),sha=digest(raw);
+  stage="decode";
   const expanded=raw[0]===0x1f&&raw[1]===0x8b
    ?gunzipSync(raw,{maxOutputLength:MAX_EXPANDED}):raw;
   if(expanded.length>MAX_EXPANDED)throw Error("feed_too_large");
   const text=new TextDecoder("utf-8",{fatal:true}).decode(expanded);
+  stage="parse";
   const rows=lines(text),seen=new Set<string>();let header:string[]|null=null;
-  let count=0,eligible=0,sourceRows:Array<ReturnType<typeof verifiedTyresUkRow>>=[];
+  let count=0,eligible=0;const sourceRows:Array<ReturnType<typeof verifiedTyresUkRow>>=[];
   // Rotate complete master-feed windows, never select a user-supplied SKU.
   // Awin last-observed inventory for this fixed feed has ~31,227 entries.
   // The count will be adjusted using the last authenticated full-feed receipt.
@@ -132,6 +135,7 @@ async function recheck(){
   }
   if(count<1000)throw Error("bad_feed_row_count");
   if(!await sourceReady(db))throw Error("source_control_blocked");
+  stage="receipt";
   const observedAt=new Date().toISOString();
   const {error:recordError}=await db.from("awin_tyre_live_observations")
    .upsert({advertiser_id:ADVERTISER,feed_id:FEED,snapshot_sha256:sha,
@@ -139,6 +143,7 @@ async function recheck(){
      provenance:"current_authenticated_awin_full_download"},
     {onConflict:"advertiser_id,feed_id,snapshot_sha256"});
   if(recordError)throw Error("private_batch_unavailable");
+  stage="batch";
   let checked=0;
   if(sourceRows.length){
    const {data,error}=await db.rpc("recheck_tyres_uk_exact_private_batch",
@@ -152,8 +157,6 @@ async function recheck(){
    duration_ms:Date.now()-started,private_only:true,
    public_listings_auto_eligible:true,no_scored_deal_publication:true});
  }catch(error){
-  const m=error instanceof Error?error.message:"";
-  return answer({status:allowedReasons.has(m)?m:"tyre_feed_recheck_failed",
-   no_publication:true,private_only:true},503);
+  return answer(redactedTyreRecheckFailure(error,stage),503);
  }
 }

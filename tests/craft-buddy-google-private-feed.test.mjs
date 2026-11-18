@@ -17,7 +17,7 @@ test("bounded Google schema requires exact columns and uses explicit GBP",()=>{
   'header.length>256',
   'new Set(header).size!==header.length',
   '"advertiser_id","id","title","price","availability","aw_deep_link"',
-  'row[merchantCol]?.trim()!=="45747"',
+  'row[merchantCol]?.trim()!==advertiser',
   'currencySource:"feed_column"',
   'identifyFormat(projected)'
  ])assert.ok(normalizer.includes(marker),marker);
@@ -37,13 +37,14 @@ test("rejects cross advertiser rows and non-GBP prices without rights inference"
  assert.throws(()=>prepareGeneralBatch("45747","F1356",required,[
   ["45748","CB123","Crystal Art Craft Kit","7.99 GBP","in stock",link]
  ]));
- assert.ok(normalizer.includes("invalid_craft_buddy_google_required_columns"));
- assert.ok(normalizer.includes("craft_buddy_google_advertiser_mismatch"));
+ assert.ok(normalizer.includes("invalid_google_retail_required_columns"));
+ assert.ok(normalizer.includes("google_retail_advertiser_mismatch"));
 });
 test("only exact private Google feed scheduled with global stop and no offer writes",()=>{
  assert.match(worker,/"45747:F1356"/);
  assert.match(worker,/privateStagingAllowed/);
- assert.match(worker,/source\.status!=="paused"/);
+ assert.match(worker,/const safelyPaused=source\.status==="paused"&&source\.sync_enabled===false/);
+ assert.match(worker,/const safelyActive=source\.status==="active"&&source\.sync_enabled===true/);
  assert.match(worker,/duplicate_identity_across_batches/);
  assert.match(schedule,/craftbuddy:\["45747","F1356"\]/);
  assert.deepEqual(config.crons.filter(c=>c.path==="/api/internal/awin-pilot-schedule/craftbuddy"),[{path:"/api/internal/awin-pilot-schedule/craftbuddy",schedule:"17 7 * * *"}]);

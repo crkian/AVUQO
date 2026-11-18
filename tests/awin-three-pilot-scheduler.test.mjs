@@ -31,7 +31,9 @@ test("the scheduler never permits an arbitrary merchant, URL, credential, or sou
 test("existing importer accepts only three fixed SKU feeds and continues all private rights/size/stop gates",()=>{
  for(const pair of ['"77952:103580"','"31539:74135"','"736:48599"','"45747:F1356"'])
   assert.ok(worker.includes(pair));
- assert.match(worker,/source\.status!=="paused"\|\|source\.sync_enabled!==false/);
+ assert.match(worker,/const safelyPaused=source\.status==="paused"&&source\.sync_enabled===false/);
+ assert.match(worker,/const safelyActive=source\.status==="active"&&source\.sync_enabled===true/);
+ assert.match(worker,/sourceIngestionFailures\(source/);
  assert.match(worker,/permission_status:"unverified"/);
  assert.match(worker,/status:"private_review"/);
  assert.match(worker,/if\(!preflight&&!?\(await privateStagingAllowed\(db\)\)\)/);

@@ -19,6 +19,7 @@ const makeTitle=(slug:string)=>({
 } as Record<string,string>)[slug]??slug;
 const journeys=[
  {label:"Tools & DIY",href:"/tools",summary:"Browse authenticated Tooled Up product prices, original supplier photos and shopping links.",symbol:"⚙"},
+ {label:"Tyres by size",href:"/tyres/shop",summary:"Find only currently authenticated tyre listings, with exact width, profile and rim.",symbol:"◎"},
  {label:"AVUQO Marketplace",href:"/marketplace",summary:"Explore, shop, compare and discover across all categories.",symbol:"◇"},
  {label:"Who\u0027s Who",href:"/whos-who",summary:"Meet makers and discover eligible retailers without being forced to compare.",symbol:"◎"},
  {label:"Groceries",href:"/groceries",summary:"Build your basket and see which supermarket prices are supported.",symbol:"⌗"},
