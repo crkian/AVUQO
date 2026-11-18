@@ -34,8 +34,8 @@ test("reject arbitrary file types and malformed digests/paths and excessive list
 test("daily jobs reuse existing authenticated snapshot uploader and full stream validator",()=>{
  const snap=v.crons.filter(x=>x.path==="/api/internal/awin-tooled-up-snapshot");
  const valid=v.crons.filter(x=>x.path==="/api/internal/awin-tooled-up-daily-validation");
- assert.deepEqual(snap,[{path:"/api/internal/awin-tooled-up-snapshot",schedule:"5 8 * * *"}]);
- assert.deepEqual(valid,[{path:"/api/internal/awin-tooled-up-daily-validation",schedule:"25 8 * * *"}]);
+ assert.deepEqual(snap,[{path:"/api/internal/awin-tooled-up-snapshot",schedule:"0,15,30,45 * * * *"}]);
+ assert.deepEqual(valid,[{path:"/api/internal/awin-tooled-up-daily-validation",schedule:"4,19,34,49 * * * *"}]);
  for(const p of [
   "/api/internal/awin-feed-check","/api/internal/marketing",
   "/api/internal/awin-pilot-schedule/petlibro",
