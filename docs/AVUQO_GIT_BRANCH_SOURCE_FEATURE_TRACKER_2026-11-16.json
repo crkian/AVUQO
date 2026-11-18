@@ -3467,5 +3467,30 @@
       "claim": "All accepted feed metadata is recognised and classified in owner UI; not equivalent to all feeds product-ingested or public-live",
       "next": "Actual provider schema probes and safe quarantine for unrecognised columns, category-specific row mapping, fresh GBP and legal rights proofs before publication"
     }
+  },
+  "shopping_tyre_navigation_candidate_20261118": {
+    "status": "candidate_not_production_verified",
+    "origin_main_sha": "d6b32f72279f5ed41ad8db9274f720c10144a2f9",
+    "observed_at_utc": "2026-11-18T07:09:00Z",
+    "supplier_catalogue": {
+      "tooled_up_eligible_distinct_skus": 26239,
+      "awin_published_deals": 58,
+      "awin_held_offers": 1119,
+      "tyres_uk_current_verified": 0,
+      "pneus_private_rows": 0
+    },
+    "proposed_changes": [
+      "customer_links_to_tools_and_tyres",
+      "department_specialist_shop_paths",
+      "stage_only_tyres_uk_cron_diagnostics"
+    ],
+    "outstanding": [
+      "CI_and_preview",
+      "safe_specific_tyre_failure_diagnosis",
+      "pneus_snapshot_import",
+      "all_retailer_live_verification",
+      "post_deploy_product_nav_QA"
+    ],
+    "pricing_or_merchant_permissions_changed": false
   }
 }

@@ -10,6 +10,21 @@ import styles from "./page.module.css";
 export const metadata:Metadata={title:"Products and buying guides",description:"Explore researched product models and see verified retailer comparisons only when authorised current offers are available.",alternates:{canonical:"/products"}};
 async function Catalogue(){await connection();const rows=await verifiedProductIndex(48);
 return <><section className={styles.hero}><div className="shell"><p className={styles.kicker}>A thoughtful collection</p><h1>Individual products. <span>The bigger picture.</span></h1><p>Start with individual product research guides. Current retailer prices and offers appear separately when the supplier evidence and approvals are in place.</p><form className={styles.search} action="/search" method="get"><Search size={19}/><input name="q" placeholder="Find a product or category" aria-label="Search products" required/><button type="submit">Search <ArrowRight size={17}/></button></form></div></section>
+<section className={`shell ${styles.section}`} aria-labelledby="verified-retailer-shelves">
+ <div className={styles.heading}><p className={styles.kicker}>Shop supplier-verified products</p>
+  <h2 id="verified-retailer-shelves">Real retailer shelves, not just guides.</h2>
+  <p>Browse exact supplier SKUs where their prices, availability, product images and shopping links are current and authorised. Tyre listings remain empty until each specification has passed the source checks.</p></div>
+ <div className={styles.grid}>
+  <Link href="/tools" className={styles.card}><div className={styles.photo}><span className={styles.placeholder}>TOOLS &amp; DIY</span></div><div>
+   <p>Tooled Up · Supplier catalogue</p><h3>Shop verified tools and equipment</h3>
+   <small>Browse individual products, useful departments and retailer prices.</small>
+   <strong>Shop tools <ArrowRight size={16}/></strong></div></Link>
+  <Link href="/tyres/shop" className={styles.card}><div className={styles.photo}><span className={styles.placeholder}>TYRES</span></div><div>
+   <p>Specialist motoring · Exact sizes</p><h3>Shop tyres by width, profile and rim</h3>
+   <small>Only authenticated, current tyre listings appear. Check load, speed, fitting and delivery separately.</small>
+   <strong>Find a tyre <ArrowRight size={16}/></strong></div></Link>
+ </div>
+</section>
 <section className={`shell ${styles.section}`} aria-labelledby="research-models-heading">
  <div className={styles.heading}><p className={styles.kicker}>Start exploring products</p>
   <h2 id="research-models-heading">Real models to research.</h2>
