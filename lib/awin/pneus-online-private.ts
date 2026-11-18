@@ -1,4 +1,4 @@
-import {identifyFormat,prepareGeneralBatch} from "../feed-imports/general-awin-large";
+import {identifyFormat,prepareGeneralBatch} from "../feed-imports/general-awin-large.ts";
 
 /** Private-first Pneus Online UK source admission. No public offers are created here. */
 export const PNEUS_ADVERTISER_ID="15236";
