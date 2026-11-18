@@ -116,3 +116,14 @@ test("Pneus private worker audits only known diagnostic stages and never raw sou
  assert.deepEqual(safePrivateCronOutcome(200,{status:"snapshot_ready"}),
   {state:"completed",code:"snapshot_ready"});
 });
+
+test("bounded Tyres UK CSV parser reason codes remain categorical in the private cron journal",()=>{
+ for(const reason of ["field_limit","column_limit","unterminated_quote","quoted_field_format"]){
+  const status="tyre_csv_"+reason;
+  assert.deepEqual(safePrivateCronOutcome(503,{status,diagnostic_stage:"parse"}),
+   {state:"rejected",code:status});
+ }
+ assert.deepEqual(safePrivateCronOutcome(503,{
+  status:"tyre_csv_field_limit?token=not-a-loggable-secret",diagnostic_stage:"parse"}),
+  {state:"rejected",code:"http_503"});
+});
