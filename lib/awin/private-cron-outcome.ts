@@ -52,7 +52,10 @@ const SAFE_COHORT_FAILURES=new Set([
  "accepted_tyre_feed_not_found","authenticated_feed_unavailable","feed_too_large",
  "empty_feed","invalid_feed_schema","invalid_feed_row","bad_feed_row_count",
  "private_batch_unavailable","source_control_blocked","credentials_unavailable",
- "tyre_feed_recheck_failed"
+ "tyre_feed_recheck_failed",
+ "tyre_source_controls_failed","tyre_inventory_failed","tyre_download_failed",
+ "tyre_decode_failed","tyre_parse_failed","tyre_receipt_failed",
+ "tyre_batch_failed","tyre_unexpected_failed"
 ]);
 const FEED_REASONS=new Set([
  "unsupported_columns","unterminated_csv_quote","invalid_csv_quote",
