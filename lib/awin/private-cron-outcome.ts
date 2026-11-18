@@ -10,7 +10,9 @@ const SUCCESS_CODES=new Set([
  "no_stocked_candidates_in_cohort","fresh_authenticated_feed_observation_required",
  "full_stream_validation_failed","snapshot_read_unavailable",
  "snapshot_stream_or_schema_unavailable","private_batch_recheck_failed",
- "tyre_live_source_cohort_checked"
+ "tyre_live_source_cohort_checked",
+ "snapshot_ready","existing_snapshot","already_claimed_or_not_ready",
+ "already_running"
 ]);
 const FAILURES:Record<string,string>={
  "Awin feed credentials not configured":"credentials",
@@ -57,6 +59,20 @@ const SAFE_COHORT_FAILURES=new Set([
  "tyre_decode_failed","tyre_parse_failed","tyre_receipt_failed",
  "tyre_batch_failed","tyre_unexpected_failed"
 ]);
+const PNEUS_DIAGNOSTIC_STAGES=new Set(["source_gate","job_lookup","resume_snapshot","credentials","capture_snapshot"]);
+const PNEUS_REASONS=new Set([
+ "active_feed_not_verified","format_not_supported","feed_row_limit","no_eligible_private_rows",
+ "snapshot_unavailable","snapshot_digest_mismatch","append_private_batch_failed",
+ "snapshot_format_changed","permission_not_ready","permission_revoked",
+ "permission_changed_before_import","private_bulk_job_creation_failed",
+ "private_snapshot_store_failed","upstream_http","upstream_empty","upstream_too_large",
+ "feed_size_limit","feed_expanded_limit","invalid_inventory_header",
+ "missing_or_ambiguous_active_feed","unsupported_feed_format","invalid_product_columns",
+ "cross_advertiser_product","invalid_or_duplicate_product_id","source_registry_error",
+ "pneus_invalid_column_layout","pneus_required_fields_missing",
+ "pneus_unsupported_format","pneus_stock_evidence_missing",
+ "pneus_currency_quarantine_failed","pneus_bad_row_shape"
+]);
 const FEED_REASONS=new Set([
  "unsupported_columns","unterminated_csv_quote","invalid_csv_quote",
  "csv_column_limit","csv_field_or_column_limit","csv_field_size_limit",
@@ -97,10 +113,17 @@ export function safePrivateCronOutcome(httpStatus:number,responseBody:unknown):{
   if(SAFE_COHORT_FAILURES.has(reported))
    return {state:"rejected",code:reported};
   const error=typeof data?.error==="string"?data.error:"";
+  if(error==="private_pneus_import_unavailable"){
+   const reason=typeof data?.reason==="string"?data.reason:"";
+   if(PNEUS_REASONS.has(reason))return {state:"rejected",code:"pneus_"+reason};
+   const stage=typeof data?.diagnostic_stage==="string"?data.diagnostic_stage:"";
+   return {state:"rejected",code:"pneus_"+(PNEUS_DIAGNOSTIC_STAGES.has(stage)?stage:"unavailable")+"_failed"};
+  }
   const base=FAILURES[error]??"http_"+String(Number.isInteger(httpStatus)&&httpStatus>=100&&httpStatus<=599?httpStatus:500);
   return {state:"rejected",code:diagnostic(base,data)};
  }
  const status=typeof data?.status==="string"?data.status:"";
+ if(status==="blocked")return {state:"rejected",code:"source_gate_blocked"};
  if(status==="disabled")return {state:"disabled",code:"disabled"};
  return {state:"completed",code:SUCCESS_CODES.has(status)?status:"ok"};
 }
