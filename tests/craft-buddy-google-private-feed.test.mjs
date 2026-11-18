@@ -43,7 +43,8 @@ test("rejects cross advertiser rows and non-GBP prices without rights inference"
 test("only exact private Google feed scheduled with global stop and no offer writes",()=>{
  assert.match(worker,/"45747:F1356"/);
  assert.match(worker,/privateStagingAllowed/);
- assert.match(worker,/source\.status!=="paused"/);
+ assert.match(worker,/const safelyPaused=source\.status==="paused"&&source\.sync_enabled===false/);
+ assert.match(worker,/const safelyActive=source\.status==="active"&&source\.sync_enabled===true/);
  assert.match(worker,/duplicate_identity_across_batches/);
  assert.match(schedule,/craftbuddy:\["45747","F1356"\]/);
  assert.deepEqual(config.crons.filter(c=>c.path==="/api/internal/awin-pilot-schedule/craftbuddy"),[{path:"/api/internal/awin-pilot-schedule/craftbuddy",schedule:"17 7 * * *"}]);
