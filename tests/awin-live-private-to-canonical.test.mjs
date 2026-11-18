@@ -47,12 +47,14 @@ test("bridge uses the one existing scoring pipeline and cannot auto-publish firs
  const worker=readFileSync("app/api/internal/awin-auto-import/route.ts","utf8");
  const pipeline=readFileSync("lib/pipeline/run.ts","utf8");
  assert.match(stage,/runDealIntelligencePipeline\(db/);
- assert.match(stage,/awinPrivateStaging:true/);
+ assert.match(stage,/awinPrivateStaging:privateMode/);
+ assert.match(stage,/const privateMode=source\.status==="paused"&&source\.sync_enabled===false/);
+ assert.match(stage,/sourceIngestionFailures\(source/);
  assert.match(stage,/limit\?\?20,20/);
  // Every canonical batch must be bound to the digest that an authenticated
  // Awin download just verified, regardless of historical created_at order.
  assert.match(stage,/\.contains\("metadata",\{live_feed_digest:input\.digest\}\)/);
- assert.match(stage,/source\.status!=="paused"/);
+ assert.match(stage,/if\(!privateMode&&!activeMode\)/);
  assert.match(worker,/attestUnchangedLiveRows/);
  assert.match(worker,/\.is\("reviewed_at",null\)\.limit\(300\)/);
  assert.match(worker,/if\(verified>=20\)break/);
