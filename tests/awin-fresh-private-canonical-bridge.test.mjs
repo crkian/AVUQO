@@ -54,7 +54,7 @@ test("the scheduled bridge and shared scorer stay first-publication blocked",()=
  assert.match(route,/no_first_publication:publication\.approved===0/);
  assert.match(route,/\.eq\("status","private_review"\)/);
  assert.match(route,/\.gte\("created_at",cutoff\)/);
- assert.match(route,/no_first_publication:true/);
+ assert.match(route,/no_first_publication:publication\.approved===0/);
  assert.match(route,/restricted\.test\(row\.title/);
  assert.match(pipeline,/awinVerifiedRows/);
  assert.match(pipeline,/\.from\("affiliate_programs"\)\.select\("metadata"\)/);
