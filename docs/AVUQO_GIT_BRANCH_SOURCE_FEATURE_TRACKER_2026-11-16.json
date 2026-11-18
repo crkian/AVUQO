@@ -3524,5 +3524,19 @@
     "pneus_private_rows": 0,
     "tyre_products_live_claim": false,
     "note": "Product and tyre route navigation is live; tyre source processing remains blocked."
+  },
+  "tyre_csv_and_pneus_quarantine_candidate_20261118": {
+    "status": "candidate_not_live",
+    "source_evidence": "tyres_uk_21_37_utc_parse_failure_and_pneus_missing_currency_header",
+    "tyre_csv_max_chars": 20000,
+    "tyre_source_advertiser": "12715",
+    "tyre_source_feed": "93988",
+    "pneus_advertiser": "15236",
+    "pneus_feed": "26513",
+    "missing_currency_rows": "private_excluded_only",
+    "currency_inferred": false,
+    "source_permissions_changed": false,
+    "public_offer_publication_changed": false,
+    "need_real_feed_verification": true
   }
 }
