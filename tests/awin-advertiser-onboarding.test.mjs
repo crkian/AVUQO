@@ -56,12 +56,19 @@ test("manual release accepts only a current matching approved offer",()=>{
 });
 test("pipeline only stages Awin and rejects cross-merchant records",()=>{
  const code=text("lib/pipeline/run.ts");
- assert.match(code,/source\.connector_key !== "awin" && \/\/ Every Awin offer requires separate owner release/);
- assert.match(code,/raw\.merchantExternalId !== process\.env\.AWIN_ADVERTISER_ID/);
+ assert.match(code,/sourceIngestionFailures\(source,rightsContext\)/);
+ assert.match(code,/raw\.merchantExternalId !== rightsContext\.advertiserId/);
+ assert.match(code,/options\.sourceKey === "awin"/);
 });
 test("public catalogue requires owner approval, unchanged price, score and time",()=>{
  const code=text("lib/products/public-catalog.ts");
- for(const pattern of [/awin_offer_release_reviews/,/approval\.status!=="approved"/,/approval\.advertiser_id!==process\.env\.AWIN_ADVERTISER_ID/,/reviewed_offer_at/,/reviewed_score_at/,/reviewed_price/,/!isHttps\(offer\.affiliate_url\)/])assert.match(code,pattern);
+ for(const pattern of [
+  /awin_offer_release_reviews/,/approval\.status!=="approved"/,
+  /approval\.advertiser_id!==advertiserId/,/acceptedAdvertisers\.has\(advertiserId\)/,
+  /owner_joined_accepted_attestation/,/publication_approved===true/,
+  /reviewed_offer_at/,/reviewed_score_at/,/reviewed_price/,
+  /ownAffiliateLink\(offer\.affiliate_url,advertiserId!\)/
+ ])assert.match(code,pattern);
 });
 test("Awin permissions and release actions require authenticated owner, not public clients",()=>{
  const a=text("app/control-centre/awin-advertisers/actions.ts");
