@@ -226,6 +226,8 @@ jobs:
         run: node --test tests/full-live-storefront-restoration.test.mjs
       - name: Live production shopping and provider pipeline regression tests
         run: node --test tests/production-shopping-journeys.test.mjs
+      - name: Customer shopping links and redacted Tyres UK worker diagnostics
+        run: node --experimental-strip-types --test tests/navigation-shopping-paths.test.mjs tests/tyre-recheck-failure.test.mjs
       - name: Unified marketplace and Source Atlas safety tests
         run: node --experimental-strip-types --test tests/unified-marketplace.test.mjs
       - name: Marketing-only lint
