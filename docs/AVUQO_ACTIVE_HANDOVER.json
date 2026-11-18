@@ -178,15 +178,33 @@
   ],
   "schedules_utc": [
     {
+      "utc": "09:00",
+      "path": "/api/internal/marketing",
+      "schedule": "0 9 * * *",
+      "frequency": "daily",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
+    },
+    {
       "utc": "06:17",
       "path": "/api/internal/awin-feed-check",
+      "schedule": "17 6 * * *",
       "frequency": "daily",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
+    },
+    {
+      "utc": "UTC cron 46 * * * *",
+      "path": "/api/internal/awin-pneus-private-import",
+      "schedule": "46 * * * *",
+      "frequency": "hourly_or_more",
       "execution_confirmed_on_2026_11_16": false,
       "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
     },
     {
       "utc": "07:05",
       "path": "/api/internal/awin-pilot-schedule/petlibro",
+      "schedule": "5 7 * * *",
       "frequency": "daily",
       "execution_confirmed_on_2026_11_16": false,
       "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
@@ -194,6 +212,7 @@
     {
       "utc": "07:09",
       "path": "/api/internal/awin-pilot-schedule/mozillion",
+      "schedule": "9 7 * * *",
       "frequency": "daily",
       "execution_confirmed_on_2026_11_16": false,
       "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
@@ -201,13 +220,7 @@
     {
       "utc": "07:13",
       "path": "/api/internal/awin-pilot-schedule/cadbury",
-      "frequency": "daily",
-      "execution_confirmed_on_2026_11_16": false,
-      "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
-    },
-    {
-      "utc": "07:17",
-      "path": "/api/internal/awin-pilot-schedule/craftbuddy",
+      "schedule": "13 7 * * *",
       "frequency": "daily",
       "execution_confirmed_on_2026_11_16": false,
       "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
@@ -215,6 +228,7 @@
     {
       "utc": "07:27",
       "path": "/api/internal/awin-petlibro-private-reconcile",
+      "schedule": "27 7 * * *",
       "frequency": "daily",
       "execution_confirmed_on_2026_11_16": false,
       "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
@@ -222,6 +236,7 @@
     {
       "utc": "07:37",
       "path": "/api/internal/awin-mozillion-private-reconcile",
+      "schedule": "37 7 * * *",
       "frequency": "daily",
       "execution_confirmed_on_2026_11_16": false,
       "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
@@ -229,6 +244,15 @@
     {
       "utc": "07:47",
       "path": "/api/internal/awin-cadbury-private-reconcile",
+      "schedule": "47 7 * * *",
+      "frequency": "daily",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
+    },
+    {
+      "utc": "07:17",
+      "path": "/api/internal/awin-pilot-schedule/craftbuddy",
+      "schedule": "17 7 * * *",
       "frequency": "daily",
       "execution_confirmed_on_2026_11_16": false,
       "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
@@ -236,37 +260,98 @@
     {
       "utc": "07:57",
       "path": "/api/internal/awin-craft-buddy-private-reconcile",
+      "schedule": "57 7 * * *",
       "frequency": "daily",
       "execution_confirmed_on_2026_11_16": false,
       "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
     },
     {
-      "utc": "08:05",
+      "utc": "UTC cron 0,15,30,45 * * * *",
       "path": "/api/internal/awin-tooled-up-snapshot",
-      "frequency": "daily",
+      "schedule": "0,15,30,45 * * * *",
+      "frequency": "hourly_or_more",
       "execution_confirmed_on_2026_11_16": false,
       "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
     },
     {
-      "utc": "08:25",
+      "utc": "UTC cron 4,19,34,49 * * * *",
       "path": "/api/internal/awin-tooled-up-daily-validation",
-      "frequency": "daily",
+      "schedule": "4,19,34,49 * * * *",
+      "frequency": "hourly_or_more",
       "execution_confirmed_on_2026_11_16": false,
       "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
     },
     {
-      "utc": "08:41",
-      "path": "/api/internal/awin-pneus-private-import",
+      "utc": "09:16",
+      "path": "/api/internal/awin-approved-refresh",
+      "schedule": "16 9 * * *",
       "frequency": "daily",
       "execution_confirmed_on_2026_11_16": false,
-      "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
+      "confirmation_note": "Scheduled in vercel.json; execution must be checked separately in live telemetry."
     },
     {
-      "utc": "09:00",
-      "path": "/api/internal/marketing",
+      "utc": "09:43",
+      "path": "/api/internal/awin-fresh-private-canonical-bridge",
+      "schedule": "43 9 * * *",
       "frequency": "daily",
       "execution_confirmed_on_2026_11_16": false,
-      "confirmation_note": "Not independently verified by runtime log in this audit. False means unconfirmed, not known failed."
+      "confirmation_note": "Scheduled in vercel.json; execution must be checked separately in live telemetry."
+    },
+    {
+      "utc": "10:53",
+      "path": "/api/internal/awin-portfolio-private-rotation",
+      "schedule": "53 10 * * *",
+      "frequency": "daily",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Scheduled in vercel.json; execution must be checked separately in live telemetry."
+    },
+    {
+      "utc": "UTC cron */10 * * * *",
+      "path": "/api/internal/awin-schema-autoscan",
+      "schedule": "*/10 * * * *",
+      "frequency": "hourly_or_more",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Scheduled in vercel.json; execution must be checked separately in live telemetry."
+    },
+    {
+      "utc": "UTC cron */20 * * * *",
+      "path": "/api/internal/awin-portfolio-private-rotation",
+      "schedule": "*/20 * * * *",
+      "frequency": "hourly_or_more",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Scheduled in vercel.json; execution must be checked separately in live telemetry."
+    },
+    {
+      "utc": "UTC cron 3,8,13,18,23,28,33,38,43,48,53,58 * * * *",
+      "path": "/api/internal/awin-tooled-up-live-cohort",
+      "schedule": "3,8,13,18,23,28,33,38,43,48,53,58 * * * *",
+      "frequency": "hourly_or_more",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Scheduled in vercel.json; execution must be checked separately in live telemetry."
+    },
+    {
+      "utc": "UTC cron 18,38,58 * * * *",
+      "path": "/api/internal/awin-automatic-first-release",
+      "schedule": "18,38,58 * * * *",
+      "frequency": "hourly_or_more",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Scheduled in vercel.json; execution must be checked separately in live telemetry."
+    },
+    {
+      "utc": "UTC cron * * * * *",
+      "path": "/api/internal/awin-tooled-up-catalogue-index",
+      "schedule": "* * * * *",
+      "frequency": "hourly_or_more",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Scheduled in vercel.json; execution must be checked separately in live telemetry."
+    },
+    {
+      "utc": "UTC cron 7,22,37,52 * * * *",
+      "path": "/api/internal/awin-tyres-uk-live-recheck",
+      "schedule": "7,22,37,52 * * * *",
+      "frequency": "hourly_or_more",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Scheduled in vercel.json; execution must be checked separately in live telemetry."
     }
   ],
   "merged_releases": [
@@ -2871,5 +2956,14 @@
       "post_deploy_product_nav_QA"
     ],
     "pricing_or_merchant_permissions_changed": false
+  },
+  "schedule_reconciliation_20261118": {
+    "source": "vercel.json",
+    "status": "schedules_reconciled_not_execution_proof",
+    "entries": 22,
+    "unique_routes": 21,
+    "checked_for_duplicate_paths": [
+      "/api/internal/awin-portfolio-private-rotation"
+    ]
   }
 }
