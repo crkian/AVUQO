@@ -6,6 +6,7 @@ import {approvedAwinDownloadUrl} from "../../../../lib/awin/approved-feed-url";
 import {sourceIngestionFailures,evaluateSourceControls} from "../../../../lib/pipeline/source-readiness";
 import {preparePneusPrivateBatch,pneusPrivateHeader} from "../../../../lib/awin/pneus-online-private";
 import {csvRowsFromChunks} from "../../../../lib/feed-imports/stream-csv";
+import {recordPrivateCronAttempt} from "../../../../lib/awin/private-cron-recorder";
 import {PNEUS_ADVERTISER_ID,PNEUS_FEED_ID,PNEUS_NAME,PNEUS_PRIVATE_BUCKET,
  PNEUS_MAX_DOWNLOADED,PNEUS_MAX_EXPANDED,PNEUS_MAX_ROWS,PNEUS_BATCH_SIZE,
  pneusPrivateSourceGate,locatePneusFeed,validatePneusIdentity,pneusPrivateObjectKey
@@ -268,6 +269,9 @@ export async function GET(request:NextRequest){
  const secret=process.env.CRON_SECRET;
  if(!secret||secret.length<16||request.headers.get("authorization")!=="Bearer "+secret)
   return response({error:"Unauthorized"},401);
+ return recordPrivateCronAttempt("pneus_private_import",runPrivatePneus);
+}
+async function runPrivatePneus(){
  // Owner accepted the Awin shopping-catalogue programme. Reuse the global
  // automated-feed activation plus the exact advertiser membership/source gate,
  // instead of a missing retired Pneus-only environment flag.
