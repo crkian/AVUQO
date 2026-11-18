@@ -88,3 +88,12 @@ test("daily Awin failures retain only allowlisted actionable diagnostics",()=>{
  assert.match(ui,/o\.failure_kind/);
  assert.doesNotMatch(worker,/console\.log\(.*(downloadUrl|key|feedRow)/);
 });
+
+test("Tyres UK post-release stage labels survive the private audit without leaking untrusted details",()=>{
+ for(const stage of ["source_controls","inventory","download","decode","parse","receipt","batch","unexpected"]){
+  const status="tyre_"+stage+"_failed";
+  assert.deepEqual(safePrivateCronOutcome(503,{status}),{state:"rejected",code:status});
+ }
+ assert.deepEqual(safePrivateCronOutcome(503,{status:"tyre_download_failed_credential_secret"}),
+  {state:"rejected",code:"http_503"});
+});
