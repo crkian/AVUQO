@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import {readFileSync} from "node:fs";
 import {pneusPrivateSourceGate,locatePneusFeed,validatePneusIdentity,pneusPrivateObjectKey}
  from "../lib/awin/pneus-online-private.ts";
 
@@ -40,4 +41,15 @@ test("content-addressed private snapshot path has no user-supplied host or sourc
  const digest="a".repeat(64);
  assert.equal(pneusPrivateObjectKey(digest),"pneus-online/15236/26513/"+digest+".csv.gz");
  assert.throws(()=>pneusPrivateObjectKey("https://example.com/foo"));
+});
+
+test("large authenticated Pneus feed has resumable execution time and stage-only failure diagnostics",()=>{
+ const code=readFileSync("app/api/internal/awin-pneus-private-import/route.ts","utf8");
+ assert.match(code,/export const maxDuration=300/);
+ for(const stage of ["source_gate","job_lookup","resume_snapshot","credentials","capture_snapshot"])
+  assert.ok(code.includes('stage="'+stage+'"'),stage);
+ assert.match(code,/diagnostic_stage:stage,no_publication:true,private_only:true/);
+ assert.match(code,/pneusPrivateSourceGate/);
+ assert.match(code,/validatePneusIdentity/);
+ assert.doesNotMatch(code,/console\.(log|warn|error)\(.*(downloadUrl|key|publisher|bytes)/);
 });
