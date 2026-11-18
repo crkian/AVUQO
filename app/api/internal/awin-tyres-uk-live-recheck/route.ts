@@ -101,7 +101,7 @@ async function recheck(){
   const text=new TextDecoder("utf-8",{fatal:true}).decode(expanded);
   stage="parse";
   const rows=lines(text),seen=new Set<string>();let header:string[]|null=null;
-  let count=0,eligible=0,sourceRows:Array<ReturnType<typeof verifiedTyresUkRow>>=[];
+  let count=0,eligible=0;const sourceRows:Array<ReturnType<typeof verifiedTyresUkRow>>=[];
   // Rotate complete master-feed windows, never select a user-supplied SKU.
   // Awin last-observed inventory for this fixed feed has ~31,227 entries.
   // The count will be adjusted using the last authenticated full-feed receipt.
