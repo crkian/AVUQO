@@ -16,7 +16,7 @@ import {PNEUS_ADVERTISER_ID,PNEUS_FEED_ID,PNEUS_NAME,PNEUS_PRIVATE_BUCKET,
  * Uses a snapshot and the existing leased 250-row bulk journal.
  * Never publishes, updates a historical price, activates a source or returns feed rows.
  */
-export const maxDuration=60;
+export const maxDuration=300;
 const MAX_LIST_BYTES=2_500_000,DEADLINE_MS=42_000,MAX_INVENTORY_ROWS=5000;
 const response=(body:unknown,status=200)=>NextResponse.json(body,{status,
  headers:{"Cache-Control":"private,no-store"}});
@@ -272,11 +272,13 @@ export async function GET(request:NextRequest){
  if(process.env.AWIN_AUTO_IMPORT_ENABLED!=="true")
   return response({status:"disabled",private_only:true,required_setting:"AWIN_AUTO_IMPORT_ENABLED"});
  const started=Date.now();
+ let stage="source_gate";
  try{
   const db=createAdminClient();
   const gate=await readySource(db);
   if(gate!=="ready")return response({status:"blocked",reason:gate,
     private_only:true,no_database_writes:true,no_product_downloads:true});
+  stage="job_lookup";
   const {data:pending,error}=await db.from("awin_bulk_import_jobs")
    .select("id,state,private_import_id,validated_total,snapshot_sha256,snapshot_object_key,next_sequence,committed_rows,lease_expires_at")
    .eq("advertiser_id",PNEUS_ADVERTISER_ID).eq("feed_id",PNEUS_FEED_ID)
@@ -287,12 +289,15 @@ export async function GET(request:NextRequest){
    const job=pending[0] as Job;
    if(job.state==="running"&&job.lease_expires_at&&new Date(job.lease_expires_at)>new Date())
     return response({status:"already_running",private_only:true});
+   stage="resume_snapshot";
    const result=await processSnapshot(db,job,started);
    return response(result);
   }
+  stage="credentials";
   const key=process.env.AWIN_DATAFEED_API_KEY??"",publisher=process.env.AWIN_PUBLISHER_ID??"";
   if(!/^[A-Za-z0-9_-]{16,200}$/.test(key)||!/^[0-9]{3,15}$/.test(publisher))
    return response({error:"server_feed_credentials_missing"},503);
+  stage="capture_snapshot";
   const staged=await stageSnapshot(db,key,publisher);
   return response({...staged,private_only:true,no_publication:true});
  }catch(error){
@@ -311,6 +316,6 @@ export async function GET(request:NextRequest){
   ]);
   return response({error:"private_pneus_import_unavailable",
    reason:allowed.has(code)?code:"private_import_failed",
-   no_publication:true},503);
+   diagnostic_stage:stage,no_publication:true,private_only:true},503);
  }
 }
