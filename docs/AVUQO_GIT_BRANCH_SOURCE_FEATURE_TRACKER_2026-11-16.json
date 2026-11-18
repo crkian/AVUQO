@@ -3547,5 +3547,17 @@
     "migration_status": "applied_service_role_only_confirmed",
     "postdeploy_import_success_confirmed": false,
     "release_confirmed_on_public_domain": true
+  },
+  "tyre_csv_diagnostic_audit_candidate_20261118": {
+    "status": "candidate_not_production_verified",
+    "parser_codes": [
+      "tyre_csv_field_limit",
+      "tyre_csv_column_limit",
+      "tyre_csv_unterminated_quote",
+      "tyre_csv_quoted_field_format"
+    ],
+    "historical_oversized_custom_6_rows": 26,
+    "public_eligibility_unchanged": true,
+    "post_deploy_live_receipt_verified": false
   }
 }

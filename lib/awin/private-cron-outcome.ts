@@ -57,7 +57,9 @@ const SAFE_COHORT_FAILURES=new Set([
  "tyre_feed_recheck_failed",
  "tyre_source_controls_failed","tyre_inventory_failed","tyre_download_failed",
  "tyre_decode_failed","tyre_parse_failed","tyre_receipt_failed",
- "tyre_batch_failed","tyre_unexpected_failed"
+ "tyre_batch_failed","tyre_unexpected_failed",
+ "tyre_csv_field_limit","tyre_csv_column_limit",
+ "tyre_csv_unterminated_quote","tyre_csv_quoted_field_format"
 ]);
 const PNEUS_DIAGNOSTIC_STAGES=new Set(["source_gate","job_lookup","resume_snapshot","credentials","capture_snapshot"]);
 const PNEUS_REASONS=new Set([
