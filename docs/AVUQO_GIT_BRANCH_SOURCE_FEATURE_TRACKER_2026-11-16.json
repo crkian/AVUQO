@@ -3526,7 +3526,7 @@
     "note": "Product and tyre route navigation is live; tyre source processing remains blocked."
   },
   "tyre_csv_and_pneus_quarantine_candidate_20261118": {
-    "status": "candidate_not_live",
+    "status": "production_code_verified_import_outcome_unverified",
     "source_evidence": "tyres_uk_21_37_utc_parse_failure_and_pneus_missing_currency_header",
     "tyre_csv_max_chars": 20000,
     "tyre_source_advertiser": "12715",
@@ -3540,6 +3540,12 @@
     "need_real_feed_verification": true,
     "pneus_private_job_key": "pneus_private_import",
     "pneus_audit_migration": "20261118214000_pneus_private_cron_audit.sql",
-    "journal_status": "awaiting_pr_release_and_migration"
+    "journal_status": "awaiting_pr_release_and_migration",
+    "pr_number": 322,
+    "merged_commit": "4710b0e8834cca687343efc06d67bcb9f9a18b98",
+    "production_deployment": "dpl_CBdLDaasjyg2hi5iyJV13DLXRoXe",
+    "migration_status": "applied_service_role_only_confirmed",
+    "postdeploy_import_success_confirmed": false,
+    "release_confirmed_on_public_domain": true
   }
 }
