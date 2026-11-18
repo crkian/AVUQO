@@ -84,7 +84,7 @@ export default function OwnerAwinRunNow(){
    offers with AVUQO Scores, never public listings. All actions retain source and emergency controls.</p>
   <div style={{padding:14,border:"1px solid #d7c8ea",borderRadius:12,background:"#f8f5ff",display:"grid",gap:8}}>
    <strong>All accepted Awin feed entries</strong>
-   <p style={{margin:0,fontSize:13}}>Check every joined feed in Awin's authenticated feed inventory, not just the four pilot retailers. Inventory monitoring does not download products or publish prices.</p>
+   <p style={{margin:0,fontSize:13}}>Check every joined feed in Awin&apos;s authenticated feed inventory, not just the four pilot retailers. Inventory monitoring does not download products or publish prices.</p>
    <button disabled={busy!==null} onClick={()=>run("all_feeds_check")} style={{padding:10,borderRadius:8,color:"#30205a",background:"#eee7ff",border:"1px solid #7965aa",maxWidth:330}}>
     {busy==="all_feeds_check"?"Checking all feed entries...":"Check all accepted feeds now"}
    </button>
