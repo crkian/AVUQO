@@ -27,7 +27,9 @@ async function fetchBytes(response:Response,max:number){
  for(const c of chunks){bytes.set(c,pos);pos+=c.length;}
  return bytes;
 }
-async function* lines(text:string){yield* csvRowsFromChunks((async function*(){yield text;})(),",",120);}
+async function* lines(text:string,maxFieldChars=10000){
+ yield* csvRowsFromChunks((async function*(){yield text;})(),",",120,maxFieldChars);
+}
 async function joinedFeed(key:string,publisher:string){
  const sources=[
   `https://ui.awin.com/productdata-darwin-download/publisher/${publisher}/${encodeURIComponent(key)}/1/feedList`,
@@ -100,7 +102,10 @@ async function recheck(){
   if(expanded.length>MAX_EXPANDED)throw Error("feed_too_large");
   const text=new TextDecoder("utf-8",{fatal:true}).decode(expanded);
   stage="parse";
-  const rows=lines(text),seen=new Set<string>();let header:string[]|null=null;
+  // Tyres UK supplies large custom_6 metadata fields; the private adapter
+  // already admits up to 20,000 characters. This changes parsing capacity,
+  // not product eligibility, GBP/stock proof, publisher links or tyre fitment.
+  const rows=lines(text,20000),seen=new Set<string>();let header:string[]|null=null;
   let count=0,eligible=0;const sourceRows:Array<ReturnType<typeof verifiedTyresUkRow>>=[];
   // Rotate complete master-feed windows, never select a user-supplied SKU.
   // Awin last-observed inventory for this fixed feed has ~31,227 entries.

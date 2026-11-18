@@ -17,3 +17,18 @@ test("untrusted error text and stage cannot become returned diagnostic content",
  assert.equal(output.status,"tyre_unexpected_failed");
  assert.equal(output.diagnostic_stage,"unexpected");
 });
+
+test("bounded CSV parser failures are distinct but reveal no supplier payload",()=>{
+ for(const [msg,expected] of [
+  ["CSV field exceeds 10,000 characters","tyre_csv_field_limit"],
+  ["CSV column count exceeds 120","tyre_csv_column_limit"],
+  ["Incomplete quoted CSV field","tyre_csv_unterminated_quote"],
+  ["Unexpected character after closing quote","tyre_csv_quoted_field_format"]
+ ]){
+  assert.deepEqual(redactedTyreRecheckFailure(Error(msg),"parse"),{
+   status:expected,diagnostic_stage:"parse",private_only:true,no_publication:true
+  });
+ }
+ const secret="provider url with key=do-not-log";
+ assert.equal(redactedTyreRecheckFailure(Error(secret),"parse").status,"tyre_parse_failed");
+});

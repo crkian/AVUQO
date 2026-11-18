@@ -1,3 +1,5 @@
+import {identifyFormat,prepareGeneralBatch} from "../feed-imports/general-awin-large.ts";
+
 /** Private-first Pneus Online UK source admission. No public offers are created here. */
 export const PNEUS_ADVERTISER_ID="15236";
 export const PNEUS_FEED_ID="26513";
@@ -72,4 +74,44 @@ export function validatePneusIdentity(header:string[],cells:string[],seen:Set<st
 export function pneusPrivateObjectKey(digest:string){
  if(!/^[a-f0-9]{64}$/.test(digest))throw Error("invalid_snapshot_sha256");
  return "pneus-online/15236/26513/"+digest+".csv.gz";
+}
+
+/** Awin 15236:26513 supplies a tyre catalogue but may omit currency.
+ * Preserve its source prices as explicitly UNVERIFIED private exclusions.
+ * Never infer GBP from UK membership or promote these rows to live offers.
+ */
+export function pneusPrivateHeader(header:string[]):{sourceCurrencyExplicit:boolean}{
+ if(header.length<5||header.length>120||new Set(header).size!==header.length)
+  throw Error("pneus_invalid_column_layout");
+ const required=["merchant_id","merchant_product_id","product_name","search_price"];
+ if(!required.every(field=>header.includes(field)))
+  throw Error("pneus_required_fields_missing");
+ if(header.includes("currency")){
+  if(identifyFormat(header)!=="awin-csv")throw Error("pneus_unsupported_format");
+  return {sourceCurrencyExplicit:true};
+ }
+ if(!header.includes("in_stock")&&!header.includes("stock_status"))
+  throw Error("pneus_stock_evidence_missing");
+ return {sourceCurrencyExplicit:false};
+}
+
+export function preparePneusPrivateBatch(advertiser:string,feed:string,header:string[],rows:string[][]){
+ if(advertiser!==PNEUS_ADVERTISER_ID||feed!==PNEUS_FEED_ID)
+  throw Error("pneus_exact_feed_required");
+ const {sourceCurrencyExplicit}=pneusPrivateHeader(header);
+ if(rows.some(row=>row.length!==header.length))throw Error("pneus_bad_row_shape");
+ const projectedHeader=sourceCurrencyExplicit?header:[...header,"currency"];
+ const projectedRows=sourceCurrencyExplicit?rows:rows.map(row=>[...row,""]);
+ return prepareGeneralBatch(advertiser,feed,projectedHeader,projectedRows).map(row=>({
+  ...row,
+  status:!sourceCurrencyExplicit?"excluded" as const:row.status,
+  reasons:!sourceCurrencyExplicit?[...new Set([...row.reasons,"explicit_currency_missing"])]:row.reasons,
+  metadata:{...row.metadata,
+   source_currency_explicit:sourceCurrencyExplicit,
+   price_observation_kind:sourceCurrencyExplicit?"private_import":"private_unverified_currency",
+   tyre_adapter:"pneus_online_private_v1",tyre_size_verified:false,
+   tyre_fitment_verified:false,delivery_cost_verified:false,fitted_price_verified:false,
+   release_approved:false,canonical_category_approved:false
+  }
+ }));
 }

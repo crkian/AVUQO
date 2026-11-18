@@ -1,7 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
-import {pneusPrivateSourceGate,locatePneusFeed,validatePneusIdentity,pneusPrivateObjectKey}
+import {pneusPrivateSourceGate,locatePneusFeed,validatePneusIdentity,pneusPrivateObjectKey,
+ pneusPrivateHeader,preparePneusPrivateBatch}
  from "../lib/awin/pneus-online-private.ts";
 
 const programme={advertiser_id:"15236",joined_programme_observed:true,
@@ -52,4 +53,37 @@ test("large authenticated Pneus feed has resumable execution time and stage-only
  assert.match(code,/pneusPrivateSourceGate/);
  assert.match(code,/validatePneusIdentity/);
  assert.doesNotMatch(code,/console\.(log|warn|error)\(.*(downloadUrl|key|publisher|bytes)/);
+});
+
+const leanHeader=["merchant_id","merchant_product_id","product_name","search_price",
+ "aw_deep_link","in_stock"];
+const privateRow=["15236","pneus-tyre-1","Synthetic private tyre","89.99",
+ "https://www.awin1.com/pclick.php?m=15236&a=3135746&p=123","1"];
+test("Pneus source without currency is archived only as excluded private evidence",()=>{
+ assert.deepEqual(pneusPrivateHeader(leanHeader),{sourceCurrencyExplicit:false});
+ const [row]=preparePneusPrivateBatch("15236","26513",leanHeader,[privateRow]);
+ assert.equal(row.status,"excluded");
+ assert.equal(row.currency,"");
+ assert.ok(row.reasons.includes("explicit_currency_missing"));
+ assert.equal(row.metadata.source_currency_explicit,false);
+ assert.equal(row.metadata.price_observation_kind,"private_unverified_currency");
+ assert.equal(row.metadata.tyre_fitment_verified,false);
+ assert.equal(row.metadata.release_approved,false);
+ assert.equal(row.metadata.canonical_category_approved,false);
+ const code=readFileSync("app/api/internal/awin-pneus-private-import/route.ts","utf8");
+ assert.match(code,/preparePneusPrivateBatch\(PNEUS_ADVERTISER_ID,PNEUS_FEED_ID,header,batch\)/);
+ assert.match(code,/if\(!sourceCurrencyExplicit&&excluded!==count\)/);
+ assert.match(code,/no_publication:true/);
+});
+test("Pneus exact advertiser and explicit currency cannot be forged",()=>{
+ const withCurrency=[...leanHeader,"currency"];
+ const [verified]=preparePneusPrivateBatch("15236","26513",withCurrency,[[...privateRow,"GBP"]]);
+ assert.equal(verified.currency,"GBP");
+ assert.equal(verified.metadata.source_currency_explicit,true);
+ const [notGbp]=preparePneusPrivateBatch("15236","26513",withCurrency,[[...privateRow,"EUR"]]);
+ assert.equal(notGbp.status,"excluded");
+ assert.ok(notGbp.reasons.includes("unexpected_currency"));
+ assert.throws(()=>preparePneusPrivateBatch("12715","26513",leanHeader,[privateRow]),/pneus_exact_feed_required/);
+ assert.throws(()=>preparePneusPrivateBatch("15236","26513",leanHeader,[[...privateRow.slice(0,1),"bad","title","80",privateRow[4],"1"]].map(r=>r.map((v,i)=>i===0?"9999":v))),/Cross-advertiser/);
+ assert.throws(()=>pneusPrivateHeader(["merchant_id","merchant_id",...leanHeader.slice(2)]),/pneus_invalid_column_layout/);
 });
