@@ -10,6 +10,7 @@ import Footer from "../components/layout/Footer";
 import LifestyleExplorer from "../components/lifestyle/LifestyleExplorer";
 import ShoppingDepartmentShelf from "../components/shopping/ShoppingDepartmentShelf";
 import StorefrontQuickLinks from "../components/home/StorefrontQuickLinks";
+import CatalogueGateway from "../components/catalogue/CatalogueGateway";
 import EbayUKPartnerShelf from "../components/home/EbayUKPartnerShelf";
 import HomeShoppingDashboard from "../components/home/HomeShoppingDashboard";
 import RetailerSales from "../components/promotions/RetailerSales";
@@ -75,6 +76,7 @@ async function HomeContent() {
     </section>
 
     <StorefrontQuickLinks/>
+    <CatalogueGateway compact/>
     <Suspense fallback={null}><RetailerSales placement="home"/></Suspense>
     <Suspense fallback={null}><PartnerPromoShelf placement="home"/></Suspense>
     <EbayUKPartnerShelf/>
