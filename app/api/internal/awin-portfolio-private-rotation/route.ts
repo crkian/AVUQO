@@ -3,6 +3,7 @@ import {createAdminClient} from "../../../../lib/supabase/admin";
 import {sourceIngestionFailures,evaluateSourceControls} from "../../../../lib/pipeline/source-readiness";
 import {autoReleaseEligibleAwinOffers} from "../../../../lib/awin/auto-first-publication";
 import {POST as runPrivateImport} from "../awin-auto-import/route";
+import {recordPrivateCronAttempt} from "../../../../lib/awin/private-cron-recorder";
 
 export const maxDuration=300;
 const reply=(data:unknown,status=200)=>NextResponse.json(data,{
@@ -27,6 +28,12 @@ const PAIRS=[
 ] as const;
 
 export async function GET(request:NextRequest){
+ const secret=process.env.CRON_SECRET;
+ if(!secret||secret.length<16||request.headers.get("authorization")!==`Bearer ${secret}`)
+  return reply({error:"Unauthorized"},401);
+ return recordPrivateCronAttempt("portfolio_rotation",()=>runRotation(request));
+}
+async function runRotation(request:NextRequest){
  const secret=process.env.CRON_SECRET;
  if(!secret||secret.length<16||request.headers.get("authorization")!==`Bearer ${secret}`)
   return reply({error:"Unauthorized"},401);
@@ -136,6 +143,6 @@ export async function GET(request:NextRequest){
   live_verified_rows:safeCount(body.live_verified_rows),
   canonical_status:safeStatus(canonical.status),
   canonical_accepted:safeCount(canonical.canonicalAccepted),
-  private_only:true,automatic_publication:publication,
+  private_only:true,accepted_programmes:accepted.size,eligible_retailable_feeds:available.length,automatic_publication:publication,
   no_publication:publication.approved===0,source_mode:activeMode?"active":"paused"},result.status);
 }
