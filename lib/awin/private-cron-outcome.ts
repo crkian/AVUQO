@@ -12,6 +12,7 @@ const SUCCESS_CODES=new Set([
  "snapshot_stream_or_schema_unavailable","private_batch_recheck_failed",
  "tyre_live_source_cohort_checked",
  "snapshot_ready","existing_snapshot","already_claimed_or_not_ready",
+ "private_rotation_checked","no_current_supported_retail_feeds",
  "already_running"
 ]);
 const FAILURES:Record<string,string>={
