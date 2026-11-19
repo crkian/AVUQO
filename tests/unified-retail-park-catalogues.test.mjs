@@ -80,3 +80,28 @@ test("original design and 21 unique themes persist",()=>{
  assert.match(host,/--accent/);
  assert.equal(new Set(PARTNERS.map(p=>p.accent+p.deep+p.glow)).size,21);
 });
+
+test("cumulative handovers preserve all previous project work, source and branch snapshots",()=>{
+ const history=["docs/PROJECT_STATUS.md","CHANGELOG.md",
+  "docs/AVUQO_ACTIVE_HANDOVER.md","docs/AVUQO_GIT_BRANCH_SOURCE_FEATURE_TRACKER_2026-11-16.md"];
+ for(const file of history){
+  const text=read(file);
+  assert.ok(text.length>100000,file+" history was unexpectedly truncated");
+  assert.ok(text.startsWith("## 19 November 2026 | Unified AVUQO catalogue"),file+" missing latest addendum");
+  assert.ok(text.includes("Retail park, 21 advertiser storefronts, mobile hub"),file+" previous release record missing");
+  assert.ok(text.includes("original"),file+" original work index missing");
+ }
+ for(const file of ["docs/AVUQO_ACTIVE_HANDOVER.json","docs/AVUQO_GIT_BRANCH_SOURCE_FEATURE_TRACKER_2026-11-16.json"]){
+  const root=JSON.parse(read(file));
+  const continuity=root.unified_catalogues_full_continuity_20261119;
+  assert.ok(continuity,file+" latest continuity namespace missing");
+  assert.ok(Object.keys(root).length>90,file+" historic workstream sections deleted");
+  assert.equal(continuity.historical_json_keys_and_requirements_retained,true);
+  assert.ok(root.retail_park_advertiser_launch_20261119,file+" PR 327 historical entry deleted");
+  assert.ok(root.awin_21_programme_automation_20261119,file+" feed automation entry deleted");
+  assert.ok(continuity.outstanding_actions.length>=8);
+ }
+ const index=read("docs/AVUQO_CUMULATIVE_CONTINUITY_AND_CATALOGUE_INDEX_2026-11-19.md");
+ for(const keyword of ["29-workstream","12-gap","Amazon","Dropshipping","Supermarket","Holiday Extras","Pneus Online","21 individual advertiser","all 25","PR #327"])
+  assert.ok(index.toLowerCase().includes(keyword.toLowerCase()),"missing preserved goal: "+keyword);
+});
