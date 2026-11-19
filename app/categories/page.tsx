@@ -25,6 +25,7 @@ const journeys=[
  {label:"Groceries",href:"/groceries",summary:"Build your basket and see which supermarket prices are supported.",symbol:"⌗"},
  {label:"Pets",href:"/pets",summary:"Care essentials, feeders, fountains and thoughtful pet products.",symbol:"♧"},
  {label:"Christmas",href:"/christmas",summary:"Seasonal inspiration, gifts and considered festive planning.",symbol:"✳"},
+ {label:"Deals & Sales",href:"/sales",summary:"Browse current retailer campaigns and independently checked price reductions.",symbol:"%"},
  {label:"Compare",href:"/compare",summary:"Look beyond headline contract prices to the full cost.",symbol:"∑"}
 ];
 export default function CategoriesPage(){return <main className={styles.page}>
