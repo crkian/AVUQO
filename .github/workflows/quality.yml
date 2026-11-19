@@ -234,6 +234,8 @@ jobs:
         run: node --test tests/integrated-shopping-experience.test.mjs
       - name: Retailer sales and listing description coverage regression
         run: node --experimental-strip-types --test tests/retailer-sales-listing-details.test.mjs
+      - name: Active Awin private bulk lease and accepted portfolio safety
+        run: node --test tests/awin-active-private-bulk-claim.test.mjs
       - name: Marketing-only lint
         run: npx eslint lib/marketing components/layout/MegaNav.tsx components/home app/control-centre/marketing app/api/internal/marketing
       - run: npm run lint
