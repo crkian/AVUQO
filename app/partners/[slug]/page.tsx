@@ -11,7 +11,6 @@ import {PARTNERS,partnerFor,activePartnerPromotions,isApprovedPartnerLink} from 
 import styles from "../partners.module.css";
 
 type Props={params:Promise<{slug:string}>};
-export const dynamicParams=false;
 export function generateStaticParams(){return PARTNERS.map(({slug})=>({slug}));}
 export async function generateMetadata({params}:Props):Promise<Metadata>{
  const partner=partnerFor((await params).slug);
