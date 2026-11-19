@@ -236,6 +236,8 @@ jobs:
         run: node --experimental-strip-types --test tests/retailer-sales-listing-details.test.mjs
       - name: Active Awin private bulk lease and accepted portfolio safety
         run: node --test tests/awin-active-private-bulk-claim.test.mjs
+      - name: Advertiser retail park and mobile source-backed launch regressions
+        run: node --experimental-strip-types --test tests/partner-retail-park-launch.test.mjs
       - name: Marketing-only lint
         run: npx eslint lib/marketing components/layout/MegaNav.tsx components/home app/control-centre/marketing app/api/internal/marketing
       - run: npm run lint
