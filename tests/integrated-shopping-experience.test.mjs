@@ -6,7 +6,8 @@ const read=(path)=>readFileSync(new URL("../"+path,import.meta.url),"utf8");
 test("homepage has a larger verified-shopping product window",()=>{
  const homepage=read("app/page.tsx"),dashboard=read("components/home/HomeShoppingDashboard.tsx");
  assert.match(homepage,/verifiedProductIndex\(36\)/);
- assert.match(dashboard,/items\.slice\(0,12\)/);
+ assert.match(dashboard,/diverseShoppingPicks\(items,12\)/);
+ assert.match(dashboard,/groups=new Map/);
  assert.match(dashboard,/Regular eligible retailer price/);
  assert.match(dashboard,/\/wishlist/);
 });
