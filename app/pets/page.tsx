@@ -29,7 +29,7 @@ async function PublishedPetOffers() {
   const verified = await verifiedProductIndex();
   const offers = verified
     .filter(item=>eligibleDepartmentProduct({slug:"pets"},item))
-    .flatMap(item=>item.offers.map(({published})=>published))
+    .flatMap(item=>item.offers.map(({published})=>({...published,description:item.product.description})))
     .sort((a,b)=>b.avuqo_score-a.avuqo_score)
     .slice(0,8);
   return <section className="shell section" aria-labelledby="pet-offers">
