@@ -51,7 +51,7 @@ export const DEFAULT_NAVIGATION:NavigationContent={schemaVersion:2,groups:[
   ["Experiences","/experiences","Days out and memorable plans"],
   ["Motoring","/motoring","The journey and the running costs"],
   ["Services","/services","Practical services for everyday life"],
-  ["Travel partners","/partners#travel","Explore airport parking, lounges and hotels"]]),
+  ["Travel partners","/partners","Explore airport parking, lounges and hotels"]]),
  group("more","More","/about","Learn how AVUQO works.",6,[
   ["About AVUQO","/about","What AVUQO is here to do"],
   ["How scoring works","/score","How value is assessed"],
