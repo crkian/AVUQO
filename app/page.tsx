@@ -39,7 +39,7 @@ function SeasonalLoading() {
 async function HomeContent() {
   await connection(); // Re-evaluate the UK calendar on each homepage request, including date boundaries.
   const season=editorialSpotlight(new Date());
-  const [editorial,campaigns,products] = await Promise.all([publishedEditorial("home"),loadHomeCampaigns(),verifiedProductIndex(8)]);
+  const [editorial,campaigns,products] = await Promise.all([publishedEditorial("home"),loadHomeCampaigns(),verifiedProductIndex(36)]);
   return <main className={styles.page}>
     <Header/>
     <section className={`${styles.hero} ${styles.fullStorefrontHero}`} aria-labelledby="home-title">
