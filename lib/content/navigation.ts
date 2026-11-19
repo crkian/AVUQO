@@ -9,6 +9,7 @@ export const DEFAULT_NAVIGATION:NavigationContent={schemaVersion:2,groups:[
  group("discover","Discover","/discover","Start with the discoveries that matter.",0,[
   ["Explore AVUQO","/discover","Browse departments and useful guides"],
   ["The Marketplace","/marketplace","Explore, shop, compare or meet the specialists"],
+  ["The Retail Park","/partners","Meet all 21 accepted advertisers and find eligible offers"],
   ["Who\u0027s Who","/whos-who","Meet makers and eligible retailers across categories"],
   ["How good is the deal?","/reality-check","Check what the evidence really tells us"],
   ["Your Watches","/watches","Keep track of items that matter"],
@@ -18,10 +19,12 @@ export const DEFAULT_NAVIGATION:NavigationContent={schemaVersion:2,groups:[
   ["Black Friday","/black-friday","Look beyond headline discounts"],
   ["Christmas","/christmas","Plan gifts and seasonal spending"],
   ["Product guides","/products","Examine eligible, verified product listings"],
+  ["Advertiser offers","/partners","Find official partner shops, coupons and referrals"],
   ["Verified Tools & DIY","/tools","Shop source-verified retailer tools and equipment"]]),
  group("compare","Compare","/compare","Understand the full price before you decide.",2,[
   ["Choose your comparison","/marketplace/compare","Products, grocery baskets, tyres, contracts and travel"],
   ["Compare contracts","/compare","Compare total costs and terms"],
+  ["Mobile & SIM plans","/mobile","Find phones and mobile providers without guessing tariff prices"],
   ["Product guides","/products","Compare available eligible offers"],
   ["Broadband","/broadband","Understand the contract, not just the monthly fee"],
   ["Insurance explained","/insurance","Understand cover and exclusions"],
@@ -34,6 +37,7 @@ export const DEFAULT_NAVIGATION:NavigationContent={schemaVersion:2,groups:[
  group("categories","Categories","/categories","Explore buying guides by interest.",4,[
   ["All categories","/categories","See every shopping department"],
   ["Shopping","/shopping","Explore everyday products"],
+  ["Partner shops","/partners","Browse participating retailers and service partners"],
   ["Technology","/tech","Phones, computers and electronics"],
   ["Home & living","/home","Home essentials and furnishings"],
   ["Beauty","/beauty","Skincare, fragrance and care"],
@@ -43,9 +47,11 @@ export const DEFAULT_NAVIGATION:NavigationContent={schemaVersion:2,groups:[
   ["Pets","/pets","Products for your companions"]]),
  group("travel","Travel","/travel","Explore travel and experiences thoughtfully.",5,[
   ["Travel","/travel","Trips, stays and useful travel guidance"],
+  ["Holiday Extras","/partners/holiday-extras","Explore approved airport booking partner links and terms"],
   ["Experiences","/experiences","Days out and memorable plans"],
   ["Motoring","/motoring","The journey and the running costs"],
-  ["Services","/services","Practical services for everyday life"]]),
+  ["Services","/services","Practical services for everyday life"],
+  ["Travel partners","/partners","Explore airport parking, lounges and hotels"]]),
  group("more","More","/about","Learn how AVUQO works.",6,[
   ["About AVUQO","/about","What AVUQO is here to do"],
   ["How scoring works","/score","How value is assessed"],
@@ -94,5 +100,27 @@ export function isValidNavigation(value:unknown):value is NavigationContent {
  return true;
 }
 export function parseNavigation(value:unknown):NavigationContent {
- return isValidNavigation(value)?value:DEFAULT_NAVIGATION;
+ if(isValidNavigation(value))return value;
+ // Previously published owner navigation may legitimately predate a newly
+ // shipped menu destination. Reconcile only exact known groups + known hrefs,
+ // preserving editor-controlled labels/order/toggles; no arbitrary URLs enter.
+ if(value&&typeof value==="object"){
+  const prior=value as Partial<NavigationContent>;
+  if(prior.schemaVersion===2&&Array.isArray(prior.groups)&&
+     prior.groups.length===DEFAULT_NAVIGATION.groups.length){
+   const byGroup=new Map(prior.groups.map(g=>[g.id,g]));
+   if(byGroup.size===DEFAULT_NAVIGATION.groups.length){
+    const merged:NavigationContent={schemaVersion:2,groups:DEFAULT_NAVIGATION.groups.map(def=>{
+     const saved=byGroup.get(def.id);
+     const originals=Array.isArray(saved?.links)?saved.links:[];
+     const knownHrefs=new Set(def.links.map(l=>l.href));
+     if(!saved||originals.some(l=>!knownHrefs.has(l.href)))return def;
+     const byHref=new Map(originals.map(l=>[l.href,l]));
+     return {...saved,links:def.links.map(link=>byHref.get(link.href)??link)} as NavigationGroup;
+    })};
+    if(isValidNavigation(merged))return merged;
+   }
+  }
+ }
+ return DEFAULT_NAVIGATION;
 }

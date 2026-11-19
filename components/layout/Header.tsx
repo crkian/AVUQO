@@ -95,7 +95,7 @@ export default function Header() {
         <Suspense fallback={<nav className="primary-nav header-nav-fallback" id="avuqo-primary-nav" aria-label="Primary navigation">
           <Link href="/discover">Discover</Link><Link href="/sales">Deals &amp; Sales</Link>
           <Link href="/compare">Compare</Link><Link href="/groceries">Groceries</Link>
-          <Link href="/categories">Categories</Link><Link href="/travel">Travel</Link>
+          <Link href="/categories">Categories</Link><Link href="/partners">Retail Park</Link><Link href="/mobile">Mobile</Link><Link href="/travel">Travel</Link>
           <Link href="/about">More</Link>
         </nav>}>
           <MegaNav navigation={navigation} menuOpen={menuOpen} ownerPreview={admin} onNavigate={() => setMenuOpen(false)} />

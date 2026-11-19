@@ -3107,5 +3107,28 @@
     "source_permissions_unchanged": true,
     "production_migration_verified": false,
     "production_code_verified": false
+  },
+  "retail_park_advertiser_launch_20261119": {
+    "status": "pending_ci_and_deployment",
+    "branch": "feature/merchant-retail-park-partner-pages-20261119",
+    "entrypoint": "/partners",
+    "partner_pages": 21,
+    "theme_uniqueness": "individual accent and merchandising context",
+    "mobile_route": "/mobile",
+    "live_approved_merchants_at_audit": 5,
+    "other_sources": {
+      "amazon_associates": "not_verified_or_connected",
+      "supermarkets": {
+        "stores": 9,
+        "published_products": 0,
+        "published_prices": 0
+      },
+      "dropshipping": "not_connected_merchant_of_record",
+      "iceland_awin_7868": "rejected_by_advertiser_2026-11-02"
+    },
+    "sources_doc": "docs/AVUQO_RETAIL_PARK_PARTNER_EMAILS_AND_SOURCE_EXPANSION_2026-11-19.md",
+    "public_prices_gated": true,
+    "direct_links_from_email_not_fabricated": true,
+    "no_new_unreviewed_stock": true
   }
 }
