@@ -17,7 +17,7 @@ test("live header/footer share the approved visual identity without changing fun
 });
 test("public catalogue shows only publication-gated images and maintains truthful empty states",()=>{
  const catalogue=read("app/products/page.tsx"),source=read("lib/products/public-catalog.ts");
- assert.match(catalogue,/verifiedProductIndex\(48\)/);
+ assert.match(catalogue,/verifiedProductIndex\(60\)/);
  assert.match(catalogue,/published\.image_url/);
  assert.match(catalogue,/No approved photograph available/);
  assert.match(catalogue,/There are no verified external-source product offers ready/);
