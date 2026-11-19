@@ -94,6 +94,7 @@ export default async function TyreShop({searchParams}:{searchParams:Promise<Filt
       <small>{t.brand??"Tyres UK"} · Tyres.net</small>
       <h2><Link href={"/tyres/shop/"+encodeURIComponent(t.sku)}>{t.title}</Link></h2>
       <p>{t.width&&t.profile&&t.rim? `${t.width}/${t.profile} R${t.rim}`:"Full size needs confirmation"}</p>
+      <p style={{fontSize:12,lineHeight:1.6}}>Supplier-listed {t.brand??"tyre"} item. Confirm exact tyre size, load/speed rating and fitting charges with the retailer. The source price is per tyre, not a fitted total.</p>
       <small>Exact source SKU {t.sku}</small>
       <strong>{money(Number(t.price))} <small>/ tyre</small></strong>
       <Link className={styles.details} href={"/tyres/shop/"+encodeURIComponent(t.sku)}>View exact product and supplier photos</Link>
