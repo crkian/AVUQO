@@ -7,7 +7,8 @@ import Header from "../../../components/layout/Header";
 import Footer from "../../../components/layout/Footer";
 import {createAdminClient} from "../../../lib/supabase/admin";
 import {verifiedOffersForAdvertiser} from "../../../lib/products/public-catalog";
-import {PARTNERS,partnerFor,activePartnerPromotions,isApprovedPartnerLink} from "../../../lib/partners/advertiser-directory";
+import {PARTNERS,partnerFor,activePartnerPromotions,isApprovedPartnerLink,partnerHref} from "../../../lib/partners/advertiser-directory";
+import {departmentsForPartner,partnersForDepartment} from "../../../lib/partners/catalogue-taxonomy";
 import styles from "../partners.module.css";
 
 type Props={params:Promise<{slug:string}>};
@@ -40,10 +41,12 @@ export default async function PartnerDetail({params}:Props){
  const primary=partner.links.find(l=>l.kind==="approved_awin"&&isApprovedPartnerLink(l))??
   partner.links.find(l=>isApprovedPartnerLink(l));
  const namedLinks=partner.links.filter(isApprovedPartnerLink);
+ const categories=departmentsForPartner(partner.slug);
+ const related=categories.length?partnersForDepartment(categories[0].slug).filter(p=>p.slug!==partner.slug).slice(0,5):[];
  return <><Header/>
   <main className={styles.page} style={theme}>
    <section className={styles.hero}><div className={styles.shell}>
-    <nav className={styles.breadcrumb} aria-label="Breadcrumb"><Link href="/">AVUQO</Link><span>›</span><Link href="/partners">Retail park</Link><span>›</span><span>{partner.name}</span></nav>
+    <nav className={styles.breadcrumb} aria-label="Breadcrumb"><Link href="/">AVUQO</Link><span>›</span><Link href="/catalogue">Catalogue</Link><span>›</span><Link href="/partners">Retailers</Link><span>›</span><span>{partner.name}</span></nav>
     <div className={styles.heroGrid}><div>
      <p className={styles.kicker}>AVUQO retail park · {partner.kind==="retail"?"Product shopping":"Partner discovery"}</p>
      <h1>{partner.name}<span>{partner.tagline}</span></h1>
@@ -101,6 +104,19 @@ export default async function PartnerDetail({params}:Props){
        <span>View eligible product ↗</span>
       </Link>)}</div></>:
       <p className={styles.sectionIntro}>No matching offer currently passes AVUQO&apos;s complete public price, stock, source-rights, exact-identity and owner-release checks. This does not imply the advertiser has no products or that its programme was declined.</p>}
+    </section>
+    <section className={styles.section} aria-labelledby="partner-department-navigation">
+     <p className={styles.kicker}>Part of the wider AVUQO retail park</p><h2 id="partner-department-navigation">Shop the same category your way.</h2>
+     <p className={styles.sectionIntro}>Browse the original AVUQO departments, explore other participating retailers, or start with an independently checked product. A shared category is not an assertion that shops sell identical items.</p>
+     <div className={styles.relatedStores}>
+      {categories.map(d=><Link className={styles.relatedStore} key={d.slug} href={"/categories/"+d.slug+"/products"}>
+       <span aria-hidden="true">▤</span><strong>{d.name} products &amp; guides</strong><span aria-hidden="true">›</span>
+      </Link>)}
+      {related.map(p=><Link className={styles.relatedStore} href={partnerHref(p)} key={p.slug} style={{"--glow":p.glow} as CSSProperties}>
+       <span aria-hidden="true">{p.symbol}</span><strong>{p.name}</strong><span aria-hidden="true">›</span>
+      </Link>)}
+      <Link className={styles.relatedStore} href="/catalogue"><span aria-hidden="true">◇</span><strong>Everything on AVUQO</strong><span aria-hidden="true">›</span></Link>
+     </div>
     </section>
     <section className={styles.notice}>
      <strong>Independent comparison first.</strong> AVUQO may earn commission through some retailer links at no extra cost to you. An advertiser&apos;s own quote is not automatically the cheapest market price. Shop-by-price comparisons require the identical product or booking details across multiple valid sources. <Link href="/affiliate-disclosure">How affiliate links work</Link> · <Link href="/trust">How AVUQO verifies offers</Link> · <Link href="/partners">All partners</Link>
