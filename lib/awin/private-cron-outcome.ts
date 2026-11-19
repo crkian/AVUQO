@@ -74,7 +74,7 @@ const PNEUS_REASONS=new Set([
  "cross_advertiser_product","invalid_or_duplicate_product_id","source_registry_error",
  "pneus_invalid_column_layout","pneus_required_fields_missing",
  "pneus_unsupported_format","pneus_stock_evidence_missing",
- "pneus_currency_quarantine_failed","pneus_bad_row_shape"
+ "pneus_currency_quarantine_failed","pneus_bad_row_shape","private_bulk_claim_rejected"
 ]);
 const FEED_REASONS=new Set([
  "unsupported_columns","unterminated_csv_quote","invalid_csv_quote",
