@@ -7,7 +7,7 @@ export type DashboardEntry={product:PublicProduct;offers:PublicOffer[]};
 const money=(value:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(value);
 const tools=[
  {href:"/watches",title:"Watches",desc:"Products to revisit",icon:Bell},
- {href:"/saved",title:"Saved items",desc:"Your favourite finds",icon:Bookmark},
+ {href:"/wishlist",title:"Wishlist",desc:"Keep products for later",icon:Bookmark},
  {href:"/lists",title:"Shared lists",desc:"Plan with others",icon:ListChecks},
  {href:"/compare",title:"Compare contracts",desc:"Check the total cost",icon:Scale},
  {href:"/travel",title:"Travel",desc:"Plan your next trip",icon:Plane},
@@ -48,7 +48,7 @@ export default function HomeShoppingDashboard({items}:{items:DashboardEntry[]}){
             <span className={styles.findPhoto}>{image?<img src={image} alt="" loading="lazy" referrerPolicy="no-referrer"/>:<Package size={42} aria-hidden="true"/>}</span>
             <strong>{product.canonical_title}</strong><small>{best.published.category || "Verified shopping"}</small>
             <span>From {money(Number(best.offer.total_price??best.offer.price))}</span>
-            <small>Recently checked retailer offer · Not necessarily a deal</small>
+            <small>{Number(best.published.saving_amount)>0&&Number(best.published.typical_price)>Number(best.published.current_price)?"Verified price reduction":"Regular eligible retailer price"}</small>
           </Link>;
         }):
         researchPicks.map(guide=><Link href={`/products/${guide.slug}`} key={guide.slug} className={styles.find}>
