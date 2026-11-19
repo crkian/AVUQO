@@ -85,7 +85,7 @@ export async function verifiedOffers(options:{productId?:string;offerId?:string;
   if(options.productId)q=q.eq("product_id",options.productId);
   if(options.offerId)q=q.eq("offer_id",options.offerId);
   if(options.offerIds){
-   const ids=options.offerIds.filter(id=>/^[0-9a-f-]{36}$/i.test(id)).slice(0,450);
+   const ids=options.offerIds.filter(id=>/^[0-9a-f-]{36}$/i.test(id)).slice(0,120);
    if(!ids.length)return [];
    q=q.in("offer_id",ids);
   }
@@ -222,7 +222,7 @@ export async function verifiedOffersForAdvertiser(advertiserId:string,limit=15):
   if(merchantError||!merchants?.length)return [];
   const {data:offers,error}=await db.from("offers").select("id")
    .in("merchant_id",merchants.map(m=>m.id)).eq("status","active")
-   .order("last_seen_at",{ascending:false}).limit(450);
+   .order("last_seen_at",{ascending:false}).limit(120);
   if(error||!offers?.length)return [];
   return verifiedOffers({offerIds:offers.map(o=>o.id),limit:Math.max(1,Math.min(limit,60))});
  }catch{return [];}
