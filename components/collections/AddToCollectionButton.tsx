@@ -46,7 +46,7 @@ export default function AddToCollectionButton({ kind, productId, productSlug, of
         return;
       }
       setSaved(true);
-      setMessage(result.alreadySaved ? "Already saved." : kind === "basket" ? "Added to your basket." : "Saved to your wishlist.");
+      setMessage(result.alreadySaved ? "Already saved." : kind === "basket" ? "Added to your comparison basket, not purchased." : "Kept for later in your wishlist.");
     } catch {
       setMessage("Could not save this item. Please try again.");
     } finally { setBusy(false); }
