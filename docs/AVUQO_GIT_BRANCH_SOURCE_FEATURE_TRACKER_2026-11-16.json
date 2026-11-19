@@ -3584,5 +3584,31 @@
     "public_source_admission_unchanged": true,
     "production_release_confirmed": false,
     "release_register": "docs/AVUQO_SHOPPING_AND_ADVERTISER_RELEASE_REGISTER_2026-11-19.md"
+  },
+  "retailer_sales_listing_candidate_20261119": {
+    "status": "candidate_requires_CI_and_production_verification",
+    "branch": "feature/live-sales-discovery-listing-details-20261119",
+    "summary": "Dated Petlibro UK Awin promotion links and source-eligible descriptions on all public product listing surfaces",
+    "petlibro": {
+      "advertiser_id": "77952",
+      "email_received_on": "2026-11-19",
+      "sale_start": "2026-11-19",
+      "sale_end_inclusive": "2026-12-03",
+      "max_advertised_discount_pct": 55,
+      "savings_kind": "retailer_announced_not_avuqo_verified"
+    },
+    "published_source_controls_unchanged": true,
+    "customer_surfaces": [
+      "/",
+      "/sales",
+      "/black-friday",
+      "/pets",
+      "/shopping",
+      "/categories/pets/products",
+      "/products/[slug]",
+      "/search"
+    ],
+    "integration_handover": "docs/AVUQO_RETAILER_SALES_AND_LISTING_INTEGRATION_2026-11-19.md",
+    "production_release_confirmed": false
   }
 }
