@@ -3,13 +3,15 @@ import {connection} from "next/server";
 import Link from "next/link";
 import type {Metadata} from "next";
 import {notFound} from "next/navigation";
-import {ArrowLeft,ArrowRight,CheckCircle2,Clock3,ImageOff,ShieldCheck} from "lucide-react";
+import {ArrowLeft,ArrowRight,CheckCircle2,Clock3,ShieldCheck} from "lucide-react";
 import Header from "../../../components/layout/Header";
 import Footer from "../../../components/layout/Footer";
 import AddToCollectionButton from "../../../components/collections/AddToCollectionButton";
+import ProductGallery from "../../../components/products/ProductGallery";
+import RelatedProductSuggestions from "../../../components/products/RelatedProductSuggestions";
 import ResearchProductDetails from "../../../components/products/ResearchProductDetails";
 import {researchGuideBySlug} from "../../../lib/products/research-guides";
-import {verifiedProduct} from "../../../lib/products/public-catalog";
+import {verifiedProduct,verifiedProductIndex} from "../../../lib/products/public-catalog";
 import {chooseProductTemplate,validatedSpecificationEntries} from "../../../lib/products/templates";
 import styles from "./page.module.css";
 // A real 404 must be determined before streamed HTML. This route intentionally
@@ -60,19 +62,7 @@ function ProductDetails({entry,guide}:{
      .map(url=>[url,url] as const)
   ).values()].slice(0,24);
  return <div className={`${styles.productPage} ${styles[presentation.template]??""}`} data-department-theme={presentation.template==="general"?department?.theme:undefined}><section className={styles.hero}><div className="shell"><Link className={styles.back} href="/products"><ArrowLeft size={17}/> All products</Link><div className={`${styles.heroGrid} ${presentation.imageShape==="wide"?styles.wideImage:presentation.imageShape==="portrait"?styles.portraitImage:""}`}>
- <div className={styles.art}>
-  <div className={styles.productVisual}>
-   {photo?<img src={photo} alt={product.canonical_title} referrerPolicy="no-referrer"/>:
-    <div className={styles.placeholder}><ImageOff size={36} aria-hidden="true"/><span>No approved product photo</span></div>}
-  </div>
-  {gallery.length>1&&<div className={styles.galleryStrip} aria-label="Publisher-supplied product image gallery">
-   {gallery.map((url,i)=><a key={url} href={url} target="_blank" rel="noopener noreferrer"
-      aria-label={`View supplier product image ${i+1} of ${gallery.length}`}>
-     <img src={url} alt={`${product.canonical_title}, publisher image ${i+1}`}
-      loading="lazy" referrerPolicy="no-referrer"/>
-    </a>)}
-  </div>}
- </div>
+ <div className={styles.art}><div className={styles.productVisual}><ProductGallery images={gallery} title={product.canonical_title}/></div></div>
  <div className={styles.copy}><p className={styles.kicker}>{presentation.eyebrow}</p><h1>{product.canonical_title}</h1>{(product.brand||product.model)&&<p className={styles.variant}>{product.brand&&<span>{product.brand}</span>}{product.model&&<span>{product.model}</span>}</p>}
  <p className={styles.intro}>{product.description||"Compare eligible retailer offers and understand what the price evidence can, and cannot, show."}</p>
  <div className={styles.topPrice}><span>{presentation.template==="tyres"?"Lowest eligible tyre offer · fitting may be extra":"Lowest displayed price"}</span><strong>{gbp(Number(best.offer.total_price??best.offer.price))}</strong><small>From {best.published.merchant}. {best.offer.total_price===null?"Product price only. ":""}{presentation.template==="tyres"
@@ -122,5 +112,11 @@ export default async function Page({params}:Props){
  const entry=await verifiedProduct(slug);
  const guide=entry?undefined:researchGuideBySlug(slug);
  if(!entry&&!guide)notFound();
- return <main><Header/><Suspense fallback={<div className="shell section">Checking product evidence…</div>}><ProductDetails entry={entry} guide={guide}/></Suspense><Footer/></main>;
+ const relatedPool=entry?await verifiedProductIndex(60):[];
+ const alternatives=relatedPool.filter(item=>item.product.id!==entry?.product.id);
+ const category=entry?.offers[0]?.published.category.trim().toLowerCase();
+ const similar=category?alternatives.filter(item=>item.offers.some(offer=>offer.published.category.trim().toLowerCase()===category)).slice(0,4):[];
+ const similarIds=new Set(similar.map(item=>item.product.id));
+ const discover=alternatives.filter(item=>!similarIds.has(item.product.id)).slice(0,4);
+ return <main><Header/><Suspense fallback={<div className="shell section">Checking product evidence…</div>}><ProductDetails entry={entry} guide={guide}/></Suspense>{entry&&<RelatedProductSuggestions similar={similar} discover={discover}/>}<Footer/></main>;
 }

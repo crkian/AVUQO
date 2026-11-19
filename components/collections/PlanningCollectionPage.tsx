@@ -37,6 +37,13 @@ export default function PlanningCollectionPage({ kind }: { kind: PlanningCollect
   const [savedCopyHref, setSavedCopyHref] = useState<string | null>(null);
   const collection = COLLECTIONS[kind];
   const displays = items.map(itemDisplay);
+  const merchantSummaries = Object.values(displays.reduce<Record<string,{merchant:string;items:number;priced:number;subtotal:number}>>((all,item)=>{
+    const key=item.merchant.trim()||"Merchant not recorded";
+    const row=all[key]??{merchant:key,items:0,priced:0,subtotal:0};
+    row.items++;
+    if(item.price!==null){row.priced++;row.subtotal+=item.price;}
+    all[key]=row;return all;
+  },{})).sort((a,b)=>a.merchant.localeCompare(b.merchant));
 
   const load = useCallback(async () => {
     setLoading(true); setMessage("");
@@ -110,6 +117,16 @@ export default function PlanningCollectionPage({ kind }: { kind: PlanningCollect
         <div className={styles.empty}><Heart/><h2>Sign in to save your selections</h2><p>Your wishlist and basket stay private to your account.</p><Link className={styles.addButton} href={`/login?next=${encodeURIComponent(collection.route)}`}>Sign in</Link></div> :
         <>
           <div className={styles.heading}><h2>{displays.length} saved {displays.length === 1 ? "item" : "items"}</h2><span>Saved as one private {kind === "basket" ? "basket" : "wishlist"}</span></div>
+          {kind === "basket" && displays.length > 0 && <div style={{padding:"16px 18px",border:"1px solid #e3d7e8",borderRadius:14,marginBottom:18,background:"#faf7fc"}}>
+            <h2 style={{margin:"0 0 6px",fontSize:20}}>Basket by retailer</h2>
+            <p style={{margin:"0 0 12px",fontSize:13}}>These are saved historical prices, not live checkout quotes or a like-for-like complete-basket ranking. Recheck each offer before buying.</p>
+            <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))",gap:10}}>
+             {merchantSummaries.map(group=><div key={group.merchant} style={{padding:12,background:"#fff",border:"1px solid #ebe1ed",borderRadius:10}}>
+              <strong>{group.merchant}</strong><p style={{fontSize:12,margin:"5px 0"}}>{group.items} saved {group.items===1?"item":"items"}</p>
+              <strong>£{group.subtotal.toFixed(2)}</strong><small style={{display:"block",marginTop:4}}>{group.priced===group.items?"Saved-price subtotal":"Partial subtotal: some prices unavailable"}</small>
+             </div>)}
+            </div>
+           </div>}
           {displays.length === 0 ? <div className={styles.empty}><ShoppingBasket/><h2>No items yet</h2><p>Add eligible offers from a verified AVUQO product page.</p><Link className={styles.addButton} href="/products">Browse verified products</Link></div> :
           <div className={styles.items}>{displays.map(row => <article key={row.id} className={styles.item}>
             <div className={styles.itemInfo}><h3>{row.title}</h3><p>{row.merchant}</p><small>{row.capturedAt ? `Price captured ${new Date(row.capturedAt).toLocaleDateString("en-GB")}` : "Original price date unavailable"}</small></div>

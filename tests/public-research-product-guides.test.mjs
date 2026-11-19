@@ -65,7 +65,7 @@ test("home, public /products, and departments reveal research guides without mod
  const department=src("app/categories/[department]/products/page.tsx");
  assert.match(index,/RESEARCH_PRODUCT_GUIDES\.map/);
  assert.match(index,/Retailer offers not verified yet/);
- assert.match(index,/verifiedProductIndex\(48\)/);
+ assert.match(index,/verifiedProductIndex\(60\)/);
  assert.match(home,/RESEARCH_PRODUCT_GUIDES\.slice\(0,3\)/);
  assert.match(home,/Research guide · No verified retailer price/);
  assert.match(home,/picked\.length\?picked\.map/);

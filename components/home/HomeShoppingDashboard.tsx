@@ -7,15 +7,28 @@ export type DashboardEntry={product:PublicProduct;offers:PublicOffer[]};
 const money=(value:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(value);
 const tools=[
  {href:"/watches",title:"Watches",desc:"Products to revisit",icon:Bell},
- {href:"/saved",title:"Saved items",desc:"Your favourite finds",icon:Bookmark},
+ {href:"/wishlist",title:"Wishlist",desc:"Keep products for later",icon:Bookmark},
  {href:"/lists",title:"Shared lists",desc:"Plan with others",icon:ListChecks},
  {href:"/compare",title:"Compare contracts",desc:"Check the total cost",icon:Scale},
  {href:"/travel",title:"Travel",desc:"Plan your next trip",icon:Plane},
  {href:"/reality-check",title:"Value insights",desc:"Think before buying",icon:ShieldCheck},
 ] as const;
 
+/** Interleave eligible products by source category so one busy feed does not fill the home shelf. */
+function diverseShoppingPicks(items:DashboardEntry[],limit:number){
+ const groups=new Map<string,DashboardEntry[]>();
+ for(const item of items){
+  const key=(item.offers[0]?.published.category??"Other").split(/[>›/]/)[0].trim().toLowerCase()||"other";
+  const group=groups.get(key)??[];group.push(item);groups.set(key,group);
+ }
+ const selected:DashboardEntry[]=[];
+ while(selected.length<limit&&[...groups.values()].some(group=>group.length)){
+  for(const group of groups.values()){const next=group.shift();if(next)selected.push(next);if(selected.length>=limit)break;}
+ }
+ return selected;
+}
 export default function HomeShoppingDashboard({items}:{items:DashboardEntry[]}){
- const picked=items.slice(0,3);
+ const picked=diverseShoppingPicks(items,12);
  const researchPicks=RESEARCH_PRODUCT_GUIDES.slice(0,3);
  return <section className={styles.section} aria-label="Everyday AVUQO shopping tools">
    <div className="shell">
@@ -37,7 +50,7 @@ export default function HomeShoppingDashboard({items}:{items:DashboardEntry[]}){
       </div>
      </article>
      <article className={styles.finds}>
-      <div className={styles.findsHeading}><div><p className={styles.kicker}>A closer look</p><h3>{picked.length?"Verified shopping highlights":"Start with real product guides"}</h3></div>
+      <div className={styles.findsHeading}><div><p className={styles.kicker}>A closer look</p><h3>{picked.length?"Shop verified products across departments":"Start with real product guides"}</h3></div>
         <Link href="/products">View all <ArrowRight size={16}/></Link></div>
       <div className={styles.findsGrid}>
         {picked.length?picked.map(({product,offers})=>{
@@ -46,9 +59,9 @@ export default function HomeShoppingDashboard({items}:{items:DashboardEntry[]}){
           const image=offers.find(x=>x.published.image_url)?.published.image_url;
           return <Link href={`/products/${product.slug}`} key={product.id} className={styles.find}>
             <span className={styles.findPhoto}>{image?<img src={image} alt="" loading="lazy" referrerPolicy="no-referrer"/>:<Package size={42} aria-hidden="true"/>}</span>
-            <strong>{product.canonical_title}</strong>
+            <strong>{product.canonical_title}</strong><small>{best.published.category || "Verified shopping"}</small>
             <span>From {money(Number(best.offer.total_price??best.offer.price))}</span>
-            <small>Eligible observed offer</small>
+            <small>{Number(best.published.saving_amount)>0&&Number(best.published.typical_price)>Number(best.published.current_price)?"Verified price reduction":"Regular eligible retailer price"}</small>
           </Link>;
         }):
         researchPicks.map(guide=><Link href={`/products/${guide.slug}`} key={guide.slug} className={styles.find}>

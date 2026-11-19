@@ -10,13 +10,13 @@ const dashboard=file("components/home/HomeShoppingDashboard.tsx");
 const css=file("components/home/HomeShoppingDashboard.module.css");
 
 test("restored full storefront is part of public production homepage, not only preview",()=>{
- for(const token of ["<StorefrontQuickLinks/>","<HomeShoppingDashboard items={products}/>","verifiedProductIndex(8)","<CategoryJourneys","<HomeCampaignCarousel"])
+ for(const token of ["<StorefrontQuickLinks/>","<HomeShoppingDashboard items={products}/>","verifiedProductIndex(36)","<CategoryJourneys","<HomeCampaignCarousel"])
   assert.ok(home.includes(token),"Missing "+token);
  assert.match(home,/href="\/marketplace\/compare"/);
  assert.match(home,/href="\/sales"/);
 });
 test("dashboard uses independently eligible product index and honest editorial fallback",()=>{
- assert.match(home,/verifiedProductIndex\(8\)/);
+ assert.match(home,/verifiedProductIndex\(36\)/);
  assert.match(dashboard,/No unverified offers are represented as current deals/);
  assert.match(dashboard,/RESEARCH_PRODUCT_GUIDES\.slice\(0,3\)/);
  assert.match(dashboard,/Research guide · No verified retailer price/);

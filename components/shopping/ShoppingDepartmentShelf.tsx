@@ -22,7 +22,7 @@ export default function ShoppingDepartmentShelf({compact=false}:{compact?:boolea
     </div>
     <Link href="/categories">All categories <ArrowRight size={17} aria-hidden="true"/></Link>
    </div>
-   <div className={styles.grid}>{(compact?collections.slice(0,4):collections).map(item=><article className={styles.card} key={item.title}>
+   <div className={styles.grid}>{(collections).map(item=><article className={styles.card} key={item.title}>
     <Link href={item.href} className={styles.publicLink}>
      <div className={styles.photo} style={{backgroundImage:`url("${item.image}")`}} aria-hidden="true"/>
      <div className={styles.copy}><span>Thoughtful shopping</span><h3>{item.title}</h3><p>{item.description}</p><strong>Explore department <ArrowRight size={16} aria-hidden="true"/></strong></div>
