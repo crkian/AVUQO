@@ -9,6 +9,8 @@ import Footer from "../../../components/layout/Footer";
 import AddToCollectionButton from "../../../components/collections/AddToCollectionButton";
 import ProductGallery from "../../../components/products/ProductGallery";
 import RelatedProductSuggestions from "../../../components/products/RelatedProductSuggestions";
+import RetailerSales from "../../../components/promotions/RetailerSales";
+import {eligibleDepartmentProduct} from "../../../lib/products/department-showrooms";
 import ResearchProductDetails from "../../../components/products/ResearchProductDetails";
 import {researchGuideBySlug} from "../../../lib/products/research-guides";
 import {verifiedProduct,verifiedProductIndex} from "../../../lib/products/public-catalog";
@@ -118,5 +120,5 @@ export default async function Page({params}:Props){
  const similar=category?alternatives.filter(item=>item.offers.some(offer=>offer.published.category.trim().toLowerCase()===category)).slice(0,4):[];
  const similarIds=new Set(similar.map(item=>item.product.id));
  const discover=alternatives.filter(item=>!similarIds.has(item.product.id)).slice(0,4);
- return <main><Header/><Suspense fallback={<div className="shell section">Checking product evidence…</div>}><ProductDetails entry={entry} guide={guide}/></Suspense>{entry&&<RelatedProductSuggestions similar={similar} discover={discover}/>}<Footer/></main>;
+ return <main><Header/><Suspense fallback={<div className="shell section">Checking product evidence…</div>}><ProductDetails entry={entry} guide={guide}/></Suspense>{entry&&eligibleDepartmentProduct({slug:"pets"},entry)&&<Suspense fallback={null}><RetailerSales category="pets" placement="category"/></Suspense>}{entry&&<RelatedProductSuggestions similar={similar} discover={discover}/>}<Footer/></main>;
 }
