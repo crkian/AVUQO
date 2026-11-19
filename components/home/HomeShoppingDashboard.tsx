@@ -15,7 +15,7 @@ const tools=[
 ] as const;
 
 export default function HomeShoppingDashboard({items}:{items:DashboardEntry[]}){
- const picked=items.slice(0,3);
+ const picked=items.slice(0,12);
  const researchPicks=RESEARCH_PRODUCT_GUIDES.slice(0,3);
  return <section className={styles.section} aria-label="Everyday AVUQO shopping tools">
    <div className="shell">
@@ -37,7 +37,7 @@ export default function HomeShoppingDashboard({items}:{items:DashboardEntry[]}){
       </div>
      </article>
      <article className={styles.finds}>
-      <div className={styles.findsHeading}><div><p className={styles.kicker}>A closer look</p><h3>{picked.length?"Verified shopping highlights":"Start with real product guides"}</h3></div>
+      <div className={styles.findsHeading}><div><p className={styles.kicker}>A closer look</p><h3>{picked.length?"Shop verified products across departments":"Start with real product guides"}</h3></div>
         <Link href="/products">View all <ArrowRight size={16}/></Link></div>
       <div className={styles.findsGrid}>
         {picked.length?picked.map(({product,offers})=>{
@@ -46,9 +46,9 @@ export default function HomeShoppingDashboard({items}:{items:DashboardEntry[]}){
           const image=offers.find(x=>x.published.image_url)?.published.image_url;
           return <Link href={`/products/${product.slug}`} key={product.id} className={styles.find}>
             <span className={styles.findPhoto}>{image?<img src={image} alt="" loading="lazy" referrerPolicy="no-referrer"/>:<Package size={42} aria-hidden="true"/>}</span>
-            <strong>{product.canonical_title}</strong>
+            <strong>{product.canonical_title}</strong><small>{best.published.category || "Verified shopping"}</small>
             <span>From {money(Number(best.offer.total_price??best.offer.price))}</span>
-            <small>Eligible observed offer</small>
+            <small>Recently checked retailer offer · Not necessarily a deal</small>
           </Link>;
         }):
         researchPicks.map(guide=><Link href={`/products/${guide.slug}`} key={guide.slug} className={styles.find}>
