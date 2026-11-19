@@ -11,6 +11,8 @@ import {PARTNERS,partnerFor,activePartnerPromotions,isApprovedPartnerLink} from 
 import styles from "../partners.module.css";
 
 type Props={params:Promise<{slug:string}>};
+// Merchant-scoped prices are request-time evidence. Keep runtime reads out of prerender.
+export const instant=false;
 export function generateStaticParams(){return PARTNERS.map(({slug})=>({slug}));}
 export async function generateMetadata({params}:Props):Promise<Metadata>{
  const partner=partnerFor((await params).slug);
