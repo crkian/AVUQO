@@ -5,6 +5,7 @@ import {notFound} from "next/navigation";
 import Header from "../../../../components/layout/Header";
 import Footer from "../../../../components/layout/Footer";
 import {createAdminClient} from "../../../../lib/supabase/admin";
+import ProductGallery from "../../../../components/products/ProductGallery";
 import styles from "./page.module.css";
 export const instant=false;
 type Params={params:Promise<{sku:string}>};
@@ -59,19 +60,12 @@ export default async function Page({params}:Params){
  return <main className={styles.page}><Header/><div className={styles.wrap}>
   <nav className={styles.breadcrumb}><Link href="/tyres">Tyres</Link> / <Link href="/tyres/shop">Shop tyres</Link> / Exact SKU</nav>
   <section className={styles.grid}>
-   <div className={styles.visual}>
-    <div className={styles.photo}><img src={x.image_url} alt={x.title} referrerPolicy="no-referrer"/></div>
-    {extras.length>0&&<div className={styles.gallery} aria-label="Retailer-supplied tyre photos">
-     {[x.image_url,...extras].map((u,i)=><a href={u} key={u} target="_blank" rel="noopener noreferrer"
-      aria-label={`Open source photo ${i+1}`}>
-      <img src={u} alt={`${x.title}, supplier view ${i+1}`} loading="lazy" referrerPolicy="no-referrer"/>
-     </a>)}
-    </div>}
-   </div>
+   <div className={styles.visual}><ProductGallery images={[x.image_url,...extras]} title={x.title}/></div>
    <div className={styles.info}>
     <p className={styles.kicker}>LIVE RETAILER LISTING · TYRES UK / TYRES.NET</p>
     <h1>{x.title}</h1>
     <p className={styles.size}>{size}</p>
+    <p>Supplier-listed {x.brand??"tyre"} product for size {size}. Verify the exact load, speed, season and reinforced/run-flat markings against your vehicle requirements before purchase.</p>
     <p>{x.brand??"Supplier manufacturer unspecified"} · exact supplier SKU {x.sku}</p>
     <div className={styles.price}><small>Retailer product price per tyre</small><strong>{money(Number(x.price))}</strong></div>
     <p>Delivery, fitting, balancing, valves and disposal are <strong>not included or verified</strong> in this unit price.</p>
