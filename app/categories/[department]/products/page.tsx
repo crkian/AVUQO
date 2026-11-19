@@ -9,6 +9,7 @@ import Footer from "../../../../components/layout/Footer";
 import {BROWSE_DEPARTMENTS,departmentBySlug,departmentHref as editorialHref}
  from "../../../../lib/categories/browse-tree";
 import {verifiedProductIndex} from "../../../../lib/products/public-catalog";
+import RetailerSales from "../../../../components/promotions/RetailerSales";
 import {researchGuidesByDepartment} from "../../../../lib/products/research-guides";
 import {departmentBlueprint,eligibleDepartmentProduct} from "../../../../lib/products/department-showrooms";
 import styles from "./page.module.css";
@@ -47,6 +48,7 @@ async function DepartmentGoods({department}:{department:string}){
      <Link href="#department-buying-guide">See buying guidance <ArrowRight size={16}/></Link></div>
    </div>
   </section>
+  <RetailerSales category={department} placement="category"/>
   {research.length>0&&<section className={"shell "+styles.content} aria-labelledby="department-research-heading">
    <div className={styles.heading}><div><p className={styles.kicker}>Editorial research guides</p>
     <h2 id="department-research-heading">Explore individual models</h2>
