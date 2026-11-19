@@ -1,5 +1,6 @@
 import Link from "next/link";
-import type {CSSProperties} from "react";
+import {Suspense,type CSSProperties} from "react";
+import RetailerSales from "../promotions/RetailerSales";
 import {ArrowRight, Bookmark, CalendarDays, CheckCircle2, Gift, House, Laptop, ListChecks, Plane, Scale, ShieldCheck, ShoppingBasket, Shirt} from "lucide-react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
@@ -74,6 +75,8 @@ export default function SeasonalLanding({kind}:{kind:Season}){
        </Link>;
      })}
    </nav>
+
+   {(kind==="sales"||kind==="black-friday")&&<Suspense fallback={null}><RetailerSales placement="sales"/></Suspense>}
 
    <section className={`shell ${styles.discovery}`} id="seasonal-discovery" aria-labelledby={`discover-${kind}`}>
     <article className={styles.editorial}>
