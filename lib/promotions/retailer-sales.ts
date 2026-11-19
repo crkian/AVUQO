@@ -38,8 +38,3 @@ export function activeSaleProducts(sale:RetailerSale,at:Date):RetailerSaleProduc
  const now=at.getTime();
  return sale.products.filter(p=>p.windows.some(w=>now>=Date.parse(w.start)&&now<Date.parse(w.end)));
 }
-export function cardDescription(description:string|null|undefined):string{
- const str=description?.replace(/\s+/g," ").trim();
- return str ? str.slice(0,240)+(str.length>240?"…":"") :
-   "No detailed supplier description is available yet. Open this item to review its exact variant and eligible retailer information.";
-}
