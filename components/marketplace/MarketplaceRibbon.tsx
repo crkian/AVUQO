@@ -1,11 +1,13 @@
 "use client";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
-import {Compass,ShoppingBag,Scale,Users,Grid3X3,Wrench,CircleDot} from "lucide-react";
+import {Compass,ShoppingBag,Scale,Users,Grid3X3,Wrench,CircleDot,Store} from "lucide-react";
 import styles from "../../app/marketplace/marketplace.module.css";
 const entries=[
  {href:"/marketplace",label:"Explore",Icon:Compass},
  {href:"/products",label:"Shop",Icon:ShoppingBag},
+ {href:"/partners",label:"Retailers",Icon:Store},
+ {href:"/catalogue",label:"Full catalogue",Icon:Grid3X3},
  {href:"/tools",label:"Tools & DIY",Icon:Wrench},
  {href:"/tyres/shop",label:"Tyres",Icon:CircleDot},
  {href:"/marketplace/compare",label:"Compare",Icon:Scale},

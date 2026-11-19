@@ -8,6 +8,7 @@ import {storyFor,storySearchHref} from "../../lib/lifestyle/category-story";
 import styles from "./page.module.css";
 import DepartmentExplorer from "../../components/categories/DepartmentExplorer";
 import ShoppingDepartmentShelf from "../../components/shopping/ShoppingDepartmentShelf";
+import CatalogueGateway from "../../components/catalogue/CatalogueGateway";
 export const metadata:Metadata={
  title:"Explore Categories | AVUQO",
  description:"Find distinctive AVUQO departments, from technology and home to gifts and travel. Offers appear only after verification.",
@@ -20,6 +21,8 @@ const makeTitle=(slug:string)=>({
 const journeys=[
  {label:"Tools & DIY",href:"/tools",summary:"Browse authenticated Tooled Up product prices, original supplier photos and shopping links.",symbol:"⚙"},
  {label:"Tyres by size",href:"/tyres/shop",summary:"Find only currently authenticated tyre listings, with exact width, profile and rim.",symbol:"◎"},
+ {label:"Retailer catalogue",href:"/partners",summary:"Find each participating advertiser and its individual shop page.",symbol:"▣"},
+ {label:"AVUQO Catalogue",href:"/catalogue",summary:"One index for shopping, retailers, services and all 25 categories.",symbol:"⌗"},
  {label:"AVUQO Marketplace",href:"/marketplace",summary:"Explore, shop, compare and discover across all categories.",symbol:"◇"},
  {label:"Who\u0027s Who",href:"/whos-who",summary:"Meet makers and discover eligible retailers without being forced to compare.",symbol:"◎"},
  {label:"Groceries",href:"/groceries",summary:"Build your basket and see which supermarket prices are supported.",symbol:"⌗"},
@@ -45,6 +48,7 @@ export default function CategoriesPage(){return <main className={styles.page}>
   </div>
  </section>
  <section className={"shell "+styles.directorySection} aria-label="Full department browser"><DepartmentExplorer/></section>
+ <CatalogueGateway compact/>
  <ShoppingDepartmentShelf compact/>
  <section className={"shell "+styles.section} aria-labelledby="department-title">
   <div className={styles.heading}><p className={styles.eyebrow}>Choose a department</p>

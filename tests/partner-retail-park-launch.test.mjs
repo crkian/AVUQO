@@ -72,6 +72,8 @@ test("home, shopping, travel, motoring, broadband, sales and menu expose verifie
  ["app/sitemap.ts","PARTNERS"]
  ];
  for(const [file,pattern] of expected)assert.ok(read(file).includes(pattern),file);
- assert.match(read("app/partners/page.tsx"),/PARTNERS/);
+ assert.match(read("app/partners/page.tsx"),/RetailerCatalogueBrowser/);
+ assert.match(read("components/partners/RetailerCatalogueBrowser.tsx"),/PARTNERS/);
+ assert.match(read("components/partners/RetailerCatalogueBrowser.tsx"),/PARTNER_DEPARTMENTS/);
  assert.match(read("app/partners/[slug]/page.tsx"),/generateStaticParams/);
 });

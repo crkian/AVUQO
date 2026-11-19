@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
     "/explore-avuqo", "/discover", "/marketplace", "/marketplace/compare", "/whos-who",
-    "/products", "/shopping", "/mobile", "/partners", "/partners/ebay-uk", "/groceries", "/home", "/tech", "/travel", "/motoring", "/tyres", "/tyres/sizes", "/insurance", "/broadband", "/services", "/pets", "/gifts", "/beauty", "/christmas", "/black-friday", "/sales", "/easter", "/valentines",
+    "/products", "/catalogue", "/shopping", "/mobile", "/partners", "/partners/ebay-uk", "/groceries", "/home", "/tech", "/travel", "/motoring", "/tyres", "/tyres/sizes", "/insurance", "/broadband", "/services", "/pets", "/gifts", "/beauty", "/christmas", "/black-friday", "/sales", "/easter", "/valentines",
     "/categories",
     "/search",
     "/score",

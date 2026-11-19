@@ -11,6 +11,7 @@ import {BROWSE_DEPARTMENTS,departmentBySlug,departmentHref as editorialHref}
 import {verifiedProductIndex} from "../../../../lib/products/public-catalog";
 import {cardDescription,hasObservedReduction} from "../../../../lib/products/listing-description";
 import RetailerSales from "../../../../components/promotions/RetailerSales";
+import DepartmentPartnerShelf from "../../../../components/partners/DepartmentPartnerShelf";
 import {researchGuidesByDepartment} from "../../../../lib/products/research-guides";
 import {departmentBlueprint,eligibleDepartmentProduct} from "../../../../lib/products/department-showrooms";
 import styles from "./page.module.css";
@@ -81,6 +82,7 @@ async function DepartmentGoods({department}:{department:string}){
      <Link href={"/search?q="+encodeURIComponent(d.name)}>Search AVUQO <Search size={17}/></Link>
     </div>}
   </section>
+  <DepartmentPartnerShelf department={department}/>
   <section className={styles.guide} id="department-buying-guide"><div className={"shell "+styles.guideGrid}>
    <div><p className={styles.kicker}>BUYING WITH CONFIDENCE</p><h2>{d.focus}</h2>
     </div>

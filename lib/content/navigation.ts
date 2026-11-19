@@ -9,7 +9,8 @@ export const DEFAULT_NAVIGATION:NavigationContent={schemaVersion:2,groups:[
  group("discover","Discover","/discover","Start with the discoveries that matter.",0,[
   ["Explore AVUQO","/discover","Browse departments and useful guides"],
   ["The Marketplace","/marketplace","Explore, shop, compare or meet the specialists"],
-  ["The Retail Park","/partners","Meet all 21 accepted advertisers and find eligible offers"],
+  ["The Retail Park","/partners","Meet participating advertisers and find eligible offers"],
+  ["AVUQO Catalogue","/catalogue","Products, retailers, services and all 25 departments"],
   ["Who\u0027s Who","/whos-who","Meet makers and eligible retailers across categories"],
   ["How good is the deal?","/reality-check","Check what the evidence really tells us"],
   ["Your Watches","/watches","Keep track of items that matter"],
@@ -36,6 +37,7 @@ export const DEFAULT_NAVIGATION:NavigationContent={schemaVersion:2,groups:[
   ["Saved items","/saved","Return to things you want to compare"]]),
  group("categories","Categories","/categories","Explore buying guides by interest.",4,[
   ["All categories","/categories","See every shopping department"],
+  ["Products & retailers","/catalogue","Browse the complete shopping and service index"],
   ["Shopping","/shopping","Explore everyday products"],
   ["Partner shops","/partners","Browse participating retailers and service partners"],
   ["Technology","/tech","Phones, computers and electronics"],

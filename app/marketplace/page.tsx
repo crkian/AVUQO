@@ -4,6 +4,7 @@ import {ArrowRight,Compass,Store,Scale,Users,ShieldCheck} from "lucide-react";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import {BROWSE_DEPARTMENTS,departmentHref} from "../../lib/categories/browse-tree";
+import CatalogueGateway from "../../components/catalogue/CatalogueGateway";
 import {MARKETPLACE_JOURNEYS,summarizeMarketCategories} from "../../lib/marketplace/journeys";
 import styles from "./marketplace.module.css";
 
@@ -38,6 +39,7 @@ export default function Marketplace(){
     </Link>;
    })}</div>
   </section>
+  <CatalogueGateway compact/>
   <section className={styles.directory}><div className={styles.shell}>
    <div className={styles.sectionHeading}><div><p className={styles.kicker}>The category atlas</p>
     <h2>{departments} worlds to explore.</h2><p className={styles.sub}>{topics} curated starting topics across products, services, life, travel, groceries, motoring and more. Editorial categories are not claims of live stock.</p></div>

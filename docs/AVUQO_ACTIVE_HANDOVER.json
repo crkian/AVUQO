@@ -3130,5 +3130,110 @@
     "public_prices_gated": true,
     "direct_links_from_email_not_fabricated": true,
     "no_new_unreviewed_stock": true
+  },
+  "unified_catalogues_full_continuity_20261119": {
+    "state": "CANDIDATE_PENDING_CI_PREVIEW_MERGE_AND_PRODUCTION_VERIFICATION",
+    "as_of_utc": "2026-11-19T22:46:00Z",
+    "owner_directive": "Never delete, truncate, overwrite, summarise away or silently mark complete any earlier ideas, historical work, original design, 29 workstreams, 12 gaps, source permissions, branch discoveries, handover history or open tasks.",
+    "navigation_principle": "One original AVUQO look; two linked catalogues (products/offerings and retailers/services); retain all 25 departments and all 21 individual advertiser pages.",
+    "new_routes": [
+      "/catalogue",
+      "/partners searchable filters by advertiser, type and 25-category taxonomy"
+    ],
+    "kept_routes": [
+      "/",
+      "/products",
+      "/categories",
+      "/marketplace",
+      "/shopping",
+      "/sales",
+      "/black-friday",
+      "/groceries",
+      "/mobile",
+      "/travel",
+      "/motoring",
+      "/tools",
+      "/tyres/shop",
+      "/broadband",
+      "/partners/[slug]"
+    ],
+    "exact_taxonomy": {
+      "departments": 25,
+      "changed_ids": 0,
+      "removed_categories": 0
+    },
+    "partner_catalogue": {
+      "accepted_awin_programmes": 21,
+      "individual_pages": 21,
+      "searchable_by_name": true,
+      "filters_by_existing_department": true,
+      "filters_by_provider_type": true,
+      "unique_accent_per_advertiser": true,
+      "same_original_avuqo_visual_language": true
+    },
+    "feed_audit_last_verified": {
+      "advertisers_with_observed_feeds": 12,
+      "advertisers_with_private_product_rows": 7,
+      "advertisers_with_approved_canonical_offers": 5,
+      "pneus_validated_snapshot_rows": 19890,
+      "pneus_private_rows_committed_at_2026_11_19_2147Z": 11500,
+      "pneus_public_gbp_tyres": false,
+      "supermarket_published_products": 0,
+      "supermarket_public_price_rows": 0,
+      "amazon_live_price_integration": false
+    },
+    "previous_merged_releases": [
+      {
+        "pr": 324,
+        "main_sha": "21868354176a082f3278838e8b6dcf116b3a2927",
+        "scope": "Home shopping shelf, product listing/detail, related items, lists, basket/history"
+      },
+      {
+        "pr": 325,
+        "main_sha": "23883d3f930f9eb4452dd4b1e1c003d54eab860c",
+        "scope": "Retailer sales and product descriptions across existing surfaces"
+      },
+      {
+        "pr": 326,
+        "main_sha": "3b4077bbf4127f1b7a3ef8fa78351f7a6c967904",
+        "scope": "Awin 21 advertiser feed coverage audit and private import lease repair"
+      },
+      {
+        "pr": 327,
+        "main_sha": "f990784ecad9e560b5ccf4b68664dfa776e83b32",
+        "vercel_deployment": "dpl_45xm79VAhXYTEapzNyWC3Xzoet6V",
+        "production": "READY",
+        "scope": "21 unique advertiser pages, mobile hub, affiliate promotional links"
+      }
+    ],
+    "new_feature_implementation": [
+      "Full /catalogue with price-eligible product sample, original 25 department groups, services and retailer links",
+      "Searchable 21-advertiser /partners with original AVUQO design",
+      "Related retailer panels on existing category product pages",
+      "Bidirectional connections: per-advertiser individual page to category/products/other retailers",
+      "Homepage/products/categories/marketplace gateway and non-destructive navigation/sitemap reconciliation",
+      "CI regression preserving 25 taxonomy entries, 21 owner-attested advertisers and custom navigation"
+    ],
+    "outstanding_actions": [
+      "Pass CI/secret scan/build, merge reviewed PR and verify exact Vercel production SHA plus public route 200 before declaring this change live",
+      "Verify all 21 individual pages and category links without assuming private feed products are public",
+      "Expand genuinely source-approved products and create exact cross-retailer same-model total price matching",
+      "Finish Pneus private import then independently check currency, tyre size/fitment, availability and release",
+      "Obtain authorised UK supermarket grocery pricing and full-basket evidence",
+      "Obtain Amazon Associates/Creators API access, permissioned shop feeds and lawful third-party comparison sources",
+      "Mobile tariff/term, energy/broadband postcode, travel/airport/parking booking quote feeds and rights checks",
+      "Evaluate separate dropship seller-of-record operations and customer support only with proper supplier contracts",
+      "Preserve original UX/photography/brand, consumer trust, first-party analytics and owner Control Centre vision"
+    ],
+    "source_of_truth": "docs/AVUQO_CUMULATIVE_CONTINUITY_AND_CATALOGUE_INDEX_2026-11-19.md",
+    "previous_detailed_audits": [
+      "docs/AVUQO_AWIN_21_PROGRAMME_AUTOMATION_AUDIT_2026-11-19.md",
+      "docs/AVUQO_RETAIL_PARK_PARTNER_EMAILS_AND_SOURCE_EXPANSION_2026-11-19.md",
+      "docs/AVUQO_RETAILER_SALES_AND_LISTING_INTEGRATION_2026-11-19.md"
+    ],
+    "data_rights_and_offer_admission_unchanged": true,
+    "historical_json_keys_and_requirements_retained": true,
+    "historical_markdown_bodies_retained": true,
+    "original_owner_uploaded_specifications_retained_as_external_project_sources": true
   }
 }
