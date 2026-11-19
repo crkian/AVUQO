@@ -14,7 +14,7 @@ export default async function Page(){
  await connection();
  const {role}=await requireControlCentreAccess();
  const admin=createAdminClient();
- const [feeds,runs,refresh,attempts,programmes,source,profiles,readiness,tooledValidation,tooledIndex]=await Promise.all([
+ const [feeds,runs,refresh,attempts,programmes,source,profiles,readiness,tooledValidation,tooledIndex,approvals]=await Promise.all([
   admin.from("awin_feed_update_observations").select("advertiser_id,feed_id,advertiser_name,feed_name,listed_products,last_imported_source,observed_at,needs_private_refresh,change_count").order("needs_private_refresh",{ascending:false}).order("advertiser_name",{ascending:true}).limit(200),
   admin.from("awin_feed_discovery_runs").select("checked_at,active_feeds,joined_feeds,changed_feeds").order("checked_at",{ascending:false}).limit(1),
   admin.from("awin_feed_update_observations").select("feed_id",{count:"exact",head:true}).eq("needs_private_refresh",true),
@@ -26,7 +26,8 @@ export default async function Page(){
   admin.from("awin_feed_schema_profiles").select("advertiser_id,feed_id,status,schema_status,recognition_kind,schema_reason,checked_at").order("checked_at",{ascending:false}).limit(200),
   admin.from("awin_private_product_readiness").select("advertiser_id,private_rows,review_rows,gbp_priced_rows,tracking_marked_rows,stock_field_rows,primary_image_rows,image_rights_marked_rows,live_rechecked_rows,latest_private_import_at").limit(100),
   admin.from("awin_private_snapshot_validations").select("actual_rows,critical_issues,duplicate_product_ids,invalid_price_rows,unverified_affiliate_links,currency_verified,rights_verified,ready_to_stage,validated_at").eq("advertiser_id","496").eq("feed_id","89987").order("validated_at",{ascending:false}).limit(1),
-  admin.from("awin_private_catalogue_backfill_progress").select("scanned,attempted_drafts,completed,updated_at").eq("job_key","tooled_up_496_89987").maybeSingle()
+  admin.from("awin_private_catalogue_backfill_progress").select("scanned,attempted_drafts,completed,updated_at").eq("job_key","tooled_up_496_89987").maybeSingle(),
+  admin.from("awin_offer_release_reviews").select("advertiser_id,status").eq("status","approved").limit(1000)
  ]);
  const portfolio=acceptedAwinPortfolio(
   programmes.data??[],feeds.data??[],source.data??null
@@ -40,6 +41,14 @@ export default async function Page(){
  const acceptedKeys=new Set(eligibleObserved.map(f=>f.advertiser_id+":"+f.feed_id));
  const covered=inspected.filter(p=>acceptedKeys.has(p.advertiser_id+":"+p.feed_id));
  const summaryById=new Map((readiness.data??[]).map(p=>[p.advertiser_id,p]));
+ const approvedById=new Map<string,number>();
+ for(const item of approvals.data??[]){
+  if(item.advertiser_id)approvedById.set(item.advertiser_id,(approvedById.get(item.advertiser_id)??0)+1);
+ }
+ const availableCount=portfolio.filter(p=>p.liveFeeds>0).length;
+ const privateCount=portfolio.filter(p=>p.advertiserId&&Number(summaryById.get(p.advertiserId)?.private_rows??0)>0).length;
+ const approvedCount=portfolio.filter(p=>p.advertiserId&&(approvedById.get(p.advertiserId)??0)>0).length;
+ const privateImportAutomated=process.env.AWIN_AUTO_IMPORT_ENABLED==="true";
  const sourceMeta=source.data?.metadata&&typeof source.data.metadata==="object"&&!Array.isArray(source.data.metadata)?source.data.metadata as Record<string,unknown>:{};
  const sourcePaused=source.data?.status!=="active"||source.data?.sync_enabled!==true||sourceMeta.publication_permission!=="verified"||sourceMeta.price_evidence_status!=="verified";
  const history=(runs.data??[]) as Run[];
@@ -74,20 +83,35 @@ export default async function Page(){
     and the exact first-offer release. No additional API endpoint has been added.
    </p>
    <p><strong>{acceptedCount} accepted of {portfolio.length} recorded programmes</strong>
+    {" · "}{availableCount} with observed feeds
+    {" · "}{privateCount} with imported private products
+    {" · "}{approvedCount} with approved canonical offers
+   </p>
+   <p style={{fontSize:13,color:"#5b4b62",lineHeight:1.65}}>
+    <strong>Automatic retail feed importer:</strong> {privateImportAutomated?"Configured on":"Disabled"}.
+    This scheduler covers reviewed physical-product feeds and specialist importer routes; a contract,
+    parking or insurance programme without a product feed must not be treated as physical stock.
+    All accepted programmes appear below, including those without feed coverage.
+   </p>
+   {approvals.error?<p role="alert">Approved offer coverage cannot be read. Treat public counts as unavailable.</p>:
+    (approvals.data?.length??0)===1000?<p role="status">Public approval data is capped at 1,000 records; counts below may be incomplete.</p>:null}
+   <p><strong>{acceptedCount} accepted of {portfolio.length} recorded programmes</strong>
     {" · "}{unlinkedCount} not yet linked to the older source registry
     {" · "}{portfolio.filter(p=>!p.advertiserId).length} without mapped advertiser IDs
    </p>
    {programmes.error||source.error?<p role="alert">Accepted-programme evidence unavailable. Do not infer membership was revoked.</p>:null}
    <div style={{overflowX:"auto",background:"white",border:"1px solid #e8e3ed",borderRadius:14}}>
-    <table style={{borderCollapse:"collapse",width:"100%",minWidth:850,fontSize:12}}>
-     <thead><tr>{["Accepted publisher","Advertiser ID","Membership","Source registry","Observed feeds","Latest inventory (UK)","Live-data next step"].map(h=>
+    <table style={{borderCollapse:"collapse",width:"100%",minWidth:1150,fontSize:12}}>
+     <thead><tr>{["Accepted publisher","Advertiser ID","Membership","Observed feeds","Private product rows","Fresh rechecks","Approved canonical offers","Latest inventory (UK)","Live-data next step"].map(h=>
       <th key={h} style={{background:"#f8f5fa",padding:10,textAlign:"left"}}>{h}</th>)}</tr></thead>
      <tbody>{portfolio.map(p=><tr key={p.programme}>
       <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{p.programme}</td>
       <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{p.advertiserId??"Needs ID mapping"}</td>
       <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{p.membership==="accepted"?"Accepted · "+(p.acceptedOn??"owner evidenced"):"Evidence review"}</td>
-      <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{p.sourceRegistryLinked?"Linked":"Not linked"}</td>
       <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{p.liveFeeds}</td>
+      <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{p.advertiserId?Number(summaryById.get(p.advertiserId)?.private_rows??0).toLocaleString("en-GB"):"0"}</td>
+      <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{p.advertiserId?Number(summaryById.get(p.advertiserId)?.live_rechecked_rows??0).toLocaleString("en-GB"):"0"}</td>
+      <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{approvals.error?"Unknown":p.advertiserId?Number(approvedById.get(p.advertiserId)??0).toLocaleString("en-GB"):"0"}</td>
       <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{p.mostRecentFeedObservation?
        new Date(p.mostRecentFeedObservation).toLocaleDateString("en-GB",{timeZone:"Europe/London"}):"No observed feed"}</td>
       <td style={{padding:10,borderTop:"1px solid #efeaf1"}}>{p.next}</td>
