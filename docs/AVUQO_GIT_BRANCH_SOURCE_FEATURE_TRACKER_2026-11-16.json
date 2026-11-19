@@ -3559,5 +3559,30 @@
     "historical_oversized_custom_6_rows": 26,
     "public_eligibility_unchanged": true,
     "post_deploy_live_receipt_verified": false
+  },
+  "shopping_release_candidate_20261119": {
+    "status": "draft_preview_only",
+    "pr": 324,
+    "code_branch": "feature/integrated-shopping-experience-20261119",
+    "code_changes": [
+      "homepage category-balanced verified product shelf",
+      "all six curated department links",
+      "on-page accessible supplier image gallery",
+      "eligible related and discovery product shelves",
+      "wishlist save-for-later and basket snapshot retailer grouping",
+      "deal/regular price distinction"
+    ],
+    "owner_evidence": {
+      "awin_programmes": 21,
+      "programme_status": "pending in AVUQO registry",
+      "private_readiness_nonzero_programmes": 7,
+      "zero_private_readiness_programmes": 14,
+      "pneus_private_snapshot_rows": 19890,
+      "pneus_committed_rows": 0
+    },
+    "source_rights_unchanged": true,
+    "public_source_admission_unchanged": true,
+    "production_release_confirmed": false,
+    "release_register": "docs/AVUQO_SHOPPING_AND_ADVERTISER_RELEASE_REGISTER_2026-11-19.md"
   }
 }
