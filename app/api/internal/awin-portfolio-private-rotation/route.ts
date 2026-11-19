@@ -143,6 +143,6 @@ async function runRotation(request:NextRequest){
   live_verified_rows:safeCount(body.live_verified_rows),
   canonical_status:safeStatus(canonical.status),
   canonical_accepted:safeCount(canonical.canonicalAccepted),
-  private_only:true,accepted_programmes:accepted.size,eligible_retailable_feeds:available.length,automatic_publication:publication,
+  private_only:true,accepted_programmes:accepted.size,eligible_retail_feeds:available.length,automatic_publication:publication,
   no_publication:publication.approved===0,source_mode:activeMode?"active":"paused"},result.status);
 }
