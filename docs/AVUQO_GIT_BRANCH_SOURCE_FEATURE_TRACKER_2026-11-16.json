@@ -3610,5 +3610,29 @@
     ],
     "integration_handover": "docs/AVUQO_RETAILER_SALES_AND_LISTING_INTEGRATION_2026-11-19.md",
     "production_release_confirmed": false
+  },
+  "awin_21_programme_automation_20261119": {
+    "status": "private_automation_patch_pending_ci_and_database_migration",
+    "branch": "fix/awin-all-advertiser-automation-20261119",
+    "accepted_programmes": 21,
+    "programmes_with_live_feed_observations": 12,
+    "active_observed_feeds": 74,
+    "programmes_with_private_rows": 7,
+    "programmes_with_approved_offers": 5,
+    "pneus": {
+      "advertiser_id": "15236",
+      "feed_id": "26513",
+      "snapshot_validated_rows": 19890,
+      "committed_rows_at_audit": 0,
+      "claim_attempts_at_audit": 0,
+      "blocker": "paused-only database private lease while Awin active",
+      "fix_migration": "supabase/migrations/20261119153000_active_awin_private_bulk_claim.sql",
+      "GBP_inferred": false,
+      "public_tyres_released": false
+    },
+    "programme_audit": "docs/AVUQO_AWIN_21_PROGRAMME_AUTOMATION_AUDIT_2026-11-19.md",
+    "source_permissions_unchanged": true,
+    "production_migration_verified": false,
+    "production_code_verified": false
   }
 }
