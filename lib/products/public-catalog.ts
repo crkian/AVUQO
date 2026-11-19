@@ -214,7 +214,7 @@ export async function verifiedProductIndex(limit=60):Promise<{product:PublicProd
  * The exact Awin advertiser binding comes from the merchant registry, not a
  * customer-supplied URL. No private product rows are returned here. */
 export async function verifiedOffersForAdvertiser(advertiserId:string,limit=15):Promise<PublicOffer[]>{
- if(!/^\\d{2,12}$/.test(advertiserId))return [];
+ if(!/^[0-9]{2,12}$/.test(advertiserId))return [];
  try{
   const db=createAdminClient();
   const {data:merchants,error:merchantError}=await db.from("merchants")
