@@ -14,8 +14,21 @@ const tools=[
  {href:"/reality-check",title:"Value insights",desc:"Think before buying",icon:ShieldCheck},
 ] as const;
 
+/** Interleave eligible products by source category so one busy feed does not fill the home shelf. */
+function diverseShoppingPicks(items:DashboardEntry[],limit:number){
+ const groups=new Map<string,DashboardEntry[]>();
+ for(const item of items){
+  const key=(item.offers[0]?.published.category??"Other").split(/[>›/]/)[0].trim().toLowerCase()||"other";
+  const group=groups.get(key)??[];group.push(item);groups.set(key,group);
+ }
+ const selected:DashboardEntry[]=[];
+ while(selected.length<limit&&[...groups.values()].some(group=>group.length)){
+  for(const group of groups.values()){const next=group.shift();if(next)selected.push(next);if(selected.length>=limit)break;}
+ }
+ return selected;
+}
 export default function HomeShoppingDashboard({items}:{items:DashboardEntry[]}){
- const picked=items.slice(0,12);
+ const picked=diverseShoppingPicks(items,12);
  const researchPicks=RESEARCH_PRODUCT_GUIDES.slice(0,3);
  return <section className={styles.section} aria-label="Everyday AVUQO shopping tools">
    <div className="shell">
