@@ -204,7 +204,8 @@ async function stageSnapshot(db:Admin,key:string,publisher:string){
 async function processSnapshot(db:Admin,job:Job,started:number){
  const {data:lease,error:claimError}=await db.rpc("claim_private_awin_bulk_job",
   {p_job_id:job.id,p_lease_seconds:110});
- if(claimError||!lease)return {status:"already_claimed_or_not_ready",job_id:job.id};
+ if(claimError)throw Error("private_bulk_claim_rejected");
+ if(!lease)return {status:"already_claimed_or_not_ready",job_id:job.id,private_only:true,no_publication:true};
  const token=String(lease.lease_token??"");
  let progress=Number(lease.committed_rows??0);
  let released=false;
@@ -321,7 +322,8 @@ async function runPrivatePneus(){
    "invalid_or_duplicate_product_id","source_registry_error",
    "pneus_invalid_column_layout","pneus_required_fields_missing",
    "pneus_unsupported_format","pneus_stock_evidence_missing",
-   "pneus_currency_quarantine_failed","pneus_bad_row_shape"
+   "pneus_currency_quarantine_failed","pneus_bad_row_shape",
+   "private_bulk_claim_rejected"
   ]);
   return response({error:"private_pneus_import_unavailable",
    reason:allowed.has(code)?code:"private_import_failed",
