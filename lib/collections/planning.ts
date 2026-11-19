@@ -2,8 +2,8 @@
 export type PlanningCollectionKind = "wishlist" | "basket";
 
 export const COLLECTIONS = {
-  wishlist: { name: "My wishlist", route: "/wishlist", description: "Products you'd like to revisit." },
-  basket: { name: "My comparison basket", route: "/basket", description: "Offers you may want to buy from different retailers." },
+  wishlist: { name: "My wishlist", route: "/wishlist", description: "Keep products for later, then revisit and recheck them before buying. Saving does not reserve or purchase an item." },
+  basket: { name: "My comparison basket", route: "/basket", description: "Collect eligible retailer offers to plan and compare. This is not a checkout or reservation." },
 } as const;
 
 export type PlanningSnapshot = {
