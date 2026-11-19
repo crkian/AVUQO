@@ -80,7 +80,7 @@ export default async function PartnerDetail({params}:Props){
     </div>
     {promotions.length>0&&<section className={styles.section} aria-labelledby="partner-promotions">
      <p className={styles.kicker}>Merchant announcements</p><h2 id="partner-promotions">Offers and codes shared by this partner</h2>
-     <p className={styles.sectionIntro}>These are promotions from the advertiser's dated materials, not independently verified AVUQO historical price reductions.</p>
+     <p className={styles.sectionIntro}>These are promotions from the advertiser&apos;s dated materials, not independently verified AVUQO historical price reductions.</p>
      <div className={styles.promoGrid}>{promotions.map(p=><article key={p.id} className={styles.promo}>
       <h3>{p.title}</h3><p>{p.detail}</p>
       {p.code&&<div className={styles.strip}><span>Voucher code</span><code>{p.code}</code></div>}
@@ -97,13 +97,13 @@ export default async function PartnerDetail({params}:Props){
        <strong>{o.published.title}</strong>
        <span className={styles.price}>{gbp(Number(o.offer.price))}</span>
        <small>Retailer item price, delivery not verified</small>
-       <small>Observed {new Date(o.offer.last_seen_at??Date.now()).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric",timeZone:"Europe/London"})}</small>
+       <small>Observed {new Date(o.offer.last_seen_at??"1970-01-01T00:00:00Z").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric",timeZone:"Europe/London"})}</small>
        <span>View eligible product ↗</span>
       </Link>)}</div></>:
-      <p className={styles.sectionIntro}>No matching offer currently passes AVUQO's complete public price, stock, source-rights, exact-identity and owner-release checks. This does not imply the advertiser has no products or that its programme was declined.</p>}
+      <p className={styles.sectionIntro}>No matching offer currently passes AVUQO&apos;s complete public price, stock, source-rights, exact-identity and owner-release checks. This does not imply the advertiser has no products or that its programme was declined.</p>}
     </section>
     <section className={styles.notice}>
-     <strong>Independent comparison first.</strong> AVUQO may earn commission through some retailer links at no extra cost to you. An advertiser's own quote is not automatically the cheapest market price. Shop-by-price comparisons require the identical product or booking details across multiple valid sources. <Link href="/affiliate-disclosure">How affiliate links work</Link> · <Link href="/trust">How AVUQO verifies offers</Link> · <Link href="/partners">All partners</Link>
+     <strong>Independent comparison first.</strong> AVUQO may earn commission through some retailer links at no extra cost to you. An advertiser&apos;s own quote is not automatically the cheapest market price. Shop-by-price comparisons require the identical product or booking details across multiple valid sources. <Link href="/affiliate-disclosure">How affiliate links work</Link> · <Link href="/trust">How AVUQO verifies offers</Link> · <Link href="/partners">All partners</Link>
     </section>
    </div>
   </main><Footer/></>;
