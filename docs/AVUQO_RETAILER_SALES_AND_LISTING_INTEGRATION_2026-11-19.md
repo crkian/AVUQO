@@ -1,0 +1,16 @@
+# Retailer Sales and Full Listing Details: 19 November 2026
+Source: Petlibro UK Affiliate Program (Awin advertiser 77952) promotional email sent by Awin 19 November 2026, 11:01 GMT (Gmail message 1a1f377fdff7563c; private message, do not expose mailbox content or tracking URLs publicly). Earlier written permission: Petlibro representative email 5 November 2026 authorising Awin feed text, GBP prices, availability, deep links, feed-supplied photographs and banners, subject to exact usage conditions.
+
+## Implemented release candidate
+- Public promotional calendar in `lib/promotions/retailer-sales.ts`: Petlibro advertised campaign 19 Nov–3 Dec 2026; dynamic auto-expiry 4 Dec 00:00 GMT; Scout Smart Camera 55%, Dockstream 2 20%, Luma litter box 30%, One RFID feeder 25%, Granary camera feeder 25%, Granary 2 series 20%, with 19–23 and 27–30 Nov product-specific windows. The email's ambiguous later-day wording is **not** used to infer individual discounts.
+- Reusable dated promotional links on homepage, /sales, /black-friday, /shopping, /pets, matching /categories/pets/products, and approved pet product pages. Direct merchant URLs are labelled retailer links, not fabricated Awin affiliate tracking URLs.
+- /sales and /black-friday separate **retailer-announced promotions** from **independently approved eligible price reductions** based on published, source-gated price evidence. Neither should imply current checkout totals without verification.
+- Across all *approved* public product listings, descriptions are sourced from canonical product descriptions; missing descriptions show an honest fallback rather than fabricated product copy. Home, public product catalogue, department products, related recommendations, search and live deals display seller/category/available price and evidence status where present.
+- Product image URLs are only taken from previously approved public data gates. No increase to source rights or exposure of private feeds.
+- Merchant campaign promotional assets not copied to AVUQO in this PR. Product descriptions and images not supplied by an eligible source remain unavailable; approval to publish is separate from the evidence needed for any claimed checkout price or product fitment.
+- Tests: `tests/retailer-sales-listing-details.test.mjs` required by CI; pre-existing suite continues.
+- Release status: **candidate only until PR merge and Vercel production verification**.
+
+## Future marketing platform readiness
+Maintain a scalable campaign source registry with merchant name, exact advertiser ID, source evidence, start/end dates, product-specific windows, direct approved URLs, category mapping and disclosure. Expired campaigns must disappear automatically. Never infer coupon stacking or discount history from an affiliate newsletter. Separate the merchandising surface from independent AVUQO scoring.
+All 21 existing Awin network programme accepted/publication declarations and owner confirmation remain intact; this code makes no account-wide rights changes. Every advertiser's commercial listing must still have approved live source data, accurate descriptions, identifiable SKU/variant and eligible links; 14 programmes still lacked private product-readiness rows at the earlier same-day audit.
