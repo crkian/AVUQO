@@ -18,6 +18,8 @@
 .products h4{font-size:14px;margin:0 0 9px}
 .products ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
 .products li{display:flex;gap:8px;align-items:start;justify-content:space-between;border-bottom:1px solid #f0eaf0;padding-bottom:7px}
+.products li a{color:inherit;text-decoration:underline;text-decoration-color:#ad9cb6;text-underline-offset:3px;min-width:0}
+.products li a:hover{color:#683b88}
 .products li b{display:block;font-size:13px;line-height:1.4}
 .products li small{display:block;color:#6e6373;font-size:11px;line-height:1.4}
 .discount{white-space:nowrap;font-size:12px;color:#7c2770;font-weight:900;background:#f5e8f2;border-radius:7px;padding:5px}
