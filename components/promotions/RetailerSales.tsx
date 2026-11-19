@@ -23,14 +23,16 @@ export default async function RetailerSales({placement="category",category}:Prop
    <div className={styles.sales}>
     {sales.map(sale=>{
      const visible=activeSaleProducts(sale,at);
+     const format=(value:string|number)=>new Intl.DateTimeFormat("en-GB",{day:"numeric",month:"long",year:"numeric",timeZone:"Europe/London"}).format(new Date(value));
      return <article className={styles.sale} key={sale.id}>
       <div className={styles.details}>
        <span className={styles.merchant}>{sale.merchant} · Advertiser-announced</span>
        <h3>{sale.heading}</h3><p>{sale.description}</p>
-       <small className={styles.dates}><CalendarDays size={15}/> 19 November to 3 December 2026 · Selected items only</small>
+       <small className={styles.dates}><CalendarDays size={15}/> {format(sale.start)} to {format(Date.parse(sale.end)-86400000)} · Selected items only</small>
+       <small>Advertiser broadcast: {format("2026-11-19T00:00:00Z")} · Advertised terms may change</small>
        <div className={styles.links}>
         <a href={sale.retailerUrl} target="_blank" rel="noopener noreferrer sponsored" aria-label={`View ${sale.merchant} sale directly with the retailer`}>Visit retailer sale <ArrowRight size={16}/></a>
-        <Link href="/categories/pets/products">Compare eligible pet products <ArrowRight size={16}/></Link>
+        <Link href={"/categories/"+sale.categorySlugs[0]+"/products"}>Compare eligible {sale.categorySlugs[0]} products <ArrowRight size={16}/></Link>
        </div>
       </div>
       <div className={styles.products}>
