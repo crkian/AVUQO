@@ -37,7 +37,7 @@ export default async function RetailerSales({placement="category",category}:Prop
        <h4>Advertised product offers {visible.length?"available in this date window":""}</h4>
        {visible.length?
         <ul>{visible.slice(0,placement==="home"?3:6).map(product=>
-         <li key={product.name}><span><b>{product.name}</b><small>{product.description}</small></span>
+         <li key={product.name}><a href={product.retailerUrl} target="_blank" rel="noopener noreferrer sponsored" aria-label={`View ${product.name} on the retailer website`}><b>{product.name}</b><small>{product.description}</small></a>
           <span className={styles.discount}>{product.percent}% off</span>
          </li>)}</ul>:
         <p>Some advertised product discounts are scheduled for other dates within the campaign.</p>}
