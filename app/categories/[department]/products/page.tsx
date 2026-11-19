@@ -9,6 +9,8 @@ import Footer from "../../../../components/layout/Footer";
 import {BROWSE_DEPARTMENTS,departmentBySlug,departmentHref as editorialHref}
  from "../../../../lib/categories/browse-tree";
 import {verifiedProductIndex} from "../../../../lib/products/public-catalog";
+import {cardDescription,hasObservedReduction} from "../../../../lib/products/listing-description";
+import RetailerSales from "../../../../components/promotions/RetailerSales";
 import {researchGuidesByDepartment} from "../../../../lib/products/research-guides";
 import {departmentBlueprint,eligibleDepartmentProduct} from "../../../../lib/products/department-showrooms";
 import styles from "./page.module.css";
@@ -47,6 +49,7 @@ async function DepartmentGoods({department}:{department:string}){
      <Link href="#department-buying-guide">See buying guidance <ArrowRight size={16}/></Link></div>
    </div>
   </section>
+  <RetailerSales category={department} placement="category"/>
   {research.length>0&&<section className={"shell "+styles.content} aria-labelledby="department-research-heading">
    <div className={styles.heading}><div><p className={styles.kicker}>Editorial research guides</p>
     <h2 id="department-research-heading">Explore individual models</h2>
@@ -66,9 +69,11 @@ async function DepartmentGoods({department}:{department:string}){
     const approvedImage=offers.find(o=>o.published.image_url)?.published.image_url;
     return <Link className={styles.item} key={product.id} href={"/products/"+product.slug}>
      <div className={styles.art}>{approvedImage?<img src={approvedImage} alt={product.canonical_title} referrerPolicy="no-referrer"/>:<ShoppingBag size={45} aria-hidden="true"/>}</div>
-     <div className={styles.itemBody}><p>{product.brand??"Product guide"}</p><h3>{product.canonical_title}</h3>
-      <span>{offers.length} approved {offers.length===1?"retailer offer":"retailer offers"}</span>
-      <strong>Examine exact product <ArrowRight size={15}/></strong></div>
+     <div className={styles.itemBody}><p>{product.brand??d.name} · {offers[0]?.published.category??d.name}</p><h3>{product.canonical_title}</h3>
+      <span style={{display:"block",fontSize:12,lineHeight:1.6}}>{cardDescription(product.description)}</span>
+      <span style={{display:"block"}}>{offers[0]?.published.merchant} · {offers.length} eligible {offers.length===1?"retailer offer":"retailer offers"}</span>
+      <span style={{display:"block"}}>{hasObservedReduction(offers[0].published)?"Evidence-backed price reduction":"Regular retailer price"} · Check stock and delivery</span>
+      <strong>From £{Number(offers[0].offer.total_price??offers[0].offer.price).toFixed(2)} · Examine exact product <ArrowRight size={15}/></strong></div>
     </Link>;
    })}</div>:
     <div className={styles.empty}><ShieldCheck size={31}/><h3>No verified listings yet</h3>

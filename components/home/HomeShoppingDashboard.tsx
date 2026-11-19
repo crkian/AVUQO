@@ -2,6 +2,7 @@ import Link from "next/link";
 import {ArrowRight, Bell, BookOpen, Bookmark, CheckCircle2, ListChecks, Package, Plane, Scale, ShoppingBasket, ShieldCheck} from "lucide-react";
 import type {PublicOffer,PublicProduct} from "../../lib/products/public-catalog";
 import {RESEARCH_PRODUCT_GUIDES} from "../../lib/products/research-guides";
+import {cardDescription,hasObservedReduction} from "../../lib/products/listing-description";
 import styles from "./HomeShoppingDashboard.module.css";
 export type DashboardEntry={product:PublicProduct;offers:PublicOffer[]};
 const money=(value:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(value);
@@ -59,9 +60,9 @@ export default function HomeShoppingDashboard({items}:{items:DashboardEntry[]}){
           const image=offers.find(x=>x.published.image_url)?.published.image_url;
           return <Link href={`/products/${product.slug}`} key={product.id} className={styles.find}>
             <span className={styles.findPhoto}>{image?<img src={image} alt="" loading="lazy" referrerPolicy="no-referrer"/>:<Package size={42} aria-hidden="true"/>}</span>
-            <strong>{product.canonical_title}</strong><small>{best.published.category || "Verified shopping"}</small>
+            <strong>{product.canonical_title}</strong><small>{product.brand??best.published.category??"Product"} · {best.published.category || "Verified shopping"}</small><small className={styles.findDescription}>{cardDescription(product.description,150)}</small><small>Retailer: {best.published.merchant} · {offers.length} eligible {offers.length===1?"offer":"offers"}</small>
             <span>From {money(Number(best.offer.total_price??best.offer.price))}</span>
-            <small>{Number(best.published.saving_amount)>0&&Number(best.published.typical_price)>Number(best.published.current_price)?"Verified price reduction":"Regular eligible retailer price"}</small>
+            <small>{hasObservedReduction(best.published)?"Evidence-backed price reduction":"Regular eligible retailer price"}</small>
           </Link>;
         }):
         researchPicks.map(guide=><Link href={`/products/${guide.slug}`} key={guide.slug} className={styles.find}>

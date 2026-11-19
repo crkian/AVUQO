@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {ArrowRight, Package} from "lucide-react";
 import type {PublicProduct,PublicOffer} from "../../lib/products/public-catalog";
+import {cardDescription,hasObservedReduction} from "../../lib/products/listing-description";
 
 export type RelatedEntry={product:PublicProduct;offers:PublicOffer[]};
 const money=(n:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(n);
@@ -15,9 +16,9 @@ function Tile({item}:{item:RelatedEntry}){
      <Package size={35} aria-hidden="true"/>}
    </div>
    <small style={{color:"#68517b"}}>{best.published.category}</small>
-   <strong style={{fontSize:14,lineHeight:1.4}}>{item.product.canonical_title}</strong>
+   <strong style={{fontSize:14,lineHeight:1.4}}>{item.product.canonical_title}</strong><small style={{color:"#62596a",lineHeight:1.55}}>{cardDescription(item.product.description,170)}</small><small>{item.product.brand??best.published.merchant} · {best.published.merchant}</small>
    <span style={{marginTop:"auto",fontWeight:800}}>From {money(Number(best.offer.total_price??best.offer.price))}</span>
-   <small style={{color:"#716977"}}>Checked retailer offer · price may change</small>
+   <small style={{color:"#716977"}}>{hasObservedReduction(best.published)?"Evidence-backed reduction":"Regular price"} · Stock and total cost may change</small>
    <span style={{color:"#6735a1",display:"inline-flex",alignItems:"center",gap:5,fontWeight:750,fontSize:13}}>View product <ArrowRight size={15}/></span>
   </Link>
  </article>;

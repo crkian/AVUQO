@@ -232,6 +232,8 @@ jobs:
         run: node --experimental-strip-types --test tests/unified-marketplace.test.mjs
       - name: Integrated shopping homepage, gallery, comparison and wishlist regression
         run: node --test tests/integrated-shopping-experience.test.mjs
+      - name: Retailer sales and listing description coverage regression
+        run: node --experimental-strip-types --test tests/retailer-sales-listing-details.test.mjs
       - name: Marketing-only lint
         run: npx eslint lib/marketing components/layout/MegaNav.tsx components/home app/control-centre/marketing app/api/internal/marketing
       - run: npm run lint

@@ -8,6 +8,7 @@ import Footer from "../../components/layout/Footer";
 import {verifiedProductIndex} from "../../lib/products/public-catalog";
 import {eligibleDepartmentProduct} from "../../lib/products/department-showrooms";
 import LiveDealCard from "../../components/live/LiveDealCard";
+import RetailerSales from "../../components/promotions/RetailerSales";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -28,7 +29,7 @@ async function PublishedPetOffers() {
   const verified = await verifiedProductIndex();
   const offers = verified
     .filter(item=>eligibleDepartmentProduct({slug:"pets"},item))
-    .flatMap(item=>item.offers.map(({published})=>published))
+    .flatMap(item=>item.offers.map(({published})=>({...published,description:item.product.description})))
     .sort((a,b)=>b.avuqo_score-a.avuqo_score)
     .slice(0,8);
   return <section className="shell section" aria-labelledby="pet-offers">
@@ -42,6 +43,7 @@ async function PublishedPetOffers() {
 export default function PetsPage() {
   return <main><Header/>
     <section className={styles.hero}><div className={styles.heroPhoto} aria-hidden="true"/><div className={styles.heroWash} aria-hidden="true"/><div className={`shell ${styles.heroLayout}`}><div className={styles.heroCopy}><p className="kicker">AVUQO Pets</p><h1>Happier pets. <span>Better value.</span></h1><p>Explore smart feeders, fountains and thoughtful pet essentials. Compare usefulness and total cost, not just marketing promises.</p><Link className={styles.primary} href="#categories">Explore pet essentials <ArrowRight size={17}/></Link></div></div></section>
+    <Suspense fallback={null}><RetailerSales category="pets" placement="category"/></Suspense>
     <section className="shell section" id="categories"><div className="section-title"><div><p className="kicker">Find your category</p><h2>Start with what your pet needs.</h2></div></div><div className={styles.grid}>{categories.map(({title,description,href,Icon,image})=><Link key={title} href={href} className={styles.card}><div className={styles.cardPhoto} style={{backgroundImage:`url("${image}")`}} aria-hidden="true"/><div className={styles.cardBody}><Icon size={21}/><h3>{title}</h3><p>{description}</p><span>Explore ideas <ArrowRight size={15}/></span></div></Link>)}</div></section>
     <div className="shell"><Link className={styles.primary} href="/categories/pets/products">Browse pet products <ArrowRight size={17}/></Link></div>
     <Suspense fallback={<section className="shell section">Checking approved pet offers…</section>}><PublishedPetOffers/></Suspense>
