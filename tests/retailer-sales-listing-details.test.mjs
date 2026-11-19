@@ -51,3 +51,17 @@ test("eligible listings across advertisers now include descriptions and seller d
  assert.match(read("components/promotions/RetailerSales.tsx"),/rel="noopener noreferrer sponsored"/);
  assert.match(read("components/promotions/RetailerSales.tsx"),/Retailer-announced|Advertiser-announced/);
 });
+
+test("specialist Tooled Up and Tyres UK galleries stay on-page and listings explain source facts",()=>{
+ for(const p of ["app/tools/[sku]/page.tsx","app/tyres/shop/[sku]/page.tsx"]){
+  const s=read(p);
+  assert.match(s,/ProductGallery images=/,p+" does not use on-page gallery");
+  assert.doesNotMatch(s,/href=\{url\}|href=\{u\}/,p+" links to a raw supplier image");
+ }
+ const tools=read("app/tools/page.tsx"),tyres=read("app/tyres/shop/page.tsx");
+ assert.match(tools,/cardDescription\(product\.description/);
+ assert.match(tools,/Supplier SKU/);
+ assert.doesNotMatch(tools,/href=\{url\}/);
+ assert.match(tyres,/load\/speed rating/);
+ assert.match(tyres,/price is per tyre/);
+});
