@@ -2,10 +2,11 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 const read=p=>readFileSync(p,"utf8");
-test("live shopping retains compact home/category sections and full Shopping departments",()=>{
+test("live shopping retains compact styling while exposing all six departments",()=>{
  const shelf=read("components/shopping/ShoppingDepartmentShelf.tsx");
  const css=read("components/shopping/ShoppingDepartmentShelf.module.css");
- assert.match(shelf,/compact\?collections\.slice\(0,4\):collections/);
+ assert.match(shelf,/\(collections\)\.map\(item/);
+ assert.doesNotMatch(shelf,/compact\?collections\.slice\(0,4\):collections/);
  assert.match(shelf,/styles\.compact/);
  assert.match(shelf,/Technology & phones/);
  assert.match(shelf,/Motoring & services/);
