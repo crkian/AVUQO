@@ -4,6 +4,7 @@ import Link from "next/link";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import {createAdminClient} from "../../lib/supabase/admin";
+import {cardDescription} from "../../lib/products/listing-description";
 import styles from "./page.module.css";
 
 // Authenticated source recency must be evaluated on each request, not during static prerender.
@@ -15,7 +16,7 @@ export const metadata:Metadata={
  robots:{index:true,follow:true}
 };
 const money=(n:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(n);
-type Product={sku:string;title:string;price:number|string;category_name:string|null;
+type Product={sku:string;title:string;price:number|string;description?:string|null;category_name:string|null;
  image_url:string;affiliate_url:string;images:unknown;feed_observed_at:string};
 const safeImage=(value:string)=>typeof value==="string"&&
  /^https:\/\/(www[.]tooled-up[.]com|images2[.]productserve[.]com)\//.test(value)&&value.length<=2048;
@@ -103,16 +104,16 @@ export default async function ToolsPage({searchParams}:{
        <span className={styles.category}>{product.category_name??"Tools & DIY"} · Tooled Up</span>
        <h2><Link href={`/tools/${encodeURIComponent(product.sku)}`} className={styles.productLink}>{product.title}</Link></h2>
        <p className={styles.sku}>Supplier SKU {product.sku}</p>
+       <p style={{fontSize:12,lineHeight:1.6}}>{cardDescription(product.description,160)} Review the exact specifications and compatibility before buying.</p>
        {productGallery(product.images,product.image_url).length>0&&
         <details className={styles.gallery}>
          <summary>See all supplier photos</summary>
          <div className={styles.galleryPhotos}>
           {productGallery(product.images,product.image_url).map((url,i)=>
-           <a key={url} href={url} target="_blank" rel="noopener noreferrer"
-              aria-label={`View alternate photo ${i+1} for ${product.title}`}>
+           <span key={url} aria-label={`Alternate supplier photo ${i+1} for ${product.title}`}>
             <img src={url} alt={`Alternate supplier view ${i+1} of ${product.title}`}
                loading="lazy" referrerPolicy="no-referrer"/>
-           </a>)}
+           </span>)}
          </div>
         </details>}
        <strong className={styles.price}>{money(Number(product.price))}</strong>
