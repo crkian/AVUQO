@@ -20,7 +20,7 @@ export default function MobileHub(){
   <section className={styles.directoryHero}><div className={styles.shell}>
    <p style={{fontSize:12,fontWeight:850,textTransform:"uppercase",letterSpacing:".13em",color:"#D6EEF9"}}>AVUQO / Mobile & connectivity</p>
    <h1>Good phone. Right plan.<br/>Clearer total cost.</h1>
-   <p>Explore participating mobile providers and eligible handset offers, then compare the real commitment. We won't call a plan the cheapest without current tariff, network, VAT, promotion and term evidence.</p>
+   <p>Explore participating mobile providers and eligible handset offers, then compare the real commitment. We will not call a plan the cheapest without current tariff, network, VAT, promotion and term evidence.</p>
    <div className={styles.strip}><Link className={styles.heroButton} href="/compare">Calculate contract costs ↗</Link><Link className={styles.heroGhost} href="/tech">Explore technology</Link><Link className={styles.heroGhost} href="/partners">All participating retailers</Link></div>
   </div></section>
   <div className={styles.shell+" "+styles.directoryMain}>
