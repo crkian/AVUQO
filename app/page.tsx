@@ -13,6 +13,7 @@ import StorefrontQuickLinks from "../components/home/StorefrontQuickLinks";
 import EbayUKPartnerShelf from "../components/home/EbayUKPartnerShelf";
 import HomeShoppingDashboard from "../components/home/HomeShoppingDashboard";
 import RetailerSales from "../components/promotions/RetailerSales";
+import PartnerPromoShelf from "../components/partners/PartnerPromoShelf";
 import {verifiedProductIndex} from "../lib/products/public-catalog";
 import HomeCampaignCarousel from "../components/home/HomeCampaignCarousel";
 import {editorialSpotlight} from "../lib/editorial/seasonal-schedule";
@@ -75,6 +76,7 @@ async function HomeContent() {
 
     <StorefrontQuickLinks/>
     <Suspense fallback={null}><RetailerSales placement="home"/></Suspense>
+    <Suspense fallback={null}><PartnerPromoShelf placement="home"/></Suspense>
     <EbayUKPartnerShelf/>
     <HomeShoppingDashboard items={products}/>
     <div className={styles.reassurance}>
