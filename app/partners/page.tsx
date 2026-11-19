@@ -23,7 +23,7 @@ export default function PartnerDirectory(){return <><Header/><main className={st
  <section className={styles.directoryHero}><div className={styles.shell}>
   <p style={{letterSpacing:".13em",fontSize:12,fontWeight:800,textTransform:"uppercase",color:"#E8C9FA"}}>AVUQO · The online retail park</p>
   <h1>Explore more shops.<br/>Keep your options open.</h1>
-  <p>Meet participating Awin advertisers, compare independently eligible product offers and reach genuine provider booking pages. Not every partner offers a conventional product CSV feed, and an affiliate relationship never determines AVUQO's cheapest-price ranking.</p>
+  <p>Meet participating Awin advertisers, compare independently eligible product offers and reach genuine provider booking pages. Not every partner offers a conventional product CSV feed, and an affiliate relationship never determines AVUQO&apos;s cheapest-price ranking.</p>
   <div className={styles.strip}><Link className={styles.heroButton} href="/products">Explore verified products ↗</Link><Link className={styles.heroGhost} href="/mobile">Mobile and SIM</Link><Link className={styles.heroGhost} href="/groceries">Supermarket basket</Link></div>
  </div></section>
  <div className={styles.shell+" "+styles.directoryMain}>
