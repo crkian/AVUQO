@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type {CSSProperties} from "react";
 import {connection} from "next/server";
 import {activePartnerPromotions,partnerFor} from "../../lib/partners/advertiser-directory";
 import styles from "../../app/partners/partners.module.css";
@@ -17,7 +18,7 @@ export default async function PartnerPromoShelf({placement="shopping"}:Props){
     <p className={styles.sectionIntro}>Advertiser announcements, not AVUQO-verified historical price drops. Final offer eligibility and prices must be checked with each retailer.</p>
    </div><Link href="/partners">Explore all shops and partners ↗</Link>
   </div>
-  <div className={styles.promoGrid}>{relevant.map(p=><article key={p.id} className={styles.promo} style={{"--glow":partnerFor(p.slug)?.glow??"#eee7f5"} as React.CSSProperties}>
+  <div className={styles.promoGrid}>{relevant.map(p=><article key={p.id} className={styles.promo} style={{"--glow":partnerFor(p.slug)?.glow??"#eee7f5"} as CSSProperties}>
    <span className={styles.tag}>{partnerFor(p.slug)?.name??"Partner"} · Advertiser promotion</span>
    <h3>{p.title}</h3><p>{p.detail}</p>
    {p.code&&<div className={styles.strip}><span>Code</span><code>{p.code}</code></div>}
