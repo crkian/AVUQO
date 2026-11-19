@@ -71,7 +71,7 @@ function offerFresh(row:Record<string,unknown>,now:number,isAwin=false):boolean{
 }
 const SELECT_DEAL="offer_id,product_id,title,category,merchant,current_price,typical_price,saving_amount,avuqo_score,confidence,label,decision,image_url,stock_status,reason,updated_at";
 const SELECT_OFFER="id,product_id,source_id,merchant_id,price,total_price,currency,status,source_url,affiliate_url,last_seen_at,valid_until,stock_status,match_confidence";
-export async function verifiedOffers(options:{productId?:string;offerId?:string;limit?:number}={}):Promise<PublicOffer[]>{
+export async function verifiedOffers(options:{productId?:string;offerId?:string;offerIds?:readonly string[];limit?:number}={}):Promise<PublicOffer[]>{
  try{
   const db=createAdminClient();
   // An owner emergency stop or publication pause hides even previously
@@ -84,6 +84,11 @@ export async function verifiedOffers(options:{productId?:string;offerId?:string;
   let q=db.from("published_deals").select(SELECT_DEAL).eq("status","published").order("updated_at",{ascending:false}).limit(Math.min(limit*10,500));
   if(options.productId)q=q.eq("product_id",options.productId);
   if(options.offerId)q=q.eq("offer_id",options.offerId);
+  if(options.offerIds){
+   const ids=options.offerIds.filter(id=>/^[0-9a-f-]{36}$/i.test(id)).slice(0,450);
+   if(!ids.length)return [];
+   q=q.in("offer_id",ids);
+  }
   const {data:published,error}=await q;if(error||!published?.length)return [];
   const ids=published.map(d=>d.offer_id).filter(Boolean);
   const {data:offers,error:offersError}=await db.from("offers").select(SELECT_OFFER).in("id",ids).eq("status","active");
@@ -200,5 +205,25 @@ export async function verifiedProductIndex(limit=60):Promise<{product:PublicProd
   const {data,error}=await db.from("products").select("id,slug,canonical_title,brand,model,description,primary_image_url,specifications,status,product_type").in("id",ids).eq("status","active");
   if(error||!data)return [];
   return (data as PublicProduct[]).filter(p=>/^[a-z0-9][a-z0-9-]{2,159}$/.test(p.slug)).map(product=>({product,offers:offers.filter(o=>o.published.product_id===product.id)})).filter(x=>x.offers.length).slice(0,limit);
+ }catch{return [];}
+}
+
+/** Merchant-specific storefront shelf. Filter candidate offer IDs BEFORE the
+ * existing public rights / approval / match / freshness checks, so a small
+ * approved retailer is not hidden by Tooled Up's much larger latest cohort.
+ * The exact Awin advertiser binding comes from the merchant registry, not a
+ * customer-supplied URL. No private product rows are returned here. */
+export async function verifiedOffersForAdvertiser(advertiserId:string,limit=15):Promise<PublicOffer[]>{
+ if(!/^\\d{2,12}$/.test(advertiserId))return [];
+ try{
+  const db=createAdminClient();
+  const {data:merchants,error:merchantError}=await db.from("merchants")
+   .select("id").filter("metadata->>external_id","eq",advertiserId).limit(5);
+  if(merchantError||!merchants?.length)return [];
+  const {data:offers,error}=await db.from("offers").select("id")
+   .in("merchant_id",merchants.map(m=>m.id)).eq("status","active")
+   .order("last_seen_at",{ascending:false}).limit(450);
+  if(error||!offers?.length)return [];
+  return verifiedOffers({offerIds:offers.map(o=>o.id),limit:Math.max(1,Math.min(limit,60))});
  }catch{return [];}
 }
