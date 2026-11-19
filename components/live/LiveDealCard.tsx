@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { money } from "../../lib/avuqo/deal";
+import {cardDescription,hasObservedReduction} from "../../lib/products/listing-description";
 import styles from "./LiveDealCard.module.css";
 
 export type LiveDealCardData = {
@@ -17,6 +18,7 @@ export type LiveDealCardData = {
   decision: string | null;
   image_url: string | null;
   reason: string | null;
+  description?: string | null;
 };
 
 export default function LiveDealCard({ deal }: { deal: LiveDealCardData }) {
@@ -29,16 +31,17 @@ export default function LiveDealCard({ deal }: { deal: LiveDealCardData }) {
       <div className={styles.body}>
         <span className={styles.kicker}>{deal.category} · {deal.merchant}</span>
         <h3>{deal.title}</h3>
+        <p className={styles.reason}>{cardDescription(deal.description,185)}</p>
         <div className={styles.priceRow}>
           <div className={styles.price}>
             <strong>{money(Number(deal.current_price))}</strong>
             {deal.typical_price ? <span>Typical {money(Number(deal.typical_price))}</span> : null}
           </div>
-          {Number(deal.saving_amount ?? 0) > 0 ? (
+          {hasObservedReduction(deal) ? (
             <span className={styles.saving}>Save {money(Number(deal.saving_amount))}</span>
           ) : null}
         </div>
-        <p className={styles.reason}>{deal.reason ?? `${deal.label} value with ${deal.confidence}% confidence.`}</p>
+        <p className={styles.reason}>Deal evidence: {deal.reason ?? `${deal.label} value with ${deal.confidence}% confidence.`}</p>
         <Link className={styles.link} href={`/live/${deal.offer_id}`}>Open live deal</Link>
       </div>
     </article>
