@@ -95,10 +95,7 @@ export default async function Page(){
    </p>
    {approvals.error?<p role="alert">Approved offer coverage cannot be read. Treat public counts as unavailable.</p>:
     (approvals.data?.length??0)===1000?<p role="status">Public approval data is capped at 1,000 records; counts below may be incomplete.</p>:null}
-   <p><strong>{acceptedCount} accepted of {portfolio.length} recorded programmes</strong>
-    {" · "}{unlinkedCount} not yet linked to the older source registry
-    {" · "}{portfolio.filter(p=>!p.advertiserId).length} without mapped advertiser IDs
-   </p>
+   <p style={{fontSize:12,color:"#77697b"}}>{unlinkedCount} not yet linked to the older source registry · {portfolio.filter(p=>!p.advertiserId).length} without mapped advertiser IDs. These are onboarding gaps, not revoked memberships.</p>
    {programmes.error||source.error?<p role="alert">Accepted-programme evidence unavailable. Do not infer membership was revoked.</p>:null}
    <div style={{overflowX:"auto",background:"white",border:"1px solid #e8e3ed",borderRadius:14}}>
     <table style={{borderCollapse:"collapse",width:"100%",minWidth:1150,fontSize:12}}>
