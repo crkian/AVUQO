@@ -5,11 +5,13 @@ import {notFound} from "next/navigation";
 import Header from "../../../components/layout/Header";
 import Footer from "../../../components/layout/Footer";
 import {createAdminClient} from "../../../lib/supabase/admin";
+import ProductGallery from "../../../components/products/ProductGallery";
+import {cardDescription} from "../../../lib/products/listing-description";
 import styles from "./page.module.css";
 
 export const instant=false;
 type Props={params:Promise<{sku:string}>};
-type Product={sku:string;title:string;price:number|string;category_name:string|null;
+type Product={sku:string;title:string;price:number|string;description?:string|null;category_name:string|null;
  image_url:string;affiliate_url:string;images:unknown;feed_observed_at:string};
 const price=(n:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(n);
 const allowedImage=(s:unknown):s is string=>typeof s==="string"&&s.length<=2048&&
@@ -66,19 +68,12 @@ export default async function ToolDetail({params}:Props){
     <Link href="/">Home</Link><span>/</span><Link href="/tools">Tools &amp; DIY</Link><span>/</span><strong>Product</strong>
    </nav>
    <section className={styles.product}>
-    <div className={styles.visual}>
-     <div className={styles.photo}><img src={item.image_url} alt={item.title} referrerPolicy="no-referrer"/></div>
-     {photos.length>1&&<div className={styles.thumbnails} aria-label="Supplier product photos">
-      {photos.map((url,i)=><a href={url} key={url} target="_blank" rel="noopener noreferrer"
-       aria-label={`Open supplier image ${i+1} of ${photos.length}`}>
-       <img src={url} alt={`${item.title}, supplied view ${i+1}`} loading="lazy" referrerPolicy="no-referrer"/>
-      </a>)}
-     </div>}
-    </div>
+    <div className={styles.visual}><ProductGallery images={photos} title={item.title}/></div>
     <div className={styles.info}>
      <p className={styles.eyebrow}>VERIFIED SUPPLIER PRODUCT · TOOled UP</p>
      <h1>{item.title}</h1>
      <p className={styles.category}>{item.category_name??"Tools & DIY"} · Supplier SKU {item.sku}</p>
+     <p>{cardDescription(item.description)} Check the exact specification, model compatibility and any accessories at Tooled Up.</p>
      <div className={styles.price}><small>Current feed product price</small><strong>{price(Number(item.price))}</strong></div>
      <p>Product-only price. Delivery and final availability are confirmed by Tooled Up at checkout.</p>
      {observed&&<p className={styles.checked}>Awin supplier feed last authenticated: {observed} UK</p>}
