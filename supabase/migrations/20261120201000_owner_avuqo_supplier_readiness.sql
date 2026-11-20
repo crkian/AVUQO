@@ -29,12 +29,30 @@ as $$
   from public.awin_feed_schema_profiles group by advertiser_id
  ),
  staged as (
-  select merchant_id as advertiser_id,count(*) as private_rows,
-         count(distinct merchant_product_id) as private_product_ids,
-         count(*) filter (where length(btrim(coalesce(metadata->>'source_description','')))>=32) as private_descriptions,
-         count(*) filter (where metadata->>'source_description_rights_confirmed'='true') as description_rights_marked,
-         max(created_at) as last_private_import
-  from public.feed_import_records group by merchant_id
+  -- The existing private readiness view already owns the historical row
+  -- totals. A second COUNT(DISTINCT) across repeated private snapshots
+  -- exceeded the live statement timeout. Sample at most 100 rows from
+  -- the most recent import; never portray this as exhaustive coverage.
+  select s.advertiser_id,s.private_rows,
+         s.latest_private_import_at as last_private_import,
+         coalesce(sample.sampled_rows,0) as private_sample_rows,
+         coalesce(sample.described_rows,0) as private_sample_descriptions,
+         coalesce(sample.rights_rows,0) as private_sample_rights_marked
+  from public.awin_private_product_readiness s
+  left join lateral (
+   select fr.id from public.feed_import_runs fr
+   where fr.merchant_id=s.advertiser_id
+   order by fr.created_at desc limit 1
+  ) latest on true
+  left join lateral (
+   select count(*) as sampled_rows,
+          count(*) filter (where length(btrim(coalesce(x.metadata->>'source_description','')))>=32) as described_rows,
+          count(*) filter (where x.metadata->>'source_description_rights_confirmed'='true') as rights_rows
+   from (
+    select fr.metadata from public.feed_import_records fr
+    where fr.import_id=latest.id limit 100
+   ) x
+  ) sample on true
  ),
  canonical as (
   select m.metadata->>'external_id' as advertiser_id,
@@ -66,9 +84,9 @@ as $$
     'last_observation',f.last_observation,
     'feeds_with_description_column',coalesce(pr.feeds_with_description_column,0),
     'private_rows',coalesce(s.private_rows,0),
-    'private_product_ids',coalesce(s.private_product_ids,0),
-    'private_descriptions',coalesce(s.private_descriptions,0),
-    'description_rights_marked',coalesce(s.description_rights_marked,0),
+    'private_sample_rows',coalesce(s.private_sample_rows,0),
+    'private_sample_descriptions',coalesce(s.private_sample_descriptions,0),
+    'private_sample_rights_marked',coalesce(s.private_sample_rights_marked,0),
     'last_private_import',s.last_private_import,
     'active_products',coalesce(c.active_products,0),
     'active_described_products',coalesce(c.active_described_products,0),
