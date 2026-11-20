@@ -5,6 +5,7 @@ import {ArrowRight,Grid3X3,Search,ShoppingBag,Store} from "lucide-react";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import RetailerCatalogueBrowser from "../../components/partners/RetailerCatalogueBrowser";
+import FeaturedPartnerEditions from "../../components/partners/FeaturedPartnerEditions";
 import styles from "./partners.module.css";
 export const metadata:Metadata={
  title:"Retailer & Service Catalogue | AVUQO Retail Park",
