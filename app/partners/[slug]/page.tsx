@@ -8,7 +8,7 @@ import Footer from "../../../components/layout/Footer";
 import {createAdminClient} from "../../../lib/supabase/admin";
 import {verifiedOffersForAdvertiser} from "../../../lib/products/public-catalog";
 import {partnerStudio} from "../../../lib/partners/studio-editorial";
-import {PartnerStudioHero,PartnerStudioNotebook,PartnerStudioProducts,PartnerStudioInvitation,type StudioProduct} from "../../../components/partners/PartnerStudioExperience";
+import {PartnerStudioHero,PartnerStudioNavigation,PartnerStudioNotebook,PartnerStudioProducts,PartnerStudioInvitation,type StudioProduct} from "../../../components/partners/PartnerStudioExperience";
 import {PARTNERS,partnerFor,activePartnerPromotions,isApprovedPartnerLink,partnerHref} from "../../../lib/partners/advertiser-directory";
 import {departmentsForPartner,partnersForDepartment} from "../../../lib/partners/catalogue-taxonomy";
 import styles from "../partners.module.css";
@@ -74,13 +74,14 @@ export default async function PartnerDetail({params}:Props){
  return <><Header/>
   <main className={styles.page} style={theme}>
    <PartnerStudioHero partner={partner} studio={studio} products={studioProducts} links={namedLinks}/>
+   <PartnerStudioNavigation partner={partner} products={studioProducts}/>
    <PartnerStudioNotebook partner={partner} studio={studio} products={studioProducts}/>
    <PartnerStudioProducts partner={partner} studio={studio} products={studioProducts}/>
    <div className={styles.shell+" "+styles.main}>
     <div className={styles.twoCols}>
      <section className={styles.section}>
-      <p className={styles.kicker}>Explore this partner</p>
-      <h2>{namedLinks.length?"Where would you like to start?":"Browse this category on AVUQO"}</h2>
+      <p className={styles.kicker}>03 / THE NEXT STOP</p>
+      <h2>{namedLinks.length?"Go straight to the source.":"Keep exploring the edit."}</h2>
       <p className={styles.sectionIntro}>{namedLinks.length?
        "These are documented merchant destinations. A direct retailer link may not earn AVUQO commission; only the explicitly supplied tracking links are marked as tracked.":
        "This approved advertiser does not yet have a verified outbound destination or an AVUQO public product offer. The category journeys remain available without inventing a price."}</p>
@@ -122,10 +123,10 @@ export default async function PartnerDetail({params}:Props){
       <Link className={styles.relatedStore} href="/catalogue"><span aria-hidden="true">◇</span><strong>Everything on AVUQO</strong><span aria-hidden="true">›</span></Link>
      </div>
     </section>
-    <PartnerStudioInvitation partner={partner}/>
     <section className={styles.notice}>
      <strong>Independent comparison first.</strong> AVUQO may earn commission through some retailer links at no extra cost to you. An advertiser&apos;s own quote is not automatically the cheapest market price. Shop-by-price comparisons require the identical product or booking details across multiple valid sources. <Link href="/affiliate-disclosure">How affiliate links work</Link> · <Link href="/trust">How AVUQO verifies offers</Link> · <Link href="/partners">All partners</Link>
     </section>
    </div>
+   <PartnerStudioInvitation partner={partner}/>
   </main><Footer/></>;
 }
