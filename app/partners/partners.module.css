@@ -86,3 +86,92 @@
 .directoryCard strong{font-size:12px;color:var(--deep);line-height:1.6}
 .directoryCard:hover{box-shadow:0 16px 33px #33213b1a}
 @media(prefers-reduced-motion:reduce){.directoryCard{transition:none}.directoryCard:hover{transform:none}}
+
+
+/* PREMIUM RETAIL PARK ENTRANCE / 20 NOV SECOND-EDITION ART DIRECTION */
+.directoryPage{background:#fbf7f1;color:#24152d}
+.directoryHero{isolation:isolate;position:relative;overflow:hidden;border-bottom:1px solid #e1d4dd;
+ padding:clamp(60px,8vw,110px) 0 clamp(68px,7vw,115px);
+ background:radial-gradient(ellipse at 89% 21%,#f5d8c7,transparent 33%),
+ radial-gradient(ellipse at 9% 90%,#f2e2fa,transparent 40%),#fbf7f1}
+.directoryHero:before{content:"";position:absolute;z-index:-1;right:-3%;top:-16%;width:45vw;min-width:380px;aspect-ratio:1;border-radius:50%;
+ border:1px solid #bb9cad56;box-shadow:0 0 0 70px #b7a3c012,0 0 0 145px #b7a3c009;pointer-events:none}
+.directoryHero:after{content:"STUDIOS";position:absolute;right:-4%;bottom:-10%;font:900 clamp(110px,15vw,270px)/1 Georgia,"Times New Roman",serif;
+ color:#32193e;opacity:.04;letter-spacing:-.095em;pointer-events:none}
+.directoryHero .breadcrumb{font-size:11px;gap:11px;margin:0 0 31px;color:#7d6983;opacity:1}
+.directoryHero .breadcrumb a{color:#62447c}
+.directoryEyebrow{display:inline-flex;align-items:center;gap:12px;letter-spacing:.17em;font-size:10px;
+ font-weight:900;color:#743e91!important;margin-bottom:15px}
+.directoryHero h1{font:700 clamp(57px,7.5vw,115px)/.99 Georgia,"Times New Roman",serif;
+ color:#22142d;letter-spacing:-.074em;max-width:1050px;margin:11px 0 25px}
+.directoryHero h1 span{color:#a04b87}
+.directoryHero p:not(.directoryEyebrow){color:#625368;line-height:1.8;max-width:770px;font-size:16px}
+.directoryHero .strip{display:flex;flex-wrap:wrap;gap:9px;margin-top:30px}
+.directoryHero .heroButton,.directoryHero .heroGhost{border-radius:999px;font-size:12px;
+ padding:13px 19px;text-decoration:none;font-weight:850;min-height:45px;align-items:center}
+.directoryHero .heroButton{background:#2d1b3b;border-color:#2d1b3b;color:#fff;box-shadow:0 9px 22px #34213920}
+.directoryHero .heroGhost{background:#fff9;border-color:#d3c2d4;color:#5d3b72}
+.catalogueEntry{position:relative;z-index:1;margin-top:0;margin-bottom:20px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.catalogueEntryCard{border-radius:9px 34px 9px 9px;background:#fff;border:1px solid #e4d9e4;
+ box-shadow:none;padding:21px 25px;min-height:150px;transition:transform .2s ease,box-shadow .2s ease}
+.catalogueEntryCard:hover{transform:translateY(-4px);box-shadow:0 13px 30px #24172d1a}
+.catalogueEntryCard>strong{font-size:26px;color:#281b33}
+.catalogueEntryCard>small{font-size:12px;color:#76647a}
+.catalogueEntryCard>b{color:#70428a}
+.catalogueBrowser{padding-top:57px;padding-bottom:65px}
+.directoryHead{margin:14px 0 24px}
+.directoryHead h2{font:700 clamp(37px,4.1vw,57px)/1.06 Georgia,"Times New Roman",serif;letter-spacing:-.055em;color:#2a1b35}
+.directoryHead .sectionIntro{max-width:750px;font-size:13px;line-height:1.8}
+.directoryHead .kicker{color:#6c4380}
+.browserPanel{border:1px solid #e2d4e0;border-radius:14px 44px 14px 14px;background:#fffdfa;
+ padding:23px;box-shadow:0 14px 35px #311d3c0b}
+.browserSearch{min-height:56px;border-radius:999px;border-color:#dcd0dc;background:#f9f5f8;
+ padding:10px 19px}
+.browserSearch input{font-size:15px}
+.browserControls{padding:2px 0}
+.filterChip{border-radius:999px;padding:10px 16px;font-size:11px;background:#f5eef5;border-color:#e5d9e6}
+.filterChipActive{background:#3e254d;border-color:#3e254d;color:#fff}
+.resultsSummary{margin:24px 0 18px}
+.catalogueBrowser .directory{grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.catalogueBrowser .directoryCard{min-height:300px;isolation:isolate;overflow:hidden;position:relative;
+ border:1px solid #e5d9e4;border-radius:12px 56px 12px 12px;padding:25px;display:flex;align-items:flex-start;
+ background:radial-gradient(ellipse at 86% 16%,var(--glow),transparent 46%),
+ linear-gradient(135deg,#fffdfa,#f8f3f5);box-shadow:none}
+.catalogueBrowser .directoryCard:before{content:"";inset:0;position:absolute;z-index:-1;opacity:.12;
+ background:repeating-linear-gradient(90deg,transparent 0 58px,var(--accent) 59px 60px)}
+.catalogueBrowser .directoryCard:hover{border-color:var(--accent);box-shadow:0 16px 32px #30213b19;transform:translateY(-3px)}
+.catalogueBrowser .directoryWatermark{font:900 clamp(68px,6vw,100px)/.9 Georgia,"Times New Roman",serif;
+ top:auto;bottom:0;right:-15px;color:var(--deep);opacity:.065;transform:rotate(-12deg)}
+.catalogueBrowser .studioGlyph{width:68px;height:68px;border-radius:17px;display:grid;place-items:center;
+ background:#ffffffeb;border:1px solid #ffffffbd;box-shadow:0 9px 24px #2a163514;color:var(--deep);z-index:1}
+.catalogueBrowser .studioGlyph svg{width:33px;height:33px}
+.catalogueBrowser .cardEdition{font-size:9px;letter-spacing:.16em;margin-top:6px;color:#785289}
+.catalogueBrowser .directoryCard .tag{background:transparent;padding:0;color:#82728a;font-weight:850;letter-spacing:.08em;font-size:9px}
+.catalogueBrowser .directoryCard b{font:700 clamp(24px,2.35vw,34px)/1.07 Georgia,"Times New Roman",serif;
+ letter-spacing:-.052em;max-width:270px;color:#29182f;text-wrap:balance}
+.catalogueBrowser .directoryCard p{font-size:14px;line-height:1.5;color:#61546a;margin:0 0 7px}
+.catalogueBrowser .directoryCard small{font-size:11px;color:#816e83}
+.catalogueBrowser .directoryCard strong{display:flex;gap:9px;align-items:center;margin-top:auto;
+ font-size:11px;color:#5c3773;font-weight:900;border-top:1px solid #e8dce6;width:100%;padding-top:14px}
+.catalogueFooter{border-top:1px solid #e4d7e2;margin-top:0}
+@media(max-width:1040px){.catalogueBrowser .directory{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:740px){
+ .directoryHero{padding:60px 0 75px}
+ .directoryHero h1{font-size:clamp(49px,10vw,79px)}
+ .directoryHero p:not(.directoryEyebrow){font-size:14px}
+ .directoryHero .strip{gap:9px}
+ .directoryHero .heroButton,.directoryHero .heroGhost{padding:11px 15px}
+ .catalogueEntry{margin-top:0;grid-template-columns:1fr}
+ .catalogueEntryCard{min-height:0}
+ .catalogueBrowser .directory{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .catalogueBrowser .directoryCard{min-height:270px;padding:20px}
+ .catalogueBrowser .directoryCard b{font-size:24px}
+}
+@media(max-width:530px){
+ .directoryHero h1{font-size:clamp(42px,11vw,64px)}
+ .directoryHero:before{min-width:280px;right:-34%}
+ .catalogueBrowser .directory{grid-template-columns:1fr}
+ .catalogueBrowser .directoryCard{min-height:240px}
+ .browserPanel{padding:16px}
+}
+@media(prefers-reduced-motion:reduce){.catalogueEntryCard{transition:none}.catalogueEntryCard:hover,.catalogueBrowser .directoryCard:hover{transform:none}}
