@@ -81,6 +81,13 @@ export function PartnerStudioNotebook({partner,studio,products}:{partner:Partner
      return <article className={styles.chapter} key={chapter.title}>
       <span className={styles.chapterNumber}>0{i+1}</span>
       <h3>{chapter.title}</h3><p>{chapter.detail}</p>
+      {matches.length>0&&<div className={styles.chapterProducts} aria-label={"Eligible products for "+chapter.title}>
+       {matches.slice(0,2).map(product=><Link href={productHref(product)} key={product.id} className={styles.chapterProduct}>
+        {product.imageUrl?<img src={product.imageUrl} alt="" loading="lazy" referrerPolicy="no-referrer"/>:
+         <span aria-hidden="true">{partner.symbol}</span>}
+        <span>{product.title}</span>
+       </Link>)}
+      </div>}
       {matches.length>0?<a href={anchor}>{matches.length} source-eligible {matches.length===1?"product":"products"} in this current shelf <span aria-hidden="true">↗</span></a>:
        <Link href={anchor}>Explore the wider category <span aria-hidden="true">↗</span></Link>}
      </article>;
