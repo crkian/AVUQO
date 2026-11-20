@@ -25,3 +25,25 @@
 .checklist ol{font-size:13px;line-height:1.9;color:#645a6b;max-width:1050px;padding-left:24px}
 @media(max-width:1050px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.intro{align-items:start;flex-direction:column}}
 @media(max-width:600px){.grid{grid-template-columns:1fr}.hero h1{font-size:38px}.art{height:125px}.body{min-height:0}.intro>a{white-space:normal}}
+
+/* Premium owner QA visually mirrors public studios without using merchant marks. */
+.hero{border-radius:9px 75px 9px 9px;background:
+ radial-gradient(ellipse at 90% 20%,#f1d8ec,transparent 40%),linear-gradient(110deg,#fbf7f1,#fffdfa);
+ border-color:#dfd1e1;padding:clamp(29px,5vw,64px)}
+.hero h1{font-size:clamp(41px,5.1vw,76px);letter-spacing:-.062em}
+.card{border-radius:10px 50px 10px 10px;box-shadow:none;transition:transform .2s ease,box-shadow .2s ease;background:#fffdfa}
+.card:hover{transform:translateY(-4px);box-shadow:0 18px 35px #2919371c}
+.art{height:210px;display:flex;align-items:center;padding:23px;
+ background:radial-gradient(ellipse at 80% 26%,var(--accent),transparent 58%),linear-gradient(135deg,var(--deep),#160b21)}
+.art>span{border-radius:50%;width:106px;height:106px;background:#ffffff18;border:1px solid #ffffff7a;color:#fff;
+ box-shadow:0 0 0 20px #ffffff0a,0 0 0 43px #ffffff08}
+.art>strong{font-size:clamp(54px,6vw,91px);color:#fff;opacity:.13}
+.art>small{color:#fff;font-size:10px}
+.body{padding:25px;min-height:315px;gap:11px}
+.body h3{font-size:clamp(24px,2.6vw,34px)}
+.chapters span{border-radius:999px;padding:7px 10px}
+.actions a{border-radius:999px;padding:11px 15px}
+@media(max-width:600px){.hero{padding:28px;border-radius:10px 50px 10px 10px}
+ .art{height:165px}.body{min-height:0}
+}
+@media(prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
