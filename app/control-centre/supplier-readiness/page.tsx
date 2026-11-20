@@ -62,7 +62,7 @@ export default async function SupplierReadinessPage(){
    </section>
    <section style={{...box,display:"grid",gap:11}}>
     <h2 style={{margin:0,fontSize:22}}>Where the catalogue is blocked</h2>
-    <p style={{margin:0,color:"#65596e",lineHeight:1.65}}>Private snapshots can contain repeat imports. The feed's advertised item count is not the number of distinct or licensable AVUQO products. Description coverage is measured on actual canonical product records, not invented copy or placeholder cards.</p>
+    <p style={{margin:0,color:"#65596e",lineHeight:1.65}}>Private snapshots can contain repeat imports. The feed&apos;s advertised item count is not the number of distinct or licensable AVUQO products. Description coverage is measured on actual canonical product records, not invented copy or placeholder cards.</p>
     <p style={{margin:0,fontSize:12,color:"#756a7b"}}>Read-only server report at {date(report.as_of)} (UK) · {report.explanation}</p>
     <div style={{overflowX:"auto"}}>
      <table style={{borderCollapse:"collapse",width:"100%",minWidth:1210,fontSize:12}}>
@@ -88,7 +88,7 @@ export default async function SupplierReadinessPage(){
    <h2 style={{fontSize:21,margin:0}}>How to improve coverage without breaking trust</h2>
    <ol style={{margin:0,paddingLeft:24,lineHeight:1.9,fontSize:13,color:"#61556b"}}>
     <li>Repair exact source description projection and preserve clean prose in private import records, not directly on public cards.</li>
-    <li>Confirm each retailer's approved text reuse, image terms, exact advertiser ID, feed freshness, stock, GBP and tracking. A programme acceptance is insufficient.</li>
+    <li>Confirm each retailer&apos;s approved text reuse, image terms, exact advertiser ID, feed freshness, stock, GBP and tracking. A programme acceptance is insufficient.</li>
     <li>Recheck current authenticated feed digests and bring eligible source descriptions into held canonical offers only under the independent description-rights flag.</li>
     <li>Approve genuinely qualified products through the existing atomic first-release mechanism. Do not bulk approve held stock or alter AVUQO Score ranking.</li>
     <li>Build specialist quote/tariff/booking adapters for service advertisers; their lack of a standard product CSV is not itself a failure.</li>
