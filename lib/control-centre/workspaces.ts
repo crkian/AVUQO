@@ -17,6 +17,7 @@ export const CONTROL_CENTRE_SECTIONS:AdminSection[]=[
   {href:"/control-centre/groceries/price-evidence",label:"Grocery price evidence",description:"Review source records and freshness"}]},
  {id:"data",label:"Sources & Value",description:"Merchants, prices and data quality",links:[
   {href:"/control-centre/source-atlas",label:"All-source atlas",description:"Every connector, feed import, evidence gate and content state"},
+  {href:"/control-centre/supplier-readiness",label:"Supplier & product readiness",description:"21 Awin programmes, feed descriptions, rights blockers and held offers"},
   {href:"/control-centre/retailers",label:"Retailer onboarding (Awin + eBay)",description:"Joined-feed evidence, private imports, eBay keysets and release permissions"},
   {href:"/control-centre/tyres",label:"Tyre marketplace pipeline",description:"Two supplier reviews, technical enrichment and public variant readiness"},
   {href:"/control-centre/tyre-cross-retailer",label:"Private cross-retailer tyre matches",description:"Check-digit-valid EAN overlaps, GBP/fitment blockers and resumable imported snapshots"},
