@@ -87,7 +87,18 @@ test("cumulative handovers preserve all previous project work, source and branch
  for(const file of history){
   const text=read(file);
   assert.ok(text.length>100000,file+" history was unexpectedly truncated");
-  assert.ok(text.startsWith("## 20 November 2026 | Massive leap candidate:"),file+" missing newest non-destructive handover");
+  const hasAffiliateAddendum=file==="docs/AVUQO_ACTIVE_HANDOVER.md";
+  const expectedHeader=hasAffiliateAddendum
+   ?"## 20 November 2026 | Affiliate advertiser rejection recovery added as separate active workstream"
+   :"## 20 November 2026 | Massive leap candidate:";
+  assert.ok(text.startsWith(expectedHeader),file+" missing newest non-destructive handover");
+  assert.ok(text.includes("## 20 November 2026 | Massive leap candidate:"),file+" full shopping and tyre handover missing");
+  if(hasAffiliateAddendum){
+   assert.ok(text.includes("AVUQO_AWIN_PUBLISHER_ELIGIBILITY_AND_ADVERTISER_AUDIT_WORKSTREAM_2026-11-20.md"),"privacy-safe affiliate handover not linked");
+   const recovery=read("docs/AVUQO_AWIN_PUBLISHER_ELIGIBILITY_AND_ADVERTISER_AUDIT_WORKSTREAM_2026-11-20.md");
+   for(const required of ["publisher", "inaccessible", "programme", "privacy", "Control Centre"])
+    assert.ok(recovery.toLowerCase().includes(required.toLowerCase()),"recovery roadmap missing "+required);
+  }
   assert.ok(text.includes("## 20 November 2026 | VERIFIED PRODUCTION:"),file+" earlier verified production snapshot was deleted");
   assert.ok(text.includes("## 19 November 2026 | Unified AVUQO catalogue"),file+" original project launch record missing");
   assert.ok(text.includes("Retail park, 21 advertiser storefronts, mobile hub"),file+" previous release record missing");
