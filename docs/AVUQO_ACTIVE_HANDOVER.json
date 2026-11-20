@@ -1,4 +1,28 @@
 {
+  "supplier_description_and_readiness_20261120": {
+    "status": "candidate_requires_green_ci_merge_and_independent_db_migration",
+    "branch": "feature/supplier-description-readiness-20261120",
+    "pull_request": 332,
+    "summary": "Private supplier description retention and evidence-gated canonical backfill; 21-programme role-gated readiness report with sampled latest-import prose coverage",
+    "new_feature_paths": [
+      "app/control-centre/supplier-readiness/page.tsx",
+      "lib/awin/product-description-evidence.ts",
+      "supabase/migrations/20261120201000_owner_avuqo_supplier_readiness.sql"
+    ],
+    "operating_gates": [
+      "separate merchant text reuse permission",
+      "fresh authenticated exact source digest",
+      "source GBP and stock evidence",
+      "owned Awin tracking",
+      "existing atomic release controls"
+    ],
+    "no_automatic_rights_changes": true,
+    "no_new_product_publications": true,
+    "no_private_data_publication": true,
+    "prior_markdown_history_retained": true,
+    "prior_machine_handover_keys_unchanged": true,
+    "original_29_workstreams_12_gaps_retained": true
+  },
   "schema_version": 2,
   "project": "AVUQO",
   "as_of_utc": "2026-11-17",
