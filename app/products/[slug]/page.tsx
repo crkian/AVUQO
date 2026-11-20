@@ -15,6 +15,7 @@ import ResearchProductDetails from "../../../components/products/ResearchProduct
 import {researchGuideBySlug} from "../../../lib/products/research-guides";
 import {verifiedProduct,verifiedProductIndex} from "../../../lib/products/public-catalog";
 import {compareEligibleOffers} from "../../../lib/products/comparison-evidence";
+import {studioForVerifiedMerchant,partnerHref} from "../../../lib/partners/advertiser-directory";
 import {chooseProductTemplate,validatedSpecificationEntries} from "../../../lib/products/templates";
 import styles from "./page.module.css";
 // A real 404 must be determined before streamed HTML. This route intentionally
@@ -76,7 +77,7 @@ function ProductDetails({entry,guide}:{
  </div></div></section>
 
  <section className={`shell ${styles.section}`} id="retailers"><div className={styles.heading}><p className={styles.kicker}>Worth comparing</p><h2>{comparison.sellers>1?"Eligible retailer prices for this exact product.":"Currently verified retailer offer."}</h2><p>{comparison.detail} Only eligible, recently checked offers appear; the retailer is responsible for the final checkout price.</p></div>
- <div className={styles.offerList}>{offers.map(x=><article key={x.offer.id} className={styles.offerCard}><div><h3>{x.published.merchant}</h3><p>Last checked {new Date(x.offer.last_seen_at!).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})} · {x.offer.stock_status==="in_stock"?"Availability reported": "Confirm availability with retailer"}</p></div><div className={styles.offerPrice}><strong>{gbp(Number(comparison.basis==="verified_total"?x.offer.total_price:x.offer.price))}</strong><span>{comparison.basis==="verified_total"?"Verified offer total":"Item price; delivery may be extra"}</span></div><AddToCollectionButton kind="basket" productId={product.id} productSlug={product.slug} offerId={x.offer.id}/><Link href={`/go/${x.offer.id}`} className={styles.retailer}>Visit retailer <ArrowRight size={16}/></Link></article>)}</div>
+ <div className={styles.offerList}>{offers.map(x=>{const studio=studioForVerifiedMerchant(x.published.merchant);return <article key={x.offer.id} className={styles.offerCard}><div><h3>{x.published.merchant}</h3>{studio&&<Link href={partnerHref(studio)} className={styles.studioLink}>Explore the {studio.name} AVUQO studio <ArrowRight size={14}/></Link>}<p>Last checked {new Date(x.offer.last_seen_at!).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})} · {x.offer.stock_status==="in_stock"?"Availability reported": "Confirm availability with retailer"}</p></div><div className={styles.offerPrice}><strong>{gbp(Number(comparison.basis==="verified_total"?x.offer.total_price:x.offer.price))}</strong><span>{comparison.basis==="verified_total"?"Verified offer total":"Item price; delivery may be extra"}</span></div><AddToCollectionButton kind="basket" productId={product.id} productSlug={product.slug} offerId={x.offer.id}/><Link href={`/go/${x.offer.id}`} className={styles.retailer}>Visit retailer <ArrowRight size={16}/></Link></article>})}</div>
  </section>
 
  {department&&presentation.template!=="general"&&<section className={`shell ${styles.departmentSpotlight}`} aria-label="Department-specific buying guidance">
