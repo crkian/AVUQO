@@ -83,7 +83,7 @@ async function ShopResults({searchParams}:{searchParams:Promise<ShopQuery>}){
    </nav>
    <section className={styles.evidence}>
     <div><ShieldCheck size={27}/><h3>Approval before display</h3><p>Imported rows do not automatically become stock. Each displayed offer passes the same merchant, freshness, currency and release checks as its product page.</p></div>
-    <div><Clock3 size={27}/><h3>Prices can change</h3><p>A checkout price and availability can change after AVUQO's observation. Products that become stale disappear automatically from eligible results.</p></div>
+    <div><Clock3 size={27}/><h3>Prices can change</h3><p>A checkout price and availability can change after AVUQO&apos;s observation. Products that become stale disappear automatically from eligible results.</p></div>
     <div><Truck size={27}/><h3>Cheapest means total cost</h3><p>Sorting here uses verified <strong>item prices</strong>, not delivery-inclusive market rankings. The product page shows different eligible retailers only when the exact product identity matches.</p></div>
    </section>
    <p className={styles.disclosure}><strong>About this shelf:</strong> {SHOP_PAGE_SIZE} candidate offers are examined per page. The candidate total is not a count of currently verified live products; safety checks may hide some or all of a page. Awin affiliate commission does not influence price sorting. <Link href="/affiliate-disclosure">Affiliate disclosure</Link> · <Link href="/trust">Our evidence principles</Link>.</p>
