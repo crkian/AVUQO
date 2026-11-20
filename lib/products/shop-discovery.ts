@@ -40,7 +40,12 @@ export async function verifiedShopPage(raw:ShopQuery):Promise<ShopPage>{
  const empty=(filters:ShopFilters,merchants:ShopFacet[]=[],categories:ShopFacet[]=[],state:ShopPage["resultsState"]="source_unavailable"):ShopPage=>({
   filters,merchants,categories,products:[],shownOfferCount:0,candidateCount:0,pageCount:0,hasNext:false,hasPrevious:filters.page>1,resultsState:state
  });
- const db=createAdminClient();
+ // Preview environments may intentionally omit privileged Supabase credentials.
+ // Fail closed with a helpful empty state rather than throwing into a 200 shell
+ // and leaving shoppers staring at an unresolved streaming fallback.
+ let db:ReturnType<typeof createAdminClient>;
+ try { db=createAdminClient(); }
+ catch { return empty(shopFilters(raw,[],[])); }
  // Supabase projects may cap REST responses at 1,000 rows, even if a larger
  // limit is requested. Walk stable windows so quiet advertisers at the tail
  // still appear as retailer/category facets instead of being lost to one big feed.
