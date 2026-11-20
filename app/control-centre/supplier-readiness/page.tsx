@@ -6,7 +6,6 @@ import {createAdminClient} from "../../../lib/supabase/admin";
 import {supplierKind,supplierNextAction,supplierSummary,type SupplierReadiness} from "../../../lib/awin/supplier-readiness";
 
 export const metadata:Metadata={title:"Supplier & Product Readiness | AVUQO Control Centre",robots:{index:false,follow:false}};
-export const dynamic="force-dynamic";
 type Report={as_of:string;explanation:string;programmes:SupplierReadiness[]};
 const n=(value:number|undefined)=>Number(value??0).toLocaleString("en-GB");
 const date=(value:string|null)=>value&&!Number.isNaN(Date.parse(value))?
