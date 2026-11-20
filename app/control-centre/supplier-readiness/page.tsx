@@ -34,6 +34,7 @@ export default async function SupplierReadinessPage(){
   <nav style={{display:"flex",gap:15,flexWrap:"wrap",fontSize:13}}>
    <Link href="/control-centre">← Control Centre</Link>
    <Link href="/control-centre/awin-feed-updates">Awin feed monitor</Link>
+   <Link href="/control-centre/supplier-studios">Supplier studio designs</Link>
    <Link href="/control-centre/feed-imports">Private import reviews</Link>
    <Link href="/control-centre/source-readiness">Source permissions</Link>
    <Link href="/control-centre/tyre-cross-retailer">Private tyre evidence</Link>
