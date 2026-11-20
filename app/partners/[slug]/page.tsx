@@ -7,6 +7,8 @@ import Header from "../../../components/layout/Header";
 import Footer from "../../../components/layout/Footer";
 import {createAdminClient} from "../../../lib/supabase/admin";
 import {verifiedOffersForAdvertiser} from "../../../lib/products/public-catalog";
+import {partnerStudio} from "../../../lib/partners/studio-editorial";
+import {PartnerStudioHero,PartnerStudioNotebook,PartnerStudioProducts,PartnerStudioInvitation,type StudioProduct} from "../../../components/partners/PartnerStudioExperience";
 import {PARTNERS,partnerFor,activePartnerPromotions,isApprovedPartnerLink,partnerHref} from "../../../lib/partners/advertiser-directory";
 import {departmentsForPartner,partnersForDepartment} from "../../../lib/partners/catalogue-taxonomy";
 import styles from "../partners.module.css";
@@ -19,45 +21,46 @@ export async function generateMetadata({params}:Props):Promise<Metadata>{
  const partner=partnerFor((await params).slug);
  if(!partner)return {title:"Partner not found | AVUQO",robots:{index:false}};
  return {
-  title:`${partner.name} | Explore on AVUQO`,
-  description:`${partner.description} ${partner.whatToCheck}`,
+  title:`${partner.name} | ${partnerStudio(partner.slug)?.edition??"Explore"} | AVUQO`,
+  description:`${partnerStudio(partner.slug)?.lead??partner.description} ${partner.whatToCheck}`,
   alternates:{canonical:`/partners/${partner.slug}`},
   robots:{index:Boolean(partner.links.length)||(partner.kind==="retail"&&["496","77952","101445","736","31539"].includes(partner.advertiserId??"")),follow:true}
  };
 }
-const gbp=(n:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(n);
 export default async function PartnerDetail({params}:Props){
  await connection();
  const slug=(await params).slug,partner=partnerFor(slug);
  if(!partner)notFound();
- const offers=partner.advertiserId?await verifiedOffersForAdvertiser(partner.advertiserId,15):[];
+ const studio=partnerStudio(slug);
+ if(!studio)notFound();
+ const offers=partner.advertiserId?await verifiedOffersForAdvertiser(partner.advertiserId,35):[];
  const ids=[...new Set(offers.map(o=>o.published.product_id).filter(Boolean))];
  const db=createAdminClient();
- const {data:products}=ids.length?await db.from("products").select("id,slug").in("id",ids).eq("status","active"):{data:[]};
- const slugs=new Map((products??[]).filter(p=>/^[a-z0-9][a-z0-9-]{2,159}$/.test(p.slug??"")).map(p=>[p.id,p.slug]));
- const currentOffers=offers.filter(o=>slugs.has(o.published.product_id));
+ const {data:products}=ids.length?await db.from("products")
+  .select("id,slug,description,brand").in("id",ids).eq("status","active"):{data:[]};
+ const byId=new Map((products??[])
+  .filter(p=>/^[a-z0-9][a-z0-9-]{2,159}$/.test(p.slug??""))
+  .map(p=>[p.id,p]));
+ const currentOffers=offers.filter(o=>byId.has(o.published.product_id));
+ // Source admission still requires source-rights, exact-identity and owner-release;
+ // the new photographic studio uses ONLY verifiedOffersForAdvertiser results.
+ const studioProducts:StudioProduct[]=currentOffers.map(o=>{
+  const p=byId.get(o.published.product_id)!;
+  return {id:o.offer.id,slug:p.slug,title:o.published.title,
+   brand:p.brand??null,description:p.description??null,
+   imageUrl:o.published.image_url,price:Number(o.offer.price),
+   observedAt:o.offer.last_seen_at,merchant:o.published.merchant};
+ });
  const promotions=activePartnerPromotions(new Date(),partner.slug);
  const theme={"--accent":partner.accent,"--deep":partner.deep,"--glow":partner.glow} as CSSProperties;
- const primary=partner.links.find(l=>l.kind==="approved_awin"&&isApprovedPartnerLink(l))??
-  partner.links.find(l=>isApprovedPartnerLink(l));
  const namedLinks=partner.links.filter(isApprovedPartnerLink);
  const categories=departmentsForPartner(partner.slug);
  const related=categories.length?partnersForDepartment(categories[0].slug).filter(p=>p.slug!==partner.slug).slice(0,5):[];
  return <><Header/>
   <main className={styles.page} style={theme}>
-   <section className={styles.hero}><div className={styles.shell}>
-    <nav className={styles.breadcrumb} aria-label="Breadcrumb"><Link href="/">AVUQO</Link><span>›</span><Link href="/catalogue">Catalogue</Link><span>›</span><Link href="/partners">Retailers</Link><span>›</span><span>{partner.name}</span></nav>
-    <div className={styles.heroGrid}><div>
-     <p className={styles.kicker}>AVUQO retail park · {partner.kind==="retail"?"Product shopping":"Partner discovery"}</p>
-     <h1>{partner.name}<span>{partner.tagline}</span></h1>
-     <p className={styles.heroDescription}>{partner.description}</p>
-     <div className={styles.heroLinks}>
-      {primary&&<a className={styles.heroButton} href={primary.href} target="_blank" rel="sponsored noopener noreferrer">{primary.label} ↗</a>}
-      <Link className={styles.heroGhost} href={partner.categoryHref}>Explore {partner.categoryLabel} on AVUQO</Link>
-      <Link className={styles.heroGhost} href="/compare">Compare full costs</Link>
-     </div>
-    </div><div className={styles.symbol} aria-hidden="true">{partner.symbol}</div></div>
-   </div></section>
+   <PartnerStudioHero partner={partner} studio={studio} products={studioProducts} links={namedLinks}/>
+   <PartnerStudioNotebook partner={partner} studio={studio} products={studioProducts}/>
+   <PartnerStudioProducts partner={partner} studio={studio} products={studioProducts}/>
    <div className={styles.shell+" "+styles.main}>
     <div className={styles.twoCols}>
      <section className={styles.section}>
@@ -91,21 +94,6 @@ export default async function PartnerDetail({params}:Props){
       <small className={styles.fine}>{p.source}. Always check exclusions, availability and final prices.</small>
      </article>)}</div>
     </section>}
-    <section className={styles.section} aria-labelledby="partner-public-products">
-     <p className={styles.kicker}>Source-verified shopping</p>
-     <h2 id="partner-public-products">{currentOffers.length?"Products currently eligible on AVUQO":"Product-price evidence"}</h2>
-     {currentOffers.length>0&&<p className={styles.sectionIntro}><Link href={"/shop?merchant="+encodeURIComponent(currentOffers[0].published.merchant)}>Browse more currently eligible products from {partner.name} ↗</Link></p>}
-     {currentOffers.length?<><p className={styles.sectionIntro}>These are individually approved source offers, not every private feed item. Prices shown exclude delivery unless independently verified. Check stock, configuration and checkout total with the retailer.</p>
-      <div className={styles.products}>{currentOffers.map(o=><Link href={`/products/${slugs.get(o.published.product_id)}`} key={o.offer.id} className={styles.productCard}>
-       <span className={styles.tag}>Released retailer offer</span>
-       <strong>{o.published.title}</strong>
-       <span className={styles.price}>{gbp(Number(o.offer.price))}</span>
-       <small>Retailer item price, delivery not verified</small>
-       <small>Observed {new Date(o.offer.last_seen_at??"1970-01-01T00:00:00Z").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric",timeZone:"Europe/London"})}</small>
-       <span>View eligible product ↗</span>
-      </Link>)}</div></>:
-      <p className={styles.sectionIntro}>No matching offer currently passes AVUQO&apos;s complete public price, stock, source-rights, exact-identity and owner-release checks. This does not imply the advertiser has no products or that its programme was declined.</p>}
-    </section>
     <section className={styles.section} aria-labelledby="partner-department-navigation">
      <p className={styles.kicker}>Part of the wider AVUQO retail park</p><h2 id="partner-department-navigation">Shop the same category your way.</h2>
      <p className={styles.sectionIntro}>Browse the original AVUQO departments, explore other participating retailers, or start with an independently checked product. A shared category is not an assertion that shops sell identical items.</p>
@@ -119,6 +107,7 @@ export default async function PartnerDetail({params}:Props){
       <Link className={styles.relatedStore} href="/catalogue"><span aria-hidden="true">◇</span><strong>Everything on AVUQO</strong><span aria-hidden="true">›</span></Link>
      </div>
     </section>
+    <PartnerStudioInvitation partner={partner}/>
     <section className={styles.notice}>
      <strong>Independent comparison first.</strong> AVUQO may earn commission through some retailer links at no extra cost to you. An advertiser&apos;s own quote is not automatically the cheapest market price. Shop-by-price comparisons require the identical product or booking details across multiple valid sources. <Link href="/affiliate-disclosure">How affiliate links work</Link> · <Link href="/trust">How AVUQO verifies offers</Link> · <Link href="/partners">All partners</Link>
     </section>
