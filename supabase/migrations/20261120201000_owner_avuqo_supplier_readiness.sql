@@ -23,8 +23,8 @@ as $$
  profile as (
   select advertiser_id,
          count(distinct feed_id) filter (where exists (
-          select 1 from unnest(coalesce(safe_column_names,ARRAY[]::text[])) as key
-          where lower(key) in ('description','structured_description','product_short_description','short_description','long_description')
+          select 1 from unnest(coalesce(safe_column_names,ARRAY[]::text[])) as description_column(name)
+          where lower(description_column.name) in ('description','structured_description','product_short_description','short_description','long_description')
          )) as feeds_with_description_column
   from public.awin_feed_schema_profiles group by advertiser_id
  ),
