@@ -55,7 +55,7 @@ test("supplier directory has verified-photo editorial showcase but no private fe
  assert.match(featured,/published\.image_url/);
  assert.match(featured,/referrerPolicy="no-referrer"/);
  assert.match(featured,/partnerHref\(partner\)/);
- assert.match(featured,/verified source/i);
+ assert.match(featured,/Verified product photo/);
  assert.doesNotMatch(featured,/feed_import_records|source_supplied_gallery|private_image|raw_data|commission_rate/);
  assert.match(css,/\.feature:first-child/);
  assert.match(css,/grid-column:span 7/);
