@@ -5,6 +5,7 @@ import type {Metadata} from "next";
 import {requireControlCentreAccess} from "../../../lib/auth/requireControlCentreAccess";
 import {PARTNERS,partnerHref} from "../../../lib/partners/advertiser-directory";
 import {partnerStudio} from "../../../lib/partners/studio-editorial";
+import {sceneIcon} from "../../../components/partners/StudioGlyph";
 import {departmentsForPartner} from "../../../lib/partners/catalogue-taxonomy";
 import styles from "./page.module.css";
 export const metadata:Metadata={title:"Supplier Studio Design Review | AVUQO Control Centre",robots:{index:false,follow:false}};
@@ -23,7 +24,7 @@ export default async function SupplierStudiosReview(){
   </nav>
   <header className={styles.hero}>
    <p className={styles.kicker}>OWNER OPERATIONS / {role.toUpperCase()} / EDITORIAL QUALITY</p>
-   <h1>Every supplier deserves a proper shop window.</h1>
+   <h1>Every supplier deserves a remarkable shop window.</h1>
    <p>Review the 21 individually authored AVUQO retailer studios, their bespoke visual direction, buying guides and customer journeys. These are AVUQO editorial treatments, not representations of official brand identity or merchant endorsement.</p>
    <div className={styles.metrics}>
     <div><b>{studios.length}</b><span>Individual studio designs</span></div>
@@ -38,9 +39,9 @@ export default async function SupplierStudiosReview(){
    <Link href="/control-centre/supplier-readiness">Inspect live feed and product blockers ↗</Link>
   </section>
   <section className={styles.grid} aria-label="Supplier studio visual identities">
-   {studios.map(({partner,editorial,departments})=><article className={styles.card} key={partner.slug}
+   {studios.map(({partner,editorial,departments})=>{const Icon=sceneIcon(editorial.scene);return <article className={styles.card} key={partner.slug} data-scene={editorial.scene}
     style={{"--accent":partner.accent,"--deep":partner.deep,"--glow":partner.glow} as CSSProperties}>
-    <div className={styles.art}><span aria-hidden="true">{partner.symbol}</span>
+    <div className={styles.art}><span aria-hidden="true"><Icon size={48} strokeWidth={1}/></span>
      <strong aria-hidden="true">{editorial.heroWord}</strong>
      <small>{editorial.stamp}</small>
     </div>
@@ -55,7 +56,7 @@ export default async function SupplierStudiosReview(){
       <Link href={partner.categoryHref}>Category ↗</Link>
      </div>
     </div>
-   </article>)}
+   </article>})}
   </section>
   <section className={styles.checklist}>
    <h2>Before an advertiser sees the page</h2>
