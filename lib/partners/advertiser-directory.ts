@@ -65,6 +65,21 @@ export const PARTNERS:readonly Partner[]=[
 export const PARTNER_BY_SLUG=new Map(PARTNERS.map(p=>[p.slug,p]));
 export const partnerFor=(slug:string)=>PARTNER_BY_SLUG.get(slug);
 export const partnerHref=(partner:Partner)=>"/partners/"+partner.slug;
+/** Exact merchant labels from independently eligible canonical offers.
+ * Never fuzzy-match merchant text into an advertiser identity.
+ */
+const VERIFIED_OFFER_MERCHANT_STUDIOS:Readonly<Record<string,string>>={
+ "Tooled Up":"tooled-up",
+ "Petlibro UK Affiliate Program":"petlibro",
+ "PlayPress Toys UK":"playpress-toys",
+ "Cadbury Gifts Direct":"cadbury-gifts-direct",
+ "Mozillion":"mozillion",
+ "Craft Buddy Shop":"craft-buddy"
+};
+export function studioForVerifiedMerchant(merchantName:string):Partner|null{
+ const slug=VERIFIED_OFFER_MERCHANT_STUDIOS[merchantName];
+ return slug?PARTNER_BY_SLUG.get(slug)??null:null;
+}
 export type PartnerPromotion={id:string;slug:string;title:string;detail:string;cta:string;href:string;code?:string;startsAt?:string;endsAt?:string;source:string;featured?:boolean};
 /** These are merchant announcements, not independently observed AVUQO price drops. */
 export const PARTNER_PROMOTIONS:readonly PartnerPromotion[]=[
