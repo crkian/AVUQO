@@ -14,6 +14,7 @@ import {eligibleDepartmentProduct} from "../../../lib/products/department-showro
 import ResearchProductDetails from "../../../components/products/ResearchProductDetails";
 import {researchGuideBySlug} from "../../../lib/products/research-guides";
 import {verifiedProduct,verifiedProductIndex} from "../../../lib/products/public-catalog";
+import {publicPageMetadata} from "../../../lib/site/seo";
 import {compareEligibleOffers} from "../../../lib/products/comparison-evidence";
 import {studioForVerifiedMerchant,partnerHref} from "../../../lib/partners/advertiser-directory";
 import {chooseProductTemplate,validatedSpecificationEntries} from "../../../lib/products/templates";
@@ -34,7 +35,7 @@ export async function generateMetadata({params}:Props):Promise<Metadata>{
   return {title:guide.title+" | Research guide",description:guide.teaser,
    alternates:{canonical:"/products/"+slug},robots:{index:false,follow:true}};
  }
- return {title:record.product.canonical_title,description:`Understand price and seller evidence for ${record.product.canonical_title} on AVUQO. Check each current retailer offer.`,alternates:{canonical:`/products/${slug}`},robots:{index:true,follow:true}};
+ return publicPageMetadata({title:record.product.canonical_title,description:`Understand price and seller evidence for ${record.product.canonical_title} on AVUQO. Check each current retailer offer.`,path:`/products/${slug}`});
 }
 type ApprovedProductEntry=NonNullable<Awaited<ReturnType<typeof verifiedProduct>>>;
 function ProductDetails({entry,guide}:{
