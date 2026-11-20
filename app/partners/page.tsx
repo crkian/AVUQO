@@ -26,7 +26,8 @@ export default function PartnerDirectory(){
    <div className={styles.strip}><Link className={styles.heroButton} href="/catalogue">Explore the full catalogue <ArrowRight size={15}/></Link>
     <Link className={styles.heroGhost} href="/products">Shop eligible products</Link>
     <Link className={styles.heroGhost} href="/shop">Browse all live retailer offers</Link>
-    <Link className={styles.heroGhost} href="/categories">All 25 categories</Link></div>
+    <Link className={styles.heroGhost} href="/categories">All 25 categories</Link>
+    <Link className={styles.heroGhost} href="/advertise">For retailers &amp; suppliers</Link></div>
   </div></section>
   <section className={styles.shell+" "+styles.catalogueEntry} aria-label="Ways to explore the retail park">
    {journeys.map(({href,title,copy,Icon})=><Link key={href} className={styles.catalogueEntryCard} href={href}>
