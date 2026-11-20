@@ -57,7 +57,7 @@ export function PartnerStudioHero({partner,studio,products,links}:{partner:Partn
       <div className={styles.illustration} aria-hidden="true"><span>{partner.symbol}</span><small>{studio.edition}</small></div>}
      {photos[1]?.imageUrl&&<div className={styles.secondPhoto}><img src={photos[1].imageUrl} alt={photos[1].title} referrerPolicy="no-referrer" loading="lazy"/></div>}
      {photos[2]?.imageUrl&&<div className={styles.thirdPhoto}><img src={photos[2].imageUrl} alt={photos[2].title} referrerPolicy="no-referrer" loading="lazy"/></div>}
-     <div className={styles.storyStamp}><span>AVUQO EDITION</span><b>{studio.heroWord}</b><span>FIND WHAT'S WORTH IT</span></div>
+     <div className={styles.storyStamp}><span>AVUQO EDITION</span><b>{studio.heroWord}</b><span>FIND WHAT&apos;S WORTH IT</span></div>
     </div>
    </div>
   </div>
@@ -73,7 +73,7 @@ export function PartnerStudioNotebook({partner,studio,products}:{partner:Partner
    <Link href={partner.categoryHref}>Explore the wider {partner.categoryLabel} category <span aria-hidden="true">↗</span></Link>
   </div>
   <div className={styles.chapterPanel}>
-   <div className={styles.chapterHeader}><p className={styles.eyebrow}>01 / A SHOPPER'S FIELD GUIDE</p><h2>{studio.chapterHeading}</h2></div>
+   <div className={styles.chapterHeader}><p className={styles.eyebrow}>01 / A SHOPPER&apos;S FIELD GUIDE</p><h2>{studio.chapterHeading}</h2></div>
    <div className={styles.chapterGrid}>
     {studio.chapters.map((chapter,i)=>{
      const matches=byChapter(products,chapter);
