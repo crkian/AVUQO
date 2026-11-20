@@ -11,7 +11,7 @@ import {cardDescription} from "../../lib/products/listing-description";
 import styles from "./page.module.css";
 export const metadata:Metadata={
  title:"Shop real retailer prices | AVUQO",
- description:"Browse more of AVUQO's source-verified UK retailer inventory, filter by shop or category and sort by item price. Delivery and exact product comparisons remain clearly explained.",
+ description:"Browse more of AVUQO&apos;s source-verified UK retailer inventory, filter by shop or category and sort by item price. Delivery and exact product comparisons remain clearly explained.",
  alternates:{canonical:"/shop"},
  robots:{index:true,follow:true}
 };
@@ -25,7 +25,7 @@ async function ShopResults({searchParams}:{searchParams:Promise<ShopQuery>}){
    <nav className={styles.breadcrumb} aria-label="Breadcrumb"><Link href="/">AVUQO</Link><span>/</span><Link href="/catalogue">Catalogue</Link><span>/</span> Shop real offers</nav>
    <p className={styles.eyebrow}><ShieldCheck size={16}/> AVUQO source-verified retailer shopping</p>
    <h1>More real products.<br/><span>More ways to find your fit.</span></h1>
-   <p>Browse the larger AVUQO retailer catalogue, not just the homepage's featured selection. Every displayed price still passes the existing live source, stock, identity, publisher-link and owner-release checks.</p>
+   <p>Browse the larger AVUQO retailer catalogue, not just the homepage&apos;s featured selection. Every displayed price still passes the existing live source, stock, identity, publisher-link and owner-release checks.</p>
    <div className={styles.heroActions}><Link href="/products">Product guides <ArrowRight size={16}/></Link><Link href="/partners">All retailers <Store size={16}/></Link><Link href="/categories">25 departments <ArrowRight size={16}/></Link></div>
   </div></section>
   <div className={"shell "+styles.content}>
@@ -48,7 +48,7 @@ async function ShopResults({searchParams}:{searchParams:Promise<ShopQuery>}){
    </form>
    <div className={styles.resultsHeading}><div><p className={styles.eyebrow}>Currently eligible product offers</p>
     <h2>{filters.q?`Results for “${filters.q}”`:"Explore the full live retailer shelf"}</h2>
-    <p>Page {filters.page} of {Math.max(1,data.pageCount)} in the published offer catalogue. {products.length} source-eligible {products.length===1?"product":"products"} shown from this page's records. Entries that fail today's checks are omitted.</p></div>
+    <p>Page {filters.page} of {Math.max(1,data.pageCount)} in the published offer catalogue. {products.length} source-eligible {products.length===1?"product":"products"} shown from this page&apos;s records. Entries that fail today&apos;s checks are omitted.</p></div>
     <div className={styles.count}><CheckCircle2 size={16}/> {shownOfferCount} eligible {shownOfferCount===1?"offer":"offers"} in this page</div>
    </div>
    {products.length?<div className={styles.grid}>
