@@ -5,8 +5,8 @@ export type SupplierReadiness={
  programme:string;advertiser_id:string|null;registry_status:string;
  observed_feeds:number;feeds_with_description_column:number;
  supplier_reported_items:number;refresh_flags:number;last_observation:string|null;
- private_rows:number;private_product_ids:number;private_descriptions:number;
- description_rights_marked:number;last_private_import:string|null;
+ private_rows:number;private_sample_rows:number;private_sample_descriptions:number;
+ private_sample_rights_marked:number;last_private_import:string|null;
  active_products:number;active_described_products:number;
  published_candidates:number;held_candidates:number;product_description_rights_verified:boolean;
 };
@@ -30,9 +30,9 @@ export function supplierNextAction(row:SupplierReadiness):string{
  if(tyres.has(id))return "Verify exact GBP currency, fitment, stock, fitting and source rights before comparing.";
  if(row.active_products===0||row.published_candidates===0)return "Review held products, image/text rights and first-release evidence; no automatic bulk approval.";
  if(row.active_described_products<row.active_products){
-  if(row.feeds_with_description_column>0&&row.private_descriptions===0)
+  if(row.feeds_with_description_column>0&&row.private_sample_descriptions===0)
    return "Repair description projection and run a rights-gated current feed recheck.";
-  if(row.private_descriptions>0&&!row.product_description_rights_verified)
+  if(row.private_sample_descriptions>0&&!row.product_description_rights_verified)
    return "Confirm merchant-specific text reuse and reconcile exact Awin ID before description release.";
   return "Rebuild complete source-backed description and specification coverage without invented copy.";
  }
