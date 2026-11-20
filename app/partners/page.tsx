@@ -23,7 +23,7 @@ export default function PartnerDirectory(){
    <nav className={styles.breadcrumb} aria-label="Breadcrumb"><Link href="/">AVUQO</Link><span>›</span><Link href="/catalogue">Catalogue</Link><span>›</span> Retailers</nav>
    <p className={styles.directoryEyebrow}>AVUQO · The online retail park</p>
    <h1>Find a world<br/><span>worth exploring.</span></h1>
-   <p>The same AVUQO design and shopping categories, with a dedicated page for every participating advertiser. Choose a retailer, browse a product, or explore all the services available.</p>
+   <p>Twenty-one distinct retailer editions. Real products where the evidence allows them, thoughtful guides everywhere else, and independent comparisons throughout. Your next good find has a place here.</p>
    <div className={styles.strip}><Link className={styles.heroButton} href="/catalogue">Explore the full catalogue <ArrowRight size={15}/></Link>
     <Link className={styles.heroGhost} href="/products">Shop eligible products</Link>
     <Link className={styles.heroGhost} href="/shop">Browse all live retailer offers</Link>
