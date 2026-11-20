@@ -30,6 +30,9 @@ export default function PartnerDirectory(){
     <Link className={styles.heroGhost} href="/categories">All 25 categories</Link>
     <Link className={styles.heroGhost} href="/advertise">For retailers &amp; suppliers</Link></div>
   </div></section>
+  <Suspense fallback={<div className={styles.shell+" "+styles.catalogueLoading}>Preparing the featured retailer studios…</div>}>
+   <FeaturedPartnerEditions/>
+  </Suspense>
   <section className={styles.shell+" "+styles.catalogueEntry} aria-label="Ways to explore the retail park">
    {journeys.map(({href,title,copy,Icon})=><Link key={href} className={styles.catalogueEntryCard} href={href}>
     <span><Icon size={23} aria-hidden="true"/></span><strong>{title}</strong><small>{copy}</small><b>Explore <ArrowRight size={15}/></b>
