@@ -107,7 +107,7 @@ export function PartnerStudioProducts({partner,studio,products}:{partner:Partner
   </div>
  </section>;
  const featured=products.slice(0,18);
- const merchant=products[0].merchant;
+ const merchant=products[0]!.merchant;
  const href="/shop?merchant="+encodeURIComponent(merchant);
  return <section className={styles.shopping} id="source-products" aria-labelledby="source-products-title">
   <div className={styles.shoppingHeader}><div>
