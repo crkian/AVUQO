@@ -1,3 +1,10 @@
+## 20 November 2026 verified production addendum: release #328
+- This continuity register was drafted as a release candidate; **the customer-facing catalogue is now live**. PR https://github.com/crkian/AVUQO/pull/328 merged as `7e5b5b8e68b611099ed5557a5bbcc063f35809c8`; Vercel `dpl_9DxzW8kSu6r9DkyDDKRBwFrSRCPg` is READY on `www.avuqo.com`/`avuqo.com` with no alias errors.
+- GitHub quality workflow: build, lint, synthetic native PostgreSQL concurrency and security scan SUCCESS. Direct Vercel HTTP checks: all **21 individual accepted advertiser storefront pages** returned 200; `/`, `/catalogue`, `/partners`, `/products`, `/categories`, `/categories/pets/products`, `/marketplace`, `/mobile`, `/shopping`, and `/sales` also returned 200; selected Vercel routes showed no runtime errors over the checked 30-minute period. This is **not** pixel-level desktop/mobile visual acceptance.
+- Full previous plan below retained **unaltered**. Status marked live here does not confer new Amazon, supermarket, tyres, mobile tariff, booking or dropship feed permissions. The already recorded workstream backlog and specific owner requirements stay active.
+- The six mandated handover/changelog surfaces each gained a **new dated release evidence section**, with all older Markdown sections and every prior JSON key/value retained intact. They are cumulative by design, not replacements.
+
+---
 # AVUQO cumulative continuity register: original design, both catalogues, all advertisers and complete backlog
 **Created:** 19 November 2026, 22:46 GMT. **Purpose:** a durable, additive navigational index for the whole AVUQO project. **Release candidate:** `feature/unified-catalogues-preserve-avuqo-design-20261119`, awaiting CI, reviewed merge, Vercel production evidence and route smoke checks.
 
