@@ -41,12 +41,27 @@ export async function verifiedShopPage(raw:ShopQuery):Promise<ShopPage>{
   filters,merchants,categories,products:[],shownOfferCount:0,candidateCount:0,pageCount:0,hasNext:false,hasPrevious:filters.page>1,resultsState:state
  });
  const db=createAdminClient();
+ // Supabase projects may cap REST responses at 1,000 rows, even if a larger
+ // limit is requested. Walk stable windows so quiet advertisers at the tail
+ // still appear as retailer/category facets instead of being lost to one big feed.
+ async function readPublishedFacets(){
+  const rows:Array<{merchant:string|null;category:string|null}>=[];
+  for(let offset=0;offset<10000;offset+=1000){
+   const {data,error}=await db.from("published_deals")
+    .select("merchant,category").eq("status","published")
+    .order("offer_id",{ascending:true}).range(offset,offset+999);
+   if(error)return {data:[],failed:true};
+   rows.push(...(data??[]));
+   if(!data||data.length<1000)break;
+  }
+  return {data:rows,failed:false};
+ }
  const [publishedFacetRows,programmeResult,merchantResult]=await Promise.all([
-  db.from("published_deals").select("merchant,category").eq("status","published").limit(2500),
+  readPublishedFacets(),
   db.from("affiliate_programs").select("external_account_id,region,metadata").eq("provider","awin").limit(120),
   db.from("merchants").select("name,metadata,status").limit(150)
  ]);
- if(publishedFacetRows.error||programmeResult.error||merchantResult.error)
+ if(publishedFacetRows.failed||programmeResult.error||merchantResult.error)
   return empty(shopFilters(raw,[],[]));
  const accepted=new Set((programmeResult.data??[]).filter(p=>
   p.region==="GB"&&meta(meta(p.metadata).owner_joined_accepted_attestation).membership_status==="accepted"&&
