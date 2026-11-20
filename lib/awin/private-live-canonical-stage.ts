@@ -65,6 +65,8 @@ export function toFreshVerifiedAwinRaw(
   stockStatus:stock(m.availability),
   raw:{import_id:row.import_id,feed_id:feed,merchant_product_id:row.merchant_product_id,
    live_feed_digest:digest,live_feed_verified_at:verified,
+   source_description_rights_confirmed:m.source_description_rights_confirmed===true,
+   source_description_verified_digest:m.source_description_verified_digest??null,
    source_currency_explicit:m.source_currency_explicit===true,
    currency_source:typeof m.currency_source==="string"?m.currency_source:"feed_column",
    supplier_image_count:gallery.length,
