@@ -70,3 +70,19 @@
 @media(max-width:1050px){.catalogueBrowser .directory{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:760px){.catalogueEntry{grid-template-columns:repeat(2,minmax(0,1fr))}.catalogueBrowser .directory{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:530px){.catalogueEntry{grid-template-columns:1fr;margin-top:-19px}.catalogueEntryCard{min-height:0}.catalogueBrowser .directory{grid-template-columns:1fr}.resultsSummary{align-items:start;flex-direction:column}.directoryHero{padding-bottom:40px}.page .hero h1 span{line-height:1.1}}
+
+
+/* A distinct AVUQO editorial entry for each of the 21 supplier studios.
+ * Individual accents remain the page registry values; no invented logo art. */
+.directoryCard{isolation:isolate;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease;min-height:244px;gap:8px}
+.directoryCard:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 95% 15%,var(--accent) 0%,transparent 30%);opacity:.10;z-index:-1}
+.directoryWatermark{position:absolute;right:-10px;top:8px;font-family:Georgia,"Times New Roman",serif;font-size:clamp(34px,4vw,57px);font-weight:900;
+ letter-spacing:-.08em;opacity:.09;color:var(--deep);transform:rotate(-8deg);pointer-events:none;max-width:100%;text-align:right}
+.cardEdition{font-size:10px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:var(--deep);margin:2px 0 0}
+.directoryCard .emoji{display:grid;place-items:center;width:51px;height:51px;border-radius:16px;background:#ffffffca;box-shadow:0 5px 17px #28172e10;border:1px solid #ffffffd6}
+.directoryCard b{font-family:Georgia,"Times New Roman",serif;font-size:clamp(18px,2.1vw,24px);letter-spacing:-.04em;line-height:1.18}
+.directoryCard p{margin:0;font-size:13px;color:#56475d;font-weight:600}
+.directoryCard .cardAreas{font-size:11px;color:#74677a}
+.directoryCard strong{font-size:12px;color:var(--deep);line-height:1.6}
+.directoryCard:hover{box-shadow:0 16px 33px #33213b1a}
+@media(prefers-reduced-motion:reduce){.directoryCard{transition:none}.directoryCard:hover{transform:none}}

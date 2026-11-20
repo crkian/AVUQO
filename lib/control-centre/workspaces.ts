@@ -7,6 +7,7 @@ export const CONTROL_CENTRE_SECTIONS:AdminSection[]=[
   {href:"/control-centre/release-readiness",label:"Release readiness",description:"Operational gaps and launch gates"}]},
  {id:"website",label:"Website & Experience",description:"Content, journeys and publishing",links:[
   {href:"/control-centre/design-system",label:"Approved visual design",description:"Original warm-premium brand and screenshot source of truth"},
+  {href:"/control-centre/supplier-studios",label:"Supplier studio review",description:"Inspect the 21 individual themed retailer storefronts and buying guides"},
   {href:"/control-centre/marketplace",label:"Marketplace & category operations",description:"25 departments, journeys and publication readiness"},
   {href:"/control-centre/content",label:"Website content",description:"Footer and public copy"},
   {href:"/control-centre/content/navigation",label:"Menu & submenus",description:"Draft, preview, publish and restore"},
