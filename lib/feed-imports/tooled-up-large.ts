@@ -1,3 +1,5 @@
+import {privateAwinDescription} from "../awin/product-description-evidence.ts";
+
 /** Verified-shaped Awin All Products records for private, resumable import.
  * Never interpret a source brand as a legally verified manufacturer.
  */
@@ -42,6 +44,9 @@ export function prepareTooledUpRow(row:AwinRawRow){
   status:reasons.length?"excluded":"review",reasons,image_url:image,
   metadata:{
    source_format:"awin-all-products",feed_id:trimmed(row,"data_feed_id")||"89987",
+   source_description:privateAwinDescription(row),
+   source_description_rights_confirmed:false,
+   source_description_verified_digest:null,
    manufacturer_brand_source:"retailer_brand_name_unverified",
    manufacturer_brand:brand||null,brand_id:trimmed(row,"brand_id")||null,
    model:model||null,gtin:gtin||null,ean:ean||null,mpn:mpn||null,

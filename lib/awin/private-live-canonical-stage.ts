@@ -1,5 +1,6 @@
 import type {createAdminClient} from "../supabase/admin";
 import {ownAffiliateLink} from "./approved-offer-renewal.ts";
+import {publicAwinDescription} from "./product-description-evidence.ts";
 import {sourceIngestionFailures} from "../pipeline/source-readiness.ts";
 import {classifyTooledUpCategory} from "./tooled-up-taxonomy.mjs";
 
@@ -55,7 +56,8 @@ export function toFreshVerifiedAwinRaw(
   merchantName:advertiser==="77952"?"Petlibro UK Affiliate Program":
    advertiser==="31539"?"Mozillion":advertiser==="736"?"Cadbury Gifts Direct":
    advertiser==="101445"?"PlayPress Toys UK":advertiser==="496"?"Tooled Up":"Craft Buddy Shop",
-  merchantExternalId:advertiser,title:row.title,description:null,
+  merchantExternalId:advertiser,title:row.title,
+  description:publicAwinDescription(m,digest),
   category,brand,model:id("model"),gtin:id("gtin"),ean:id("ean"),mpn:id("mpn"),
   price:amount,currency:"GBP",deliveryCost:null,
   // Only explicitly verified image rights permit downstream display.
@@ -63,6 +65,8 @@ export function toFreshVerifiedAwinRaw(
   stockStatus:stock(m.availability),
   raw:{import_id:row.import_id,feed_id:feed,merchant_product_id:row.merchant_product_id,
    live_feed_digest:digest,live_feed_verified_at:verified,
+   source_description_rights_confirmed:m.source_description_rights_confirmed===true,
+   source_description_verified_digest:m.source_description_verified_digest??null,
    source_currency_explicit:m.source_currency_explicit===true,
    currency_source:typeof m.currency_source==="string"?m.currency_source:"feed_column",
    supplier_image_count:gallery.length,

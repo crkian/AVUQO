@@ -1,5 +1,6 @@
 import {collectAwinImages,selectAwinPrimaryImage} from "../awin/collect-images.mjs";
 import {normalizeAwinAvailability} from "../awin/stock-availability.mjs";
+import {privateAwinDescription} from "../awin/product-description-evidence.ts";
 /** Strict private Awin feed dialect detection; never guess an unsupported schema. */
 export type RawRow=Record<string,string>;
 export type Format="awin-csv"|"google-retail";
@@ -70,6 +71,11 @@ export function prepareGeneralBatch(merchant:string,feedId:string,header:string[
    status:reasons.length?"excluded":"review",reasons,image_url:image,
    metadata:{
     source_format:format,feed_id:feedId,
+    // Private feed prose: not cleared for customer display until separately licensed
+    // and freshly digest-rechecked by the exact-source canonical bridge.
+    source_description:privateAwinDescription(r),
+    source_description_rights_confirmed:false,
+    source_description_verified_digest:null,
     manufacturer_brand:brand.slice(0,250)||null,manufacturer_brand_source:"retailer_supplied_unverified",
     merchant_category_path:get(r,"merchant_product_category_path","product_type")||null,
     availability:availability||null,availability_source:observedAvailability.source,

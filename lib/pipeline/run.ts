@@ -264,6 +264,25 @@ async function ensureProduct(
     created = true;
   }
 
+  // Fill NULL prose on earlier pipeline-created products only when an exact
+  // authenticated source digest and a separate merchant-text licence agree.
+  // Never edit user/editorial copy or release text during private staging.
+  const descriptionDigest=record.source_description_verified_digest;
+  const liveDigest=record.live_feed_digest;
+  if (!created && !privateOnly && offer.description &&
+      record.source_description_rights_confirmed===true &&
+      typeof liveDigest==="string" && /^[a-f0-9]{64}$/.test(liveDigest) &&
+      descriptionDigest===liveDigest &&
+      Number.isFinite(observed) && observed<=Date.now()+120000 &&
+      Date.now()-observed<15*60_000) {
+    const {error:descriptionError}=await supabase.from("products")
+      .update({description:offer.description})
+      .eq("id",productId).eq("status","active")
+      .is("description",null)
+      .contains("metadata",{auto_created:true,created_by:"deal-intelligence-pipeline"});
+    if(descriptionError)throw descriptionError;
+  }
+
   for (const identifier of skuScopedTools?[]:offer.identifiers) {
     await supabase.from("product_identifiers").upsert(
       {

@@ -18,7 +18,8 @@ export function normalizePilotAwinFeed(advertiser:string,feedId:string,header:st
    "alternate_image_two","alternate_image_three","alternate_image_four",
    "category_name","brand_name","stock_status","in_stock",
    "merchant_product_category_path","product_type","ean","mpn",
-   "product_model","model_number","product_GTIN","last_updated"
+   "product_model","model_number","product_GTIN","last_updated",
+   "description","product_short_description"
   ];
   if(header.length<121||header.length>256)throw Error("invalid_mozillion_column_count");
   const required=["merchant_id","merchant_product_id","product_name","search_price","currency","aw_deep_link"];
@@ -45,7 +46,8 @@ export function normalizePilotAwinFeed(advertiser:string,feedId:string,header:st
   if(required.some(name=>header.filter(h=>h===name).length!==1))
    throw Error("invalid_google_retail_required_columns");
   const selected=[...required,"brand","product_type","google_product_category",
-   "image_link","additional_image_link","lifestyle_image_link","gtin","ean","mpn","condition","last_updated"];
+   "image_link","additional_image_link","lifestyle_image_link","gtin","ean","mpn","condition","last_updated",
+   "description","structured_description"];
   const projected=selected.filter(name=>header.includes(name));
   const positions=projected.map(name=>header.indexOf(name));
   const merchantCol=header.indexOf("advertiser_id");

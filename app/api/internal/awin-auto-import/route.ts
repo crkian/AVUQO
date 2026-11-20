@@ -48,7 +48,7 @@ async function privateStagingAllowed(db:ReturnType<typeof createAdminClient>){
 async function attestUnchangedLiveRows(
  db:ReturnType<typeof createAdminClient>,runId:string,advertiser:string,
  feed:string,header:string[],rows:string[][],digest:string,
- ownerApprovedImages:boolean
+ ownerApprovedImages:boolean,ownerApprovedDescriptions:boolean
 ){
  const idPos=header.indexOf(header.includes("merchant_product_id")?"merchant_product_id":"id");
  if(idPos<0||!/^[a-f0-9]{64}$/.test(digest))throw Error("unbound_live_recheck");
@@ -83,6 +83,12 @@ async function attestUnchangedLiveRows(
      live_feed_digest:digest,
      live_feed_verification:"exact_authenticated_feed_digest_rechecked",
      availability:next.metadata.availability,
+     // Preserve only clean prose from this exact authenticated current feed.
+     // A separate dated merchant-text rights flag is required for public use.
+     source_description:next.metadata.source_description??null,
+     source_description_verified_digest:next.metadata.source_description?digest:null,
+     source_description_rights_confirmed:ownerApprovedDescriptions&&
+      typeof next.metadata.source_description==="string",
      ...(ownerApprovedImages?{
       source_image_rights_confirmed:true,
       image_permission_basis:"owner_attested_all_accepted_programmes_2026_11_17",
@@ -183,6 +189,9 @@ export async function POST(request:NextRequest){
   ?programme.metadata as Record<string,unknown>:{};
  const accepted=pmeta.owner_joined_accepted_attestation;
  const ownerApprovedImages=activeOwnerAwinAttestation(source)&&pmeta.publication_approved===true;
+ // No merchant inherits text republication rights from programme acceptance,
+ // an image licence, or generic feed access. Explicit owner evidence is needed.
+ const ownerApprovedDescriptions=ownerApprovedImages&&pmeta.product_description_rights_verified===true;
  if(programmeError||!programme||!accepted||typeof accepted!=="object"||
   Array.isArray(accepted)||(accepted as Record<string,unknown>).membership_status!=="accepted")
   return reply({error:"Advertiser not in canonical accepted membership registry"},403);
@@ -368,7 +377,7 @@ export async function POST(request:NextRequest){
  if(session.source_digest!==digest)return reply({error:"Resume fingerprint mismatch"},409);
  if(session.completed_at&&session.committed_count===rows.length){
   try{
-   const verified=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages);
+   const verified=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages,ownerApprovedDescriptions);
    const canonical=verified>0?await stageLiveAwinCanonicalCandidates(db,{
     importId:runId,advertiser,feed,digest,limit:20
    }):{status:"no_fresh_exact_feed_rows",eligible:0,canonicalAccepted:0,canonicalRejected:0};
@@ -402,7 +411,7 @@ export async function POST(request:NextRequest){
    const {data:latest}=await loadSession();
    if(latest?.completed_at&&latest.source_digest===digest&&latest.committed_count===rows.length){
     try{
-     const verified=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages);
+     const verified=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages,ownerApprovedDescriptions);
      const canonical=verified>0?await stageLiveAwinCanonicalCandidates(db,{
       importId:runId,advertiser,feed,digest,limit:20
      }):{status:"no_fresh_exact_feed_rows",eligible:0,canonicalAccepted:0,canonicalRejected:0};
@@ -425,7 +434,7 @@ export async function POST(request:NextRequest){
   status:"no_fresh_exact_feed_rows",eligible:0,canonicalAccepted:0,canonicalRejected:0
  };
  try{
-  verified=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages);
+  verified=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages,ownerApprovedDescriptions);
   if(verified>0)canonical=await stageLiveAwinCanonicalCandidates(db,{
    importId:runId,advertiser,feed,digest,limit:20
   });
