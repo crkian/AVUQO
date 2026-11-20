@@ -87,7 +87,8 @@ test("cumulative handovers preserve all previous project work, source and branch
  for(const file of history){
   const text=read(file);
   assert.ok(text.length>100000,file+" history was unexpectedly truncated");
-  assert.ok(text.startsWith("## 20 November 2026 | VERIFIED PRODUCTION:"),file+" missing production verification");
+  assert.ok(text.startsWith("## 20 November 2026 | Massive leap candidate:"),file+" missing newest non-destructive handover");
+  assert.ok(text.includes("## 20 November 2026 | VERIFIED PRODUCTION:"),file+" earlier verified production snapshot was deleted");
   assert.ok(text.includes("## 19 November 2026 | Unified AVUQO catalogue"),file+" original project launch record missing");
   assert.ok(text.includes("Retail park, 21 advertiser storefronts, mobile hub"),file+" previous release record missing");
   assert.ok(text.includes("original"),file+" original work index missing");
@@ -100,9 +101,10 @@ test("cumulative handovers preserve all previous project work, source and branch
   assert.equal(continuity.historical_json_keys_and_requirements_retained,true);
   assert.ok(root.retail_park_advertiser_launch_20261119,file+" PR 327 historical entry deleted");
   assert.ok(root.awin_21_programme_automation_20261119,file+" feed automation entry deleted");
+  assert.ok(root.massive_leap_verified_shop_and_private_tyre_ean_20261120,file+" next leap workstream missing");
   assert.ok(continuity.outstanding_actions.length>=8);
  }
  const index=read("docs/AVUQO_CUMULATIVE_CONTINUITY_AND_CATALOGUE_INDEX_2026-11-19.md");
- for(const keyword of ["29-workstream","12-gap","Amazon","Dropshipping","Supermarket","Holiday Extras","Pneus Online","21 individual advertiser","all 25","PR #327","20 November 2026 verified production addendum"])
+ for(const keyword of ["29-workstream","12-gap","Amazon","Dropshipping","Supermarket","Holiday Extras","Pneus Online","21 individual advertiser","all 25","PR #327","20 November 2026 verified production addendum","candidate extension: all verified retailer offers"])
   assert.ok(index.toLowerCase().includes(keyword.toLowerCase()),"missing preserved goal: "+keyword);
 });
