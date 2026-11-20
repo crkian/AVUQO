@@ -1,4 +1,42 @@
 {
+  "supplier_retail_studios_20261120": {
+    "status": "candidate_review_ci_preview_and_production_pending",
+    "project": "AVUQO",
+    "feature": "21 individual supplier retail studios",
+    "branch": "feature/retailer-studios-individual-branded-storefronts-20261120",
+    "release_expected": "reviewed PR merge and exact production verification",
+    "implemented_paths": [
+      "lib/partners/studio-editorial.ts",
+      "components/partners/PartnerStudioExperience.tsx",
+      "app/partners/studios.module.css",
+      "app/partners/[slug]/page.tsx",
+      "components/partners/RetailerCatalogueBrowser.tsx",
+      "app/control-centre/supplier-studios/page.tsx",
+      "app/products/[slug]/page.tsx"
+    ],
+    "preserved": [
+      "21 accepted advertiser partner URLs",
+      "25 original departments",
+      "independent AVUQO score and price comparisons",
+      "original warm cream/plum design",
+      "all original handovers and 29-workstream 12-gap backlog"
+    ],
+    "evidence_gates": [
+      "already verified public offers only",
+      "source-cleared images only",
+      "source currency, stock, exact merchant identity",
+      "retained atomic owner first release",
+      "specialist services have no invented tariff prices"
+    ],
+    "editorial_studios": 21,
+    "scene_treatments": 21,
+    "distinct_buyer_guide_chapters": 63,
+    "requires_owner_mobile_visual_review": true,
+    "no_feed_permission_changes": true,
+    "no_automatic_offer_publication": true,
+    "historical_registry_keys_preserved": true,
+    "reference": "docs/AVUQO_21_SUPPLIER_RETAIL_STUDIOS_2026-11-20.md"
+  },
   "supplier_description_and_readiness_20261120": {
     "status": "candidate_requires_green_ci_merge_and_independent_db_migration",
     "branch": "feature/supplier-description-readiness-20261120",
