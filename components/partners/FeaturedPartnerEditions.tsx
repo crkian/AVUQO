@@ -40,7 +40,7 @@ export default async function FeaturedPartnerEditions(){
   <div className={styles.gallery}>
    {entries.map(({slug,Icon,folio,partner,studio,photo,photoAlt})=><Link key={slug} className={styles.feature}
     href={partnerHref(partner)} data-scene={studio.scene}
-    style={{"--accent":partner.accent,"--deep":partner.deep,"--glow":partner.glow} as React.CSSProperties}>
+    style={{"--accent":partner.accent,"--deep":partner.deep,"--glow":partner.glow} as CSSProperties}>
     <span className={styles.featureNoise} aria-hidden="true"/>
     <span className={styles.folio}>AVUQO EDITION <strong>{folio}</strong></span>
     <span className={styles.art} aria-hidden={Boolean(photo)?undefined:true}>
