@@ -5,6 +5,7 @@ import "./phase2.css";
 import CookieConsent from "../components/privacy/CookieConsent";
 
 import { getSiteUrl } from "../lib/site/url";
+import {jsonLd} from "../lib/site/seo";
 
 const siteUrl = getSiteUrl();
 
@@ -17,6 +18,8 @@ export const metadata: Metadata = {
   description:
     "Independent value intelligence for shopping, travel, motoring and experiences. AVUQO helps people decide what is genuinely worth it.",
   applicationName: "AVUQO",
+  category:"shopping",
+  referrer:"strict-origin-when-cross-origin",
   openGraph: {
     type: "website",
     siteName: "AVUQO",
@@ -34,6 +37,7 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot:{index:true,follow:true,"max-image-preview":"large","max-snippet":-1},
   },
 };
 
@@ -49,7 +53,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en-GB">
-      <body>{children}<CookieConsent/></body>
+      <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{__html:jsonLd({
+          "@context":"https://schema.org","@type":"WebSite",name:"AVUQO",url:siteUrl,
+          inLanguage:"en-GB",description:"Independent shopping and value research in the UK"
+        })}}/>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{__html:jsonLd({
+          "@context":"https://schema.org","@type":"Organization",name:"AVUQO",url:siteUrl
+        })}}/>
+        {children}<CookieConsent/>
+      </body>
     </html>
   );
 }
