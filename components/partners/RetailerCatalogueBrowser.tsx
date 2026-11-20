@@ -5,6 +5,7 @@ import {useMemo,useState,type CSSProperties} from "react";
 import {ArrowRight,Search,SlidersHorizontal} from "lucide-react";
 import {BROWSE_DEPARTMENTS} from "../../lib/categories/browse-tree";
 import {PARTNERS,partnerHref} from "../../lib/partners/advertiser-directory";
+import {partnerStudio} from "../../lib/partners/studio-editorial";
 import {PARTNER_DEPARTMENTS,partnerCatalogueKinds} from "../../lib/partners/catalogue-taxonomy";
 import styles from "../../app/partners/partners.module.css";
 type Kind=typeof partnerCatalogueKinds[number]["id"];
@@ -20,7 +21,10 @@ export default function RetailerCatalogueBrowser(){
   if(kind!=="all"&&p.kind!==kind)return false;
   if(selectedDepartment!=="all"&&!(PARTNER_DEPARTMENTS[p.slug]??[]).includes(selectedDepartment))return false;
   if(!term)return true;
+  const studio=partnerStudio(p.slug);
   return [p.name,p.tagline,p.description,p.categoryLabel,...p.topics,
+   studio?.edition??"",studio?.storyTitle??"",studio?.chapterHeading??"",
+   ...(studio?.chapters.map(chapter=>chapter.title)??[]),
    ...BROWSE_DEPARTMENTS.filter(d=>(PARTNER_DEPARTMENTS[p.slug]??[]).includes(d.slug)).map(d=>d.name)]
    .some(t=>t.toLocaleLowerCase("en-GB").includes(term));
  }).sort((a,b)=>a.name.localeCompare(b.name,"en-GB")),[kind,selectedDepartment,term]);
@@ -57,13 +61,15 @@ export default function RetailerCatalogueBrowser(){
    {(kind!=="all"||selectedDepartment!=="all"||query)&&<button type="button" onClick={()=>{setKind("all");setQuery("");changeDepartment("all");}}>Clear filters</button>}
   </div>
   {shown.length?<div className={styles.directory}>
-   {shown.map(p=><Link key={p.slug} href={partnerHref(p)} className={styles.directoryCard}
+   {shown.map(p=>{const studio=partnerStudio(p.slug);return <Link key={p.slug} href={partnerHref(p)} className={styles.directoryCard}
      style={{"--accent":p.accent,"--deep":p.deep,"--glow":p.glow} as CSSProperties}>
+     <span className={styles.directoryWatermark} aria-hidden="true">{studio?.heroWord??"DISCOVER"}</span>
      <span className={styles.emoji} aria-hidden="true">{p.symbol}</span>
+     <span className={styles.cardEdition}>{studio?.edition??"The AVUQO edit"}</span>
      <span className={styles.tag}>{p.kind==="retail"?"Shop & products":p.kind==="mobile"?"Phone provider":p.kind==="travel"?"Travel bookings":p.kind==="broadband"?"Broadband provider":p.kind==="motoring"?"Motoring":p.kind==="energy"?"Energy":"Services"}</span>
      <b>{p.name}</b><p>{p.tagline}</p><small className={styles.cardAreas}>{p.categoryLabel}</small>
-     <strong>Explore {p.name} <ArrowRight size={15} aria-hidden="true"/></strong>
-    </Link>)}
+     <strong>Enter the {studio?.edition.toLowerCase()??"supplier studio"} <ArrowRight size={15} aria-hidden="true"/></strong>
+    </Link>})}
   </div>:<div className={styles.emptyCatalogue}><h3>No advertisers match those filters yet.</h3>
    <p>Try another AVUQO department, or browse the full product and services catalogue without assuming live stock.</p>
    <Link href="/catalogue">Explore the AVUQO catalogue <ArrowRight size={16}/></Link>
