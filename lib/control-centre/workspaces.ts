@@ -19,6 +19,7 @@ export const CONTROL_CENTRE_SECTIONS:AdminSection[]=[
   {href:"/control-centre/source-atlas",label:"All-source atlas",description:"Every connector, feed import, evidence gate and content state"},
   {href:"/control-centre/retailers",label:"Retailer onboarding (Awin + eBay)",description:"Joined-feed evidence, private imports, eBay keysets and release permissions"},
   {href:"/control-centre/tyres",label:"Tyre marketplace pipeline",description:"Two supplier reviews, technical enrichment and public variant readiness"},
+  {href:"/control-centre/tyre-cross-retailer",label:"Private cross-retailer tyre matches",description:"Check-digit-valid EAN overlaps, GBP/fitment blockers and resumable imported snapshots"},
   {href:"/control-centre/live-data",label:"Live-data status",description:"Readiness of verified feeds"},
   {href:"/control-centre/coverage",label:"Coverage",description:"Supported sector coverage"},
   {href:"/control-centre/sources",label:"Connectors & sources",description:"Source permissions and data feeds"},
