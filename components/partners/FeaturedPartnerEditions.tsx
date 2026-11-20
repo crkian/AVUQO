@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type {CSSProperties} from "react";
 import {connection} from "next/server";
-import {ArrowUpRight,ArrowRight,CheckCircle2,ShieldCheck,Wrench,PawPrint,Puzzle,Plane} from "lucide-react";
+import {ArrowUpRight,CheckCircle2,ShieldCheck,Wrench,PawPrint,Puzzle,Plane} from "lucide-react";
 import {PARTNERS,partnerHref} from "../../lib/partners/advertiser-directory";
 import {partnerStudio} from "../../lib/partners/studio-editorial";
 import {verifiedOffersForAdvertiser} from "../../lib/products/public-catalog";
