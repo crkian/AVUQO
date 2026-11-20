@@ -175,3 +175,59 @@
  .browserPanel{padding:16px}
 }
 @media(prefers-reduced-motion:reduce){.catalogueEntryCard{transition:none}.catalogueEntryCard:hover,.catalogueBrowser .directoryCard:hover{transform:none}}
+
+
+/* THE LOWER HALF OF EACH SUPPLIER STUDIO
+ * Keep existing source links, campaigns, buyer guidance and related
+ * departments, but give them the same editorial finish as the new hero. */
+.page{background:#fbf7f1}
+.page .shell{width:min(1370px,calc(100% - 64px))}
+.page .main{padding:65px 0 65px;display:grid;gap:55px}
+.page .twoCols{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(250px,.7fr);gap:25px;align-items:stretch}
+.page .section,.page .side{border:0;background:transparent;border-radius:0;box-shadow:none;padding:0}
+.page .section h2,.page .side h2{font:700 clamp(29px,3.2vw,45px)/1.11 Georgia,"Times New Roman",serif;
+ letter-spacing:-.045em;color:#271833;margin:0 0 15px;max-width:740px}
+.page .sectionIntro{color:#6c5e72;font-size:13px;line-height:1.8;max-width:850px;margin:0 0 23px}
+.page .kicker{color:#704785;font-size:10px;letter-spacing:.15em;margin:0 0 14px}
+.page .side{border-radius:8px 50px 8px 8px;background:linear-gradient(133deg,var(--glow),#f4eaf0 75%);
+ padding:clamp(22px,3vw,39px);position:relative}
+.page .side:after{content:"AVUQO";position:absolute;bottom:0;right:13px;color:var(--deep);opacity:.05;
+ font:900 70px Georgia,"Times New Roman",serif;letter-spacing:-.07em;pointer-events:none}
+.page .side h2{font-size:clamp(27px,2.5vw,37px)}
+.page .side ul{margin:18px 0 0;padding-left:19px;line-height:1.9;color:#584b5d;font-size:13px;position:relative}
+.page .side li{margin:0 0 8px}
+.page .side .fine{font-size:11px;line-height:1.7;color:#746777;margin-top:19px}
+.page .linkGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.page .linkCard{min-height:180px;display:flex;flex-direction:column;gap:13px;
+ padding:23px 22px;border-radius:10px 34px 10px 10px;border:1px solid #e7dce6;
+ background:#fffdfa;box-shadow:none;transition:transform .2s,box-shadow .2s}
+.page .linkCard:hover{transform:translateY(-3px);box-shadow:0 15px 30px #3a254014}
+.page .linkCard .tag{padding:0;background:transparent;color:#765283;font-size:9px;font-weight:900}
+.page .linkCard strong{font:700 22px/1.25 Georgia,"Times New Roman",serif;letter-spacing:-.025em;color:#30203b}
+.page .linkCard>span:last-child{font-size:11px;line-height:1.7;color:#74677b;margin-top:auto}
+.page .promoGrid{grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px}
+.page .promo{background:#fffdfb;border:1px solid #e3d6e4;border-radius:12px 45px 12px 12px;
+ padding:clamp(22px,3vw,34px);gap:16px;box-shadow:none}
+.page .promo h3{font:700 27px/1.14 Georgia,"Times New Roman",serif;letter-spacing:-.04em;color:#2a1934}
+.page .promo p{font-size:13px;line-height:1.7;color:#695b6d}
+.page .promo a{display:inline-flex;gap:8px;font-size:12px;color:#4c2a5a;font-weight:900}
+.page .promo code{border-radius:8px;border:1px dashed #987da4;background:#f8f2f8;color:#43254f}
+.page .relatedStores{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.page .relatedStore{background:#fffdfb;border:1px solid #e2d8e2;padding:18px;border-radius:9px;
+ text-decoration:none;align-items:center;gap:12px;min-height:76px;transition:transform .18s}
+.page .relatedStore:hover{transform:translateY(-3px);border-color:var(--accent)}
+.page .relatedStore strong{font-size:12px;font-weight:830}
+.page .relatedStore span:first-child{font-size:23px}
+.page .relatedStore span:last-child{margin-left:auto;color:#654376}
+.page .notice{border:none;border-top:1px solid #ded2dd;border-radius:0;padding:25px 0 0;background:transparent;
+ color:#746779;font-size:12px;line-height:1.9}
+.page .notice strong{color:#4a2e56}
+.page .notice a{color:#62417b;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:960px){.page .twoCols{grid-template-columns:1fr}.page .main{gap:37px}.page .side{max-width:none}}
+@media(max-width:680px){.page .shell{width:calc(100% - 32px)}.page .main{padding:45px 0}
+ .page .linkGrid{grid-template-columns:1fr}.page .linkCard{min-height:130px}
+ .page .relatedStores{grid-template-columns:1fr 1fr}.page .relatedStore{min-height:90px;padding:12px}
+}
+@media(max-width:410px){.page .relatedStores{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.page .linkCard,.page .relatedStore{transition:none}
+ .page .linkCard:hover,.page .relatedStore:hover{transform:none}}
