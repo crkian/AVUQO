@@ -24,7 +24,9 @@ export async function generateMetadata({params}:Props):Promise<Metadata>{
   title:`${partner.name} | ${partnerStudio(partner.slug)?.edition??"Explore"} | AVUQO`,
   description:`${partnerStudio(partner.slug)?.lead??partner.description} ${partner.whatToCheck}`,
   alternates:{canonical:`/partners/${partner.slug}`},
-  robots:{index:Boolean(partner.links.length)||(partner.kind==="retail"&&["496","77952","101445","736","31539"].includes(partner.advertiserId??"")),follow:true}
+  // The 21 pages now contain individually written editorial buying guides;
+  // noindex is no longer needed simply because a price feed is unavailable.
+  robots:{index:true,follow:true}
  };
 }
 export default async function PartnerDetail({params}:Props){
@@ -35,9 +37,17 @@ export default async function PartnerDetail({params}:Props){
  if(!studio)notFound();
  const offers=partner.advertiserId?await verifiedOffersForAdvertiser(partner.advertiserId,35):[];
  const ids=[...new Set(offers.map(o=>o.published.product_id).filter(Boolean))];
- const db=createAdminClient();
- const {data:products}=ids.length?await db.from("products")
-  .select("id,slug,description,brand").in("id",ids).eq("status","active"):{data:[]};
+ // All supplier studios must remain useful and auditable even if a preview
+ // environment omits privileged DB credentials or a feed is temporarily down.
+ // Never render private products or substitute invented prices.
+ let products:Array<{id:string;slug:string;description:string|null;brand:string|null}>=[];
+ if(ids.length){
+  try{
+   const {data,error}=await createAdminClient().from("products")
+    .select("id,slug,description,brand").in("id",ids).eq("status","active");
+   if(!error&&data)products=data;
+  }catch{/* Fail closed on products; keep the public editorial studio accessible. */}
+ }
  const byId=new Map((products??[])
   .filter(p=>/^[a-z0-9][a-z0-9-]{2,159}$/.test(p.slug??""))
   .map(p=>[p.id,p]));
