@@ -65,8 +65,8 @@ test("public descriptions require explicit text rights and matching fresh source
 test("readiness distinguishes shop feeders from service and referral adapters",()=>{
  const stub={programme:"Sample",advertiser_id:"496",registry_status:"pending",
   observed_feeds:3,feeds_with_description_column:0,supplier_reported_items:100,
-  refresh_flags:3,last_observation:null,private_rows:100,private_product_ids:50,
-  private_descriptions:0,description_rights_marked:0,last_private_import:null,
+  refresh_flags:3,last_observation:null,private_rows:100,private_sample_rows:100,
+  private_sample_descriptions:0,private_sample_rights_marked:0,last_private_import:null,
   active_products:30,active_described_products:0,published_candidates:15,
   held_candidates:15,product_description_rights_verified:false};
  assert.equal(supplierKind(stub),"Retail products");
