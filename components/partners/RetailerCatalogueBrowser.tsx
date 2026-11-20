@@ -5,6 +5,7 @@ import {useMemo,useState,type CSSProperties} from "react";
 import {ArrowRight,Search,SlidersHorizontal} from "lucide-react";
 import {BROWSE_DEPARTMENTS} from "../../lib/categories/browse-tree";
 import {PARTNERS,partnerHref} from "../../lib/partners/advertiser-directory";
+import {sceneIcon} from "./StudioGlyph";
 import {partnerStudio} from "../../lib/partners/studio-editorial";
 import {PARTNER_DEPARTMENTS,partnerCatalogueKinds} from "../../lib/partners/catalogue-taxonomy";
 import styles from "../../app/partners/partners.module.css";
@@ -61,10 +62,10 @@ export default function RetailerCatalogueBrowser(){
    {(kind!=="all"||selectedDepartment!=="all"||query)&&<button type="button" onClick={()=>{setKind("all");setQuery("");changeDepartment("all");}}>Clear filters</button>}
   </div>
   {shown.length?<div className={styles.directory}>
-   {shown.map(p=>{const studio=partnerStudio(p.slug);return <Link key={p.slug} href={partnerHref(p)} className={styles.directoryCard}
+   {shown.map(p=>{const studio=partnerStudio(p.slug);const Icon=studio?sceneIcon(studio.scene):null;return <Link key={p.slug} href={partnerHref(p)} className={styles.directoryCard} data-scene={studio?.scene}
      style={{"--accent":p.accent,"--deep":p.deep,"--glow":p.glow} as CSSProperties}>
      <span className={styles.directoryWatermark} aria-hidden="true">{studio?.heroWord??"DISCOVER"}</span>
-     <span className={styles.emoji} aria-hidden="true">{p.symbol}</span>
+     <span className={styles.studioGlyph} aria-hidden="true">{Icon?<Icon size={35} strokeWidth={1.25}/>:p.symbol}</span>
      <span className={styles.cardEdition}>{studio?.edition??"The AVUQO edit"}</span>
      <span className={styles.tag}>{p.kind==="retail"?"Shop & products":p.kind==="mobile"?"Phone provider":p.kind==="travel"?"Travel bookings":p.kind==="broadband"?"Broadband provider":p.kind==="motoring"?"Motoring":p.kind==="energy"?"Energy":"Services"}</span>
      <b>{p.name}</b><p>{p.tagline}</p><small className={styles.cardAreas}>{p.categoryLabel}</small>
