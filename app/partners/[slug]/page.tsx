@@ -51,7 +51,12 @@ export default async function PartnerDetail({params}:Props){
  const byId=new Map((products??[])
   .filter(p=>/^[a-z0-9][a-z0-9-]{2,159}$/.test(p.slug??""))
   .map(p=>[p.id,p]));
- const currentOffers=offers.filter(o=>byId.has(o.published.product_id));
+ const seenProducts=new Set<string>();
+ const currentOffers=offers.filter(o=>{
+  const id=o.published.product_id;
+  if(!byId.has(id)||seenProducts.has(id))return false;
+  seenProducts.add(id);return true;
+ });
  // Source admission still requires source-rights, exact-identity and owner-release;
  // the new photographic studio uses ONLY verifiedOffersForAdvertiser results.
  const studioProducts:StudioProduct[]=currentOffers.map(o=>{
@@ -80,7 +85,7 @@ export default async function PartnerDetail({params}:Props){
        "These are documented merchant destinations. A direct retailer link may not earn AVUQO commission; only the explicitly supplied tracking links are marked as tracked.":
        "This approved advertiser does not yet have a verified outbound destination or an AVUQO public product offer. The category journeys remain available without inventing a price."}</p>
       <div className={styles.linkGrid}>
-       {namedLinks.slice(0,9).map(l=><a key={l.label+l.href} className={styles.linkCard} href={l.href} target="_blank" rel="sponsored noopener noreferrer">
+       {namedLinks.slice(0,9).map(l=><a key={l.label+l.href} className={styles.linkCard} href={l.href} target="_blank" rel={l.kind==="approved_awin"?"sponsored noopener noreferrer":"noopener noreferrer"}>
         <span className={styles.tag}>{l.kind==="approved_awin"?"AVUQO tracked affiliate":"Retailer website"}</span>
         <strong>{l.label}</strong>
         <span>{l.kind==="approved_awin"?"Awin link supplied for AVUQO; final terms at retailer":"Continue to the provider for live price, stock and conditions"}</span>
