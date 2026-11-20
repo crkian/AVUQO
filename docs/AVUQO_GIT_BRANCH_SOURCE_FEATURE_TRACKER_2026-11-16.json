@@ -3842,5 +3842,85 @@
       "Continue append-only six-document handover updates and automated retention checks"
     ],
     "continuity_index": "docs/AVUQO_CUMULATIVE_CONTINUITY_AND_CATALOGUE_INDEX_2026-11-19.md"
+  },
+  "massive_leap_verified_shop_and_private_tyre_ean_20261120": {
+    "observed_at_utc": "2026-11-20T06:23:00Z",
+    "stage": "CANDIDATE_REQUIRES_CI_MERGE_VERCEL_AND_SQL_MIGRATION",
+    "branch": "feature/shop-all-verified-offers-and-private-tyre-crossmatch-20261120",
+    "customer_site": {
+      "new_route": "/shop",
+      "older_catalogue_sample_limit": 60,
+      "shopper_page_size": 36,
+      "filters": [
+        "search brand/model/title",
+        "accepted Awin merchant",
+        "observed published feed category",
+        "newest",
+        "GBP item price ascending/descending"
+      ],
+      "publish_safety": "all candidate offers still independently admitted through existing verifiedOffers; explicit GBP, matched identity, source rights, stock, 48h freshness, approved release, reviewed prices and emergency stop",
+      "candidate_count_20_nov": 1254,
+      "source_awin_published_recent_48h": 1229,
+      "contains_stale_demo_rows": true,
+      "candidate_count_not_live_product_count": true,
+      "source_ranking_only_item_price": true,
+      "cheapest_delivered_price_claim": false,
+      "changed_existing_25_categories": false,
+      "changed_existing_21_advertiser_pages": false,
+      "retained_all_other_site_features": true
+    },
+    "canonical_price_comparison": {
+      "distinct_retailers_not_offer_count": true,
+      "one_seller_never_global_cheapest": true,
+      "total_comparison_only_when_all_delivery_totals_evidenced": true,
+      "raw_multi_retailer_product_ids": 2,
+      "raw_multi_retailer_ids_are_demo_only": true,
+      "real_cross_retailer_public_matches_not_established": true
+    },
+    "private_tyres": {
+      "exact_checkdigit_valid_cross_ean13": 11643,
+      "sources": [
+        "Tyres UK Awin 12715",
+        "Pneus Online UK Awin 15236"
+      ],
+      "tyres_uk_private_rows_at_read": 31372,
+      "pneus_private_rows_at_read": 39783,
+      "pneu_completed_snapshot_import_rows": [
+        19890,
+        19893
+      ],
+      "source_currency_pneus": "missing_not_confirmed",
+      "full_fitment_evidence_for_pairs": false,
+      "source_qualified_both_gbp_and_fitment": 0,
+      "live_public_dual_retailer_price_matching": false,
+      "private_view": "/control-centre/tyre-cross-retailer",
+      "private_migration": "supabase/migrations/20261120064500_owner_only_private_tyre_ean_overlap.sql",
+      "sql_grants": "service_role_only",
+      "owner_auth_required": true,
+      "database_migration_applied": false
+    },
+    "latest_live_baseline": {
+      "pr": 329,
+      "sha": "7bb8487af0c30b52bbe6f191c859939a6ab92884",
+      "previous_app_pr": 328,
+      "previous_app_sha": "7e5b5b8e68b611099ed5557a5bbcc063f35809c8"
+    },
+    "user_requirement": "Major leap toward online retail park with actual source-approved browse coverage and future exact multi-merchant comparisons, all ideas and handovers kept.",
+    "source_specification": "docs/AVUQO_LIVE_RETAIL_PARK_SHOP_AND_TYRE_CROSSMATCH_2026-11-20.md",
+    "continuity_index": "docs/AVUQO_CUMULATIVE_CONTINUITY_AND_CATALOGUE_INDEX_2026-11-19.md",
+    "surviving_backlog": [
+      "Retailer source feeds/licences",
+      "true cross retailer same EAN/model variant price comparisons",
+      "delivery-inclusive costs",
+      "Pneus explicit GBP and tyre fitment",
+      "supermarket live authorised price sources and complete basket",
+      "Amazon approved credentials/API",
+      "live mobile/broadband/energy services and airport bookings",
+      "separately governed dropshipping",
+      "original 25 categories and 21 advertisers",
+      "all analytics/marketing/control-centre/29-workstream 12-gap ideas"
+    ],
+    "prior_markdown_history_retained": true,
+    "prior_machine_handover_keys_unchanged": true
   }
 }
