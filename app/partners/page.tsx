@@ -5,6 +5,7 @@ import {ArrowRight,Grid3X3,Search,ShoppingBag,Store} from "lucide-react";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import RetailerCatalogueBrowser from "../../components/partners/RetailerCatalogueBrowser";
+import FeaturedPartnerEditions from "../../components/partners/FeaturedPartnerEditions";
 import styles from "./partners.module.css";
 export const metadata:Metadata={
  title:"Retailer & Service Catalogue | AVUQO Retail Park",
@@ -21,14 +22,17 @@ export default function PartnerDirectory(){
   <section className={styles.directoryHero}><div className={styles.shell}>
    <nav className={styles.breadcrumb} aria-label="Breadcrumb"><Link href="/">AVUQO</Link><span>›</span><Link href="/catalogue">Catalogue</Link><span>›</span> Retailers</nav>
    <p className={styles.directoryEyebrow}>AVUQO · The online retail park</p>
-   <h1>Find your shop.<br/><span>Keep your options open.</span></h1>
-   <p>The same AVUQO design and shopping categories, with a dedicated page for every participating advertiser. Choose a retailer, browse a product, or explore all the services available.</p>
+   <h1>Find a world<br/><span>worth exploring.</span></h1>
+   <p>Twenty-one distinct retailer editions. Real products where the evidence allows them, thoughtful guides everywhere else, and independent comparisons throughout. Your next good find has a place here.</p>
    <div className={styles.strip}><Link className={styles.heroButton} href="/catalogue">Explore the full catalogue <ArrowRight size={15}/></Link>
     <Link className={styles.heroGhost} href="/products">Shop eligible products</Link>
     <Link className={styles.heroGhost} href="/shop">Browse all live retailer offers</Link>
     <Link className={styles.heroGhost} href="/categories">All 25 categories</Link>
     <Link className={styles.heroGhost} href="/advertise">For retailers &amp; suppliers</Link></div>
   </div></section>
+  <Suspense fallback={<div className={styles.shell+" "+styles.catalogueLoading}>Preparing the featured retailer studios…</div>}>
+   <FeaturedPartnerEditions/>
+  </Suspense>
   <section className={styles.shell+" "+styles.catalogueEntry} aria-label="Ways to explore the retail park">
    {journeys.map(({href,title,copy,Icon})=><Link key={href} className={styles.catalogueEntryCard} href={href}>
     <span><Icon size={23} aria-hidden="true"/></span><strong>{title}</strong><small>{copy}</small><b>Explore <ArrowRight size={15}/></b>

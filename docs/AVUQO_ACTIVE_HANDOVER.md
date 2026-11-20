@@ -1,5 +1,12 @@
 ## 20 November 2026 | Affiliate advertiser rejection recovery added as separate active workstream
 
+### 20 November 2026 | Second-edition premium supplier art direction (visual release candidate)
+- **Why:** The first 21 unique supplier studio pages were content- and category-rich but looked too basic and card-like. Owner requested stronger visual craft, much better retailer pride, unique branded feeling and true shopping merchandising. This new work is a visual upgrade, not new merchant programme rights.
+- **What changes:** 21 preserved supplier editorial editions now have an asymmetric high-impact premium cream/plum hero, original scene line art when photos are unavailable, actual rights-cleared eligible-product hero photography and small supporting gallery when available, a four-stop studio nav, a less repetitive 3-chapter editorial notebook, an oversized source-verified product feature and richer related/partner sections. The partner directory now has a four-studio editorial showcase with verified photos only where valid plus new visually differentiated listing cards. Owner-only studio QA mirrors the look.
+- **Evidential firewall unchanged:** Photographs only from existing verifiedOffersForAdvertiser public-rights/stock/own-link/GBP/owner gates; new feature photos cannot include private feed rows, speculative logos, service quote prices or invented savings. Standalone editorial concepts are not official supplier brand approvals. Product matching, independent Score, price sorting, release controls and 25 original categories are unchanged. Current supplier image and description permissions still need advertiser-specific proof.
+- **Test and release gate pending:** A separate visual regression test is mandatory in GitHub quality checks. Verify full CI, preview body/content and logged-out owner protection, reviewed merge at exact head, and 21 exact production retailer pages plus shop/catalogue. Mobile pixel-level browser signoff remains separate. Detailed additive spec: docs/AVUQO_SUPPLIER_PREMIUM_VISUAL_REDESIGN_2026-11-20.md. Do not mark live until evidence recorded.
+
+
 
 ### 20 November 2026 | VERIFIED PRODUCTION: 21 distinctive supplier studios (PR #334)
 - **Live merged commit:** `3022f90bb0efc31b65f8afa489be6687ef5bf3b4`, reviewed PR #334 (21 bespoke supplier studios). Head `474f34780e3e68cce59d1d228dd10f754602d485` passed the full GitHub Build, Lint/regression, native PostgreSQL synthetic tests and committed-secret prevention.
