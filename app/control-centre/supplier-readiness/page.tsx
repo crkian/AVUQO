@@ -67,18 +67,18 @@ export default async function SupplierReadinessPage(){
     <p style={{margin:0,fontSize:12,color:"#756a7b"}}>Read-only server report at {date(report.as_of)} (UK) · {report.explanation}</p>
     <div style={{overflowX:"auto"}}>
      <table style={{borderCollapse:"collapse",width:"100%",minWidth:1210,fontSize:12}}>
-      <thead><tr>{["Accepted supplier","Integration","Feeds / refresh flags","Feed description headers","Private distinct SKUs","Private description rows","Active described / total products","Published / held candidate offers","Text rights","Next task"].map(h=>
+      <thead><tr>{["Accepted supplier","Integration","Feeds / refresh flags","Feed description headers","Private stage rows","Latest import sample descriptions","Active described / total products","Published / held candidate offers","Text rights","Next task"].map(h=>
        <th key={h} scope="col" style={{textAlign:"left",padding:"12px 11px",background:"#f6f1f8",color:"#493454",position:"sticky",top:0}}>{h}</th>)}</tr></thead>
       <tbody>{rows.map(row=><tr key={row.advertiser_id??row.programme}>
        <th scope="row" style={{...cell,textAlign:"left",minWidth:160}}><strong>{row.programme}</strong><div style={label}>Awin {row.advertiser_id??"ID unmapped"}</div></th>
        <td style={cell}>{supplierKind(row)}</td>
        <td style={cell}><strong>{n(row.observed_feeds)}</strong> <span style={{color:"#806e8a"}}> / {n(row.refresh_flags)} flagged</span><div style={label}>{date(row.last_observation)}</div></td>
        <td style={cell}>{n(row.feeds_with_description_column)}<div style={label}>Field observed, contents not yet proven</div></td>
-       <td style={cell}><strong>{n(row.private_product_ids)}</strong><div style={label}>{n(row.private_rows)} import rows</div></td>
-       <td style={cell}>{n(row.private_descriptions)}<div style={label}>Unapproved text stays private</div></td>
+       <td style={cell}><strong>{n(row.private_rows)}</strong><div style={label}>Including repeated snapshots</div></td>
+       <td style={cell}>{n(row.private_sample_descriptions)} / {n(row.private_sample_rows)}<div style={label}>Bounded sample of latest import</div></td>
        <td style={cell}><strong>{n(row.active_described_products)} / {n(row.active_products)}</strong></td>
        <td style={cell}><strong>{n(row.published_candidates)} / {n(row.held_candidates)}</strong><div style={label}>Public recheck still required</div></td>
-       <td style={cell}>{row.product_description_rights_verified?"Verified flag recorded":"Not separately verified"}<div style={label}>{n(row.description_rights_marked)} private rows marked</div></td>
+       <td style={cell}>{row.product_description_rights_verified?"Verified flag recorded":"Not separately verified"}<div style={label}>{n(row.private_sample_rights_marked)} sampled rows marked</div></td>
        <td style={{...cell,minWidth:270,lineHeight:1.5}}>{supplierNextAction(row)}</td>
       </tr>)}</tbody>
      </table>
