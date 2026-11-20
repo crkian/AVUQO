@@ -20,6 +20,7 @@ export const DEFAULT_NAVIGATION:NavigationContent={schemaVersion:2,groups:[
   ["Black Friday","/black-friday","Look beyond headline discounts"],
   ["Christmas","/christmas","Plan gifts and seasonal spending"],
   ["Product guides","/products","Examine eligible, verified product listings"],
+  ["Shop live retailer offers","/shop","Search verified item prices across the wider catalogue"],
   ["Advertiser offers","/partners","Find official partner shops, coupons and referrals"],
   ["Verified Tools & DIY","/tools","Shop source-verified retailer tools and equipment"]]),
  group("compare","Compare","/compare","Understand the full price before you decide.",2,[
@@ -38,6 +39,7 @@ export const DEFAULT_NAVIGATION:NavigationContent={schemaVersion:2,groups:[
  group("categories","Categories","/categories","Explore buying guides by interest.",4,[
   ["All categories","/categories","See every shopping department"],
   ["Products & retailers","/catalogue","Browse the complete shopping and service index"],
+  ["Shop approved stock","/shop","Filter live retailer offers and compare item prices"],
   ["Shopping","/shopping","Explore everyday products"],
   ["Partner shops","/partners","Browse participating retailers and service partners"],
   ["Technology","/tech","Phones, computers and electronics"],

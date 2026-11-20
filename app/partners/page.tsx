@@ -25,6 +25,7 @@ export default function PartnerDirectory(){
    <p>The same AVUQO design and shopping categories, with a dedicated page for every participating advertiser. Choose a retailer, browse a product, or explore all the services available.</p>
    <div className={styles.strip}><Link className={styles.heroButton} href="/catalogue">Explore the full catalogue <ArrowRight size={15}/></Link>
     <Link className={styles.heroGhost} href="/products">Shop eligible products</Link>
+    <Link className={styles.heroGhost} href="/shop">Browse all live retailer offers</Link>
     <Link className={styles.heroGhost} href="/categories">All 25 categories</Link></div>
   </div></section>
   <section className={styles.shell+" "+styles.catalogueEntry} aria-label="Ways to explore the retail park">

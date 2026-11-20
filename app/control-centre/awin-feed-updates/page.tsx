@@ -58,7 +58,7 @@ export default async function Page(){
  const lastCheck=history[0];
  const stale=lastCheck&&new Date().getTime()-Date.parse(lastCheck.checked_at)>36*60*60*1000;
  return <main style={{maxWidth:1200,padding:"32px 20px 80px",margin:"auto",display:"grid",gap:22}}>
-  <nav><Link href="/control-centre/feed-list-audit">← Awin feed inventory</Link></nav>
+  <nav style={{display:"flex",flexWrap:"wrap",gap:14}}><Link href="/control-centre/feed-list-audit">← Awin feed inventory</Link><Link href="/control-centre/tyre-cross-retailer">Private cross-retailer tyre match evidence →</Link></nav>
   <header><p style={{color:"#7351b0",fontSize:12,letterSpacing:1.4,fontWeight:800}}>OWNER-ONLY / SOURCE FRESHNESS</p>
    <h1 style={{fontSize:36,margin:"8px 0"}}>Awin feed update monitor</h1>
    <p style={{maxWidth:800,lineHeight:1.6,color:"#6a6276"}}>Daily metadata-only discovery of updates from joined Awin advertisers. This does not download product rows, activate affiliate offers or establish permission to publish images and prices.</p>

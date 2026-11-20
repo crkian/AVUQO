@@ -240,6 +240,8 @@ jobs:
         run: node --experimental-strip-types --test tests/partner-retail-park-launch.test.mjs
       - name: Unified products and retailers catalogue continuity
         run: node --experimental-strip-types --test tests/unified-retail-park-catalogues.test.mjs
+      - name: Full eligible shopping browse and private tyre EAN owner isolation
+        run: node --experimental-strip-types --test tests/shop-full-catalogue-and-private-tyre-evidence.test.mjs
       - name: Marketing-only lint
         run: npx eslint lib/marketing components/layout/MegaNav.tsx components/home app/control-centre/marketing app/api/internal/marketing
       - run: npm run lint

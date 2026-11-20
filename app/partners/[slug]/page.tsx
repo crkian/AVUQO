@@ -94,6 +94,7 @@ export default async function PartnerDetail({params}:Props){
     <section className={styles.section} aria-labelledby="partner-public-products">
      <p className={styles.kicker}>Source-verified shopping</p>
      <h2 id="partner-public-products">{currentOffers.length?"Products currently eligible on AVUQO":"Product-price evidence"}</h2>
+     {currentOffers.length>0&&<p className={styles.sectionIntro}><Link href={"/shop?merchant="+encodeURIComponent(currentOffers[0].published.merchant)}>Browse more currently eligible products from {partner.name} ↗</Link></p>}
      {currentOffers.length?<><p className={styles.sectionIntro}>These are individually approved source offers, not every private feed item. Prices shown exclude delivery unless independently verified. Check stock, configuration and checkout total with the retailer.</p>
       <div className={styles.products}>{currentOffers.map(o=><Link href={`/products/${slugs.get(o.published.product_id)}`} key={o.offer.id} className={styles.productCard}>
        <span className={styles.tag}>Released retailer offer</span>

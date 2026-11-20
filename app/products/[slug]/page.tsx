@@ -14,6 +14,7 @@ import {eligibleDepartmentProduct} from "../../../lib/products/department-showro
 import ResearchProductDetails from "../../../components/products/ResearchProductDetails";
 import {researchGuideBySlug} from "../../../lib/products/research-guides";
 import {verifiedProduct,verifiedProductIndex} from "../../../lib/products/public-catalog";
+import {compareEligibleOffers} from "../../../lib/products/comparison-evidence";
 import {chooseProductTemplate,validatedSpecificationEntries} from "../../../lib/products/templates";
 import styles from "./page.module.css";
 // A real 404 must be determined before streamed HTML. This route intentionally
@@ -43,7 +44,8 @@ function ProductDetails({entry,guide}:{
   return <ResearchProductDetails guide={guide}/>;
  }
  const {product}=entry;
- const offers=[...entry.offers].sort((a,b)=>Number(a.offer.total_price??a.offer.price)-Number(b.offer.total_price??b.offer.price));
+ const comparison=compareEligibleOffers(entry.offers);
+ const offers=comparison.ordered;
  const best=offers[0];
  const presentation=chooseProductTemplate(product,offers);
  const {department}=presentation;
@@ -67,14 +69,14 @@ function ProductDetails({entry,guide}:{
  <div className={styles.art}><div className={styles.productVisual}><ProductGallery images={gallery} title={product.canonical_title}/></div></div>
  <div className={styles.copy}><p className={styles.kicker}>{presentation.eyebrow}</p><h1>{product.canonical_title}</h1>{(product.brand||product.model)&&<p className={styles.variant}>{product.brand&&<span>{product.brand}</span>}{product.model&&<span>{product.model}</span>}</p>}
  <p className={styles.intro}>{product.description||"Compare eligible retailer offers and understand what the price evidence can, and cannot, show."}</p>
- <div className={styles.topPrice}><span>{presentation.template==="tyres"?"Lowest eligible tyre offer · fitting may be extra":"Lowest displayed price"}</span><strong>{gbp(Number(best.offer.total_price??best.offer.price))}</strong><small>From {best.published.merchant}. {best.offer.total_price===null?"Product price only. ":""}{presentation.template==="tyres"
+ <div className={styles.topPrice}><span>{presentation.template==="tyres"?"Verified tyre offer · fitment still required":comparison.heading}</span><strong>{gbp(Number(comparison.basis==="verified_total"?best.offer.total_price:best.offer.price))}</strong><small>From {best.published.merchant}. {comparison.detail} {presentation.template==="tyres"
  ?"Confirm approved vehicle fitment, load and speed rating, current stock and the full fitted or delivered total directly with the retailer."
  :"Check current price, delivery, stock and terms before buying."}</small></div>
- <div className={styles.heroActions}><Link className={styles.action} href="#retailers">Compare retailers <ArrowRight size={18}/></Link><AddToCollectionButton kind="wishlist" productId={product.id} productSlug={product.slug} offerId={best.offer.id}/></div><p className={styles.assurance}><ShieldCheck size={17}/> Verified-source display only. Independent of affiliate payout.</p></div>
+ <div className={styles.heroActions}><Link className={styles.action} href="#retailers">{comparison.sellers>1?"Compare eligible retailers":"See verified retailer"} <ArrowRight size={18}/></Link><Link className={styles.action} href={"/shop?q="+encodeURIComponent(product.brand??product.canonical_title.split(" ")[0])}>Explore more shops <ArrowRight size={18}/></Link><AddToCollectionButton kind="wishlist" productId={product.id} productSlug={product.slug} offerId={best.offer.id}/></div><p className={styles.assurance}><ShieldCheck size={17}/> Verified-source display only. Independent of affiliate payout.</p></div>
  </div></div></section>
 
- <section className={`shell ${styles.section}`} id="retailers"><div className={styles.heading}><p className={styles.kicker}>Worth comparing</p><h2>Retailer offers for this exact product.</h2><p>Only eligible, recently checked offers are shown. A lower headline price may have extra delivery costs.</p></div>
- <div className={styles.offerList}>{offers.map(x=><article key={x.offer.id} className={styles.offerCard}><div><h3>{x.published.merchant}</h3><p>Last checked {new Date(x.offer.last_seen_at!).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})} · {x.offer.stock_status==="in_stock"?"Availability reported": "Confirm availability with retailer"}</p></div><div className={styles.offerPrice}><strong>{gbp(Number(x.offer.total_price??x.offer.price))}</strong><span>{x.offer.total_price!==null?"Total reported offer cost":"Product price; delivery may be extra"}</span></div><AddToCollectionButton kind="basket" productId={product.id} productSlug={product.slug} offerId={x.offer.id}/><Link href={`/go/${x.offer.id}`} className={styles.retailer}>Visit retailer <ArrowRight size={16}/></Link></article>)}</div>
+ <section className={`shell ${styles.section}`} id="retailers"><div className={styles.heading}><p className={styles.kicker}>Worth comparing</p><h2>{comparison.sellers>1?"Eligible retailer prices for this exact product.":"Currently verified retailer offer."}</h2><p>{comparison.detail} Only eligible, recently checked offers appear; the retailer is responsible for the final checkout price.</p></div>
+ <div className={styles.offerList}>{offers.map(x=><article key={x.offer.id} className={styles.offerCard}><div><h3>{x.published.merchant}</h3><p>Last checked {new Date(x.offer.last_seen_at!).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})} · {x.offer.stock_status==="in_stock"?"Availability reported": "Confirm availability with retailer"}</p></div><div className={styles.offerPrice}><strong>{gbp(Number(comparison.basis==="verified_total"?x.offer.total_price:x.offer.price))}</strong><span>{comparison.basis==="verified_total"?"Verified offer total":"Item price; delivery may be extra"}</span></div><AddToCollectionButton kind="basket" productId={product.id} productSlug={product.slug} offerId={x.offer.id}/><Link href={`/go/${x.offer.id}`} className={styles.retailer}>Visit retailer <ArrowRight size={16}/></Link></article>)}</div>
  </section>
 
  {department&&presentation.template!=="general"&&<section className={`shell ${styles.departmentSpotlight}`} aria-label="Department-specific buying guidance">
@@ -101,7 +103,7 @@ function ProductDetails({entry,guide}:{
    <div className={styles.checkList}><h3>{presentation.practicalTitle}</h3><ul>{presentation.practicalPoints.map(point=><li key={point}><CheckCircle2 size={19}/><span>{point}</span></li>)}</ul></div>
   </div>
  </section>
- <section className={styles.infoBand}><div className={`shell ${styles.infoGrid}`}><article><ShieldCheck size={27}/><h3>Evidence before claims</h3><p>Merchant eligibility and source permissions are checked before an offer is displayed.</p></article><article><Clock3 size={27}/><h3>Freshness matters</h3><p>Stale and expired offers are excluded from this product comparison.</p></article><article><CheckCircle2 size={27}/><h3>Independent ranking</h3><p>Offers are ordered by displayed comparable costs, not affiliate commission.</p></article></div></section>
+ <section className={styles.infoBand}><div className={`shell ${styles.infoGrid}`}><article><ShieldCheck size={27}/><h3>Evidence before claims</h3><p>Merchant eligibility and source permissions are checked before an offer is displayed.</p></article><article><Clock3 size={27}/><h3>Freshness matters</h3><p>Stale and expired offers are excluded from this product comparison.</p></article><article><CheckCircle2 size={27}/><h3>Independent ordering</h3><p>Offers are ordered by verified item price unless every full cost is established. Affiliate commission does not affect the order.</p></article></div></section>
  {specs.length>0&&<section className={`shell ${styles.section}`}><div className={styles.heading}><p className={styles.kicker}>The details</p><h2>{presentation.groupHeading}</h2></div><dl className={styles.specs}>{specs.map(([k,v])=><div key={k}><dt>{k.replaceAll("_"," ")}</dt><dd>{String(v)}</dd></div>)}</dl></section>}
  <section className={`shell ${styles.disclaimer}`}><strong>How this page works</strong><p>Product matching, stock, prices and delivery information are based on the specific eligible source records shown. We do not guarantee availability or the checkout price. Compare the exact variant and merchant terms. Some eligible outbound links may earn AVUQO commission without affecting the ranking. <Link href="/affiliate-disclosure">Affiliate disclosure</Link> · <Link href="/editorial-policy">Editorial policy</Link>.</p></section>
  </div>;
