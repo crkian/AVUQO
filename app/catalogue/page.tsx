@@ -56,7 +56,7 @@ async function VerifiedCatalogueShelf(){
    <div className={styles.heading}><div><p className={styles.eyebrow}>Real retailer shopping</p>
     <h2 id="catalogue-verified-heading">{items.length?"A few eligible finds. Plenty more to discover.":"We only display offers that pass the checks."}</h2>
     <p>These are approved, current product pages. They do not represent every private feed item or imply that every retailer has a live price feed.</p>
-   </div><Link href="/products">All eligible product listings <ArrowRight size={17}/></Link></div>
+   </div><Link href="/shop">Browse the wider live shop <ArrowRight size={17}/></Link></div>
    {items.length?<div className={styles.productGrid}>{items.map(({product,offers})=>{
     const best=[...offers].sort((a,b)=>Number(a.offer.price)-Number(b.offer.price))[0];
     if(!best)return null;
