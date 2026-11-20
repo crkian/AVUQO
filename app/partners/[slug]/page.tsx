@@ -8,6 +8,7 @@ import Footer from "../../../components/layout/Footer";
 import {createAdminClient} from "../../../lib/supabase/admin";
 import {verifiedOffersForAdvertiser} from "../../../lib/products/public-catalog";
 import {partnerStudio} from "../../../lib/partners/studio-editorial";
+import {publicPageMetadata,breadcrumbSchema,collectionSchema,jsonLd} from "../../../lib/site/seo";
 import {PartnerStudioHero,PartnerStudioNavigation,PartnerStudioNotebook,PartnerStudioProducts,PartnerStudioInvitation,type StudioProduct} from "../../../components/partners/PartnerStudioExperience";
 import {PARTNERS,partnerFor,activePartnerPromotions,isApprovedPartnerLink,partnerHref} from "../../../lib/partners/advertiser-directory";
 import {departmentsForPartner,partnersForDepartment} from "../../../lib/partners/catalogue-taxonomy";
@@ -20,14 +21,9 @@ export function generateStaticParams(){return PARTNERS.map(({slug})=>({slug}));}
 export async function generateMetadata({params}:Props):Promise<Metadata>{
  const partner=partnerFor((await params).slug);
  if(!partner)return {title:"Partner not found | AVUQO",robots:{index:false}};
- return {
-  title:`${partner.name} | ${partnerStudio(partner.slug)?.edition??"Explore"} | AVUQO`,
+ return publicPageMetadata({title:`${partner.name} | ${partnerStudio(partner.slug)?.edition??"Explore"}`,
   description:`${partnerStudio(partner.slug)?.lead??partner.description} ${partner.whatToCheck}`,
-  alternates:{canonical:`/partners/${partner.slug}`},
-  // The 21 pages now contain individually written editorial buying guides;
-  // noindex is no longer needed simply because a price feed is unavailable.
-  robots:{index:true,follow:true}
- };
+  path:`/partners/${partner.slug}`});
 }
 export default async function PartnerDetail({params}:Props){
  await connection();
@@ -73,6 +69,8 @@ export default async function PartnerDetail({params}:Props){
  const related=categories.length?partnersForDepartment(categories[0].slug).filter(p=>p.slug!==partner.slug).slice(0,5):[];
  return <><Header/>
   <main className={styles.page} style={theme}>
+   <script type="application/ld+json" dangerouslySetInnerHTML={{__html:jsonLd(collectionSchema(partner.name+" on AVUQO","/partners/"+partner.slug,studio.lead))}}/>
+   <script type="application/ld+json" dangerouslySetInnerHTML={{__html:jsonLd(breadcrumbSchema([{name:"Home",path:"/"},{name:"Retailers",path:"/partners"},{name:partner.name,path:"/partners/"+partner.slug}]))}}/>
    <PartnerStudioHero partner={partner} studio={studio} products={studioProducts} links={namedLinks}/>
    <PartnerStudioNavigation partner={partner} products={studioProducts}/>
    <PartnerStudioNotebook partner={partner} studio={studio} products={studioProducts}/>
