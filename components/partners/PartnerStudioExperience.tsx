@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type {CSSProperties} from "react";
+import {createElement,type CSSProperties} from "react";
 import {ArrowDownRight,ArrowRight,ArrowUpRight,CheckCircle2,ShieldCheck} from "lucide-react";
 import {sceneIcon} from "./StudioGlyph";
 import type {Partner,PartnerLink} from "../../lib/partners/advertiser-directory";
@@ -67,7 +67,7 @@ export function PartnerStudioHero({partner,studio,products,links}:{partner:Partn
        </Link>
       </div>:
       <div className={styles.illustration} aria-hidden="true">
-       <div className={styles.illustrationHalo}/><Icon strokeWidth={.65} size={186} className={styles.illustrationIcon}/>
+       <div className={styles.illustrationHalo}/>{createElement(Icon,{strokeWidth:.65,size:186,className:styles.illustrationIcon})}
        <span className={styles.illustrationFolio}>{studio.edition}</span>
       </div>}
      {photos[1]?.imageUrl&&<Link href={productHref(photos[1])} className={styles.secondPhoto} aria-label={"Explore "+photos[1].title}>
@@ -80,7 +80,7 @@ export function PartnerStudioHero({partner,studio,products,links}:{partner:Partn
     </div>
    </div>
    <div className={styles.heroFoot}>
-    <div><span className={styles.heroFootLine}/><span>DISCOVER WHAT'S WORTH IT</span></div>
+    <div><span className={styles.heroFootLine}/><span>DISCOVER WHAT&apos;S WORTH IT</span></div>
     <div><span>STUDIO NOTES</span><ArrowDownRight size={19} aria-hidden="true"/></div>
    </div>
   </div>
@@ -106,7 +106,7 @@ export function PartnerStudioNotebook({partner,studio,products}:{partner:Partner
  return <section className={styles.notebook} id="studio-notebook" aria-labelledby="studio-notebook-title">
   <div className={styles.storyPanel}>
    <p className={styles.eyebrow}>01 <span>/</span> THE AVUQO EDIT</p>
-   <div className={styles.storyOrnament} aria-hidden="true"><Icon size={45} strokeWidth={1}/><span>{studio.heroWord}</span></div>
+   <div className={styles.storyOrnament} aria-hidden="true">{createElement(Icon,{size:45,strokeWidth:1})}<span>{studio.heroWord}</span></div>
    <h2 id="studio-notebook-title">{studio.storyTitle}</h2>
    <p>{studio.story}</p>
    <Link href={partner.categoryHref}>Explore {partner.categoryLabel} <ArrowUpRight size={16} aria-hidden="true"/></Link>
@@ -124,7 +124,7 @@ export function PartnerStudioNotebook({partner,studio,products}:{partner:Partner
       {matches.length>0&&<div className={styles.chapterProducts} aria-label={"Eligible products for "+chapter.title}>
        {matches.slice(0,2).map(product=><Link href={productHref(product)} key={product.id} className={styles.chapterProduct}>
         {product.imageUrl?<img src={product.imageUrl} alt="" loading="lazy" referrerPolicy="no-referrer"/>:
-         <span aria-hidden="true"><Icon size={20}/></span>}
+         <span aria-hidden="true">{createElement(Icon,{size:20})}</span>}
         <span>{product.title}</span>
        </Link>)}
       </div>}
@@ -140,7 +140,7 @@ export function PartnerStudioNotebook({partner,studio,products}:{partner:Partner
 export function PartnerStudioProducts({partner,studio,products}:{partner:Partner;studio:StudioEditorial;products:StudioProduct[]}){
  const Icon=sceneIcon(studio.scene);
  if(products.length===0)return <section className={styles.emptyProducts} id="source-products" aria-label="Product publication status">
-  <div className={styles.emptyArt} aria-hidden="true"><div className={styles.emptyArtIcon}><Icon size={90} strokeWidth={.85}/></div><span>{studio.heroWord}</span></div>
+  <div className={styles.emptyArt} aria-hidden="true"><div className={styles.emptyArtIcon}>{createElement(Icon,{size:90,strokeWidth:.85})}</div><span>{studio.heroWord}</span></div>
   <div className={styles.emptyCopy}>
    <p className={styles.eyebrow}>02 <span>/</span> THE PRODUCT EDIT</p>
    <h2>Every product needs its proof.</h2>
