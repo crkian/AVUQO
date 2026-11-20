@@ -93,7 +93,7 @@ export default async function AnalyticsDashboard({
     <li>Test dashboard calculations with deterministic fixtures before claiming funnels, revenue or savings.</li>
    </ul>
    <p className={styles.note}>Collection enabled: <b>{MEASUREMENT_GATES.clientCollectionEnabled?"Yes":"No"}</b>. No consumer analytics scripts or event requests were enabled by this change.</p>
-   <div className={styles.links}><Link href="/control-centre/revenue">Revenue ledger</Link><Link href="/control-centre/release-readiness">Release readiness</Link><Link href="/control-centre/groceries/price-evidence">Grocery price evidence</Link></div>
+   <div className={styles.links}><Link href="/control-centre/seo">Search visibility &amp; SEO audit</Link><Link href="/control-centre/revenue">Revenue ledger</Link><Link href="/control-centre/release-readiness">Release readiness</Link><Link href="/control-centre/groceries/price-evidence">Grocery price evidence</Link></div>
   </section>
  </div>;
 }
