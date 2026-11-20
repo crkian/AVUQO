@@ -1,4 +1,32 @@
 {
+  "premium_supplier_studios_visual_20261120": {
+    "status": "candidate_full_ci_preview_merge_and_production_pending",
+    "branch": "feature/premium-supplier-studio-art-direction-20261120",
+    "latest_work": "premium supplier visual redesign",
+    "summary": "Second-edition premium supplier art direction across all 21 existing independent retailer studios, source-safe photo-led directory and deeper original line art",
+    "files": [
+      "components/partners/PartnerStudioExperience.tsx",
+      "components/partners/FeaturedPartnerEditions.tsx",
+      "components/partners/StudioGlyph.tsx",
+      "app/partners/studios.module.css",
+      "app/partners/featured.module.css",
+      "app/partners/partners.module.css",
+      "app/partners/[slug]/page.tsx",
+      "app/partners/page.tsx",
+      "app/control-centre/supplier-studios/page.tsx"
+    ],
+    "existing_21_partner_urls_kept": true,
+    "original_25_departments_kept": true,
+    "source_eligible_photographs_only": true,
+    "official_brand_asset_rights_not_inferred": true,
+    "no_source_or_comparison_changes": true,
+    "no_database_migration": true,
+    "no_fake_stock_or_total_cost": true,
+    "owner_only_visual_review_preserved": true,
+    "historical_workstreams_retained": true,
+    "release_not_yet_verified": true,
+    "reference": "docs/AVUQO_SUPPLIER_PREMIUM_VISUAL_REDESIGN_2026-11-20.md"
+  },
   "supplier_retail_studios_20261120": {
     "status": "candidate_review_ci_preview_and_production_pending",
     "project": "AVUQO",
