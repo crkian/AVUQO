@@ -105,14 +105,14 @@ export const PARTNER_STUDIOS:Readonly<Record<string,StudioEditorial>>={
   "An MOT service depends on location, vehicle and appointment availability. Provider booking evidence is required before AVUQO can quote a current slot price.",
   "mot","Before choosing a garage",[
    C("The vehicle","Confirm the right test class, registration details and due date."),
-   C("The appointment","Compare location, timing and any retest conditions."),
+   C("The appointment","Compare garage location, available booking times, retest policies and any extra service charges."),
    C("The final charge","Check the actual booking total and which services are optional.")
   ]),
  "broadband-genie":E("The connection notebook","EDITION 12 / CONNECTIVITY","SPEED","Better broadband decisions start with better questions.",
   "Speed is only part of the package.",
   "Availability depends on postcode and network. Compare the complete contract, annual increases, setup fees and support, using the provider's current quote.",
   "connection","Make sense of a broadband quote",[
-   C("Real availability","Test the address, not a national headline speed."),
+   C("Real availability","Check the actual address and estimated usable speed, not just the provider's national headline."),
    C("The full term","Check setup, minimum term, in-contract rises and router charges."),
    C("The switching journey","Find out what happens to your existing service and any downtime.")
   ]),
@@ -121,7 +121,7 @@ export const PARTNER_STUDIOS:Readonly<Record<string,StudioEditorial>>={
   "Mobile and broadband are separate contracts with different coverage and billing. Compare each on its actual terms rather than combining unverified rates.",
   "cooperative","Your connection checklist",[
    C("Mobile essentials","Check data, roaming, coverage, term and monthly charges."),
-   C("Home connection","Use postcode-specific availability and estimated speed."),
+   C("Home connection","Use postcode-specific availability, realistic speed estimates and the full length of the broadband agreement."),
    C("Cost over time","Review increases, setup fees and any eligibility requirements.")
   ]),
  "your-coop-energy":E("The home energy notebook","EDITION 14 / ENERGY","POWER","A clearer way to think about your energy contract.",
@@ -137,7 +137,7 @@ export const PARTNER_STUDIOS:Readonly<Record<string,StudioEditorial>>={
   "Postcode serviceability, router arrangements and pricing changes influence the full cost. No current contract quotation is fabricated here.",
   "fibre","What a plan needs to tell you",[
    C("Connection at your address","Check actual network availability and realistic speed estimates."),
-   C("Equipment & setup","Look for installation, router and activation terms."),
+   C("Equipment & setup","Look for installation, router, activation and any return-of-equipment conditions before committing."),
    C("Over the contract","Compare the full term, price rises and cancellation provisions.")
   ]),
  "lyca-mobile":E("The SIM selection","EDITION 16 / MOBILE","ROAM","A mobile plan should keep up with how you live.",
@@ -152,23 +152,23 @@ export const PARTNER_STUDIOS:Readonly<Record<string,StudioEditorial>>={
   "Small print still matters on simple plans.",
   "Pay-as-you-go and SIM options have different top-up, expiry and renewal rules. Compare live terms at the provider rather than inventing a monthly rate.",
   "everyday","Make each allowance count",[
-   C("Data & calls","Check data allowances, minutes and message terms."),
-   C("Top-up rules","Review minimum top-up, expiry and credit treatment."),
+   C("Data & calls","Check data allowances, call minutes, message terms and what happens when the allowance runs out."),
+   C("Top-up rules","Review minimum top-up, credit expiry, renewal triggers and whether unused balances carry forward."),
    C("Coverage & roaming","Confirm the network and travel terms for your usual places.")
   ]),
  "chattr-sim-only":E("The clear-talk guide","EDITION 18 / MOBILE","TALK","The plan is only good if its terms make sense.",
   "Keep the conversation simple.",
   "AVUQO records this accepted programme without a current product-price feed. Use the provider's actual offer for data, contract and network details.",
   "conversation","The questions worth asking",[
-   C("How much data?","Find the allowance that suits your regular use."),
-   C("For how long?","Read any minimum term, renewal or promotional period."),
-   C("Which network?","Check coverage, roaming and what happens if you switch.")
+   C("How much data?","Estimate average weekly data use, then check what happens when the standard allowance is exceeded."),
+   C("For how long?","Read the minimum term, introductory pricing window, renewal price and exit requirements before choosing."),
+   C("Which network?","Check coverage in the places you visit, roaming terms and what happens if you decide to switch.")
   ]),
  "autoaid-breakdown":E("The roadside essentials","EDITION 19 / MOTORING","READY","Confidence starts before a breakdown happens.",
   "Coverage is a contract, not a headline.",
   "Breakdown policies can vary in who is covered, where help begins and what recovery includes. Read the policy document and obtain a current quotation.",
   "rescue","Know what the cover actually means",[
-   C("Personal or vehicle","Check who is insured and which vehicles are included."),
+   C("Personal or vehicle","Check who is insured, which vehicles are included and whether the policy follows the person or vehicle."),
    C("Recovery situations","Read home start, roadside, onward travel and exclusions."),
    C("The ongoing cost","Check excesses, renewal terms, waiting periods and full price.")
   ]),
@@ -176,7 +176,7 @@ export const PARTNER_STUDIOS:Readonly<Record<string,StudioEditorial>>={
   "Match the certificate to the property.",
   "Inspection services depend on address, property type and the exact work required. This is a provider discovery page, not a fixed quote catalogue.",
   "property","Choose the right inspection",[
-   C("Energy performance","Confirm EPC requirements and the property's details."),
+   C("Energy performance","Confirm the property details, certificate scope and the relevant regulatory requirements before booking."),
    C("Gas safety","Ask what appliances, qualifications and access are covered."),
    C("Electrical checks","Check report type, appointment needs and any follow-up work.")
   ]),
@@ -185,7 +185,7 @@ export const PARTNER_STUDIOS:Readonly<Record<string,StudioEditorial>>={
   "Seasonal gifts need careful spelling, ordering and postage dates. No current price or delivery promise is displayed without a verified product offer.",
   "festive","Plan a little festive surprise",[
    C("The letter","Review personalisation options and the wording before checkout."),
-   C("The recipient","Check suitability, names and any requested details."),
+   C("The recipient","Check recipient names, message spelling, suitability and any personalisation limits before ordering."),
    C("Delivery dates","Leave time for production, postage and holiday cut-off windows.")
   ])
 };
