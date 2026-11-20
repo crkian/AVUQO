@@ -1,12 +1,7 @@
 import Link from "next/link";
 import type {CSSProperties} from "react";
-import {
- ArrowDownRight,ArrowRight,ArrowUpRight,CheckCircle2,ShieldCheck,
- Wrench,PawPrint,Puzzle,Gift,Smartphone,Palette,CarFront,Route,
- Plane,ParkingCircle,ClipboardCheck,Wifi,Users,Zap,RadioTower,
- SimCard,Signal,MessageCircle,LifeBuoy,House,Mail
-} from "lucide-react";
-import type {LucideIcon} from "lucide-react";
+import {ArrowDownRight,ArrowRight,ArrowUpRight,CheckCircle2,ShieldCheck} from "lucide-react";
+import {sceneIcon} from "./StudioGlyph";
 import type {Partner,PartnerLink} from "../../lib/partners/advertiser-directory";
 import {isApprovedPartnerLink} from "../../lib/partners/advertiser-directory";
 import {matchStudioChapters,type StudioEditorial} from "../../lib/partners/studio-editorial";
@@ -15,13 +10,6 @@ import styles from "../../app/partners/studios.module.css";
 export type StudioProduct={
  id:string;slug:string;title:string;brand:string|null;description:string|null;
  imageUrl:string|null;price:number;observedAt:string|null;merchant:string;
-};
-const sceneIcons:Record<StudioEditorial["scene"],LucideIcon>={
- workbench:Wrench,companion:PawPrint,storybook:Puzzle,confectionery:Gift,
- handsets:Smartphone,atelier:Palette,garage:CarFront,roadbook:Route,
- departures:Plane,parking:ParkingCircle,mot:ClipboardCheck,connection:Wifi,
- cooperative:Users,energy:Zap,fibre:RadioTower,mobile:SimCard,
- everyday:Signal,conversation:MessageCircle,rescue:LifeBuoy,property:House,festive:Mail
 };
 const gbp=(n:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(n);
 const stamp=(date:string|null)=>date&&Number.isFinite(Date.parse(date))
@@ -38,7 +26,7 @@ export function PartnerStudioHero({partner,studio,products,links}:{partner:Partn
  const photos=products.filter(p=>p.imageUrl).slice(0,3);
  const heroImage=photos[0];
  const primary=safePartnerDestination(links);
- const Icon=sceneIcons[studio.scene];
+ const Icon=sceneIcon(studio.scene);
  const theme={"--accent":partner.accent,"--deep":partner.deep,"--glow":partner.glow} as CSSProperties;
  return <section className={styles.hero} style={theme} data-scene={studio.scene} data-images={heroImage?"verified":"editorial"} aria-labelledby="partner-studio-title">
   <div className={styles.heroShell}>
@@ -114,7 +102,7 @@ export function PartnerStudioNavigation({partner,products}:{partner:Partner;prod
 }
 
 export function PartnerStudioNotebook({partner,studio,products}:{partner:Partner;studio:StudioEditorial;products:StudioProduct[]}){
- const Icon=sceneIcons[studio.scene];
+ const Icon=sceneIcon(studio.scene);
  return <section className={styles.notebook} id="studio-notebook" aria-labelledby="studio-notebook-title">
   <div className={styles.storyPanel}>
    <p className={styles.eyebrow}>01 <span>/</span> THE AVUQO EDIT</p>
@@ -150,7 +138,7 @@ export function PartnerStudioNotebook({partner,studio,products}:{partner:Partner
 }
 
 export function PartnerStudioProducts({partner,studio,products}:{partner:Partner;studio:StudioEditorial;products:StudioProduct[]}){
- const Icon=sceneIcons[studio.scene];
+ const Icon=sceneIcon(studio.scene);
  if(products.length===0)return <section className={styles.emptyProducts} id="source-products" aria-label="Product publication status">
   <div className={styles.emptyArt} aria-hidden="true"><div className={styles.emptyArtIcon}><Icon size={90} strokeWidth={.85}/></div><span>{studio.heroWord}</span></div>
   <div className={styles.emptyCopy}>
