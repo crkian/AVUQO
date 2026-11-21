@@ -44,7 +44,9 @@ test("merchant pages use real approved offer admission, never private feed rows 
   assert.ok(page.includes(required),"missing merchant page control: "+required);
  assert.ok(page.includes("products=data"));
  assert.ok(page.includes("if(ids.length)"));
- assert.ok(page.includes("robots:{index:true,follow:true}"));
+ assert.ok(page.includes("publicPageMetadata"),"supplier studio must use central indexable canonical metadata");
+ assert.ok(page.includes("path:`/partners/${partner.slug}`"),"supplier canonical must be individual");
+ assert.match(read("lib/site/seo.ts"),/index=true/);
  assert.ok(page.includes("generateStaticParams"));
  assert.ok(experience.includes("products.filter(p=>p.imageUrl)"));
  assert.ok(experience.includes("imageUrl"));
