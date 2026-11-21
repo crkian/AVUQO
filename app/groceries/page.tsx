@@ -1,3 +1,5 @@
+import type {Metadata} from "next";
+export const metadata:Metadata={title:"Grocery basket comparison | AVUQO",description:"Build a grocery list and see which supermarket prices are actually supported. AVUQO distinguishes verified complete baskets from missing prices.",alternates:{canonical:"/groceries"}};
 import { Suspense } from 'react';
 import Link from 'next/link';
 import Header from '../../components/layout/Header';
