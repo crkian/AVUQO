@@ -1,5 +1,5 @@
 # AVUQO search discovery and first-party analytics continuation
-20 November 2026. Additive release candidate, not yet merged or production verified.
+20–21 November 2026. PR #337 merged 21 November at `5bc57b908f4daad2d8a53c0f4bc18479719d8ae5`. Vercel production `dpl_9Rpe9CyRhP7Y5XMRaJfk5kBQtXB1` READY with `www.avuqo.com` and `avuqo.com` aliases. GitHub Build/Lint/native PostgreSQL/secret checks passed. Runtime-error scan found no errors. Direct production HTTP body and Google/Bing indexing checks remain unverified.
 
 ## Source and current-state reconciliation
 The original First-Party Analytics & Intelligence Master Specification requires consent gates, typed validated events, owner-only reporting, idempotency, bot/test suppression, source freshness, verified conversions and separate commission lifecycle. The current repository already has `/control-centre/analytics` with read-only observed database counts and a versioned `lib/analytics/contracts.ts`. Browser tracking, advertising measurement and revenue inference are deliberately disabled. This build **does not falsely claim to finish analytics ingestion** or enable collection without legal, RLS, deduplication and consent acceptance.
