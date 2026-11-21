@@ -57,3 +57,11 @@ test("live product sitemap and Product JSON-LD inherit current offer admission, 
  assert.doesNotMatch(helper,/AggregateRating|ratingValue/);
  assert.match(read("app/robots.ts"),/products\/sitemap\.xml/);
 });
+
+test("all crawler and metadata URLs use stable production origin, never ephemeral preview aliases",()=>{
+ assert.match(read("lib/site/url.ts"),/return "https:\/\/www\.avuqo\.com"/);
+ for(const path of ["app/layout.tsx","app/robots.ts","app/sitemap.ts","app/products/sitemap.ts","lib/site/seo.ts"]){
+  assert.match(read(path),/getPublicCanonicalUrl/);
+  assert.doesNotMatch(read(path),/getSiteUrl\(/);
+ }
+});
