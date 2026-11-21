@@ -1,4 +1,44 @@
 {
+  "seo_analytics_discovery_20261121": {
+    "status": "candidate_ci_and_production_pending",
+    "pr": 337,
+    "branch": "feature/seo-discoverability-and-analytics-readiness-20261120",
+    "requested": "all live: individual SEO metadata, categories, retailer studios, bot crawling and first-party analytics",
+    "implemented": [
+      "lib/site/seo.ts",
+      "app/layout.tsx",
+      "app/categories/[department]/page.tsx",
+      "app/partners/[slug]/page.tsx",
+      "app/products/[slug]/page.tsx",
+      "app/sitemap.ts",
+      "app/products/sitemap.ts",
+      "app/robots.ts",
+      "app/control-centre/seo/page.tsx",
+      "app/control-centre/analytics/page.tsx",
+      "tests/seo-discoverability-readiness.test.mjs"
+    ],
+    "preserved": [
+      "25 original departments",
+      "21 partner editorial studios",
+      "original source rights and independent comparison gates",
+      "all 29 workstreams and 12 gaps",
+      "analytics privacy consent and disabled optional collection"
+    ],
+    "release_requirements": [
+      "mandatory CI",
+      "production exact SHA READY",
+      "robots and both sitemaps verified",
+      "owner-only negative auth tests",
+      "actual canonical/JSON-LD and product evidence verified"
+    ],
+    "external_dependencies": [
+      "Google Search Console domain verification and indexing",
+      "Bing Webmaster Tools verification",
+      "legal privacy review before optional analytics SDK",
+      "dynamic exhaustive product sitemap scaling"
+    ],
+    "source": "docs/AVUQO_SEO_ANALYTICS_DISCOVERY_BUILD_2026-11-20.md"
+  },
   "premium_supplier_studios_visual_20261120": {
     "status": "candidate_full_ci_preview_merge_and_production_pending",
     "branch": "feature/premium-supplier-studio-art-direction-20261120",
