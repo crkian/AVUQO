@@ -1,6 +1,6 @@
 import type {MetadataRoute} from "next";
 import {connection} from "next/server";
-import {getSiteUrl} from "../../lib/site/url";
+import {getPublicCanonicalUrl} from "../../lib/site/url";
 import {verifiedProductIndex} from "../../lib/products/public-catalog";
 
 /** Conservative, bounded, request-time product discovery.
@@ -9,7 +9,7 @@ import {verifiedProductIndex} from "../../lib/products/public-catalog";
 export default async function sitemap():Promise<MetadataRoute.Sitemap>{
  await connection();
  const records=await verifiedProductIndex(60);
- const base=getSiteUrl();
+ const base=getPublicCanonicalUrl();
  return records.filter(({product,offers})=>offers.length>0&&
   /^[a-z0-9][a-z0-9-]{2,159}$/.test(product.slug)).map(({product})=>({
   url:base+"/products/"+product.slug,
