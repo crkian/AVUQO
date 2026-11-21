@@ -4,6 +4,7 @@ import { getContactEmail } from "../../lib/site/url";
 export const metadata = {
   title: "Contact",
   description: "Contact AVUQO.",
+  alternates:{canonical:"/contact"},
 };
 
 export default function ContactPage() {
