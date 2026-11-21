@@ -43,3 +43,17 @@ test("analytics remains privacy gated and owner-only while search visibility is 
  assert.match(seo,/Google Search Console/);
  assert.match(seo,/not a claim of Google indexing/);
 });
+
+test("live product sitemap and Product JSON-LD inherit current offer admission, not private imports",()=>{
+ const productSitemap=read("app/products/sitemap.ts");
+ assert.match(productSitemap,/verifiedProductIndex\(60\)/);
+ assert.match(productSitemap,/await connection\(\)/);
+ assert.doesNotMatch(productSitemap,/feed_import_records|private_feed/);
+ const product=read("app/products/[slug]/page.tsx");
+ assert.match(product,/verifiedProductSchema/);
+ assert.match(product,/presentation\.template==="tyres"\?null/);
+ const helper=read("lib/site/seo.ts");
+ assert.match(helper,/o\.currency==="GBP"/);
+ assert.doesNotMatch(helper,/AggregateRating|ratingValue/);
+ assert.match(read("app/robots.ts"),/products\/sitemap\.xml/);
+});
