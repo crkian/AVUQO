@@ -8,6 +8,7 @@ import {BROWSE_DEPARTMENTS,departmentBySlug,departmentHref,topicHref} from "../.
 import {departmentBlueprint,departmentHref as productHref} from "../../../lib/products/department-showrooms";
 import styles from "./department.module.css";
 import CategoryJourneys from "../../../components/marketplace/CategoryJourneys";
+import {publicPageMetadata,breadcrumbSchema,collectionSchema,jsonLd} from "../../../lib/site/seo";
 type Params={params:Promise<{department:string}>};
 export function generateStaticParams(){
  return BROWSE_DEPARTMENTS.filter(d=>!d.landing).map(d=>({department:d.slug}));
@@ -16,8 +17,7 @@ export async function generateMetadata({params}:Params):Promise<Metadata>{
  const {department}=await params;
  const item=departmentBySlug(department);
  if(!item||item.landing)return {title:"Department unavailable",robots:{index:false,follow:false}};
- return {title:item.name+" | AVUQO Department",description:item.intro,
-  alternates:{canonical:"/categories/"+item.slug}};
+ return publicPageMetadata({title:item.name+" | AVUQO Department",description:item.intro,path:"/categories/"+item.slug});
 }
 export default async function DepartmentPage({params}:Params){
  const {department}=await params;
@@ -27,6 +27,8 @@ export default async function DepartmentPage({params}:Params){
  if(!blueprint)notFound();
  const other=BROWSE_DEPARTMENTS.filter(d=>d.slug!==item.slug&&d.theme===item.theme).slice(0,4);
  return <main className={styles.page} data-tone={item.theme}>
+  <script type="application/ld+json" dangerouslySetInnerHTML={{__html:jsonLd(collectionSchema(item.name,"/categories/"+item.slug,item.intro))}}/>
+  <script type="application/ld+json" dangerouslySetInnerHTML={{__html:jsonLd(breadcrumbSchema([{name:"Home",path:"/"},{name:"Categories",path:"/categories"},{name:item.name,path:"/categories/"+item.slug}]))}}/>
   <Header/>
   <section className={styles.hero}>
    <div className="shell">

@@ -14,6 +14,7 @@ import {eligibleDepartmentProduct} from "../../../lib/products/department-showro
 import ResearchProductDetails from "../../../components/products/ResearchProductDetails";
 import {researchGuideBySlug} from "../../../lib/products/research-guides";
 import {verifiedProduct,verifiedProductIndex} from "../../../lib/products/public-catalog";
+import {publicPageMetadata,verifiedProductSchema,jsonLd} from "../../../lib/site/seo";
 import {compareEligibleOffers} from "../../../lib/products/comparison-evidence";
 import {studioForVerifiedMerchant,partnerHref} from "../../../lib/partners/advertiser-directory";
 import {chooseProductTemplate,validatedSpecificationEntries} from "../../../lib/products/templates";
@@ -34,7 +35,7 @@ export async function generateMetadata({params}:Props):Promise<Metadata>{
   return {title:guide.title+" | Research guide",description:guide.teaser,
    alternates:{canonical:"/products/"+slug},robots:{index:false,follow:true}};
  }
- return {title:record.product.canonical_title,description:`Understand price and seller evidence for ${record.product.canonical_title} on AVUQO. Check each current retailer offer.`,alternates:{canonical:`/products/${slug}`},robots:{index:true,follow:true}};
+ return publicPageMetadata({title:record.product.canonical_title,description:`Understand price and seller evidence for ${record.product.canonical_title} on AVUQO. Check each current retailer offer.`,path:`/products/${slug}`});
 }
 type ApprovedProductEntry=NonNullable<Awaited<ReturnType<typeof verifiedProduct>>>;
 function ProductDetails({entry,guide}:{
@@ -66,7 +67,13 @@ function ProductDetails({entry,guide}:{
      .filter((url):url is string=>typeof url==="string"&&url.startsWith("https://"))
      .map(url=>[url,url] as const)
   ).values()].slice(0,24);
- return <div className={`${styles.productPage} ${styles[presentation.template]??""}`} data-department-theme={presentation.template==="general"?department?.theme:undefined}><section className={styles.hero}><div className="shell"><Link className={styles.back} href="/products"><ArrowLeft size={17}/> All products</Link><div className={`${styles.heroGrid} ${presentation.imageShape==="wide"?styles.wideImage:presentation.imageShape==="portrait"?styles.portraitImage:""}`}>
+ const structuredProduct=presentation.template==="tyres"?null:verifiedProductSchema({
+  slug:product.slug,name:product.canonical_title,description:product.description,brand:product.brand,
+  image:photo??null,offers:offers.map(o=>({merchant:o.published.merchant,price:Number(o.offer.price),currency:o.offer.currency}))
+ });
+ return <div className={`${styles.productPage} ${styles[presentation.template]??""}`} data-department-theme={presentation.template==="general"?department?.theme:undefined}>
+ {structuredProduct&&<script type="application/ld+json" dangerouslySetInnerHTML={{__html:jsonLd(structuredProduct)}}/>}
+ <section className={styles.hero}><div className="shell"><Link className={styles.back} href="/products"><ArrowLeft size={17}/> All products</Link><div className={`${styles.heroGrid} ${presentation.imageShape==="wide"?styles.wideImage:presentation.imageShape==="portrait"?styles.portraitImage:""}`}>
  <div className={styles.art}><div className={styles.productVisual}><ProductGallery images={gallery} title={product.canonical_title}/></div></div>
  <div className={styles.copy}><p className={styles.kicker}>{presentation.eyebrow}</p><h1>{product.canonical_title}</h1>{(product.brand||product.model)&&<p className={styles.variant}>{product.brand&&<span>{product.brand}</span>}{product.model&&<span>{product.model}</span>}</p>}
  <p className={styles.intro}>{product.description||"Compare eligible retailer offers and understand what the price evidence can, and cannot, show."}</p>

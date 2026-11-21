@@ -48,6 +48,7 @@ async function AboutPageContent() {
 export const metadata: Metadata = {
   title: "About AVUQO",
   description: "Learn about AVUQO independent value intelligence.",
+  alternates:{canonical:"/about"},
 };
 
 export default function AboutPage() {

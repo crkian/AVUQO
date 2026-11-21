@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: quality-${{ github.workflow }}-${{ github.ref }}
+  group: quality-v2-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -246,6 +246,8 @@ jobs:
         run: node --experimental-strip-types --test tests/awin-supplier-description-readiness.test.mjs
       - name: Individual supplier studios, licensed visuals and retailer shopping crosslinks
         run: node --experimental-strip-types --test tests/retailer-studio-experience.test.mjs
+      - name: Search crawl and analytics privacy readiness
+        run: node --test tests/seo-discoverability-readiness.test.mjs
       - name: Premium supplier-studio visual hierarchy and source-photo safety
         run: node --experimental-strip-types --test tests/premium-supplier-retail-design.test.mjs
       - name: Marketing-only lint
