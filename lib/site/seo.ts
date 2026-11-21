@@ -1,5 +1,5 @@
 import type {Metadata} from "next";
-import {getSiteUrl} from "./url";
+import {getPublicCanonicalUrl} from "./url";
 
 /** Public, first-party editorial facts only. No invented prices, reviews or ratings. */
 export function publicPageMetadata(input:{
@@ -15,15 +15,15 @@ export function publicPageMetadata(input:{
 }
 export type JsonLdValue=string|number|boolean|null|JsonLdValue[]|{[key:string]:JsonLdValue|undefined};
 export function breadcrumbSchema(items:readonly {name:string;path:string}[]):JsonLdValue{
- const base=getSiteUrl();
+ const base=getPublicCanonicalUrl();
  return {"@context":"https://schema.org","@type":"BreadcrumbList",
   itemListElement:items.map((item,index)=>({"@type":"ListItem",position:index+1,
    name:item.name,item:base+item.path}))};
 }
 export function collectionSchema(name:string,path:string,description:string):JsonLdValue{
  return {"@context":"https://schema.org","@type":"CollectionPage",
-  name,url:getSiteUrl()+path,description,inLanguage:"en-GB",
-  isPartOf:{"@type":"WebSite",name:"AVUQO",url:getSiteUrl()}};
+  name,url:getPublicCanonicalUrl()+path,description,inLanguage:"en-GB",
+  isPartOf:{"@type":"WebSite",name:"AVUQO",url:getPublicCanonicalUrl()}};
 }
 /** Escape HTML parsing characters even when upstream catalogue data is untrusted. */
 export function jsonLd(value:JsonLdValue):string{
@@ -39,7 +39,7 @@ export function verifiedProductSchema(input:{
 }):JsonLdValue|null{
  const accepted=input.offers.filter(o=>o.currency==="GBP"&&Number.isFinite(o.price)&&o.price>0&&o.merchant.trim()).slice(0,10);
  if(!accepted.length)return null;
- const url=getSiteUrl()+"/products/"+encodeURIComponent(input.slug);
+ const url=getPublicCanonicalUrl()+"/products/"+encodeURIComponent(input.slug);
  return {"@context":"https://schema.org","@type":"Product",name:input.name,url,
   ...(input.description?.trim()?{description:input.description.trim().slice(0,1500)}:{}),
   ...(input.brand?.trim()?{brand:{"@type":"Brand",name:input.brand.trim()}}:{}),
