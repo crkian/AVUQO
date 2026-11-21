@@ -4,6 +4,7 @@ export const metadata = {
   title: "Trust",
   description:
     "How AVUQO separates value scoring, affiliate economics and promotional activity.",
+  alternates:{canonical:"/trust"},
 };
 
 export default function TrustPage() {
