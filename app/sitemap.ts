@@ -1,12 +1,12 @@
 import type {MetadataRoute} from "next";
-import {getSiteUrl} from "../lib/site/url";
+import {getPublicCanonicalUrl} from "../lib/site/url";
 import {PARTNERS} from "../lib/partners/advertiser-directory";
 import {BROWSE_DEPARTMENTS} from "../lib/categories/browse-tree";
 
 /** Public canonical editorial routes only: no search/filter URLs, admin,
  * private previews, fixture deals, or products without live release evidence. */
 export default function sitemap():MetadataRoute.Sitemap{
- const base=getSiteUrl();
+ const base=getPublicCanonicalUrl();
  const routes=[
   "", "/explore-avuqo","/discover","/marketplace","/whos-who",
   "/products","/shop","/catalogue","/shopping","/mobile","/partners",
