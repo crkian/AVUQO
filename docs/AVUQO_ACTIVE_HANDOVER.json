@@ -1,7 +1,13 @@
 {
   "seo_analytics_discovery_20261121": {
-    "status": "candidate_ci_and_production_pending",
+    "status": "production_ready_verified_external_indexing_pending",
     "pr": 337,
+    "merge_sha": "5bc57b908f4daad2d8a53c0f4bc18479719d8ae5",
+    "vercel_deployment_id": "dpl_9Rpe9CyRhP7Y5XMRaJfk5kBQtXB1",
+    "production_state": "READY",
+    "production_aliases_verified": ["www.avuqo.com", "avuqo.com"],
+    "external_http_body_and_search_indexing_unverified": true,
+    "optional_browser_analytics_collection_enabled": false,
     "branch": "feature/seo-discoverability-and-analytics-readiness-20261120",
     "requested": "all live: individual SEO metadata, categories, retailer studios, bot crawling and first-party analytics",
     "implemented": [
