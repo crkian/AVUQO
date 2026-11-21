@@ -4,10 +4,10 @@ import "./globals.css";
 import "./phase2.css";
 import CookieConsent from "../components/privacy/CookieConsent";
 
-import { getSiteUrl } from "../lib/site/url";
+import { getPublicCanonicalUrl } from "../lib/site/url";
 import {jsonLd} from "../lib/site/seo";
 
-const siteUrl = getSiteUrl();
+const siteUrl = getPublicCanonicalUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
