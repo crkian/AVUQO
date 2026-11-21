@@ -25,6 +25,7 @@ import styles from "./homepage-warm.module.css";
 export const metadata: Metadata = {
   title: "AVUQO | Find what's worth it",
   description: "A welcoming home for smarter shopping, grocery lists, everyday comparisons, helpful watches and more considered decisions.",
+  alternates:{canonical:"/"},
 };
 
 /** A neutral loading surface: never show an outdated evergreen hero before the UK seasonal hero arrives. */
