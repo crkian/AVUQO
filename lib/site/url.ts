@@ -34,3 +34,9 @@ export function getContactEmail() {
     "Contact email not configured"
   );
 }
+
+/** Stable public indexing origin, independent of Vercel's preview and deployment aliases.
+ * Do not let a transient build hostname become a canonical search URL. */
+export function getPublicCanonicalUrl(){
+ return "https://www.avuqo.com";
+}
