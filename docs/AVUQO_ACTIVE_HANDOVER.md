@@ -1,3 +1,11 @@
+## 21 November 2026 | Search discoverability, verified product schema and analytics control (PR #337, release candidate)
+
+- **Owner request:** make the SEO and analytics leap live, including individual page/category/retailer metadata and legitimate Google/Bing crawler discovery. This is a candidate until mandatory CI, production deployment and exact HTTP/body verification pass.
+- **Built:** canonical/OpenGraph/X/Googlebot metadata for the original 25 departments (non-redirect canonical destinations), 21 supplier editorial studios and actual source-admitted product pages; first-party WebSite/Organization/CollectionPage/BreadcrumbList JSON-LD; product/GBP Offer JSON-LD for real verified non-tyre listings only; conservative request-time product sitemap with 60-product admission cap; editorial sitemap and production/preview robots policy; owner-only /control-centre/seo linked from existing /control-centre/analytics; regression tests in mandatory CI.
+- **Rights and accuracy:** do not index internal search/filter, owner, demo or research-only pages. No invented ratings, product prices, merchant endorsements or tyre fitment. Product sitemap is intentionally bounded, not an exhaustive index. Existing first-party analytics event dictionary, owner-only counts and optional browser collection OFF remain unchanged pending legal consent, server ingest, bot filtering, deduplication, retention and reporting gates.
+- **Release gates:** PR #337 https://github.com/crkian/AVUQO/pull/337; verify CI Build/Lint/native SQL/security, preview and logged-out owner protection, merge at reviewed head, Vercel production READY exact SHA, www.avuqo.com robots/sitemaps, representative department/retailer/verified product structured data. Google Search Console/Bing ownership, sitemap submission and actual indexing cannot be claimed without provider evidence. See docs/AVUQO_SEO_ANALYTICS_DISCOVERY_BUILD_2026-11-20.md.
+- **Continuity:** retain all historical handovers, 29 workstreams/12 gaps, 25 categories, 21 advertiser studios, source gates, independent scores and affiliate/retention obligations.
+
 ## 20 November 2026 | Affiliate advertiser rejection recovery added as separate active workstream
 
 ### 20 November 2026 | Second-edition premium supplier art direction (visual release candidate)
