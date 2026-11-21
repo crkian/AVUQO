@@ -30,3 +30,21 @@ export function jsonLd(value:JsonLdValue):string{
  return JSON.stringify(value).replace(/</g,"\\u003c").replace(/>/g,"\\u003e")
   .replace(/&/g,"\\u0026").replace(/\u2028/g,"\\u2028").replace(/\u2029/g,"\\u2029");
 }
+
+/** Product schema is emitted only for independently admitted public offers.
+ * Do not turn an unverified research guide, stock inference or source import into a shopping result. */
+export function verifiedProductSchema(input:{
+ slug:string;name:string;description:string|null;brand:string|null;image:string|null;
+ offers:readonly {merchant:string;price:number;currency:string}[];
+}):JsonLdValue|null{
+ const accepted=input.offers.filter(o=>o.currency==="GBP"&&Number.isFinite(o.price)&&o.price>0&&o.merchant.trim()).slice(0,10);
+ if(!accepted.length)return null;
+ const url=getSiteUrl()+"/products/"+encodeURIComponent(input.slug);
+ return {"@context":"https://schema.org","@type":"Product",name:input.name,url,
+  ...(input.description?.trim()?{description:input.description.trim().slice(0,1500)}:{}),
+  ...(input.brand?.trim()?{brand:{"@type":"Brand",name:input.brand.trim()}}:{}),
+  ...(input.image?.startsWith("https://")?{image:input.image}:{}),
+  offers:accepted.map(o=>({"@type":"Offer",url,priceCurrency:"GBP",price:o.price.toFixed(2),
+   seller:{"@type":"Organization",name:o.merchant}}))
+ };
+}
