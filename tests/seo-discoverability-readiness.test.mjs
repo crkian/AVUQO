@@ -65,3 +65,10 @@ test("all crawler and metadata URLs use stable production origin, never ephemera
   assert.doesNotMatch(read(path),/getSiteUrl\(/);
  }
 });
+
+test("high-intent public destinations have real metadata and private calculators stay noindex",()=>{
+ for(const path of ["app/groceries/page.tsx","app/score/page.tsx","app/reality-check/layout.tsx",
+   "app/page.tsx","app/about/page.tsx","app/trust/page.tsx","app/contact/page.tsx"])
+  assert.match(read(path),/alternates:\s*\{canonical:/);
+ assert.match(read("app/compare/page.tsx"),/robots:\{index:false,follow:true\}/);
+});
