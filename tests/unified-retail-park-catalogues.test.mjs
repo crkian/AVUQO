@@ -91,7 +91,8 @@ test("cumulative handovers preserve all previous project work, source and branch
   const expectedHeader=hasAffiliateAddendum
    ?"## 20 November 2026 | Affiliate advertiser rejection recovery added as separate active workstream"
    :"## 20 November 2026 | Massive leap candidate:";
-  assert.ok(text.startsWith(expectedHeader),file+" missing newest non-destructive handover");
+  assert.ok(text.startsWith("## 21 November 2026 | Search discoverability, verified product schema and analytics control"),file+" missing newest SEO release-candidate handover");
+  assert.ok(text.includes(expectedHeader),file+" missing prior non-destructive handover");
   assert.ok(text.includes("## 20 November 2026 | Massive leap candidate:"),file+" full shopping and tyre handover missing");
   if(hasAffiliateAddendum){
    assert.ok(text.includes("AVUQO_AWIN_PUBLISHER_ELIGIBILITY_AND_ADVERTISER_AUDIT_WORKSTREAM_2026-11-20.md"),"privacy-safe affiliate handover not linked");
