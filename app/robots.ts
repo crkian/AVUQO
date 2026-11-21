@@ -1,5 +1,5 @@
 import type {MetadataRoute} from "next";
-import {getSiteUrl} from "../lib/site/url";
+import {getPublicCanonicalUrl} from "../lib/site/url";
 export default function robots():MetadataRoute.Robots{
  // Vercel preview/staging should never compete with canonical production.
  if(process.env.VERCEL_ENV==="preview"||process.env.VERCEL_ENV==="development")
@@ -8,5 +8,5 @@ export default function robots():MetadataRoute.Robots{
   "/control-centre/","/preview/","/api/","/auth/","/go/",
   "/account/","/login","/reset-password","/forgot-password",
   "/saved","/lists/","/basket","/search?"
- ]}],sitemap:[getSiteUrl()+"/sitemap.xml",getSiteUrl()+"/products/sitemap.xml"]};
+ ]}],sitemap:[getPublicCanonicalUrl()+"/sitemap.xml",getPublicCanonicalUrl()+"/products/sitemap.xml"]};
 }
