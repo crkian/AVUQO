@@ -8,5 +8,5 @@ export default function robots():MetadataRoute.Robots{
   "/control-centre/","/preview/","/api/","/auth/","/go/",
   "/account/","/login","/reset-password","/forgot-password",
   "/saved","/lists/","/basket","/search?"
- ]}],sitemap:getSiteUrl()+"/sitemap.xml"};
+ ]}],sitemap:[getSiteUrl()+"/sitemap.xml",getSiteUrl()+"/products/sitemap.xml"]};
 }
