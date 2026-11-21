@@ -1,3 +1,5 @@
+## 21 November 2026 | Search discoverability, verified product schema and analytics control (PR #337, release candidate)
+
 ## 21 November 2026 | VERIFIED PRODUCTION DEPLOYMENT: search discoverability and analytics readiness (PR #337)
 
 - **Merged:** PR #337 https://github.com/crkian/AVUQO/pull/337 squash commit `5bc57b908f4daad2d8a53c0f4bc18479719d8ae5`. Exact reviewed head `7c08689feccbfafc9d003f5473f4c36fd9cb4647` passed GitHub Build, Lint/full regressions, native PostgreSQL synthetic concurrency and committed-secret prevention. Release included updated continuity tests rather than deleting historical records.
@@ -7,7 +9,6 @@
 - **Analytics boundary:** existing owner-only observed-record dashboard remains live, but optional browser tracking/identity/ad measurement are **OFF**. A lawful consent/privacy review, server ingest, deduplication, bot filtering, retention/deletion, aggregates and authoritative conversion reconciliation are required before claiming full analytics collection. Never infer purchases from clicks or invent traffic/revenue.
 - **No regressions intended:** preserve original 25 departments, 21 advertiser studios, source permissions, public release/withdrawal gates, private tyre controls, independent comparison, all 29 workstreams and 12 gaps.
 
-## 21 November 2026 | Search discoverability, verified product schema and analytics control (PR #337, release candidate)
 
 - **Owner request:** make the SEO and analytics leap live, including individual page/category/retailer metadata and legitimate Google/Bing crawler discovery. This is a candidate until mandatory CI, production deployment and exact HTTP/body verification pass.
 - **Built:** canonical/OpenGraph/X/Googlebot metadata for the original 25 departments (non-redirect canonical destinations), 21 supplier editorial studios and actual source-admitted product pages; first-party WebSite/Organization/CollectionPage/BreadcrumbList JSON-LD; product/GBP Offer JSON-LD for real verified non-tyre listings only; conservative request-time product sitemap with 60-product admission cap; editorial sitemap and production/preview robots policy; owner-only /control-centre/seo linked from existing /control-centre/analytics; regression tests in mandatory CI.
