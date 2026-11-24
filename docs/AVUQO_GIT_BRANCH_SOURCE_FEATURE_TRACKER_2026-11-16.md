@@ -992,3 +992,16 @@ For Petlibro (44 staged lines/22 identities), Mozillion (229 distinct handsets),
 - Fresh read-only Supabase counts: 84,779 products, four with nonempty descriptions, 3,199 active offers and 64 feed observations requiring private refresh. Counts do not establish public eligibility or source rights.
 - Vercel production build for the main documentation update bfd496b was canceled; the last confirmed READY production application deployment is dpl_7GkKYH3reYBcwzyrohkLQCHKD8ft at 82622ac8c8168816bc57add41708e8e489acd004. Candidate preview builds are not public production confirmation.
 - Outstanding release gates: authenticated Awin HTTP 406 repair, end-to-end shopping admission and distinct inventory coverage, CI/build checks, reconciliation with main, deployment, signed-in owner browser acceptance and all retail page journeys. Do not mark those completed.
+
+
+## 24 November 2026 | Independent shopping release foundation checkpoint
+
+- Disabled shopping approval ledger migration
+- Independent release evidence checks
+- Restored main's 16-phase ordered queue and checkpoint to candidate
+- Bounded server-only reader for specified offer IDs
+- 15 release-evidence regression cases added; execution not verified
+- Implementation checkpoint: `22a7fd6a3471b4b47fdc30c6272b9b70e86801a1` (before documentation commits).
+- Commit references: ledger `e297692a4c49f06bd1f1d8bd81ec5eb7716f40e4`; evidence `e09210e8acdba939140fc13c27d4f4e395843405`; queue_reconciliation `c1cec61af2f80dfdce321265b946389ac3cda362`; reader `ee9889bf62aaff8356153790dd6943242cf134ec`; tests `22a7fd6a3471b4b47fdc30c6272b9b70e86801a1`.
+- No new products published; migration not applied; reader not wired into public routes; tests authored but not verified. SHA records implementation checkpoint before documentation commits.
+- Remaining: Secure owner approval writer and audit trail; Migration rehearsal and privileges tests; Integrate shopping reader with discovery, product detail, retailer, search, collections and outbound routing; Authenticated Awin HTTP 406 repair; Run automated tests and CI, reconcile Git history, deploy and verify.
