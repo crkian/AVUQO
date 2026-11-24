@@ -1,4 +1,15 @@
 {
+  "development_register_20261124": {
+    "status": "candidate",
+    "route": "/control-centre/development-register",
+    "owner_only": true,
+    "source": "docs/AVUQO_ACTIVE_HANDOVER.json development_register; existing feature tracker",
+    "branch_snapshot_count": 40,
+    "feature_requirements": 37,
+    "source_references": 14,
+    "operational_priorities": 27,
+    "limitations": "Snapshot not automatic Git polling; handover edits require deployment; branch ancestry and current source terms not independently reconciled; CI and authenticated browser verification pending."
+  },
   "catalogue_candidate_ci_20261124": {
     "status": "candidate_ci_passed_on_code_head",
     "code_head": "63b3e7d9cc728b80f5caaa0e8e30978169f433cd",
