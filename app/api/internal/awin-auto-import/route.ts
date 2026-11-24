@@ -59,7 +59,9 @@ async function attestUnchangedLiveRows(
   // A feed may begin with review rows that lack confirmed stock/link. Inspect
   // a bounded wider window to find up to 20 exact eligible rechecks instead
   // of starving the bridge on the first 20 arbitrary stored rows.
-  .is("reviewed_at",null)
+  .is("reviewed_at",null).eq("currency","GBP")
+   .eq("metadata->>tracking_link_verified","true")
+   .in("metadata->>availability",["in_stock","instock","available","low_stock","limited","in stock","low stock"])
    .order("metadata->>live_feed_verified_at",{ascending:true,nullsFirst:true})
    .order("merchant_product_id",{ascending:true}).limit(300);
  if(error)throw Error("live_recheck_private_rows_unavailable");
@@ -87,6 +89,7 @@ async function attestUnchangedLiveRows(
      availability:next.metadata.availability,
      // Preserve only clean prose from this exact authenticated current feed.
      // A separate dated merchant-text rights flag is required for public use.
+     source_catalogue_fields:next.metadata.source_catalogue_fields,
      source_description:next.metadata.source_description??null,
      source_description_verified_digest:next.metadata.source_description?digest:null,
      source_description_rights_confirmed:ownerApprovedDescriptions&&
@@ -104,7 +107,7 @@ async function attestUnchangedLiveRows(
    .is("reviewed_at",null).select("id").maybeSingle();
   if(updateError)throw Error("live_recheck_private_update_failed");
   if(changed?.id)verifiedSkus.push(old.merchant_product_id);
-   if(verifiedSkus.length>=20)break;
+  if(verifiedSkus.length>=20)break;
  }
  return verifiedSkus;
  }
