@@ -1,3 +1,34 @@
+## 24 November 2026 | Full inventory audit and automatic renewal production checkpoint
+
+- Production application bea9990e4fea134a53bc0ecbfad0d4967c631f00, Vercel dpl_HeCScDGYgxn7cLQS3AvthRaUzn6N READY with www.avuqo.com alias. Automatic renewal migration applied as 20261124205613; rollback rehearsal and service-only privilege checks passed. 20 direct first approvals, zero failures, no natural renewal yet observed; 90 approval records at audit time. Prior public catalogue HTTP checks confirmed all 50 then-approved offers across two pages, search, sorting and sampled detail; external redirects unverified. Scheduled-window approval evidence at 20:52:37 UTC, direct runtime log proof absent.
+- Owner explicitly requires complete eligible product catalogues, not selected discounts or pilot offer batches. 21 programme records, 12 suppliers with 76 feed observations, 275,538 reported overlapping listings, 64 pending refreshes, 531,916 historical rows, 140,354 historical distinct supplier SKU pairs including 910 outside the current roster. 3,159 canonical Awin products / 2,557 active / 3,211 offers. Historical SKUs are not current inventory or public offers; never claim full coverage from row totals.
+- Tooled Up 85,405-row full snapshot structurally validated, bulk staging still blocked by rights/currency gates. Pneus full 19,750-row completed snapshot; newer 19,711-row job partially committed. 12 feed suppliers include services/contracts; build specialist adapters rather than fictitious retail prices. Detailed supplier counts in master JSON and Development Register snapshot. No new permission granted.
+- Next: complete per-feed snapshot membership, deduplicated SKU reconciliation, resumable canonical conversion, rights-cleared current evidence and publication for all eligible products; prioritise tyre fitment and both supplier datasets, then images/variants/category/search/retailer integration. Keep regular prices separate from deals. No new branches.
+
+| Supplier | Feeds | Reported listings | Historical distinct SKUs | Canonical products | Shopping approved |
+|---|---:|---:|---:|---:|---:|
+| Tooled Up | 53 | 210486 | 84284 | 2924 | 90 |
+| Tyres UK | 1 | 31403 | 31372 | 0 | 0 |
+| Tyres Pneus Online UK | 1 | 19812 | 20690 | 0 | 0 |
+| Mozillion | 5 | 10831 | 241 | 58 | 0 |
+| Cadbury Gifts Direct | 1 | 1375 | 1381 | 88 | 0 |
+| Craft Buddy Shop | 2 | 1263 | 1387 | 30 | 0 |
+| Petlibro UK Affiliate Program | 5 | 136 | 49 | 20 | 0 |
+| Compare Parking Prices UK | 2 | 120 | 0 | 0 | 0 |
+| PlayPress Toys UK | 2 | 81 | 40 | 39 | 0 |
+| Lyca Mobile UK | 2 | 20 | 0 | 0 | 0 |
+| 1pMobile | 1 | 10 | 0 | 0 | 0 |
+| EPCs, Gas Safety Certificates and Electrical Check | 1 | 1 | 0 | 0 | 0 |
+| AutoAid Breakdown | 0 | — | 0 | 0 | 0 |
+| Broadband Genie | 0 | — | 0 | 0 | 0 |
+| BroadbandCoop & MobileCoop | 0 | — | 0 | 0 | 0 |
+| Chattr Sim Only | 0 | — | 0 | 0 | 0 |
+| Christmas Letters from Santa | 0 | — | 0 | 0 | 0 |
+| Holiday Extras | 0 | — | 0 | 0 | 0 |
+| Onestream | 0 | — | 0 | 0 | 0 |
+| Simply MOT (UK) | 0 | — | 0 | 0 | 0 |
+| Your Co-op Energy | 0 | — | 0 | 0 | 0 |
+
 ## 21 November 2026 | Search discoverability, verified product schema and analytics control (PR #337, release candidate)
 
 ## 24 November 2026 | Development register expanded
