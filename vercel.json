@@ -90,7 +90,11 @@
     },
     {
       "path": "/api/internal/awin-shopping-auto-review",
-      "schedule": "12,32,52 * * * *"
+      "schedule": "*/3 * * * *"
+    },
+    {
+      "path": "/api/internal/awin-catalogue-conversion",
+      "schedule": "* * * * *"
     }
   ],
   "ignoreCommand": "git diff --quiet HEAD^ HEAD -- . ':(exclude)docs/**' ':(exclude)*.md' ':(exclude).github/**'"

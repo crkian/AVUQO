@@ -4840,5 +4840,35 @@
       "Natural renewal and outbound affiliate redirect verification",
       "Images, variants, categories, global search, retailer shelf and mobile navigation"
     ]
+  },
+  "full_inventory_conversion_20261124": {
+    "date_utc": "2026-11-24",
+    "status": "partial",
+    "production": {
+      "sha": "250829c3ce35fbc219cdb3e3b6134066064e9b85",
+      "deployment": "dpl_8KMHDpJR4G533DB1pJX4t33gdDgg",
+      "state": "READY"
+    },
+    "database": {
+      "selector": "applied 20261124210939",
+      "index_and_exclusive_lease": "applied; rollback rehearsal passed",
+      "privileges": "service role only; anon/authenticated denied",
+      "single_cohort": "20 Tooled Up SKUs selected; repeated unindexed queries timed out, new index installed"
+    },
+    "historical_index": {
+      "scanned": 84284,
+      "draft": 81929,
+      "active": 2355
+    },
+    "observed_baseline": {
+      "approved": 90,
+      "canonical_offers": 3211
+    },
+    "candidate": "Every-minute conversion worker with exclusive 6-minute recovery lease, service-only exact evidence selector, bounded 20, durable attempt counts; shopping review every 3 minutes",
+    "remaining": [
+      "Verify exact deployment and actual cron conversion counts; natural renewal",
+      "Complete full-feed membership and draft admission, all supplier coverage, tyres and service adapters",
+      "Product presentation, search, departments and retailer integration"
+    ]
   }
 }

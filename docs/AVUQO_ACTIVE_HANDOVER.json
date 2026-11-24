@@ -1416,7 +1416,7 @@
         "title": "Full retailer inventories",
         "status": "partial",
         "refs": "CAT-05 / CAT-07",
-        "next": "Reconcile every authorised feed's current distinct SKU membership, overlap, exclusions, snapshot digest, durable cursor, staged/canonical/current public counts; import ordinary products irrespective of discount. Resolve Tooled Up full bulk staging gates and specialist tyre/service adapters."
+        "next": "Verify actual fresh-evidence conversion throughput, full current snapshot membership and eligible draft admission for all retailers."
       },
       {
         "order": 4,
@@ -1513,15 +1513,15 @@
     "current_checkpoint": {
       "date_utc": "2026-11-24",
       "production": {
-        "sha": "bea9990e4fea134a53bc0ecbfad0d4967c631f00",
-        "deployment": "dpl_HeCScDGYgxn7cLQS3AvthRaUzn6N",
+        "sha": "250829c3ce35fbc219cdb3e3b6134066064e9b85",
+        "deployment": "dpl_8KMHDpJR4G533DB1pJX4t33gdDgg",
         "state": "READY",
         "domain": "https://www.avuqo.com",
         "owner_register": "Updated inventory snapshot committed; authenticated runtime acceptance pending"
       },
       "candidate": {
         "branch": "main",
-        "sha": "bea9990e4fea134a53bc0ecbfad0d4967c631f00",
+        "sha": "250829c3ce35fbc219cdb3e3b6134066064e9b85",
         "status": "partial",
         "changes": [
           "Disabled shopping approval ledger migration",
@@ -1569,13 +1569,13 @@
           "Automatic review migration applied; source variable ambiguity corrected; bounded execution recorded; publication disabled",
           "Shopping publication switch enabled; 50 current approved records",
           "Automatic evidence renewal applied and rollback/privilege-tested",
-          "Full 21-programme, 76-feed and distinct-SKU audit recorded"
+          "Full 21-programme, 76-feed and distinct-SKU audit recorded",
+          "Every-minute conversion worker with exclusive 6-minute recovery lease, service-only exact evidence selector, bounded 20, durable attempt counts; shopping review every 3 minutes"
         ],
         "remaining": [
-          "Complete full-feed SKU reconciliation and bulk canonical conversion across all eligible retailers; preserve source rights and exact SKU/variant checks",
-          "Resolve specialist service and tyre eligibility",
-          "Natural renewal and outbound affiliate redirect verification",
-          "Images, variants, categories, global search, retailer shelf and mobile navigation"
+          "Verify exact deployment and actual cron conversion counts; natural renewal",
+          "Complete full-feed membership and draft admission, all supplier coverage, tyres and service adapters",
+          "Product presentation, search, departments and retailer integration"
         ]
       },
       "ordered_build_queue": [
@@ -6446,6 +6446,36 @@
       "Resolve specialist service and tyre eligibility",
       "Natural renewal and outbound affiliate redirect verification",
       "Images, variants, categories, global search, retailer shelf and mobile navigation"
+    ]
+  },
+  "full_inventory_conversion_20261124": {
+    "date_utc": "2026-11-24",
+    "status": "partial",
+    "production": {
+      "sha": "250829c3ce35fbc219cdb3e3b6134066064e9b85",
+      "deployment": "dpl_8KMHDpJR4G533DB1pJX4t33gdDgg",
+      "state": "READY"
+    },
+    "database": {
+      "selector": "applied 20261124210939",
+      "index_and_exclusive_lease": "applied; rollback rehearsal passed",
+      "privileges": "service role only; anon/authenticated denied",
+      "single_cohort": "20 Tooled Up SKUs selected; repeated unindexed queries timed out, new index installed"
+    },
+    "historical_index": {
+      "scanned": 84284,
+      "draft": 81929,
+      "active": 2355
+    },
+    "observed_baseline": {
+      "approved": 90,
+      "canonical_offers": 3211
+    },
+    "candidate": "Every-minute conversion worker with exclusive 6-minute recovery lease, service-only exact evidence selector, bounded 20, durable attempt counts; shopping review every 3 minutes",
+    "remaining": [
+      "Verify exact deployment and actual cron conversion counts; natural renewal",
+      "Complete full-feed membership and draft admission, all supplier coverage, tyres and service adapters",
+      "Product presentation, search, departments and retailer integration"
     ]
   }
 }

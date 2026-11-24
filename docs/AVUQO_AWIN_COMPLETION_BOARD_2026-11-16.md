@@ -1,3 +1,9 @@
+## 24 November 2026 | Full inventory conversion and exclusive worker checkpoint
+
+- Previous inventory register production READY at 250829c3ce35fbc219cdb3e3b6134066064e9b85 / dpl_8KMHDpJR4G533DB1pJX4t33gdDgg. Tooled Up historical SKU index complete: 84,284 identities (81,929 drafts, 2,355 active at earlier check). Current baseline 90 independent approvals, 3,211 canonical Awin offers.
+- Both installed database migrations reconciled to Git: service-only exact fresh evidence queue, indexed UTC freshness prefilter, exclusive worker claim and six-minute expired lease recovery. SQL rehearsal verified double claim prevention; anon/authenticated denied; service permitted; live selector returned one cohort. No public release or rights grant in these functions.
+- Cron-only conversion route uses existing canonical stage for up to 20 exact fresh SKUs per invocation; durable journal tracks selected and accepted counts. Every-minute conversion and every-three-minute shopping review schedules are code candidates until deployment and actual execution verified. Separate historical index, tyre and service paths remain intact. No new branches.
+
 ## 24 November 2026 | Full inventory audit and automatic renewal production checkpoint
 
 - Production application bea9990e4fea134a53bc0ecbfad0d4967c631f00, Vercel dpl_HeCScDGYgxn7cLQS3AvthRaUzn6N READY with www.avuqo.com alias. Automatic renewal migration applied as 20261124205613; rollback rehearsal and service-only privilege checks passed. 20 direct first approvals, zero failures, no natural renewal yet observed; 90 approval records at audit time. Prior public catalogue HTTP checks confirmed all 50 then-approved offers across two pages, search, sorting and sampled detail; external redirects unverified. Scheduled-window approval evidence at 20:52:37 UTC, direct runtime log proof absent.
