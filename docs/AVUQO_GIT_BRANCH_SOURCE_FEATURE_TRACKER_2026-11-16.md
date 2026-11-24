@@ -1,5 +1,11 @@
 ## 21 November 2026 | Search discoverability, verified product schema and analytics control (PR #337, release candidate)
 
+## 24 November 2026 | PR #340 code candidate CI evidence
+
+- Code head `63b3e7d9cc728b80f5caaa0e8e30978169f433cd`: quality run 45449570925 and secret scan 45449570622 passed. Includes corrected PlayPress department regression, checksum-valid unique barcode lookup, and permission-bound per-offer supplier gallery integration.
+- Title fallback and historic associations remain unresolved; full inventories and separate shopping admission not implemented. No database migration. Production verification pending; documentation-only follow-up must pass required checks.
+
+
 ## 24 November 2026 | Catalogue classification candidate
 
 - PR #339 merged at `bececf67103ca8f738833315734c1a99600fc912`; Vercel production `dpl_HRgTLTYNWqw562fBrRn74XzFcP7N` READY, www.avuqo.com alias verified. Runtime feed coverage not yet measured.
