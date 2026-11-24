@@ -1341,3 +1341,13 @@ Versions below refer to the Next.js application in `package.json`, not historica
 
 ### 2026-11-13 — Whole-site public AVUQO tour verified live
 - PR #159 merged, code `58355149ef69e82924a00c6866b0859a7483234a`, Vercel production READY `dpl_GVkTsnRpkWTc2p79DwUXD4EvhUEX` with `www.avuqo.com` alias. Public tour, homepage entry and sitemap HTTP 200 verified. No source activation or publication changes. Desktop/mobile screenshot sign-off pending.
+
+
+## 24 November 2026 | Continuation checkpoint (candidate, not production)
+
+- Connected GitHub, Vercel and Supabase were queried directly. Main remains bfd496be56d7b27830384374dc63ada5b4b0276c at this audit; branch `feature/universal-catalogue-foundations-20261124` is the existing release candidate and differs from main. Do not merge without reconciliation.
+- Added explicit rendering of the 16-phase ordered major-build queue and recorded production/candidate checkpoint to the existing owner Development & Intelligence Register (`app/control-centre/development-register/page.tsx`).
+- Added `tests/shopping-admission.test.mjs` covering independent shopping eligibility rejection rules. Tests have been committed, but automated execution results have not yet been verified.
+- Fresh read-only Supabase counts: 84,779 products, four with nonempty descriptions, 3,199 active offers and 64 feed observations requiring private refresh. Counts do not establish public eligibility or source rights.
+- Vercel production build for the main documentation update bfd496b was canceled; the last confirmed READY production application deployment is dpl_7GkKYH3reYBcwzyrohkLQCHKD8ft at 82622ac8c8168816bc57add41708e8e489acd004. Candidate preview builds are not public production confirmation.
+- Outstanding release gates: authenticated Awin HTTP 406 repair, end-to-end shopping admission and distinct inventory coverage, CI/build checks, reconciliation with main, deployment, signed-in owner browser acceptance and all retail page journeys. Do not mark those completed.
