@@ -1,4 +1,11 @@
 {
+  "catalogue_enrichment_20261124": {
+    "status": "candidate_ci_and_runtime_pending",
+    "pr": 339,
+    "branch": "feature/full-catalogue-enrichment-20261124",
+    "scope": "Full bounded descriptions, private source attributes, fair exact-SKU rechecks, no sale-only restriction",
+    "remaining": "Provider coverage, specialist adapters, canonical classification and matching, HTTP 406, rights and live verification"
+  },
   "seo_analytics_discovery_20261121": {
     "status": "production_ready_verified_external_indexing_pending",
     "pr": 337,

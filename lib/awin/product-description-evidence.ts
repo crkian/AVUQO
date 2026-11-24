@@ -17,7 +17,7 @@ export function cleanAwinDescription(value:unknown):string|null{
   .replace(/\s+/g," ").trim();
  if(cleaned.length<32||/^(?:n\/?a|no description|description not available|tbc|coming soon)$/i.test(cleaned))return null;
  if(/^https?:\/\/\S+$/i.test(cleaned))return null;
- return cleaned.length>1800?cleaned.slice(0,1800).trimEnd():cleaned;
+ return cleaned;
 }
 export function privateAwinDescription(row:Record<string,string>):string|null{
  for(const key of descriptionKeys){

@@ -56,8 +56,11 @@ test("bridge uses the one existing scoring pipeline and cannot auto-publish firs
  assert.match(stage,/\.contains\("metadata",\{live_feed_digest:input\.digest\}\)/);
  assert.match(stage,/if\(!privateMode&&!activeMode\)/);
  assert.match(worker,/attestUnchangedLiveRows/);
- assert.match(worker,/\.is\("reviewed_at",null\)\.limit\(300\)/);
- assert.match(worker,/if\(verified>=20\)break/);
+ assert.match(worker,/\.is\("reviewed_at",null\)\.eq\("currency","GBP"\)/);
+ assert.match(worker,/\.order\("metadata->>live_feed_verified_at",\{ascending:true,nullsFirst:true\}\)/);
+ assert.match(worker,/\.order\("merchant_product_id",\{ascending:true\}\)\.limit\(300\)/);
+ assert.match(worker,/if\(verifiedSkus\.length>=20\)break/);
+ assert.match(worker,/merchantProductIds:verifiedSkus/);
  assert.match(worker,/stageLiveAwinCanonicalCandidates/);
  assert.match(worker,/no_publication:true/);
  assert.match(pipeline,/privateOnly\?false:controls\.dealPublishing/);

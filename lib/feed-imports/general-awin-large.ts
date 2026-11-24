@@ -74,6 +74,16 @@ export function prepareGeneralBatch(merchant:string,feedId:string,header:string[
     // Private feed prose: not cleared for customer display until separately licensed
     // and freshly digest-rechecked by the exact-source canonical bridge.
     source_description:privateAwinDescription(r),
+    // Allowlisted factual source fields only; no feed URLs or credentials.
+    source_catalogue_fields:Object.fromEntries([
+     "product_short_description","product_type","merchant_category","merchant_product_category_path",
+     "google_product_category","colour","color","size","material","pattern","gender","age_group",
+     "item_group_id","condition","product_model","model_number","ean","gtin","product_GTIN","mpn","upc",
+     "rrp_price","store_price","sale_price","sale_price_effective_date","saving","savings_percent",
+     "delivery_cost","delivery_time","shipping","unit_pricing_measure","unit_pricing_base_measure",
+     "product_detail","product_highlight","stock_quantity","valid_from","valid_to"
+    ].filter(key=>get(r,key)).map(key=>[key,get(r,key)])),
+    // Supplier claims remain private evidence, not an automatic sale or delivery claim.
     source_description_rights_confirmed:false,
     source_description_verified_digest:null,
     manufacturer_brand:brand.slice(0,250)||null,manufacturer_brand_source:"retailer_supplied_unverified",

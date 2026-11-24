@@ -95,3 +95,27 @@ test("read-only supplier dashboard is owner/admin gated and the SQL RPC stays se
  const links=readFileSync("lib/control-centre/workspaces.ts","utf8");
  assert.match(links,/\/control-centre\/supplier-readiness/);
 });
+
+test("full bounded source descriptions and private catalogue fields survive import without declaring a sale",()=>{
+ const full="Detailed supplier product specification. ".repeat(100);
+ assert.equal(cleanAwinDescription(full),full.trim());
+ const header=["advertiser_id","id","title","price","availability","aw_deep_link","description","sale_price","color","size","shipping","product_detail","additional_image_link"];
+ const fields={advertiser_id:"101445",id:"SKU-normal",title:"Regular price play set",price:"22.50 GBP",availability:"in_stock",aw_deep_link:tracking,description:full,color:"Blue",size:"Large",shipping:"Supplier terms",product_detail:"Material: card",additional_image_link:"https://example.com/a.jpg,https://example.com/b.jpg"};
+ const normalized=normalizePilotAwinFeed("101445","F5142",header,[header.map(key=>fields[key]??"")]);
+ const row=prepareGeneralBatch("101445","F5142",normalized.header,normalized.rows)[0];
+ assert.equal(row.status,"review");
+ assert.equal(row.metadata.source_description,full.trim());
+ assert.equal(row.metadata.source_catalogue_fields.color,"Blue");
+ assert.equal(row.metadata.source_catalogue_fields.size,"Large");
+ assert.equal(row.metadata.source_catalogue_fields.sale_price,undefined);
+ assert.equal(row.metadata.supplied_image_gallery.length,2);
+ assert.equal(row.metadata.source_description_rights_confirmed,false);
+ assert.equal(row.metadata.source_image_rights_confirmed,false);
+});
+test("oldest eligible private rechecks forward exact verified SKU cohorts to the canonical worker",()=>{
+ const worker=readFileSync("app/api/internal/awin-auto-import/route.ts","utf8");
+ assert.ok(worker.includes('.order("metadata->>live_feed_verified_at",{ascending:true,nullsFirst:true})'));
+ assert.ok(worker.includes('verifiedSkus.push(old.merchant_product_id)'));
+ assert.equal(worker.split("merchantProductIds:verifiedSkus").length-1,3);
+ assert.ok(worker.includes("source_catalogue_fields:next.metadata.source_catalogue_fields"));
+});
