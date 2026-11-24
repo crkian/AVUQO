@@ -1566,12 +1566,13 @@
           "Bounded first shopping approval RPC under standing recorded owner grant, with exact current private feed join, accepted programme, current GBP, price and stock evidence, publisher tracking, active product, controls and audit",
           "Cron-only server worker with shopping switch gate and credentials check",
           "Manual withdrawals and any prior reviews never overwritten; no draft activation",
-          "Automatic review migration applied; source variable ambiguity corrected; bounded execution recorded; publication disabled"
+          "Automatic review migration applied; source variable ambiguity corrected; bounded execution recorded; publication disabled",
+          "Shopping publication switch enabled; 50 current approved records"
         ],
         "remaining": [
-          "Apply and verify migration, verify real cohort approvals and runtime before enabling shopping publication",
-          "Add safe renewal and draft activation; reconcile categories and retailer integrations",
-          "Expand stock and tyre comparisons; test end-to-end"
+          "Verify public catalogue, product pages and outbound redirects",
+          "Automatic evidence renewal without overriding withdrawals",
+          "Expand retailer coverage, categories and tyres"
         ]
       },
       "ordered_build_queue": [
@@ -5782,5 +5783,25 @@
     "fix": "Qualified PL/pgSQL source variable to remove ambiguity",
     "publication": "disabled",
     "status": "partial"
+  },
+  "shopping_activation_20261124": {
+    "date_utc": "2026-11-24",
+    "status": "partial",
+    "production": {
+      "sha": "fbefb3a99074935009ee269e1120218639b50231",
+      "deployment": "dpl_GV5wYQWyMCH1yQKzbfwnbSb6gTz9",
+      "state": "READY"
+    },
+    "shopping_publishing": true,
+    "approved": 50,
+    "current_evidence": 50,
+    "latest_batch_failed": 0,
+    "activation_at": "2026-11-24T20:47:35Z",
+    "runtime": "Public URL fetch unavailable; customer journey not independently verified",
+    "remaining": [
+      "Verify public catalogue, product pages and outbound redirects",
+      "Automatic evidence renewal without overriding withdrawals",
+      "Expand retailer coverage, categories and tyres"
+    ]
   }
 }
