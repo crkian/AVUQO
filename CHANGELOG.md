@@ -1,5 +1,11 @@
 ## 21 November 2026 | Search discoverability, verified product schema and analytics control (PR #337, release candidate)
 
+## 24 November 2026 | Catalogue classification candidate
+
+- PR #339 merged at `bececf67103ca8f738833315734c1a99600fc912`; Vercel production `dpl_HRgTLTYNWqw562fBrRn74XzFcP7N` READY, www.avuqo.com alias verified. Runtime feed coverage not yet measured.
+- New branch `feature/catalogue-classification-20261124`: product-specific source category/path/title rules, ambiguous evidence flagged, canonical department routing for existing supported physical suppliers only. Existing source rights, score, release gates and specialist restrictions unchanged. Candidate pending CI and production verification. All historic records retained.
+
+
 ## 24 November 2026 | Full catalogue enrichment (PR #339 candidate)
 
 - Every authorised product, not just sales; retain source descriptions, images, attributes, separate promotion evidence, and rotate exact authenticated SKU rechecks. Existing rights, independent scores and release controls unchanged.
