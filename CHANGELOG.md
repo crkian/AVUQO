@@ -1397,3 +1397,13 @@ Versions below refer to the Next.js application in `package.json`, not historica
 - Database privilege and empty-table state verified; review function behavior and application tests not yet executed. No new products published; corrected production build not yet verified.
 - Remaining: Verify corrected production build and runtime; verify signed-in register; Implement authenticated owner gateway and safe product activation; Run positive and negative database transaction tests and shopping regression tests; Verify authenticated feed repair, retailer inventory rotation and exact tyre fitment; Integrate canonical product detail, categories, retailer filters and collections.
 - Mandatory register: https://www.avuqo.com/control-centre/development-register.
+
+
+## 24 November 2026 | Owner shopping review and freshness checkpoint
+
+- Recovery build `5ed9aedf4b753669cdac3722b457ef3320ebcaa5` Vercel READY; runtime not independently verified.
+- Live SQL: 3,199 active offers; 124 explicit currency/digest rows; zero initial fresh digest candidates.
+- Owner review RPC gateway using verified auth.uid and database owner role, private definer and invoker wrapper; migration candidate only; Owner-only review and withdrawal workspace; Live initial readiness counts and workspace link in Development Register.
+- No fresh digest candidates observed, no real approval or publication made. Gateway migration not yet applied; production runtime unverified.
+- Remaining: Apply and verify gateway migration and negative authorization tests; Run positive review and withdrawal tests with real fresh evidence; Safe product activation and automation; keep publication disabled until acceptance; Repair authenticated feed freshness and inventory rotation, tyre comparison, full category and collection integrations; Verify live routes and signed-in register.
+- Seventh checkpoint: https://www.avuqo.com/control-centre/development-register.

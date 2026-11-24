@@ -4248,5 +4248,34 @@
     ],
     "register": "https://www.avuqo.com/control-centre/development-register",
     "limitations": "Database privilege and empty-table state verified; review function behavior and application tests not yet executed. No new products published; corrected production build not yet verified."
+  },
+  "owner_shopping_gateway_checkpoint_20261124": {
+    "date_utc": "2026-11-24",
+    "status": "partial",
+    "target": "main",
+    "production_build": {
+      "sha": "5ed9aedf4b753669cdac3722b457ef3320ebcaa5",
+      "deployment": "dpl_8F8CYyKCSCwnDCyjHzaShEK1xgB5",
+      "state": "READY",
+      "runtime": "Not independently smoke-tested or owner-authenticated"
+    },
+    "observations": {
+      "active_offers": 3199,
+      "explicit_currency_and_digest": 124,
+      "initial_fresh_digest_candidates": 0
+    },
+    "changes": [
+      "Owner review RPC gateway using verified auth.uid and database owner role, private definer and invoker wrapper; migration candidate only",
+      "Owner-only review and withdrawal workspace",
+      "Live initial readiness counts and workspace link in Development Register"
+    ],
+    "remaining": [
+      "Apply and verify gateway migration and negative authorization tests",
+      "Run positive review and withdrawal tests with real fresh evidence",
+      "Safe product activation and automation; keep publication disabled until acceptance",
+      "Repair authenticated feed freshness and inventory rotation, tyre comparison, full category and collection integrations",
+      "Verify live routes and signed-in register"
+    ],
+    "limitations": "No fresh digest candidates observed, no real approval or publication made. Gateway migration not yet applied; production runtime unverified."
   }
 }
