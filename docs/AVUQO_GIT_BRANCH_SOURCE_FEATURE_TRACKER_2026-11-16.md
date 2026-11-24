@@ -1,5 +1,11 @@
 ## 21 November 2026 | Search discoverability, verified product schema and analytics control (PR #337, release candidate)
 
+## 24 November 2026 | Full catalogue enrichment (PR #339 candidate)
+
+- Every authorised product, not just sales; retain source descriptions, images, attributes, separate promotion evidence, and rotate exact authenticated SKU rechecks. Existing rights, independent scores and release controls unchanged.
+- Candidate only: full CI, query behaviour, supplier coverage and production release still require verification. See `docs/AVUQO_FULL_CATALOGUE_ENRICHMENT_2026-11-24.md`. All earlier records preserved.
+
+
 ## 21 November 2026 | VERIFIED PRODUCTION DEPLOYMENT: search discoverability and analytics readiness (PR #337)
 
 - **Merged:** PR #337 https://github.com/crkian/AVUQO/pull/337 squash commit `5bc57b908f4daad2d8a53c0f4bc18479719d8ae5`. Exact reviewed head `7c08689feccbfafc9d003f5473f4c36fd9cb4647` passed GitHub Build, Lint/full regressions, native PostgreSQL synthetic concurrency and committed-secret prevention. Release included updated continuity tests rather than deleting historical records.
