@@ -1521,7 +1521,7 @@
       },
       "candidate": {
         "branch": "main",
-        "sha": "6e9ac0dfb13dbeb476d0c9a8894da70678e0b5e5",
+        "sha": "71e890e7d8208cf83c96ee53bb71579615f67012",
         "status": "partial",
         "changes": [
           "Disabled shopping approval ledger migration",
@@ -1546,14 +1546,18 @@
           "Refresh currency provenance from exact current authenticated normalized feed, not old metadata",
           "Clear revoked image permission and replace old gallery on recheck",
           "Report private_batch_rejected in portfolio diagnostics",
-          "Three regression cases authored; not yet executed"
+          "Three regression cases authored; not yet executed",
+          "Reconciled applied portfolio journal constraint migration in main",
+          "Live portfolio attempts and pending feed totals added to owner register",
+          "Categorical portfolio failure diagnostics including exact upstream HTTP codes; no private provider content logged",
+          "Three regression cases added"
         ],
         "remaining": [
-          "Confirm production build and actual next importer results; no HTTP 406 repair claimed",
-          "Acquire explicit GBP evidence for Tooled Up and Petlibro; do not infer public currency",
-          "Owner gateway positive/negative functional tests and safe product activation",
-          "Independent automatic publication and integration with product, category, retailer and collection journeys",
-          "Full inventory rotation, tyre fitment and explicit GBP comparison"
+          "Verify real post-repair scheduled portfolio execution and retailer counts",
+          "Resolve authenticated upstream 406 and explicit GBP evidence; no inferred currency",
+          "Test owner approval and withdrawal, implement safe activation and automatic independent shopping admission",
+          "Expand retailer inventory coverage, categories, collections and tyres",
+          "Verify production runtime and signed-in register"
         ]
       },
       "ordered_build_queue": [
@@ -5602,5 +5606,43 @@
       "Full inventory rotation, tyre fitment and explicit GBP comparison"
     ],
     "limitations": "Root cause contract mismatch verified from production SQL and importer code; individual historical errors were generic and exact cause not logged. No actual post-fix importer run yet. No additional public offers; shopping switch stays disabled."
+  },
+  "portfolio_rotation_reconciliation_20261124": {
+    "date_utc": "2026-11-24",
+    "target": "main",
+    "status": "partial",
+    "prior_main_sha": "71e890e7d8208cf83c96ee53bb71579615f67012",
+    "production_build": {
+      "sha": "71e890e7d8208cf83c96ee53bb71579615f67012",
+      "deployment": "dpl_DDdfaWk6LLGvHWHoUxs3YP9zdTxY",
+      "state": "READY",
+      "runtime": "Not independently smoke-tested"
+    },
+    "migration": {
+      "version": "20261124195049",
+      "name": "allow_audited_awin_portfolio_rotation",
+      "applied": true,
+      "live_constraint_verified": true
+    },
+    "observations": {
+      "feed_observations": 76,
+      "pending_feed_observations": 64,
+      "portfolio_attempts": 0,
+      "fresh_explicit_gbp_digest_candidates": 0
+    },
+    "changes": [
+      "Reconciled applied portfolio journal constraint migration in main",
+      "Live portfolio attempts and pending feed totals added to owner register",
+      "Categorical portfolio failure diagnostics including exact upstream HTTP codes; no private provider content logged",
+      "Three regression cases added"
+    ],
+    "remaining": [
+      "Verify real post-repair scheduled portfolio execution and retailer counts",
+      "Resolve authenticated upstream 406 and explicit GBP evidence; no inferred currency",
+      "Test owner approval and withdrawal, implement safe activation and automatic independent shopping admission",
+      "Expand retailer inventory coverage, categories, collections and tyres",
+      "Verify production runtime and signed-in register"
+    ],
+    "limitations": "Migration constraint verified; no portfolio execution observed at inspection. Tests authored, not executed. No new shopping offers approved; publication not enabled. Master PDF directly extracted; operating principles checked."
   }
 }

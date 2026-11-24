@@ -1200,3 +1200,13 @@ Each item is **OPEN** unless an explicit completed/verified statement above says
 - Root cause contract mismatch verified from production SQL and importer code; individual historical errors were generic and exact cause not logged. No actual post-fix importer run yet. No additional public offers; shopping switch stays disabled.
 - Next: Confirm production build and actual next importer results; no HTTP 406 repair claimed; Acquire explicit GBP evidence for Tooled Up and Petlibro; do not infer public currency; Owner gateway positive/negative functional tests and safe product activation; Independent automatic publication and integration with product, category, retailer and collection journeys; Full inventory rotation, tyre fitment and explicit GBP comparison.
 - Seventh checkpoint: https://www.avuqo.com/control-centre/development-register.
+
+
+## 24 November 2026 | Portfolio rotation repair reconciliation
+
+- Production importer build `71e890e7d8208cf83c96ee53bb71579615f67012` READY.
+- Live migration `20261124195049` verified in migration history and constraint. 76 feed observations, 64 pending, zero recorded portfolio attempts and zero initial fresh explicit GBP digest candidates at inspection.
+- Reconciled applied portfolio journal constraint migration in main; Live portfolio attempts and pending feed totals added to owner register; Categorical portfolio failure diagnostics including exact upstream HTTP codes; no private provider content logged; Three regression cases added.
+- Migration constraint verified; no portfolio execution observed at inspection. Tests authored, not executed. No new shopping offers approved; publication not enabled. Master PDF directly extracted; operating principles checked.
+- Next: Verify real post-repair scheduled portfolio execution and retailer counts; Resolve authenticated upstream 406 and explicit GBP evidence; no inferred currency; Test owner approval and withdrawal, implement safe activation and automatic independent shopping admission; Expand retailer inventory coverage, categories, collections and tyres; Verify production runtime and signed-in register.
+- Seventh checkpoint: https://www.avuqo.com/control-centre/development-register.

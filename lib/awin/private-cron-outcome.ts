@@ -15,6 +15,12 @@ const SUCCESS_CODES=new Set([
  "private_rotation_checked","no_current_supported_retail_feeds",
  "already_running"
 ]);
+const PORTFOLIO_ERRORS=new Set([
+ "private_batch_rejected","feed_preflight_failed","feed_format_unsupported",
+ "awin_product_download_failed","feed_inventory_binding_missing",
+ "exact_live_recheck_failed","awin_feed_credentials_unavailable",
+ "accepted_membership_missing","import_validation_or_provider_failure"
+]);
 const FAILURES:Record<string,string>={
  "Awin feed credentials not configured":"credentials",
  "Awin credentials unavailable":"credentials",
@@ -113,6 +119,13 @@ export function safePrivateCronOutcome(httpStatus:number,responseBody:unknown):{
  const data=record(responseBody);
  if(httpStatus<200||httpStatus>=400){
   const reported=typeof data?.status==="string"?data.status:"";
+  if(reported==="private_rotation_failed"){
+   const code=typeof data?.importer_error==="string"?data.importer_error:"";
+   const kind=typeof data?.failure_kind==="string"?data.failure_kind:"";
+   if(code==="awin_product_download_failed"&&/^upstream_http_[45][0-9]{2}$/.test(kind))
+    return {state:"rejected",code:"portfolio_"+kind};
+   return {state:"rejected",code:PORTFOLIO_ERRORS.has(code)?"portfolio_"+code:"portfolio_import_failed"};
+  }
   if(SAFE_COHORT_FAILURES.has(reported))
    return {state:"rejected",code:reported};
   const error=typeof data?.error==="string"?data.error:"";
