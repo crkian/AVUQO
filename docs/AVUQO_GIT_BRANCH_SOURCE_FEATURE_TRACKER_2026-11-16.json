@@ -1,4 +1,19 @@
 {
+  "development_register_expansion_20261124": {
+    "status": "candidate",
+    "route": "/control-centre/development-register",
+    "detail_features": 92,
+    "provider_pipeline_entries": 21,
+    "owner_design_direction": [
+      "Very",
+      "Amazon",
+      "Freemans"
+    ],
+    "supplier_roster": 21,
+    "source_registry": "request-time safe fields",
+    "feed_observations": "request-time up to 1000 records",
+    "limitations": "Proposed dropship providers not verified or contacted; no orders or credentials activated. Detailed feature statuses require parity and runtime review. Branch snapshot remains dated; no continuous Git sync. CI and production acceptance pending."
+  },
   "development_register_20261124": {
     "status": "candidate",
     "route": "/control-centre/development-register",
