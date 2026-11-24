@@ -1,5 +1,12 @@
 ## 21 November 2026 | Search discoverability, verified product schema and analytics control (PR #337, release candidate)
 
+## 24 November 2026 | Development register expanded
+
+- Added 92 detailed acceptance items across 12 programmes and 21 provider/feed pipeline entries to the existing master JSON development_register. Very, Amazon and Freemans are owner-selected experience benchmarks, not evidence of commercial relationships or permission to copy branding.
+- Owner-only page now renders the detailed roadmap, current source registry safe fields, all 21 existing accepted Awin programme records and observed feed counts (bounded to 1000), and proposed dropship/direct supplier candidates. Affiliate referral and merchant-of-record fulfilment are distinct models. No new supplier connection, checkout or order routing activated.
+- Detailed status remains unknown until implementation and runtime evidence are reconciled. Proposed suppliers require current terms verification, not assumed account access. Branch snapshot remains dated. CI, authenticated browser and production verification pending. Update master JSON and all six cumulative registers together.
+
+
 ## 24 November 2026 | Development & Intelligence Register candidate
 
 - Owner-only `/control-centre/development-register` linked from Start Here and dashboard. Directly reads master JSON development_register and original feature tracker; explicit catalogue priorities, traffic-light evidence, 40 observed Git refs, 37 feature requirements, 14 source references and 27 operational priorities. Includes original design, supplier and analytics workspace links. No new database or public endpoint.
