@@ -1653,6 +1653,26 @@
         }
       ],
       "release_policy": "No unnecessary branches; use existing work; each release requires tests, exact production deployment evidence, runtime checks and six synchronized handovers. Do not mark unknown requirements complete."
+    },
+    "maintenance_requirement": {
+      "url": "https://www.avuqo.com/control-centre/development-register",
+      "required_after_each_build": true,
+      "alongside_six_cumulative_handovers": true,
+      "status_rules": {
+        "green": "Production deployed and functionally verified",
+        "amber": "Partial, candidate, committed or testing",
+        "red": "Blocked or outstanding",
+        "grey": "Unknown or not assessed"
+      },
+      "required_evidence": [
+        "ordered phase and next action",
+        "branch and commit",
+        "database migrations",
+        "test results",
+        "deployment and runtime verification",
+        "retailer inventory and tyre progress",
+        "blockers and dependencies"
+      ]
     }
   },
   "catalogue_candidate_ci_20261124": {
