@@ -1171,3 +1171,12 @@ Each item is **OPEN** unless an explicit completed/verified statement above says
 - Shopping switch remains disabled/missing in production; no new ordinary offers claimed live. No full cross-retailer matching, owner gateway, or migrations applied. Source branch is historical; no new branch created.
 - Outstanding: Confirm main commit and production deployment; test owner register; Apply and rehearse separate shopping migrations and permissions; Implement authenticated owner gateway and product activation, verify feed and real approved stock; Integrate ordinary offers with canonical product detail, retailer and category filters, collections and full search; Resolve authenticated Awin HTTP406 and full inventory rotation; tyres fitment and GBP evidence; Execute regression tests and production functional acceptance.
 - Seventh checkpoint: https://www.avuqo.com/control-centre/development-register.
+
+
+## 24 November 2026 | Production rendering recovery and database verification
+
+- Failed production deployment `dpl_9jW15gXTHa8bPMjhEPQobRMyTwM1` at `e5a73221a789ec754bc1249353997f47b2d087ac`: Compilation and TypeScript passed; /shop/retail prerender failed because request-time connection() was outside Suspense. Fix: both retail routes explicitly opt out of instant prerender, matching existing product detail route; preserve pre-stream redirect/404.
+- Both independent shopping migrations applied. Live SQL confirmed both tables empty, publication disabled, RLS enabled, service-role read only on review table, and anon/authenticated/service-role denied review-function execution.
+- Database privilege and empty-table state verified; review function behavior and application tests not yet executed. No new products published; corrected production build not yet verified.
+- Remaining: Verify corrected production build and runtime; verify signed-in register; Implement authenticated owner gateway and safe product activation; Run positive and negative database transaction tests and shopping regression tests; Verify authenticated feed repair, retailer inventory rotation and exact tyre fitment; Integrate canonical product detail, categories, retailer filters and collections.
+- Mandatory register: https://www.avuqo.com/control-centre/development-register.

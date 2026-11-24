@@ -4216,5 +4216,37 @@
       "Execute regression tests and production functional acceptance"
     ],
     "limitations": "Shopping switch remains disabled/missing in production; no new ordinary offers claimed live. No full cross-retailer matching, owner gateway, or migrations applied. Source branch is historical; no new branch created."
+  },
+  "production_render_recovery_20261124": {
+    "date_utc": "2026-11-24",
+    "target": "main",
+    "prior_main_sha": "e5a73221a789ec754bc1249353997f47b2d087ac",
+    "status": "partial",
+    "failed_deployment": "dpl_9jW15gXTHa8bPMjhEPQobRMyTwM1",
+    "build_failure": "Compilation and TypeScript passed; /shop/retail prerender failed because request-time connection() was outside Suspense. Fix: both retail routes explicitly opt out of instant prerender, matching existing product detail route; preserve pre-stream redirect/404.",
+    "database": {
+      "migration_ledger": "applied",
+      "migration_review_audit": "applied",
+      "shopping_publishing": false,
+      "review_rows": 0,
+      "audit_rows": 0,
+      "rls_enabled": true,
+      "service_read": true,
+      "service_insert": false,
+      "anon_read": false,
+      "authenticated_read": false,
+      "service_execute": false,
+      "authenticated_execute": false,
+      "anon_execute": false
+    },
+    "remaining": [
+      "Verify corrected production build and runtime; verify signed-in register",
+      "Implement authenticated owner gateway and safe product activation",
+      "Run positive and negative database transaction tests and shopping regression tests",
+      "Verify authenticated feed repair, retailer inventory rotation and exact tyre fitment",
+      "Integrate canonical product detail, categories, retailer filters and collections"
+    ],
+    "register": "https://www.avuqo.com/control-centre/development-register",
+    "limitations": "Database privilege and empty-table state verified; review function behavior and application tests not yet executed. No new products published; corrected production build not yet verified."
   }
 }

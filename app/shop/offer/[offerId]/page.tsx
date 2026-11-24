@@ -5,6 +5,8 @@ import Header from "../../../../components/layout/Header";
 import Footer from "../../../../components/layout/Footer";
 import {readShoppingReleases} from "../../../../lib/products/shopping-release-reader";
 import styles from "../../page.module.css";
+// Decide eligibility before streaming HTML; no prerendered price or soft 404.
+export const instant = false;
 export const metadata={title:"Verified retail offer | AVUQO",robots:{index:false,follow:true}};
 export default async function OfferDetail({params}:{params:Promise<{offerId:string}>}){
  await connection();

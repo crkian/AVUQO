@@ -5,6 +5,8 @@ import Header from "../../../components/layout/Header";
 import Footer from "../../../components/layout/Footer";
 import {ordinaryShoppingPage,type RetailQuery} from "../../../lib/products/shopping-catalogue";
 import styles from "../page.module.css";
+// Decide eligibility before streaming HTML; no prerendered price or soft 404.
+export const instant = false;
 export const metadata={title:"Verified retail offers | AVUQO",robots:{index:false,follow:true}};
 const money=(n:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(n);
 export default async function RetailShelf({searchParams}:{searchParams:Promise<RetailQuery>}){
