@@ -1,0 +1,7 @@
+# Full catalogue enrichment — 24 November 2026
+
+Status: candidate, not production verified. Owner requires every authorised product, not just sales, full supplier descriptions, all permitted imagery and specifications, intelligent categories, sales/reduction segregation and automatic updates across providers.
+
+This first change removes the 1,800-character description truncation (existing 10,000-character input limit remains), retains allowlisted catalogue and promotion fields privately, expands physical Google/Mozillion projections, and selects least-recently verified eligible rows for bounded 20-SKU exact-digest rechecks instead of always selecting the first eligible rows. The canonical worker receives only the exact rechecked SKU list. Normal-price rows remain reviewable. Raw supplier sale claims are not automatically published; existing rights, identity, score and release controls remain unchanged.
+
+Remaining: prove PostgREST JSON ordering and filters in preview and production, measure coverage and throughput, fix the separate 406 Enhanced API route, add full resumable ingestion for remaining feeds and suppliers, classification, galleries on public product pages, verified sales and promotions, specialist service/tyre adapters, analytics and provider credentials. The 20-SKU cap and 5,000-row pilot limit remain; this is not completion of universal ingestion. Preserve all prior handovers. Run mandatory CI before merge and exact production checks after release.
