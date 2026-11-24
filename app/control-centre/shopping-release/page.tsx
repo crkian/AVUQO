@@ -62,7 +62,7 @@ export default async function Page({searchParams}:{searchParams:Promise<{result?
  const db=createAdminClient(),cutoff=new Date(Date.now()-48*3600_000).toISOString();
  const [candidates,reviews,control]=await Promise.all([
   db.from("offers").select("id,title,price,last_seen_at,raw_data").eq("status","active").eq("currency","GBP")
-   .in("stock_status",["in_stock","low_stock"]).eq("raw_data->>source_currency_explicit","true")
+   .in("stock_status",["in_stock","low_stock"]).or("raw_data->>source_currency_explicit.eq.true,raw_data->>currency_source.in.(tooled_up_uk_GBP_storefront_and_exact_staged_price_match,petlibro_uk_programme_gbp,cadbury_uk_programme_gbp)")
    .gte("last_seen_at",cutoff).order("last_seen_at",{ascending:false}).limit(60),
   db.from("awin_shopping_release_reviews").select("offer_id,status,reviewed_price,updated_at")
    .eq("status","approved").order("updated_at",{ascending:false}).limit(60),
@@ -78,12 +78,12 @@ export default async function Page({searchParams}:{searchParams:Promise<{result?
  <form action={refreshPortfolio}><label>Rotation offset <select name="offset" defaultValue="0">{Array.from({length:9},(_,i)=><option key={i} value={i}>{i===0?"Current scheduled selection":String(i)+" slots ahead"}</option>)}</select></label><button type="submit">Run one retailer refresh</button></form>
  {refresh&&<p role="status">{refresh==="checked"?"Worker completed its bounded refresh. Check the journal and candidate counts; this does not prove new published stock.":refresh==="no_work"?"Worker returned without a completed import. Check the register.":refresh==="busy"?"A recent attempt exists; review the journal before retrying.":refresh==="rejected"?"Worker rejected the import; see the recorded outcome.":"Refresh unavailable or invalid."}</p>}
  <Link href="/control-centre/development-register#portfolio-health">View audited portfolio attempts</Link></section>
- <section className={styles.panel}><h2>Initial review candidates</h2><p>Up to 60 recent active records. Database and public admission checks still apply.</p>
+ <section className={styles.panel}><h2>Initial review candidates</h2><p>Up to 60 recent active GBP records with explicit or recognised UK-feed currency provenance. Exact feed identity, rights and all other admission checks still apply.</p>
  {candidates.error?<p>Candidate query unavailable.</p>:!candidates.data?.length?<p>No initial fresh candidates.</p>:<div className={styles.scroll}><table><thead><tr><th>Offer</th><th>Price / checked</th><th>Review</th></tr></thead><tbody>{candidates.data.map(row=>{
  const raw=row.raw_data&&typeof row.raw_data==="object"?row.raw_data as Record<string,unknown>:{};
  const digest=typeof raw.live_feed_digest==="string"?raw.live_feed_digest:"";
  if(!/^[a-f0-9]{64}$/.test(digest))return null;
- return <tr key={row.id}><td>{row.title}<small>{row.id}</small></td><td>{money(Number(row.price))}<small>{row.last_seen_at}</small></td><td><form action={review}>
+ return <tr key={row.id}><td>{row.title}<small>{row.id}</small></td><td>{money(Number(row.price))}<small>{row.last_seen_at}</small><small>{raw.source_currency_explicit===true?"Explicit GBP": "UK feed basis: "+String(raw.currency_source??"Unknown")}</small></td><td><form action={review}>
  <input type="hidden" name="offerId" value={row.id}/><input type="hidden" name="status" value="approved"/>
  <input type="hidden" name="price" value={row.price}/><input type="hidden" name="digest" value={digest}/>
  <label>Review note <input name="note" maxLength={300}/></label><button type="submit">Record approval</button></form></td></tr>})}</tbody></table></div>}

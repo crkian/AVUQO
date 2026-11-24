@@ -42,3 +42,15 @@ test("publisher attribution and confidence remain mandatory",()=>{
  assert.ok(failures({affiliateUrl:"https://www.awin1.com/pclick.php?m=12345&a=999&p=sku-001"}).includes("publisher_link_invalid"));
  assert.ok(failures({matchConfidence:0.5}).includes("identity_confidence_insufficient"));
 });
+
+test("recognised UK-only retailer feeds accept GBP without pretending it was explicit",()=>{
+ for(const [advertiserId,feedId,currencyBasis] of [
+ ["496","89987","tooled_up_uk_GBP_storefront_and_exact_staged_price_match"],
+ ["77952","103580","petlibro_uk_programme_gbp"],["736","48599","cadbury_uk_programme_gbp"]]){
+ const patch={advertiserId,sourceOfferId:advertiserId+":sku-001",affiliateUrl:"https://www.awin1.com/pclick.php?m="+advertiserId+"&a=3135746&p=sku-001",sourceCurrencyExplicit:false,feedId,currencyBasis};
+ assert.deepEqual(failures(patch),[]);
+ assert.ok(failures({...patch,currency:"EUR"}).includes("explicit_gbp_price_missing"));
+ assert.ok(failures({...patch,feedId:"unknown"}).includes("explicit_gbp_price_missing"));
+ assert.ok(failures({...patch,currencyBasis:"unverified"}).includes("explicit_gbp_price_missing"));
+ }
+});

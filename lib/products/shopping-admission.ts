@@ -2,11 +2,13 @@
  * This pure gate does NOT publish, grant permissions, or override owner review.
  * Callers must independently check source controls and programme rights.
  */
+import {approvedUkFeedCurrency} from "./uk-feed-currency.ts";
 import {ownAffiliateLink} from "../awin/approved-offer-renewal.ts";
 export type ShoppingEvidence={
  advertiserId:string;sourceOfferId:string;sku:string;currency:string;price:number;
  stock:string;lastSeenAt:string;affiliateUrl:string|null;matchConfidence:number;
  feedDigest:string;verifiedAt:string;sourceCurrencyExplicit:boolean;
+ feedId?:string;currencyBasis?:string;
  exactSourceMatch:boolean;sourceRights:boolean;programmeApproved:boolean;
  ownerGrant:boolean;controlsEnabled:boolean;reviewStatus:string|null;
 };
@@ -17,7 +19,7 @@ export function shoppingAdmissionFailures(x:ShoppingEvidence,now=Date.now()):str
  if(!x.ownerGrant||!x.sourceRights||!x.programmeApproved)failures.push("rights_or_owner_grant_missing");
  if(x.reviewStatus!==null&&x.reviewStatus!=="approved")failures.push("review_not_approved");
  if(!/^\d{2,12}$/.test(x.advertiserId)||!x.sku||x.sourceOfferId!==x.advertiserId+":"+x.sku||!x.exactSourceMatch)failures.push("exact_source_identity_missing");
- if(x.currency!=="GBP"||!x.sourceCurrencyExplicit||!Number.isFinite(x.price)||x.price<=0)failures.push("explicit_gbp_price_missing");
+ if(x.currency!=="GBP"||!(x.sourceCurrencyExplicit||approvedUkFeedCurrency(x.advertiserId,x.feedId??"",x.currencyBasis??""))||!Number.isFinite(x.price)||x.price<=0)failures.push("explicit_gbp_price_missing");
  if(!["in_stock","low_stock"].includes(x.stock))failures.push("stock_unverified");
  if(!recent(x.lastSeenAt)||!recent(x.verifiedAt)||!/^[a-f0-9]{64}$/.test(x.feedDigest))failures.push("fresh_authenticated_evidence_missing");
  if(!ownAffiliateLink(x.affiliateUrl,x.advertiserId))failures.push("publisher_link_invalid");

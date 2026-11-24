@@ -1445,3 +1445,13 @@ Versions below refer to the Next.js application in `package.json`, not historica
 - First portfolio run verified; 20 Cadbury private rows rechecked but inferred currency excludes them from ordinary shopping. No additional independently published offers claimed. New history ordering is not an atomic lease; no parallel worker guarantee. Tests authored but not executed.
 - Next: Verify migration and production build; execute regression tests; Observe next per-feed runs and establish explicit GBP for missing currency feeds; Independent automatic shopping approval and canonical activation; test authenticated gateway; Expand full inventories, exact variant matching, tyres and all discovery surfaces.
 - Seventh checkpoint: https://www.avuqo.com/control-centre/development-register.
+
+
+## 24 November 2026 | Owner UK-only GBP policy
+
+- Owner confirms website and suppliers UK-only, GBP only. Approved exact feed currency bases may be used when the currency field is absent; explicit non-GBP remains rejected.
+- Live observation: 980 Tooled Up, 36 Petlibro, 20 Cadbury recent stocked GBP records with known UK feed provenance. Not public counts.
+- Accept exact recognised UK-feed currency provenance alongside explicit GBP; no arbitrary currency inference or conversion; Align transactional review SQL and public release gate; Show currency basis in owner review and preliminary counts; Add regression cases for correct and incorrect UK feed pair and foreign currency.
+- 1,036 preliminary recent stocked records, not approved/public inventory. No publication switch changed. UK-only feed evidence is distinguished from explicit currency, no conversion or acceptance of non-GBP; regression tests not yet run.
+- Next: Verify production migration and frontend deployment; run regression tests; Review eligible products with all other gates; safe automatic approval and activation; Enable shopping publication only after functional acceptance; Expand retailer inventory, categories and tyres.
+- Seventh checkpoint: https://www.avuqo.com/control-centre/development-register.

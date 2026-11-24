@@ -24,6 +24,7 @@ export function shoppingReleaseFailures(input:{
   lastSeenAt:str(o.last_seen_at),affiliateUrl:str(o.affiliate_url)||null,
   matchConfidence:Number(o.match_confidence),feedDigest:digest,verifiedAt:verified,
   sourceCurrencyExplicit:raw.source_currency_explicit===true,
+  feedId:str(raw.feed_id),currencyBasis:raw.source_currency_explicit===false?str(raw.currency_source):"",
   exactSourceMatch:exact,
   sourceRights:s.connector_key==="awin"&&meta.publication_permission==="verified"&&
    meta.price_evidence_status==="verified"&&sourceIngestionFailures(s,{

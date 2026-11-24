@@ -1521,7 +1521,7 @@
       },
       "candidate": {
         "branch": "main",
-        "sha": "376539d8bad3275d88c911c905383ea8134a3750",
+        "sha": "2ef659951cdf9b3f4ed759be2458d4a6b7446d71",
         "status": "partial",
         "changes": [
           "Disabled shopping approval ledger migration",
@@ -1558,13 +1558,17 @@
           "Durable least-recently-attempted feed order across eligible portfolio",
           "Per-attempt advertiser/feed binding before download, verified-row and canonical counts",
           "Owner register shows actual feed identity and counts",
-          "Three selection regression tests added"
+          "Three selection regression tests added",
+          "Accept exact recognised UK-feed currency provenance alongside explicit GBP; no arbitrary currency inference or conversion",
+          "Align transactional review SQL and public release gate",
+          "Show currency basis in owner review and preliminary counts",
+          "Add regression cases for correct and incorrect UK feed pair and foreign currency"
         ],
         "remaining": [
-          "Verify migration and production build; execute regression tests",
-          "Observe next per-feed runs and establish explicit GBP for missing currency feeds",
-          "Independent automatic shopping approval and canonical activation; test authenticated gateway",
-          "Expand full inventories, exact variant matching, tyres and all discovery surfaces"
+          "Verify production migration and frontend deployment; run regression tests",
+          "Review eligible products with all other gates; safe automatic approval and activation",
+          "Enable shopping publication only after functional acceptance",
+          "Expand retailer inventory, categories and tyres"
         ]
       },
       "ordered_build_queue": [
@@ -5710,5 +5714,35 @@
       "Expand full inventories, exact variant matching, tyres and all discovery surfaces"
     ],
     "limitations": "First portfolio run verified; 20 Cadbury private rows rechecked but inferred currency excludes them from ordinary shopping. No additional independently published offers claimed. New history ordering is not an atomic lease; no parallel worker guarantee. Tests authored but not executed."
+  },
+  "uk_only_gbp_policy_20261124": {
+    "date_utc": "2026-11-24",
+    "status": "partial",
+    "target": "main",
+    "owner_policy": "UK-only platform and UK-based suppliers; GBP only, confirmed by owner in conversation 2026-11-24",
+    "previous_production": {
+      "sha": "2ef659951cdf9b3f4ed759be2458d4a6b7446d71",
+      "deployment": "dpl_H3byEaaH1JWWeWmR6s9rVsfGFESW",
+      "state": "READY"
+    },
+    "observations": {
+      "recent_stock_with_known_uk_feed_currency_basis": 1036,
+      "tooled_up": 980,
+      "petlibro": 36,
+      "cadbury": 20
+    },
+    "changes": [
+      "Accept exact recognised UK-feed currency provenance alongside explicit GBP; no arbitrary currency inference or conversion",
+      "Align transactional review SQL and public release gate",
+      "Show currency basis in owner review and preliminary counts",
+      "Add regression cases for correct and incorrect UK feed pair and foreign currency"
+    ],
+    "remaining": [
+      "Verify production migration and frontend deployment; run regression tests",
+      "Review eligible products with all other gates; safe automatic approval and activation",
+      "Enable shopping publication only after functional acceptance",
+      "Expand retailer inventory, categories and tyres"
+    ],
+    "limitations": "1,036 preliminary recent stocked records, not approved/public inventory. No publication switch changed. UK-only feed evidence is distinguished from explicit currency, no conversion or acceptance of non-GBP; regression tests not yet run."
   }
 }
