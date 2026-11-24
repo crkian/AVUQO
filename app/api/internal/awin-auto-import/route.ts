@@ -43,7 +43,7 @@ async function privateStagingAllowed(db:ReturnType<typeof createAdminClient>){
 /** A fresh authenticated download matched an ALREADY completed immutable
  * feed digest. Record a new observation ONLY for exact, unchanged GBP/stocked
  * product rows and VERIFIED own-publisher links; never rewrite created_at,
- * historic price, approval or image rights. Bounded to the first 20 items.
+ * historic price or approval. Recheck the least recently verified eligible rows.
  */
 async function attestUnchangedLiveRows(
  db:ReturnType<typeof createAdminClient>,runId:string,advertiser:string,
@@ -59,10 +59,12 @@ async function attestUnchangedLiveRows(
   // A feed may begin with review rows that lack confirmed stock/link. Inspect
   // a bounded wider window to find up to 20 exact eligible rechecks instead
   // of starving the bridge on the first 20 arbitrary stored rows.
-  .is("reviewed_at",null).limit(300);
+  .is("reviewed_at",null)
+   .order("metadata->>live_feed_verified_at",{ascending:true,nullsFirst:true})
+   .order("merchant_product_id",{ascending:true}).limit(300);
  if(error)throw Error("live_recheck_private_rows_unavailable");
  const now=new Date().toISOString();
- let verified=0;
+ const verifiedSkus:string[]=[];
  for(const old of stored??[]){
   const cells=originals.get(old.merchant_product_id);
   if(!cells)continue;
@@ -101,11 +103,11 @@ async function attestUnchangedLiveRows(
    .eq("price",next.price).eq("currency","GBP")
    .is("reviewed_at",null).select("id").maybeSingle();
   if(updateError)throw Error("live_recheck_private_update_failed");
-  if(changed?.id)verified++;
-  if(verified>=20)break;
+  if(changed?.id)verifiedSkus.push(old.merchant_product_id);
+   if(verifiedSkus.length>=20)break;
  }
- return verified;
-}
+ return verifiedSkus;
+ }
 
 async function boundedResponse(response:Response,max:number){
  if(!response.ok)throw Error("upstream_http_"+response.status);
@@ -377,12 +379,12 @@ export async function POST(request:NextRequest){
  if(session.source_digest!==digest)return reply({error:"Resume fingerprint mismatch"},409);
  if(session.completed_at&&session.committed_count===rows.length){
   try{
-   const verified=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages,ownerApprovedDescriptions);
-   const canonical=verified>0?await stageLiveAwinCanonicalCandidates(db,{
-    importId:runId,advertiser,feed,digest,limit:20
+   const verifiedSkus=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages,ownerApprovedDescriptions);
+   const canonical=verifiedSkus.length>0?await stageLiveAwinCanonicalCandidates(db,{
+    importId:runId,advertiser,feed,digest,limit:20,merchantProductIds:verifiedSkus
    }):{status:"no_fresh_exact_feed_rows",eligible:0,canonicalAccepted:0,canonicalRejected:0};
    return reply({status:"already_staged",advertiser_id:advertiser,feed_id:feed,
-    records:rows.length,live_verified_rows:verified,canonical,private_only:true,no_publication:true});
+    records:rows.length,live_verified_rows:verifiedSkus.length,canonical,private_only:true,no_publication:true});
   }catch{return reply({error:"Exact live feed recheck could not be recorded",private_only:true},503);}
  }
  if(session.completed_at||run.status!=="importing"||run.permission_status!=="unverified")
@@ -411,12 +413,12 @@ export async function POST(request:NextRequest){
    const {data:latest}=await loadSession();
    if(latest?.completed_at&&latest.source_digest===digest&&latest.committed_count===rows.length){
     try{
-     const verified=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages,ownerApprovedDescriptions);
-     const canonical=verified>0?await stageLiveAwinCanonicalCandidates(db,{
-      importId:runId,advertiser,feed,digest,limit:20
+     const verifiedSkus=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages,ownerApprovedDescriptions);
+     const canonical=verifiedSkus.length>0?await stageLiveAwinCanonicalCandidates(db,{
+      importId:runId,advertiser,feed,digest,limit:20,merchantProductIds:verifiedSkus
      }):{status:"no_fresh_exact_feed_rows",eligible:0,canonicalAccepted:0,canonicalRejected:0};
      return reply({status:"already_staged",advertiser_id:advertiser,feed_id:feed,
-      records:rows.length,live_verified_rows:verified,canonical,private_only:true,no_publication:true});
+      records:rows.length,live_verified_rows:verifiedSkus.length,canonical,private_only:true,no_publication:true});
     }catch{return reply({error:"Exact live feed retry evidence unavailable",private_only:true},503);}
    }
    return reply({error:"Private batch rejected",saved_records:committed,run_id:runId,private_only:true},503);
@@ -429,20 +431,20 @@ export async function POST(request:NextRequest){
  if(finishError)return reply({error:"Private import finish failed",run_id:runId},503);
  // The authenticated, exact same feed digest is rechecked after commit.
  // Only rechecked rows may enter the EXISTING scoring pipeline as draft/held.
- let verified=0;
- let canonical:{status:string;eligible:number;canonicalAccepted:number;canonicalRejected:number}={
+ let verifiedSkus:string[]=[];
+  let canonical:{status:string;eligible:number;canonicalAccepted:number;canonicalRejected:number}={
   status:"no_fresh_exact_feed_rows",eligible:0,canonicalAccepted:0,canonicalRejected:0
  };
  try{
-  verified=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages,ownerApprovedDescriptions);
-  if(verified>0)canonical=await stageLiveAwinCanonicalCandidates(db,{
-   importId:runId,advertiser,feed,digest,limit:20
+  verifiedSkus=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages,ownerApprovedDescriptions);
+  if(verifiedSkus.length>0)canonical=await stageLiveAwinCanonicalCandidates(db,{
+   importId:runId,advertiser,feed,digest,limit:20,merchantProductIds:verifiedSkus
   });
  }catch{canonical={status:"canonical_private_staging_unavailable",eligible:0,
   canonicalAccepted:0,canonicalRejected:0};}
  return reply({status:"private_review",advertiser_id:advertiser,feed_id:feed,
   run_id:runId,records:rows.length,review:finish?.review,excluded:finish?.excluded,
-  live_verified_rows:verified,canonical,private_only:true,no_publication:true,
+  live_verified_rows:verifiedSkus.length,canonical,private_only:true,no_publication:true,
   source_remains_paused:true});
 }
  
