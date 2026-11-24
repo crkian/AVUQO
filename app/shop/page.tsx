@@ -5,6 +5,7 @@ import type {Metadata} from "next";
 import {ArrowLeft,ArrowRight,CheckCircle2,Clock3,PackageSearch,Search,ShieldCheck,SlidersHorizontal,Store,Truck} from "lucide-react";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
+import {shoppingCatalogueEnabled} from "../../lib/products/shopping-catalogue";
 import {verifiedShopPage} from "../../lib/products/shop-discovery";
 import {SHOP_PAGE_SIZE,SHOP_SORTS,shopHref,type ShopQuery} from "../../lib/products/shop-filters";
 import {cardDescription} from "../../lib/products/listing-description";
@@ -18,7 +19,7 @@ export const metadata:Metadata={
 const money=(n:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(n);
 async function ShopResults({searchParams}:{searchParams:Promise<ShopQuery>}){
  await connection();
- const data=await verifiedShopPage(await searchParams);
+ const [data,ordinaryShoppingEnabled]=await Promise.all([verifiedShopPage(await searchParams),shoppingCatalogueEnabled()]);
  const {filters,products,merchants,categories,shownOfferCount,candidateCount}=data;
  return <main className={styles.page}>
   <section className={styles.hero}><div className="shell">
@@ -26,7 +27,7 @@ async function ShopResults({searchParams}:{searchParams:Promise<ShopQuery>}){
    <p className={styles.eyebrow}><ShieldCheck size={16}/> AVUQO source-verified retailer shopping</p>
    <h1>More real products.<br/><span>More ways to find your fit.</span></h1>
    <p>Browse the larger AVUQO retailer catalogue, not just the homepage&apos;s featured selection. Every displayed price still passes the existing live source, stock, identity, publisher-link and owner-release checks.</p>
-   <div className={styles.heroActions}><Link href="/products">Product guides <ArrowRight size={16}/></Link><Link href="/partners">All retailers <Store size={16}/></Link><Link href="/categories">25 departments <ArrowRight size={16}/></Link></div>
+   <div className={styles.heroActions}>{ordinaryShoppingEnabled&&<Link href="/shop/retail">All verified retail offers <ArrowRight size={16}/></Link>}<Link href="/products">Product guides <ArrowRight size={16}/></Link><Link href="/partners">All retailers <Store size={16}/></Link><Link href="/categories">25 departments <ArrowRight size={16}/></Link></div>
   </div></section>
   <div className={"shell "+styles.content}>
    <form method="get" action="/shop" className={styles.controls} role="search" aria-label="Filter source-verified products">

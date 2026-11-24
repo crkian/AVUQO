@@ -1327,3 +1327,50 @@ Read `AGENTS.md`, this status page and `CHANGELOG.md` from `crkian/AVUQO` using 
 - PR #159 merged to main at `58355149ef69e82924a00c6866b0859a7483234a`; Vercel READY `dpl_GVkTsnRpkWTc2p79DwUXD4EvhUEX`, `www.avuqo.com` / `avuqo.com` aliases.
 - Real `https://www.avuqo.com/explore-avuqo` status 200, expected heading, matching deployment ID. Homepage and sitemap also status 200, both link the tour. CI build/lint/security passed; screenshot visual acceptance remains pending.
 - No supplier rights, product price, database, marketing automation or Control Centre authentication changes. Continue live-first customer design and private automation separately.
+
+
+## 24 November 2026 | Continuation checkpoint (candidate, not production)
+
+- Connected GitHub, Vercel and Supabase were queried directly. Main remains bfd496be56d7b27830384374dc63ada5b4b0276c at this audit; branch `feature/universal-catalogue-foundations-20261124` is the existing release candidate and differs from main. Do not merge without reconciliation.
+- Added explicit rendering of the 16-phase ordered major-build queue and recorded production/candidate checkpoint to the existing owner Development & Intelligence Register (`app/control-centre/development-register/page.tsx`).
+- Added `tests/shopping-admission.test.mjs` covering independent shopping eligibility rejection rules. Tests have been committed, but automated execution results have not yet been verified.
+- Fresh read-only Supabase counts: 84,779 products, four with nonempty descriptions, 3,199 active offers and 64 feed observations requiring private refresh. Counts do not establish public eligibility or source rights.
+- Vercel production build for the main documentation update bfd496b was canceled; the last confirmed READY production application deployment is dpl_7GkKYH3reYBcwzyrohkLQCHKD8ft at 82622ac8c8168816bc57add41708e8e489acd004. Candidate preview builds are not public production confirmation.
+- Outstanding release gates: authenticated Awin HTTP 406 repair, end-to-end shopping admission and distinct inventory coverage, CI/build checks, reconciliation with main, deployment, signed-in owner browser acceptance and all retail page journeys. Do not mark those completed.
+
+
+## 24 November 2026 | Independent shopping release foundation checkpoint
+
+- Disabled shopping approval ledger migration
+- Independent release evidence checks
+- Restored main's 16-phase ordered queue and checkpoint to candidate
+- Bounded server-only reader for specified offer IDs
+- 15 release-evidence regression cases added; execution not verified
+- Implementation checkpoint: `22a7fd6a3471b4b47fdc30c6272b9b70e86801a1` (before documentation commits).
+- Commit references: ledger `e297692a4c49f06bd1f1d8bd81ec5eb7716f40e4`; evidence `e09210e8acdba939140fc13c27d4f4e395843405`; queue_reconciliation `c1cec61af2f80dfdce321265b946389ac3cda362`; reader `ee9889bf62aaff8356153790dd6943242cf134ec`; tests `22a7fd6a3471b4b47fdc30c6272b9b70e86801a1`.
+- No new products published; migration not applied; reader not wired into public routes; tests authored but not verified. SHA records implementation checkpoint before documentation commits.
+- Remaining: Secure owner approval writer and audit trail; Migration rehearsal and privileges tests; Integrate shopping reader with discovery, product detail, retailer, search, collections and outbound routing; Authenticated Awin HTTP 406 repair; Run automated tests and CI, reconcile Git history, deploy and verify.
+
+
+## 24 November 2026 | Shopping owner review checkpoint
+
+- Separate transactional shopping owner review function and audit table committed
+- Restricted invoker-only execution; no API role may execute
+- Existing deal release function untouched
+- Candidate implementation SHA: `81948af2733844c5e02b729179909003cff59620`.
+- No migration applied; no tests executed; no new public stock; no live deployment. Owner gateway absent; reader additionally verifies rights and affiliate link. Master PDF parsed content unavailable.
+- Next: Rehearse both shopping migrations and privilege tests; Implement authenticated owner gateway, safe product activation and automation; Wire reader into shopping discovery, product pages, retailer storefronts, collections and outbound routes; Verify authenticated Awin HTTP406 repair, expand inventories and tyres; Run CI, reconcile main, deploy and verify production and live development register.
+- Mandatory seventh checkpoint: https://www.avuqo.com/control-centre/development-register (candidate JSON updated; live page not verified).
+
+
+## 24 November 2026 | Main consolidation and gated retail shelf
+
+- Consolidate existing shopping foundations into main, preserving main history
+- Ordinary retail shelf with title search, price sorting and pagination
+- Exact offer detail route and independently revalidated outbound links
+- Shop navigation link gated by shopping publication control
+- Master PDF direct extraction recovered: automated operation, complete visibility, human override, evidence before commission
+- Source checkpoint `e6508e51a23aab770efb13cb2e0898fa30a275e3`; PR #341; exact new commit determined by Git after this atomic checkpoint.
+- Shopping switch remains disabled/missing in production; no new ordinary offers claimed live. No full cross-retailer matching, owner gateway, or migrations applied. Source branch is historical; no new branch created.
+- Outstanding: Confirm main commit and production deployment; test owner register; Apply and rehearse separate shopping migrations and permissions; Implement authenticated owner gateway and product activation, verify feed and real approved stock; Integrate ordinary offers with canonical product detail, retailer and category filters, collections and full search; Resolve authenticated Awin HTTP406 and full inventory rotation; tyres fitment and GBP evidence; Execute regression tests and production functional acceptance.
+- Seventh checkpoint: https://www.avuqo.com/control-centre/development-register.

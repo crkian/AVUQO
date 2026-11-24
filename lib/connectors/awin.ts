@@ -50,10 +50,12 @@ function normalizeAvailability(input: string | null) {
 
 function toOffer(record: Record<string, unknown>, lineNumber: number): RawSourceOffer | null {
   const title = text(record, ["title", "product_name", "name"]);
-  const price = money(record, ["sale_price", "price", "search_price", "store_price"]);
-  const sourceRecordId = text(record, ["id", "offer_id", "aw_product_id", "merchant_product_id", "item_group_id"]);
+  const price = money(record, ["price", "search_price", "store_price"]);
+  const sourceRecordId = text(record, ["id", "offer_id", "aw_product_id", "merchant_product_id"]);
 
-  if (!title || price === null || price < 0 || !sourceRecordId) return null;
+  const nestedPrice=record.price;
+  const currency=text(record,["currency","price_currency"])??(nestedPrice&&typeof nestedPrice==="object"?text(nestedPrice as Record<string,unknown>,["currency","currency_code"]):null);
+  if (!title || price === null || price <= 0 || !sourceRecordId || currency!=="GBP") return null;
 
   const merchantName =
     text(record, ["merchant_name", "advertiser_name", "seller_name"]) ??
@@ -74,7 +76,7 @@ function toOffer(record: Record<string, unknown>, lineNumber: number): RawSource
     upc: text(record, ["upc"]),
     mpn: text(record, ["mpn"]),
     price,
-    currency: text(record, ["currency", "price_currency"]) ?? "GBP",
+    currency,
     previousPrice: money(record, ["product_price_old", "old_price", "previous_price"]),
     rrp: money(record, ["rrp_price", "rrp", "list_price"]),
     deliveryCost: money(record, ["delivery_cost", "shipping", "shipping_price"]),
@@ -97,9 +99,13 @@ async function readJsonLines(response: Response, limit: number) {
   const results: RawSourceOffer[] = [];
   let buffer = "";
   let lineNumber = 0;
+  let bytes=0;
+  const maxBytes=16*1024*1024;
 
   while (results.length < limit) {
     const { value: chunk, done } = await reader.read();
+    bytes+=chunk?.byteLength??0;
+    if(bytes>maxBytes){await reader.cancel();throw new Error("Awin enhanced feed exceeds bounded read budget");}
     buffer += decoder.decode(chunk, { stream: !done });
 
     const lines = buffer.split(/\r?\n/);
@@ -171,8 +177,9 @@ export const awinConnector: SourceConnector = {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
-        Accept: "application/x-ndjson, application/json",
+        Accept: "*/*",
       },
+      redirect: "error",
       cache: "no-store",
       signal: AbortSignal.timeout(25_000),
     });
@@ -180,6 +187,7 @@ export const awinConnector: SourceConnector = {
     if (!response.ok) {
       // Provider response bodies and statusText are untrusted and may contain account details.
       // Emit only the numeric HTTP status. Never expose raw provider content in logs or UI.
+      await response.body?.cancel();
       throw new Error(`Awin feed request failed (HTTP ${response.status})`);
     }
 

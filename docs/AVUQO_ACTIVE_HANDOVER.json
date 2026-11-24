@@ -1409,7 +1409,7 @@
         "title": "Independent shopping catalogue",
         "status": "partial",
         "refs": "CAT-04",
-        "next": "Connect score-independent admission to shopping, products, retailer shelves and outbound links; preserve exact source, rights, freshness, stock, withdrawal and deal-only gates."
+        "next": "Implement authenticated owner gateway and product activation, verify feed and real approved stock; Integrate ordinary offers with canonical product detail, retailer and category filters, collections and full search"
       },
       {
         "order": 3,
@@ -1520,18 +1520,31 @@
         "owner_register": "Owner-provided signed-in screenshot confirms page accessibility at prior release; new register revision not yet deployed"
       },
       "candidate": {
-        "branch": "feature/universal-catalogue-foundations-20261124",
-        "sha": "27da56daf7433cddcfc1da9ea772d1dc2e396e3b",
-        "status": "unmerged_untested",
+        "branch": "main",
+        "sha": "e6508e51a23aab770efb13cb2e0898fa30a275e3",
+        "status": "partial",
         "changes": [
-          "Enhanced feed request/parser hardening",
-          "Pure independent shopping admission gate"
+          "Disabled shopping approval ledger migration",
+          "Independent release evidence checks",
+          "Restored main's 16-phase ordered queue and checkpoint to candidate",
+          "Bounded server-only reader for specified offer IDs",
+          "15 release-evidence regression cases added; execution not verified",
+          "Separate transactional shopping owner review function and audit table committed",
+          "Restricted invoker-only execution; no API role may execute",
+          "Existing deal release function untouched",
+          "Consolidate existing shopping foundations into main, preserving main history",
+          "Ordinary retail shelf with title search, price sorting and pagination",
+          "Exact offer detail route and independently revalidated outbound links",
+          "Shop navigation link gated by shopping publication control",
+          "Master PDF direct extraction recovered: automated operation, complete visibility, human override, evidence before commission"
         ],
         "remaining": [
-          "Authenticated HTTP406 runtime test",
-          "Wire shopping admission end to end",
-          "Regression tests and CI",
-          "Merge, deploy, verify"
+          "Confirm main commit and production deployment; test owner register",
+          "Apply and rehearse separate shopping migrations and permissions",
+          "Implement authenticated owner gateway and product activation, verify feed and real approved stock",
+          "Integrate ordinary offers with canonical product detail, retailer and category filters, collections and full search",
+          "Resolve authenticated Awin HTTP406 and full inventory rotation; tyres fitment and GBP evidence",
+          "Execute regression tests and production functional acceptance"
         ]
       },
       "ordered_build_queue": [
@@ -1648,7 +1661,27 @@
           "next": "Compare each branch for unique functionality and designs, record tested parity and merge or deliberately retire only after verification. No additional branches unless essential."
         }
       ],
-      "release_policy": "No unnecessary branches; use existing work; each release requires tests, exact production deployment evidence, runtime checks and six synchronized handovers. Do not mark unknown requirements complete."
+      "release_policy": "Main is the release destination; no new development branches. Six handovers and live owner register required. Green only after runtime acceptance."
+    },
+    "maintenance_requirement": {
+      "url": "https://www.avuqo.com/control-centre/development-register",
+      "required_after_each_build": true,
+      "alongside_six_cumulative_handovers": true,
+      "status_rules": {
+        "green": "Production deployed and functionally verified",
+        "amber": "Partial, candidate, committed or testing",
+        "red": "Blocked or outstanding",
+        "grey": "Unknown or not assessed"
+      },
+      "required_evidence": [
+        "ordered phase and next action",
+        "branch and commit",
+        "database migrations",
+        "test results",
+        "deployment and runtime verification",
+        "retailer inventory and tyre progress",
+        "blockers and dependencies"
+      ]
     }
   },
   "catalogue_candidate_ci_20261124": {
@@ -5354,5 +5387,106 @@
       }
     ],
     "release_policy": "No unnecessary branches; use existing work; each release requires tests, exact production deployment evidence, runtime checks and six synchronized handovers. Do not mark unknown requirements complete."
+  },
+  "continuation_checkpoint_20261124": {
+    "date_utc": "2026-11-24",
+    "status": "candidate_unverified",
+    "branch": "feature/universal-catalogue-foundations-20261124",
+    "production_sha": "82622ac8c8168816bc57add41708e8e489acd004",
+    "last_confirmed_production_deployment": "dpl_7GkKYH3reYBcwzyrohkLQCHKD8ft",
+    "audited_main_sha": "bfd496be56d7b27830384374dc63ada5b4b0276c",
+    "candidate_changes": [
+      "Owner register displays ordered major-build queue and recorded checkpoint",
+      "Shopping admission negative-case regression tests"
+    ],
+    "database_observations": {
+      "products": 84779,
+      "described_products": 4,
+      "active_offers": 3199,
+      "feeds_needing_private_refresh": 64
+    },
+    "verification": "GitHub commits exist; CI and production acceptance not yet verified",
+    "outstanding": [
+      "authenticated HTTP406 verification",
+      "end-to-end ordinary catalogue integration",
+      "tests and build",
+      "main reconciliation",
+      "production deployment and functional verification"
+    ]
+  },
+  "independent_shopping_release_checkpoint_20261124": {
+    "date_utc": "2026-11-24",
+    "status": "candidate_unverified",
+    "branch": "feature/universal-catalogue-foundations-20261124",
+    "implementation_checkpoint_sha": "22a7fd6a3471b4b47fdc30c6272b9b70e86801a1",
+    "production_sha": "82622ac8c8168816bc57add41708e8e489acd004",
+    "audited_main_sha": "bfd496be56d7b27830384374dc63ada5b4b0276c",
+    "commits": {
+      "ledger": "e297692a4c49f06bd1f1d8bd81ec5eb7716f40e4",
+      "evidence": "e09210e8acdba939140fc13c27d4f4e395843405",
+      "queue_reconciliation": "c1cec61af2f80dfdce321265b946389ac3cda362",
+      "reader": "ee9889bf62aaff8356153790dd6943242cf134ec",
+      "tests": "22a7fd6a3471b4b47fdc30c6272b9b70e86801a1"
+    },
+    "candidate_changes": [
+      "Disabled shopping approval ledger migration",
+      "Independent release evidence checks",
+      "Restored main's 16-phase ordered queue and checkpoint to candidate",
+      "Bounded server-only reader for specified offer IDs",
+      "15 release-evidence regression cases added; execution not verified"
+    ],
+    "outstanding": [
+      "Secure owner approval writer and audit trail",
+      "Migration rehearsal and privileges tests",
+      "Integrate shopping reader with discovery, product detail, retailer, search, collections and outbound routing",
+      "Authenticated Awin HTTP 406 repair",
+      "Run automated tests and CI, reconcile Git history, deploy and verify"
+    ],
+    "production_changes": false,
+    "notes": "No new products published; migration not applied; reader not wired into public routes; tests authored but not verified. SHA records implementation checkpoint before documentation commits."
+  },
+  "shopping_owner_review_checkpoint_20261124": {
+    "date_utc": "2026-11-24",
+    "status": "candidate_unverified",
+    "branch": "feature/universal-catalogue-foundations-20261124",
+    "implementation_checkpoint_sha": "81948af2733844c5e02b729179909003cff59620",
+    "changes": [
+      "Separate transactional shopping owner review function and audit table committed",
+      "Restricted invoker-only execution; no API role may execute",
+      "Existing deal release function untouched"
+    ],
+    "remaining": [
+      "Rehearse both shopping migrations and privilege tests",
+      "Implement authenticated owner gateway, safe product activation and automation",
+      "Wire reader into shopping discovery, product pages, retailer storefronts, collections and outbound routes",
+      "Verify authenticated Awin HTTP406 repair, expand inventories and tyres",
+      "Run CI, reconcile main, deploy and verify production and live development register"
+    ],
+    "limitations": "No migration applied; no tests executed; no new public stock; no live deployment. Owner gateway absent; reader additionally verifies rights and affiliate link. Master PDF parsed content unavailable."
+  },
+  "main_consolidation_retail_shelf_20261124": {
+    "date_utc": "2026-11-24",
+    "status": "partial",
+    "release_target": "main",
+    "source_branch": "feature/universal-catalogue-foundations-20261124",
+    "source_sha": "e6508e51a23aab770efb13cb2e0898fa30a275e3",
+    "pr": 341,
+    "register": "https://www.avuqo.com/control-centre/development-register",
+    "changes": [
+      "Consolidate existing shopping foundations into main, preserving main history",
+      "Ordinary retail shelf with title search, price sorting and pagination",
+      "Exact offer detail route and independently revalidated outbound links",
+      "Shop navigation link gated by shopping publication control",
+      "Master PDF direct extraction recovered: automated operation, complete visibility, human override, evidence before commission"
+    ],
+    "remaining": [
+      "Confirm main commit and production deployment; test owner register",
+      "Apply and rehearse separate shopping migrations and permissions",
+      "Implement authenticated owner gateway and product activation, verify feed and real approved stock",
+      "Integrate ordinary offers with canonical product detail, retailer and category filters, collections and full search",
+      "Resolve authenticated Awin HTTP406 and full inventory rotation; tyres fitment and GBP evidence",
+      "Execute regression tests and production functional acceptance"
+    ],
+    "limitations": "Shopping switch remains disabled/missing in production; no new ordinary offers claimed live. No full cross-retailer matching, owner gateway, or migrations applied. Source branch is historical; no new branch created."
   }
 }
