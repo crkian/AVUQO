@@ -4359,5 +4359,33 @@
       "Verify production runtime and signed-in register"
     ],
     "limitations": "Migration constraint verified; no portfolio execution observed at inspection. Tests authored, not executed. No new shopping offers approved; publication not enabled. Master PDF directly extracted; operating principles checked."
+  },
+  "owner_portfolio_refresh_checkpoint_20261124": {
+    "date_utc": "2026-11-24",
+    "target": "main",
+    "status": "partial",
+    "previous_production": {
+      "sha": "0aac74aaba3d094aca2303225045860b4dc90ca6",
+      "deployment": "dpl_FL6HJ6amkG2qTzTbshY5dnBJALDB",
+      "state": "READY"
+    },
+    "observations": {
+      "portfolio_attempts": 0,
+      "fresh_explicit_gbp_digest_candidates": 0
+    },
+    "changes": [
+      "Owner-only server action invokes existing bounded audited portfolio worker with server-held credentials",
+      "Fixed canonical internal request target and bounded rotation ordinal; no arbitrary URL or feed IDs",
+      "Recent/in-flight attempt check; underlying importer retains digest idempotency",
+      "Outcome feedback and register navigation"
+    ],
+    "remaining": [
+      "Verify corrected scheduled worker execution and owner session/manual refresh",
+      "Resolve explicit GBP evidence and authenticated HTTP406",
+      "Implement independent automated admission and safe product activation",
+      "Full retailer and category/collection integration and tyre comparison",
+      "Execute regression tests and production runtime acceptance"
+    ],
+    "limitations": "No authenticated owner session available to execute the new action; no post-repair portfolio attempt observed. Recent-attempt check is not an atomic lock; underlying import remains digest-bound. No new products approved or public; shopping publication remains disabled. Master PDF directly extracted in this pass."
   }
 }

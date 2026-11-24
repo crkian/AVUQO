@@ -1210,3 +1210,12 @@ Each item is **OPEN** unless an explicit completed/verified statement above says
 - Migration constraint verified; no portfolio execution observed at inspection. Tests authored, not executed. No new shopping offers approved; publication not enabled. Master PDF directly extracted; operating principles checked.
 - Next: Verify real post-repair scheduled portfolio execution and retailer counts; Resolve authenticated upstream 406 and explicit GBP evidence; no inferred currency; Test owner approval and withdrawal, implement safe activation and automatic independent shopping admission; Expand retailer inventory coverage, categories, collections and tyres; Verify production runtime and signed-in register.
 - Seventh checkpoint: https://www.avuqo.com/control-centre/development-register.
+
+
+## 24 November 2026 | Owner-triggered audited retailer refresh
+
+- Prior production 0aac74aaba3d094aca2303225045860b4dc90ca6 READY; zero portfolio attempts and initial fresh explicit-GBP digest candidates at inspection.
+- Owner-only server action invokes existing bounded audited portfolio worker with server-held credentials; Fixed canonical internal request target and bounded rotation ordinal; no arbitrary URL or feed IDs; Recent/in-flight attempt check; underlying importer retains digest idempotency; Outcome feedback and register navigation.
+- No authenticated owner session available to execute the new action; no post-repair portfolio attempt observed. Recent-attempt check is not an atomic lock; underlying import remains digest-bound. No new products approved or public; shopping publication remains disabled. Master PDF directly extracted in this pass.
+- Next: Verify corrected scheduled worker execution and owner session/manual refresh; Resolve explicit GBP evidence and authenticated HTTP406; Implement independent automated admission and safe product activation; Full retailer and category/collection integration and tyre comparison; Execute regression tests and production runtime acceptance.
+- Seventh checkpoint: https://www.avuqo.com/control-centre/development-register.
