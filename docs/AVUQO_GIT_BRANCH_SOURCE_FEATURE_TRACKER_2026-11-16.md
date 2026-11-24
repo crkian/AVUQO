@@ -1096,3 +1096,12 @@ For Petlibro (44 staged lines/22 identities), Mozillion (229 distinct handsets),
 - 1,036 preliminary recent stocked records, not approved/public inventory. No publication switch changed. UK-only feed evidence is distinguished from explicit currency, no conversion or acceptance of non-GBP; regression tests not yet run.
 - Next: Verify production migration and frontend deployment; run regression tests; Review eligible products with all other gates; safe automatic approval and activation; Enable shopping publication only after functional acceptance; Expand retailer inventory, categories and tyres.
 - Seventh checkpoint: https://www.avuqo.com/control-centre/development-register.
+
+
+## 24 November 2026 | Bounded automatic first ordinary-shopping review
+
+- Previous UK GBP policy deployment READY. Live exact private matches for active products: Tooled Up 936, Petlibro 36, Cadbury 18; 990 total preliminary matches.
+- Bounded first shopping approval RPC under standing recorded owner grant, with exact current private feed join, accepted programme, current GBP, price and stock evidence, publisher tracking, active product, controls and audit; Cron-only server worker with shopping switch gate and credentials check; Manual withdrawals and any prior reviews never overwritten; no draft activation.
+- Worker migration and build not yet verified at commit; 990 is an initial exact private-match count, not public inventory. No automatic renewals or draft activation; no publication switch change at this checkpoint.
+- Next: Apply and verify migration, verify real cohort approvals and runtime before enabling shopping publication; Add safe renewal and draft activation; reconcile categories and retailer integrations; Expand stock and tyre comparisons; test end-to-end.
+- Seventh checkpoint: https://www.avuqo.com/control-centre/development-register.

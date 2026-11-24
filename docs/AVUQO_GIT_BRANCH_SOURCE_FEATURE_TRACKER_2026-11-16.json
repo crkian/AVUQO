@@ -4448,5 +4448,32 @@
       "Expand retailer inventory, categories and tyres"
     ],
     "limitations": "1,036 preliminary recent stocked records, not approved/public inventory. No publication switch changed. UK-only feed evidence is distinguished from explicit currency, no conversion or acceptance of non-GBP; regression tests not yet run."
+  },
+  "automatic_shopping_review_20261124": {
+    "date_utc": "2026-11-24",
+    "status": "partial",
+    "target": "main",
+    "previous_production": {
+      "sha": "3ae0c94e7163a1e6f6eee9405325cae66544b898",
+      "deployment": "dpl_Ghe3gbCbEUmp3gP1hwgLBBXfaLWu",
+      "state": "READY"
+    },
+    "observations": {
+      "exact_fresh_private_record_matches_active_products": 990,
+      "tooled_up": 936,
+      "petlibro": 36,
+      "cadbury": 18
+    },
+    "changes": [
+      "Bounded first shopping approval RPC under standing recorded owner grant, with exact current private feed join, accepted programme, current GBP, price and stock evidence, publisher tracking, active product, controls and audit",
+      "Cron-only server worker with shopping switch gate and credentials check",
+      "Manual withdrawals and any prior reviews never overwritten; no draft activation"
+    ],
+    "remaining": [
+      "Apply and verify migration, verify real cohort approvals and runtime before enabling shopping publication",
+      "Add safe renewal and draft activation; reconcile categories and retailer integrations",
+      "Expand stock and tyre comparisons; test end-to-end"
+    ],
+    "limitations": "Worker migration and build not yet verified at commit; 990 is an initial exact private-match count, not public inventory. No automatic renewals or draft activation; no publication switch change at this checkpoint."
   }
 }
