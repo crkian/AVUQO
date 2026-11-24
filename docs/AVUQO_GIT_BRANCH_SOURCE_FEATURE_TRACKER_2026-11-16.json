@@ -4870,5 +4870,67 @@
       "Complete full-feed membership and draft admission, all supplier coverage, tyres and service adapters",
       "Product presentation, search, departments and retailer integration"
     ]
+  },
+  "rich_item_tyre_continuity_20261124": {
+    "date_utc": "2026-11-24",
+    "status": "partial",
+    "audited_code_sha": "717d3265cf4b1e6183c0bc7366c36af34708a7af",
+    "owner_direction": "Preserve and extend all existing feature-rich item pages, specialist tyre size/filter/variant/compare work, original premium design and shopping functionality. No rebuild or removal without parity evidence.",
+    "sources": [
+      "AVUQO Master Product & Build Specification, sections 3, 8, 9",
+      "AVUQO_MASTER_SOURCE_OF_TRUTH_2026-10-28.md",
+      "docs/tyres/AVUQO_TYRES_DESIGN_COMPARISON_CONTRACT_V1.md",
+      "docs/AVUQO_LIVE_RETAIL_PARK_SHOP_AND_TYRE_CROSSMATCH_2026-11-20.md"
+    ],
+    "existing_product": {
+      "routes": [
+        "/products/[slug]",
+        "/shop/offer/[offerId]"
+      ],
+      "components": [
+        "ProductGallery",
+        "RelatedProductSuggestions",
+        "AddToCollectionButton",
+        "ResearchProductDetails"
+      ],
+      "templates": [
+        "tech",
+        "home",
+        "beauty",
+        "grocery",
+        "tyres",
+        "motoring",
+        "travel",
+        "pets",
+        "fashion",
+        "gifts",
+        "general"
+      ],
+      "gap": "Canonical public-catalog reader is deal-admitted; ordinary shopping offer page is a separate minimal page. Integrate independent shopping admission without a deal gate or fake discounts."
+    },
+    "existing_tyres": {
+      "routes": [
+        "/tyres",
+        "/tyres/sizes",
+        "/tyres/find",
+        "/tyres/brands",
+        "/tyres/brands/[slug]",
+        "/tyres/categories/[slug]",
+        "/tyres/shop",
+        "/tyres/shop/[sku]",
+        "/tyres/products/[slug]",
+        "/tyres/compare"
+      ],
+      "evidence": "Source code inspected; width/profile/rim/brand filters, quantity, load/speed, seasonal and XL/run-flat comparisons, per-SKU gallery and safety boundaries already exist. Prior private EAN overlap evidence is not live cross-retailer fitment.",
+      "contract": "Preserve permanent design contract including exact variant, OE, run-flat, XL, season, label evidence, seller deduplication, delivered vs fitted totals and mobile accessibility; never infer fitment from size."
+    },
+    "acceptance": [
+      "Reuse canonical category-aware product layout for normal-priced and deal-admitted offers with separately verified evidence. Retain exact offer deep links, stable slugs, SEO, collection controls and independent ordering.",
+      "Rights-cleared image gallery, brand/model/condition, exact variants, descriptions, structured specifications, stock and observed price, merchant comparison, delivery and return evidence where available.",
+      "Verified price history and observed lows, price/stock Watch and wishlist, related items, category-specific guidance, actual savings and AVUQO buy/wait reasoning only where sufficient evidence. No fabricated ratings or discount.",
+      "Tyre source-backed dynamic size availability (not only fixed dropdown options), brand/model, width/profile/rim, load/speed, XL/run-flat/OE/season, verified labels, quantity, correct UK GBP and distinct retailer attribution. Separate unit, delivered, fitted and quote-needed totals.",
+      "Verify all existing public and owner routes, desktop/mobile navigation, 25 departments, 21 supplier studios, historical feature/branch parity, regression tests and production page bodies. Mark live only after runtime evidence."
+    ],
+    "remaining": "No implementation, CI, authenticated UI or production verification performed for these new acceptance items in this checkpoint."
   }
 }

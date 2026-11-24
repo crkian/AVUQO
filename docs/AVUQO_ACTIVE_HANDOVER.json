@@ -232,7 +232,7 @@
         "title": "Product image galleries",
         "status": "partial",
         "evidence": "PR340 deployed at 82622ac8; gallery rendering and rights coverage not independently checked",
-        "next": "Verify gallery coverage and image rights on actual public products.",
+        "next": "Reuse ProductGallery and approved per-offer images on ordinary and deal-admitted canonical pages, verify coverage and variant-specific rights.",
         "workspace": "product-previews"
       },
       {
@@ -321,8 +321,8 @@
         "priority": 2,
         "title": "Tyre comparison completion",
         "status": "blocked",
-        "evidence": "Historical exact barcode overlap; currency and fitment gaps",
-        "next": "Verify GBP, fitment, stock and comparable prices from both suppliers.",
+        "evidence": "Existing tyre showroom, size finder, SKU/variant detail, manufacturer/category routes, model comparison and tests confirmed in main; prior private EAN proof; two-supplier public fitment remains blocked.",
+        "next": "Preserve existing showroom, sizes, brand/category routes, finder, single SKU, variant and comparison pages; complete dynamic size facets and exact width/profile/rim/load/speed/XL/run-flat/OE/season, both suppliers, labels and comparable delivered/fitted totals.",
         "workspace": "tyre-cross-retailer"
       },
       {
@@ -372,8 +372,8 @@
         "area": "Shopping & catalogue",
         "title": "Product titles, specifications and descriptions",
         "source": "S01 / S07",
-        "status": "unknown",
-        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "status": "partial",
+        "next": "Reuse existing 11 category-specific rich product templates for independently admitted shopping and deal offers; exact variants, rights-cleared photos/descriptions/specifications, merchant comparison, price history, Watch and related products; verify live mobile/desktop.",
         "workspace": "shop"
       },
       {
@@ -492,8 +492,8 @@
         "area": "Exact comparison",
         "title": "Tyre width, profile, rim, load, speed and fitted total",
         "source": "S01 / S07",
-        "status": "unknown",
-        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "status": "partial",
+        "next": "Preserve existing showroom, sizes, brand/category routes, finder, single SKU, variant and comparison pages; complete dynamic size facets and exact width/profile/rim/load/speed/XL/run-flat/OE/season, both suppliers, labels and comparable delivered/fitted totals.",
         "workspace": "product-readiness"
       },
       {
@@ -802,8 +802,8 @@
         "area": "Visual experience",
         "title": "Responsive homepage, department, retailer and product layouts",
         "source": "Owner direction / S09 / F02",
-        "status": "unknown",
-        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "status": "partial",
+        "next": "Reuse existing 11 category-specific rich product templates for independently admitted shopping and deal offers; exact variants, rights-cleared photos/descriptions/specifications, merchant comparison, price history, Watch and related products; verify live mobile/desktop.",
         "workspace": "design-system"
       },
       {
@@ -1423,7 +1423,7 @@
         "title": "Product enrichment and variants",
         "status": "partial",
         "refs": "CAT-01 / CAT-02 / CAT-03",
-        "next": "Backfill rights-cleared descriptions, galleries, specifications and variant attributes; measure coverage and verify customer display."
+        "next": "Reuse existing 11 category-specific rich product templates for independently admitted shopping and deal offers; exact variants, rights-cleared photos/descriptions/specifications, merchant comparison, price history, Watch and related products; verify live mobile/desktop."
       },
       {
         "order": 5,
@@ -1437,14 +1437,14 @@
         "title": "Tyre comparison and fitment",
         "status": "blocked",
         "refs": "CAT-13",
-        "next": "Verify explicit GBP, fitment, load and speed, stock, delivery or fitted total across both suppliers; exclude ambiguous pairs."
+        "next": "Preserve existing showroom, sizes, brand/category routes, finder, single SKU, variant and comparison pages; complete dynamic size facets and exact width/profile/rim/load/speed/XL/run-flat/OE/season, both suppliers, labels and comparable delivered/fitted totals."
       },
       {
         "order": 7,
         "title": "Intelligent categories and discovery",
         "status": "partial",
         "refs": "CAT-06",
-        "next": "Verify category assignment, search and facets across all eligible stock; audit mobile and desktop menu links and empty states."
+        "next": "Preserve 25 departments, 21 studios and existing links; integrate ordinary catalogue into search, categories and retailer pages with evidence-backed category-specific facets and desktop/mobile navigation audit."
       },
       {
         "order": 8,
@@ -1575,7 +1575,9 @@
         "remaining": [
           "Verify exact deployment and actual cron conversion counts; natural renewal",
           "Complete full-feed membership and draft admission, all supplier coverage, tyres and service adapters",
-          "Product presentation, search, departments and retailer integration"
+          "Product presentation, search, departments and retailer integration",
+          "Mandatory rich product and tyre feature parity: Reuse existing 11 category-specific rich product templates for independently admitted shopping and deal offers; exact variants, rights-cleared photos/descriptions/specifications, merchant comparison, price history, Watch and related products; verify live mobile/desktop.",
+          "Mandatory tyre continuity: Preserve existing showroom, sizes, brand/category routes, finder, single SKU, variant and comparison pages; complete dynamic size facets and exact width/profile/rim/load/speed/XL/run-flat/OE/season, both suppliers, labels and comparable delivered/fitted totals."
         ]
       },
       "ordered_build_queue": [
@@ -1605,7 +1607,7 @@
           "title": "Product enrichment and variants",
           "status": "partial",
           "refs": "CAT-01 / CAT-02 / CAT-03",
-          "next": "Backfill rights-cleared descriptions, galleries, specifications and variant attributes; measure coverage and verify customer display."
+          "next": "Reuse existing 11 category-specific rich product templates for independently admitted shopping and deal offers; exact variants, rights-cleared photos/descriptions/specifications, merchant comparison, price history, Watch and related products; verify live mobile/desktop."
         },
         {
           "order": 5,
@@ -1619,14 +1621,14 @@
           "title": "Tyre comparison and fitment",
           "status": "blocked",
           "refs": "CAT-13",
-          "next": "Verify explicit GBP, fitment, load and speed, stock, delivery or fitted total across both suppliers; exclude ambiguous pairs."
+          "next": "Preserve existing showroom, sizes, brand/category routes, finder, single SKU, variant and comparison pages; complete dynamic size facets and exact width/profile/rim/load/speed/XL/run-flat/OE/season, both suppliers, labels and comparable delivered/fitted totals."
         },
         {
           "order": 7,
           "title": "Intelligent categories and discovery",
           "status": "partial",
           "refs": "CAT-06",
-          "next": "Verify category assignment, search and facets across all eligible stock; audit mobile and desktop menu links and empty states."
+          "next": "Preserve 25 departments, 21 studios and existing links; integrate ordinary catalogue into search, categories and retailer pages with evidence-backed category-specific facets and desktop/mobile navigation audit."
         },
         {
           "order": 8,
@@ -2017,6 +2019,68 @@
         "PlayPress F5142 rotation 20 verified/20 canonical accepted; 96428 returned 422 preflight failure. Service feeds require specialist adapters.",
         "Import every authorised UK feed SKU regardless of discount, deduplicate exact variants across overlapping feeds, preserve rights/stock/currency checks and independent deal scoring. Full current snapshot-to-stage-to-canonical-to-public reconciliation remains outstanding."
       ]
+    },
+    "rich_item_tyre_continuity": {
+      "date_utc": "2026-11-24",
+      "status": "partial",
+      "audited_code_sha": "717d3265cf4b1e6183c0bc7366c36af34708a7af",
+      "owner_direction": "Preserve and extend all existing feature-rich item pages, specialist tyre size/filter/variant/compare work, original premium design and shopping functionality. No rebuild or removal without parity evidence.",
+      "sources": [
+        "AVUQO Master Product & Build Specification, sections 3, 8, 9",
+        "AVUQO_MASTER_SOURCE_OF_TRUTH_2026-10-28.md",
+        "docs/tyres/AVUQO_TYRES_DESIGN_COMPARISON_CONTRACT_V1.md",
+        "docs/AVUQO_LIVE_RETAIL_PARK_SHOP_AND_TYRE_CROSSMATCH_2026-11-20.md"
+      ],
+      "existing_product": {
+        "routes": [
+          "/products/[slug]",
+          "/shop/offer/[offerId]"
+        ],
+        "components": [
+          "ProductGallery",
+          "RelatedProductSuggestions",
+          "AddToCollectionButton",
+          "ResearchProductDetails"
+        ],
+        "templates": [
+          "tech",
+          "home",
+          "beauty",
+          "grocery",
+          "tyres",
+          "motoring",
+          "travel",
+          "pets",
+          "fashion",
+          "gifts",
+          "general"
+        ],
+        "gap": "Canonical public-catalog reader is deal-admitted; ordinary shopping offer page is a separate minimal page. Integrate independent shopping admission without a deal gate or fake discounts."
+      },
+      "existing_tyres": {
+        "routes": [
+          "/tyres",
+          "/tyres/sizes",
+          "/tyres/find",
+          "/tyres/brands",
+          "/tyres/brands/[slug]",
+          "/tyres/categories/[slug]",
+          "/tyres/shop",
+          "/tyres/shop/[sku]",
+          "/tyres/products/[slug]",
+          "/tyres/compare"
+        ],
+        "evidence": "Source code inspected; width/profile/rim/brand filters, quantity, load/speed, seasonal and XL/run-flat comparisons, per-SKU gallery and safety boundaries already exist. Prior private EAN overlap evidence is not live cross-retailer fitment.",
+        "contract": "Preserve permanent design contract including exact variant, OE, run-flat, XL, season, label evidence, seller deduplication, delivered vs fitted totals and mobile accessibility; never infer fitment from size."
+      },
+      "acceptance": [
+        "Reuse canonical category-aware product layout for normal-priced and deal-admitted offers with separately verified evidence. Retain exact offer deep links, stable slugs, SEO, collection controls and independent ordering.",
+        "Rights-cleared image gallery, brand/model/condition, exact variants, descriptions, structured specifications, stock and observed price, merchant comparison, delivery and return evidence where available.",
+        "Verified price history and observed lows, price/stock Watch and wishlist, related items, category-specific guidance, actual savings and AVUQO buy/wait reasoning only where sufficient evidence. No fabricated ratings or discount.",
+        "Tyre source-backed dynamic size availability (not only fixed dropdown options), brand/model, width/profile/rim, load/speed, XL/run-flat/OE/season, verified labels, quantity, correct UK GBP and distinct retailer attribution. Separate unit, delivered, fitted and quote-needed totals.",
+        "Verify all existing public and owner routes, desktop/mobile navigation, 25 departments, 21 supplier studios, historical feature/branch parity, regression tests and production page bodies. Mark live only after runtime evidence."
+      ],
+      "remaining": "No implementation, CI, authenticated UI or production verification performed for these new acceptance items in this checkpoint."
     }
   },
   "catalogue_candidate_ci_20261124": {
@@ -6477,5 +6541,67 @@
       "Complete full-feed membership and draft admission, all supplier coverage, tyres and service adapters",
       "Product presentation, search, departments and retailer integration"
     ]
+  },
+  "rich_item_tyre_continuity_20261124": {
+    "date_utc": "2026-11-24",
+    "status": "partial",
+    "audited_code_sha": "717d3265cf4b1e6183c0bc7366c36af34708a7af",
+    "owner_direction": "Preserve and extend all existing feature-rich item pages, specialist tyre size/filter/variant/compare work, original premium design and shopping functionality. No rebuild or removal without parity evidence.",
+    "sources": [
+      "AVUQO Master Product & Build Specification, sections 3, 8, 9",
+      "AVUQO_MASTER_SOURCE_OF_TRUTH_2026-10-28.md",
+      "docs/tyres/AVUQO_TYRES_DESIGN_COMPARISON_CONTRACT_V1.md",
+      "docs/AVUQO_LIVE_RETAIL_PARK_SHOP_AND_TYRE_CROSSMATCH_2026-11-20.md"
+    ],
+    "existing_product": {
+      "routes": [
+        "/products/[slug]",
+        "/shop/offer/[offerId]"
+      ],
+      "components": [
+        "ProductGallery",
+        "RelatedProductSuggestions",
+        "AddToCollectionButton",
+        "ResearchProductDetails"
+      ],
+      "templates": [
+        "tech",
+        "home",
+        "beauty",
+        "grocery",
+        "tyres",
+        "motoring",
+        "travel",
+        "pets",
+        "fashion",
+        "gifts",
+        "general"
+      ],
+      "gap": "Canonical public-catalog reader is deal-admitted; ordinary shopping offer page is a separate minimal page. Integrate independent shopping admission without a deal gate or fake discounts."
+    },
+    "existing_tyres": {
+      "routes": [
+        "/tyres",
+        "/tyres/sizes",
+        "/tyres/find",
+        "/tyres/brands",
+        "/tyres/brands/[slug]",
+        "/tyres/categories/[slug]",
+        "/tyres/shop",
+        "/tyres/shop/[sku]",
+        "/tyres/products/[slug]",
+        "/tyres/compare"
+      ],
+      "evidence": "Source code inspected; width/profile/rim/brand filters, quantity, load/speed, seasonal and XL/run-flat comparisons, per-SKU gallery and safety boundaries already exist. Prior private EAN overlap evidence is not live cross-retailer fitment.",
+      "contract": "Preserve permanent design contract including exact variant, OE, run-flat, XL, season, label evidence, seller deduplication, delivered vs fitted totals and mobile accessibility; never infer fitment from size."
+    },
+    "acceptance": [
+      "Reuse canonical category-aware product layout for normal-priced and deal-admitted offers with separately verified evidence. Retain exact offer deep links, stable slugs, SEO, collection controls and independent ordering.",
+      "Rights-cleared image gallery, brand/model/condition, exact variants, descriptions, structured specifications, stock and observed price, merchant comparison, delivery and return evidence where available.",
+      "Verified price history and observed lows, price/stock Watch and wishlist, related items, category-specific guidance, actual savings and AVUQO buy/wait reasoning only where sufficient evidence. No fabricated ratings or discount.",
+      "Tyre source-backed dynamic size availability (not only fixed dropdown options), brand/model, width/profile/rim, load/speed, XL/run-flat/OE/season, verified labels, quantity, correct UK GBP and distinct retailer attribution. Separate unit, delivered, fitted and quote-needed totals.",
+      "Verify all existing public and owner routes, desktop/mobile navigation, 25 departments, 21 supplier studios, historical feature/branch parity, regression tests and production page bodies. Mark live only after runtime evidence."
+    ],
+    "remaining": "No implementation, CI, authenticated UI or production verification performed for these new acceptance items in this checkpoint."
   }
 }
