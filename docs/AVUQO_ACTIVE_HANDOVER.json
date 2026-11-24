@@ -1,4 +1,351 @@
 {
+  "development_register": {
+    "observed_at_utc": "2026-11-24",
+    "branch_snapshot": {
+      "source": "GitHub REST branches, single page up to 100",
+      "observed_at_utc": "2026-11-24",
+      "branches": [
+        {
+          "name": "audit/ebay-four-foundation-reconciliation-20261117",
+          "sha": "f5f2c3c5b4d5403a2704b0a616cf6cffe2b63cc9",
+          "protected": false
+        },
+        {
+          "name": "design/warm-premium-visual-system-20261105",
+          "sha": "3d06ef862931548369b4a8b4ee207f77989d48cc",
+          "protected": false
+        },
+        {
+          "name": "docs/ebay-awin-production-gates-20261116",
+          "sha": "b84feda50f9935f3048c17a22e1796c3ff10822f",
+          "protected": false
+        },
+        {
+          "name": "docs/p0-03-verified-rollout-20261104",
+          "sha": "9873f5f77d336b0c25e6cc8a3db07fb8089d4586",
+          "protected": false
+        },
+        {
+          "name": "docs/petlibro-live-import-pilot-20261114",
+          "sha": "6f83328267ee5eae286c439a579672188155a564",
+          "protected": false
+        },
+        {
+          "name": "docs/verified-supplier-readiness-release-20261120",
+          "sha": "5547ce4f8fef344af404fb963f679cdaedca04e1",
+          "protected": false
+        },
+        {
+          "name": "docs/verify-pr330-release-and-affiliate-handover-20261120",
+          "sha": "a860fa38da1ab48491b3319eaad7bf6d60243a65",
+          "protected": false
+        },
+        {
+          "name": "feat/ebay-compliance-decision-no-persist-20261116",
+          "sha": "9c1fd238591c21f7f3ebabb9b4d7a40ca8e9bd22",
+          "protected": false
+        },
+        {
+          "name": "feature/awin-auto-import-clean-rebase-20261105",
+          "sha": "8ef676e5c656132f8cacd0f7f0953d33d47b58e0",
+          "protected": false
+        },
+        {
+          "name": "feature/awin-canonical-private-taxonomy-20261030",
+          "sha": "006bed340d648b34661937a24b53279c62cd8e72",
+          "protected": false
+        },
+        {
+          "name": "feature/awin-departments-crafts-20261030",
+          "sha": "d0e91571ea46c83047dfa50cbf406c554de8a1ff",
+          "protected": false
+        },
+        {
+          "name": "feature/awin-feed-catalogue-safety-20261104",
+          "sha": "aa4734ebe2b3d118a56f0c91aa38b7789431ce71",
+          "protected": false
+        },
+        {
+          "name": "feature/awin-readonly-diagnostics-20261104",
+          "sha": "330fd4401f6501e5812817b75bef9fa74d09073c",
+          "protected": false
+        },
+        {
+          "name": "feature/awin-safe-feed-change-monitor-20261104",
+          "sha": "0825b36f49ed0f82a1c42d3214e5bd8ad0d968df",
+          "protected": false
+        },
+        {
+          "name": "feature/catalogue-classification-20261124",
+          "sha": "62ec1e6fe841921e9d878e920a9ae0241e7fc990",
+          "protected": false
+        },
+        {
+          "name": "feature/category-specific-product-previews-20261104",
+          "sha": "613c97939fb9f9cc946d6ba182229588f3786564",
+          "protected": false
+        },
+        {
+          "name": "feature/photo-led-category-pages-2026",
+          "sha": "158cc6bb91bc02a64189e6128abce937e39075e7",
+          "protected": false
+        },
+        {
+          "name": "feature/tooled-up-awin-programme-currency-proof-20261105",
+          "sha": "2bba72d4a014204948465ef5431d69401dbbb983",
+          "protected": false
+        },
+        {
+          "name": "feature/tooled-up-private-catalogue-filters-20261104",
+          "sha": "e9ff0f598670c403d39953e3c6b56d696a816673",
+          "protected": false
+        },
+        {
+          "name": "feature/tyres-uk-private-lease-primitives-review-20261113",
+          "sha": "226a8030800998dde1cc964b73e842b88c7b68c0",
+          "protected": false
+        },
+        {
+          "name": "feature/tyres-uk-server-auto-enrichment-v2-20261109",
+          "sha": "01ec568c28e27844e5524554279271d68a613246",
+          "protected": false
+        },
+        {
+          "name": "feature/universal-categories-inactive-20261030",
+          "sha": "c43d227b0c62756947b44e8f510ac6b4b3b6badd",
+          "protected": false
+        },
+        {
+          "name": "feature/warm-premium-experience-v1-20261105",
+          "sha": "9a90b4b76279cf650919c9d252653fb69104768a",
+          "protected": false
+        },
+        {
+          "name": "fix/customer-item-links-and-roadmap-20261030",
+          "sha": "8057ce176a16aecbd550cc9d3e48d28a8b72e32b",
+          "protected": false
+        },
+        {
+          "name": "fix/numbered-feed-filenames-20261104",
+          "sha": "ea6a5305b601e1e2ba0108e7a89b1201413f5344",
+          "protected": false
+        },
+        {
+          "name": "fix/phase1-saved-watches-routing-20261030",
+          "sha": "e0a5ef7997ea46c7b667c31c2358e50818f8219e",
+          "protected": false
+        },
+        {
+          "name": "fix/product-pilot-soft-404-and-release-proof-20261114",
+          "sha": "63b8b2c479bc80943b1c1f5f0c0b1ff2c6435395",
+          "protected": false
+        },
+        {
+          "name": "fix/products-request-bound-true-404-20261114",
+          "sha": "cc152190b9e4e460070185112b0d6883ace4ba3f",
+          "protected": false
+        },
+        {
+          "name": "launch/awin-ebay-readiness-gates-20261117",
+          "sha": "c83f11a5daf2e1ef2e8b4ac8ac018429cc07b8dd",
+          "protected": false
+        },
+        {
+          "name": "main",
+          "sha": "bececf67103ca8f738833315734c1a99600fc912",
+          "protected": false
+        },
+        {
+          "name": "plan/avuqo-commerce-ebay-ack-reconciliation-20261117",
+          "sha": "b3166e9f94e258f078606dfb550d5f52b3bddb77",
+          "protected": false
+        },
+        {
+          "name": "privacy/ebay-minimal-affiliate-nonpersistent-pilot-20261116",
+          "sha": "c7715d47d3ee22ea112a93fad0dbb3349ec095c8",
+          "protected": false
+        },
+        {
+          "name": "privacy/ebay-production-release-gate-20261117",
+          "sha": "38a7b6f1c1ee2b8e8bca9b675ecb8477557c11cb",
+          "protected": false
+        },
+        {
+          "name": "security/block-future-secret-commits",
+          "sha": "a2b8a4dba69ad7d01f0cf34e4ebf4526a777e81c",
+          "protected": false
+        },
+        {
+          "name": "security/ebay-dba-bounded-purge-runner-20261116",
+          "sha": "35d1905d1dc26114c3053d1e250bd3619f9c39bb",
+          "protected": false
+        },
+        {
+          "name": "security/ebay-erasure-readiness-preflight-20261116",
+          "sha": "a7d41aec51cf1daab0133cf6124274b1ada322ba",
+          "protected": false
+        },
+        {
+          "name": "security/ebay-erasure-work-journal-20261116",
+          "sha": "7233e9a371789ecb1d40f0f3a38060f860f946bb",
+          "protected": false
+        },
+        {
+          "name": "security/ebay-mapped-catalogue-executor-20261116",
+          "sha": "8946838627f3576b6132aaf0a0490de377ea0f5b",
+          "protected": false
+        },
+        {
+          "name": "security/remove-exposed-build-archive",
+          "sha": "9f018decaf92935f4a972e871c4fae80a2293052",
+          "protected": false
+        },
+        {
+          "name": "test/ebay-committed-link-tombstone-20261116",
+          "sha": "82e69d5a4119db6015f444c1585a8377f978f72d",
+          "protected": false
+        }
+      ]
+    },
+    "items": [
+      {
+        "id": "CAT-01",
+        "priority": 1,
+        "title": "Richer feed-field extraction",
+        "status": "live",
+        "evidence": "PR339 deployed bececf67",
+        "next": "Measure imported field coverage and missing fields across all feeds.",
+        "workspace": "supplier-readiness"
+      },
+      {
+        "id": "CAT-02",
+        "priority": 1,
+        "title": "Full supplier descriptions",
+        "status": "partial",
+        "evidence": "Bounded description preservation deployed in PR339",
+        "next": "Verify rights-cleared descriptions and backfill missing public products.",
+        "workspace": "supplier-readiness"
+      },
+      {
+        "id": "CAT-03",
+        "priority": 2,
+        "title": "Product image galleries",
+        "status": "tested",
+        "evidence": "PR340 offer-bound gallery integration passed CI; not deployed",
+        "next": "Verify public galleries and per-offer rights on production.",
+        "workspace": "product-previews"
+      },
+      {
+        "id": "CAT-04",
+        "priority": 1,
+        "title": "Normal-priced products / separate shopping admission",
+        "status": "outstanding",
+        "evidence": "Private imports retain regular-price items; public admission still tied to deal score",
+        "next": "Create independently verified shopping admission, preserve promotion scoring and owner controls.",
+        "workspace": "pipeline"
+      },
+      {
+        "id": "CAT-05",
+        "priority": 1,
+        "title": "Automatic catalogue rotation",
+        "status": "live",
+        "evidence": "PR339 exact-SKU rotation deployed",
+        "next": "Measure throughput and prevent starvation; deployment alone does not prove coverage.",
+        "workspace": "awin-feed-updates"
+      },
+      {
+        "id": "CAT-06",
+        "priority": 2,
+        "title": "Intelligent category classification",
+        "status": "tested",
+        "evidence": "PR340 deterministic routing and tests passed",
+        "next": "Verify public department routing, ambiguous cases and retrospective reclassification.",
+        "workspace": "marketplace"
+      },
+      {
+        "id": "CAT-07",
+        "priority": 1,
+        "title": "Full supplier inventory coverage",
+        "status": "outstanding",
+        "evidence": "Bounded imports and canonical processing remain incomplete",
+        "next": "Reconcile all authorised source rows, exclusions, retries and public inventory counts.",
+        "workspace": "coverage"
+      },
+      {
+        "id": "CAT-08",
+        "priority": 3,
+        "title": "Automatic sales classification",
+        "status": "outstanding",
+        "evidence": "Promotional fields retained privately",
+        "next": "Separate normal prices, verified active promotions and observed reductions.",
+        "workspace": "pipeline"
+      },
+      {
+        "id": "CAT-09",
+        "priority": 2,
+        "title": "Cross-retailer matching",
+        "status": "partial",
+        "evidence": "PR340 checksum-valid unique barcode lookup passed CI",
+        "next": "Prevent title fallback collisions, reconcile historic matches and verify exact variants.",
+        "workspace": "product-readiness"
+      },
+      {
+        "id": "CAT-10",
+        "priority": 0,
+        "title": "Awin HTTP 406 repair",
+        "status": "blocked",
+        "evidence": "Repeated enhanced feed HTTP 406 in prior runtime audit",
+        "next": "Diagnose authenticated provider endpoint and verify a successful real response.",
+        "workspace": "awin-feed-updates"
+      },
+      {
+        "id": "CAT-11",
+        "priority": 1,
+        "title": "All 21 supplier integrations",
+        "status": "partial",
+        "evidence": "Accepted programme portfolio; physical and service adapters incomplete",
+        "next": "Reconcile membership, feed access, permissions, product or quote adapters and live results.",
+        "workspace": "supplier-readiness"
+      },
+      {
+        "id": "CAT-12",
+        "priority": 4,
+        "title": "Advanced catalogue analytics",
+        "status": "outstanding",
+        "evidence": "Owner reporting foundation; complete first-party event collection and intelligence unverified",
+        "next": "Verify consent, ingestion, deduplication, coverage, funnels and conversions.",
+        "workspace": "analytics"
+      },
+      {
+        "id": "CAT-13",
+        "priority": 2,
+        "title": "Tyre comparison completion",
+        "status": "blocked",
+        "evidence": "Historical exact barcode overlap; currency and fitment gaps",
+        "next": "Verify GBP, fitment, stock and comparable prices from both suppliers.",
+        "workspace": "tyre-cross-retailer"
+      },
+      {
+        "id": "DEV-01",
+        "priority": 0,
+        "title": "Release and handover continuity",
+        "status": "partial",
+        "evidence": "PR340 code and documentation checks passed at 62ec1e6f",
+        "next": "Merge verified candidate; check Vercel exact SHA and authenticated page; record evidence.",
+        "workspace": "release-readiness"
+      },
+      {
+        "id": "UX-01",
+        "priority": 6,
+        "title": "Premium design and mobile experience",
+        "status": "partial",
+        "evidence": "Historical design references and supplier studios retained",
+        "next": "Compare original concepts, current screens, responsive navigation and owner approval.",
+        "workspace": "design-system"
+      }
+    ],
+    "notes": "Status evidence is a dated register, not a live runtime check. Update this object with each handover; never mark green solely from a merge."
+  },
   "catalogue_candidate_ci_20261124": {
     "status": "candidate_ci_passed_on_code_head",
     "code_head": "63b3e7d9cc728b80f5caaa0e8e30978169f433cd",
