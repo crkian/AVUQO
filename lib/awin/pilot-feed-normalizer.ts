@@ -19,7 +19,9 @@ export function normalizePilotAwinFeed(advertiser:string,feedId:string,header:st
    "category_name","brand_name","stock_status","in_stock",
    "merchant_product_category_path","product_type","ean","mpn",
    "product_model","model_number","product_GTIN","last_updated",
-   "description","product_short_description"
+   "description","product_short_description","colour","size","material","condition","rrp_price",
+   "store_price","sale_price","saving","savings_percent","delivery_cost","delivery_time",
+   "stock_quantity","valid_from","valid_to","upc","merchant_category"
   ];
   if(header.length<121||header.length>256)throw Error("invalid_mozillion_column_count");
   const required=["merchant_id","merchant_product_id","product_name","search_price","currency","aw_deep_link"];
@@ -47,7 +49,9 @@ export function normalizePilotAwinFeed(advertiser:string,feedId:string,header:st
    throw Error("invalid_google_retail_required_columns");
   const selected=[...required,"brand","product_type","google_product_category",
    "image_link","additional_image_link","lifestyle_image_link","gtin","ean","mpn","condition","last_updated",
-   "description","structured_description"];
+   "description","structured_description","color","size","material","pattern","gender","age_group",
+   "item_group_id","sale_price","sale_price_effective_date","shipping","unit_pricing_measure",
+   "unit_pricing_base_measure","product_detail","product_highlight"];
   const projected=selected.filter(name=>header.includes(name));
   const positions=projected.map(name=>header.indexOf(name));
   const merchantCol=header.indexOf("advertiser_id");
