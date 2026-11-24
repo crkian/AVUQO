@@ -1,4 +1,12 @@
 {
+  "catalogue_candidate_ci_20261124": {
+    "status": "candidate_ci_passed_on_code_head",
+    "code_head": "63b3e7d9cc728b80f5caaa0e8e30978169f433cd",
+    "quality_run": 45449570925,
+    "secret_run": 45449570622,
+    "scope": "classification routing and PlayPress test correction; checksum-validated unique barcode lookup; offer-bound permission-checked galleries",
+    "limitations": "Title fallback and historical matching not corrected; full retail inventory and separate shopping admission not implemented; live behaviour unverified. No database migration."
+  },
   "catalogue_classification_20261124": {
     "status": "candidate",
     "branch": "feature/catalogue-classification-20261124",
