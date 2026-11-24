@@ -4172,5 +4172,24 @@
     ],
     "production_changes": false,
     "notes": "No new products published; migration not applied; reader not wired into public routes; tests authored but not verified. SHA records implementation checkpoint before documentation commits."
+  },
+  "shopping_owner_review_checkpoint_20261124": {
+    "date_utc": "2026-11-24",
+    "status": "candidate_unverified",
+    "branch": "feature/universal-catalogue-foundations-20261124",
+    "implementation_checkpoint_sha": "81948af2733844c5e02b729179909003cff59620",
+    "changes": [
+      "Separate transactional shopping owner review function and audit table committed",
+      "Restricted invoker-only execution; no API role may execute",
+      "Existing deal release function untouched"
+    ],
+    "remaining": [
+      "Rehearse both shopping migrations and privilege tests",
+      "Implement authenticated owner gateway, safe product activation and automation",
+      "Wire reader into shopping discovery, product pages, retailer storefronts, collections and outbound routes",
+      "Verify authenticated Awin HTTP406 repair, expand inventories and tyres",
+      "Run CI, reconcile main, deploy and verify production and live development register"
+    ],
+    "limitations": "No migration applied; no tests executed; no new public stock; no live deployment. Owner gateway absent; reader additionally verifies rights and affiliate link. Master PDF parsed content unavailable."
   }
 }
