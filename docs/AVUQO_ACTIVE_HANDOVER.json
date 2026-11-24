@@ -4960,5 +4960,31 @@
     ],
     "prior_markdown_history_retained": true,
     "prior_machine_handover_keys_unchanged": true
+  },
+  "continuation_checkpoint_20261124": {
+    "date_utc": "2026-11-24",
+    "status": "candidate_unverified",
+    "branch": "feature/universal-catalogue-foundations-20261124",
+    "production_sha": "82622ac8c8168816bc57add41708e8e489acd004",
+    "last_confirmed_production_deployment": "dpl_7GkKYH3reYBcwzyrohkLQCHKD8ft",
+    "audited_main_sha": "bfd496be56d7b27830384374dc63ada5b4b0276c",
+    "candidate_changes": [
+      "Owner register displays ordered major-build queue and recorded checkpoint",
+      "Shopping admission negative-case regression tests"
+    ],
+    "database_observations": {
+      "products": 84779,
+      "described_products": 4,
+      "active_offers": 3199,
+      "feeds_needing_private_refresh": 64
+    },
+    "verification": "GitHub commits exist; CI and production acceptance not yet verified",
+    "outstanding": [
+      "authenticated HTTP406 verification",
+      "end-to-end ordinary catalogue integration",
+      "tests and build",
+      "main reconciliation",
+      "production deployment and functional verification"
+    ]
   }
 }
