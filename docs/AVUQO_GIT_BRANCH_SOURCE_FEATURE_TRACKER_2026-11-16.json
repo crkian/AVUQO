@@ -1,4 +1,17 @@
 {
+  "catalogue_classification_20261124": {
+    "status": "candidate",
+    "branch": "feature/catalogue-classification-20261124",
+    "scope": "Product-specific deterministic department suggestions and exact verified canonical routing, ambiguity review evidence",
+    "previous_release": {
+      "pr": 339,
+      "sha": "bececf67103ca8f738833315734c1a99600fc912",
+      "deployment": "dpl_HRgTLTYNWqw562fBrRn74XzFcP7N",
+      "state": "READY",
+      "runtime_coverage_unverified": true
+    },
+    "remaining": "Full provider coverage, sales admission separation, matching, public gallery and specification enrichment, throughput and CI"
+  },
   "catalogue_enrichment_20261124": {
     "status": "candidate_ci_and_runtime_pending",
     "pr": 339,
