@@ -1048,3 +1048,13 @@ For Petlibro (44 staged lines/22 identities), Mozillion (229 distinct handsets),
 - No fresh digest candidates observed, no real approval or publication made. Gateway migration not yet applied; production runtime unverified.
 - Remaining: Apply and verify gateway migration and negative authorization tests; Run positive review and withdrawal tests with real fresh evidence; Safe product activation and automation; keep publication disabled until acceptance; Repair authenticated feed freshness and inventory rotation, tyre comparison, full category and collection integrations; Verify live routes and signed-in register.
 - Seventh checkpoint: https://www.avuqo.com/control-centre/development-register.
+
+
+## 24 November 2026 | Retailer import contract and freshness repair
+
+- Previous production build `6e9ac0dfb13dbeb476d0c9a8894da70678e0b5e5` READY; owner session unverified.
+- Authenticated gateway migration applied and role grants checked.
+- Fix contradictory append RPC contract: new rows remain private with image and description permission false; Refresh currency provenance from exact current authenticated normalized feed, not old metadata; Clear revoked image permission and replace old gallery on recheck; Report private_batch_rejected in portfolio diagnostics; Three regression cases authored; not yet executed.
+- Root cause contract mismatch verified from production SQL and importer code; individual historical errors were generic and exact cause not logged. No actual post-fix importer run yet. No additional public offers; shopping switch stays disabled.
+- Next: Confirm production build and actual next importer results; no HTTP 406 repair claimed; Acquire explicit GBP evidence for Tooled Up and Petlibro; do not infer public currency; Owner gateway positive/negative functional tests and safe product activation; Independent automatic publication and integration with product, category, retailer and collection journeys; Full inventory rotation, tyre fitment and explicit GBP comparison.
+- Seventh checkpoint: https://www.avuqo.com/control-centre/development-register.

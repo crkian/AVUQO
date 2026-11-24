@@ -6,6 +6,7 @@ import {createAdminClient} from "../../../../lib/supabase/admin";
 import {csvRowsFromChunks} from "../../../../lib/feed-imports/stream-csv";
 import {identifyFormat,prepareGeneralBatch} from "../../../../lib/feed-imports/general-awin-large";
 import {approvedAwinDownloadUrl} from "../../../../lib/awin/approved-feed-url";
+import {currentCurrencyEvidence,privateImportProvenance,recheckedImageEvidence,type PilotCurrencySource} from "../../../../lib/awin/private-import-provenance";
 import {normalizePilotAwinFeed} from "../../../../lib/awin/pilot-feed-normalizer";
 import {profileAwinHeader} from "../../../../lib/awin/feed-schema-profile.mjs";
 import {mozillionPhysicalFeedAllowed} from "../../../../lib/awin/mozillion-feed-types";
@@ -48,7 +49,7 @@ async function privateStagingAllowed(db:ReturnType<typeof createAdminClient>){
 async function attestUnchangedLiveRows(
  db:ReturnType<typeof createAdminClient>,runId:string,advertiser:string,
  feed:string,header:string[],rows:string[][],digest:string,
- ownerApprovedImages:boolean,ownerApprovedDescriptions:boolean
+ ownerApprovedImages:boolean,ownerApprovedDescriptions:boolean,currencySource:PilotCurrencySource
 ){
  const idPos=header.indexOf(header.includes("merchant_product_id")?"merchant_product_id":"id");
  if(idPos<0||!/^[a-f0-9]{64}$/.test(digest))throw Error("unbound_live_recheck");
@@ -87,6 +88,7 @@ async function attestUnchangedLiveRows(
      live_feed_digest:digest,
      live_feed_verification:"exact_authenticated_feed_digest_rechecked",
      availability:next.metadata.availability,
+     ...currentCurrencyEvidence(currencySource,next.currency),
      // Preserve only clean prose from this exact authenticated current feed.
      // A separate dated merchant-text rights flag is required for public use.
      source_catalogue_fields:next.metadata.source_catalogue_fields,
@@ -94,12 +96,7 @@ async function attestUnchangedLiveRows(
      source_description_verified_digest:next.metadata.source_description?digest:null,
      source_description_rights_confirmed:ownerApprovedDescriptions&&
       typeof next.metadata.source_description==="string",
-     ...(ownerApprovedImages?{
-      source_image_rights_confirmed:true,
-      image_permission_basis:"owner_attested_all_accepted_programmes_2026_11_17",
-      supplied_image_gallery:Array.isArray(next.metadata.supplied_image_gallery)?
-       next.metadata.supplied_image_gallery:existing.supplied_image_gallery??[]
-     }:{})
+     ...recheckedImageEvidence(ownerApprovedImages,next.metadata.supplied_image_gallery)
    }})
    .eq("id",old.id).eq("import_id",runId)
    .eq("merchant_product_id",old.merchant_product_id)
@@ -382,7 +379,7 @@ export async function POST(request:NextRequest){
  if(session.source_digest!==digest)return reply({error:"Resume fingerprint mismatch"},409);
  if(session.completed_at&&session.committed_count===rows.length){
   try{
-   const verifiedSkus=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages,ownerApprovedDescriptions);
+   const verifiedSkus=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages,ownerApprovedDescriptions,currencySource);
    const canonical=verifiedSkus.length>0?await stageLiveAwinCanonicalCandidates(db,{
     importId:runId,advertiser,feed,digest,limit:20,merchantProductIds:verifiedSkus
    }):{status:"no_fresh_exact_feed_rows",eligible:0,canonicalAccepted:0,canonicalRejected:0};
@@ -402,12 +399,7 @@ export async function POST(request:NextRequest){
   const records=prepareGeneralBatch(advertiser,feed,header!,batch);
   // Explicit machine provenance, with human publication rights STILL unverified.
   const staged=records.map(record=>({...record,metadata:{...record.metadata,
-   import_actor:"awin_auto_import_worker",currency_source:currencySource,
-   source_currency_explicit:currencySource==="feed_column",
-   ...(ownerApprovedImages?{
-    source_image_rights_confirmed:true,
-    image_permission_basis:"owner_attested_all_accepted_programmes_2026_11_17"
-   }:{})}}));
+   ...privateImportProvenance(currencySource,record.currency)}}));
   const chunkDigest=createHash("sha256").update(JSON.stringify({headers:header,rows:batch,feedId:feed})).digest("hex");
   const {data:done,error}=await db.rpc("append_general_awin_feed_chunk",{
    p_import_id:runId,p_sequence:i,p_digest:chunkDigest,p_rows:staged
@@ -416,7 +408,7 @@ export async function POST(request:NextRequest){
    const {data:latest}=await loadSession();
    if(latest?.completed_at&&latest.source_digest===digest&&latest.committed_count===rows.length){
     try{
-     const verifiedSkus=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages,ownerApprovedDescriptions);
+     const verifiedSkus=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages,ownerApprovedDescriptions,currencySource);
      const canonical=verifiedSkus.length>0?await stageLiveAwinCanonicalCandidates(db,{
       importId:runId,advertiser,feed,digest,limit:20,merchantProductIds:verifiedSkus
      }):{status:"no_fresh_exact_feed_rows",eligible:0,canonicalAccepted:0,canonicalRejected:0};
@@ -439,7 +431,7 @@ export async function POST(request:NextRequest){
   status:"no_fresh_exact_feed_rows",eligible:0,canonicalAccepted:0,canonicalRejected:0
  };
  try{
-  verifiedSkus=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages,ownerApprovedDescriptions);
+  verifiedSkus=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages,ownerApprovedDescriptions,currencySource);
   if(verifiedSkus.length>0)canonical=await stageLiveAwinCanonicalCandidates(db,{
    importId:runId,advertiser,feed,digest,limit:20,merchantProductIds:verifiedSkus
   });

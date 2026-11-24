@@ -1521,7 +1521,7 @@
       },
       "candidate": {
         "branch": "main",
-        "sha": "5ed9aedf4b753669cdac3722b457ef3320ebcaa5",
+        "sha": "6e9ac0dfb13dbeb476d0c9a8894da70678e0b5e5",
         "status": "partial",
         "changes": [
           "Disabled shopping approval ledger migration",
@@ -1541,14 +1541,19 @@
           "Production prerender failure identified; request-time route opt-outs included in next main commit",
           "Owner review RPC gateway using verified auth.uid and database owner role, private definer and invoker wrapper; migration candidate only",
           "Owner-only review and withdrawal workspace",
-          "Live initial readiness counts and workspace link in Development Register"
+          "Live initial readiness counts and workspace link in Development Register",
+          "Fix contradictory append RPC contract: new rows remain private with image and description permission false",
+          "Refresh currency provenance from exact current authenticated normalized feed, not old metadata",
+          "Clear revoked image permission and replace old gallery on recheck",
+          "Report private_batch_rejected in portfolio diagnostics",
+          "Three regression cases authored; not yet executed"
         ],
         "remaining": [
-          "Apply and verify gateway migration and negative authorization tests",
-          "Run positive review and withdrawal tests with real fresh evidence",
-          "Safe product activation and automation; keep publication disabled until acceptance",
-          "Repair authenticated feed freshness and inventory rotation, tyre comparison, full category and collection integrations",
-          "Verify live routes and signed-in register"
+          "Confirm production build and actual next importer results; no HTTP 406 repair claimed",
+          "Acquire explicit GBP evidence for Tooled Up and Petlibro; do not infer public currency",
+          "Owner gateway positive/negative functional tests and safe product activation",
+          "Independent automatic publication and integration with product, category, retailer and collection journeys",
+          "Full inventory rotation, tyre fitment and explicit GBP comparison"
         ]
       },
       "ordered_build_queue": [
@@ -5553,5 +5558,49 @@
       "Verify live routes and signed-in register"
     ],
     "limitations": "No fresh digest candidates observed, no real approval or publication made. Gateway migration not yet applied; production runtime unverified."
+  },
+  "retailer_import_contract_repair_20261124": {
+    "date_utc": "2026-11-24",
+    "status": "partial",
+    "target": "main",
+    "previous_production": {
+      "sha": "6e9ac0dfb13dbeb476d0c9a8894da70678e0b5e5",
+      "deployment": "dpl_5jDu9ytJ3srCxKUhnCEvQAQYPYu6",
+      "state": "READY",
+      "runtime": "Owner session not independently tested"
+    },
+    "gateway": {
+      "migration": "applied",
+      "authenticated_wrapper": true,
+      "anonymous_wrapper": false,
+      "service_wrapper": false,
+      "authenticated_raw_writer": false
+    },
+    "observations": {
+      "recent_tooled_up_stock": 980,
+      "recent_petlibro_stock": 36,
+      "explicit_currency_recent": 0,
+      "latest_pilot_failures": [
+        "Mozillion",
+        "Cadbury",
+        "Craft Buddy"
+      ],
+      "pending_feeds": 64
+    },
+    "changes": [
+      "Fix contradictory append RPC contract: new rows remain private with image and description permission false",
+      "Refresh currency provenance from exact current authenticated normalized feed, not old metadata",
+      "Clear revoked image permission and replace old gallery on recheck",
+      "Report private_batch_rejected in portfolio diagnostics",
+      "Three regression cases authored; not yet executed"
+    ],
+    "remaining": [
+      "Confirm production build and actual next importer results; no HTTP 406 repair claimed",
+      "Acquire explicit GBP evidence for Tooled Up and Petlibro; do not infer public currency",
+      "Owner gateway positive/negative functional tests and safe product activation",
+      "Independent automatic publication and integration with product, category, retailer and collection journeys",
+      "Full inventory rotation, tyre fitment and explicit GBP comparison"
+    ],
+    "limitations": "Root cause contract mismatch verified from production SQL and importer code; individual historical errors were generic and exact cause not logged. No actual post-fix importer run yet. No additional public offers; shopping switch stays disabled."
   }
 }

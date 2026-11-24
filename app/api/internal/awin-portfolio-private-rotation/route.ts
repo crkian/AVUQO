@@ -115,6 +115,7 @@ async function runRotation(request:NextRequest){
   body.column_names.filter((v:unknown):v is string=>typeof v==="string"&&
    /^[A-Za-z][A-Za-z0-9_ -]{0,63}$/.test(v)).slice(0,60):[];
  const knownErrorCodes:Record<string,string>={
+  "Private batch rejected":"private_batch_rejected",
   "Feed preflight failed; nothing imported":"feed_preflight_failed",
   "Feed format not supported by pilot":"feed_format_unsupported",
   "Awin product download failed":"awin_product_download_failed",
