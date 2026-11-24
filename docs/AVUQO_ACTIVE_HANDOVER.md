@@ -1,5 +1,11 @@
 ## 21 November 2026 | Search discoverability, verified product schema and analytics control (PR #337, release candidate)
 
+## 24 November 2026 | Development & Intelligence Register candidate
+
+- Owner-only `/control-centre/development-register` linked from Start Here and dashboard. Directly reads master JSON development_register and original feature tracker; explicit catalogue priorities, traffic-light evidence, 40 observed Git refs, 37 feature requirements, 14 source references and 27 operational priorities. Includes original design, supplier and analytics workspace links. No new database or public endpoint.
+- Snapshot is not a continuous Git API poll. Future handovers must update development_register items and branch_snapshot alongside the existing six registers, then deploy to refresh the page. Branch parity/current merchant terms/authenticated visual review and CI remain outstanding. No branch deletion.
+
+
 ## 24 November 2026 | PR #340 code candidate CI evidence
 
 - Code head `63b3e7d9cc728b80f5caaa0e8e30978169f433cd`: quality run 45449570925 and secret scan 45449570622 passed. Includes corrected PlayPress department regression, checksum-valid unique barcode lookup, and permission-bound per-offer supplier gallery integration.
