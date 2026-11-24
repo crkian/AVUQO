@@ -1521,21 +1521,21 @@
       },
       "candidate": {
         "branch": "feature/universal-catalogue-foundations-20261124",
-        "sha": "e09210e8acdba939140fc13c27d4f4e395843405",
+        "sha": "22a7fd6a3471b4b47fdc30c6272b9b70e86801a1",
         "status": "partial",
         "changes": [
-          "Enhanced feed request/parser hardening",
-          "Pure independent shopping admission gate",
-          "Owner register queue rendering",
-          "Admission regression fixtures",
           "Disabled shopping approval ledger migration",
-          "Score-independent release evidence engine"
+          "Independent release evidence checks",
+          "Restored main's 16-phase ordered queue and checkpoint to candidate",
+          "Bounded server-only reader for specified offer IDs",
+          "15 release-evidence regression cases added; execution not verified"
         ],
         "remaining": [
           "Secure owner approval writer and audit trail",
-          "Server shopping reader and customer journey integration",
-          "Authenticated Awin HTTP 406 verification",
-          "Migration rehearsal, regression CI, merge and production verification"
+          "Migration rehearsal and privileges tests",
+          "Integrate shopping reader with discovery, product detail, retailer, search, collections and outbound routing",
+          "Authenticated Awin HTTP 406 repair",
+          "Run automated tests and CI, reconcile Git history, deploy and verify"
         ]
       },
       "ordered_build_queue": [
@@ -5384,5 +5384,36 @@
       "main reconciliation",
       "production deployment and functional verification"
     ]
+  },
+  "independent_shopping_release_checkpoint_20261124": {
+    "date_utc": "2026-11-24",
+    "status": "candidate_unverified",
+    "branch": "feature/universal-catalogue-foundations-20261124",
+    "implementation_checkpoint_sha": "22a7fd6a3471b4b47fdc30c6272b9b70e86801a1",
+    "production_sha": "82622ac8c8168816bc57add41708e8e489acd004",
+    "audited_main_sha": "bfd496be56d7b27830384374dc63ada5b4b0276c",
+    "commits": {
+      "ledger": "e297692a4c49f06bd1f1d8bd81ec5eb7716f40e4",
+      "evidence": "e09210e8acdba939140fc13c27d4f4e395843405",
+      "queue_reconciliation": "c1cec61af2f80dfdce321265b946389ac3cda362",
+      "reader": "ee9889bf62aaff8356153790dd6943242cf134ec",
+      "tests": "22a7fd6a3471b4b47fdc30c6272b9b70e86801a1"
+    },
+    "candidate_changes": [
+      "Disabled shopping approval ledger migration",
+      "Independent release evidence checks",
+      "Restored main's 16-phase ordered queue and checkpoint to candidate",
+      "Bounded server-only reader for specified offer IDs",
+      "15 release-evidence regression cases added; execution not verified"
+    ],
+    "outstanding": [
+      "Secure owner approval writer and audit trail",
+      "Migration rehearsal and privileges tests",
+      "Integrate shopping reader with discovery, product detail, retailer, search, collections and outbound routing",
+      "Authenticated Awin HTTP 406 repair",
+      "Run automated tests and CI, reconcile Git history, deploy and verify"
+    ],
+    "production_changes": false,
+    "notes": "No new products published; migration not applied; reader not wired into public routes; tests authored but not verified. SHA records implementation checkpoint before documentation commits."
   }
 }
