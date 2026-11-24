@@ -1364,3 +1364,14 @@ Versions below refer to the Next.js application in `package.json`, not historica
 - Commit references: ledger `e297692a4c49f06bd1f1d8bd81ec5eb7716f40e4`; evidence `e09210e8acdba939140fc13c27d4f4e395843405`; queue_reconciliation `c1cec61af2f80dfdce321265b946389ac3cda362`; reader `ee9889bf62aaff8356153790dd6943242cf134ec`; tests `22a7fd6a3471b4b47fdc30c6272b9b70e86801a1`.
 - No new products published; migration not applied; reader not wired into public routes; tests authored but not verified. SHA records implementation checkpoint before documentation commits.
 - Remaining: Secure owner approval writer and audit trail; Migration rehearsal and privileges tests; Integrate shopping reader with discovery, product detail, retailer, search, collections and outbound routing; Authenticated Awin HTTP 406 repair; Run automated tests and CI, reconcile Git history, deploy and verify.
+
+
+## 24 November 2026 | Shopping owner review checkpoint
+
+- Separate transactional shopping owner review function and audit table committed
+- Restricted invoker-only execution; no API role may execute
+- Existing deal release function untouched
+- Candidate implementation SHA: `81948af2733844c5e02b729179909003cff59620`.
+- No migration applied; no tests executed; no new public stock; no live deployment. Owner gateway absent; reader additionally verifies rights and affiliate link. Master PDF parsed content unavailable.
+- Next: Rehearse both shopping migrations and privilege tests; Implement authenticated owner gateway, safe product activation and automation; Wire reader into shopping discovery, product pages, retailer storefronts, collections and outbound routes; Verify authenticated Awin HTTP406 repair, expand inventories and tyres; Run CI, reconcile main, deploy and verify production and live development register.
+- Mandatory seventh checkpoint: https://www.avuqo.com/control-centre/development-register (candidate JSON updated; live page not verified).
