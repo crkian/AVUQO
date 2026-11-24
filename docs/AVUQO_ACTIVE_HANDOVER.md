@@ -1,3 +1,9 @@
+## 24 November 2026 | Rich ordinary product page and conversion runtime checkpoint
+
+- Previous full conversion deployment READY; 18 successful scheduled batches / 360 accepted operations, 3,579 Awin canonical offers and 350 independent approvals at 22:01 UTC, all Tooled Up. Not unique new products or all public offers.
+- Existing product templates, gallery, original styling, category guidance and collection controls reused for independently admitted normal-priced retail items. Exact offer routes retained; canonical slug fallback allows revisiting normal items without treating them as deals. Shelf image and SKU display, separately validated ordinary saves with item-price snapshot provenance. Image evidence requires current offer plus source rights and exact feed; description coverage at audit zero. No fabricated specifications, history, score or delivered totals.
+- Candidate implementation and regression tests committed; full CI, production release, signed-in saves and mobile verification pending. Real variant enrichment, price history, Watch, both tyre suppliers and broader feed inventory remain open. No new branches or rights grants.
+
 ## 24 November 2026 | Preserve rich item pages and specialist tyre continuity
 
 - Owner explicitly requires continuity of prior tyre-size, fitment, category, comparison and product-detail builds. Original master specification sections 3, 8 and 9 and permanent tyre contract rechecked. Existing canonical product pages have gallery, eligible retailer comparison, category-specific guidance, validated specs, wishlist and related products; eleven templates. Independent shopping offer pages are currently much simpler and must be integrated into the existing rich canonical experience without reintroducing deal-only eligibility.

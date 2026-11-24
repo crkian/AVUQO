@@ -1,6 +1,7 @@
 import "server-only";
 import {createAdminClient} from "../supabase/admin";
 import {shoppingReleaseFailures} from "./shopping-release-evidence";
+import {retailText,retailGallery,retailDepartment} from "./shopping-presentation";
 import type {ExternalSource} from "../pipeline/source-readiness";
 
 type Row=Record<string,unknown>;
@@ -15,7 +16,8 @@ const index=(rows:Row[],key="id")=>new Map(rows.map(r=>[str(r[key]),r]));
 export type ShoppingRelease={
  offerId:string;productId:string;merchantId:string;merchantName:string;
  title:string;price:number;currency:"GBP";stock:string;lastSeenAt:string;
- affiliateUrl:string;
+ affiliateUrl:string;slug:string;brand:string|null;model:string|null;productType:string|null;
+ sku:string;department:string;gallery:string[];observedAt:string;
 };
 export async function readShoppingReleases(offerIds:readonly string[]):Promise<ShoppingRelease[]>{
  const requested=[...new Set(offerIds.filter(uuid))].slice(0,60);
@@ -40,7 +42,7 @@ export async function readShoppingReleases(offerIds:readonly string[]):Promise<S
   const [sources,merchants,products,programmes]=await Promise.all([
    db.from("sources").select("id,status,sync_enabled,credential_status,connector_key,source_type,metadata").in("id",sourceIds),
    db.from("merchants").select("id,name,status,metadata").in("id",merchantIds),
-   db.from("products").select("id,status").in("id",productIds),
+   db.from("products").select("id,status,slug,brand,model,product_type").in("id",productIds),
    db.from("affiliate_programs").select("provider,region,external_account_id,metadata").eq("provider","awin").eq("region","GB")
   ]);
   if(sources.error||merchants.error||products.error||programmes.error)return [];
@@ -58,10 +60,31 @@ export async function readShoppingReleases(offerIds:readonly string[]):Promise<S
    if(failures.length)continue;
    const title=str(offer.title).trim(),merchantName=str(merchant.name).trim();
    if(!title||!merchantName)continue;
+   const raw=rec(offer.raw_data);
+   const slug=str(product.slug);
+   if(!/^[a-z0-9][a-z0-9-]{2,159}$/.test(slug))continue;
    result.push({offerId:str(offer.id),productId:str(offer.product_id),merchantId:str(merchant.id),
     merchantName,title,price:Number(offer.price),currency:"GBP",stock:str(offer.stock_status),
-    lastSeenAt:str(offer.last_seen_at),affiliateUrl:str(offer.affiliate_url)});
+    lastSeenAt:str(offer.last_seen_at),affiliateUrl:str(offer.affiliate_url),
+    slug,brand:retailText(product.brand),model:retailText(product.model),productType:retailText(product.product_type),
+    sku:str(raw.merchant_product_id),department:retailDepartment(raw),gallery:retailGallery(raw,source.metadata),observedAt:str(raw.live_feed_verified_at)});
   }
   return result;
  }catch{return [];}
+}
+
+/** Exact product URL fallback for ordinary shopping only. Never admit a draft or
+ * manufacture a deal score. Multiple unproven seller identities are not compared.
+ */
+export async function ordinaryProductBySlug(slug:string):Promise<ShoppingRelease|null>{
+ if(!/^[a-z0-9][a-z0-9-]{2,159}$/.test(slug))return null;
+ try{
+  const db=createAdminClient();
+  const {data:p,error}=await db.from("products").select("id").eq("slug",slug).eq("status","active").maybeSingle();
+  if(error||!p)return null;
+  const {data:rows,error:rowsError}=await db.from("offers").select("id,awin_shopping_release_reviews!inner(status)").eq("product_id",p.id).eq("status","active").eq("awin_shopping_release_reviews.status","approved").order("id").limit(60);
+  if(rowsError||!rows?.length)return null;
+  const admitted=await readShoppingReleases(rows.map(r=>r.id));
+  return admitted.find(r=>r.productId===p.id&&r.slug===slug)??null;
+ }catch{return null;}
 }

@@ -1423,7 +1423,7 @@
         "title": "Product enrichment and variants",
         "status": "partial",
         "refs": "CAT-01 / CAT-02 / CAT-03",
-        "next": "Reuse existing 11 category-specific rich product templates for independently admitted shopping and deal offers; exact variants, rights-cleared photos/descriptions/specifications, merchant comparison, price history, Watch and related products; verify live mobile/desktop."
+        "next": "Verify rich ordinary item rendering and authenticated collections; backfill exact technical variant, approved descriptions, price history, Watch and multi-seller evidence."
       },
       {
         "order": 5,
@@ -1513,15 +1513,15 @@
     "current_checkpoint": {
       "date_utc": "2026-11-24",
       "production": {
-        "sha": "250829c3ce35fbc219cdb3e3b6134066064e9b85",
-        "deployment": "dpl_8KMHDpJR4G533DB1pJX4t33gdDgg",
+        "sha": "717d3265cf4b1e6183c0bc7366c36af34708a7af",
+        "deployment": "dpl_CnswK2nkAxVfnApmeuwcn7wmy6kg",
         "state": "READY",
         "domain": "https://www.avuqo.com",
         "owner_register": "Updated inventory snapshot committed; authenticated runtime acceptance pending"
       },
       "candidate": {
         "branch": "main",
-        "sha": "250829c3ce35fbc219cdb3e3b6134066064e9b85",
+        "sha": "829148e1afa9403e537cce4c8e61c130754ef4f3",
         "status": "partial",
         "changes": [
           "Disabled shopping approval ledger migration",
@@ -1570,14 +1570,16 @@
           "Shopping publication switch enabled; 50 current approved records",
           "Automatic evidence renewal applied and rollback/privilege-tested",
           "Full 21-programme, 76-feed and distinct-SKU audit recorded",
-          "Every-minute conversion worker with exclusive 6-minute recovery lease, service-only exact evidence selector, bounded 20, durable attempt counts; shopping review every 3 minutes"
+          "Every-minute conversion worker with exclusive 6-minute recovery lease, service-only exact evidence selector, bounded 20, durable attempt counts; shopping review every 3 minutes",
+          "Rich ordinary item view reuses existing product gallery, template resolver and styling; exact offer links retained",
+          "Canonical product route fallback independently admits ordinary items, without fabricating deals; existing deal and research routes preserved",
+          "Retail shelf displays rights-cleared exact-feed images and SKU",
+          "Wishlist/basket server endpoint separately revalidates exact ordinary offer and product slug; snapshots label item-price provenance"
         ],
         "remaining": [
-          "Verify exact deployment and actual cron conversion counts; natural renewal",
-          "Complete full-feed membership and draft admission, all supplier coverage, tyres and service adapters",
-          "Product presentation, search, departments and retailer integration",
-          "Mandatory rich product and tyre feature parity: Reuse existing 11 category-specific rich product templates for independently admitted shopping and deal offers; exact variants, rights-cleared photos/descriptions/specifications, merchant comparison, price history, Watch and related products; verify live mobile/desktop.",
-          "Mandatory tyre continuity: Preserve existing showroom, sizes, brand/category routes, finder, single SKU, variant and comparison pages; complete dynamic size facets and exact width/profile/rim/load/speed/XL/run-flat/OE/season, both suppliers, labels and comparable delivered/fitted totals."
+          "Build/CI and customer runtime, authenticated saves and mobile acceptance",
+          "Source-approved descriptions, exact technical variants, verified historical prices, Watch and real cross-seller matching remain pending",
+          "Supplier breadth and tyre fitment completion; preserve existing tyre routes"
         ]
       },
       "ordered_build_queue": [
@@ -6603,5 +6605,33 @@
       "Verify all existing public and owner routes, desktop/mobile navigation, 25 departments, 21 supplier studios, historical feature/branch parity, regression tests and production page bodies. Mark live only after runtime evidence."
     ],
     "remaining": "No implementation, CI, authenticated UI or production verification performed for these new acceptance items in this checkpoint."
+  },
+  "rich_ordinary_item_20261124": {
+    "date_utc": "2026-11-24",
+    "status": "partial",
+    "previous_production": {
+      "sha": "717d3265cf4b1e6183c0bc7366c36af34708a7af",
+      "deployment": "dpl_CnswK2nkAxVfnApmeuwcn7wmy6kg",
+      "state": "READY"
+    },
+    "runtime": {
+      "observed_at": "2026-11-24T22:01:31Z",
+      "approved": 350,
+      "canonical_offers": 3579,
+      "successful_conversion_batches": 18,
+      "accepted_conversion_operations": 360,
+      "all_ordinary_approvals": "Tooled Up"
+    },
+    "candidate": [
+      "Rich ordinary item view reuses existing product gallery, template resolver and styling; exact offer links retained",
+      "Canonical product route fallback independently admits ordinary items, without fabricating deals; existing deal and research routes preserved",
+      "Retail shelf displays rights-cleared exact-feed images and SKU",
+      "Wishlist/basket server endpoint separately revalidates exact ordinary offer and product slug; snapshots label item-price provenance"
+    ],
+    "remaining": [
+      "Build/CI and customer runtime, authenticated saves and mobile acceptance",
+      "Source-approved descriptions, exact technical variants, verified historical prices, Watch and real cross-seller matching remain pending",
+      "Supplier breadth and tyre fitment completion; preserve existing tyre routes"
+    ]
   }
 }

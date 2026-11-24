@@ -4932,5 +4932,33 @@
       "Verify all existing public and owner routes, desktop/mobile navigation, 25 departments, 21 supplier studios, historical feature/branch parity, regression tests and production page bodies. Mark live only after runtime evidence."
     ],
     "remaining": "No implementation, CI, authenticated UI or production verification performed for these new acceptance items in this checkpoint."
+  },
+  "rich_ordinary_item_20261124": {
+    "date_utc": "2026-11-24",
+    "status": "partial",
+    "previous_production": {
+      "sha": "717d3265cf4b1e6183c0bc7366c36af34708a7af",
+      "deployment": "dpl_CnswK2nkAxVfnApmeuwcn7wmy6kg",
+      "state": "READY"
+    },
+    "runtime": {
+      "observed_at": "2026-11-24T22:01:31Z",
+      "approved": 350,
+      "canonical_offers": 3579,
+      "successful_conversion_batches": 18,
+      "accepted_conversion_operations": 360,
+      "all_ordinary_approvals": "Tooled Up"
+    },
+    "candidate": [
+      "Rich ordinary item view reuses existing product gallery, template resolver and styling; exact offer links retained",
+      "Canonical product route fallback independently admits ordinary items, without fabricating deals; existing deal and research routes preserved",
+      "Retail shelf displays rights-cleared exact-feed images and SKU",
+      "Wishlist/basket server endpoint separately revalidates exact ordinary offer and product slug; snapshots label item-price provenance"
+    ],
+    "remaining": [
+      "Build/CI and customer runtime, authenticated saves and mobile acceptance",
+      "Source-approved descriptions, exact technical variants, verified historical prices, Watch and real cross-seller matching remain pending",
+      "Supplier breadth and tyre fitment completion; preserve existing tyre routes"
+    ]
   }
 }

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { readShoppingReleases } from "../../../../lib/products/shopping-release-reader";
 import { verifiedProduct } from "../../../../lib/products/public-catalog";
 import { parseCollectionRequest, isSameOriginWrite } from "../../../../lib/collections/requests";
 import { safeProductUrl } from "../../../../lib/collections/planning";
@@ -21,16 +22,17 @@ export async function POST(request: Request) {
   // The browser supplies identifiers only. A current licensed public offer is required
   // for both collections. This deliberately refuses removed, stale or unapproved offers.
   const verified=await verifiedProduct(body.productSlug);
-  if (!verified || verified.product.id!==body.productId) {
-    return NextResponse.json({error:"This product is not currently verified for saving."},{status:409});
-  }
-  const selected=verified.offers.find(x=>x.offer.id===body.offerId && x.offer.product_id===body.productId);
-  if (!selected) return NextResponse.json({error:"This retailer offer is unavailable or expired. Recheck the product."},{status:409});
-
-  const price=Number(selected.offer.total_price??selected.offer.price);
-  if (!Number.isFinite(price) || price<=0) return NextResponse.json({error:"No verified offer price is available."},{status:409});
-  const merchant=selected.published.merchant;
-  if (!merchant || typeof merchant!=="string") return NextResponse.json({error:"Merchant unavailable."},{status:409});
+  const selected=verified?.product.id===body.productId?verified.offers.find(x=>x.offer.id===body.offerId&&x.offer.product_id===body.productId):undefined;
+  const [ordinary]=selected?[]:await readShoppingReleases([body.offerId]);
+  const exact=ordinary&&ordinary.productId===body.productId&&ordinary.slug===body.productSlug?ordinary:null;
+  if(!selected&&!exact)return NextResponse.json({error:"This retailer offer is unavailable or expired. Recheck the product."},{status:409});
+  const price=selected?Number(selected.offer.total_price??selected.offer.price):exact!.price;
+  if(!Number.isFinite(price)||price<=0)return NextResponse.json({error:"No verified offer price is available."},{status:409});
+  const merchant=selected?selected.published.merchant:exact!.merchantName;
+  const title=selected?verified!.product.canonical_title:exact!.title;
+  const slug=selected?verified!.product.slug:exact!.slug;
+  const checkedAt=selected?selected.offer.last_seen_at:exact!.observedAt;
+  if(!merchant||typeof merchant!=="string")return NextResponse.json({error:"Merchant unavailable."},{status:409});
 
   const admin=createAdminClient();
   const userId=auth.user.id;
@@ -66,14 +68,14 @@ export async function POST(request: Request) {
   }
   const {error:insertError}=await admin.from("shared_list_items").insert({
     list_id:list.id,added_by:userId,product_id:body.productId,item_key:itemKey,
-    title_override:verified.product.canonical_title.slice(0,180),
-    url:safeProductUrl(verified.product.slug),
+    title_override:title.slice(0,180),
+    url:safeProductUrl(slug),
     snapshot:{
-      kind:body.kind,product_slug:verified.product.slug,offer_id:selected.offer.id,
+      kind:body.kind,product_slug:slug,offer_id:body.offerId,
       merchant:merchant.slice(0,120),price_gbp:price,
       captured_at:new Date().toISOString(),
-      offer_checked_at:selected.offer.last_seen_at,
-      provenance:"verified_offer_at_save",
+      offer_checked_at:checkedAt,
+      provenance:selected?"verified_offer_at_save":"verified_shopping_item_price_at_save",
     },
   });
   if (insertError?.code==="23505") return NextResponse.json({ok:true,alreadySaved:true});

@@ -13,6 +13,8 @@ import RetailerSales from "../../../components/promotions/RetailerSales";
 import {eligibleDepartmentProduct} from "../../../lib/products/department-showrooms";
 import ResearchProductDetails from "../../../components/products/ResearchProductDetails";
 import {researchGuideBySlug} from "../../../lib/products/research-guides";
+import OrdinaryProductDetails from "../../../components/products/OrdinaryProductDetails";
+import {ordinaryProductBySlug} from "../../../lib/products/shopping-release-reader";
 import {verifiedProduct,verifiedProductIndex} from "../../../lib/products/public-catalog";
 import {publicPageMetadata,verifiedProductSchema,jsonLd} from "../../../lib/site/seo";
 import {compareEligibleOffers} from "../../../lib/products/comparison-evidence";
@@ -31,7 +33,10 @@ export async function generateMetadata({params}:Props):Promise<Metadata>{
  const {slug}=await params;const record=await verifiedProduct(slug);
  if(!record){
   const guide=researchGuideBySlug(slug);
-  if(!guide)return {title:"Product unavailable",robots:{index:false,follow:false}};
+  if(!guide){
+   const ordinary=await ordinaryProductBySlug(slug);
+   return ordinary?{title:ordinary.title+" | AVUQO",description:"Current verified retailer listing. Confirm variant, availability and terms.",robots:{index:false,follow:true}}:{title:"Product unavailable",robots:{index:false,follow:false}};
+  }
   return {title:guide.title+" | Research guide",description:guide.teaser,
    alternates:{canonical:"/products/"+slug},robots:{index:false,follow:true}};
  }
@@ -123,7 +128,11 @@ export default async function Page({params}:Props){
  const {slug}=await params;
  const entry=await verifiedProduct(slug);
  const guide=entry?undefined:researchGuideBySlug(slug);
- if(!entry&&!guide)notFound();
+ if(!entry&&!guide){
+  const ordinary=await ordinaryProductBySlug(slug);
+  if(!ordinary)notFound();
+  return <main><Header/><OrdinaryProductDetails item={ordinary}/><Footer/></main>;
+ }
  const relatedPool=entry?await verifiedProductIndex(60):[];
  const alternatives=relatedPool.filter(item=>item.product.id!==entry?.product.id);
  const category=entry?.offers[0]?.published.category.trim().toLowerCase();
