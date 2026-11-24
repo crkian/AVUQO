@@ -8,6 +8,7 @@ export type PublicOffer={
  published:{offer_id:string;product_id:string;title:string;category:string;merchant:string;current_price:number;typical_price:number|null;saving_amount:number|null;avuqo_score:number;confidence:number;label:string;decision:string;image_url:string|null;stock_status:string|null;reason:string|null;updated_at:string|null};
  offer:{id:string;product_id:string;source_id:string;price:number;total_price:number|null;currency:string;status:string;source_url:string|null;affiliate_url:string|null;last_seen_at:string|null;valid_until:string|null;stock_status:string|null;match_confidence:number|null};
  source:{id:string;name:string;imageAllowed:boolean};
+ image_gallery?:Array<{url:string;role:string}>;
 };
 export type PublicProduct={
  id:string;slug:string;canonical_title:string;brand:string|null;model:string|null;description:string|null;primary_image_url:string|null;specifications:unknown;status:string;product_type:string|null;
@@ -70,7 +71,7 @@ function offerFresh(row:Record<string,unknown>,now:number,isAwin=false):boolean{
  return true;
 }
 const SELECT_DEAL="offer_id,product_id,title,category,merchant,current_price,typical_price,saving_amount,avuqo_score,confidence,label,decision,image_url,stock_status,reason,updated_at";
-const SELECT_OFFER="id,product_id,source_id,merchant_id,price,total_price,currency,status,source_url,affiliate_url,last_seen_at,valid_until,stock_status,match_confidence";
+const SELECT_OFFER="id,product_id,source_id,merchant_id,price,total_price,currency,status,source_url,affiliate_url,last_seen_at,valid_until,stock_status,match_confidence,raw_data";
 export async function verifiedOffers(options:{productId?:string;offerId?:string;offerIds?:readonly string[];limit?:number}={}):Promise<PublicOffer[]>{
  try{
   const db=createAdminClient();
@@ -176,9 +177,20 @@ export async function verifiedOffers(options:{productId?:string;offerId?:string;
    // Awin feed price is a product price. Do not misrepresent unknown delivery
    // charges as a verified delivered total, even when legacy DB total_price=price.
    // A separate delivery-cost verification is required before showing a total.
-   const displayedOffer=source.connector_key==="awin"?{...offer,total_price:null}:offer;
+   const {raw_data:privateOfferEvidence,...safeOffer}=offer;
+   const evidence=metadata(privateOfferEvidence);
+   // Gallery rights must belong to this exact admitted offer, not another
+   // merchant sharing the canonical product. Never serialize raw feed metadata.
+   const gallery=source.connector_key==="awin"&&imageAllowed&&
+    evidence.source_image_rights_confirmed===true&&
+    typeof evidence.live_feed_digest==="string"&&/^[a-f0-9]{64}$/.test(evidence.live_feed_digest)&&
+    typeof evidence.live_feed_verified_at==="string"&&
+    Date.parse(evidence.live_feed_verified_at)<=now+300000&&
+    now-Date.parse(evidence.live_feed_verified_at)<=48*3600_000
+     ?verifiedSupplierGallery({source_supplied_gallery:evidence.permitted_image_gallery}):[];
+   const displayedOffer=source.connector_key==="awin"?{...safeOffer,total_price:null}:safeOffer;
    return [{published:{...d,image_url:imageAllowed&&isHttps(d.image_url)?d.image_url:null},
-     offer:displayedOffer,source:{id:source.id,name:source.name,imageAllowed}} as PublicOffer];
+     offer:displayedOffer,source:{id:source.id,name:source.name,imageAllowed},image_gallery:gallery} as PublicOffer];
   }).slice(0,limit);
  }catch{return [];}
 }
@@ -191,8 +203,10 @@ export async function verifiedProduct(slug:string):Promise<{product:PublicProduc
   const offers=await verifiedOffers({productId:data.id,limit:35});
   if(!offers.length)return null;
   const {metadata:privateMetadata,...publicProduct}=data;
-  const gallery=offers.some(o=>o.source.imageAllowed)
-   ?verifiedSupplierGallery(privateMetadata):[];
+  // Retain only galleries attached to admitted offers; legacy product-level
+  // galleries lack merchant-specific rights provenance.
+  void privateMetadata;
+  const gallery=[...new Map(offers.flatMap(o=>o.image_gallery??[]).map(image=>[image.url,image])).values()].slice(0,24);
   return {product:{...publicProduct,image_gallery:gallery} as PublicProduct,offers};
  }catch{return null;}
 }

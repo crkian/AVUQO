@@ -19,7 +19,8 @@ test("fresh exact rechecked private Awin row becomes a raw canonical held candid
  assert.ok(r);
  assert.equal(r.price,149.99);
  assert.equal(r.currency,"GBP");
- assert.equal(r.category,"home");
+ assert.equal(r.category,"pets");
+ assert.equal(r.raw.catalogue_classification.status,"classified");
  assert.equal(r.merchantExternalId,"77952");
  assert.equal(r.sourceRecordId,"77952:SKU-001");
  assert.equal(r.gtin,"6976166720714");
@@ -67,4 +68,19 @@ test("bridge uses the one existing scoring pipeline and cannot auto-publish firs
  assert.match(pipeline,/status: privateOnly\?"draft":"active"/);
  assert.match(pipeline,/source\.status!=="paused"/);
  assert.doesNotMatch(stage,/record_awin_owner_release|\.from\("awin_offer_release_reviews"\)/);
+});
+
+test("retail classification is product specific and ambiguous evidence is reviewable",async()=>{
+ const {classifyRetailProduct}=await import("../lib/categories/retail-classification.ts");
+ const {normalizeOffer}=await import("../lib/pipeline/normalize.ts");
+ for(const [title,department] of [["Automatic cat feeder","pets"],["Crystal Art kit","crafts"],["Construction toys","toys-games"],["Chocolate hamper","gifts"],["SIM-free smartphone","tech"],["Cordless drill","diy-building"],["Garden mower","garden-outdoors"],["Safety footwear","fashion"]]){
+  assert.equal(classifyRetailProduct({title}).department,department);
+  const raw=toFreshVerifiedAwinRaw({...base,title,category:null},"77952","103580",digest);
+  assert.ok(raw);
+  assert.equal(normalizeOffer(raw).categorySlug,department);
+ }
+ assert.equal(classifyRetailProduct({category:"Garden furniture"}).status,"needs_review");
+ assert.equal(classifyRetailProduct({title:"Unknown SKU"}).status,"needs_review");
+ assert.equal(classifyRetailProduct({category:"Pet care",title:"Smartphone"}).department,"pets");
+ assert.equal(toFreshVerifiedAwinRaw(base,"12715","103580",digest),null);
 });

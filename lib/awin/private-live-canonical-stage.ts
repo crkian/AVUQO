@@ -2,6 +2,7 @@ import type {createAdminClient} from "../supabase/admin";
 import {ownAffiliateLink} from "./approved-offer-renewal.ts";
 import {publicAwinDescription} from "./product-description-evidence.ts";
 import {sourceIngestionFailures} from "../pipeline/source-readiness.ts";
+import {classifyRetailProduct} from "../categories/retail-classification.ts";
 import {classifyTooledUpCategory} from "./tooled-up-taxonomy.mjs";
 
 import type {RawSourceOffer,PipelineRunSummary} from "../../types/pipeline";
@@ -29,8 +30,11 @@ const rec=(v:unknown):Record<string,unknown>=>
 export function toFreshVerifiedAwinRaw(
  row:Row,advertiser:string,feed:string,digest:string,now=Date.now()
 ):RawSourceOffer|null{
- const category=advertiser==="496"?classifyTooledUpCategory(row.category):PHYSICAL.get(advertiser);
+ const fallback=advertiser==="496"?classifyTooledUpCategory(row.category):PHYSICAL.get(advertiser);
  const m=rec(row.metadata),verified=String(m.live_feed_verified_at??"");
+ const classification=classifyRetailProduct({category:row.category,path:typeof m.merchant_category_path==="string"?m.merchant_category_path:null,title:row.title});
+ // Only clear evidence may refine the existing routing; unknown suppliers remain blocked.
+ const category=PHYSICAL.has(advertiser)?(classification.department??fallback):undefined;
  const checked=Date.parse(verified);
  const amount=Number(row.price);
  const link=typeof m.verified_awin_deep_link==="string"?m.verified_awin_deep_link:null;
@@ -71,7 +75,8 @@ export function toFreshVerifiedAwinRaw(
    currency_source:typeof m.currency_source==="string"?m.currency_source:"feed_column",
    supplier_image_count:gallery.length,
    source_image_rights_confirmed:rightsVerified,
-   merchant_category:advertiser==="496"?row.category:null,
+   merchant_category:row.category,
+   catalogue_classification:classification,
    // Gallery remains private pending rights. Never copy unapproved URLs into public products.
    permitted_image_gallery:rightsVerified?gallery:[]}
  };

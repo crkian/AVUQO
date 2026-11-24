@@ -1,3 +1,4 @@
+import {classifyRetailProduct} from "../categories/retail-classification.ts";
 import {collectAwinImages,selectAwinPrimaryImage} from "../awin/collect-images.mjs";
 import {normalizeAwinAvailability} from "../awin/stock-availability.mjs";
 import {privateAwinDescription} from "../awin/product-description-evidence.ts";
@@ -101,6 +102,7 @@ export function prepareGeneralBatch(merchant:string,feedId:string,header:string[
     supplied_image_gallery:images,
     image_usage_status:"awaiting_advertiser_terms_verification",
     canonical_category_approved:false,category_classification_status:"needs_review",
+    suggested_catalogue_classification:serviceOrContract?null:classifyRetailProduct({category,path:get(r,"merchant_product_category_path","product_type"),title}),
     permission_status:"unverified",price_observation_kind:"private_import",
     listing_kind:serviceOrContract?"service_or_contract":"physical_product",
     product_type_hint:format==="google-retail"?"google-retail":"awin-general"

@@ -1,5 +1,30 @@
 ## 21 November 2026 | Search discoverability, verified product schema and analytics control (PR #337, release candidate)
 
+## 24 November 2026 | Development register expanded
+
+- Added 92 detailed acceptance items across 12 programmes and 21 provider/feed pipeline entries to the existing master JSON development_register. Very, Amazon and Freemans are owner-selected experience benchmarks, not evidence of commercial relationships or permission to copy branding.
+- Owner-only page now renders the detailed roadmap, current source registry safe fields, all 21 existing accepted Awin programme records and observed feed counts (bounded to 1000), and proposed dropship/direct supplier candidates. Affiliate referral and merchant-of-record fulfilment are distinct models. No new supplier connection, checkout or order routing activated.
+- Detailed status remains unknown until implementation and runtime evidence are reconciled. Proposed suppliers require current terms verification, not assumed account access. Branch snapshot remains dated. CI, authenticated browser and production verification pending. Update master JSON and all six cumulative registers together.
+
+
+## 24 November 2026 | Development & Intelligence Register candidate
+
+- Owner-only `/control-centre/development-register` linked from Start Here and dashboard. Directly reads master JSON development_register and original feature tracker; explicit catalogue priorities, traffic-light evidence, 40 observed Git refs, 37 feature requirements, 14 source references and 27 operational priorities. Includes original design, supplier and analytics workspace links. No new database or public endpoint.
+- Snapshot is not a continuous Git API poll. Future handovers must update development_register items and branch_snapshot alongside the existing six registers, then deploy to refresh the page. Branch parity/current merchant terms/authenticated visual review and CI remain outstanding. No branch deletion.
+
+
+## 24 November 2026 | PR #340 code candidate CI evidence
+
+- Code head `63b3e7d9cc728b80f5caaa0e8e30978169f433cd`: quality run 45449570925 and secret scan 45449570622 passed. Includes corrected PlayPress department regression, checksum-valid unique barcode lookup, and permission-bound per-offer supplier gallery integration.
+- Title fallback and historic associations remain unresolved; full inventories and separate shopping admission not implemented. No database migration. Production verification pending; documentation-only follow-up must pass required checks.
+
+
+## 24 November 2026 | Catalogue classification candidate
+
+- PR #339 merged at `bececf67103ca8f738833315734c1a99600fc912`; Vercel production `dpl_HRgTLTYNWqw562fBrRn74XzFcP7N` READY, www.avuqo.com alias verified. Runtime feed coverage not yet measured.
+- New branch `feature/catalogue-classification-20261124`: product-specific source category/path/title rules, ambiguous evidence flagged, canonical department routing for existing supported physical suppliers only. Existing source rights, score, release gates and specialist restrictions unchanged. Candidate pending CI and production verification. All historic records retained.
+
+
 ## 24 November 2026 | Full catalogue enrichment (PR #339 candidate)
 
 - Every authorised product, not just sales; retain source descriptions, images, attributes, separate promotion evidence, and rotate exact authenticated SKU rechecks. Existing rights, independent scores and release controls unchanged.

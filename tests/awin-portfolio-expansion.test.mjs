@@ -43,7 +43,8 @@ test("accepted PlayPress exact fresh feed may only enter private held canonical 
    tracking_link_verified:true,availability:"in stock",listing_kind:"physical_product"}};
  const result=toFreshVerifiedAwinRaw(raw,"101445","F5142",digest);
  assert.ok(result);
- assert.equal(result.category,"gifts");
+ assert.equal(result.category,"toys-games");
+ assert.equal(result.raw.catalogue_classification.basis,"source_category");
  assert.equal(result.merchantName,"PlayPress Toys UK");
  assert.equal(toFreshVerifiedAwinRaw({...raw,currency:"USD"},"101445","F5142",digest),null);
 });

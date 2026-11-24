@@ -1,4 +1,51 @@
 {
+  "development_register_expansion_20261124": {
+    "status": "candidate",
+    "route": "/control-centre/development-register",
+    "detail_features": 92,
+    "provider_pipeline_entries": 21,
+    "owner_design_direction": [
+      "Very",
+      "Amazon",
+      "Freemans"
+    ],
+    "supplier_roster": 21,
+    "source_registry": "request-time safe fields",
+    "feed_observations": "request-time up to 1000 records",
+    "limitations": "Proposed dropship providers not verified or contacted; no orders or credentials activated. Detailed feature statuses require parity and runtime review. Branch snapshot remains dated; no continuous Git sync. CI and production acceptance pending."
+  },
+  "development_register_20261124": {
+    "status": "candidate",
+    "route": "/control-centre/development-register",
+    "owner_only": true,
+    "source": "docs/AVUQO_ACTIVE_HANDOVER.json development_register; existing feature tracker",
+    "branch_snapshot_count": 40,
+    "feature_requirements": 37,
+    "source_references": 14,
+    "operational_priorities": 27,
+    "limitations": "Snapshot not automatic Git polling; handover edits require deployment; branch ancestry and current source terms not independently reconciled; CI and authenticated browser verification pending."
+  },
+  "catalogue_candidate_ci_20261124": {
+    "status": "candidate_ci_passed_on_code_head",
+    "code_head": "63b3e7d9cc728b80f5caaa0e8e30978169f433cd",
+    "quality_run": 45449570925,
+    "secret_run": 45449570622,
+    "scope": "classification routing and PlayPress test correction; checksum-validated unique barcode lookup; offer-bound permission-checked galleries",
+    "limitations": "Title fallback and historical matching not corrected; full retail inventory and separate shopping admission not implemented; live behaviour unverified. No database migration."
+  },
+  "catalogue_classification_20261124": {
+    "status": "candidate",
+    "branch": "feature/catalogue-classification-20261124",
+    "scope": "Product-specific deterministic department suggestions and exact verified canonical routing, ambiguity review evidence",
+    "previous_release": {
+      "pr": 339,
+      "sha": "bececf67103ca8f738833315734c1a99600fc912",
+      "deployment": "dpl_HRgTLTYNWqw562fBrRn74XzFcP7N",
+      "state": "READY",
+      "runtime_coverage_unverified": true
+    },
+    "remaining": "Full provider coverage, sales admission separation, matching, public gallery and specification enrichment, throughput and CI"
+  },
   "catalogue_enrichment_20261124": {
     "status": "candidate_ci_and_runtime_pending",
     "pr": 339,

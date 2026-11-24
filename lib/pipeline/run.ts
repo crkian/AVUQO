@@ -1,3 +1,4 @@
+import {canonicalGtin,exactBarcodeIdentity,barcodeLookupForms} from "../products/exact-identity";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { getConnector } from "../connectors/registry";
@@ -179,18 +180,22 @@ async function ensureMerchant(
 }
 
 async function findProductByIdentifier(supabase: SupabaseClient, offer: NormalizedOffer) {
-  for (const identifier of offer.identifiers) {
-    const { data, error } = await supabase
-      .from("product_identifiers")
-      .select("product_id")
-      .eq("identifier_type", identifier.type)
-      .eq("identifier_value", identifier.value)
-      .limit(1)
-      .maybeSingle();
-    if (error) throw error;
-    if (data?.product_id) return data.product_id as string;
-  }
-  return null;
+  const code=exactBarcodeIdentity(offer.identifiers);
+  if(!code)return null;
+  const {data,error}=await supabase.from("product_identifiers")
+    .select("product_id,identifier_type,identifier_value")
+    .in("identifier_type",["gtin","ean","upc"])
+    .in("identifier_value",barcodeLookupForms(code)).limit(101);
+  if(error)throw error;
+  const ids=[...new Set((data??[]).map(r=>r.product_id))];
+  if(ids.length!==1||(data??[]).length>=101)return null;
+  const {data:existing,error:checkError}=await supabase.from("product_identifiers")
+    .select("identifier_type,identifier_value").eq("product_id",ids[0])
+    .in("identifier_type",["gtin","ean","upc"]).limit(101);
+  if(checkError)throw checkError;
+  // Historical products with conflicting or invalid barcodes are not trustworthy.
+  if(!existing?.length||existing.length>=101||existing.some(r=>canonicalGtin(r.identifier_value)!==code))return null;
+  return ids[0] as string;
 }
 
 async function ensureProduct(

@@ -1,4 +1,1423 @@
 {
+  "development_register": {
+    "observed_at_utc": "2026-11-24",
+    "branch_snapshot": {
+      "source": "GitHub REST branches, single page up to 100",
+      "observed_at_utc": "2026-11-24",
+      "branches": [
+        {
+          "name": "audit/ebay-four-foundation-reconciliation-20261117",
+          "sha": "f5f2c3c5b4d5403a2704b0a616cf6cffe2b63cc9",
+          "protected": false
+        },
+        {
+          "name": "design/warm-premium-visual-system-20261105",
+          "sha": "3d06ef862931548369b4a8b4ee207f77989d48cc",
+          "protected": false
+        },
+        {
+          "name": "docs/ebay-awin-production-gates-20261116",
+          "sha": "b84feda50f9935f3048c17a22e1796c3ff10822f",
+          "protected": false
+        },
+        {
+          "name": "docs/p0-03-verified-rollout-20261104",
+          "sha": "9873f5f77d336b0c25e6cc8a3db07fb8089d4586",
+          "protected": false
+        },
+        {
+          "name": "docs/petlibro-live-import-pilot-20261114",
+          "sha": "6f83328267ee5eae286c439a579672188155a564",
+          "protected": false
+        },
+        {
+          "name": "docs/verified-supplier-readiness-release-20261120",
+          "sha": "5547ce4f8fef344af404fb963f679cdaedca04e1",
+          "protected": false
+        },
+        {
+          "name": "docs/verify-pr330-release-and-affiliate-handover-20261120",
+          "sha": "a860fa38da1ab48491b3319eaad7bf6d60243a65",
+          "protected": false
+        },
+        {
+          "name": "feat/ebay-compliance-decision-no-persist-20261116",
+          "sha": "9c1fd238591c21f7f3ebabb9b4d7a40ca8e9bd22",
+          "protected": false
+        },
+        {
+          "name": "feature/awin-auto-import-clean-rebase-20261105",
+          "sha": "8ef676e5c656132f8cacd0f7f0953d33d47b58e0",
+          "protected": false
+        },
+        {
+          "name": "feature/awin-canonical-private-taxonomy-20261030",
+          "sha": "006bed340d648b34661937a24b53279c62cd8e72",
+          "protected": false
+        },
+        {
+          "name": "feature/awin-departments-crafts-20261030",
+          "sha": "d0e91571ea46c83047dfa50cbf406c554de8a1ff",
+          "protected": false
+        },
+        {
+          "name": "feature/awin-feed-catalogue-safety-20261104",
+          "sha": "aa4734ebe2b3d118a56f0c91aa38b7789431ce71",
+          "protected": false
+        },
+        {
+          "name": "feature/awin-readonly-diagnostics-20261104",
+          "sha": "330fd4401f6501e5812817b75bef9fa74d09073c",
+          "protected": false
+        },
+        {
+          "name": "feature/awin-safe-feed-change-monitor-20261104",
+          "sha": "0825b36f49ed0f82a1c42d3214e5bd8ad0d968df",
+          "protected": false
+        },
+        {
+          "name": "feature/catalogue-classification-20261124",
+          "sha": "62ec1e6fe841921e9d878e920a9ae0241e7fc990",
+          "protected": false
+        },
+        {
+          "name": "feature/category-specific-product-previews-20261104",
+          "sha": "613c97939fb9f9cc946d6ba182229588f3786564",
+          "protected": false
+        },
+        {
+          "name": "feature/photo-led-category-pages-2026",
+          "sha": "158cc6bb91bc02a64189e6128abce937e39075e7",
+          "protected": false
+        },
+        {
+          "name": "feature/tooled-up-awin-programme-currency-proof-20261105",
+          "sha": "2bba72d4a014204948465ef5431d69401dbbb983",
+          "protected": false
+        },
+        {
+          "name": "feature/tooled-up-private-catalogue-filters-20261104",
+          "sha": "e9ff0f598670c403d39953e3c6b56d696a816673",
+          "protected": false
+        },
+        {
+          "name": "feature/tyres-uk-private-lease-primitives-review-20261113",
+          "sha": "226a8030800998dde1cc964b73e842b88c7b68c0",
+          "protected": false
+        },
+        {
+          "name": "feature/tyres-uk-server-auto-enrichment-v2-20261109",
+          "sha": "01ec568c28e27844e5524554279271d68a613246",
+          "protected": false
+        },
+        {
+          "name": "feature/universal-categories-inactive-20261030",
+          "sha": "c43d227b0c62756947b44e8f510ac6b4b3b6badd",
+          "protected": false
+        },
+        {
+          "name": "feature/warm-premium-experience-v1-20261105",
+          "sha": "9a90b4b76279cf650919c9d252653fb69104768a",
+          "protected": false
+        },
+        {
+          "name": "fix/customer-item-links-and-roadmap-20261030",
+          "sha": "8057ce176a16aecbd550cc9d3e48d28a8b72e32b",
+          "protected": false
+        },
+        {
+          "name": "fix/numbered-feed-filenames-20261104",
+          "sha": "ea6a5305b601e1e2ba0108e7a89b1201413f5344",
+          "protected": false
+        },
+        {
+          "name": "fix/phase1-saved-watches-routing-20261030",
+          "sha": "e0a5ef7997ea46c7b667c31c2358e50818f8219e",
+          "protected": false
+        },
+        {
+          "name": "fix/product-pilot-soft-404-and-release-proof-20261114",
+          "sha": "63b8b2c479bc80943b1c1f5f0c0b1ff2c6435395",
+          "protected": false
+        },
+        {
+          "name": "fix/products-request-bound-true-404-20261114",
+          "sha": "cc152190b9e4e460070185112b0d6883ace4ba3f",
+          "protected": false
+        },
+        {
+          "name": "launch/awin-ebay-readiness-gates-20261117",
+          "sha": "c83f11a5daf2e1ef2e8b4ac8ac018429cc07b8dd",
+          "protected": false
+        },
+        {
+          "name": "main",
+          "sha": "bececf67103ca8f738833315734c1a99600fc912",
+          "protected": false
+        },
+        {
+          "name": "plan/avuqo-commerce-ebay-ack-reconciliation-20261117",
+          "sha": "b3166e9f94e258f078606dfb550d5f52b3bddb77",
+          "protected": false
+        },
+        {
+          "name": "privacy/ebay-minimal-affiliate-nonpersistent-pilot-20261116",
+          "sha": "c7715d47d3ee22ea112a93fad0dbb3349ec095c8",
+          "protected": false
+        },
+        {
+          "name": "privacy/ebay-production-release-gate-20261117",
+          "sha": "38a7b6f1c1ee2b8e8bca9b675ecb8477557c11cb",
+          "protected": false
+        },
+        {
+          "name": "security/block-future-secret-commits",
+          "sha": "a2b8a4dba69ad7d01f0cf34e4ebf4526a777e81c",
+          "protected": false
+        },
+        {
+          "name": "security/ebay-dba-bounded-purge-runner-20261116",
+          "sha": "35d1905d1dc26114c3053d1e250bd3619f9c39bb",
+          "protected": false
+        },
+        {
+          "name": "security/ebay-erasure-readiness-preflight-20261116",
+          "sha": "a7d41aec51cf1daab0133cf6124274b1ada322ba",
+          "protected": false
+        },
+        {
+          "name": "security/ebay-erasure-work-journal-20261116",
+          "sha": "7233e9a371789ecb1d40f0f3a38060f860f946bb",
+          "protected": false
+        },
+        {
+          "name": "security/ebay-mapped-catalogue-executor-20261116",
+          "sha": "8946838627f3576b6132aaf0a0490de377ea0f5b",
+          "protected": false
+        },
+        {
+          "name": "security/remove-exposed-build-archive",
+          "sha": "9f018decaf92935f4a972e871c4fae80a2293052",
+          "protected": false
+        },
+        {
+          "name": "test/ebay-committed-link-tombstone-20261116",
+          "sha": "82e69d5a4119db6015f444c1585a8377f978f72d",
+          "protected": false
+        }
+      ]
+    },
+    "items": [
+      {
+        "id": "CAT-01",
+        "priority": 1,
+        "title": "Richer feed-field extraction",
+        "status": "live",
+        "evidence": "PR339 deployed bececf67",
+        "next": "Measure imported field coverage and missing fields across all feeds.",
+        "workspace": "supplier-readiness"
+      },
+      {
+        "id": "CAT-02",
+        "priority": 1,
+        "title": "Full supplier descriptions",
+        "status": "partial",
+        "evidence": "Bounded description preservation deployed in PR339",
+        "next": "Verify rights-cleared descriptions and backfill missing public products.",
+        "workspace": "supplier-readiness"
+      },
+      {
+        "id": "CAT-03",
+        "priority": 2,
+        "title": "Product image galleries",
+        "status": "tested",
+        "evidence": "PR340 offer-bound gallery integration passed CI; not deployed",
+        "next": "Verify public galleries and per-offer rights on production.",
+        "workspace": "product-previews"
+      },
+      {
+        "id": "CAT-04",
+        "priority": 1,
+        "title": "Normal-priced products / separate shopping admission",
+        "status": "outstanding",
+        "evidence": "Private imports retain regular-price items; public admission still tied to deal score",
+        "next": "Create independently verified shopping admission, preserve promotion scoring and owner controls.",
+        "workspace": "pipeline"
+      },
+      {
+        "id": "CAT-05",
+        "priority": 1,
+        "title": "Automatic catalogue rotation",
+        "status": "live",
+        "evidence": "PR339 exact-SKU rotation deployed",
+        "next": "Measure throughput and prevent starvation; deployment alone does not prove coverage.",
+        "workspace": "awin-feed-updates"
+      },
+      {
+        "id": "CAT-06",
+        "priority": 2,
+        "title": "Intelligent category classification",
+        "status": "tested",
+        "evidence": "PR340 deterministic routing and tests passed",
+        "next": "Verify public department routing, ambiguous cases and retrospective reclassification.",
+        "workspace": "marketplace"
+      },
+      {
+        "id": "CAT-07",
+        "priority": 1,
+        "title": "Full supplier inventory coverage",
+        "status": "outstanding",
+        "evidence": "Bounded imports and canonical processing remain incomplete",
+        "next": "Reconcile all authorised source rows, exclusions, retries and public inventory counts.",
+        "workspace": "coverage"
+      },
+      {
+        "id": "CAT-08",
+        "priority": 3,
+        "title": "Automatic sales classification",
+        "status": "outstanding",
+        "evidence": "Promotional fields retained privately",
+        "next": "Separate normal prices, verified active promotions and observed reductions.",
+        "workspace": "pipeline"
+      },
+      {
+        "id": "CAT-09",
+        "priority": 2,
+        "title": "Cross-retailer matching",
+        "status": "partial",
+        "evidence": "PR340 checksum-valid unique barcode lookup passed CI",
+        "next": "Prevent title fallback collisions, reconcile historic matches and verify exact variants.",
+        "workspace": "product-readiness"
+      },
+      {
+        "id": "CAT-10",
+        "priority": 0,
+        "title": "Awin HTTP 406 repair",
+        "status": "blocked",
+        "evidence": "Repeated enhanced feed HTTP 406 in prior runtime audit",
+        "next": "Diagnose authenticated provider endpoint and verify a successful real response.",
+        "workspace": "awin-feed-updates"
+      },
+      {
+        "id": "CAT-11",
+        "priority": 1,
+        "title": "All 21 supplier integrations",
+        "status": "partial",
+        "evidence": "Accepted programme portfolio; physical and service adapters incomplete",
+        "next": "Reconcile membership, feed access, permissions, product or quote adapters and live results.",
+        "workspace": "supplier-readiness"
+      },
+      {
+        "id": "CAT-12",
+        "priority": 4,
+        "title": "Advanced catalogue analytics",
+        "status": "outstanding",
+        "evidence": "Owner reporting foundation; complete first-party event collection and intelligence unverified",
+        "next": "Verify consent, ingestion, deduplication, coverage, funnels and conversions.",
+        "workspace": "analytics"
+      },
+      {
+        "id": "CAT-13",
+        "priority": 2,
+        "title": "Tyre comparison completion",
+        "status": "blocked",
+        "evidence": "Historical exact barcode overlap; currency and fitment gaps",
+        "next": "Verify GBP, fitment, stock and comparable prices from both suppliers.",
+        "workspace": "tyre-cross-retailer"
+      },
+      {
+        "id": "DEV-01",
+        "priority": 0,
+        "title": "Release and handover continuity",
+        "status": "partial",
+        "evidence": "PR340 code and documentation checks passed at 62ec1e6f",
+        "next": "Merge verified candidate; check Vercel exact SHA and authenticated page; record evidence.",
+        "workspace": "release-readiness"
+      },
+      {
+        "id": "UX-01",
+        "priority": 6,
+        "title": "Premium design and mobile experience",
+        "status": "partial",
+        "evidence": "Historical design references and supplier studios retained",
+        "next": "Compare original concepts, current screens, responsive navigation and owner approval.",
+        "workspace": "design-system"
+      }
+    ],
+    "notes": "Status evidence is a dated register, not a live runtime check. Update this object with each handover; never mark green solely from a merge.",
+    "detailed_features": [
+      {
+        "id": "SHOP-01",
+        "priority": 1,
+        "area": "Shopping & catalogue",
+        "title": "Universal retail park and normal-priced catalogue",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "shop"
+      },
+      {
+        "id": "SHOP-02",
+        "priority": 1,
+        "area": "Shopping & catalogue",
+        "title": "Full authorised feeds and variants",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "shop"
+      },
+      {
+        "id": "SHOP-03",
+        "priority": 1,
+        "area": "Shopping & catalogue",
+        "title": "Product titles, specifications and descriptions",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "shop"
+      },
+      {
+        "id": "SHOP-04",
+        "priority": 1,
+        "area": "Shopping & catalogue",
+        "title": "Rights-cleared multiple image galleries",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "shop"
+      },
+      {
+        "id": "SHOP-05",
+        "priority": 1,
+        "area": "Shopping & catalogue",
+        "title": "Retailer storefronts and department navigation",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "shop"
+      },
+      {
+        "id": "SHOP-06",
+        "priority": 1,
+        "area": "Shopping & catalogue",
+        "title": "Search suggestions, natural language and facets",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "shop"
+      },
+      {
+        "id": "SHOP-07",
+        "priority": 1,
+        "area": "Shopping & catalogue",
+        "title": "Stock, delivery and returns evidence",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "shop"
+      },
+      {
+        "id": "SHOP-08",
+        "priority": 1,
+        "area": "Shopping & catalogue",
+        "title": "New arrivals and just added",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "shop"
+      },
+      {
+        "id": "SHOP-09",
+        "priority": 1,
+        "area": "Shopping & catalogue",
+        "title": "Saved product collections",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "shop"
+      },
+      {
+        "id": "MATCH-01",
+        "priority": 2,
+        "area": "Exact comparison",
+        "title": "GTIN checksum and variant identity",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "product-readiness"
+      },
+      {
+        "id": "MATCH-02",
+        "priority": 2,
+        "area": "Exact comparison",
+        "title": "Brand-scoped MPN and specification review",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "product-readiness"
+      },
+      {
+        "id": "MATCH-03",
+        "priority": 2,
+        "area": "Exact comparison",
+        "title": "Refurbished condition, size, colour and pack distinctions",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "product-readiness"
+      },
+      {
+        "id": "MATCH-04",
+        "priority": 2,
+        "area": "Exact comparison",
+        "title": "Cross-retailer comparison and delivered totals",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "product-readiness"
+      },
+      {
+        "id": "MATCH-05",
+        "priority": 2,
+        "area": "Exact comparison",
+        "title": "Historical duplicate reconciliation",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "product-readiness"
+      },
+      {
+        "id": "MATCH-06",
+        "priority": 2,
+        "area": "Exact comparison",
+        "title": "Tyre width, profile, rim, load, speed and fitted total",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "product-readiness"
+      },
+      {
+        "id": "VALUE-01",
+        "priority": 3,
+        "area": "Deals & price intelligence",
+        "title": "Verified promotions versus observed price drops",
+        "source": "S01",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "pipeline"
+      },
+      {
+        "id": "VALUE-02",
+        "priority": 3,
+        "area": "Deals & price intelligence",
+        "title": "Price history and lowest observed price",
+        "source": "S01",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "pipeline"
+      },
+      {
+        "id": "VALUE-03",
+        "priority": 3,
+        "area": "Deals & price intelligence",
+        "title": "AVUQO Score, confidence and buy-or-wait",
+        "source": "S01",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "pipeline"
+      },
+      {
+        "id": "VALUE-04",
+        "priority": 3,
+        "area": "Deals & price intelligence",
+        "title": "Exceptional Finds and AVUQO 95+",
+        "source": "S01",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "pipeline"
+      },
+      {
+        "id": "VALUE-05",
+        "priority": 3,
+        "area": "Deals & price intelligence",
+        "title": "Biggest drops and new lowest prices",
+        "source": "S01",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "pipeline"
+      },
+      {
+        "id": "VALUE-06",
+        "priority": 3,
+        "area": "Deals & price intelligence",
+        "title": "Ending soon and flash sales",
+        "source": "S01",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "pipeline"
+      },
+      {
+        "id": "VALUE-07",
+        "priority": 3,
+        "area": "Deals & price intelligence",
+        "title": "Under £50 / £100 and popular right now",
+        "source": "S01",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "pipeline"
+      },
+      {
+        "id": "VALUE-08",
+        "priority": 3,
+        "area": "Deals & price intelligence",
+        "title": "Worth waiting for and personal picks",
+        "source": "S01",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "pipeline"
+      },
+      {
+        "id": "DATA-01",
+        "priority": 4,
+        "area": "First-party analytics",
+        "title": "Consent-aware event collection, deduplication and bot filtering",
+        "source": "S06",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "analytics"
+      },
+      {
+        "id": "DATA-02",
+        "priority": 4,
+        "area": "First-party analytics",
+        "title": "Acquisition and source attribution",
+        "source": "S06",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "analytics"
+      },
+      {
+        "id": "DATA-03",
+        "priority": 4,
+        "area": "First-party analytics",
+        "title": "Search demand and zero-result searches",
+        "source": "S06",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "analytics"
+      },
+      {
+        "id": "DATA-04",
+        "priority": 4,
+        "area": "First-party analytics",
+        "title": "Funnels, cohorts and retention",
+        "source": "S06",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "analytics"
+      },
+      {
+        "id": "DATA-05",
+        "priority": 4,
+        "area": "First-party analytics",
+        "title": "Merchant, product and category performance",
+        "source": "S06",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "analytics"
+      },
+      {
+        "id": "DATA-06",
+        "priority": 4,
+        "area": "First-party analytics",
+        "title": "Watch and basket engagement",
+        "source": "S06",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "analytics"
+      },
+      {
+        "id": "DATA-07",
+        "priority": 4,
+        "area": "First-party analytics",
+        "title": "Affiliate conversions, refunds and reconciliation",
+        "source": "S06",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "analytics"
+      },
+      {
+        "id": "DATA-08",
+        "priority": 4,
+        "area": "First-party analytics",
+        "title": "Experiments and anomaly detection",
+        "source": "S06",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "analytics"
+      },
+      {
+        "id": "DATA-09",
+        "priority": 4,
+        "area": "First-party analytics",
+        "title": "Daily and weekly owner intelligence",
+        "source": "S06",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "analytics"
+      },
+      {
+        "id": "DATA-10",
+        "priority": 4,
+        "area": "First-party analytics",
+        "title": "Retention, deletion and access controls",
+        "source": "S06",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "analytics"
+      },
+      {
+        "id": "HOME-01",
+        "priority": 5,
+        "area": "Groceries & household",
+        "title": "Nine supermarket integrations and authorised prices",
+        "source": "S02 / S05",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "groceries"
+      },
+      {
+        "id": "HOME-02",
+        "priority": 5,
+        "area": "Groceries & household",
+        "title": "Exact pack, unit and multipack maths",
+        "source": "S02 / S05",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "groceries"
+      },
+      {
+        "id": "HOME-03",
+        "priority": 5,
+        "area": "Groceries & household",
+        "title": "Complete basket comparisons and missing prices",
+        "source": "S02 / S05",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "groceries"
+      },
+      {
+        "id": "HOME-04",
+        "priority": 5,
+        "area": "Groceries & household",
+        "title": "Clearly labelled substitutions",
+        "source": "S02 / S05",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "groceries"
+      },
+      {
+        "id": "HOME-05",
+        "priority": 5,
+        "area": "Groceries & household",
+        "title": "Guest baskets and local persistence",
+        "source": "S02 / S05",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "groceries"
+      },
+      {
+        "id": "HOME-06",
+        "priority": 5,
+        "area": "Groceries & household",
+        "title": "Local price observations and freshness",
+        "source": "S02 / S05",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "groceries"
+      },
+      {
+        "id": "HOME-07",
+        "priority": 5,
+        "area": "Groceries & household",
+        "title": "Household budgets and evidenced savings",
+        "source": "S02 / S05",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "groceries"
+      },
+      {
+        "id": "HOME-08",
+        "priority": 5,
+        "area": "Groceries & household",
+        "title": "Purchased state and collaborative votes",
+        "source": "S02 / S05",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "groceries"
+      },
+      {
+        "id": "UX-01",
+        "priority": 6,
+        "area": "Visual experience",
+        "title": "Very-inspired campaign-led department storefronts",
+        "source": "Owner direction / S09 / F02",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "design-system"
+      },
+      {
+        "id": "UX-02",
+        "priority": 6,
+        "area": "Visual experience",
+        "title": "Amazon-inspired fast search, filters and dense product discovery",
+        "source": "Owner direction / S09 / F02",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "design-system"
+      },
+      {
+        "id": "UX-03",
+        "priority": 6,
+        "area": "Visual experience",
+        "title": "Freemans-inspired fashion, home and editorial merchandising",
+        "source": "Owner direction / S09 / F02",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "design-system"
+      },
+      {
+        "id": "UX-04",
+        "priority": 6,
+        "area": "Visual experience",
+        "title": "Original AVUQO Q identity, warm premium palette and typography",
+        "source": "Owner direction / S09 / F02",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "design-system"
+      },
+      {
+        "id": "UX-05",
+        "priority": 6,
+        "area": "Visual experience",
+        "title": "Responsive homepage, department, retailer and product layouts",
+        "source": "Owner direction / S09 / F02",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "design-system"
+      },
+      {
+        "id": "UX-06",
+        "priority": 6,
+        "area": "Visual experience",
+        "title": "Accessible navigation, mega-menu, mobile and checkout handoffs",
+        "source": "Owner direction / S09 / F02",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "design-system"
+      },
+      {
+        "id": "UX-07",
+        "priority": 6,
+        "area": "Visual experience",
+        "title": "Photography rights, consistent cards and gallery design",
+        "source": "Owner direction / S09 / F02",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "design-system"
+      },
+      {
+        "id": "UX-08",
+        "priority": 6,
+        "area": "Visual experience",
+        "title": "Reconcile historic warm-premium and photo-led design branches",
+        "source": "Owner direction / S09 / F02",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "design-system"
+      },
+      {
+        "id": "PERSONAL-01",
+        "priority": 7,
+        "area": "Personal intelligence & watches",
+        "title": "Price and stock watches with delivery evidence",
+        "source": "S01 / S05",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "automation"
+      },
+      {
+        "id": "PERSONAL-02",
+        "priority": 7,
+        "area": "Personal intelligence & watches",
+        "title": "Opt-in notifications, digests and quiet hours",
+        "source": "S01 / S05",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "automation"
+      },
+      {
+        "id": "PERSONAL-03",
+        "priority": 7,
+        "area": "Personal intelligence & watches",
+        "title": "Favourite and excluded brands, sizes and preferences",
+        "source": "S01 / S05",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "automation"
+      },
+      {
+        "id": "PERSONAL-04",
+        "priority": 7,
+        "area": "Personal intelligence & watches",
+        "title": "Temporary shopping intentions and expiry",
+        "source": "S01 / S05",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "automation"
+      },
+      {
+        "id": "PERSONAL-05",
+        "priority": 7,
+        "area": "Personal intelligence & watches",
+        "title": "Explainable personalised recommendations",
+        "source": "S01 / S05",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "automation"
+      },
+      {
+        "id": "PERSONAL-06",
+        "priority": 7,
+        "area": "Personal intelligence & watches",
+        "title": "More / less / not interested and gift-purchase exclusions",
+        "source": "S01 / S05",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "automation"
+      },
+      {
+        "id": "PERSONAL-07",
+        "priority": 7,
+        "area": "Personal intelligence & watches",
+        "title": "Shared household lists, invitations and votes",
+        "source": "S01 / S05",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "automation"
+      },
+      {
+        "id": "PERSONAL-08",
+        "priority": 7,
+        "area": "Personal intelligence & watches",
+        "title": "Gift, wedding, baby, holiday and home lists",
+        "source": "S01 / S05",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "automation"
+      },
+      {
+        "id": "PERSONAL-09",
+        "priority": 7,
+        "area": "Personal intelligence & watches",
+        "title": "Community found-better reports and moderation",
+        "source": "S01 / S05",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "automation"
+      },
+      {
+        "id": "GROWTH-01",
+        "priority": 8,
+        "area": "Marketing & creative",
+        "title": "Independent Promotion Score and eligibility",
+        "source": "S03 / S04",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "marketing"
+      },
+      {
+        "id": "GROWTH-02",
+        "priority": 8,
+        "area": "Marketing & creative",
+        "title": "AI Creative Studio and rights-approved assets",
+        "source": "S03 / S04",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "marketing"
+      },
+      {
+        "id": "GROWTH-03",
+        "priority": 8,
+        "area": "Marketing & creative",
+        "title": "Pinterest-first publishing and attribution",
+        "source": "S03 / S04",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "marketing"
+      },
+      {
+        "id": "GROWTH-04",
+        "priority": 8,
+        "area": "Marketing & creative",
+        "title": "Facebook, Instagram, TikTok, X and email",
+        "source": "S03 / S04",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "marketing"
+      },
+      {
+        "id": "GROWTH-05",
+        "priority": 8,
+        "area": "Marketing & creative",
+        "title": "Seasonal and evergreen calendar",
+        "source": "S03 / S04",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "marketing"
+      },
+      {
+        "id": "GROWTH-06",
+        "priority": 8,
+        "area": "Marketing & creative",
+        "title": "Expiry withdrawal and landing-page health",
+        "source": "S03 / S04",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "marketing"
+      },
+      {
+        "id": "GROWTH-07",
+        "priority": 8,
+        "area": "Marketing & creative",
+        "title": "Controlled optimisation and commercial reporting",
+        "source": "S03 / S04",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "marketing"
+      },
+      {
+        "id": "GROWTH-08",
+        "priority": 8,
+        "area": "Marketing & creative",
+        "title": "Separate own-brand campaigns and paid advertising",
+        "source": "S03 / S04",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "marketing"
+      },
+      {
+        "id": "TRAVEL-01",
+        "priority": 9,
+        "area": "Travel & services",
+        "title": "Flights, hotels, holidays and cruises",
+        "source": "S01 / S05 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "source-atlas"
+      },
+      {
+        "id": "TRAVEL-02",
+        "priority": 9,
+        "area": "Travel & services",
+        "title": "Airport parking, transfers and lounges",
+        "source": "S01 / S05 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "source-atlas"
+      },
+      {
+        "id": "TRAVEL-03",
+        "priority": 9,
+        "area": "Travel & services",
+        "title": "Car hire and vehicle leasing",
+        "source": "S01 / S05 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "source-atlas"
+      },
+      {
+        "id": "TRAVEL-04",
+        "priority": 9,
+        "area": "Travel & services",
+        "title": "Experiences, events and equipment hire",
+        "source": "S01 / S05 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "source-atlas"
+      },
+      {
+        "id": "TRAVEL-05",
+        "priority": 9,
+        "area": "Travel & services",
+        "title": "Mobile, broadband and utility quotes",
+        "source": "S01 / S05 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "source-atlas"
+      },
+      {
+        "id": "TRAVEL-06",
+        "priority": 9,
+        "area": "Travel & services",
+        "title": "MOT, breakdown and property certificates",
+        "source": "S01 / S05 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "source-atlas"
+      },
+      {
+        "id": "TRAVEL-07",
+        "priority": 9,
+        "area": "Travel & services",
+        "title": "Financial service permissions and quote comparisons",
+        "source": "S01 / S05 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "source-atlas"
+      },
+      {
+        "id": "TRAVEL-08",
+        "priority": 9,
+        "area": "Travel & services",
+        "title": "Date, occupancy, cancellation and total-price evidence",
+        "source": "S01 / S05 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "source-atlas"
+      },
+      {
+        "id": "DIRECT-01",
+        "priority": 9,
+        "area": "Direct retail & dropshipping",
+        "title": "Supplier wholesale and dropship onboarding",
+        "source": "Owner direction",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "retailers"
+      },
+      {
+        "id": "DIRECT-02",
+        "priority": 9,
+        "area": "Direct retail & dropshipping",
+        "title": "Authorised SKU, stock, cost and retail price feeds",
+        "source": "Owner direction",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "retailers"
+      },
+      {
+        "id": "DIRECT-03",
+        "priority": 9,
+        "area": "Direct retail & dropshipping",
+        "title": "Order routing, stock reservation and fulfilment",
+        "source": "Owner direction",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "retailers"
+      },
+      {
+        "id": "DIRECT-04",
+        "priority": 9,
+        "area": "Direct retail & dropshipping",
+        "title": "Delivery SLA, tracking, returns and refunds",
+        "source": "Owner direction",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "retailers"
+      },
+      {
+        "id": "DIRECT-05",
+        "priority": 9,
+        "area": "Direct retail & dropshipping",
+        "title": "VAT, consumer rights, product safety and UK responsible seller",
+        "source": "Owner direction",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "retailers"
+      },
+      {
+        "id": "DIRECT-06",
+        "priority": 9,
+        "area": "Direct retail & dropshipping",
+        "title": "Margin, payments and separate merchant-of-record model",
+        "source": "Owner direction",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "retailers"
+      },
+      {
+        "id": "DIRECT-07",
+        "priority": 9,
+        "area": "Direct retail & dropshipping",
+        "title": "Pilot supplier and test order before direct checkout",
+        "source": "Owner direction",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "retailers"
+      },
+      {
+        "id": "MOBILE-01",
+        "priority": 10,
+        "area": "Native app & scale",
+        "title": "Shared API and native mobile apps",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "release-readiness"
+      },
+      {
+        "id": "MOBILE-02",
+        "priority": 10,
+        "area": "Native app & scale",
+        "title": "Push notification opt-in and account synchronisation",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "release-readiness"
+      },
+      {
+        "id": "MOBILE-03",
+        "priority": 10,
+        "area": "Native app & scale",
+        "title": "PWA and offline saved lists",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "release-readiness"
+      },
+      {
+        "id": "MOBILE-04",
+        "priority": 10,
+        "area": "Native app & scale",
+        "title": "Million-listing resumable import architecture",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "release-readiness"
+      },
+      {
+        "id": "MOBILE-05",
+        "priority": 10,
+        "area": "Native app & scale",
+        "title": "Multi-country, currency and rights boundaries",
+        "source": "S01 / S07",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "release-readiness"
+      },
+      {
+        "id": "OPS-01",
+        "priority": 0,
+        "area": "Operational foundation",
+        "title": "Source-scoped emergency switches and audit trails",
+        "source": "S04 / S06 / F33",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "automation"
+      },
+      {
+        "id": "OPS-02",
+        "priority": 0,
+        "area": "Operational foundation",
+        "title": "Resumable import leases, retries and exception queues",
+        "source": "S04 / S06 / F33",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "automation"
+      },
+      {
+        "id": "OPS-03",
+        "priority": 0,
+        "area": "Operational foundation",
+        "title": "Legal and consent versioning",
+        "source": "S04 / S06 / F33",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "automation"
+      },
+      {
+        "id": "OPS-04",
+        "priority": 0,
+        "area": "Operational foundation",
+        "title": "CMS navigation, previews, revisions and rollback",
+        "source": "S04 / S06 / F33",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "automation"
+      },
+      {
+        "id": "OPS-05",
+        "priority": 0,
+        "area": "Operational foundation",
+        "title": "Cost monitoring, secrets and role security",
+        "source": "S04 / S06 / F33",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "automation"
+      },
+      {
+        "id": "OPS-06",
+        "priority": 0,
+        "area": "Operational foundation",
+        "title": "Git branch reconciliation and current deployment attestation",
+        "source": "S04 / S06 / F33",
+        "status": "unknown",
+        "next": "Reconcile current implementation and runtime evidence before marking complete.",
+        "workspace": "automation"
+      }
+    ],
+    "provider_pipeline": [
+      {
+        "name": "Awin",
+        "kind": "Affiliate network",
+        "status": "registered",
+        "next": "Existing source registry; partial retailer activation"
+      },
+      {
+        "name": "Booking.com",
+        "kind": "Travel affiliate",
+        "status": "registered",
+        "next": "Existing paused connector"
+      },
+      {
+        "name": "CJ Affiliate",
+        "kind": "Affiliate network",
+        "status": "registered",
+        "next": "Existing paused connector"
+      },
+      {
+        "name": "Direct Merchant Feed",
+        "kind": "Direct feed",
+        "status": "registered",
+        "next": "Existing paused connector"
+      },
+      {
+        "name": "eBay Partner Network",
+        "kind": "Marketplace",
+        "status": "registered",
+        "next": "Existing paused connector; privacy gates"
+      },
+      {
+        "name": "impact.com",
+        "kind": "Affiliate network",
+        "status": "registered",
+        "next": "Existing paused connector"
+      },
+      {
+        "name": "Skyscanner",
+        "kind": "Travel comparison",
+        "status": "registered",
+        "next": "Existing paused connector"
+      },
+      {
+        "name": "Amazon Associates / product data",
+        "kind": "Affiliate marketplace",
+        "status": "proposed",
+        "next": "Confirm current authorised product-data access and display terms"
+      },
+      {
+        "name": "Webgains",
+        "kind": "Affiliate network",
+        "status": "proposed",
+        "next": "Verify account and programme feed rights"
+      },
+      {
+        "name": "Tradedoubler",
+        "kind": "Affiliate network",
+        "status": "proposed",
+        "next": "Verify account and programme feed rights"
+      },
+      {
+        "name": "Rakuten Advertising",
+        "kind": "Affiliate network",
+        "status": "proposed",
+        "next": "Verify account and programme feed rights"
+      },
+      {
+        "name": "Expedia",
+        "kind": "Travel affiliate",
+        "status": "proposed",
+        "next": "Verify approved quote integration"
+      },
+      {
+        "name": "Very",
+        "kind": "Retail / design benchmark",
+        "status": "proposed",
+        "next": "Owner design reference; investigate authorised affiliate feed separately"
+      },
+      {
+        "name": "Freemans",
+        "kind": "Retail / design benchmark",
+        "status": "proposed",
+        "next": "Owner design reference; investigate authorised affiliate feed separately"
+      },
+      {
+        "name": "BigBuy",
+        "kind": "Dropship / wholesale candidate",
+        "status": "proposed",
+        "next": "Check UK delivery, VAT, stock feed, returns, fees and supplier contract"
+      },
+      {
+        "name": "Syncee",
+        "kind": "Supplier integration candidate",
+        "status": "proposed",
+        "next": "Check UK supplier availability, platform integration and terms"
+      },
+      {
+        "name": "Spocket",
+        "kind": "Dropship marketplace candidate",
+        "status": "proposed",
+        "next": "Check UK fulfilment, feed rights, costs and returns"
+      },
+      {
+        "name": "CJdropshipping",
+        "kind": "Dropship / fulfilment candidate",
+        "status": "proposed",
+        "next": "Check UK delivery, product safety, costs and API terms"
+      },
+      {
+        "name": "Avasam",
+        "kind": "Dropship integration candidate",
+        "status": "proposed",
+        "next": "Check current UK supplier catalogue, account access and fulfilment terms"
+      },
+      {
+        "name": "Direct UK wholesalers and manufacturers",
+        "kind": "Direct supplier",
+        "status": "proposed",
+        "next": "Record actual supplier names, commercial agreement, CSV/XML/API or SFTP access"
+      },
+      {
+        "name": "Retailer CSV / XML / JSON / API / SFTP",
+        "kind": "Feed transport",
+        "status": "proposed",
+        "next": "Record authenticated source, schema, update cadence, rights and provenance per merchant"
+      }
+    ],
+    "design_direction": "Owner instruction 2026-11-24: Very, Amazon and Freemans as experience benchmarks, not copied branding or evidence of supplier relationships. Preserve original AVUQO identity."
+  },
+  "catalogue_candidate_ci_20261124": {
+    "status": "candidate_ci_passed_on_code_head",
+    "code_head": "63b3e7d9cc728b80f5caaa0e8e30978169f433cd",
+    "quality_run": 45449570925,
+    "secret_run": 45449570622,
+    "scope": "classification routing and PlayPress test correction; checksum-validated unique barcode lookup; offer-bound permission-checked galleries",
+    "limitations": "Title fallback and historical matching not corrected; full retail inventory and separate shopping admission not implemented; live behaviour unverified. No database migration."
+  },
+  "catalogue_classification_20261124": {
+    "status": "candidate",
+    "branch": "feature/catalogue-classification-20261124",
+    "scope": "Product-specific deterministic department suggestions and exact verified canonical routing, ambiguity review evidence",
+    "previous_release": {
+      "pr": 339,
+      "sha": "bececf67103ca8f738833315734c1a99600fc912",
+      "deployment": "dpl_HRgTLTYNWqw562fBrRn74XzFcP7N",
+      "state": "READY",
+      "runtime_coverage_unverified": true
+    },
+    "remaining": "Full provider coverage, sales admission separation, matching, public gallery and specification enrichment, throughput and CI"
+  },
   "catalogue_enrichment_20261124": {
     "status": "candidate_ci_and_runtime_pending",
     "pr": 339,
@@ -12,7 +1431,10 @@
     "merge_sha": "5bc57b908f4daad2d8a53c0f4bc18479719d8ae5",
     "vercel_deployment_id": "dpl_9Rpe9CyRhP7Y5XMRaJfk5kBQtXB1",
     "production_state": "READY",
-    "production_aliases_verified": ["www.avuqo.com", "avuqo.com"],
+    "production_aliases_verified": [
+      "www.avuqo.com",
+      "avuqo.com"
+    ],
     "external_http_body_and_search_indexing_unverified": true,
     "optional_browser_analytics_collection_enabled": false,
     "branch": "feature/seo-discoverability-and-analytics-readiness-20261120",
