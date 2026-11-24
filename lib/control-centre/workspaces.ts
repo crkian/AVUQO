@@ -4,7 +4,8 @@ export type AdminSection={id:string;label:string;description:string;links:AdminL
 export const CONTROL_CENTRE_SECTIONS:AdminSection[]=[
  {id:"home",label:"Start here",description:"Know what needs attention",links:[
   {href:"/control-centre",label:"Command overview",description:"Workspaces, health and exceptions"},
-  {href:"/control-centre/release-readiness",label:"Release readiness",description:"Operational gaps and launch gates"}]},
+  {href:"/control-centre/release-readiness",label:"Release readiness",description:"Operational gaps and launch gates"},
+  {href:"/control-centre/development-register",label:"Development & Intelligence Register",description:"Priorities, branches, source specifications, design and handover evidence"}]},
  {id:"website",label:"Website & Experience",description:"Content, journeys and publishing",links:[
   {href:"/control-centre/design-system",label:"Approved visual design",description:"Original warm-premium brand and screenshot source of truth"},
   {href:"/control-centre/supplier-studios",label:"Supplier studio review",description:"Inspect the 21 individual themed retailer storefronts and buying guides"},
