@@ -1521,7 +1521,7 @@
       },
       "candidate": {
         "branch": "main",
-        "sha": "0aac74aaba3d094aca2303225045860b4dc90ca6",
+        "sha": "376539d8bad3275d88c911c905383ea8134a3750",
         "status": "partial",
         "changes": [
           "Disabled shopping approval ledger migration",
@@ -1554,14 +1554,17 @@
           "Owner-only server action invokes existing bounded audited portfolio worker with server-held credentials",
           "Fixed canonical internal request target and bounded rotation ordinal; no arbitrary URL or feed IDs",
           "Recent/in-flight attempt check; underlying importer retains digest idempotency",
-          "Outcome feedback and register navigation"
+          "Outcome feedback and register navigation",
+          "Durable least-recently-attempted feed order across eligible portfolio",
+          "Per-attempt advertiser/feed binding before download, verified-row and canonical counts",
+          "Owner register shows actual feed identity and counts",
+          "Three selection regression tests added"
         ],
         "remaining": [
-          "Verify corrected scheduled worker execution and owner session/manual refresh",
-          "Resolve explicit GBP evidence and authenticated HTTP406",
-          "Implement independent automated admission and safe product activation",
-          "Full retailer and category/collection integration and tyre comparison",
-          "Execute regression tests and production runtime acceptance"
+          "Verify migration and production build; execute regression tests",
+          "Observe next per-feed runs and establish explicit GBP for missing currency feeds",
+          "Independent automatic shopping approval and canonical activation; test authenticated gateway",
+          "Expand full inventories, exact variant matching, tyres and all discovery surfaces"
         ]
       },
       "ordered_build_queue": [
@@ -5676,5 +5679,36 @@
       "Execute regression tests and production runtime acceptance"
     ],
     "limitations": "No authenticated owner session available to execute the new action; no post-repair portfolio attempt observed. Recent-attempt check is not an atomic lock; underlying import remains digest-bound. No new products approved or public; shopping publication remains disabled. Master PDF directly extracted in this pass."
+  },
+  "portfolio_feed_evidence_checkpoint_20261124": {
+    "date_utc": "2026-11-24",
+    "status": "partial",
+    "target": "main",
+    "previous_production": {
+      "sha": "376539d8bad3275d88c911c905383ea8134a3750",
+      "deployment": "dpl_3Qqxis1nMb6yYWhVJpNcM9j62F5V",
+      "state": "READY"
+    },
+    "observations": {
+      "active_offers": 3215,
+      "previous_active": 3199,
+      "portfolio_first_success": "2026-11-24T20:00:06Z",
+      "http": 200,
+      "verified_cadbury_rows": 20,
+      "explicit_gbp_cadbury_rows": 0
+    },
+    "changes": [
+      "Durable least-recently-attempted feed order across eligible portfolio",
+      "Per-attempt advertiser/feed binding before download, verified-row and canonical counts",
+      "Owner register shows actual feed identity and counts",
+      "Three selection regression tests added"
+    ],
+    "remaining": [
+      "Verify migration and production build; execute regression tests",
+      "Observe next per-feed runs and establish explicit GBP for missing currency feeds",
+      "Independent automatic shopping approval and canonical activation; test authenticated gateway",
+      "Expand full inventories, exact variant matching, tyres and all discovery surfaces"
+    ],
+    "limitations": "First portfolio run verified; 20 Cadbury private rows rechecked but inferred currency excludes them from ordinary shopping. No additional independently published offers claimed. New history ordering is not an atomic lease; no parallel worker guarantee. Tests authored but not executed."
   }
 }

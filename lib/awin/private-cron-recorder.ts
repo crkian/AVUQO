@@ -18,7 +18,7 @@ const problem=(message:string)=>NextResponse.json({error:message,private_only:tr
  */
 export async function recordPrivateCronAttempt(
  job:PrivateCronJob,
- task:()=>Promise<Response>
+ task:(attemptId:string)=>Promise<Response>
 ):Promise<Response>{
  const db=createAdminClient();
  const start=Date.now();
@@ -38,7 +38,7 @@ export async function recordPrivateCronAttempt(
  }
  let response:Response;
  try{
-  response=await task();
+  response=await task(attemptId);
  }catch{
   if(!(await finish("exception","unhandled_exception",503)))
    return problem("Private cron audit completion unavailable");

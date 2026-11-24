@@ -3,6 +3,7 @@ import {createAdminClient} from "../../../../lib/supabase/admin";
 import {sourceIngestionFailures,evaluateSourceControls} from "../../../../lib/pipeline/source-readiness";
 import {autoReleaseEligibleAwinOffers} from "../../../../lib/awin/auto-first-publication";
 import {POST as runPrivateImport} from "../awin-auto-import/route";
+import {selectPortfolioFeed} from "../../../../lib/awin/portfolio-feed-order";
 import {recordPrivateCronAttempt} from "../../../../lib/awin/private-cron-recorder";
 
 export const maxDuration=300;
@@ -31,9 +32,9 @@ export async function GET(request:NextRequest){
  const secret=process.env.CRON_SECRET;
  if(!secret||secret.length<16||request.headers.get("authorization")!==`Bearer ${secret}`)
   return reply({error:"Unauthorized"},401);
- return recordPrivateCronAttempt("portfolio_rotation",()=>runRotation(request));
+ return recordPrivateCronAttempt("portfolio_rotation",attemptId=>runRotation(request,attemptId));
 }
-async function runRotation(request:NextRequest){
+async function runRotation(request:NextRequest,attemptId:string){
  const secret=process.env.CRON_SECRET;
  if(!secret||secret.length<16||request.headers.get("authorization")!==`Bearer ${secret}`)
   return reply({error:"Unauthorized"},401);
@@ -91,9 +92,18 @@ async function runRotation(request:NextRequest){
  if(!available.length)return reply({status:"no_current_supported_retail_feeds",
   private_only:true,no_publication:true,eligible:0});
  // Rotate across supported feeds, no client-controlled feed ID, URL or token.
- // Stable 20-minute rotation, not a once-per-day selection that starves
- // publishers during frequent cron runs. Offset is limited to owner diagnostics.
- const selected=available[(Math.floor(now/1_200_000)+offset)%available.length];
+ // Choose the least recently attempted eligible feed using the durable journal.
+ // Offset is limited to owner diagnostics; failing feeds do not starve others.
+ const {data:attempts,error:historyError}=await db.from("awin_private_cron_attempts")
+  .select("advertiser_id,feed_id,started_at").eq("job_key","portfolio_rotation")
+  .not("feed_id","is",null).order("started_at",{ascending:false}).limit(1000);
+ if(historyError)return reply({status:"portfolio_history_unavailable",private_only:true,no_publication:true},503);
+ const selected=selectPortfolioFeed(available,attempts??[],offset);
+ if(!selected)return reply({status:"no_current_supported_retail_feeds",private_only:true,no_publication:true});
+ const {data:bound,error:bindingError}=await db.from("awin_private_cron_attempts")
+  .update({advertiser_id:selected.advertiser,feed_id:selected.feed}).eq("id",attemptId)
+  .eq("state","started").select("id").maybeSingle();
+ if(bindingError||!bound)return reply({status:"portfolio_attempt_binding_failed",private_only:true,no_publication:true},503);
  const url=new URL("/api/internal/awin-auto-import",request.url);
  url.searchParams.set("mode","stage");
  url.searchParams.set("advertiser_id",selected.advertiser);
@@ -133,6 +143,10 @@ async function runRotation(request:NextRequest){
  const publication=result.ok&&activeMode&&safeStatus(canonical.status)==="canonical_held"
   ?await autoReleaseEligibleAwinOffers(db,5)
   :{status:"not_attempted",checked:0,approved:0,skipped:0,failed:0};
+ const {error:countsError}=await db.from("awin_private_cron_attempts")
+  .update({live_verified_rows:safeCount(body.live_verified_rows),canonical_accepted:safeCount(canonical.canonicalAccepted)})
+  .eq("id",attemptId).eq("state","started");
+ if(countsError)return reply({status:"portfolio_attempt_counts_unavailable",private_only:true,no_publication_claim:true},503);
  return reply({status:result.ok?"private_rotation_checked":"private_rotation_failed",
   advertiser_id:selected.advertiser,feed_id:selected.feed,
   eligible:available.length,upstream_http_status:result.status,

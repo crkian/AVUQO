@@ -1422,3 +1422,12 @@ Read `AGENTS.md`, this status page and `CHANGELOG.md` from `crkian/AVUQO` using 
 - No authenticated owner session available to execute the new action; no post-repair portfolio attempt observed. Recent-attempt check is not an atomic lock; underlying import remains digest-bound. No new products approved or public; shopping publication remains disabled. Master PDF directly extracted in this pass.
 - Next: Verify corrected scheduled worker execution and owner session/manual refresh; Resolve explicit GBP evidence and authenticated HTTP406; Implement independent automated admission and safe product activation; Full retailer and category/collection integration and tyre comparison; Execute regression tests and production runtime acceptance.
 - Seventh checkpoint: https://www.avuqo.com/control-centre/development-register.
+
+
+## 24 November 2026 | First portfolio recovery and durable per-feed rotation
+
+- Prior production 376539d8bad3275d88c911c905383ea8134a3750 READY; first portfolio run HTTP 200 at 20:00 UTC; 20 Cadbury private rows authenticated, zero explicit GBP; 3,215 active offer records versus 3,199 previously.
+- Durable least-recently-attempted feed order across eligible portfolio; Per-attempt advertiser/feed binding before download, verified-row and canonical counts; Owner register shows actual feed identity and counts; Three selection regression tests added.
+- First portfolio run verified; 20 Cadbury private rows rechecked but inferred currency excludes them from ordinary shopping. No additional independently published offers claimed. New history ordering is not an atomic lease; no parallel worker guarantee. Tests authored but not executed.
+- Next: Verify migration and production build; execute regression tests; Observe next per-feed runs and establish explicit GBP for missing currency feeds; Independent automatic shopping approval and canonical activation; test authenticated gateway; Expand full inventories, exact variant matching, tyres and all discovery surfaces.
+- Seventh checkpoint: https://www.avuqo.com/control-centre/development-register.
