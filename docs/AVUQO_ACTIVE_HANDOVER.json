@@ -2,7 +2,7 @@
   "development_register": {
     "observed_at_utc": "2026-11-24",
     "branch_snapshot": {
-      "source": "GitHub REST branches, single page up to 100",
+      "source": "GitHub REST branches, single page up to 100; snapshot before documentation commits",
       "observed_at_utc": "2026-11-24",
       "branches": [
         {
@@ -76,11 +76,6 @@
           "protected": false
         },
         {
-          "name": "feature/catalogue-classification-20261124",
-          "sha": "62ec1e6fe841921e9d878e920a9ae0241e7fc990",
-          "protected": false
-        },
-        {
           "name": "feature/category-specific-product-previews-20261104",
           "sha": "613c97939fb9f9cc946d6ba182229588f3786564",
           "protected": false
@@ -108,6 +103,11 @@
         {
           "name": "feature/tyres-uk-server-auto-enrichment-v2-20261109",
           "sha": "01ec568c28e27844e5524554279271d68a613246",
+          "protected": false
+        },
+        {
+          "name": "feature/universal-catalogue-foundations-20261124",
+          "sha": "27da56daf7433cddcfc1da9ea772d1dc2e396e3b",
           "protected": false
         },
         {
@@ -152,7 +152,7 @@
         },
         {
           "name": "main",
-          "sha": "bececf67103ca8f738833315734c1a99600fc912",
+          "sha": "82622ac8c8168816bc57add41708e8e489acd004",
           "protected": false
         },
         {
@@ -230,18 +230,18 @@
         "id": "CAT-03",
         "priority": 2,
         "title": "Product image galleries",
-        "status": "tested",
-        "evidence": "PR340 offer-bound gallery integration passed CI; not deployed",
-        "next": "Verify public galleries and per-offer rights on production.",
+        "status": "partial",
+        "evidence": "PR340 deployed at 82622ac8; gallery rendering and rights coverage not independently checked",
+        "next": "Verify gallery coverage and image rights on actual public products.",
         "workspace": "product-previews"
       },
       {
         "id": "CAT-04",
         "priority": 1,
         "title": "Normal-priced products / separate shopping admission",
-        "status": "outstanding",
-        "evidence": "Private imports retain regular-price items; public admission still tied to deal score",
-        "next": "Create independently verified shopping admission, preserve promotion scoring and owner controls.",
+        "status": "partial",
+        "evidence": "Pure shopping gate committed on unmerged catalogue branch 27da56da; public catalogue still deal-gated",
+        "next": "Connect full shopping journey, test and deploy without weakening deal gates.",
         "workspace": "pipeline"
       },
       {
@@ -257,9 +257,9 @@
         "id": "CAT-06",
         "priority": 2,
         "title": "Intelligent category classification",
-        "status": "tested",
-        "evidence": "PR340 deterministic routing and tests passed",
-        "next": "Verify public department routing, ambiguous cases and retrospective reclassification.",
+        "status": "partial",
+        "evidence": "PR340 deployed; production routing coverage unverified",
+        "next": "Verify public department routing and retrospective classification.",
         "workspace": "marketplace"
       },
       {
@@ -294,8 +294,8 @@
         "priority": 0,
         "title": "Awin HTTP 406 repair",
         "status": "blocked",
-        "evidence": "Repeated enhanced feed HTTP 406 in prior runtime audit",
-        "next": "Diagnose authenticated provider endpoint and verify a successful real response.",
+        "evidence": "Enhanced request/parser hardening committed 3f094fb0; authenticated HTTP406 repair unverified",
+        "next": "Verify supported provider feed format and successful authenticated response.",
         "workspace": "awin-feed-updates"
       },
       {
@@ -330,8 +330,8 @@
         "priority": 0,
         "title": "Release and handover continuity",
         "status": "partial",
-        "evidence": "PR340 code and documentation checks passed at 62ec1e6f",
-        "next": "Merge verified candidate; check Vercel exact SHA and authenticated page; record evidence.",
+        "evidence": "PR340 production READY 82622ac8; owner screenshot confirms register accessible; unmerged catalogue candidate remains",
+        "next": "Synchronize all six handovers, test and release existing candidate, reconcile historical branches.",
         "workspace": "release-readiness"
       },
       {
@@ -1395,7 +1395,261 @@
         "next": "Record authenticated source, schema, update cadence, rights and provenance per merchant"
       }
     ],
-    "design_direction": "Owner instruction 2026-11-24: Very, Amazon and Freemans as experience benchmarks, not copied branding or evidence of supplier relationships. Preserve original AVUQO identity."
+    "design_direction": "Owner instruction 2026-11-24: Very, Amazon and Freemans as experience benchmarks, not copied branding or evidence of supplier relationships. Preserve original AVUQO identity.",
+    "ordered_build_queue": [
+      {
+        "order": 1,
+        "title": "Awin feed reliability",
+        "status": "partial",
+        "refs": "CAT-10",
+        "next": "Verify actual authenticated feed format and response; distinguish legacy and enhanced; no HTTP406 success claim without successful runtime."
+      },
+      {
+        "order": 2,
+        "title": "Independent shopping catalogue",
+        "status": "partial",
+        "refs": "CAT-04",
+        "next": "Connect score-independent admission to shopping, products, retailer shelves and outbound links; preserve exact source, rights, freshness, stock, withdrawal and deal-only gates."
+      },
+      {
+        "order": 3,
+        "title": "Full retailer inventories",
+        "status": "outstanding",
+        "refs": "CAT-05 / CAT-07",
+        "next": "Reconcile distinct authorised feed SKUs, exclusions, durable cursor, retries, freshness, canonical and public counts per retailer."
+      },
+      {
+        "order": 4,
+        "title": "Product enrichment and variants",
+        "status": "partial",
+        "refs": "CAT-01 / CAT-02 / CAT-03",
+        "next": "Backfill rights-cleared descriptions, galleries, specifications and variant attributes; measure coverage and verify customer display."
+      },
+      {
+        "order": 5,
+        "title": "Exact cross-retailer matching",
+        "status": "partial",
+        "refs": "CAT-09",
+        "next": "Prevent title/brand fallback collisions; validate GTIN, variant, condition and pack; reconcile historic associations and delivered price evidence."
+      },
+      {
+        "order": 6,
+        "title": "Tyre comparison and fitment",
+        "status": "blocked",
+        "refs": "CAT-13",
+        "next": "Verify explicit GBP, fitment, load and speed, stock, delivery or fitted total across both suppliers; exclude ambiguous pairs."
+      },
+      {
+        "order": 7,
+        "title": "Intelligent categories and discovery",
+        "status": "partial",
+        "refs": "CAT-06",
+        "next": "Verify category assignment, search and facets across all eligible stock; audit mobile and desktop menu links and empty states."
+      },
+      {
+        "order": 8,
+        "title": "Sales and deal intelligence",
+        "status": "partial",
+        "refs": "CAT-08",
+        "next": "Separate normal prices, evidenced promotions and observed drops; verify price history, score and savings accuracy."
+      },
+      {
+        "order": 9,
+        "title": "21 Awin supplier integrations",
+        "status": "partial",
+        "refs": "CAT-11",
+        "next": "Resolve missing IDs, feed and service adapters, programme evidence and all retailer studio journeys."
+      },
+      {
+        "order": 10,
+        "title": "Premium design and mobile",
+        "status": "partial",
+        "refs": "UX-01",
+        "next": "Reconcile original designs and existing visual work against owner direction; validate responsive shopping journeys."
+      },
+      {
+        "order": 11,
+        "title": "First-party analytics",
+        "status": "partial",
+        "refs": "CAT-12",
+        "next": "Verify consent, event ingestion, deduplication, bot handling, retention, deletion, funnels, acquisition and conversion reconciliation."
+      },
+      {
+        "order": 12,
+        "title": "Supermarket comparison",
+        "status": "unknown",
+        "refs": "Detailed roadmap",
+        "next": "Reconcile supermarket master specification; verify retailer data access, pack/unit matching, basket comparisons and price freshness."
+      },
+      {
+        "order": 13,
+        "title": "Affiliate marketing and content automation",
+        "status": "unknown",
+        "refs": "Detailed roadmap",
+        "next": "Reconcile content workflow, owner approval, disclosures, campaign publishing and attribution; keep unsupported claims private."
+      },
+      {
+        "order": 14,
+        "title": "New networks, direct suppliers and dropshipping",
+        "status": "unknown",
+        "refs": "Provider pipeline",
+        "next": "Validate commercial terms, data rights, source credentials and integration; direct retail requires seller, payments, fulfilment and returns readiness."
+      },
+      {
+        "order": 15,
+        "title": "Personalisation and shopping intelligence",
+        "status": "unknown",
+        "refs": "Detailed roadmap",
+        "next": "Reconcile alerts, watchlists, collections, recommendations, privacy controls and intelligence features."
+      },
+      {
+        "order": 16,
+        "title": "Historical branch reconciliation",
+        "status": "partial",
+        "refs": "DEV-01",
+        "next": "Compare each branch for unique functionality and designs, record tested parity and merge or deliberately retire only after verification. No additional branches unless essential."
+      }
+    ],
+    "current_checkpoint": {
+      "date_utc": "2026-11-24",
+      "production": {
+        "sha": "82622ac8c8168816bc57add41708e8e489acd004",
+        "deployment": "dpl_7GkKYH3reYBcwzyrohkLQCHKD8ft",
+        "state": "READY",
+        "domain": "https://www.avuqo.com",
+        "owner_register": "Owner-provided signed-in screenshot confirms page accessibility at prior release; new register revision not yet deployed"
+      },
+      "candidate": {
+        "branch": "feature/universal-catalogue-foundations-20261124",
+        "sha": "27da56daf7433cddcfc1da9ea772d1dc2e396e3b",
+        "status": "unmerged_untested",
+        "changes": [
+          "Enhanced feed request/parser hardening",
+          "Pure independent shopping admission gate"
+        ],
+        "remaining": [
+          "Authenticated HTTP406 runtime test",
+          "Wire shopping admission end to end",
+          "Regression tests and CI",
+          "Merge, deploy, verify"
+        ]
+      },
+      "ordered_build_queue": [
+        {
+          "order": 1,
+          "title": "Awin feed reliability",
+          "status": "partial",
+          "refs": "CAT-10",
+          "next": "Verify actual authenticated feed format and response; distinguish legacy and enhanced; no HTTP406 success claim without successful runtime."
+        },
+        {
+          "order": 2,
+          "title": "Independent shopping catalogue",
+          "status": "partial",
+          "refs": "CAT-04",
+          "next": "Connect score-independent admission to shopping, products, retailer shelves and outbound links; preserve exact source, rights, freshness, stock, withdrawal and deal-only gates."
+        },
+        {
+          "order": 3,
+          "title": "Full retailer inventories",
+          "status": "outstanding",
+          "refs": "CAT-05 / CAT-07",
+          "next": "Reconcile distinct authorised feed SKUs, exclusions, durable cursor, retries, freshness, canonical and public counts per retailer."
+        },
+        {
+          "order": 4,
+          "title": "Product enrichment and variants",
+          "status": "partial",
+          "refs": "CAT-01 / CAT-02 / CAT-03",
+          "next": "Backfill rights-cleared descriptions, galleries, specifications and variant attributes; measure coverage and verify customer display."
+        },
+        {
+          "order": 5,
+          "title": "Exact cross-retailer matching",
+          "status": "partial",
+          "refs": "CAT-09",
+          "next": "Prevent title/brand fallback collisions; validate GTIN, variant, condition and pack; reconcile historic associations and delivered price evidence."
+        },
+        {
+          "order": 6,
+          "title": "Tyre comparison and fitment",
+          "status": "blocked",
+          "refs": "CAT-13",
+          "next": "Verify explicit GBP, fitment, load and speed, stock, delivery or fitted total across both suppliers; exclude ambiguous pairs."
+        },
+        {
+          "order": 7,
+          "title": "Intelligent categories and discovery",
+          "status": "partial",
+          "refs": "CAT-06",
+          "next": "Verify category assignment, search and facets across all eligible stock; audit mobile and desktop menu links and empty states."
+        },
+        {
+          "order": 8,
+          "title": "Sales and deal intelligence",
+          "status": "partial",
+          "refs": "CAT-08",
+          "next": "Separate normal prices, evidenced promotions and observed drops; verify price history, score and savings accuracy."
+        },
+        {
+          "order": 9,
+          "title": "21 Awin supplier integrations",
+          "status": "partial",
+          "refs": "CAT-11",
+          "next": "Resolve missing IDs, feed and service adapters, programme evidence and all retailer studio journeys."
+        },
+        {
+          "order": 10,
+          "title": "Premium design and mobile",
+          "status": "partial",
+          "refs": "UX-01",
+          "next": "Reconcile original designs and existing visual work against owner direction; validate responsive shopping journeys."
+        },
+        {
+          "order": 11,
+          "title": "First-party analytics",
+          "status": "partial",
+          "refs": "CAT-12",
+          "next": "Verify consent, event ingestion, deduplication, bot handling, retention, deletion, funnels, acquisition and conversion reconciliation."
+        },
+        {
+          "order": 12,
+          "title": "Supermarket comparison",
+          "status": "unknown",
+          "refs": "Detailed roadmap",
+          "next": "Reconcile supermarket master specification; verify retailer data access, pack/unit matching, basket comparisons and price freshness."
+        },
+        {
+          "order": 13,
+          "title": "Affiliate marketing and content automation",
+          "status": "unknown",
+          "refs": "Detailed roadmap",
+          "next": "Reconcile content workflow, owner approval, disclosures, campaign publishing and attribution; keep unsupported claims private."
+        },
+        {
+          "order": 14,
+          "title": "New networks, direct suppliers and dropshipping",
+          "status": "unknown",
+          "refs": "Provider pipeline",
+          "next": "Validate commercial terms, data rights, source credentials and integration; direct retail requires seller, payments, fulfilment and returns readiness."
+        },
+        {
+          "order": 15,
+          "title": "Personalisation and shopping intelligence",
+          "status": "unknown",
+          "refs": "Detailed roadmap",
+          "next": "Reconcile alerts, watchlists, collections, recommendations, privacy controls and intelligence features."
+        },
+        {
+          "order": 16,
+          "title": "Historical branch reconciliation",
+          "status": "partial",
+          "refs": "DEV-01",
+          "next": "Compare each branch for unique functionality and designs, record tested parity and merge or deliberately retire only after verification. No additional branches unless essential."
+        }
+      ],
+      "release_policy": "No unnecessary branches; use existing work; each release requires tests, exact production deployment evidence, runtime checks and six synchronized handovers. Do not mark unknown requirements complete."
+    }
   },
   "catalogue_candidate_ci_20261124": {
     "status": "candidate_ci_passed_on_code_head",
@@ -4960,5 +5214,145 @@
     ],
     "prior_markdown_history_retained": true,
     "prior_machine_handover_keys_unchanged": true
+  },
+  "latest_ordered_development_checkpoint_20261124": {
+    "date_utc": "2026-11-24",
+    "production": {
+      "sha": "82622ac8c8168816bc57add41708e8e489acd004",
+      "deployment": "dpl_7GkKYH3reYBcwzyrohkLQCHKD8ft",
+      "state": "READY",
+      "domain": "https://www.avuqo.com",
+      "owner_register": "Owner-provided signed-in screenshot confirms page accessibility at prior release; new register revision not yet deployed"
+    },
+    "candidate": {
+      "branch": "feature/universal-catalogue-foundations-20261124",
+      "sha": "27da56daf7433cddcfc1da9ea772d1dc2e396e3b",
+      "status": "unmerged_untested",
+      "changes": [
+        "Enhanced feed request/parser hardening",
+        "Pure independent shopping admission gate"
+      ],
+      "remaining": [
+        "Authenticated HTTP406 runtime test",
+        "Wire shopping admission end to end",
+        "Regression tests and CI",
+        "Merge, deploy, verify"
+      ]
+    },
+    "ordered_build_queue": [
+      {
+        "order": 1,
+        "title": "Awin feed reliability",
+        "status": "partial",
+        "refs": "CAT-10",
+        "next": "Verify actual authenticated feed format and response; distinguish legacy and enhanced; no HTTP406 success claim without successful runtime."
+      },
+      {
+        "order": 2,
+        "title": "Independent shopping catalogue",
+        "status": "partial",
+        "refs": "CAT-04",
+        "next": "Connect score-independent admission to shopping, products, retailer shelves and outbound links; preserve exact source, rights, freshness, stock, withdrawal and deal-only gates."
+      },
+      {
+        "order": 3,
+        "title": "Full retailer inventories",
+        "status": "outstanding",
+        "refs": "CAT-05 / CAT-07",
+        "next": "Reconcile distinct authorised feed SKUs, exclusions, durable cursor, retries, freshness, canonical and public counts per retailer."
+      },
+      {
+        "order": 4,
+        "title": "Product enrichment and variants",
+        "status": "partial",
+        "refs": "CAT-01 / CAT-02 / CAT-03",
+        "next": "Backfill rights-cleared descriptions, galleries, specifications and variant attributes; measure coverage and verify customer display."
+      },
+      {
+        "order": 5,
+        "title": "Exact cross-retailer matching",
+        "status": "partial",
+        "refs": "CAT-09",
+        "next": "Prevent title/brand fallback collisions; validate GTIN, variant, condition and pack; reconcile historic associations and delivered price evidence."
+      },
+      {
+        "order": 6,
+        "title": "Tyre comparison and fitment",
+        "status": "blocked",
+        "refs": "CAT-13",
+        "next": "Verify explicit GBP, fitment, load and speed, stock, delivery or fitted total across both suppliers; exclude ambiguous pairs."
+      },
+      {
+        "order": 7,
+        "title": "Intelligent categories and discovery",
+        "status": "partial",
+        "refs": "CAT-06",
+        "next": "Verify category assignment, search and facets across all eligible stock; audit mobile and desktop menu links and empty states."
+      },
+      {
+        "order": 8,
+        "title": "Sales and deal intelligence",
+        "status": "partial",
+        "refs": "CAT-08",
+        "next": "Separate normal prices, evidenced promotions and observed drops; verify price history, score and savings accuracy."
+      },
+      {
+        "order": 9,
+        "title": "21 Awin supplier integrations",
+        "status": "partial",
+        "refs": "CAT-11",
+        "next": "Resolve missing IDs, feed and service adapters, programme evidence and all retailer studio journeys."
+      },
+      {
+        "order": 10,
+        "title": "Premium design and mobile",
+        "status": "partial",
+        "refs": "UX-01",
+        "next": "Reconcile original designs and existing visual work against owner direction; validate responsive shopping journeys."
+      },
+      {
+        "order": 11,
+        "title": "First-party analytics",
+        "status": "partial",
+        "refs": "CAT-12",
+        "next": "Verify consent, event ingestion, deduplication, bot handling, retention, deletion, funnels, acquisition and conversion reconciliation."
+      },
+      {
+        "order": 12,
+        "title": "Supermarket comparison",
+        "status": "unknown",
+        "refs": "Detailed roadmap",
+        "next": "Reconcile supermarket master specification; verify retailer data access, pack/unit matching, basket comparisons and price freshness."
+      },
+      {
+        "order": 13,
+        "title": "Affiliate marketing and content automation",
+        "status": "unknown",
+        "refs": "Detailed roadmap",
+        "next": "Reconcile content workflow, owner approval, disclosures, campaign publishing and attribution; keep unsupported claims private."
+      },
+      {
+        "order": 14,
+        "title": "New networks, direct suppliers and dropshipping",
+        "status": "unknown",
+        "refs": "Provider pipeline",
+        "next": "Validate commercial terms, data rights, source credentials and integration; direct retail requires seller, payments, fulfilment and returns readiness."
+      },
+      {
+        "order": 15,
+        "title": "Personalisation and shopping intelligence",
+        "status": "unknown",
+        "refs": "Detailed roadmap",
+        "next": "Reconcile alerts, watchlists, collections, recommendations, privacy controls and intelligence features."
+      },
+      {
+        "order": 16,
+        "title": "Historical branch reconciliation",
+        "status": "partial",
+        "refs": "DEV-01",
+        "next": "Compare each branch for unique functionality and designs, record tested parity and merge or deliberately retire only after verification. No additional branches unless essential."
+      }
+    ],
+    "release_policy": "No unnecessary branches; use existing work; each release requires tests, exact production deployment evidence, runtime checks and six synchronized handovers. Do not mark unknown requirements complete."
   }
 }
