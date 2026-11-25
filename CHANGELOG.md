@@ -1,3 +1,9 @@
+## 25 November 2026 | Dormant exact compact batch writer installed (13:55 GMT)
+
+- Migration 20261125135527_avuqo_compact_shadow_batch_writer applied; pre/post helper rehearsal passed exact normalized row reconstruction, inferred currency and release flag rejection, missing legacy identity and no API execution grants. Bounded 250-row append and final parity seal installed, not yet exercised end-to-end. All four shadow tables empty. No live supplier copy, retention, worker or publication changes.
+- Live database contents 1,933.3 MiB, 85,033 products, 14,225 active offer records at 13:55:37 GMT; not confirmed public counts. Prior e2c8ea8a production READY, build and dedicated compact tests passed; historical branch-retirement regression outstanding.
+- Next: actual archive-byte replay, canonical batch export, full rollback-only writer rehearsal and concurrency/rights tests, restricted production integration, measured storage savings before any retention. No new branches or hosting upgrades.
+
 ## 25 November 2026 | Dormant compact transaction guard installed (13:42 GMT)
 
 - Migration 20261125134246_avuqo_compact_shadow_transaction_guard applied; pre/post reversible synthetic rehearsal passed. Deferred commit trigger rejects unsealed snapshots, SHA-256 payload pooling reuses identical input, private rights and exact source journal binding functions installed, digest-scoped transaction advisory lock. No API role execute grants. Concurrency lock behavior and full rights gate not independently exercised by the fixture. All four shadow tables empty; no live data copied, deleted, or publication changed.

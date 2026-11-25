@@ -5628,13 +5628,13 @@
     "remaining": "Owner authenticated latest and previous archive replay; full CI; durable compact storage, measured cost and retention rehearsal."
   },
   "infrastructure_cost_intelligence_20261125": {
-    "observed_at": "2026-11-25T13:42:57.018749Z",
+    "observed_at": "2026-11-25T13:55:37.261155Z",
     "status": "recorded_audit_monitoring_planned",
     "supabase_plan": "Pro",
-    "database_mib": 1898.6,
+    "database_mib": 1933.3,
     "object_mib": 356.4,
     "product_records": 85033,
-    "active_offer_records": 14117,
+    "active_offer_records": 14225,
     "configured_cron_entries": 24,
     "not_public_counts": true,
     "thresholds_percent": [
@@ -5708,5 +5708,22 @@
     "db_mib": 1898.6,
     "products": 85033,
     "active_offers": 14117
+  },
+  "pneus_compact_batch_writer_20261125": {
+    "status": "installed_dormant_batch_writer",
+    "migration": "20261125135527_avuqo_compact_shadow_batch_writer",
+    "observed_at": "2026-11-25T13:55:37.261155Z",
+    "pre_post_rehearsal": "passed reconstruction, private flags, missing legacy row and denied API execute",
+    "api_function_grants": 0,
+    "snapshots": 0,
+    "memberships": 0,
+    "content_rows": 0,
+    "observation_rows": 0,
+    "db_mib": 1933.3,
+    "products": 85033,
+    "active_offers": 14225,
+    "archive_bytes_verified": false,
+    "live_writer_connected": false,
+    "remaining": "Full begin/append/seal transaction rehearsal against exact legacy rows; canonical export and authorised archive recovery; concurrency, rights revocation, resource bounds and retention acceptance."
   }
 }

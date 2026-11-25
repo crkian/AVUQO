@@ -101,3 +101,10 @@ Next implementation: isolated shadow projection and replay tests against authori
 - Latest live measurement: 1,898.6 MiB database, 85,033 product records, 14,117 active offer records at 13:42:57 GMT. Not confirmed public counts. Prior a412e102 Vercel READY, app build and compact tests passed; historical branch retirement check still failed. No new branches or plan change.
 - Remaining: exact normalized batch append/seal, caller-side canonical replay and actual archive bytes/legacy parity, concurrent and rights-revocation tests, restricted integration, measured storage benefits before any retention. The database gate only validates journal metadata, not actual archive bytes.
 
+
+## 25 November 2026 | Dormant exact compact batch writer installed (13:55 GMT)
+
+- Migration 20261125135527_avuqo_compact_shadow_batch_writer applied; pre/post helper rehearsal passed exact normalized row reconstruction, inferred currency and release flag rejection, missing legacy identity and no API execution grants. Bounded 250-row append and final parity seal installed, not yet exercised end-to-end. All four shadow tables empty. No live supplier copy, retention, worker or publication changes.
+- Live database contents 1,933.3 MiB, 85,033 products, 14,225 active offer records at 13:55:37 GMT; not confirmed public counts. Prior e2c8ea8a production READY, build and dedicated compact tests passed; historical branch-retirement regression outstanding.
+- Next: actual archive-byte replay, canonical batch export, full rollback-only writer rehearsal and concurrency/rights tests, restricted production integration, measured storage savings before any retention. No new branches or hosting upgrades.
+
