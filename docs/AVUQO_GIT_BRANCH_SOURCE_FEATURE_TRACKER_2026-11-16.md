@@ -1357,3 +1357,8 @@ Specialist row validation PR347 merged after CI and Vercel preview success; prod
 ## 25 November 2026 | Department catalogue pagination
 
 Department catalogue candidate: database migration shopping_department_pagination_20261125_literal applied successfully; service-role-only ACL verified, DIY and pets each returned 37 candidate IDs, invalid department returned zero. Customer retail shelf now filters department before paging, preserves search, merchant and sort across navigation, rechecks independent release admission and classification. Department landing preview uses global department query and links to full filtered catalogue. Pending application CI and deployment; candidate IDs are not final admitted public counts.
+
+
+## 25 November 2026 | Exact Tooled Up import groups
+
+Department catalogue PR349 merged after all checks passed; production runtime not yet verified. Tooled Up candidate fixes immediate canonical staging across multiple private import runs: group only successfully rechecked SKUs by exact import ID, retain total 20 bound, aggregate outcomes and keep independent release gate. Previously the last import ID was reused for all SKUs. No new schedules, variables or migration. Pending CI/runtime.
