@@ -1673,3 +1673,8 @@ Production 8fac23ad confirmed READY; seven specialist schemas inspected. Candida
 ## 25 November 2026 | Large specialist contract feed
 
 Specialist row validation PR347 merged after CI and Vercel preview success; production not yet verified. Next candidate adds exact Mozillion 31539:97090 large contract feed bounded compressed input (16 MB), streamed decompression (96 MB), incremental evidence counting (12,000 rows), 30-minute retry for quarantined exact feed and no public price writes. Source terms/quote semantics remain outstanding. No new jobs, migrations or variables. Candidate pending CI and runtime.
+
+
+## 25 November 2026 | Department catalogue pagination
+
+Department catalogue candidate: database migration shopping_department_pagination_20261125_literal applied successfully; service-role-only ACL verified, DIY and pets each returned 37 candidate IDs, invalid department returned zero. Customer retail shelf now filters department before paging, preserves search, merchant and sort across navigation, rechecks independent release admission and classification. Department landing preview uses global department query and links to full filtered catalogue. Pending application CI and deployment; candidate IDs are not final admitted public counts.
