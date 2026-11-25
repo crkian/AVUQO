@@ -1,3 +1,9 @@
+## 25 November 2026 | Canonical writer transport and historical proof maintenance
+
+- Prior 0575ec46 production READY; dedicated compact, application build and native PostgreSQL passed. First 14:23 UTC scheduled archive audit not due at 14:17; no runtime result yet. Pure canonical replay-to-SQL transport now checks payload hashes and SKU/timestamp shape, limits batches to 250 rows and 4 MiB, individual payload 256 KiB. Offline test covers exact SHA-256 domain and batch boundary. No live writer connection, no retention.
+- Historical retirement regression traced to changed lib/connectors/awin.ts (frozen b04751fd -> current 0e55b809). Reviewed diff: stricter explicit GBP, positive price and exact identity, bounded read, redirect rejection and safe numeric-only upstream errors. Preserve exact frozen blob in docs/evidence; test current safety separately. Actual retirement workflow and frozen allowed refs unchanged; it still refuses deletion on changed current-main proof. All three ref lookups returned 404; no branch changes made. CI pending.
+- All six handover files and owner register updated. Next: inspect actual archived-file verification logs, durable journal and restricted transaction integration. No database writes or public shopping changes.
+
 ## 25 November 2026 | Full legacy transaction rehearsal passed; scheduled archive recovery candidate
 
 - Full 19,735-row latest Pneus legacy database rehearsal passed begin, bounded append, mismatch rejection, seal and complete rollback; all shadow tables remain empty. This replay used normalized legacy rows, not compressed source bytes or canonical JS serialization. Physical DB contents reached 2,006.4 MiB at 14:04 GMT after rehearsal (85,033 products / 14,265 active offer records, not public counts); allocation growth is not savings. Do not repeat full production rehearsals unnecessarily.

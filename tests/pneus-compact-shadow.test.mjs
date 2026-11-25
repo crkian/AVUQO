@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {gzipSync} from "node:zlib";
 import {createHash} from "node:crypto";
-import {replayPneusSnapshot,restorePneusRow,comparePneusSnapshots,buildPneusShadowLedger,restorePneusLedgerSnapshot} from "../lib/awin/pneus-compact-shadow.mjs";
+import {replayPneusSnapshot,restorePneusRow,comparePneusSnapshots,buildPneusShadowLedger,restorePneusLedgerSnapshot,pneusCanonicalWriterBatches} from "../lib/awin/pneus-compact-shadow.mjs";
 import {preparePneusPrivateBatch} from "../lib/awin/pneus-online-private.ts";
 const header=["merchant_id","merchant_product_id","product_name","search_price","in_stock",
  "last_updated","description","delivery_cost","aw_deep_link"];
@@ -96,4 +96,19 @@ test("two-snapshot ledger round trips both memberships and pools unchanged conte
  const tampered=structuredClone(ledger);
  tampered.contents[0][1].title="changed";
  assert.throws(()=>restorePneusLedgerSnapshot(tampered,a.sha256),/shadow_payload_mismatch/);
+});
+
+test("canonical writer transport preserves fingerprints and all memberships across bounded batches",async()=>{
+ const s=await replayPneusSnapshot(input(Array.from({length:251},(_,i)=>row("sku-"+i))));
+ const batches=Array.from(pneusCanonicalWriterBatches(s));
+ assert.deepEqual(batches.map(b=>b.length),[250,1]);
+ for(const entry of batches.flat()){
+  const m=s.members.get(entry.sku);
+  assert.equal(createHash("sha256").update("pneus-shadow-v1\ncontent\n"+entry.content_text).digest("hex"),m.contentHash);
+  assert.equal(createHash("sha256").update("pneus-shadow-v1\nobservation\n"+entry.observation_text).digest("hex"),m.observationHash);
+  assert.deepEqual(JSON.parse(entry.content_text),s.contents.get(m.contentHash));
+  assert.equal(entry.source_updated_at,m.sourceUpdatedAt);
+ }
+ s.contents.get(s.members.get("sku-0").contentHash).title="corrupted";
+ assert.throws(()=>Array.from(pneusCanonicalWriterBatches(s)),/shadow_payload_mismatch/);
 });

@@ -115,3 +115,10 @@ Next implementation: isolated shadow projection and replay tests against authori
 - Shared read-only fixed-scope archive verifier now used by existing owner POST and daily 14:23 UTC server cron candidate (25th cron entry). Existing CRON_SECRET, automatic importer flag, current source rights, emergency stop and exact journal/digest checks; aggregate runtime diagnostics only, no database writes, no upstream fetch, no retention. One latest archive per invocation; no durable lease or result journal yet. Deployment/test and actual archive parity pending. Prior f1e1c880 READY; compact/app build passed; historical branch proof failure remains.
 - No existing records deleted, no production storage cutover, no publication, no new branches. Next: review actual runtime audit, durable journal/lease, canonical batch integration and concurrency, then measured incremental storage and full supplier scope.
 
+
+## 25 November 2026 | Canonical writer transport and historical proof maintenance
+
+- Prior 0575ec46 production READY; dedicated compact, application build and native PostgreSQL passed. First 14:23 UTC scheduled archive audit not due at 14:17; no runtime result yet. Pure canonical replay-to-SQL transport now checks payload hashes and SKU/timestamp shape, limits batches to 250 rows and 4 MiB, individual payload 256 KiB. Offline test covers exact SHA-256 domain and batch boundary. No live writer connection, no retention.
+- Historical retirement regression traced to changed lib/connectors/awin.ts (frozen b04751fd -> current 0e55b809). Reviewed diff: stricter explicit GBP, positive price and exact identity, bounded read, redirect rejection and safe numeric-only upstream errors. Preserve exact frozen blob in docs/evidence; test current safety separately. Actual retirement workflow and frozen allowed refs unchanged; it still refuses deletion on changed current-main proof. All three ref lookups returned 404; no branch changes made. CI pending.
+- All six handover files and owner register updated. Next: inspect actual archived-file verification logs, durable journal and restricted transaction integration. No database writes or public shopping changes.
+

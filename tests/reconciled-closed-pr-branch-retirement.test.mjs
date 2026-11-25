@@ -37,16 +37,25 @@ test("only three individually reviewed closed but NOT merged PR heads are in ret
  assert.match(script,/commits\.at\(-1\)\.sha!==expectedHead/);
 });
 
-test("current preserved files match frozen reviewed blobs and include critical safety content",()=>{
+test("archived connector proof and unchanged documents match frozen reviewed blobs; current connector preserves safety",()=>{
  for(const [path,sha] of [
   ["lib/connectors/awin.ts","b04751fd8bdc0afbcbc1e7a2120f274c81a4d910"],
   ["docs/AWIN_CADBURY_PETLIBRO_TERMS_REVIEW_2026-11-04.md","711273ba18f911f437c3257fa91c697731488781"],
   ["docs/PRICE_AVAILABILITY_EBAY_SEO_REQUIREMENTS_2026-11-05.md","677e9daaf46dcf791e8fc4adc389cfec23b94411"]
  ]){
-  assert.equal(blobHash(read(path)),sha,path);
+  const proofPath=path==="lib/connectors/awin.ts"?"docs/evidence/awin-connector-retirement-proof-2026-11-14.txt":path;
+  assert.equal(blobHash(read(proofPath)),sha,proofPath);
   assert.ok(script.includes("preservedBlob:'"+sha+"'"));
  }
  assert.match(read("lib/connectors/awin.ts").toString(),/Awin feed request failed \(HTTP \$/);
+ const current=read("lib/connectors/awin.ts").toString();
+ assert.match(current,/currency!=="GBP"/);
+ assert.match(current,/redirect: "error"/);
+ assert.match(current,/await response\.body\?\.cancel\(\)/);
+ assert.match(current,/Awin enhanced feed exceeds bounded read budget/);
+ // The actual deletion workflow STILL requires the original current-main blob.
+ assert.match(script,/file\.data\.sha!==preservedBlob/);
+ assert.match(script,/current-main preserved content changed; manual re-review required/);
  assert.match(ledger,/publication rights still NOT confirmed/i);
  assert.match(ledger,/documentation only/i);
 });

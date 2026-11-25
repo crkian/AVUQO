@@ -5747,5 +5747,13 @@
       "verified": false
     },
     "remaining": "actual archive byte and row parity runtime result; durable evidence journal, concurrent/rights tests, canonical integration; no retention."
+  },
+  "pneus_canonical_transport_20261125": {
+    "status": "canonical_batch_transport_candidate",
+    "prior_production": "0575ec46 READY; dedicated tests/build/native PG passed; branch retirement checksum failure",
+    "archive_audit": "First daily execution not yet due as of 14:17 UTC. No matching logs.",
+    "canonical_transport": "Pure JS bounded 250-row and 4 MiB batches; payload size and hash verification; exact SHA-256 domain and canonical JSON match SQL pool contract; no DB access.",
+    "historical_branch_proof": "Original connector blob preserved byte-for-byte separately; current connector security invariants checked; actual deletion workflow unchanged and still fails closed on changed main blob. All three historical heads returned 404 on lookup; no branch operations performed.",
+    "remaining": "CI and deployment; actual archive audit result; persistent evidence and restricted integration; no retention."
   }
 }

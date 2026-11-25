@@ -2552,7 +2552,8 @@
         "Private compact foundation installed via migration 20261125133220; four empty RLS tables, API access denied including service role, reversible synthetic checks passed. Structural seal is not archive parity or retention approval. Next: verified archive recovery and restricted transactional writer with concurrency and rights tests.",
         "Migration 20261125134246 installs dormant DBA-only transaction commit guard, SHA-256 payload pool, current rights and journal binding. Pre/post synthetic rehearsal passed, all four tables empty, API function grants zero. Batch parity append/seal and actual archive recovery remain outstanding.",
         "Migration 20261125135527 installs dormant exact normalized row reconstruction, 250-row bounded batch append and final legacy parity seal. Pre/post helper rehearsal passed. All four tables empty and API execute grants zero. Full writer transaction, actual source archive bytes, concurrency and rights revocation still unverified; no retention.",
-        "Full 19,735-row rollback-only legacy writer transaction rehearsal passed; all shadow rows zero afterwards, physical DB allocation grew. Daily read-only archive audit candidate scheduled 14:23 UTC with cron authentication and rights gates; actual byte replay result outstanding."
+        "Full 19,735-row rollback-only legacy writer transaction rehearsal passed; all shadow rows zero afterwards, physical DB allocation grew. Daily read-only archive audit candidate scheduled 14:23 UTC with cron authentication and rights gates; actual byte replay result outstanding.",
+        "Canonical writer transport candidate produces exact replay hashes, 250-row/4 MiB batches with no network or writes. Actual scheduled archive parity remains outstanding; no retention."
       ],
       "no_database_changes": true,
       "retention": "No deletion, retention change, vacuum, index removal or archive migration authorised or performed in this audit."
@@ -7979,5 +7980,13 @@
       "verified": false
     },
     "remaining": "actual archive byte and row parity runtime result; durable evidence journal, concurrent/rights tests, canonical integration; no retention."
+  },
+  "pneus_canonical_transport_20261125": {
+    "status": "canonical_batch_transport_candidate",
+    "prior_production": "0575ec46 READY; dedicated tests/build/native PG passed; branch retirement checksum failure",
+    "archive_audit": "First daily execution not yet due as of 14:17 UTC. No matching logs.",
+    "canonical_transport": "Pure JS bounded 250-row and 4 MiB batches; payload size and hash verification; exact SHA-256 domain and canonical JSON match SQL pool contract; no DB access.",
+    "historical_branch_proof": "Original connector blob preserved byte-for-byte separately; current connector security invariants checked; actual deletion workflow unchanged and still fails closed on changed main blob. All three historical heads returned 404 on lookup; no branch operations performed.",
+    "remaining": "CI and deployment; actual archive audit result; persistent evidence and restricted integration; no retention."
   }
 }
