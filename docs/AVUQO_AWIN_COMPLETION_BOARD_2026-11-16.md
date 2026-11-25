@@ -1,3 +1,10 @@
+## 25 November 2026 | Supplier communications and renewal recovery
+
+- Priority: reliable automatic detection, conversion, publication and renewal across every supplier. Existing PLAY10 promotion registry found; Awin advertiser broadcasts 12 Nov and 25 Nov 08:56 GMT confirm 10% off orders strictly over £30, valid through 31 Dec 2026, not stackable; no Black Friday sale. Reuse the existing campaign ID and supplied own-publisher tracking link. No individual-price reduction is implied. Add continuous supplier email/communication ingestion, structured extraction, deduplication, validation, expiry, alerts and owner visibility. Not an installed mailbox integration yet.
+- Production renewal timeout fixed by indexed UUID/SKU lookup and correlated bounded exact-evidence probe. Migration 20261125110900 applied; three direct batches renewed 90 with zero failures; scheduled recovery, full backlog and public runtime still require verification. Renewal now takes priority within the bounded batch; add fair new-item capacity after backlog recovery. No withdrawn or manual reviews overwritten.
+- Owner full-content confirmation recorded for 21 accepted programmes; migration 20261125105732 applied, not an independent merchant-contract verification. Tooled Up batch enrichment SQL installed; application capture/rendering remains pending.
+- PlayPress F5142 successful; 96428 observed 23-column schema lacks stock/currency, cannot treat missing fields as available or invent GBP. Exact cross-feed reconciliation and adapter remain open. Continue all supplier integrations, rich details, tyre size/fitment and existing navigation. No new branches.
+
 ## 24 November 2026 | Full inventory conversion and exclusive worker checkpoint
 
 - Previous inventory register production READY at 250829c3ce35fbc219cdb3e3b6134066064e9b85 / dpl_8KMHDpJR4G533DB1pJX4t33gdDgg. Tooled Up historical SKU index complete: 84,284 identities (81,929 drafts, 2,355 active at earlier check). Current baseline 90 independent approvals, 3,211 canonical Awin offers.

@@ -4960,5 +4960,85 @@
       "Source-approved descriptions, exact technical variants, verified historical prices, Watch and real cross-seller matching remain pending",
       "Supplier breadth and tyre fitment completion; preserve existing tyre routes"
     ]
+  },
+  "supplier_intelligence_20261125": {
+    "date_utc": "2026-11-25",
+    "status": "partial",
+    "priority": "Reliable automatic detection, conversion, publication and renewal across every supplier. No blanket expiry bypass or fake stock.",
+    "promotion": {
+      "advertiser": "PlayPress Toys UK",
+      "advertiser_id": "101445",
+      "id": "playpress-christmas-2026",
+      "code": "PLAY10",
+      "percent": 10,
+      "minimum_spend_gbp": 30,
+      "minimum_operator": "strictly_greater_than",
+      "starts_at": "2026-11-12T12:04:28Z",
+      "ends_exclusive": "2027-01-01T00:00:00Z",
+      "stackable": false,
+      "black_friday_sale": false,
+      "first_email": "2026-11-12T12:04:28Z",
+      "reconfirmed": "2026-11-25T08:56:15Z",
+      "source": "Awin advertiser promotional broadcasts (owner mailbox, inspected 25 November); no private mail URL or message body retained",
+      "existing_registry": true,
+      "tracking_link": "https://www.awin1.com/cread.php?awinmid=101445&awinaffid=3135746"
+    },
+    "renewal": {
+      "migration": "20261125110900_shopping_review_indexed_exact_probe",
+      "applied": true,
+      "manual_batches": 3,
+      "manual_renewed": 90,
+      "manual_failures": 0,
+      "scheduled_recovery": "not yet verified",
+      "supplier_snapshot": [
+        {
+          "name": "Cadbury Gifts Direct",
+          "approved": 57,
+          "matching": 57
+        },
+        {
+          "name": "Craft Buddy Shop",
+          "approved": 13,
+          "matching": 13
+        },
+        {
+          "name": "Mozillion",
+          "approved": 19,
+          "matching": 19
+        },
+        {
+          "name": "Petlibro UK Affiliate Program",
+          "approved": 44,
+          "matching": 24
+        },
+        {
+          "name": "PlayPress Toys UK",
+          "approved": 39,
+          "matching": 19
+        },
+        {
+          "name": "Tooled Up",
+          "approved": 940,
+          "matching": 345
+        }
+      ]
+    },
+    "full_content": {
+      "migration": "20261125105732_owner_full_content_attestation_and_tooled_up_enrichment",
+      "programmes": 21,
+      "basis": "Owner explicit confirmation, not independently inspected merchant contracts",
+      "worker_integration": "pending"
+    },
+    "playpress_second_feed": {
+      "feed": "96428",
+      "status": "blocked",
+      "schema": "23-column Awin format lacks explicit currency and stock availability; observed 41 listings; use exact identity and current Google F5142 cross-check, no assumed stock"
+    },
+    "next": [
+      "Implement continuous merchant email and Awin communication discovery across all accepted programmes; extract structured codes/terms, dedupe, record provenance and expiry, alert on errors; existing registry is manually maintained",
+      "Clear renewal backlog, verify scheduled batches and public exact offer admission by supplier; avoid renewal-only starvation of new items",
+      "Repair PlayPress second feed by exact schema adapter and cross-feed SKU evidence",
+      "Complete source-bound descriptions and specifications, tyre size/fitment, all 21 supplier adapters and rich customer journeys"
+    ]
   }
 }

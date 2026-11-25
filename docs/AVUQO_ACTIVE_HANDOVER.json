@@ -241,7 +241,7 @@
         "title": "Normal-priced products / separate shopping admission",
         "status": "partial",
         "evidence": "Ordinary retail live, 90 approved at audit; renewal migration applied and tested; natural renewal outstanding",
-        "next": "Complete ordinary inventory conversion and retailer/category/search links.",
+        "next": "All-supplier detection, conversion, publication and indexed renewal recovery; verify current evidence, scheduled activity and customer journeys.",
         "workspace": "pipeline"
       },
       {
@@ -250,7 +250,7 @@
         "title": "Automatic catalogue rotation",
         "status": "partial",
         "evidence": "76 feeds / 12 suppliers / 140,354 historical supplier SKU pairs; no complete current reconciliation",
-        "next": "Reconcile every authorised feed's current distinct SKU membership, overlap, exclusions, snapshot digest, durable cursor, staged/canonical/current public counts; import ordinary products irrespective of discount. Resolve Tooled Up full bulk staging gates and specialist tyre/service adapters.",
+        "next": "All-supplier detection, conversion, publication and indexed renewal recovery; verify current evidence, scheduled activity and customer journeys.",
         "workspace": "awin-feed-updates"
       },
       {
@@ -268,7 +268,7 @@
         "title": "Full supplier inventory coverage",
         "status": "partial",
         "evidence": "76 feeds / 12 suppliers / 140,354 historical supplier SKU pairs; no complete current reconciliation",
-        "next": "Reconcile every authorised feed's current distinct SKU membership, overlap, exclusions, snapshot digest, durable cursor, staged/canonical/current public counts; import ordinary products irrespective of discount. Resolve Tooled Up full bulk staging gates and specialist tyre/service adapters.",
+        "next": "All-supplier detection, conversion, publication and indexed renewal recovery; verify current evidence, scheduled activity and customer journeys.",
         "workspace": "coverage"
       },
       {
@@ -1511,17 +1511,17 @@
       }
     ],
     "current_checkpoint": {
-      "date_utc": "2026-11-24",
+      "date_utc": "2026-11-25",
       "production": {
-        "sha": "717d3265cf4b1e6183c0bc7366c36af34708a7af",
-        "deployment": "dpl_CnswK2nkAxVfnApmeuwcn7wmy6kg",
+        "sha": "9bdf7b190e5b3c1abc17e4b95362f38e062d6123",
+        "deployment": "dpl_CV5jzMvT9UbnC77p2BUrrmnb23V4",
         "state": "READY",
         "domain": "https://www.avuqo.com",
         "owner_register": "Updated inventory snapshot committed; authenticated runtime acceptance pending"
       },
       "candidate": {
         "branch": "main",
-        "sha": "829148e1afa9403e537cce4c8e61c130754ef4f3",
+        "sha": "9bdf7b190e5b3c1abc17e4b95362f38e062d6123",
         "status": "partial",
         "changes": [
           "Disabled shopping approval ledger migration",
@@ -1574,12 +1574,14 @@
           "Rich ordinary item view reuses existing product gallery, template resolver and styling; exact offer links retained",
           "Canonical product route fallback independently admits ordinary items, without fabricating deals; existing deal and research routes preserved",
           "Retail shelf displays rights-cleared exact-feed images and SKU",
-          "Wishlist/basket server endpoint separately revalidates exact ordinary offer and product slug; snapshots label item-price provenance"
+          "Wishlist/basket server endpoint separately revalidates exact ordinary offer and product slug; snapshots label item-price provenance",
+          "Indexed renewal recovery installed and 90 direct renewals verified; PlayPress PLAY10 existing campaign reconfirmed; full-content owner attestation recorded"
         ],
         "remaining": [
-          "Build/CI and customer runtime, authenticated saves and mobile acceptance",
-          "Source-approved descriptions, exact technical variants, verified historical prices, Watch and real cross-seller matching remain pending",
-          "Supplier breadth and tyre fitment completion; preserve existing tyre routes"
+          "Implement continuous merchant email and Awin communication discovery across all accepted programmes; extract structured codes/terms, dedupe, record provenance and expiry, alert on errors; existing registry is manually maintained",
+          "Clear renewal backlog, verify scheduled batches and public exact offer admission by supplier; avoid renewal-only starvation of new items",
+          "Repair PlayPress second feed by exact schema adapter and cross-feed SKU evidence",
+          "Complete source-bound descriptions and specifications, tyre size/fitment, all 21 supplier adapters and rich customer journeys"
         ]
       },
       "ordered_build_queue": [
@@ -2083,6 +2085,86 @@
         "Verify all existing public and owner routes, desktop/mobile navigation, 25 departments, 21 supplier studios, historical feature/branch parity, regression tests and production page bodies. Mark live only after runtime evidence."
       ],
       "remaining": "No implementation, CI, authenticated UI or production verification performed for these new acceptance items in this checkpoint."
+    },
+    "supplier_intelligence": {
+      "date_utc": "2026-11-25",
+      "status": "partial",
+      "priority": "Reliable automatic detection, conversion, publication and renewal across every supplier. No blanket expiry bypass or fake stock.",
+      "promotion": {
+        "advertiser": "PlayPress Toys UK",
+        "advertiser_id": "101445",
+        "id": "playpress-christmas-2026",
+        "code": "PLAY10",
+        "percent": 10,
+        "minimum_spend_gbp": 30,
+        "minimum_operator": "strictly_greater_than",
+        "starts_at": "2026-11-12T12:04:28Z",
+        "ends_exclusive": "2027-01-01T00:00:00Z",
+        "stackable": false,
+        "black_friday_sale": false,
+        "first_email": "2026-11-12T12:04:28Z",
+        "reconfirmed": "2026-11-25T08:56:15Z",
+        "source": "Awin advertiser promotional broadcasts (owner mailbox, inspected 25 November); no private mail URL or message body retained",
+        "existing_registry": true,
+        "tracking_link": "https://www.awin1.com/cread.php?awinmid=101445&awinaffid=3135746"
+      },
+      "renewal": {
+        "migration": "20261125110900_shopping_review_indexed_exact_probe",
+        "applied": true,
+        "manual_batches": 3,
+        "manual_renewed": 90,
+        "manual_failures": 0,
+        "scheduled_recovery": "not yet verified",
+        "supplier_snapshot": [
+          {
+            "name": "Cadbury Gifts Direct",
+            "approved": 57,
+            "matching": 57
+          },
+          {
+            "name": "Craft Buddy Shop",
+            "approved": 13,
+            "matching": 13
+          },
+          {
+            "name": "Mozillion",
+            "approved": 19,
+            "matching": 19
+          },
+          {
+            "name": "Petlibro UK Affiliate Program",
+            "approved": 44,
+            "matching": 24
+          },
+          {
+            "name": "PlayPress Toys UK",
+            "approved": 39,
+            "matching": 19
+          },
+          {
+            "name": "Tooled Up",
+            "approved": 940,
+            "matching": 345
+          }
+        ]
+      },
+      "full_content": {
+        "migration": "20261125105732_owner_full_content_attestation_and_tooled_up_enrichment",
+        "programmes": 21,
+        "basis": "Owner explicit confirmation, not independently inspected merchant contracts",
+        "worker_integration": "pending"
+      },
+      "playpress_second_feed": {
+        "feed": "96428",
+        "status": "blocked",
+        "schema": "23-column Awin format lacks explicit currency and stock availability; observed 41 listings; use exact identity and current Google F5142 cross-check, no assumed stock"
+      },
+      "next": [
+        "Implement continuous merchant email and Awin communication discovery across all accepted programmes; extract structured codes/terms, dedupe, record provenance and expiry, alert on errors; existing registry is manually maintained",
+        "Clear renewal backlog, verify scheduled batches and public exact offer admission by supplier; avoid renewal-only starvation of new items",
+        "Repair PlayPress second feed by exact schema adapter and cross-feed SKU evidence",
+        "Complete source-bound descriptions and specifications, tyre size/fitment, all 21 supplier adapters and rich customer journeys"
+      ]
     }
   },
   "catalogue_candidate_ci_20261124": {
@@ -6632,6 +6714,86 @@
       "Build/CI and customer runtime, authenticated saves and mobile acceptance",
       "Source-approved descriptions, exact technical variants, verified historical prices, Watch and real cross-seller matching remain pending",
       "Supplier breadth and tyre fitment completion; preserve existing tyre routes"
+    ]
+  },
+  "supplier_intelligence_20261125": {
+    "date_utc": "2026-11-25",
+    "status": "partial",
+    "priority": "Reliable automatic detection, conversion, publication and renewal across every supplier. No blanket expiry bypass or fake stock.",
+    "promotion": {
+      "advertiser": "PlayPress Toys UK",
+      "advertiser_id": "101445",
+      "id": "playpress-christmas-2026",
+      "code": "PLAY10",
+      "percent": 10,
+      "minimum_spend_gbp": 30,
+      "minimum_operator": "strictly_greater_than",
+      "starts_at": "2026-11-12T12:04:28Z",
+      "ends_exclusive": "2027-01-01T00:00:00Z",
+      "stackable": false,
+      "black_friday_sale": false,
+      "first_email": "2026-11-12T12:04:28Z",
+      "reconfirmed": "2026-11-25T08:56:15Z",
+      "source": "Awin advertiser promotional broadcasts (owner mailbox, inspected 25 November); no private mail URL or message body retained",
+      "existing_registry": true,
+      "tracking_link": "https://www.awin1.com/cread.php?awinmid=101445&awinaffid=3135746"
+    },
+    "renewal": {
+      "migration": "20261125110900_shopping_review_indexed_exact_probe",
+      "applied": true,
+      "manual_batches": 3,
+      "manual_renewed": 90,
+      "manual_failures": 0,
+      "scheduled_recovery": "not yet verified",
+      "supplier_snapshot": [
+        {
+          "name": "Cadbury Gifts Direct",
+          "approved": 57,
+          "matching": 57
+        },
+        {
+          "name": "Craft Buddy Shop",
+          "approved": 13,
+          "matching": 13
+        },
+        {
+          "name": "Mozillion",
+          "approved": 19,
+          "matching": 19
+        },
+        {
+          "name": "Petlibro UK Affiliate Program",
+          "approved": 44,
+          "matching": 24
+        },
+        {
+          "name": "PlayPress Toys UK",
+          "approved": 39,
+          "matching": 19
+        },
+        {
+          "name": "Tooled Up",
+          "approved": 940,
+          "matching": 345
+        }
+      ]
+    },
+    "full_content": {
+      "migration": "20261125105732_owner_full_content_attestation_and_tooled_up_enrichment",
+      "programmes": 21,
+      "basis": "Owner explicit confirmation, not independently inspected merchant contracts",
+      "worker_integration": "pending"
+    },
+    "playpress_second_feed": {
+      "feed": "96428",
+      "status": "blocked",
+      "schema": "23-column Awin format lacks explicit currency and stock availability; observed 41 listings; use exact identity and current Google F5142 cross-check, no assumed stock"
+    },
+    "next": [
+      "Implement continuous merchant email and Awin communication discovery across all accepted programmes; extract structured codes/terms, dedupe, record provenance and expiry, alert on errors; existing registry is manually maintained",
+      "Clear renewal backlog, verify scheduled batches and public exact offer admission by supplier; avoid renewal-only starvation of new items",
+      "Repair PlayPress second feed by exact schema adapter and cross-feed SKU evidence",
+      "Complete source-bound descriptions and specifications, tyre size/fitment, all 21 supplier adapters and rich customer journeys"
     ]
   }
 }
