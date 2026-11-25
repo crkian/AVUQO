@@ -1668,3 +1668,8 @@ All-supplier integration increment: latest inventory audit recorded 76 distinct 
 ## 25 November 2026 | Specialist row evidence
 
 Production 8fac23ad confirmed READY; seven specialist schemas inspected. Candidate adds bounded full-row specialist identity and evidence checks with aggregate-only diagnostics (explicit GBP, source price, terms field, own-publisher link); no generic search price becomes a tariff or quote. Existing schedule, no public writes. Missing period, renewal, allowance and eligibility semantics remain blockers; large contract handset feed needs streaming. Pending CI and production validation.
+
+
+## 25 November 2026 | Large specialist contract feed
+
+Specialist row validation PR347 merged after CI and Vercel preview success; production not yet verified. Next candidate adds exact Mozillion 31539:97090 large contract feed bounded compressed input (16 MB), streamed decompression (96 MB), incremental evidence counting (12,000 rows), 30-minute retry for quarantined exact feed and no public price writes. Source terms/quote semantics remain outstanding. No new jobs, migrations or variables. Candidate pending CI and runtime.

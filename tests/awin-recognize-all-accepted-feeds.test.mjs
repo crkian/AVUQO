@@ -50,3 +50,15 @@ test("specialist rows are exact-bound, aggregate only and never declared quote r
  assert.throws(()=>specialistEvidence("37738","81201",h,[r,r]),/identity_mismatch/);
  assert.throws(()=>specialistEvidence("37738","81201",h,[[...r.slice(0,1),"99999",...r.slice(2)]]),/identity_mismatch/);
 });
+
+import {specialistAccumulator} from "../lib/awin/specialist-evidence.mjs";
+test("large specialist inspection accumulates rows without retaining raw records and rejects overflow",()=>{
+ const h=["merchant_id","merchant_product_id","product_name","search_price","aw_deep_link"];
+ const s=specialistAccumulator("31539","97090",h,2);
+ s.add(["31539","A","Synthetic contract","10",""]);s.add(["31539","B","Synthetic contract","20",""]);
+ assert.equal(s.result().rows,2);assert.equal(s.result().public_quote_ready,0);
+ assert.throws(()=>s.add(["31539","C","Synthetic contract","30",""]),/bounded_probe_size_limit/);
+ const worker=readFileSync("app/api/internal/awin-feed-schema-probe/route.ts","utf8");
+ assert.match(worker,/selected.advertiser_id==="31539"&&selected.feed_id==="97090"/);
+ assert.match(worker,/total>96_000_000/);assert.match(worker,/reader.cancel/);
+});
