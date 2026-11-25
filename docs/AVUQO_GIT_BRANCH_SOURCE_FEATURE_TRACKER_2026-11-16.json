@@ -5105,5 +5105,63 @@
       "Avoid sparse catalogue pagination caused by review candidates failing admission after pagination; fair renewal/new-item capacity",
       "Complete all 21 adapters, mailbox ingestion, content enrichment and tyre exact fitment"
     ]
+  },
+  "fair_review_recovery_20261125": {
+    "date_utc": "2026-11-25",
+    "status": "partial",
+    "production": {
+      "sha": "52b72e1cfb034d0629d0dde42776d8b28f8d1adc",
+      "deployment": "dpl_HuMDLdsYLTV7h5Ets2Ka3BmAFuQW",
+      "state": "READY"
+    },
+    "failed_candidate": {
+      "sha": "2a340f508a7953669bb9719a7dd40493399f9c3d",
+      "deployment": "dpl_6CBRWgdx8VoZTF9diqrCAenp7LwN",
+      "error": "TS2322 local currencySource union omitted private-only PlayPress provenance; corrected to shared PilotCurrencySource"
+    },
+    "migration": "20261125112210_shopping_review_fair_renewal_and_first_admission",
+    "live_worker": {
+      "checked": 30,
+      "renewed": 20,
+      "approved": 10,
+      "failed": 0
+    },
+    "supplier_snapshot": [
+      {
+        "name": "Cadbury Gifts Direct",
+        "approved": 57,
+        "matching": 57
+      },
+      {
+        "name": "Craft Buddy Shop",
+        "approved": 13,
+        "matching": 13
+      },
+      {
+        "name": "Mozillion",
+        "approved": 29,
+        "matching": 29
+      },
+      {
+        "name": "Petlibro UK Affiliate Program",
+        "approved": 44,
+        "matching": 44
+      },
+      {
+        "name": "PlayPress Toys UK",
+        "approved": 39,
+        "matching": 19
+      },
+      {
+        "name": "Tooled Up",
+        "approved": 940,
+        "matching": 485
+      }
+    ],
+    "remaining": [
+      "Verify corrected deployment and CI, PlayPress private import and exact cross-feed reconciliation",
+      "Improve eligibility-aware pagination and stale canonical reconversion; retain exact evidence gates",
+      "Complete full content capture, tyre exact fitment, all 21 supplier integrations and automatic promotional email intelligence"
+    ]
   }
 }

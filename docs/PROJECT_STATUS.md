@@ -1,3 +1,9 @@
+## 25 November 2026 | Fair renewal and first admission recovery
+
+- Previous production 52b72e1 READY; PlayPress adapter candidate 2a340f5 failed TS2322 in local currencySource declaration. Use shared PilotCurrencySource to include private-only PlayPress provenance. No release gate changed. Corrected candidate requires CI and runtime verification.
+- Installed 20261125112210_shopping_review_fair_renewal_and_first_admission: bounded three-phase review (renewal reserve two thirds, first admission, remaining renewal), smaller suppliers ahead of Tooled Up within phases. Rollback rehearsal passed. Live direct invocation checked 30, renewed 20, first approvals 10, zero failures. No manual/withdrawn review overrides. Scheduled runtime and supplier breadth remain to be verified.
+- Continue eligibility-aware pagination, stale canonical reconciliation, exact PlayPress cross-feed content, all 21 suppliers, automatic promotional email intelligence, full product enrichment and tyre fitment. No new branches.
+
 ## 25 November 2026 | Renewal runtime and PlayPress catalogue continuity
 
 - Prior production dpl_HuMDLdsYLTV7h5Ets2Ka3BmAFuQW READY; PlayPress studio HTTP 200 includes PLAY10, publisher tracking and 12 product links. Room on the Broom Playset detail HTTP 200. Search for PlayPress in ordinary shelf returned no links (title-only search).

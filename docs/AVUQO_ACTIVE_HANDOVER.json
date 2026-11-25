@@ -1578,13 +1578,13 @@
           "Indexed renewal recovery installed and 90 direct renewals verified; PlayPress PLAY10 existing campaign reconfirmed; full-content owner attestation recorded",
           "Exact PlayPress standard feed 96428 23-column private adapter; inferred GBP provenance labelled private-only and early recheck refusal; never assert stock or publish from that feed",
           "Retailer-name and exact retailer-filter ordinary shopping search, studio-to-shelf navigation",
-          "Existing dated PLAY10 campaign displayed on independently admitted PlayPress item detail, no price mutation"
+          "Existing dated PLAY10 campaign displayed on independently admitted PlayPress item detail, no price mutation",
+          "Fix PlayPress private-only provenance TypeScript declaration; fair bounded renewal and first admission installed and live tested"
         ],
         "remaining": [
-          "Verify candidate build, private feed stage, cross-feed exact SKU/content reconciliation and live retailer search",
-          "Clear renewal backlog; 155 Tooled Up stale canonical evidence rows did not match latest private evidence in audit, recanonicalize rather than bypass gates",
-          "Avoid sparse catalogue pagination caused by review candidates failing admission after pagination; fair renewal/new-item capacity",
-          "Complete all 21 adapters, mailbox ingestion, content enrichment and tyre exact fitment"
+          "Verify corrected deployment and CI, PlayPress private import and exact cross-feed reconciliation",
+          "Improve eligibility-aware pagination and stale canonical reconversion; retain exact evidence gates",
+          "Complete full content capture, tyre exact fitment, all 21 supplier integrations and automatic promotional email intelligence"
         ]
       },
       "ordered_build_queue": [
@@ -2117,37 +2117,37 @@
         "manual_batches": 3,
         "manual_renewed": 150,
         "manual_failures": 0,
-        "scheduled_recovery": "11:12:12 GMT automatic review timestamp; +30 matching Tooled Up offers since prior audit",
+        "scheduled_recovery": "11:18:11 GMT latest automatic review; fair worker direct batch 20 renewed and 10 first approvals",
         "supplier_snapshot": [
-          {
-            "name": "Tooled Up",
-            "approved": 940,
-            "matching": 435
-          },
           {
             "name": "Cadbury Gifts Direct",
             "approved": 57,
             "matching": 57
           },
           {
+            "name": "Craft Buddy Shop",
+            "approved": 13,
+            "matching": 13
+          },
+          {
             "name": "Mozillion",
-            "approved": 19,
-            "matching": 19
+            "approved": 29,
+            "matching": 29
           },
           {
-            "name": "Petlibro",
+            "name": "Petlibro UK Affiliate Program",
             "approved": 44,
-            "matching": 24
+            "matching": 44
           },
           {
-            "name": "PlayPress Toys",
+            "name": "PlayPress Toys UK",
             "approved": 39,
             "matching": 19
           },
           {
-            "name": "Craft Buddy",
-            "approved": 13,
-            "matching": 13
+            "name": "Tooled Up",
+            "approved": 940,
+            "matching": 485
           }
         ]
       },
@@ -2163,10 +2163,9 @@
         "schema": "23-column Awin format lacks explicit currency and stock availability; observed 41 listings; use exact identity and current Google F5142 cross-check, no assumed stock"
       },
       "next": [
-        "Verify candidate build, private feed stage, cross-feed exact SKU/content reconciliation and live retailer search",
-        "Clear renewal backlog; 155 Tooled Up stale canonical evidence rows did not match latest private evidence in audit, recanonicalize rather than bypass gates",
-        "Avoid sparse catalogue pagination caused by review candidates failing admission after pagination; fair renewal/new-item capacity",
-        "Complete all 21 adapters, mailbox ingestion, content enrichment and tyre exact fitment"
+        "Verify corrected deployment and CI, PlayPress private import and exact cross-feed reconciliation",
+        "Improve eligibility-aware pagination and stale canonical reconversion; retain exact evidence gates",
+        "Complete full content capture, tyre exact fitment, all 21 supplier integrations and automatic promotional email intelligence"
       ]
     }
   },
@@ -6862,6 +6861,64 @@
       "Clear renewal backlog; 155 Tooled Up stale canonical evidence rows did not match latest private evidence in audit, recanonicalize rather than bypass gates",
       "Avoid sparse catalogue pagination caused by review candidates failing admission after pagination; fair renewal/new-item capacity",
       "Complete all 21 adapters, mailbox ingestion, content enrichment and tyre exact fitment"
+    ]
+  },
+  "fair_review_recovery_20261125": {
+    "date_utc": "2026-11-25",
+    "status": "partial",
+    "production": {
+      "sha": "52b72e1cfb034d0629d0dde42776d8b28f8d1adc",
+      "deployment": "dpl_HuMDLdsYLTV7h5Ets2Ka3BmAFuQW",
+      "state": "READY"
+    },
+    "failed_candidate": {
+      "sha": "2a340f508a7953669bb9719a7dd40493399f9c3d",
+      "deployment": "dpl_6CBRWgdx8VoZTF9diqrCAenp7LwN",
+      "error": "TS2322 local currencySource union omitted private-only PlayPress provenance; corrected to shared PilotCurrencySource"
+    },
+    "migration": "20261125112210_shopping_review_fair_renewal_and_first_admission",
+    "live_worker": {
+      "checked": 30,
+      "renewed": 20,
+      "approved": 10,
+      "failed": 0
+    },
+    "supplier_snapshot": [
+      {
+        "name": "Cadbury Gifts Direct",
+        "approved": 57,
+        "matching": 57
+      },
+      {
+        "name": "Craft Buddy Shop",
+        "approved": 13,
+        "matching": 13
+      },
+      {
+        "name": "Mozillion",
+        "approved": 29,
+        "matching": 29
+      },
+      {
+        "name": "Petlibro UK Affiliate Program",
+        "approved": 44,
+        "matching": 44
+      },
+      {
+        "name": "PlayPress Toys UK",
+        "approved": 39,
+        "matching": 19
+      },
+      {
+        "name": "Tooled Up",
+        "approved": 940,
+        "matching": 485
+      }
+    ],
+    "remaining": [
+      "Verify corrected deployment and CI, PlayPress private import and exact cross-feed reconciliation",
+      "Improve eligibility-aware pagination and stale canonical reconversion; retain exact evidence gates",
+      "Complete full content capture, tyre exact fitment, all 21 supplier integrations and automatic promotional email intelligence"
     ]
   }
 }
