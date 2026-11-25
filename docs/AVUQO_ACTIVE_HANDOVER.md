@@ -1515,3 +1515,9 @@ Department catalogue PR349 merged after all checks passed; production runtime no
 ## 25 November 2026 | Specialist owner evidence
 
 PR350 merged after CI and preview success. PR349 production READY. Live specialist profiles confirmed nine feeds and 10,747 inspected rows with 10,747 publisher links, 141 explicit GBP and zero populated standard contract terms. New candidate makes these bounded aggregate diagnostics visible in the existing owner-only portfolio, deduplicates latest observations by exact pair, recognises PlayPress physical pipeline and counts mapped numeric IDs accurately. No raw feed data or public tariff output. Pending CI/runtime; actual quote semantics remain blocked.
+
+
+## 25 November 2026 | Owner release identity regression and tyre audit
+
+- PR351 production READY at 4aa6b5ca. Pneus 15236:26513 bulk job completed 20:47 UTC with 19,723 observed, validated and committed private rows, all excluded for missing explicit currency. No public admission change. Two-hour conversion journal: 1,550 Tooled Up, 13 Cadbury, 8 Mozillion accepted held candidates, eight successful Tyres UK rechecks. Counts are not public listings.
+- Correct owner first-release GET candidate advertiser regex which erroneously rejected numeric IDs; POST atomic evidence gate and all other conditions unchanged. Regression test added; CI/runtime pending. No database writes, variables, cron or permission changes. Full inventory, tyre currency evidence and specialist quotes remain outstanding.
