@@ -1648,3 +1648,8 @@ Added specialist quote-preparation journeys across 15 supplier studios using onl
 ## 25 November 2026 | Full-range catalogue scaling
 
 Full-range shopping scale candidate: existing SQL predicates and function ACLs retained, proposed offset bound 36,000, conversion bound 50, shopping approval bound 60. Application opt-in AWIN_CATALOGUE_SCALE_ENABLED must stay false until database migration and load verification. Retail page-jump navigation preserves search, supplier and sort. Existing schedules unchanged; tyre currency and exact fitted totals remain unresolved. No runtime activation or test results claimed.
+
+
+## 25 November 2026 | Configuration redeployment
+
+Fix ignored build gate: a verified empty Git diff must build, allowing same-commit environment configuration redeploys. Nonempty documentation/workflow-only changes still skip. Production scale database migration applied; application activation requires successful deployment and live verification. No cron changes.

@@ -2,7 +2,7 @@ import {spawnSync} from "node:child_process";
 import {pathToFileURL} from "node:url";
 const ignored = new Set(["README.md","CHANGELOG.md","docs/AVUQO_ACTIVE_HANDOVER.md","docs/AVUQO_GIT_BRANCH_SOURCE_FEATURE_TRACKER_2026-11-16.md","docs/PROJECT_STATUS.md","docs/AVUQO_PNEUS_COMPACT_STORAGE_PILOT_2026-11-25.md"]);
 export function canSkip(paths) {
-  return paths.every(p => ignored.has(p) || /^\.github\/workflows\/[^/]+\.ya?ml$/.test(p));
+  return paths.length > 0 && paths.every(p => ignored.has(p) || /^\.github\/workflows\/[^/]+\.ya?ml$/.test(p));
 }
 export function decision(base, run = (args) => spawnSync("git", args, {encoding:"utf8",maxBuffer:8*1024*1024})) {
   if (!/^[a-f0-9]{40}$/i.test(base || "")) return 1;
