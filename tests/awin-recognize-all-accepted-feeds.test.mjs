@@ -87,3 +87,11 @@ test("owner portfolio deduplicates observed feeds and shows bounded specialist e
  assert.match(api,/seen.has\(key\)/);assert.match(api,/readSpecialistSummary/);
  assert.match(api,/quoteReady:0/);assert.match(ui,/Private source evidence \(not live quotes\)/);
 });
+
+test("owner release queue recognises numeric advertiser IDs and rejects malformed identities",()=>{
+ const match=api.match(/typeof ad!=="string"\|\|\s*!\/([^\n]+?)\/\.test\(ad\)/);
+ assert.ok(match,"candidate advertiser identity guard must exist");
+ const pattern=new RegExp(match[1]);
+ for(const id of ["496","101445","15236"])assert.equal(pattern.test(id),true);
+ for(const id of ["","x496","496x","\\ddd","1","1234567890123"])assert.equal(pattern.test(id),false);
+});
