@@ -1677,3 +1677,8 @@ Production deployment 20b642c2 confirmed READY. Tooled Up candidate rotates cont
 ## 25 November 2026 | All-supplier integration increment
 
 All-supplier integration increment: latest inventory audit recorded 76 distinct feed identities (53 Tooled Up). Specialist contract/service feeds now receive bounded authenticated header inspection instead of recognition-only records; seven-day profile refresh and latest-observation deduplication enable inactive/failed entries to be retried. Craft Buddy 109997 enters exact-bound private staging; no live price/stock attestation due to missing stock evidence. Existing cron cadence, source controls and release gates remain. Full specialist quote adapters, supplier discovery, promotions and live catalogue reconciliation remain outstanding. Candidate pending CI and runtime verification.
+
+
+## 25 November 2026 | Specialist row evidence
+
+Production 8fac23ad confirmed READY; seven specialist schemas inspected. Candidate adds bounded full-row specialist identity and evidence checks with aggregate-only diagnostics (explicit GBP, source price, terms field, own-publisher link); no generic search price becomes a tariff or quote. Existing schedule, no public writes. Missing period, renewal, allowance and eligibility semantics remain blockers; large contract handset feed needs streaming. Pending CI and production validation.

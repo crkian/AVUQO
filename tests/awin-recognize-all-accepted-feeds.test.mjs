@@ -41,3 +41,12 @@ test("specialist contract feeds are inspected without generic retail staging",()
  assert.doesNotMatch(probe,/\.from\("offers"\)|\.from\("feed_import_records"\)/);
  assert.equal(recognizeAwinFeed(input("45747","109997")).kind,"retail_physical");
 });
+
+import {specialistEvidence} from "../lib/awin/specialist-evidence.mjs";
+test("specialist rows are exact-bound, aggregate only and never declared quote ready",()=>{
+ const h=["merchant_id","data_feed_id","merchant_product_id","product_name","search_price","currency","aw_deep_link","terms_of_contract"];
+ const r=["37738","81201","SIM-1","Synthetic plan","10.00","GBP","https://www.awin1.com/pclick.php?m=37738&a=3135746&p=123","12 months"];
+ assert.deepEqual(specialistEvidence("37738","81201",h,[r]),{rows:1,explicit_gbp:1,source_price:1,contract_terms_present:1,own_publisher_links:1,public_quote_ready:0});
+ assert.throws(()=>specialistEvidence("37738","81201",h,[r,r]),/identity_mismatch/);
+ assert.throws(()=>specialistEvidence("37738","81201",h,[[...r.slice(0,1),"99999",...r.slice(2)]]),/identity_mismatch/);
+});
