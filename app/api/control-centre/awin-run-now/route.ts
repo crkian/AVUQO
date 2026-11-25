@@ -116,7 +116,7 @@ export async function POST(request:NextRequest){
   const isBatchProbe=task==="portfolio_schema_probe_batch";
   const step=body.step;
   if(isPortfolio){
-   if(!Number.isSafeInteger(step)||typeof step!=="number"||step<0||step>8)
+   if(!Number.isSafeInteger(step)||typeof step!=="number"||step<0||step>9)
     return result({error:"Invalid bounded rotation step"},400);
   }else if(step!==undefined)return result({error:"Unexpected rotation step"},400);
   if(!isPilot&&!isTooledUp&&!isPneus&&!isTyresUk&&!isBridge&&!isInventory&&!isPortfolio&&!isSchemaProbe&&!isBatchProbe)return result({error:"Task not approved"},403);

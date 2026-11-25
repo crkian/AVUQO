@@ -43,7 +43,7 @@ test("existing owner-protected Run Now can invoke rotation without accepting raw
  assert.match(owner,/role\?\.role!=="owner"/);
  assert.match(owner,/Same origin required/);
  assert.match(ui,/Try another accepted retail feed/);
- assert.match(ui,/setRotationStep\(v=>\(v\+1\)%9\)/);
+ assert.match(ui,/setRotationStep\(v=>\(v\+1\)%10\)/);
  assert.match(owner,/url\.searchParams\.set\("offset",String\(step\)\)/);
  assert.match(owner,/Number\.isSafeInteger\(step\)/);
  assert.match(ui,/advertiser .* \/ feed /);

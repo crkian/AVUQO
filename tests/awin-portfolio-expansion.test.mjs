@@ -55,3 +55,11 @@ test("publisher-hosted Google URLs can never cross publisher or feed binding",()
  assert.throws(()=>approvedAwinDownloadUrl(url,key,"F5142","999999"));
  assert.throws(()=>approvedAwinDownloadUrl(url,key,"F5143","3135746"));
 });
+
+test("Craft Buddy second standard feed binds every row to exact identity and preserves explicit currency",()=>{
+ const header=["data_feed_id","merchant_id","merchant_product_id","product_name","search_price","currency","aw_deep_link"];
+ const row=["109997","45747","SKU","Synthetic kit","12.99","GBP","https://www.awin1.com/pclick.php?m=45747&a=3135746&p=123"];
+ assert.deepEqual(normalizePilotAwinFeed("45747","109997",header,[row]).rows,[row]);
+ assert.throws(()=>normalizePilotAwinFeed("45747","109997",header,[["999999",...row.slice(1)]]),/identity_mismatch/);
+ assert.match(importer,/advertiser==="45747"&&feed==="109997"/);
+});

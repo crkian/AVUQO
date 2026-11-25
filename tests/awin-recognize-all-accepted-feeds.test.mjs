@@ -32,3 +32,12 @@ test("recognition does not alter source controls or publish prices",()=>{
  assert.doesNotMatch(src,/createAdminClient|\.update\(|\.rpc\(|fetch\(|published_deals|permission_status\s*=/);
  assert.match(src,/NEVER commercial permissions/);
 });
+
+test("specialist contract feeds are inspected without generic retail staging",()=>{
+ const probe=readFileSync("app/api/internal/awin-feed-schema-probe/route.ts","utf8");
+ assert.match(probe,/\["specialist_tyres","large_retail"\]\.includes\(route.kind\)/);
+ assert.match(probe,/route.kind==="contract_or_service"\?"specialist_adapter":profile.status/);
+ assert.match(probe,/7\*86400000/);
+ assert.doesNotMatch(probe,/\.from\("offers"\)|\.from\("feed_import_records"\)/);
+ assert.equal(recognizeAwinFeed(input("45747","109997")).kind,"retail_physical");
+});

@@ -7,6 +7,13 @@ import {identifyFormat} from "../feed-imports/general-awin-large.ts";
  * programme, NOT present in the product file. It must remain private review.
  */
 export function normalizePilotAwinFeed(advertiser:string,feedId:string,header:string[],rows:string[][]){
+ if(advertiser==="45747"&&feedId==="109997"){
+  const required=["data_feed_id","merchant_id","merchant_product_id","product_name","search_price","currency","aw_deep_link"];
+  if(header.length>120||new Set(header).size!==header.length||!required.every(k=>header.includes(k)))throw Error("craftbuddy_standard_schema_mismatch");
+  if(rows.some(r=>r.length!==header.length||r[header.indexOf("merchant_id")]?.trim()!==advertiser||r[header.indexOf("data_feed_id")]?.trim()!==feedId))throw Error("craftbuddy_standard_identity_mismatch");
+  identifyFormat(header);
+  return {header,rows,currencySource:"feed_column" as const};
+ }
  // This exact UK standard feed has no stock or currency field. It may be
  // archived for catalogue enrichment; it must never supply live price/stock.
  if(advertiser==="101445"&&feedId==="96428"&&!header.includes("currency")){

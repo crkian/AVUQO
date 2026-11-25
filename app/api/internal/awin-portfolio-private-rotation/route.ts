@@ -23,6 +23,7 @@ const PAIRS=[
  {advertiser:"77952",feed:"109652",kind:"Awin"},
  {advertiser:"77952",feed:"119210",kind:"Awin"},
  {advertiser:"45747",feed:"F1356",kind:"Google"},
+ {advertiser:"45747",feed:"109997",kind:"Awin"},
  {advertiser:"736",feed:"48599",kind:"Awin"},
  {advertiser:"77952",feed:"103580",kind:"Awin"},
  {advertiser:"31539",feed:"74135",kind:"Awin"}
@@ -43,8 +44,8 @@ async function runRotation(request:NextRequest,attemptId:string){
  // The ordinal never supplies a feed URL, advertiser or arbitrary feed ID.
  const offsetString=new URL(request.url).searchParams.get("offset");
  const offset=offsetString===null?0:Number(offsetString);
- if((offsetString!==null&&!/^[0-8]$/.test(offsetString))||
-    !Number.isSafeInteger(offset)||offset<0||offset>8)
+ if((offsetString!==null&&!/^[0-9]$/.test(offsetString))||
+    !Number.isSafeInteger(offset)||offset<0||offset>9)
   return reply({error:"Invalid rotation offset"},400);
  const db=createAdminClient();
  const [{data:source,error:sourceError},{data:controls,error:controlError},

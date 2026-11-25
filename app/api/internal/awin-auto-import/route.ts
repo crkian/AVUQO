@@ -24,6 +24,7 @@ const approvedFeedPairs=new Map([
  ["31539:74135","Mozillion SIM-free phones"],
  ["736:48599","Cadbury Gifts Direct UK shopping feed (private only)"],
  ["45747:F1356","Craft Buddy Google-retail feed (private only)"],
+ ["45747:109997","Craft Buddy standard retail feed (private only)"],
  ["101445:F5142","PlayPress Toys UK Google retail feed (private only)"],
  ["101445:96428","PlayPress Toys UK standard retail feed (private only)"],
  ["77952:109051","Petlibro UK sale feed (private only)"],
@@ -53,7 +54,7 @@ async function attestUnchangedLiveRows(
  ownerApprovedImages:boolean,ownerApprovedDescriptions:boolean,currencySource:PilotCurrencySource
 ){
  // This feed provides neither explicit currency nor stock. Never create live evidence from it.
- if(currencySource==="playpress_uk_programme_gbp_private_only")return [];
+ if(currencySource==="playpress_uk_programme_gbp_private_only"||(advertiser==="45747"&&feed==="109997"))return [];
  const idPos=header.indexOf(header.includes("merchant_product_id")?"merchant_product_id":"id");
  if(idPos<0||!/^[a-f0-9]{64}$/.test(digest))throw Error("unbound_live_recheck");
  const originals=new Map(rows.map(r=>[r[idPos]?.trim(),r]));
