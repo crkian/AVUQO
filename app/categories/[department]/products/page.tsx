@@ -36,7 +36,7 @@ async function DepartmentGoods({department}:{department:string}){
  if(!d)notFound();
  const editorial=departmentBySlug(department);
  const [verified,retailPage]=await Promise.all([verifiedProductIndex(120),ordinaryShoppingPage({department})]);
- const ordinary=retailPage.offers;
+ const ordinary=retailPage.offers.filter(o=>o.department===department);
  const distinctOrdinary=[...new Map(ordinary.map(o=>[o.productId,o])).values()].slice(0,18);
  const matching=verified.filter(item=>eligibleDepartmentProduct(d,item));
  const research=researchGuidesByDepartment(department);
