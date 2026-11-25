@@ -75,6 +75,7 @@ export default async function PartnerDetail({params}:Props){
    <PartnerStudioNavigation partner={partner} products={studioProducts}/>
    <PartnerStudioNotebook partner={partner} studio={studio} products={studioProducts}/>
    <PartnerStudioProducts partner={partner} studio={studio} products={studioProducts}/>
+   {(partner.kind==="retail"||partner.slug==="mozillion")&&partner.advertiserId&&<div className={styles.shell}><Link href={"/shop/retail?merchant="+encodeURIComponent(partner.slug)}>Browse current ordinary shopping listings from {partner.name}</Link></div>}
    <div className={styles.shell+" "+styles.main}>
     <div className={styles.twoCols}>
      <section className={styles.section}>

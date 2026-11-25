@@ -7,6 +7,17 @@ import {identifyFormat} from "../feed-imports/general-awin-large.ts";
  * programme, NOT present in the product file. It must remain private review.
  */
 export function normalizePilotAwinFeed(advertiser:string,feedId:string,header:string[],rows:string[][]){
+ // This exact UK standard feed has no stock or currency field. It may be
+ // archived for catalogue enrichment; it must never supply live price/stock.
+ if(advertiser==="101445"&&feedId==="96428"&&!header.includes("currency")){
+  const expected=["data_feed_id","merchant_id","merchant_name","aw_product_id","aw_deep_link","aw_image_url","aw_thumb_url","category_id","category_name","brand_id","brand_name","merchant_product_id","merchant_category","ean","mpn","product_name","description","merchant_deep_link","merchant_image_url","delivery_time","search_price","delivery_cost","product_type"];
+  if(header.length!==expected.length||new Set(header).size!==header.length||!expected.every(k=>header.includes(k)))throw Error("playpress_standard_schema_mismatch");
+  const merchant=header.indexOf("merchant_id"),feed=header.indexOf("data_feed_id");
+  if(rows.some(r=>r.length!==header.length||r[merchant]?.trim()!==advertiser||r[feed]?.trim()!==feedId))throw Error("playpress_standard_identity_mismatch");
+  const normalizedHeader=[...header,"currency"];
+  identifyFormat(normalizedHeader);
+  return {header:normalizedHeader,rows:rows.map(r=>[...r,"GBP"]),currencySource:"playpress_uk_programme_gbp_private_only" as const};
+ }
  if(advertiser==="31539"&&feedId==="74135"){
   // Awin's SIM-free feed has 123 columns, including optional/custom fields.
   // Keep only explicitly reviewed retail columns. The selected source keys

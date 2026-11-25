@@ -1,3 +1,10 @@
+## 25 November 2026 | Renewal runtime and PlayPress catalogue continuity
+
+- Prior production dpl_HuMDLdsYLTV7h5Ets2Ka3BmAFuQW READY; PlayPress studio HTTP 200 includes PLAY10, publisher tracking and 12 product links. Room on the Broom Playset detail HTTP 200. Search for PlayPress in ordinary shelf returned no links (title-only search).
+- Scheduled review timestamp 11:12:12 GMT after deployment, 30 additional matching offers since prior audit; two direct bounded batches renewed 60 with zero failures. 1,112 approvals / 567 exact current evidence matches at audit; not public count. 155 Tooled Up stale canonical evidence rows lacked exact latest private match; refresh canonical evidence, do not bypass gates.
+- Candidate: exact known 23-column PlayPress 96428 adapter for private enrichment only, explicitly labelled inferred GBP and no live recheck; retain unknown stock. Google F5142 remains the source of public price/stock evidence; cross-feed identity/content reconciliation pending. Retailer-aware ordinary catalogue search/filter, studio link and dated order-level PLAY10 on admitted PlayPress item detail. No item price discount. Candidate deployment and actual second-feed import pending. No branches.
+- Continue all-supplier activation, automatic communications ingestion, full content, tyre size/fitment and existing feature parity. Sparse pagination and fair new-item/renewal capacity remain open.
+
 ## 25 November 2026 | Supplier communications and renewal recovery
 
 - Priority: reliable automatic detection, conversion, publication and renewal across every supplier. Existing PLAY10 promotion registry found; Awin advertiser broadcasts 12 Nov and 25 Nov 08:56 GMT confirm 10% off orders strictly over £30, valid through 31 Dec 2026, not stackable; no Black Friday sale. Reuse the existing campaign ID and supplied own-publisher tracking link. No individual-price reduction is implied. Add continuous supplier email/communication ingestion, structured extraction, deduplication, validation, expiry, alerts and owner visibility. Not an installed mailbox integration yet.

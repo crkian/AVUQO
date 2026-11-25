@@ -51,6 +51,8 @@ async function attestUnchangedLiveRows(
  feed:string,header:string[],rows:string[][],digest:string,
  ownerApprovedImages:boolean,ownerApprovedDescriptions:boolean,currencySource:PilotCurrencySource
 ){
+ // This feed provides neither explicit currency nor stock. Never create live evidence from it.
+ if(currencySource==="playpress_uk_programme_gbp_private_only")return [];
  const idPos=header.indexOf(header.includes("merchant_product_id")?"merchant_product_id":"id");
  if(idPos<0||!/^[a-f0-9]{64}$/.test(digest))throw Error("unbound_live_recheck");
  const originals=new Map(rows.map(r=>[r[idPos],r]));

@@ -3,7 +3,7 @@ import {ArrowLeft,ArrowRight,CheckCircle2,Clock3,ShieldCheck} from "lucide-react
 import ProductGallery from "./ProductGallery";
 import AddToCollectionButton from "../collections/AddToCollectionButton";
 import {chooseProductTemplate} from "../../lib/products/templates";
-import {studioForVerifiedMerchant,partnerHref} from "../../lib/partners/advertiser-directory";
+import {studioForVerifiedMerchant,partnerHref,activePartnerPromotions} from "../../lib/partners/advertiser-directory";
 import type {ShoppingRelease} from "../../lib/products/shopping-release-reader";
 import styles from "../../app/products/[slug]/page.module.css";
 const money=(n:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(n);
@@ -15,6 +15,7 @@ export default function OrdinaryProductDetails({item}:{item:ShoppingRelease}){
  const presentation=chooseProductTemplate({canonical_title:item.title,product_type:item.productType},[{published:{category:item.department}}]);
  const department=presentation.department;
  const studio=studioForVerifiedMerchant(item.merchantName);
+ const promotions=studio?.slug==="playpress-toys"?activePartnerPromotions(new Date(),studio.slug):[];
  const details:[string,string][]=[["Retailer product reference",item.sku],["Currency","GBP"],["Retailer",item.merchantName]];
  if(item.brand)details.unshift(["Brand",item.brand]);
  if(item.model)details.unshift(["Model",item.model]);
@@ -27,6 +28,7 @@ export default function OrdinaryProductDetails({item}:{item:ShoppingRelease}){
    <p className={styles.intro}>A current ordinary retail listing. Confirm the precise variant and product specification with the retailer before buying.</p>
    <div className={styles.topPrice}><span>Verified item price</span><strong>{money(item.price)}</strong><small>From {item.merchantName}. Delivery and fitting, where applicable, may be extra. Not a verified discount.</small><small>{item.stock==="in_stock"?"In stock reported by supplier":"Limited stock reported by supplier"} · checked {checked(item.observedAt)} UK time.</small></div>
    <div className={styles.heroActions}><Link className={styles.action} href={"/go/"+item.offerId}>Visit retailer <ArrowRight size={18}/></Link><AddToCollectionButton kind="wishlist" productId={item.productId} productSlug={item.slug} offerId={item.offerId}/><AddToCollectionButton kind="basket" productId={item.productId} productSlug={item.slug} offerId={item.offerId}/></div>
+   {promotions.map(p=><div key={p.id} className={styles.topPrice}><span>Advertiser-announced order offer</span><strong>{p.code}</strong><small>{p.title}. {p.detail} This is a basket-level promotion, not a reduction of the item price above.</small><Link href={partnerHref(studio!)}>Offer details and retailer studio <ArrowRight size={14}/></Link></div>)}
    <p className={styles.assurance}><ShieldCheck size={17}/> Verified source · independent of affiliate payout</p>
   </div></div></div></section>
  <section className={`shell ${styles.section}`} id="retailers"><div className={styles.heading}><p className={styles.kicker}>Retailer price and availability</p><h2>Currently verified retailer listing.</h2><p>This exact offer is not evidence of the cheapest market price. Further sellers are not compared until exact matching is established.</p></div><div className={styles.offerList}><article className={styles.offerCard}><div><h3>{item.merchantName}</h3>{studio&&<Link className={styles.studioLink} href={partnerHref(studio)}>Explore retailer studio <ArrowRight size={14}/></Link>}<p>Current feed observation: {checked(item.observedAt)} UK time.</p></div><div className={styles.offerPrice}><strong>{money(item.price)}</strong><span>Item price only</span></div><Link className={styles.retailer} href={"/go/"+item.offerId}>Visit retailer <ArrowRight size={16}/></Link></article></div></section>

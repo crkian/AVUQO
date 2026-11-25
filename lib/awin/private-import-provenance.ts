@@ -1,5 +1,5 @@
 /** Currency provenance is supplied by the exact current normalized feed, never an old row. */
-export type PilotCurrencySource="feed_column"|"petlibro_uk_programme_gbp"|"cadbury_uk_programme_gbp";
+export type PilotCurrencySource="feed_column"|"petlibro_uk_programme_gbp"|"cadbury_uk_programme_gbp"|"playpress_uk_programme_gbp_private_only";
 export function currentCurrencyEvidence(source:PilotCurrencySource,currency:string){
  return {currency_source:source,source_currency_explicit:source==="feed_column"&&currency==="GBP"};
 }

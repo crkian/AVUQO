@@ -4,6 +4,7 @@ import {redirect} from "next/navigation";
 import Header from "../../../components/layout/Header";
 import Footer from "../../../components/layout/Footer";
 import {ordinaryShoppingPage,type RetailQuery} from "../../../lib/products/shopping-catalogue";
+import {PARTNERS} from "../../../lib/partners/advertiser-directory";
 import styles from "../page.module.css";
 // Decide eligibility before streaming HTML; no prerendered price or soft 404.
 export const instant = false;
@@ -13,13 +14,14 @@ export default async function RetailShelf({searchParams}:{searchParams:Promise<R
  await connection();
  const data=await ordinaryShoppingPage(await searchParams);
  if(!data.enabled)redirect("/shop");
- const href=(page:number)=>"/shop/retail?"+new URLSearchParams({q:data.q,sort:data.sort,page:String(page)}).toString();
+ const href=(page:number)=>"/shop/retail?"+new URLSearchParams({q:data.q,merchant:data.merchant,sort:data.sort,page:String(page)}).toString();
  return <><Header/><main className={styles.page}><section className={styles.hero}><div className="shell">
  <nav className={styles.breadcrumb}><Link href="/shop">Shop</Link><span>/</span> Retail offers</nav>
  <h1>Everyday retail offers</h1><p>Verified current item prices, independently of deal scores. A listing is not a claim of savings or best market price.</p>
  </div></section><div className={"shell "+styles.content}>
  <form className={styles.controls} method="get" action="/shop/retail">
- <label className={styles.searchField}>Search retail products<input type="search" name="q" defaultValue={data.q} maxLength={80}/></label>
+ <label className={styles.searchField}>Search products or retailers<input type="search" name="q" defaultValue={data.q} maxLength={80}/></label>
+ <label className={styles.selector}>Retailer<select name="merchant" defaultValue={data.merchant}><option value="">All retailers</option>{PARTNERS.filter(p=>p.advertiserId&&(p.kind==="retail"||p.slug==="mozillion")).map(p=><option key={p.slug} value={p.slug}>{p.name}</option>)}</select></label>
  <label className={styles.selector}>Sort<select name="sort" defaultValue={data.sort}><option value="recent">Recently checked</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option></select></label>
  <div className={styles.filterActions}><button type="submit">Search</button><Link href="/shop">Back to shopping</Link></div></form>
  <div className={styles.resultsHeading}><h2>{data.offers.length} verified offers on this page</h2><p>Item prices only; delivery may be extra.</p></div>
