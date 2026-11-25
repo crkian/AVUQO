@@ -148,7 +148,7 @@ jobs:
       - name: Exact authenticated Awin feed to draft and held canonical offers
         run: node --experimental-strip-types --test tests/awin-live-private-to-canonical.test.mjs
       - name: Consolidated supplier and shopping regression tests
-        run: node --experimental-strip-types --test tests/awin-recheck-budget.test.mjs tests/consolidated-supplier-shopping.test.mjs tests/partner-quote-journeys.test.mjs tests/supplier-schema-expansion.test.mjs tests/tyre-targeted-discovery.test.mjs
+        run: node --experimental-strip-types --test tests/awin-recheck-budget.test.mjs tests/consolidated-supplier-shopping.test.mjs tests/partner-quote-journeys.test.mjs tests/supplier-schema-expansion.test.mjs tests/tyre-targeted-discovery.test.mjs tests/full-range-scale.test.mjs
       - name: Owner first Awin live SKU price-and-score approval queue
         run: node --test tests/awin-first-release-owner-queue.test.mjs
       - name: Multi-advertiser public Awin identity and click-link release isolation

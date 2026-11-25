@@ -2,7 +2,7 @@ import "server-only";
 import {createAdminClient} from "../supabase/admin";
 import {readShoppingReleases,type ShoppingRelease} from "./shopping-release-reader";
 import {PARTNERS} from "../partners/advertiser-directory";
-import {cleanShopSearch,SHOP_PAGE_SIZE,SHOP_MAX_PAGE} from "./shop-filters";
+import {cleanShopSearch,SHOP_PAGE_SIZE} from "./shop-filters";
 
 export async function shoppingCatalogueEnabled():Promise<boolean>{
  try{
@@ -14,16 +14,17 @@ export async function shoppingCatalogueEnabled():Promise<boolean>{
  }catch{return false;}
 }
 export type RetailQuery={q?:string|string[];merchant?:string|string[];page?:string|string[];sort?:string|string[]};
-export async function ordinaryShoppingPage(input:RetailQuery):Promise<{enabled:boolean;offers:ShoppingRelease[];q:string;merchant:string;page:number;sort:string;hasNext:boolean}>{
+export async function ordinaryShoppingPage(input:RetailQuery):Promise<{enabled:boolean;offers:ShoppingRelease[];q:string;merchant:string;page:number;sort:string;hasNext:boolean;maxPage:number}>{
  const q=cleanShopSearch(input.q);
+ const maxPage=process.env.AWIN_CATALOGUE_SCALE_ENABLED==="true"?1000:100;
  const pageNum=Number(Array.isArray(input.page)?input.page[0]:input.page);
- const page=Number.isInteger(pageNum)&&pageNum>=1&&pageNum<=SHOP_MAX_PAGE?pageNum:1;
+ const page=Number.isInteger(pageNum)&&pageNum>=1&&pageNum<=maxPage?pageNum:1;
  const rawSort=Array.isArray(input.sort)?input.sort[0]:input.sort;
  const sort=rawSort==="price-low"||rawSort==="price-high"?rawSort:"recent";
  const rawMerchant=Array.isArray(input.merchant)?input.merchant[0]:input.merchant;
  const partner=PARTNERS.find(p=>p.slug===rawMerchant&&p.advertiserId);
  const merchant=partner?.slug??"";
- const empty={enabled:false,offers:[] as ShoppingRelease[],q,merchant,page,sort,hasNext:false};
+ const empty={enabled:false,offers:[] as ShoppingRelease[],q,merchant,page,sort,hasNext:false,maxPage};
  if(!await shoppingCatalogueEnabled())return empty;
  try{
   const offset=(page-1)*SHOP_PAGE_SIZE;
@@ -35,6 +36,6 @@ export async function ordinaryShoppingPage(input:RetailQuery):Promise<{enabled:b
   const ids=(data as {offer_id:string}[]).slice(0,SHOP_PAGE_SIZE).map(r=>r.offer_id);
   const admitted=await readShoppingReleases(ids);
   const byId=new Map(admitted.map(x=>[x.offerId,x]));
-  return {...empty,enabled:true,offers:ids.flatMap(id=>{const item=byId.get(id);return item?[item]:[];}),hasNext:data.length>SHOP_PAGE_SIZE&&page<SHOP_MAX_PAGE};
+  return {...empty,enabled:true,offers:ids.flatMap(id=>{const item=byId.get(id);return item?[item]:[];}),hasNext:data.length>SHOP_PAGE_SIZE&&page<maxPage};
  }catch{return empty;}
 }

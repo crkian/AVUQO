@@ -1322,3 +1322,8 @@ Unpublished consolidated candidate: bound Petlibro optional-column adapter, boun
 ## 25 November 2026 | Specialist journey candidate
 
 Added specialist quote-preparation journeys across 15 supplier studios using only existing approved destinations; no live quote API, booking submission or customer data collection. Added explicit-currency Petlibro feed identity check when feed identity columns are present, and an ingestion stop recheck before the first live row write. Candidate remains unpublished and untested.
+
+
+## 25 November 2026 | Full-range catalogue scaling
+
+Full-range shopping scale candidate: existing SQL predicates and function ACLs retained, proposed offset bound 36,000, conversion bound 50, shopping approval bound 60. Application opt-in AWIN_CATALOGUE_SCALE_ENABLED must stay false until database migration and load verification. Retail page-jump navigation preserves search, supplier and sort. Existing schedules unchanged; tyre currency and exact fitted totals remain unresolved. No runtime activation or test results claimed.
