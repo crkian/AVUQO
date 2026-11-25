@@ -96,6 +96,7 @@ export default async function SupplierReadinessPage(){
     <li>Confirm each retailer&apos;s approved text reuse, image terms, exact advertiser ID, feed freshness, stock, GBP and tracking. A programme acceptance is insufficient.</li>
     <li>Recheck current authenticated feed digests and bring eligible source descriptions into held canonical offers only under the independent description-rights flag.</li>
     <li>Approve genuinely qualified products through the existing atomic first-release mechanism. Do not bulk approve held stock or alter AVUQO Score ranking.</li>
+    <li>Keep tyre offers on the specialist fitment and fitting evidence path; do not route tyres through the generic product bridge.</li>
     <li>Build specialist quote/tariff/booking adapters for service advertisers; their lack of a standard product CSV is not itself a failure.</li>
    </ol>
    <nav style={{display:"flex",gap:12,flexWrap:"wrap",fontSize:13}}>
