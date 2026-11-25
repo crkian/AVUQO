@@ -1618,3 +1618,8 @@ Deployment efficiency candidate: compare full known deployment baseline (VERCEL_
 ## 25 November 2026 | Rich shopping journeys candidate
 
 Shopping experience candidate: exact source description preview and full-description navigation, product section navigation, dated exact-studio advertiser campaigns with eligibility caveats, retailer-specific shopping links, richer retail shelf cards and missing-image/empty-result states. Prior 67ecb0f9 dedicated deployment filter, compact tests and app build passed; obsolete scheduler filter assertion reconciled, new CI pending. No new suppliers activated, catalogue rights or prices changed, or storage cutover. All 21 programme full-range acceptance remains outstanding.
+
+
+## 25 November 2026 | Supplier pipeline recovery visibility
+
+Supplier pipeline recovery candidate: production two-hour conversion journal recorded 950 accepted held candidates (940 Tooled Up, 10 PlayPress) and 26 no-current-row attempts. 24-hour rotation recorded repeated Petlibro 109051/109652/119210 preflight failures (7/7/6), PlayPress 96428 later HTTP 200 but zero verified rows. Preserve categorical preflight reasons and distinguish successful private staging without live verification. Supplier Readiness now shows bounded recent journal evidence; no raw provider content stored. New regression cases authored; CI and runtime pending. No new supplier activated, no permissions changed, no extra crons, no catalogue writes. Next resolve specific adapter evidence failures, compact pilot, full-range supplier and premium shopping work.

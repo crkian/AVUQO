@@ -316,6 +316,8 @@ export async function POST(request:NextRequest){
    message==="too_many_rows"?"row_limit":
    message==="cadbury_uk_schema_mismatch"?"cadbury_uk_schema_mismatch":
    message==="cadbury_uk_feed_identity_mismatch"?"cadbury_uk_feed_identity_mismatch":
+   message==="petlibro_feed_identity_mismatch"?"petlibro_feed_identity_mismatch":
+   message==="duplicate_identity_across_batches"?"duplicate_identity_across_batches":
    "validation_failed";
   return reply({error:"Feed preflight failed; nothing imported",
    reason:code,columns:header?.length??0,column_names:safeHeaderNames,

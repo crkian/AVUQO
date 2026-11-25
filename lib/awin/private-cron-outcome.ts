@@ -86,7 +86,8 @@ const FEED_REASONS=new Set([
  "unsupported_columns","unterminated_csv_quote","invalid_csv_quote",
  "csv_column_limit","csv_field_or_column_limit","csv_field_size_limit",
  "empty_feed","inconsistent_row_columns","row_limit","validation_failed",
- "cadbury_uk_schema_mismatch","cadbury_uk_feed_identity_mismatch"
+ "cadbury_uk_schema_mismatch","cadbury_uk_feed_identity_mismatch",
+ "petlibro_feed_identity_mismatch","duplicate_identity_across_batches"
 ]);
 const DOWNLOAD_REASONS=new Set([
  "feed_binding_mismatch","unsafe_feed_url","invalid_feed_binding",
@@ -124,6 +125,9 @@ export function safePrivateCronOutcome(httpStatus:number,responseBody:unknown):{
    const kind=typeof data?.failure_kind==="string"?data.failure_kind:"";
    if(code==="awin_product_download_failed"&&/^upstream_http_[45][0-9]{2}$/.test(kind))
     return {state:"rejected",code:"portfolio_"+kind};
+   const reason=typeof data?.reason==="string"?data.reason:"";
+   if(code==="feed_preflight_failed"&&FEED_REASONS.has(reason))
+    return {state:"rejected",code:"portfolio_feed_preflight_"+reason};
    return {state:"rejected",code:PORTFOLIO_ERRORS.has(code)?"portfolio_"+code:"portfolio_import_failed"};
   }
   if(SAFE_COHORT_FAILURES.has(reported))
@@ -139,6 +143,8 @@ export function safePrivateCronOutcome(httpStatus:number,responseBody:unknown):{
   return {state:"rejected",code:diagnostic(base,data)};
  }
  const status=typeof data?.status==="string"?data.status:"";
+ if(status==="private_rotation_checked"&&data?.live_verified_rows===0)
+  return {state:"completed",code:"portfolio_no_live_verified_rows"};
  if(status==="blocked")return {state:"rejected",code:"source_gate_blocked"};
  if(status==="disabled")return {state:"disabled",code:"disabled"};
  return {state:"completed",code:SUCCESS_CODES.has(status)?status:"ok"};

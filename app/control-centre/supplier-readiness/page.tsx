@@ -6,6 +6,7 @@ import {createAdminClient} from "../../../lib/supabase/admin";
 import {supplierKind,supplierNextAction,supplierSummary,type SupplierReadiness} from "../../../lib/awin/supplier-readiness";
 
 export const metadata:Metadata={title:"Supplier & Product Readiness | AVUQO Control Centre",robots:{index:false,follow:false}};
+type Attempt={advertiser_id:string|null;feed_id:string|null;started_at:string;finished_at:string|null;outcome_code:string|null;http_status:number|null;live_verified_rows:number|null;canonical_accepted:number|null};
 type Report={as_of:string;explanation:string;programmes:SupplierReadiness[]};
 const n=(value:number|undefined)=>Number(value??0).toLocaleString("en-GB");
 const date=(value:string|null)=>value&&!Number.isNaN(Date.parse(value))?
@@ -18,9 +19,11 @@ export default async function SupplierReadinessPage(){
  const {role}=await requireControlCentreAccess();
  let report:Report|null=null;
  let errorMessage="";
+ let activity:Attempt[]|null=null;
  try{
   const db=createAdminClient();
-  const {data,error}=await db.rpc("owner_avuqo_supplier_readiness_v1");
+  const [{data,error},journal]=await Promise.all([db.rpc("owner_avuqo_supplier_readiness_v1"),db.from("awin_private_cron_attempts").select("advertiser_id,feed_id,started_at,finished_at,outcome_code,http_status,live_verified_rows,canonical_accepted").in("job_key",["portfolio_rotation","catalogue_conversion"]).order("started_at",{ascending:false}).limit(250)]);
+  if(!journal.error&&Array.isArray(journal.data))activity=journal.data as Attempt[];
   if(error)errorMessage="Private supplier-readiness report unavailable. Apply the reviewed migration and confirm service-role access.";
   else if(data&&typeof data==="object"&&!Array.isArray(data)&&Array.isArray(data.programmes))
    report=data as Report;
@@ -85,6 +88,7 @@ export default async function SupplierReadinessPage(){
     </div>
    </section>
   </>}
+  <section style={{...box,display:"grid",gap:12}}><h2 style={{fontSize:21,margin:0}}>Recent supplier conversion and feed outcomes</h2><p style={{color:"#65596e",margin:0}}>Latest 250 journal attempts across portfolio rotation and canonical conversion. Counts are attempted work, not distinct products or public listings. A successful HTTP response alone does not establish product eligibility.</p>{activity===null?<p role="alert">Journal unavailable; no activity totals assumed.</p>:<div style={{overflowX:"auto"}}><table style={{borderCollapse:"collapse",width:"100%",minWidth:780,fontSize:12}}><thead><tr>{["Advertiser / feed","Started (UK)","Outcome","HTTP","Verified rows","Held candidates"].map(h=><th scope="col" key={h} style={{...cell,textAlign:"left"}}>{h}</th>)}</tr></thead><tbody>{activity.slice(0,60).map((a,i)=><tr key={a.started_at+":"+i}><td style={cell}>{rows.find(r=>r.advertiser_id===a.advertiser_id)?.programme??a.advertiser_id??"Unbound"}<div style={label}>{a.feed_id??"No feed selected"}</div></td><td style={cell}>{date(a.started_at)}</td><td style={cell}>{a.outcome_code??(a.finished_at?"Unknown outcome":"Started; completion not recorded")}</td><td style={cell}>{a.http_status??"—"}</td><td style={cell}>{a.live_verified_rows??"—"}</td><td style={cell}>{a.canonical_accepted??"—"}</td></tr>)}</tbody></table></div>}<p style={label}>Showing up to 60 latest attempts. Diagnose repeated preflight failures before changing validation rules.</p></section>
   <section style={{...box,display:"grid",gap:12}}>
    <h2 style={{fontSize:21,margin:0}}>How to improve coverage without breaking trust</h2>
    <ol style={{margin:0,paddingLeft:24,lineHeight:1.9,fontSize:13,color:"#61556b"}}>
