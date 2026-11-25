@@ -241,3 +241,25 @@ export async function verifiedOffersForAdvertiser(advertiserId:string,limit=15):
   return verifiedOffers({offerIds:offers.map(o=>o.id),limit:Math.max(1,Math.min(limit,60))});
  }catch{return [];}
 }
+
+/** Filter technical evidence before bounded public offer admission, rather than
+ * searching the most recent general retail deals. No private rows returned. */
+export async function verifiedTyreProductIndex(size:{width:number;profile:number;rim:number}|null,brand?:string):Promise<{product:PublicProduct;offers:PublicOffer[]}[]>{
+ try{
+  const db=createAdminClient();
+  let q=db.from("products").select("id,slug,canonical_title,brand,model,description,primary_image_url,specifications,status,product_type")
+   .eq("status","active").eq("specifications->>tyre_specs_verified","true");
+  if(size)q=q.eq("specifications->>tyre_width_mm",String(size.width)).eq("specifications->>tyre_profile",String(size.profile)).eq("specifications->>tyre_rim_inches",String(size.rim));
+  if(brand)q=q.ilike("brand",brand.replace(/[\\%_]/g,""));
+  const {data,error}=await q.order("id").limit(120);
+  if(error||!data?.length)return [];
+  const products=(data as PublicProduct[]).filter(p=>/^[a-z0-9][a-z0-9-]{2,159}$/.test(p.slug));
+  const result:{product:PublicProduct;offers:PublicOffer[]}[]=[];
+  for(let i=0;i<products.length;i+=8){
+   const batch=await Promise.all(products.slice(i,i+8).map(async product=>({product,offers:await verifiedOffers({productId:product.id,limit:35})})));
+   result.push(...batch.filter(x=>x.offers.length));
+   if(result.length>=48)break;
+  }
+  return result.slice(0,48);
+ }catch{return [];}
+}

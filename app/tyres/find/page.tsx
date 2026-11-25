@@ -6,7 +6,7 @@ import {ArrowRight,CheckCircle2,Search,ShieldCheck} from "lucide-react";
 import Header from "../../../components/layout/Header";
 import Footer from "../../../components/layout/Footer";
 import TyreWheelVisual from "../TyreWheelVisual";
-import {verifiedProductIndex} from "../../../lib/products/public-catalog";
+import {verifiedTyreProductIndex} from "../../../lib/products/public-catalog";
 import {eligibleTyreProducts,matchTyreSize,parseTyreSize,tyreSpecLabel,comparableTyreOffers} from "../../../lib/tyres/verified-comparison";
 import styles from "../tyre-comparison.module.css";
 import {tyreBrandNames,tyreBrandSlug,resolveTyreBrand} from "../../../lib/tyres/catalogue";
@@ -26,18 +26,18 @@ async function Results({query}:{query:Query}){
  await connection();
  const size=parseTyreSize(query);
  const brand=query.brand?resolveTyreBrand(query.brand,tyreBrandNames):null;
- const ready=eligibleTyreProducts(await verifiedProductIndex(120))
-  .filter(x=>matchTyreSize(x.spec,size))
-  .filter(x=>!query.brand||!!brand&&tyreBrandSlug(x.product.brand??"")===tyreBrandSlug(brand));
  const hasInput=!!(query.width||query.profile||query.rim);
  const invalid=hasInput&&!size;
+ const ready=eligibleTyreProducts(invalid||(query.brand&&!brand)?[]:await verifiedTyreProductIndex(size,brand??undefined))
+  .filter(x=>matchTyreSize(x.spec,size))
+  .filter(x=>!query.brand||!!brand&&tyreBrandSlug(x.product.brand??"")===tyreBrandSlug(brand));
  return <section className={"shell "+styles.section} id="verified-tyres" aria-labelledby="tyre-result-title">
   <div className={styles.sectionHeading}><div><p className={styles.kicker}>VERIFIED PRODUCT ADMISSION</p>
    <h2 id="tyre-result-title">{size?"Exact size: "+size.width+"/"+size.profile+" R"+size.rim:"Product variants, when approved."}</h2>
    <p>{invalid?"Please enter all three valid tyre dimensions. A partial size cannot establish a product match.":
     ready.length?"Each product below has separate approved technical fields and current, eligible offers. Vehicle fitment and fitted quotes remain separate checks.":
     "There are no fully verified tyre variants matching this search yet. The private supplier feeds are not live retail inventory."}</p></div>
-   <span className={styles.count}><ShieldCheck size={16}/>{invalid?0:ready.length} eligible variants</span></div>
+   <span className={styles.count}><ShieldCheck size={16}/>{invalid?0:ready.length} eligible variants shown</span></div>
   {invalid||!ready.length?<div className={styles.empty}><ShieldCheck size={32}/><h3>Precision before a price.</h3>
    <p>We will not use unverified load or speed ratings, historical feed rows or estimated fitting totals to create a tyre offer. The showroom is ready to accept approved products when every check passes.</p>
    <Link href="/tyres/sizes">Understand my tyre size <ArrowRight size={17}/></Link>

@@ -14,7 +14,7 @@ const suppliers=[
 export default async function TyreOperations(){
  await connection();await requireControlCentreAccess();
  const db=createAdminClient();
- const [source,imports,privateRows,publicProducts,reviewJobs,enrichmentJobs]=await Promise.all([
+ const [source,imports,privateRows,publicProducts,reviewJobs,enrichmentJobs,overlap]=await Promise.all([
   db.from("sources").select("status,sync_enabled,credential_status").eq("connector_key","awin").maybeSingle(),
   db.from("feed_import_runs").select("merchant_id,status,total_count,review_count,excluded_count,created_at")
     .in("merchant_id",suppliers.map(s=>s.id)).order("created_at",{ascending:false}).limit(30),
@@ -23,10 +23,11 @@ export default async function TyreOperations(){
   db.from("awin_bulk_import_jobs").select("advertiser_id,feed_id,state,updated_at,last_failure_code")
     .in("advertiser_id",suppliers.map(s=>s.id)).order("created_at",{ascending:false}).limit(10),
   db.from("awin_tyres_spec_enrichment_jobs").select("state,source_row_count,candidate_count,updated_count,skipped_count,updated_at")
-    .order("updated_at",{ascending:false}).limit(1)
+    .order("updated_at",{ascending:false}).limit(1),
+  db.rpc("owner_private_tyre_ean_overlap_summary")
  ]);
  const sourcePaused=source.data?.status!=="active"||source.data?.sync_enabled!==true;
- const statusErrors=[source,imports,privateRows,publicProducts,reviewJobs].some(x=>x.error);
+ const statusErrors=[source,imports,privateRows,publicProducts,reviewJobs,enrichmentJobs,overlap].some(x=>x.error);
  return <div className={styles.page}>
   <header className={styles.header}><p className={styles.kicker}>CONTROL CENTRE / INTELLIGENT TYRE MARKETPLACE</p>
    <h1>The complete tyre pipeline, in one place.</h1>
@@ -42,6 +43,7 @@ export default async function TyreOperations(){
    ].map(x=><article key={x.name} className={styles.metric}><small>{x.name}</small><strong>{typeof x.value==="number"?x.value.toLocaleString("en-GB"):x.value}</strong><p>{x.desc}</p></article>)}
   </section>
   <section className={styles.panel}><div className={styles.panelHead}><h2>Tyre supplier onboarding</h2><p>Use each named supplier&apos;s authorised feed and rights review. Awin access alone does not grant public price or image publication.</p></div>
+   <p><Link href="/control-centre/tyre-cross-retailer">Inspect both suppliers’ exact identifier, currency and technical overlap →</Link></p>
    <div className={styles.checks}>{suppliers.map(s=>{
     const recent=(imports.data??[]).filter(r=>String(r.merchant_id)===s.id)[0];
     const job=(reviewJobs.data??[]).find(j=>String(j.advertiser_id)===s.id);
