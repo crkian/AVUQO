@@ -5615,5 +5615,44 @@
     "db_changes": false,
     "archive_bytes_verified": false,
     "remaining": "Authorised live snapshot byte retrieval and full legacy parity, bounded durable shadow projection, concurrency/rights/restore rehearsal and metrics; no retention changes."
+  },
+  "pneus_snapshot_recovery_candidate_20261125": {
+    "status": "candidate",
+    "owner_route": "/api/control-centre/pneus-snapshot-recovery",
+    "owner_register": "#storage-efficiency",
+    "previous_ci": "Build and native PostgreSQL passed; lint stopped on obsolete rotation expectation before shadow tests",
+    "new_ci": "Independent compact recovery and rotation test job added; execution pending",
+    "snapshot_bytes_verified": false,
+    "legacy_parity_verified": false,
+    "no_database_changes": true,
+    "remaining": "Owner authenticated latest and previous archive replay; full CI; durable compact storage, measured cost and retention rehearsal."
+  },
+  "infrastructure_cost_intelligence_20261125": {
+    "observed_at": "2026-11-25T12:24:48.387509Z",
+    "status": "recorded_audit_monitoring_planned",
+    "supabase_plan": "Pro",
+    "database_mib": 1825.2,
+    "object_mib": 356.4,
+    "product_records": 85002,
+    "active_offer_records": 13450,
+    "configured_cron_entries": 24,
+    "not_public_counts": true,
+    "thresholds_percent": [
+      70,
+      85,
+      95
+    ],
+    "requirements": [
+      "Separate logical database size, provisioned disk and actual billable usage; never infer quotas from table size alone.",
+      "Monitor database growth, object storage, bandwidth, Vercel invocation/compute duration and actual charges, per-provider refresh costs and unique eligible catalogue coverage.",
+      "Show dated usage, plan/limit evidence, missing values and per-project versus shared organisation scope; owner alerts at configured 70/85/95% thresholds.",
+      "No automatic plan upgrades or cost-incurring changes without owner authorization."
+    ],
+    "unverified": [
+      "Provisioned disk utilization",
+      "Supabase organisation-wide usage and transfer",
+      "Vercel plan and monthly actual charges",
+      "Public eligible unique product and offer count"
+    ]
   }
 }

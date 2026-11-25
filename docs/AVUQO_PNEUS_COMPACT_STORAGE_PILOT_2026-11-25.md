@@ -73,3 +73,10 @@ Next implementation: isolated shadow projection and replay tests against authori
 
 - Added an isolated offline gzip replay and compact hash projection for exact Awin 15236:26513, reusing the existing CSV parser and private tyre adapter. Verify decompressed SHA-256 and complete count, reject duplicate/cross-advertiser SKUs, separate content/terms/stock changes and reconstruct normalized private rows. Missing currency remains excluded; no publication path. Seven synthetic tests authored and added to quality CI, execution pending. No production worker, DB, retention, permissions or branch changes; actual archived bytes and legacy parity remain unverified. Next: authorised replay and durable shadow projection before any cutover.
 
+
+## 25 November 2026 | Private snapshot recovery and infrastructure cost candidate
+
+- Prior b3970188 Vercel READY, build and native PostgreSQL passed; lint stopped on outdated portfolio rotation source assertion, skipping shadow tests. Reconciled assertions with durable attempt journal and gated canonical release; independent recovery/rotation CI job added, results pending.
+- Owner-only same-origin POST for latest or previous completed Pneus 15236:26513 snapshot; fixed journal/object binding, current source permission and global controls, decompressed digest and count checks, bounded normalized row parity with only decimal transport normalization. Returns aggregate counts only; no writes, publication, schedule or retention changes. Actual authenticated replay still pending; historic adapter drift must fail parity.
+- Dated infrastructure audit: database 1,825.2 MiB, private/object metadata size 356.4 MiB, 85,002 products and 13,450 active offer records (not public counts), Supabase Pro confirmed, 24 configured cron entries. Added owner register Infrastructure & Cost Intelligence section and future usage/cost alert requirements (70/85/95%); actual billing, provisioned disk, transfer, and Vercel plan unverified. No plan upgrade or new branches.
+

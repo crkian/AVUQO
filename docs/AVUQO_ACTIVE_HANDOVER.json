@@ -2501,36 +2501,36 @@
       ]
     },
     "database_storage_efficiency": {
-      "date_utc": "2026-11-25 12:00:55 UTC",
+      "date_utc": "2026-11-25 12:24:48 UTC",
       "status": "audit_only",
-      "database_mib_rounded": 1804,
+      "database_mib_rounded": 1825,
       "tables": [
         {
           "name": "feed_import_records",
-          "total": 1381,
-          "heap": 739.9,
-          "indexes": 83.1,
-          "auxiliary": 558,
-          "estimated_dead_rows": 111886
+          "total": 1397.4,
+          "heap": 740.1,
+          "indexes": 83.2,
+          "auxiliary": 574.1,
+          "estimated_dead_rows": 3942
         },
         {
           "name": "source_ingestion_items",
-          "total": 168.7,
-          "heap": 65.7,
-          "indexes": 13.5,
-          "auxiliary": 89.4,
-          "estimated_dead_rows": 5793
+          "total": 171.2,
+          "heap": 66.7,
+          "indexes": 13.6,
+          "auxiliary": 90.9,
+          "estimated_dead_rows": 6073
         },
         {
           "name": "products",
-          "total": 93.7,
+          "total": 93.8,
           "heap": 68.4,
           "indexes": 25.3,
           "auxiliary": 0.1,
-          "estimated_dead_rows": 2130
+          "estimated_dead_rows": 2154
         }
       ],
-      "observed": "Read-only PostgreSQL catalog statistics. Pneus Online: 22 completed jobs, 435,189 excluded private records, latest snapshot 19,735 rows; prior snapshot 19,711 rows, overlap 19,648 SKUs. All 22 jobs have matching private object metadata; object bytes and restoration remain unverified. Private bucket 30 objects, 356.4 MiB recorded metadata size. Estimated tuples are not exact deletion counts or guaranteed recoverable space.",
+      "observed": "Read-only latest size and estimated tuples; a lower dead-tuple count is not reclaimed physical storage. Pneus 22 completed jobs / 435,189 private exclusions at prior audit; actual archive digest and legacy parity still pending.",
       "index_notes": [
         "feed_import_records_run_product_lookup: 31 MB, 518911 cumulative scans",
         "feed_import_records_merchant_sku_review_idx: approximately 6.1 MB, 3910733 cumulative scans",
@@ -2546,10 +2546,39 @@
         "Measure logical and physical database size, storage bucket cost, eligible catalogue count, query latency and archive recovery before and after each staged change.",
         "Pilot Pneus Online in shadow mode: exact advertiser/feed/SKU identity, content-addressed immutable snapshots, current membership and compact changed price/stock observations; no invented currency or tyre fitment. Latest two snapshots overlap 19,648 SKUs but only 2,180 agree on price/currency/title; preserve meaningful changes, do not collapse history.",
         "Require byte-level snapshot digest verification, complete replay and exact SKU reconciliation, negative publication/rights tests, eBay erasure dependency checks, worker concurrency and rollback rehearsal before moving any production reader or applying retention. Read docs/AVUQO_PNEUS_COMPACT_STORAGE_PILOT_2026-11-25.md.",
-        "Offline Pneus shadow replay candidate authored (lib/awin/pneus-compact-shadow.mjs); synthetic CI pending. Actual archive byte verification, exact legacy parity and durable shadow/rollback still release-blocking."
+        "Offline Pneus shadow replay candidate authored (lib/awin/pneus-compact-shadow.mjs); synthetic CI pending. Actual archive byte verification, exact legacy parity and durable shadow/rollback still release-blocking.",
+        "Owner-only fixed-feed archive recovery and aggregate parity route candidate; validate both latest and previous completed snapshots without modifying source evidence. No storage cutover or retention approved."
       ],
       "no_database_changes": true,
       "retention": "No deletion, retention change, vacuum, index removal or archive migration authorised or performed in this audit."
+    },
+    "infrastructure_cost_intelligence": {
+      "observed_at": "2026-11-25T12:24:48.387509Z",
+      "status": "recorded_audit_monitoring_planned",
+      "supabase_plan": "Pro",
+      "database_mib": 1825.2,
+      "object_mib": 356.4,
+      "product_records": 85002,
+      "active_offer_records": 13450,
+      "configured_cron_entries": 24,
+      "not_public_counts": true,
+      "thresholds_percent": [
+        70,
+        85,
+        95
+      ],
+      "requirements": [
+        "Separate logical database size, provisioned disk and actual billable usage; never infer quotas from table size alone.",
+        "Monitor database growth, object storage, bandwidth, Vercel invocation/compute duration and actual charges, per-provider refresh costs and unique eligible catalogue coverage.",
+        "Show dated usage, plan/limit evidence, missing values and per-project versus shared organisation scope; owner alerts at configured 70/85/95% thresholds.",
+        "No automatic plan upgrades or cost-incurring changes without owner authorization."
+      ],
+      "unverified": [
+        "Provisioned disk utilization",
+        "Supabase organisation-wide usage and transfer",
+        "Vercel plan and monthly actual charges",
+        "Public eligible unique product and offer count"
+      ]
     }
   },
   "catalogue_candidate_ci_20261124": {
@@ -7841,5 +7870,16 @@
     "db_changes": false,
     "archive_bytes_verified": false,
     "remaining": "Authorised live snapshot byte retrieval and full legacy parity, bounded durable shadow projection, concurrency/rights/restore rehearsal and metrics; no retention changes."
+  },
+  "pneus_snapshot_recovery_candidate_20261125": {
+    "status": "candidate",
+    "owner_route": "/api/control-centre/pneus-snapshot-recovery",
+    "owner_register": "#storage-efficiency",
+    "previous_ci": "Build and native PostgreSQL passed; lint stopped on obsolete rotation expectation before shadow tests",
+    "new_ci": "Independent compact recovery and rotation test job added; execution pending",
+    "snapshot_bytes_verified": false,
+    "legacy_parity_verified": false,
+    "no_database_changes": true,
+    "remaining": "Owner authenticated latest and previous archive replay; full CI; durable compact storage, measured cost and retention rehearsal."
   }
 }

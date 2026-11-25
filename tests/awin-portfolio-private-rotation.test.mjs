@@ -27,11 +27,15 @@ test("rotator delegates to strict existing importer and cannot claim first publi
  assert.match(worker,/POST as runPrivateImport/);
  assert.match(worker,/url\.searchParams\.set\("mode","stage"\)/);
  assert.match(worker,/runPrivateImport\(new NextRequest/);
- assert.match(worker,/Math\.floor\(now\/1_200_000\)\+offset\)\%available\.length/);
+ assert.match(worker,/selectPortfolioFeed\(available,attempts\?\?\[\],offset\)/);
+ assert.match(worker,/\.from\("awin_private_cron_attempts"\)/);
+ assert.match(worker,/\.eq\("id",attemptId\)\s*\.eq\("state","started"\)/);
  assert.match(worker,/offsetString!==null/);
  assert.match(worker,/Invalid rotation offset/);
  assert.match(worker,/private_only:true,no_publication:true/);
- assert.doesNotMatch(worker,/\.from\("offers"\)|\.from\("published_deals"\)|\.update\(\{/);
+ assert.doesNotMatch(worker,/\.from\("offers"\)|\.from\("published_deals"\)/);
+ assert.match(worker,/result\.ok&&activeMode&&safeStatus\(canonical\.status\)==="canonical_held"/);
+ assert.match(worker,/await autoReleaseEligibleAwinOffers\(db,5\)/);
 });
 test("existing owner-protected Run Now can invoke rotation without accepting raw signed feed URLs",()=>{
  assert.match(owner,/isPortfolio=task==="portfolio_stage_next"/);
