@@ -1480,3 +1480,8 @@ Full-range shopping scale candidate: existing SQL predicates and function ACLs r
 ## 25 November 2026 | Configuration redeployment
 
 Fix ignored build gate: a verified empty Git diff must build, allowing same-commit environment configuration redeploys. Nonempty documentation/workflow-only changes still skip. Production scale database migration applied; application activation requires successful deployment and live verification. No cron changes.
+
+
+## 25 November 2026 | Tooled Up contiguous catalogue rotation
+
+Production deployment 20b642c2 confirmed READY. Tooled Up candidate rotates contiguous windows of 1,500 source rows (matching RPC candidate cap) instead of skipping dense window tails. Existing five-minute cadence, evidence predicates, and RPC cap unchanged. Full coverage requires stable snapshot row order/count across a cycle; not a guarantee of immediate public admission. Candidate pending CI and production verification.
