@@ -72,7 +72,7 @@ export default function OwnerAwinRunNow(){
   }catch{
    setResults(v=>({...v,[task]:"Private task unavailable. Check server logs."}));
   }finally{
-   if(task==="portfolio_stage_next")setRotationStep(v=>(v+1)%9);
+   if(task==="portfolio_stage_next")setRotationStep(v=>(v+1)%10);
    setBusy(null);
   }
  }

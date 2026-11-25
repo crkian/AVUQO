@@ -4,7 +4,7 @@ import {GET as probeFeed} from "../awin-feed-schema-probe/route";
 export const maxDuration=300;
 const respond=(body:unknown,status=200)=>NextResponse.json(body,{status,headers:{"Cache-Control":"private, no-store"}});
 /** Private, bounded inventory scan. Never stages products or changes source controls.
- * Stop after all accepted observed feed entries have a persisted schema result.
+ * Stop when all accepted observed feed entries have a current schema result.
  */
 export async function GET(request:NextRequest){
  const secret=process.env.CRON_SECRET;

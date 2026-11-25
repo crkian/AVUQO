@@ -1672,3 +1672,8 @@ Fix ignored build gate: a verified empty Git diff must build, allowing same-comm
 ## 25 November 2026 | Tooled Up contiguous catalogue rotation
 
 Production deployment 20b642c2 confirmed READY. Tooled Up candidate rotates contiguous windows of 1,500 source rows (matching RPC candidate cap) instead of skipping dense window tails. Existing five-minute cadence, evidence predicates, and RPC cap unchanged. Full coverage requires stable snapshot row order/count across a cycle; not a guarantee of immediate public admission. Candidate pending CI and production verification.
+
+
+## 25 November 2026 | All-supplier integration increment
+
+All-supplier integration increment: latest inventory audit recorded 76 distinct feed identities (53 Tooled Up). Specialist contract/service feeds now receive bounded authenticated header inspection instead of recognition-only records; seven-day profile refresh and latest-observation deduplication enable inactive/failed entries to be retried. Craft Buddy 109997 enters exact-bound private staging; no live price/stock attestation due to missing stock evidence. Existing cron cadence, source controls and release gates remain. Full specialist quote adapters, supplier discovery, promotions and live catalogue reconciliation remain outstanding. Candidate pending CI and runtime verification.

@@ -6,7 +6,7 @@
 export type AwinRecognition="retail_physical"|"large_retail"|"specialist_tyres"|"contract_or_service"|"format_review";
 const supported=new Set([
  "77952:103580","77952:109051","77952:109652","77952:119210",
- "31539:74135","736:48599","45747:F1356","101445:F5142","101445:96428"
+ "31539:74135","736:48599","45747:F1356","45747:109997","101445:F5142","101445:96428"
 ]);
 const services=new Set(["118401","128157","25022","37738","3496","23296","36276","115559"]);
 export function recognizeAwinFeed(input:{

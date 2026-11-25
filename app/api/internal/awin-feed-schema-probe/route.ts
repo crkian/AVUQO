@@ -65,9 +65,9 @@ export async function GET(request:NextRequest){
   return json({status:"credentials_unavailable",private_only:true,no_publication:true},503);
  const db=createAdminClient();
  const [observed,programmes,profiles]=await Promise.all([
-  db.from("awin_feed_update_observations").select("advertiser_id,feed_id,feed_name,advertiser_name,listed_products").order("advertiser_id").order("feed_id").limit(200),
+  db.from("awin_feed_update_observations").select("advertiser_id,feed_id,feed_name,advertiser_name,listed_products,observed_at").order("observed_at",{ascending:false}).limit(1000),
   db.from("affiliate_programs").select("external_account_id,metadata").eq("provider","awin").eq("region","GB").limit(100),
-  db.from("awin_feed_schema_profiles").select("advertiser_id,feed_id,checked_at").limit(200)
+  db.from("awin_feed_schema_profiles").select("advertiser_id,feed_id,checked_at,status").limit(1000)
  ]);
  if(observed.error||programmes.error||profiles.error)return json({status:"registry_or_profile_ledger_unavailable",private_only:true},503);
  const accepted=new Set((programmes.data??[]).filter(p=>{
@@ -76,17 +76,24 @@ export async function GET(request:NextRequest){
   return owner&&typeof owner==="object"&&!Array.isArray(owner)&&
    (owner as Record<string,unknown>).membership_status==="accepted";
  }).map(p=>p.external_account_id).filter(Boolean));
- const feeds=(observed.data??[]).filter(f=>accepted.has(f.advertiser_id));
+ const seen=new Set<string>();
+ const feeds=(observed.data??[]).filter(f=>{
+  const key=f.advertiser_id+":"+f.feed_id;
+  if(!accepted.has(f.advertiser_id)||seen.has(key))return false;
+  seen.add(key);return true;
+ });
  if(feeds.length===0)return json({status:"no_accepted_feed_observations",private_only:true});
- const scanned=new Map((profiles.data??[]).map(p=>[p.advertiser_id+":"+p.feed_id,p.checked_at]));
- const next=[...feeds].sort((a,b)=>{
+ const scanned=new Map((profiles.data??[]).filter(p=>p.status!=="recognised_specialist_route"||!feeds.some(f=>f.advertiser_id===p.advertiser_id&&f.feed_id===p.feed_id&&recognizeAwinFeed({advertiserId:f.advertiser_id,feedId:f.feed_id,feedFormat:"Awin",feedName:f.feed_name??"",listedProducts:f.listed_products??0}).kind==="contract_or_service")).map(p=>[p.advertiser_id+":"+p.feed_id,p.checked_at]));
+ // Refresh old or failed profiles on the existing schedule, never treat a historical failure as final.
+ const cutoff=Date.now()-7*86400000;
+ const due=feeds.filter(f=>Date.parse(scanned.get(f.advertiser_id+":"+f.feed_id)??"")>=cutoff?false:true);
+ const next=[...(due.length?due:feeds)].sort((a,b)=>{
   const at=scanned.get(a.advertiser_id+":"+a.feed_id)??"";
   const bt=scanned.get(b.advertiser_id+":"+b.feed_id)??"";
   return at.localeCompare(bt);
  });
  const onlyNew=new URL(request.url).searchParams.get("only_new")==="1";
- if(onlyNew&&stepRaw==="next"&&next.every(f=>
-  scanned.has(f.advertiser_id+":"+f.feed_id)))
+ if(onlyNew&&stepRaw==="next"&&due.length===0)
   return json({status:"all_accepted_feeds_inspected",accepted_feed_count:feeds.length,
    private_only:true,no_publication:true});
  const selected=stepRaw==="next"?next[0]:feeds[Number(stepRaw)%feeds.length];
@@ -119,7 +126,7 @@ export async function GET(request:NextRequest){
  const route=recognizeAwinFeed({advertiserId:selected.advertiser_id,
   feedId:selected.feed_id,feedFormat:format,feedName:selected.feed_name??"",
   listedProducts:selected.listed_products??0});
- if(["specialist_tyres","contract_or_service","large_retail"].includes(route.kind))
+ if(["specialist_tyres","large_retail"].includes(route.kind))
   return record("recognised_specialist_route",{recognition_kind:route.kind,
    schema_status:"specialist_adapter",next_action:route.next});
  try{
@@ -132,7 +139,7 @@ export async function GET(request:NextRequest){
   const sample=new TextDecoder("utf-8",{fatal:true}).decode(plain.slice(0,Math.min(plain.length,262144)));
   const profile=profileAwinHeader(sample,format);
   return record("schema_profiled",{recognition_kind:route.kind,
-   schema_status:profile.status,schema_reason:profile.reason,
+   schema_status:route.kind==="contract_or_service"?"specialist_adapter":profile.status,schema_reason:profile.reason,
    schema_delimiter:profile.delimiter,schema_fields:profile.fields,
    columns:profile.columnCount,column_names:profile.columns});
  }catch(e){return record("schema_probe_quarantined",{recognition_kind:route.kind,
