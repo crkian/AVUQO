@@ -14,6 +14,7 @@ import {PartnerStudioHero,PartnerStudioNavigation,PartnerStudioNotebook,PartnerS
 import {PARTNERS,partnerFor,activePartnerPromotions,isApprovedPartnerLink,partnerHref} from "../../../lib/partners/advertiser-directory";
 import {departmentsForPartner,partnersForDepartment} from "../../../lib/partners/catalogue-taxonomy";
 import styles from "../partners.module.css";
+import PartnerQuoteJourney from "../../../components/partners/PartnerQuoteJourney";
 
 type Props={params:Promise<{slug:string}>};
 // Merchant-scoped prices are request-time evidence. Keep runtime reads out of prerender.
@@ -86,6 +87,7 @@ export default async function PartnerDetail({params}:Props){
    <PartnerStudioProducts partner={partner} studio={studio} products={studioProducts}/>
    {(partner.kind==="retail"||partner.slug==="mozillion")&&partner.advertiserId&&<div className={styles.shell}><Link href={"/shop/retail?merchant="+encodeURIComponent(partner.slug)}>Browse current ordinary shopping listings from {partner.name}</Link></div>}
    <div className={styles.shell+" "+styles.main}>
+    <PartnerQuoteJourney partner={partner}/>
     <div className={styles.twoCols}>
      <section className={styles.section}>
       <p className={styles.kicker}>03 / THE NEXT STOP</p>

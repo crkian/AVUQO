@@ -1,3 +1,4 @@
+import {awinCanonicalLimit} from "./recheck-budget.ts";
 import type {createAdminClient} from "../supabase/admin";
 import {ownAffiliateLink} from "./approved-offer-renewal.ts";
 import {publicAwinDescription} from "./product-description-evidence.ts";
@@ -90,7 +91,7 @@ export async function stageLiveAwinCanonicalCandidates(
     !/^[a-zA-Z0-9_-]{1,30}$/.test(input.feed)||
     !/^[a-f0-9]{64}$/.test(input.digest))
   return {status:"unsupported_private_feed",eligible:0,canonicalAccepted:0,canonicalRejected:0};
- const limit=Math.max(1,Math.min(input.limit??20,20));
+ const limit=awinCanonicalLimit(input.limit);
  if(input.merchantProductIds&&
    (!Array.isArray(input.merchantProductIds)||
     input.merchantProductIds.length<1||input.merchantProductIds.length>100||

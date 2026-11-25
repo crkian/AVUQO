@@ -11,6 +11,7 @@ import {normalizePilotAwinFeed} from "../../../../lib/awin/pilot-feed-normalizer
 import {profileAwinHeader} from "../../../../lib/awin/feed-schema-profile.mjs";
 import {mozillionPhysicalFeedAllowed} from "../../../../lib/awin/mozillion-feed-types";
 import {activeOwnerAwinAttestation,evaluateSourceControls,sourceIngestionFailures} from "../../../../lib/pipeline/source-readiness";
+import {awinRecheckLimit} from "../../../../lib/awin/recheck-budget";
 import {stageLiveAwinCanonicalCandidates} from "../../../../lib/awin/private-live-canonical-stage";
 
 
@@ -55,7 +56,7 @@ async function attestUnchangedLiveRows(
  if(currencySource==="playpress_uk_programme_gbp_private_only")return [];
  const idPos=header.indexOf(header.includes("merchant_product_id")?"merchant_product_id":"id");
  if(idPos<0||!/^[a-f0-9]{64}$/.test(digest))throw Error("unbound_live_recheck");
- const originals=new Map(rows.map(r=>[r[idPos],r]));
+ const originals=new Map(rows.map(r=>[r[idPos]?.trim(),r]));
  const {data:stored,error}=await db.from("feed_import_records")
   .select("id,import_id,merchant_product_id,title,price,currency,status,metadata,reviewed_at")
   .eq("import_id",runId).eq("merchant_id",advertiser).eq("status","review")
@@ -70,7 +71,10 @@ async function attestUnchangedLiveRows(
  if(error)throw Error("live_recheck_private_rows_unavailable");
  const now=new Date().toISOString();
  const verifiedSkus:string[]=[];
+ if(!(await privateStagingAllowed(db)))return verifiedSkus;
+ const budget=awinRecheckLimit(process.env.AWIN_PRIVATE_RECHECK_LIMIT);
  for(const old of stored??[]){
+  if(verifiedSkus.length>0&&verifiedSkus.length%10===0&&!(await privateStagingAllowed(db)))break;
   const cells=originals.get(old.merchant_product_id);
   if(!cells)continue;
   const next=prepareGeneralBatch(advertiser,feed,header,[cells])[0];
@@ -108,7 +112,7 @@ async function attestUnchangedLiveRows(
    .is("reviewed_at",null).select("id").maybeSingle();
   if(updateError)throw Error("live_recheck_private_update_failed");
   if(changed?.id)verifiedSkus.push(old.merchant_product_id);
-  if(verifiedSkus.length>=20)break;
+  if(verifiedSkus.length>=budget)break;
  }
  return verifiedSkus;
  }
@@ -266,10 +270,11 @@ export async function POST(request:NextRequest){
  let rawColumnCount=0;
  let currencySource:PilotCurrencySource="feed_column";
  let parseStage:"header"|"rows"|"normalize"|"validate"="header";
- let detectedDelimiter:"comma"|"tab"="comma";
+ let detectedDelimiter:"comma"|"tab"|"semicolon"|"pipe"="comma";
  try{
-  const delimiter=csv.slice(0,1000).split("\n",1)[0].includes("\t")?"\t":",";
-  detectedDelimiter=delimiter==="\t"?"tab":"comma";
+  const profile=profileAwinHeader(csv);
+  const delimiter=profile.delimiter==="tab"?"\t":profile.delimiter==="semicolon"?";":profile.delimiter==="pipe"?"|":",";
+  detectedDelimiter=delimiter==="\t"?"tab":delimiter===";"?"semicolon":delimiter==="|"?"pipe":"comma";
   // Only the approved Mozillion SIM-free feed may be parsed with up to 256
   // raw columns. All rows are projected to <=120 validated fields before staging.
   const rawColumnBound=(advertiser==="31539"&&feed==="74135")||
@@ -292,7 +297,7 @@ export async function POST(request:NextRequest){
   const ids=new Set<string>();
   const idPosition=header.indexOf(header.includes("merchant_product_id")?"merchant_product_id":"id");
   for(const row of rows){
-   const identity=row[idPosition];
+   const identity=row[idPosition]?.trim();
    if(ids.has(identity))throw Error("duplicate_identity_across_batches");
    ids.add(identity);
   }
@@ -387,7 +392,7 @@ export async function POST(request:NextRequest){
   try{
    const verifiedSkus=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages,ownerApprovedDescriptions,currencySource);
    const canonical=verifiedSkus.length>0?await stageLiveAwinCanonicalCandidates(db,{
-    importId:runId,advertiser,feed,digest,limit:20,merchantProductIds:verifiedSkus
+    importId:runId,advertiser,feed,digest,limit:verifiedSkus.length,merchantProductIds:verifiedSkus
    }):{status:"no_fresh_exact_feed_rows",eligible:0,canonicalAccepted:0,canonicalRejected:0};
    return reply({status:"already_staged",advertiser_id:advertiser,feed_id:feed,
     records:rows.length,live_verified_rows:verifiedSkus.length,canonical,private_only:true,no_publication:true});
@@ -416,7 +421,7 @@ export async function POST(request:NextRequest){
     try{
      const verifiedSkus=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages,ownerApprovedDescriptions,currencySource);
      const canonical=verifiedSkus.length>0?await stageLiveAwinCanonicalCandidates(db,{
-      importId:runId,advertiser,feed,digest,limit:20,merchantProductIds:verifiedSkus
+      importId:runId,advertiser,feed,digest,limit:verifiedSkus.length,merchantProductIds:verifiedSkus
      }):{status:"no_fresh_exact_feed_rows",eligible:0,canonicalAccepted:0,canonicalRejected:0};
      return reply({status:"already_staged",advertiser_id:advertiser,feed_id:feed,
       records:rows.length,live_verified_rows:verifiedSkus.length,canonical,private_only:true,no_publication:true});
@@ -439,7 +444,7 @@ export async function POST(request:NextRequest){
  try{
   verifiedSkus=await attestUnchangedLiveRows(db,runId,advertiser,feed,header!,rows,digest,ownerApprovedImages,ownerApprovedDescriptions,currencySource);
   if(verifiedSkus.length>0)canonical=await stageLiveAwinCanonicalCandidates(db,{
-   importId:runId,advertiser,feed,digest,limit:20,merchantProductIds:verifiedSkus
+   importId:runId,advertiser,feed,digest,limit:verifiedSkus.length,merchantProductIds:verifiedSkus
   });
  }catch{canonical={status:"canonical_private_staging_unavailable",eligible:0,
   canonicalAccepted:0,canonicalRejected:0};}

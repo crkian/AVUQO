@@ -49,7 +49,7 @@ export default async function PrivateTyreOverlap(){
   </nav>
   <header><p style={{color:"#7443a2",fontSize:12,fontWeight:900,letterSpacing:1.5}}>PRIVATE CONTROL CENTRE · {role.toUpperCase()}</p>
    <h1 style={{fontSize:"clamp(29px,4vw,44px)",letterSpacing:"-.04em",margin:"7px 0"}}>Real overlap. No invented tyre comparisons.</h1>
-   <p style={{maxWidth:860,color:"#6a6274",lineHeight:1.7}}>This read-only report joins the latest private records from Tyres UK (Awin 12715) and Pneus Online (15236) by a check-digit-valid 13-digit EAN. The result is a **candidate match**, not a public product merge, valid GBP price, vehicle fitment guarantee or price ranking.</p>
+   <p style={{maxWidth:860,color:"#6a6274",lineHeight:1.7}}>This read-only report joins the latest private records from Tyres UK (Awin 12715) and Pneus Online (15236) by a check-digit-valid 13-digit EAN. The result is a <strong>candidate match</strong>, not a public product merge, valid GBP price, vehicle fitment guarantee or price ranking.</p>
   </header>
   {!summary?<p role="alert" style={{padding:20,border:"1px solid #db9b93",borderRadius:12,background:"#fff9f5"}}>
    Private overlap evidence unavailable. The owner-only migration or read privileges may not be ready. No matching or price claim is authorised until this report succeeds.
@@ -61,7 +61,7 @@ export default async function PrivateTyreOverlap(){
     </article>)}
    </section>
    <section style={{background:"#fff9ee",border:"1px solid #ead8bc",padding:19,borderRadius:14,lineHeight:1.7}}>
-    <strong>Release gate remains closed.</strong> Even 11,000 overlapping EANs do not prove currency, quantity, season, run-flat, width/profile/rim, load/speed, availability or complete fitted totals. This private report has no INSERT/UPDATE and cannot activate public tyre listing or offer approval.
+    <strong>Release gate remains closed.</strong> Overlapping EANs do not prove currency, quantity, season, run-flat, width/profile/rim, load/speed, availability or complete fitted totals. This private report has no INSERT/UPDATE and cannot activate public tyre listing or offer approval.
     <p style={{margin:"6px 0 0",fontSize:12}}>{summary.requirements}</p>
    </section>
    <section aria-label="Representative private matched identifiers" style={{display:"grid",gap:10}}>

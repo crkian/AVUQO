@@ -56,7 +56,7 @@ async function runRotation(request:NextRequest,attemptId:string){
    .eq("provider","awin").eq("region","GB"),
   db.from("awin_feed_update_observations")
    .select("advertiser_id,feed_id,feed_format,listed_products,observed_at")
-   .limit(300),
+   .order("observed_at",{ascending:false}).limit(300),
  ]);
  if(sourceError||controlError||programmesError||observationsError||!source)
   return reply({status:"source_or_portfolio_unavailable",private_only:true,no_publication:true},503);
@@ -84,7 +84,7 @@ async function runRotation(request:NextRequest,attemptId:string){
   if(!accepted.has(pair.advertiser))return false;
   const observed=(observations??[]).find(o=>
    o.advertiser_id===pair.advertiser&&o.feed_id===pair.feed&&
-   o.feed_format.toLowerCase()===pair.kind.toLowerCase()&&
+   typeof o.feed_format==="string"&&o.feed_format.toLowerCase()===pair.kind.toLowerCase()&&
    Number(o.listed_products)>0&&Number(o.listed_products)<=5000);
   const checked=Date.parse(observed?.observed_at??"");
   return !!observed&&Number.isFinite(checked)&&checked>=freshCutoff&&checked<=now+300000;

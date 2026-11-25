@@ -88,3 +88,15 @@ export async function ordinaryProductBySlug(slug:string):Promise<ShoppingRelease
   return admitted.find(r=>r.productId===p.id&&r.slug===slug)??null;
  }catch{return null;}
 }
+
+/** Other independently admitted offers for this exact canonical identity.
+ * Not title similarity, and not a fitted/delivered price comparison. */
+export async function ordinaryOffersForProduct(productId:string):Promise<ShoppingRelease[]>{
+ if(!uuid(productId))return [];
+ try{
+  const {data,error}=await createAdminClient().from("offers").select("id,awin_shopping_release_reviews!inner(status)").eq("product_id",productId).eq("status","active").eq("awin_shopping_release_reviews.status","approved").order("id").limit(60);
+  if(error||!data?.length)return [];
+  const admitted=await readShoppingReleases(data.map(r=>r.id));
+  return admitted.filter(r=>r.productId===productId).sort((a,b)=>a.price-b.price||a.offerId.localeCompare(b.offerId));
+ }catch{return [];}
+}

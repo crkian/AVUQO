@@ -8,6 +8,7 @@ import Header from "../../../../components/layout/Header";
 import Footer from "../../../../components/layout/Footer";
 import {BROWSE_DEPARTMENTS,departmentBySlug,departmentHref as editorialHref}
  from "../../../../lib/categories/browse-tree";
+import {ordinaryShoppingPage} from "../../../../lib/products/shopping-catalogue";
 import {verifiedProductIndex} from "../../../../lib/products/public-catalog";
 import {partnersForDepartment} from "../../../../lib/partners/catalogue-taxonomy";
 import {cardDescription,hasObservedReduction} from "../../../../lib/products/listing-description";
@@ -34,7 +35,10 @@ async function DepartmentGoods({department}:{department:string}){
  const d=departmentBlueprint(department);
  if(!d)notFound();
  const editorial=departmentBySlug(department);
- const verified=await verifiedProductIndex(120);
+ const retailPartners=partnersForDepartment(department).filter(p=>p.advertiserId&&(p.kind==="retail"||p.slug==="mozillion"));
+ const [verified,...retailPages]=await Promise.all([verifiedProductIndex(120),...retailPartners.slice(0,6).map(p=>ordinaryShoppingPage({merchant:p.slug}))] as const);
+ const ordinary=retailPages.flatMap(p=>p.offers).filter(o=>o.department===department);
+ const distinctOrdinary=[...new Map(ordinary.map(o=>[o.productId,o])).values()].slice(0,18);
  const matching=verified.filter(item=>eligibleDepartmentProduct(d,item));
  const research=researchGuidesByDepartment(department);
  return <main className={styles.page} data-tone={d.theme}><Header/>
@@ -84,6 +88,7 @@ async function DepartmentGoods({department}:{department:string}){
     </div>}
   </section>
   <section className={"shell "+styles.content} aria-label="Everyday retailer shopping"><div className={styles.heading}><div><h2>Shop participating retailers</h2><p>Explore independently checked ordinary shopping ranges, including products without a recorded discount. Retailer catalogues can span multiple departments.</p></div></div><div className={styles.goodsGrid}>{partnersForDepartment(department).filter(p=>p.advertiserId&&(p.kind==="retail"||p.slug==="mozillion")).map(p=><Link key={p.slug} className={styles.item} href={"/shop/retail?merchant="+encodeURIComponent(p.slug)}><div className={styles.itemBody}><p>{p.categoryLabel}</p><h3>{p.name}</h3><strong>Browse retailer catalogue <ArrowRight size={15}/></strong></div></Link>)}</div><Link href="/shop/retail">Browse all eligible everyday shopping listings <ArrowRight size={15}/></Link></section>
+  {distinctOrdinary.length>0&&<section className={"shell "+styles.content}><div className={styles.heading}><div><h2>Everyday {d.name} shopping</h2><p>Current source-checked products sampled from relevant retailers. No discount or complete market coverage is implied.</p></div></div><div className={styles.goodsGrid}>{distinctOrdinary.map(o=><Link key={o.offerId} href={"/shop/offer/"+o.offerId} className={styles.item}><div className={styles.art}>{o.gallery[0]?<img src={o.gallery[0]} alt={o.title} loading="lazy" referrerPolicy="no-referrer"/>:<ShoppingBag size={40}/>}</div><div className={styles.itemBody}><p>{o.merchantName}</p><h3>{o.title}</h3><strong>£{o.price.toFixed(2)} · View item <ArrowRight size={15}/></strong></div></Link>)}</div></section>}
   <DepartmentPartnerShelf department={department}/>
   <section className={styles.guide} id="department-buying-guide"><div className={"shell "+styles.guideGrid}>
    <div><p className={styles.kicker}>BUYING WITH CONFIDENCE</p><h2>{d.focus}</h2>

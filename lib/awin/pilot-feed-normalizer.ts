@@ -96,7 +96,7 @@ export function normalizePilotAwinFeed(advertiser:string,feedId:string,header:st
    currencySource:"cadbury_uk_programme_gbp" as const};
  }
  // Additional accepted Petlibro feeds may share the established UK
- // standard schema. Inference is private-only, for an exact observed schema
+ // standard schema. Inference is private-only, for a bound canonical schema
  // and exact retailer/feed IDs. Explicit currency values are never overwritten.
  if(advertiser!=="77952"||
     !["103580","109051","109652","119210"].includes(feedId)){
@@ -105,16 +105,9 @@ export function normalizePilotAwinFeed(advertiser:string,feedId:string,header:st
  }
  if(new Set(header).size!==header.length||header.length>120||header.length<5)
   throw Error("invalid_petlibro_header");
- const required=[
-  "data_feed_id","merchant_id","merchant_name","aw_product_id",
-  "aw_deep_link","aw_image_url","aw_thumb_url","category_id",
-  "category_name","brand_id","brand_name","merchant_product_id",
-  "product_name","description","merchant_deep_link","merchant_image_url",
-  "search_price","condition","stock_status","product_GTIN"
- ];
- // Require the exact observed 20-column UK schema, never guess alternative
- // field mappings or change a currency explicitly supplied by the source.
- if(header.length===required.length&&required.every(field=>header.includes(field))){
+ // Require exact canonical field names and row binding; optional columns may vary.
+ // Never guess aliases or replace explicitly supplied currency.
+ if(!header.includes("currency")&&["data_feed_id","merchant_id","merchant_product_id","product_name","search_price","aw_deep_link"].every(field=>header.includes(field))){
   const merchantIndex=header.indexOf("merchant_id");
   const feedIndex=header.indexOf("data_feed_id");
   if(rows.some(row=>row.length!==header.length||
@@ -124,6 +117,10 @@ export function normalizePilotAwinFeed(advertiser:string,feedId:string,header:st
   const normalizedRows=rows.map(row=>[...row,"GBP"]);
   identifyFormat(normalizedHeader);
   return {header:normalizedHeader,rows:normalizedRows,currencySource:"petlibro_uk_programme_gbp" as const};
+ }
+ if(header.includes("data_feed_id")&&header.includes("merchant_id")){
+  const fi=header.indexOf("data_feed_id"),mi=header.indexOf("merchant_id");
+  if(rows.some(r=>r.length!==header.length||r[fi]?.trim()!==feedId||r[mi]?.trim()!==advertiser))throw Error("petlibro_feed_identity_mismatch");
  }
  identifyFormat(header);
  return {header,rows,currencySource:"feed_column" as const};

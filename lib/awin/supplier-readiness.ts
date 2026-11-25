@@ -26,6 +26,7 @@ export function supplierNextAction(row:SupplierReadiness):string{
   ?"Request authorised product feed or tracked retailer catalogue."
   :"Confirm suitable referral, white-label, booking or quote API.";
  if(!physical.has(id))return "Build a specialist live-term or quote adapter; not an ordinary product import.";
+ if(tyres.has(id)&&row.private_rows===0)return "Run the specialist tyre snapshot adapter; validate size, load/speed rating, stock, GBP and fitting evidence.";
  if(row.private_rows===0)return "Privately import and validate exact source products. Do not publish feed discovery counts.";
  if(tyres.has(id))return "Verify exact GBP currency, fitment, stock, fitting and source rights before comparing.";
  if(row.active_products===0||row.published_candidates===0)return "Review held products, image/text rights and first-release evidence; no automatic bulk approval.";

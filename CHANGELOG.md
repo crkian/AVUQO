@@ -1647,3 +1647,13 @@ Release recovery: d38cd4f4 quality build failed on missing closing JSX expressio
 ## 25 November 2026 | Consolidated retail studio and release quality candidate
 
 Consolidated retail studio and release quality candidate: latest 4ba304c8 application build, dedicated filter/rich journey, compact recovery and native PostgreSQL tests passed; full lint had four errors. Fix immutable stage/duplicate declarations and move request-time evidence cutoff calculation to a server-only helper. Independently admitted ordinary offers now enrich retail studio hero/product shelves with exact offer links and deduplicated product identities, alongside existing verified deals. Category pages connect to relevant retailer catalogues, explicitly not category-filtered stock. All source permission and publication gates retained. Tests added; full CI and deployment pending. No supplier activations, storage cutover or extra crons; Petlibro schema failures still require fresh diagnostic evidence.
+
+
+## 25 November 2026 | Consolidated supplier and shopping expansion candidate
+
+Unpublished consolidated candidate: bound Petlibro optional-column adapter, bounded header profiling and four delimited formats; opt-in 1–50 supplier recheck budget (default 20); exact tyre technical candidate filtering before public admission; ordinary exact-canonical multi-retailer offers and department-classified shopping samples; newest supplier feed observations first. No source permission changes, production writes, new schedules or deployment. Automated tests written but not executed. Pneus currency, both tyre ranges, full supplier coverage, performance and build verification outstanding.
+
+
+## 25 November 2026 | Specialist journey candidate
+
+Added specialist quote-preparation journeys across 15 supplier studios using only existing approved destinations; no live quote API, booking submission or customer data collection. Added explicit-currency Petlibro feed identity check when feed identity columns are present, and an ingestion stop recheck before the first live row write. Candidate remains unpublished and untested.
