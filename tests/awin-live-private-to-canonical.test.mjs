@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
+import {awinCanonicalLimit,awinRecheckLimit} from "../lib/awin/recheck-budget.ts";
 import {toFreshVerifiedAwinRaw} from "../lib/awin/private-live-canonical-stage.ts";
 
 const checked=new Date().toISOString(), digest="a".repeat(64);
@@ -51,7 +52,11 @@ test("bridge uses the one existing scoring pipeline and cannot auto-publish firs
  assert.match(stage,/awinPrivateStaging:privateMode/);
  assert.match(stage,/const privateMode=source\.status==="paused"&&source\.sync_enabled===false/);
  assert.match(stage,/sourceIngestionFailures\(source/);
- assert.match(stage,/limit\?\?20,20/);
+ assert.match(stage,/awinCanonicalLimit\(input\.limit\)/);
+ assert.equal(awinCanonicalLimit(undefined),20);
+ assert.equal(awinCanonicalLimit(500),50);
+ assert.equal(awinRecheckLimit(undefined),20);
+ assert.equal(awinRecheckLimit("51"),20);
  // Every canonical batch must be bound to the digest that an authenticated
  // Awin download just verified, regardless of historical created_at order.
  assert.match(stage,/\.contains\("metadata",\{live_feed_digest:input\.digest\}\)/);
@@ -60,7 +65,8 @@ test("bridge uses the one existing scoring pipeline and cannot auto-publish firs
  assert.match(worker,/\.is\("reviewed_at",null\)\.eq\("currency","GBP"\)/);
  assert.match(worker,/\.order\("metadata->>live_feed_verified_at",\{ascending:true,nullsFirst:true\}\)/);
  assert.match(worker,/\.order\("merchant_product_id",\{ascending:true\}\)\.limit\(300\)/);
- assert.match(worker,/if\(verifiedSkus\.length>=20\)break/);
+ assert.match(worker,/if\(verifiedSkus\.length>=budget\)break/);
+ assert.match(worker,/awinRecheckLimit\(process\.env\.AWIN_PRIVATE_RECHECK_LIMIT\)/);
  assert.match(worker,/merchantProductIds:verifiedSkus/);
  assert.match(worker,/stageLiveAwinCanonicalCandidates/);
  assert.match(worker,/no_publication:true/);
