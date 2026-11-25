@@ -1,4 +1,4 @@
-import {specialistEvidence} from "../../../../lib/awin/specialist-evidence.mjs";
+import {specialistEvidence,specialistAccumulator} from "../../../../lib/awin/specialist-evidence.mjs";
 import {gunzipSync} from "node:zlib";
 import {NextRequest,NextResponse} from "next/server";
 import {createAdminClient} from "../../../../lib/supabase/admin";
@@ -87,6 +87,8 @@ export async function GET(request:NextRequest){
  const scanned=new Map((profiles.data??[]).filter(p=>(p.status!=="recognised_specialist_route"&&!(p.status==="schema_profiled"&&p.schema_reason==="header_fields_identified"))||!feeds.some(f=>f.advertiser_id===p.advertiser_id&&f.feed_id===p.feed_id&&recognizeAwinFeed({advertiserId:f.advertiser_id,feedId:f.feed_id,feedFormat:"Awin",feedName:f.feed_name??"",listedProducts:f.listed_products??0}).kind==="contract_or_service")).map(p=>[p.advertiser_id+":"+p.feed_id,p.checked_at]));
  // Refresh old or failed profiles on the existing schedule, never treat a historical failure as final.
  const cutoff=Date.now()-7*86400000;
+ const largeRetry=(profiles.data??[]).find(p=>p.advertiser_id==="31539"&&p.feed_id==="97090"&&p.status==="schema_probe_quarantined");
+ if(largeRetry&&Date.parse(largeRetry.checked_at)<Date.now()-30*60000)scanned.delete("31539:97090");
  const due=feeds.filter(f=>Date.parse(scanned.get(f.advertiser_id+":"+f.feed_id)??"")>=cutoff?false:true);
  const next=[...(due.length?due:feeds)].sort((a,b)=>{
   const at=scanned.get(a.advertiser_id+":"+a.feed_id)??"";
@@ -132,7 +134,39 @@ export async function GET(request:NextRequest){
    schema_status:"specialist_adapter",next_action:route.next});
  try{
   const safeUrl=approvedAwinDownloadUrl(row[idx("URL")]??"",key,selected.feed_id,publisher);
-  const response=await fetch(safeUrl,{cache:"no-store",redirect:"error",signal:AbortSignal.timeout(20000)});
+  const largeContract=selected.advertiser_id==="31539"&&selected.feed_id==="97090"&&route.kind==="contract_or_service";
+  const response=await fetch(safeUrl,{cache:"no-store",redirect:"error",signal:AbortSignal.timeout(largeContract?35000:20000)});
+  if(largeContract){
+   const bytes=await limited(response,16_000_000);
+   const source=new Response(Buffer.from(bytes)).body!;
+   const expanded=bytes[0]===0x1f&&bytes[1]===0x8b?source.pipeThrough(new DecompressionStream("gzip")):source;
+   const reader=expanded.getReader();
+   const decoder=new TextDecoder("utf-8",{fatal:true});
+   let total=0,prefix="";
+   const nextText=async()=>{
+    const {value,done}=await reader.read();
+    if(done)return {text:decoder.decode(),done:true};
+    total+=value.byteLength;if(total>96_000_000)throw Error("bounded_probe_size_limit");
+    return {text:decoder.decode(value,{stream:true}),done:false};
+   };
+   try{
+    let ended=false;
+    while(!prefix.includes("\n")&&!ended&&prefix.length<=8192){const part=await nextText();prefix+=part.text;ended=part.done;}
+    const profile=profileAwinHeader(prefix,format);
+    const delimiter=({tab:"\t",comma:",",semicolon:";",pipe:"|"} as Record<string,string>)[profile.delimiter];
+    if(!delimiter)throw Error("specialist_schema_unbound");
+    async function* chunks(){yield prefix;while(!ended){const part=await nextText();ended=part.done;if(part.text)yield part.text;}}
+    let accumulator:ReturnType<typeof specialistAccumulator>|undefined;
+    for await(const cells of csvRowsFromChunks(chunks(),delimiter,256,20000)){
+     if(!accumulator){accumulator=specialistAccumulator(selected.advertiser_id,selected.feed_id,cells.map(v=>v.trim()),12000);continue;}
+     accumulator.add(cells);
+    }
+    if(!accumulator)throw Error("specialist_schema_unbound");
+    const e=accumulator.result();
+    if(!e.rows)throw Error("specialist_schema_unbound");
+    return record("schema_profiled",{recognition_kind:route.kind,schema_status:"specialist_adapter",schema_reason:"specialist_rows_"+e.rows+"_gbp_"+e.explicit_gbp+"_price_"+e.source_price+"_terms_"+e.contract_terms_present+"_links_"+e.own_publisher_links,schema_delimiter:profile.delimiter,schema_fields:profile.fields,columns:profile.columnCount,column_names:profile.columns});
+   }finally{await reader.cancel().catch(()=>{});reader.releaseLock();}
+  }
   const bytes=await limited(response,MAX_DOWNLOAD);
   const zipped=bytes[0]===0x1f&&bytes[1]===0x8b;
   const plain=zipped?gunzipSync(bytes,{maxOutputLength:MAX_UNPACKED}):bytes;
