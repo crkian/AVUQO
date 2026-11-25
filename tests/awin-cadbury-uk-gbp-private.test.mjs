@@ -37,7 +37,16 @@ test("explicit currency is never replaced by inferred GBP",()=>{
 test("GBP private staging must not activate publication",async()=>{
  const fs=await import("node:fs");
  const worker=fs.readFileSync("app/api/internal/awin-auto-import/route.ts","utf8");
- assert.match(worker,/cadbury_uk_programme_gbp/);
+ const {privateImportProvenance}=await import("../lib/awin/private-import-provenance.ts");
+ const normalized=normalizePilotAwinFeed("736","48599",header,[row]);
+ const evidence=privateImportProvenance(normalized.currencySource,"GBP");
+ assert.equal(evidence.currency_source,"cadbury_uk_programme_gbp");
+ assert.equal(evidence.source_currency_explicit,false);
+ assert.equal(evidence.source_image_rights_confirmed,false);
+ assert.equal(evidence.source_description_rights_confirmed,false);
+ assert.equal(evidence.permission_status,"unverified");
+ assert.match(worker,/normalizePilotAwinFeed\(advertiser,feed,header,rows\)/);
+ assert.match(worker,/privateImportProvenance\(currencySource,record.currency\)/);
  assert.match(worker,/permission_status:"unverified"/);
  assert.match(worker,/const safelyPaused=source\.status==="paused"&&source\.sync_enabled===false/);
  assert.match(worker,/const safelyActive=source\.status==="active"&&source\.sync_enabled===true/);

@@ -1,3 +1,9 @@
+## 25 November 2026 | Compact pooled catalogue ledger candidate
+
+- Prior 532b55bf production READY, independent recovery/rotation tests, app build and native PostgreSQL passed. Full lint stopped at old Cadbury assertion expecting currency literal in worker; actual normalizer/provenance tests now verify inferred currency stays explicitly unverified/private before separate gates. No importer behavior change.
+- Read-only comparison of latest two complete Pneus imports (08:46 GMT 25 Nov / 19:46 GMT 24 Nov): 19,735/19,711 rows, 19,648 overlap; 19,645 equal normalized content fingerprints, 2,179 equal commercial fingerprints, 2,179 both equal. SQL MD5 is an audit proxy, not archive integrity or exact recoverable disk measurement. New offline two-snapshot pooled ledger JSON round-trip retains per-snapshot membership, source timestamp, exact normalized content and observations; corruption and duplicate-key tests. CI pending.
+- Owner register and six handovers updated. Actual owner-authorized snapshot byte replay remains unverified. No migration, live storage changes, retention, publication, cron or new branches. Persistent transaction/lease and safe restore acceptance remain outstanding.
+
 ## 25 November 2026 | Private snapshot recovery and infrastructure cost candidate
 
 - Prior b3970188 Vercel READY, build and native PostgreSQL passed; lint stopped on outdated portfolio rotation source assertion, skipping shadow tests. Reconciled assertions with durable attempt journal and gated canonical release; independent recovery/rotation CI job added, results pending.

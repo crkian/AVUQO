@@ -5654,5 +5654,22 @@
       "Vercel plan and monthly actual charges",
       "Public eligible unique product and offer count"
     ]
+  },
+  "pneus_pooled_shadow_ledger_20261125": {
+    "status": "candidate_offline_pooled_ledger",
+    "previous_release": "532b55bf READY; independent recovery/rotation, build and native PG passed; full lint stopped at outdated Cadbury assertion",
+    "audit": {
+      "latest": "2026-11-25T08:46:34.207463Z",
+      "previous": "2026-11-24T19:46:35.028647Z",
+      "latest_rows": 19735,
+      "previous_rows": 19711,
+      "overlap": 19648,
+      "same_content": 19645,
+      "same_commercial_observation": 2179,
+      "both_same": 2179,
+      "method": "read-only SQL MD5 equality of separated normalized stored fields; not byte-level archive proof or physical savings estimate"
+    },
+    "implementation": "Offline two-snapshot serializable pooled ledger, restores exact memberships, hashes and quarantine; no DB schema or worker changes.",
+    "remaining": "Owner authenticated archive replay, durable transactional DB design, test and production verification, no retention until acceptance."
   }
 }

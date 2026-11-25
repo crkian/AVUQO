@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {gzipSync} from "node:zlib";
 import {createHash} from "node:crypto";
-import {replayPneusSnapshot,restorePneusRow,comparePneusSnapshots} from "../lib/awin/pneus-compact-shadow.mjs";
+import {replayPneusSnapshot,restorePneusRow,comparePneusSnapshots,buildPneusShadowLedger,restorePneusLedgerSnapshot} from "../lib/awin/pneus-compact-shadow.mjs";
 import {preparePneusPrivateBatch} from "../lib/awin/pneus-online-private.ts";
 const header=["merchant_id","merchant_product_id","product_name","search_price","in_stock",
  "last_updated","description","delivery_cost","aw_deep_link"];
@@ -74,4 +74,26 @@ test("incomplete manifest cannot mark other SKUs absent",async()=>{
  const b=await replayPneusSnapshot(input([row("a")],"2026-11-25T12:46:00Z"));
  b.expectedRows=2;
  assert.throws(()=>comparePneusSnapshots(a,b),/invalid_shadow_manifest/);
+});
+
+test("two-snapshot ledger round trips both memberships and pools unchanged content",async()=>{
+ const a=await replayPneusSnapshot(input([row("same"),row("price"),row("gone")]));
+ const b=await replayPneusSnapshot(input([row("same"),row("price","92.00"),row("new")],"2026-11-25T12:46:00Z"));
+ const ledger=JSON.parse(JSON.stringify(buildPneusShadowLedger(a,b)));
+ assert.equal(ledger.retentionAuthorized,false);
+ assert.equal(ledger.delta.added,1);
+ assert.equal(ledger.delta.absent,1);
+ assert.ok(ledger.metrics.pooledContentPayloads<ledger.metrics.originalContentReferences);
+ for(const original of [a,b]){
+  const restored=restorePneusLedgerSnapshot(ledger,original.sha256);
+  assert.equal(restored.members.size,original.members.size);
+  for(const sku of original.members.keys())
+   assert.deepEqual(restorePneusRow(restored,sku),restorePneusRow(original,sku));
+ }
+ const corrupted=structuredClone(ledger);
+ corrupted.snapshots[0].members.push(corrupted.snapshots[0].members[0]);
+ assert.throws(()=>restorePneusLedgerSnapshot(corrupted,a.sha256),/duplicate_shadow_ledger_key/);
+ const tampered=structuredClone(ledger);
+ tampered.contents[0][1].title="changed";
+ assert.throws(()=>restorePneusLedgerSnapshot(tampered,a.sha256),/shadow_payload_mismatch/);
 });
