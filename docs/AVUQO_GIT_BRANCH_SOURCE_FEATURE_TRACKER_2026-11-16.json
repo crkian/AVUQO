@@ -5807,4 +5807,10 @@
     "compact_snapshots": 0,
     "next": "Restricted persistent shadow pilot with exact canonical transport, rights and concurrency checks; original archive and legacy rows remain intact."
   }
+,
+  "deployment_efficiency_20261125": {
+    "status": "candidate_pending_ci_and_vercel",
+    "policy": "Deployment efficiency candidate: compare full known deployment baseline (VERCEL_GIT_PREVIOUS_SHA) to HEAD, build on missing/untrusted baseline or Git failure, and skip only explicit documentation/workflow paths. Runtime register JSON is never ignored. 25 cron entries unchanged. CI and Vercel behaviour not yet verified; no catalogue writes, retention or supplier permission changes. Next: restricted persistent compact pilot.",
+    "cron_entries": 25
+  }
 }

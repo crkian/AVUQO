@@ -135,3 +135,8 @@ Next implementation: isolated shadow projection and replay tests against authori
 - Actual production archive audit persisted exact_normalized_parity: 19,715 checked and matched, zero mismatches, missing and duplicate rows; decompressed digest verified, archive 7,645,856 bytes, all 19,715 excluded under currency gate. Unique content 19,715, observations 12,381. Journal uniquely bound by observed_at and count. No retention authorization. Zero compact snapshots at 14:55 UTC; next restricted persistent pilot must verify canonical fingerprints and current rights.
 - Prior 92154763 compact/ordinary product tests, native PostgreSQL and build passed. Full lint now fails handover schedule length (22 vs 25); machine handover now reconciles exact vercel.json schedules without claiming every cron executed. New CI pending. 85,033 product records, 14,685 active offer records, database contents 2,012.1 MiB at 14:55:15 UTC. Not public counts. No catalogue writes or deletes.
 
+
+
+## 25 November 2026 | Deployment efficiency safety candidate
+
+Deployment efficiency candidate: compare full known deployment baseline (VERCEL_GIT_PREVIOUS_SHA) to HEAD, build on missing/untrusted baseline or Git failure, and skip only explicit documentation/workflow paths. Runtime register JSON is never ignored. 25 cron entries unchanged. CI and Vercel behaviour not yet verified; no catalogue writes, retention or supplier permission changes. Next: restricted persistent compact pilot.

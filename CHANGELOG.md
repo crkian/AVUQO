@@ -1622,3 +1622,8 @@ Applied migration, verified service-only execution grants, corrected ambiguous s
     "Expand retailer coverage, categories and tyres"
   ]
 }
+
+
+## 25 November 2026 | Deployment efficiency safety candidate
+
+Deployment efficiency candidate: compare full known deployment baseline (VERCEL_GIT_PREVIOUS_SHA) to HEAD, build on missing/untrusted baseline or Git failure, and skip only explicit documentation/workflow paths. Runtime register JSON is never ignored. 25 cron entries unchanged. CI and Vercel behaviour not yet verified; no catalogue writes, retention or supplier permission changes. Next: restricted persistent compact pilot.
