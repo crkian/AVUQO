@@ -94,6 +94,8 @@ async function attestUnchangedLiveRows(
      // Preserve only clean prose from this exact authenticated current feed.
      // A separate dated merchant-text rights flag is required for public use.
      source_catalogue_fields:next.metadata.source_catalogue_fields,
+     source_catalogue_verified_digest:digest,
+     source_catalogue_rights_confirmed:ownerApprovedDescriptions,
      source_description:next.metadata.source_description??null,
      source_description_verified_digest:next.metadata.source_description?digest:null,
      source_description_rights_confirmed:ownerApprovedDescriptions&&

@@ -5514,5 +5514,34 @@
       "Tyres UK size counts are listing evidence only, not fitment approval; Pneus cross-match and complete inventory pending",
       "All-supplier promotion ingestion, descriptions/specifications and specialist integrations pending"
     ]
+  },
+  "exact_source_content_20261125": {
+    "date_utc": "2026-11-25",
+    "status": "partial",
+    "production": {
+      "sha": "03648b7bb3eacdf82385b167e643aa66b695f50c",
+      "deployment": "dpl_3RsDWCh1jLxAWg6D12pAuVF9WVX6",
+      "state": "READY"
+    },
+    "public_checks": [
+      "Tyres shop HTTP 200 with 229 current supplier size combinations",
+      "PlayPress ordinary search HTTP 200 with 36 links"
+    ],
+    "source_audit": {
+      "approved": 1202,
+      "matching": 791,
+      "exact_description_rows": 20,
+      "exact_attribute_rows": 262
+    },
+    "changes": [
+      "Tooled Up authenticated cohort now supplies cleaned descriptions and allowlisted factual attributes to already installed SQL enrichment",
+      "General feed rechecks record exact catalogue digest and rights",
+      "Ordinary product pages display exact SKU-bound, current supplier descriptions and allowlisted factual fields only under programme grant and existing offer admission"
+    ],
+    "remaining": [
+      "Verify build and runtime, actual content capture by Tooled Up cron and all suppliers; no invented attributes",
+      "Automatic supplier email ingestion and structured promotion recognition",
+      "Pneus Online and Tyres UK exact cross-retailer variants, all specialist integrations, price history and Watch parity"
+    ]
   }
 }

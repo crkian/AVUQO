@@ -6,6 +6,7 @@ import {latestTooledUpObservedDigest} from "../../../../lib/awin/tooled-up-obser
 import {TOOLED_UP_SOURCE_FIELDS} from "../../../../lib/awin/tooled-up-source-fields";
 import {csvRowsFromChunks} from "../../../../lib/feed-imports/stream-csv";
 import {ownAffiliateLink} from "../../../../lib/awin/approved-offer-renewal";
+import {privateAwinDescription} from "../../../../lib/awin/product-description-evidence";
 import {collectAwinImages,selectAwinPrimaryImage} from "../../../../lib/awin/collect-images.mjs";
 import {normalizeAwinAvailability} from "../../../../lib/awin/stock-availability.mjs";
 import {stageLiveAwinCanonicalCandidates} from "../../../../lib/awin/private-live-canonical-stage";
@@ -75,7 +76,7 @@ async function runCohort(request:NextRequest){
     !url.pathname.startsWith("/storage/v1/object/sign/"+AWIN_PRIVATE_SNAPSHOT_BUCKET+"/"))
    throw Error("unsafe");
  }catch{return reply({status:"storage_origin_invalid",no_publication:true},503);}
- type Candidate={sku:string;title:string;price:number;link:string;image:string;images:unknown[];stock:string};
+ type Candidate={sku:string;title:string;price:number;link:string;image:string;images:unknown[];stock:string;description:string|null;attributes:Record<string,string>};
  const candidates:Candidate[]=[];
  let rowNumber=0,visited=0;
  const windows=Math.max(1,Math.ceil(validation.actual_rows/MAX_SCANNED));
@@ -122,7 +123,12 @@ async function runCohort(request:NextRequest){
    const images=collectAwinImages(fields,FEED);
    const image=selectAwinPrimaryImage(images)?.url;
    if(!image)continue;
-   candidates.push({sku,title,price,link,image,images,stock});
+   // Only explicitly supplied, bounded fields. Custom columns have no defined
+   // meaning and prices/delivery do not become promotional or specification claims.
+   const attributes=Object.fromEntries(["colour","ean","mpn","merchant_category","merchant_product_category_path"].flatMap(k=>{
+    const v=value(k);return v&&v.length<=500?[[k,v]]:[];
+   }));
+   candidates.push({sku,title,price,link,image,images,stock,description:privateAwinDescription(fields),attributes});
    if(candidates.length>=MAX_CANDIDATES)break;
   }
  }catch{return reply({status:"snapshot_stream_or_schema_unavailable",no_publication:true},422);}

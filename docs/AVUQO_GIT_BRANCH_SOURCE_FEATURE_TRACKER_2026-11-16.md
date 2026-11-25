@@ -1,3 +1,9 @@
+## 25 November 2026 | Exact source content integration
+
+- Prior production 03648b7bb3eacdf82385b167e643aa66b695f50c READY. Tyres shop HTTP 200 with 229 current supplier size combinations; PlayPress search HTTP 200 with 36 links. Audit 20 exact authorised PlayPress description rows, 262 exact private attribute rows across five physical retailers. These are evidence records, not verified public rendered counts.
+- Candidate connects authenticated Tooled Up cohort to previously installed enrichment SQL, records general-feed attribute digest/rights, and reads exact offer-bound source content on admitted ordinary product detail pages. No arbitrary raw metadata, custom columns, discounts or delivery assertions; explicit rights denial and conflicting digest fail closed. Earlier exact general-feed attribute records may be used under current owner grant; no old unrelated product descriptions. Candidate build/runtime and cron evidence pending.
+- Preserve original tyre architecture, all 21 full-range supplier goals, promotion ingestion, specialist adapters and rich product features. No new branches.
+
 ## 25 November 2026 | Current catalogue pagination and supplier tyre size inventory
 
 - Production database migration 20261125113606_shopping_current_page_candidates_and_tyres_size_facets installed after reversible rehearsal. Live probes: 37 PlayPress page candidates, 37 ordinary first-page candidates, 225 Tyres UK size combinations and 582 listings with exact size evidence. Anonymous candidate RPC execute denied. Counts are a dated source snapshot, not fitment or public page claims.
