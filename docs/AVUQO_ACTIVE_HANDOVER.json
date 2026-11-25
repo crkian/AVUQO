@@ -1513,8 +1513,8 @@
     "current_checkpoint": {
       "date_utc": "2026-11-25",
       "production": {
-        "sha": "03648b7bb3eacdf82385b167e643aa66b695f50c",
-        "deployment": "dpl_3RsDWCh1jLxAWg6D12pAuVF9WVX6",
+        "sha": "8fdf4e9ee156aac5f0b4eadaecfe7c6c2a251232",
+        "deployment": "dpl_6Fm1P6f1mzt8CVRtJZcCmGMy5Dyb",
         "state": "READY",
         "domain": "https://www.avuqo.com",
         "owner_register": "Updated inventory snapshot committed; authenticated runtime acceptance pending"
@@ -1586,12 +1586,14 @@
           "Inventory-driven Tyres UK width/profile/rim options with exact-size finder links",
           "Tooled Up authenticated cohort now supplies cleaned descriptions and allowlisted factual attributes to already installed SQL enrichment",
           "General feed rechecks record exact catalogue digest and rights",
-          "Ordinary product pages display exact SKU-bound, current supplier descriptions and allowlisted factual fields only under programme grant and existing offer admission"
+          "Ordinary product pages display exact SKU-bound, current supplier descriptions and allowlisted factual fields only under programme grant and existing offer admission",
+          "Storage audit and non-destructive scale plan recorded; source content release verified on two PlayPress product pages"
         ],
         "remaining": [
           "Verify build and runtime, actual content capture by Tooled Up cron and all suppliers; no invented attributes",
           "Automatic supplier email ingestion and structured promotion recognition",
-          "Pneus Online and Tyres UK exact cross-retailer variants, all specialist integrations, price history and Watch parity"
+          "Pneus Online and Tyres UK exact cross-retailer variants, all specialist integrations, price history and Watch parity",
+          "Non-destructive compact evidence and retention architecture design, dependency audit and restore rehearsal"
         ]
       },
       "ordered_build_queue": [
@@ -2497,6 +2499,54 @@
         "Automatic mailbox/API promotion ingestion not installed",
         "All 21 suppliers remain incomplete as full-range integrations; no completeness claim"
       ]
+    },
+    "database_storage_efficiency": {
+      "date_utc": "2026-11-25",
+      "status": "audit_only",
+      "database_mib_rounded": 1795,
+      "tables": [
+        {
+          "name": "feed_import_records",
+          "total": 1374.1,
+          "heap": 739.8,
+          "indexes": 83.1,
+          "auxiliary": 551.2,
+          "estimated_dead_rows": 108916
+        },
+        {
+          "name": "source_ingestion_items",
+          "total": 167.5,
+          "heap": 65.3,
+          "indexes": 13.4,
+          "auxiliary": 88.8,
+          "estimated_dead_rows": 5573
+        },
+        {
+          "name": "products",
+          "total": 93.7,
+          "heap": 68.4,
+          "indexes": 25.3,
+          "auxiliary": 0.1,
+          "estimated_dead_rows": 2120
+        }
+      ],
+      "observed": "Read-only PostgreSQL catalog statistics. Estimated tuple counts and cumulative index scans are not exact deletion counts or guaranteed reclaimable disk space.",
+      "index_notes": [
+        "feed_import_records_run_product_lookup: 31 MB, 518911 cumulative scans",
+        "feed_import_records_merchant_sku_review_idx: approximately 6.1 MB, 3910733 cumulative scans",
+        "feed_import_records_fresh_conversion_idx: approximately 3.3 MB, 54598 cumulative scans",
+        "Do not remove indexes based solely on low scan counts or one snapshot."
+      ],
+      "requirements": [
+        "Inventory all database and application dependencies before designing retention; current price, exact source SKU, current approval, digest, image and description rights must remain available.",
+        "Separate immutable raw snapshots in private object storage from compact current SKU/evidence index. Preserve source digest, authenticated observation time, provenance and exact source identity. Reuse existing snapshot storage and validators.",
+        "Store each changed payload once; avoid repeating full raw and normalized payloads on unchanged checks. Retain compact observation/price/availability history and auditable conversion and review receipts.",
+        "Classify historical rows for archival only after proving no active offer, renewal, tyre, product detail, Watch, rights, audit or import-resume dependency; rehearse restore and reconciliation.",
+        "Audit autovacuum and TOAST churn; benchmark incremental maintenance and indexes in a safe environment. Avoid production VACUUM FULL or index drops without an approved maintenance plan.",
+        "Measure logical and physical database size, storage bucket cost, eligible catalogue count, query latency and archive recovery before and after each staged change."
+      ],
+      "no_database_changes": true,
+      "retention": "No deletion, retention change, vacuum, index removal or archive migration authorised or performed in this audit."
     }
   },
   "catalogue_candidate_ci_20261124": {
@@ -7629,6 +7679,67 @@
       "Verify build and runtime, actual content capture by Tooled Up cron and all suppliers; no invented attributes",
       "Automatic supplier email ingestion and structured promotion recognition",
       "Pneus Online and Tyres UK exact cross-retailer variants, all specialist integrations, price history and Watch parity"
-    ]
+    ],
+    "runtime": {
+      "sha": "8fdf4e9ee156aac5f0b4eadaecfe7c6c2a251232",
+      "deployment": "dpl_6Fm1P6f1mzt8CVRtJZcCmGMy5Dyb",
+      "state": "READY",
+      "public_checks": [
+        "Sweet Shop Playset HTTP 200 with supplier-description and PLAY10",
+        "Savannah Animals Playset HTTP 200 with supplier-description and PLAY10"
+      ],
+      "remaining": [
+        "Tooled Up new content capture and wider supplier rendering require runtime verification",
+        "CI was still running at check"
+      ]
+    }
+  },
+  "database_storage_efficiency_20261125": {
+    "date_utc": "2026-11-25",
+    "status": "audit_only",
+    "database_mib_rounded": 1795,
+    "tables": [
+      {
+        "name": "feed_import_records",
+        "total": 1374.1,
+        "heap": 739.8,
+        "indexes": 83.1,
+        "auxiliary": 551.2,
+        "estimated_dead_rows": 108916
+      },
+      {
+        "name": "source_ingestion_items",
+        "total": 167.5,
+        "heap": 65.3,
+        "indexes": 13.4,
+        "auxiliary": 88.8,
+        "estimated_dead_rows": 5573
+      },
+      {
+        "name": "products",
+        "total": 93.7,
+        "heap": 68.4,
+        "indexes": 25.3,
+        "auxiliary": 0.1,
+        "estimated_dead_rows": 2120
+      }
+    ],
+    "observed": "Read-only PostgreSQL catalog statistics. Estimated tuple counts and cumulative index scans are not exact deletion counts or guaranteed reclaimable disk space.",
+    "index_notes": [
+      "feed_import_records_run_product_lookup: 31 MB, 518911 cumulative scans",
+      "feed_import_records_merchant_sku_review_idx: approximately 6.1 MB, 3910733 cumulative scans",
+      "feed_import_records_fresh_conversion_idx: approximately 3.3 MB, 54598 cumulative scans",
+      "Do not remove indexes based solely on low scan counts or one snapshot."
+    ],
+    "requirements": [
+      "Inventory all database and application dependencies before designing retention; current price, exact source SKU, current approval, digest, image and description rights must remain available.",
+      "Separate immutable raw snapshots in private object storage from compact current SKU/evidence index. Preserve source digest, authenticated observation time, provenance and exact source identity. Reuse existing snapshot storage and validators.",
+      "Store each changed payload once; avoid repeating full raw and normalized payloads on unchanged checks. Retain compact observation/price/availability history and auditable conversion and review receipts.",
+      "Classify historical rows for archival only after proving no active offer, renewal, tyre, product detail, Watch, rights, audit or import-resume dependency; rehearse restore and reconciliation.",
+      "Audit autovacuum and TOAST churn; benchmark incremental maintenance and indexes in a safe environment. Avoid production VACUUM FULL or index drops without an approved maintenance plan.",
+      "Measure logical and physical database size, storage bucket cost, eligible catalogue count, query latency and archive recovery before and after each staged change."
+    ],
+    "no_database_changes": true,
+    "retention": "No deletion, retention change, vacuum, index removal or archive migration authorised or performed in this audit."
   }
 }

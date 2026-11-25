@@ -1,3 +1,9 @@
+## 25 November 2026 | Storage efficiency and rich content runtime
+
+- Rich supplier content commit 8fdf4e9ee156aac5f0b4eadaecfe7c6c2a251232 READY (dpl_6Fm1P6f1mzt8CVRtJZcCmGMy5Dyb). Sweet Shop Playset and Savannah Animals Playset HTTP 200 show exact supplier description and PLAY10. Tooled Up new capture and wider supplier content still require runtime verification; CI was running at last check.
+- Read-only storage audit: database 1,795 MiB rounded; feed_import_records 1,374.1 MiB (739.8 heap, 83.1 indexes, 551.2 auxiliary, 108,916 estimated dead tuples); source_ingestion_items 167.5 MiB (65.3 heap, 13.4 indexes, 88.8 auxiliary, 5,573 estimated dead tuples). Combined ~86%. No database data, index or retention changes. Counts are estimates; dead tuples do not quantify reclaimable space.
+- Scale architecture requirement: reuse immutable private snapshot storage, deduplicate raw and normalized payloads, retain compact current exact-SKU evidence and observations, protect prices/history/rights/renewal/tyre/detail/Watch/audit dependencies. Archive only after dependency proof and restore rehearsal; audit autovacuum, TOAST, index use and costs. No blind deletion, index drops or blocking production maintenance. Full supplier coverage and promotions remain mandatory. No new branches.
+
 ## 25 November 2026 | Exact source content integration
 
 - Prior production 03648b7bb3eacdf82385b167e643aa66b695f50c READY. Tyres shop HTTP 200 with 229 current supplier size combinations; PlayPress search HTTP 200 with 36 links. Audit 20 exact authorised PlayPress description rows, 262 exact private attribute rows across five physical retailers. These are evidence records, not verified public rendered counts.
