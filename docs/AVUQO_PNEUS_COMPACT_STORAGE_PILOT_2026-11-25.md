@@ -94,3 +94,10 @@ Next implementation: isolated shadow projection and replay tests against authori
 - Live database contents 1,889.7 MiB, 85,022 products and 14,010 active offer records at 13:32:36 GMT (not public counts); new empty foundation 196,608 bytes. No actual supplier payloads copied, no existing data deleted, no public reader, worker or retention changes.
 - Previous 4a288e3c application build, compact tests and native PostgreSQL passed; full lint still fails at historical three-branch retirement proof. Do not remove branch safety checks. Next: authenticated archive recovery and parity, restricted transactional writer and lease/concurrency rehearsal, then measured incremental imports; all supplier scope remains mandatory.
 
+
+## 25 November 2026 | Dormant compact transaction guard installed (13:42 GMT)
+
+- Migration 20261125134246_avuqo_compact_shadow_transaction_guard applied; pre/post reversible synthetic rehearsal passed. Deferred commit trigger rejects unsealed snapshots, SHA-256 payload pooling reuses identical input, private rights and exact source journal binding functions installed, digest-scoped transaction advisory lock. No API role execute grants. Concurrency lock behavior and full rights gate not independently exercised by the fixture. All four shadow tables empty; no live data copied, deleted, or publication changed.
+- Latest live measurement: 1,898.6 MiB database, 85,033 product records, 14,117 active offer records at 13:42:57 GMT. Not confirmed public counts. Prior a412e102 Vercel READY, app build and compact tests passed; historical branch retirement check still failed. No new branches or plan change.
+- Remaining: exact normalized batch append/seal, caller-side canonical replay and actual archive bytes/legacy parity, concurrent and rights-revocation tests, restricted integration, measured storage benefits before any retention. The database gate only validates journal metadata, not actual archive bytes.
+

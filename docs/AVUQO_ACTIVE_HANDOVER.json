@@ -2549,19 +2549,20 @@
         "Offline Pneus shadow replay candidate authored (lib/awin/pneus-compact-shadow.mjs); synthetic CI pending. Actual archive byte verification, exact legacy parity and durable shadow/rollback still release-blocking.",
         "Owner-only fixed-feed archive recovery and aggregate parity route candidate; validate both latest and previous completed snapshots without modifying source evidence. No storage cutover or retention approved.",
         "Live latest-two-run normalized-field comparison: 19,645/19,648 overlapping Pneus SKUs have matching content fingerprints; 2,179 share commercial observation fingerprints. Separate reusable product payloads from changing observations; measured comparison is not archive verification or guaranteed physical savings. Offline two-snapshot pooled ledger candidate, no retention cutover.",
-        "Private compact foundation installed via migration 20261125133220; four empty RLS tables, API access denied including service role, reversible synthetic checks passed. Structural seal is not archive parity or retention approval. Next: verified archive recovery and restricted transactional writer with concurrency and rights tests."
+        "Private compact foundation installed via migration 20261125133220; four empty RLS tables, API access denied including service role, reversible synthetic checks passed. Structural seal is not archive parity or retention approval. Next: verified archive recovery and restricted transactional writer with concurrency and rights tests.",
+        "Migration 20261125134246 installs dormant DBA-only transaction commit guard, SHA-256 payload pool, current rights and journal binding. Pre/post synthetic rehearsal passed, all four tables empty, API function grants zero. Batch parity append/seal and actual archive recovery remain outstanding."
       ],
       "no_database_changes": true,
       "retention": "No deletion, retention change, vacuum, index removal or archive migration authorised or performed in this audit."
     },
     "infrastructure_cost_intelligence": {
-      "observed_at": "2026-11-25T13:32:36.546041Z",
+      "observed_at": "2026-11-25T13:42:57.018749Z",
       "status": "recorded_audit_monitoring_planned",
       "supabase_plan": "Pro",
-      "database_mib": 1889.7,
+      "database_mib": 1898.6,
       "object_mib": 356.4,
-      "product_records": 85022,
-      "active_offer_records": 14010,
+      "product_records": 85033,
+      "active_offer_records": 14117,
       "configured_cron_entries": 24,
       "not_public_counts": true,
       "thresholds_percent": [
@@ -7919,5 +7920,23 @@
     "db_mib": 1889.7,
     "products": 85022,
     "active_offers": 14010
+  },
+  "pneus_compact_transaction_guard_20261125": {
+    "status": "installed_dormant_transaction_guard",
+    "migration": "20261125134246_avuqo_compact_shadow_transaction_guard",
+    "observed_at": "2026-11-25T13:42:57.018749Z",
+    "commit_guard": true,
+    "api_function_grants": 0,
+    "snapshots": 0,
+    "memberships": 0,
+    "content_rows": 0,
+    "observation_rows": 0,
+    "pre_post_rehearsal": "passed",
+    "archive_bytes_verified": false,
+    "writer_connected": false,
+    "remaining": "Exact legacy parity batch append and seal functions; canonical caller integration; real archive recovery, concurrency and permission revocation tests; no retention or public cutover.",
+    "db_mib": 1898.6,
+    "products": 85033,
+    "active_offers": 14117
   }
 }

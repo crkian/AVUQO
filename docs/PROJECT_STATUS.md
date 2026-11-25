@@ -1,3 +1,9 @@
+## 25 November 2026 | Dormant compact transaction guard installed (13:42 GMT)
+
+- Migration 20261125134246_avuqo_compact_shadow_transaction_guard applied; pre/post reversible synthetic rehearsal passed. Deferred commit trigger rejects unsealed snapshots, SHA-256 payload pooling reuses identical input, private rights and exact source journal binding functions installed, digest-scoped transaction advisory lock. No API role execute grants. Concurrency lock behavior and full rights gate not independently exercised by the fixture. All four shadow tables empty; no live data copied, deleted, or publication changed.
+- Latest live measurement: 1,898.6 MiB database, 85,033 product records, 14,117 active offer records at 13:42:57 GMT. Not confirmed public counts. Prior a412e102 Vercel READY, app build and compact tests passed; historical branch retirement check still failed. No new branches or plan change.
+- Remaining: exact normalized batch append/seal, caller-side canonical replay and actual archive bytes/legacy parity, concurrent and rights-revocation tests, restricted integration, measured storage benefits before any retention. The database gate only validates journal metadata, not actual archive bytes.
+
 ## 25 November 2026 | Private compact database foundation installed (13:32 GMT)
 
 - Exact rehearsed SQL recovered from Git blob 252b01eafb3037057bbacc067877bf70a13ea691. Supabase migration 20261125133220_avuqo_compact_shadow_foundation applied successfully. Reversible pre-install and post-install fixtures passed. Four empty tables in avuqo_compact_shadow, RLS enabled on all, schema usage and membership SELECT denied to anon, authenticated and service_role. Advisor flags intentional RLS without policies; keep dormant. Structural seal is not digest verification or permission to retain/delete legacy evidence.
