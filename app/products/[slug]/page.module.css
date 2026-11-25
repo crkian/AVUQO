@@ -140,3 +140,5 @@
  text-decoration:underline;text-underline-offset:3px;margin:7px 0 0}
 .studioLink:hover{color:#46216e}
 .studioLink:focus-visible{outline:2px solid #8651b2;outline-offset:3px;border-radius:4px}
+
+.itemSectionNav{display:flex;flex-wrap:wrap;gap:8px;padding-top:20px;padding-bottom:20px;border-bottom:1px solid #e4dce9}.itemSectionNav a{font-size:13px;font-weight:700;color:#583a81;text-decoration:none;background:#fff;border:1px solid #e4dce9;border-radius:999px;padding:10px 15px}.itemSectionNav a:focus-visible{outline:2px solid #8255ba;outline-offset:3px}

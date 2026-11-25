@@ -1613,3 +1613,8 @@ Applied migration, verified service-only execution grants, corrected ambiguous s
 ## 25 November 2026 | Deployment efficiency safety candidate
 
 Deployment efficiency candidate: compare full known deployment baseline (VERCEL_GIT_PREVIOUS_SHA) to HEAD, build on missing/untrusted baseline or Git failure, and skip only explicit documentation/workflow paths. Runtime register JSON is never ignored. 25 cron entries unchanged. CI and Vercel behaviour not yet verified; no catalogue writes, retention or supplier permission changes. Next: restricted persistent compact pilot.
+
+
+## 25 November 2026 | Rich shopping journeys candidate
+
+Shopping experience candidate: exact source description preview and full-description navigation, product section navigation, dated exact-studio advertiser campaigns with eligibility caveats, retailer-specific shopping links, richer retail shelf cards and missing-image/empty-result states. Prior 67ecb0f9 dedicated deployment filter, compact tests and app build passed; obsolete scheduler filter assertion reconciled, new CI pending. No new suppliers activated, catalogue rights or prices changed, or storage cutover. All 21 programme full-range acceptance remains outstanding.

@@ -41,9 +41,10 @@ test("existing importer accepts only three fixed SKU feeds and continues all pri
  assert.match(worker,/downloadUrl=approvedAwinDownloadUrl/);
  assert.doesNotMatch(scheduler,/record_awin_owner_release|published_deals|setSourceStatus/);
 });
-test("ignore build only when no non-documentation files changed",()=>{
- assert.match(vercel.ignoreCommand,/git diff --quiet HEAD\^ HEAD/);
- assert.match(vercel.ignoreCommand, /\(exclude\)docs/);
- assert.match(vercel.ignoreCommand, /\(exclude\)\.github/);
- assert.ok(!vercel.ignoreCommand.includes("VERCEL_ENV"));
+test("ignore build delegates to conservative deployment filter",()=>{
+ assert.equal(vercel.ignoreCommand,"node scripts/vercel-ignore-build.mjs");
+ const filter=read("scripts/vercel-ignore-build.mjs");
+ assert.match(filter,/VERCEL_GIT_PREVIOUS_SHA/);
+ assert.match(filter,/merge-base/);
+ assert.match(filter,/--no-renames/);
 });
