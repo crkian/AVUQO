@@ -62,3 +62,13 @@ test("large specialist inspection accumulates rows without retaining raw records
  assert.match(worker,/selected.advertiser_id==="31539"&&selected.feed_id==="97090"/);
  assert.match(worker,/total>96_000_000/);assert.match(worker,/reader.cancel/);
 });
+
+test("department catalogue filters before paging and rechecks admitted classification",()=>{
+ const reader=readFileSync("lib/products/shopping-catalogue.ts","utf8");
+ const shelf=readFileSync("app/shop/retail/page.tsx","utf8");
+ const migration=readFileSync("docs/sql/2026-11-25-department-catalogue.sql","utf8");
+ assert.match(reader,/shopping_catalogue_department_page_ids/);assert.match(reader,/item.department===department/);
+ assert.match(shelf,/department:data.department/);assert.match(shelf,/name="department"/);
+ assert.ok(migration.indexOf("=p_department")<migration.indexOf("order by case"));
+ assert.match(migration,/FROM PUBLIC, anon, authenticated/);
+});
