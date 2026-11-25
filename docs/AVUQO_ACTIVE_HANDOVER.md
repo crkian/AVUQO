@@ -1,3 +1,8 @@
+## 25 November 2026 | First original archive full parity verified (14:54 UTC)
+
+- Actual production archive audit persisted exact_normalized_parity: 19,715 checked and matched, zero mismatches, missing and duplicate rows; decompressed digest verified, archive 7,645,856 bytes, all 19,715 excluded under currency gate. Unique content 19,715, observations 12,381. Journal uniquely bound by observed_at and count. No retention authorization. Zero compact snapshots at 14:55 UTC; next restricted persistent pilot must verify canonical fingerprints and current rights.
+- Prior 92154763 compact/ordinary product tests, native PostgreSQL and build passed. Full lint now fails handover schedule length (22 vs 25); machine handover now reconciles exact vercel.json schedules without claiming every cron executed. New CI pending. 85,033 product records, 14,685 active offer records, database contents 2,012.1 MiB at 14:55:15 UTC. Not public counts. No catalogue writes or deletes.
+
 ## 25 November 2026 | Ordinary shopping product admission regression reconciliation
 
 - Prior 095aab41 READY; dedicated compact recovery, app build and native PG passed. Full lint first failure is stale two-path product-detail true-404 source assertion: current page also checks exact ordinary shopping release before notFound and Header. Updated regression to require all three admission paths, active exact product, approved review, full shopping release revalidation, and denial before rendering. Added to independent CI. Production admission code unchanged; actual HTTP status and new CI still require verification.

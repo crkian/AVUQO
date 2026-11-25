@@ -2554,19 +2554,20 @@
         "Migration 20261125135527 installs dormant exact normalized row reconstruction, 250-row bounded batch append and final legacy parity seal. Pre/post helper rehearsal passed. All four tables empty and API execute grants zero. Full writer transaction, actual source archive bytes, concurrency and rights revocation still unverified; no retention.",
         "Full 19,735-row rollback-only legacy writer transaction rehearsal passed; all shadow rows zero afterwards, physical DB allocation grew. Daily read-only archive audit candidate scheduled 14:23 UTC with cron authentication and rights gates; actual byte replay result outstanding.",
         "Canonical writer transport candidate produces exact replay hashes, 250-row/4 MiB batches with no network or writes. Actual scheduled archive parity remains outstanding; no retention.",
-        "Permanent aggregate archive audit register installed 20261125144100, post-install rollback checks passed; first live audit failed legacy_page_incomplete at 1500, new indexed SKU cursor and daily journal integration committed candidate. Actual parity outstanding."
+        "Permanent aggregate archive audit register installed 20261125144100, post-install rollback checks passed; first live audit failed legacy_page_incomplete at 1500, new indexed SKU cursor and daily journal integration committed candidate. Actual parity outstanding.",
+        "Original archived Pneus source audited 2026-11-25 14:54 UTC: SHA-256 verified, 19,715/19,715 exact normalized matches, no mismatches or missing or duplicate rows. 19,715 unique content and 12,381 observation payloads. Permanent audit evidence confirmed. Restricted persistent pilot not yet installed; no retention."
       ],
       "no_database_changes": true,
       "retention": "No deletion, retention change, vacuum, index removal or archive migration authorised or performed in this audit."
     },
     "infrastructure_cost_intelligence": {
-      "observed_at": "2026-11-25T14:47:43.473018Z",
+      "observed_at": "2026-11-25T14:55:15.863937Z",
       "status": "recorded_audit_monitoring_planned",
       "supabase_plan": "Pro",
-      "database_mib": 2004,
+      "database_mib": 2012.1,
       "object_mib": 356.4,
       "product_records": 85033,
-      "active_offer_records": 14625,
+      "active_offer_records": 14685,
       "configured_cron_entries": 24,
       "not_public_counts": true,
       "thresholds_percent": [
@@ -3108,6 +3109,30 @@
       "frequency": "hourly_or_more",
       "execution_confirmed_on_2026_11_16": false,
       "confirmation_note": "Scheduled in vercel.json; execution must be checked separately in live telemetry."
+    },
+    {
+      "utc": "UTC cron */3 * * * *",
+      "path": "/api/internal/awin-shopping-auto-review",
+      "schedule": "*/3 * * * *",
+      "frequency": "hourly_or_more",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Scheduled in vercel.json; execution requires separate runtime evidence."
+    },
+    {
+      "utc": "UTC cron * * * * *",
+      "path": "/api/internal/awin-catalogue-conversion",
+      "schedule": "* * * * *",
+      "frequency": "hourly_or_more",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Scheduled in vercel.json; execution requires separate runtime evidence."
+    },
+    {
+      "utc": "UTC cron 53 14 * * *",
+      "path": "/api/internal/awin-pneus-archive-audit",
+      "schedule": "53 14 * * *",
+      "frequency": "daily",
+      "execution_confirmed_on_2026_11_16": false,
+      "confirmation_note": "Live execution verified 2026-11-25 14:54 UTC; not a 16 November claim."
     }
   ],
   "merged_releases": [
@@ -8018,5 +8043,36 @@
     "change": "test actual three-path gate, exact active product and approved review, revalidation, single reader call; independent CI includes product tests; no production admission policy change",
     "archive_audit": "not yet due at 14:47:43 UTC; zero journal rows; no full parity",
     "remaining": "CI and live HTTP status verification; actual archive audit; no storage cutover or retention"
+  },
+  "pneus_original_archive_verified_20261125": {
+    "status": "verified_original_archive_exact_normalized_parity",
+    "audit_day": "2026-11-25",
+    "started_at": "2026-11-25T14:53:11.472670Z",
+    "finished_at": "2026-11-25T14:54:15.581Z",
+    "observed_at": "2026-11-25T12:46:35.522082Z",
+    "archive_digest_verified": true,
+    "archive_rows": 19715,
+    "matched": 19715,
+    "mismatched": 0,
+    "legacy_only": 0,
+    "duplicate_legacy": 0,
+    "archive_only": 0,
+    "excluded": 19715,
+    "compressed_bytes": 7645856,
+    "unique_content_payloads": 19715,
+    "unique_observation_payloads": 12381,
+    "journal_job_id": "89e85ae0-beae-42c7-a56a-27ff9d356a72",
+    "retention_authorized": false,
+    "compact_snapshots": 0,
+    "next": "Restricted persistent shadow pilot with exact canonical transport, rights and concurrency checks; original archive and legacy rows remain intact."
+  },
+  "schedule_reconciliation_20261125": {
+    "source": "vercel.json",
+    "entries": 25,
+    "unique_routes": 24,
+    "checked_for_duplicate_paths": [
+      "/api/internal/awin-portfolio-private-rotation"
+    ],
+    "status": "reconciled_not_general_execution_proof"
   }
 }

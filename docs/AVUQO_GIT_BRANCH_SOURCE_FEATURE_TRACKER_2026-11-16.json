@@ -5628,13 +5628,13 @@
     "remaining": "Owner authenticated latest and previous archive replay; full CI; durable compact storage, measured cost and retention rehearsal."
   },
   "infrastructure_cost_intelligence_20261125": {
-    "observed_at": "2026-11-25T14:47:43.473018Z",
+    "observed_at": "2026-11-25T14:55:15.863937Z",
     "status": "recorded_audit_monitoring_planned",
     "supabase_plan": "Pro",
-    "database_mib": 2004,
+    "database_mib": 2012.1,
     "object_mib": 356.4,
     "product_records": 85033,
-    "active_offer_records": 14625,
+    "active_offer_records": 14685,
     "configured_cron_entries": 24,
     "not_public_counts": true,
     "thresholds_percent": [
@@ -5784,5 +5784,27 @@
     "change": "test actual three-path gate, exact active product and approved review, revalidation, single reader call; independent CI includes product tests; no production admission policy change",
     "archive_audit": "not yet due at 14:47:43 UTC; zero journal rows; no full parity",
     "remaining": "CI and live HTTP status verification; actual archive audit; no storage cutover or retention"
+  },
+  "pneus_original_archive_verified_20261125": {
+    "status": "verified_original_archive_exact_normalized_parity",
+    "audit_day": "2026-11-25",
+    "started_at": "2026-11-25T14:53:11.472670Z",
+    "finished_at": "2026-11-25T14:54:15.581Z",
+    "observed_at": "2026-11-25T12:46:35.522082Z",
+    "archive_digest_verified": true,
+    "archive_rows": 19715,
+    "matched": 19715,
+    "mismatched": 0,
+    "legacy_only": 0,
+    "duplicate_legacy": 0,
+    "archive_only": 0,
+    "excluded": 19715,
+    "compressed_bytes": 7645856,
+    "unique_content_payloads": 19715,
+    "unique_observation_payloads": 12381,
+    "journal_job_id": "89e85ae0-beae-42c7-a56a-27ff9d356a72",
+    "retention_authorized": false,
+    "compact_snapshots": 0,
+    "next": "Restricted persistent shadow pilot with exact canonical transport, rights and concurrency checks; original archive and legacy rows remain intact."
   }
 }
