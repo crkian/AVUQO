@@ -12,3 +12,9 @@ test("exact private candidate identity is checksum, uniqueness and brand gated",
  assert.equal(tyreIdentity(row("Example","4006381333931",{gtin:"1234567890128"})),null);
  assert.equal(comparePrivateTyreIdentities([row()],[row("Example","4006381333931",{tyre_size_conflict:true,tyre_size_candidate:{width_mm:205,aspect_ratio:55,rim_inches:16}})]).sizeCandidates,0);
 });
+
+test("conflicting identifier rows cannot make another row appear unique",()=>{
+ const bad=row("Example","4006381333931",{gtin:"1234567890128"});
+ assert.equal(comparePrivateTyreIdentities([row(),bad],[row()]).ambiguous,1);
+ assert.equal(comparePrivateTyreIdentities([bad],[row()]).uniqueMatches,0);
+});
