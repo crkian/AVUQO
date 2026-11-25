@@ -2501,25 +2501,25 @@
       ]
     },
     "database_storage_efficiency": {
-      "date_utc": "2026-11-25",
+      "date_utc": "2026-11-25 12:00:55 UTC",
       "status": "audit_only",
-      "database_mib_rounded": 1795,
+      "database_mib_rounded": 1804,
       "tables": [
         {
           "name": "feed_import_records",
-          "total": 1374.1,
-          "heap": 739.8,
+          "total": 1381,
+          "heap": 739.9,
           "indexes": 83.1,
-          "auxiliary": 551.2,
-          "estimated_dead_rows": 108916
+          "auxiliary": 558,
+          "estimated_dead_rows": 111886
         },
         {
           "name": "source_ingestion_items",
-          "total": 167.5,
-          "heap": 65.3,
-          "indexes": 13.4,
-          "auxiliary": 88.8,
-          "estimated_dead_rows": 5573
+          "total": 168.7,
+          "heap": 65.7,
+          "indexes": 13.5,
+          "auxiliary": 89.4,
+          "estimated_dead_rows": 5793
         },
         {
           "name": "products",
@@ -2527,10 +2527,10 @@
           "heap": 68.4,
           "indexes": 25.3,
           "auxiliary": 0.1,
-          "estimated_dead_rows": 2120
+          "estimated_dead_rows": 2130
         }
       ],
-      "observed": "Read-only PostgreSQL catalog statistics. Estimated tuple counts and cumulative index scans are not exact deletion counts or guaranteed reclaimable disk space.",
+      "observed": "Read-only PostgreSQL catalog statistics. Pneus Online: 22 completed jobs, 435,189 excluded private records, latest snapshot 19,735 rows; prior snapshot 19,711 rows, overlap 19,648 SKUs. All 22 jobs have matching private object metadata; object bytes and restoration remain unverified. Private bucket 30 objects, 356.4 MiB recorded metadata size. Estimated tuples are not exact deletion counts or guaranteed recoverable space.",
       "index_notes": [
         "feed_import_records_run_product_lookup: 31 MB, 518911 cumulative scans",
         "feed_import_records_merchant_sku_review_idx: approximately 6.1 MB, 3910733 cumulative scans",
@@ -2543,7 +2543,9 @@
         "Store each changed payload once; avoid repeating full raw and normalized payloads on unchanged checks. Retain compact observation/price/availability history and auditable conversion and review receipts.",
         "Classify historical rows for archival only after proving no active offer, renewal, tyre, product detail, Watch, rights, audit or import-resume dependency; rehearse restore and reconciliation.",
         "Audit autovacuum and TOAST churn; benchmark incremental maintenance and indexes in a safe environment. Avoid production VACUUM FULL or index drops without an approved maintenance plan.",
-        "Measure logical and physical database size, storage bucket cost, eligible catalogue count, query latency and archive recovery before and after each staged change."
+        "Measure logical and physical database size, storage bucket cost, eligible catalogue count, query latency and archive recovery before and after each staged change.",
+        "Pilot Pneus Online in shadow mode: exact advertiser/feed/SKU identity, content-addressed immutable snapshots, current membership and compact changed price/stock observations; no invented currency or tyre fitment. Latest two snapshots overlap 19,648 SKUs but only 2,180 agree on price/currency/title; preserve meaningful changes, do not collapse history.",
+        "Require byte-level snapshot digest verification, complete replay and exact SKU reconciliation, negative publication/rights tests, eBay erasure dependency checks, worker concurrency and rollback rehearsal before moving any production reader or applying retention. Read docs/AVUQO_PNEUS_COMPACT_STORAGE_PILOT_2026-11-25.md."
       ],
       "no_database_changes": true,
       "retention": "No deletion, retention change, vacuum, index removal or archive migration authorised or performed in this audit."
@@ -7741,5 +7743,91 @@
     ],
     "no_database_changes": true,
     "retention": "No deletion, retention change, vacuum, index removal or archive migration authorised or performed in this audit."
+  },
+  "database_storage_pilot_preflight_20261125": {
+    "observed_at_utc": "2026-11-25T12:00:55.543098Z",
+    "status": "read_only_preflight_and_design",
+    "production_commit": "2b7f55d708ab91df50692d6c8a056bf3edb19485",
+    "deployment": "dpl_4eveSm94wukviBwsLWYshXrpdX5g",
+    "db_mib": 1804.3,
+    "pneus": {
+      "advertiser_id": "15236",
+      "feed_id": "26513",
+      "completed_jobs": 22,
+      "committed_rows": 435189,
+      "excluded_rows": 435189,
+      "object_metadata_present_for_all_jobs": true,
+      "object_bytes_digest_reverified": false,
+      "latest_rows": 19735,
+      "previous_rows": 19711,
+      "overlap": 19648,
+      "added": 87,
+      "absent": 63,
+      "unchanged_price_currency_title": 2180
+    },
+    "bucket": {
+      "name": "awin-bulk-private-snapshots",
+      "public": false,
+      "objects": 30,
+      "metadata_mib": 356.4
+    },
+    "dependencies": {
+      "direct_function_text_matches": 25,
+      "view": "awin_private_product_readiness",
+      "cascade": "ebay_account_item_links.ingestion_item_id -> source_ingestion_items.id ON DELETE CASCADE"
+    },
+    "no_database_changes": true,
+    "design": "Shadow current-SKU index, immutable complete snapshot and compact source observations; separate content hashes, commercial observations and membership; preserve existing gates and source-specific rights; validate full payload parity and restore before any cutover or archive.",
+    "runbook": "docs/AVUQO_PNEUS_COMPACT_STORAGE_PILOT_2026-11-25.md",
+    "previous_register_snapshot": {
+      "date_utc": "2026-11-25",
+      "status": "audit_only",
+      "database_mib_rounded": 1795,
+      "tables": [
+        {
+          "name": "feed_import_records",
+          "total": 1374.1,
+          "heap": 739.8,
+          "indexes": 83.1,
+          "auxiliary": 551.2,
+          "estimated_dead_rows": 108916
+        },
+        {
+          "name": "source_ingestion_items",
+          "total": 167.5,
+          "heap": 65.3,
+          "indexes": 13.4,
+          "auxiliary": 88.8,
+          "estimated_dead_rows": 5573
+        },
+        {
+          "name": "products",
+          "total": 93.7,
+          "heap": 68.4,
+          "indexes": 25.3,
+          "auxiliary": 0.1,
+          "estimated_dead_rows": 2120
+        }
+      ],
+      "observed": "Read-only PostgreSQL catalog statistics. Estimated tuple counts and cumulative index scans are not exact deletion counts or guaranteed reclaimable disk space.",
+      "index_notes": [
+        "feed_import_records_run_product_lookup: 31 MB, 518911 cumulative scans",
+        "feed_import_records_merchant_sku_review_idx: approximately 6.1 MB, 3910733 cumulative scans",
+        "feed_import_records_fresh_conversion_idx: approximately 3.3 MB, 54598 cumulative scans",
+        "Do not remove indexes based solely on low scan counts or one snapshot."
+      ],
+      "requirements": [
+        "Inventory all database and application dependencies before designing retention; current price, exact source SKU, current approval, digest, image and description rights must remain available.",
+        "Separate immutable raw snapshots in private object storage from compact current SKU/evidence index. Preserve source digest, authenticated observation time, provenance and exact source identity. Reuse existing snapshot storage and validators.",
+        "Store each changed payload once; avoid repeating full raw and normalized payloads on unchanged checks. Retain compact observation/price/availability history and auditable conversion and review receipts.",
+        "Classify historical rows for archival only after proving no active offer, renewal, tyre, product detail, Watch, rights, audit or import-resume dependency; rehearse restore and reconciliation.",
+        "Audit autovacuum and TOAST churn; benchmark incremental maintenance and indexes in a safe environment. Avoid production VACUUM FULL or index drops without an approved maintenance plan.",
+        "Measure logical and physical database size, storage bucket cost, eligible catalogue count, query latency and archive recovery before and after each staged change.",
+        "Pilot Pneus Online in shadow mode: exact advertiser/feed/SKU identity, content-addressed immutable snapshots, current membership and compact changed price/stock observations; no invented currency or tyre fitment. Latest two snapshots overlap 19,648 SKUs but only 2,180 agree on price/currency/title; preserve meaningful changes, do not collapse history.",
+        "Require byte-level snapshot digest verification, complete replay and exact SKU reconciliation, negative publication/rights tests, eBay erasure dependency checks, worker concurrency and rollback rehearsal before moving any production reader or applying retention. Read docs/AVUQO_PNEUS_COMPACT_STORAGE_PILOT_2026-11-25.md."
+      ],
+      "no_database_changes": true,
+      "retention": "No deletion, retention change, vacuum, index removal or archive migration authorised or performed in this audit."
+    }
   }
 }

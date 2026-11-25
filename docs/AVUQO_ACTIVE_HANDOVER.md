@@ -1,3 +1,9 @@
+## 25 November 2026 | Compact storage pilot preflight (12:00 GMT)
+
+- Production alias and Git main matched 2b7f55d708ab91df50692d6c8a056bf3edb19485; Vercel READY (dpl_4eveSm94wukviBwsLWYshXrpdX5g); Supabase active healthy. Read-only database 1,804.3 MiB, feed_import_records 1,381.0 MiB, source_ingestion_items 168.7 MiB. No database changes.
+- Pneus Online exact feed 15236:26513: 22 completed jobs, 435,189 committed private exclusions; latest 19,735 and previous 19,711 rows, 19,648 overlapping SKUs, 87 added, 63 absent; 2,180 overlapping rows agree on price/currency/title (not proof of entire payload equality). All 22 have matching private storage object metadata, not independently verified bytes or restore. Bucket 30 objects / 356.4 MiB recorded size. Existing missing-currency quarantine stays intact.
+- 25 direct SQL routine text matches, readiness view and eBay cascading FK identified; dependency inventory not exhaustive. Pilot shadow current SKU/membership + immutable snapshot + compact observation design recorded in [runbook](AVUQO_PNEUS_COMPACT_STORAGE_PILOT_2026-11-25.md). Restore, parity, rights, concurrency and negative publication gates precede cutover; no archive/deletion, vacuum, new branches or application-worker changes. Full supplier ranges, tyre fitment and promotions remain mandatory.
+
 ## 25 November 2026 | Storage efficiency and rich content runtime
 
 - Rich supplier content commit 8fdf4e9ee156aac5f0b4eadaecfe7c6c2a251232 READY (dpl_6Fm1P6f1mzt8CVRtJZcCmGMy5Dyb). Sweet Shop Playset and Savannah Animals Playset HTTP 200 show exact supplier description and PLAY10. Tooled Up new capture and wider supplier content still require runtime verification; CI was running at last check.
