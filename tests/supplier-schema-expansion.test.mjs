@@ -1,0 +1,10 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {profileAwinHeader} from "../lib/awin/feed-schema-profile.mjs";
+import {normalizePilotAwinFeed} from "../lib/awin/pilot-feed-normalizer.ts";
+const header=["data_feed_id","merchant_id","merchant_product_id","product_name","search_price","aw_deep_link","stock_status"];
+const row=["119210","77952","sku1","Feeder","19.99","https://example.invalid","in_stock"];
+test("large feed profiling reads bounded prefix",()=>{const p=profileAwinHeader(header.join(";")+"\n"+"x".repeat(300000));assert.equal(p.delimiter,"semicolon");assert.equal(p.status,"candidate_adapter");});
+test("Petlibro optional column variation retains inferred currency provenance",()=>{const r=normalizePilotAwinFeed("77952","119210",header,[row]);assert.equal(r.currencySource,"petlibro_uk_programme_gbp");assert.equal(r.rows[0].at(-1),"GBP");});
+test("Petlibro rejects incorrect source identity",()=>{assert.throws(()=>normalizePilotAwinFeed("77952","119210",header,[["wrong",...row.slice(1)]]),/identity_mismatch/);});
+test("explicit currency is preserved",()=>{const r=normalizePilotAwinFeed("77952","119210",[...header,"currency"],[[...row,"EUR"]]);assert.equal(r.currencySource,"feed_column");assert.equal(r.rows[0].at(-1),"EUR");});

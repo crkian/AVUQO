@@ -266,10 +266,11 @@ export async function POST(request:NextRequest){
  let rawColumnCount=0;
  let currencySource:PilotCurrencySource="feed_column";
  let parseStage:"header"|"rows"|"normalize"|"validate"="header";
- let detectedDelimiter:"comma"|"tab"="comma";
+ let detectedDelimiter:"comma"|"tab"|"semicolon"|"pipe"="comma";
  try{
-  const delimiter=csv.slice(0,1000).split("\n",1)[0].includes("\t")?"\t":",";
-  detectedDelimiter=delimiter==="\t"?"tab":"comma";
+  const profile=profileAwinHeader(csv);
+  const delimiter=profile.delimiter==="tab"?"\t":profile.delimiter==="semicolon"?";":profile.delimiter==="pipe"?"|":",";
+  detectedDelimiter=delimiter==="\t"?"tab":delimiter===";"?"semicolon":delimiter==="|"?"pipe":"comma";
   // Only the approved Mozillion SIM-free feed may be parsed with up to 256
   // raw columns. All rows are projected to <=120 validated fields before staging.
   const rawColumnBound=(advertiser==="31539"&&feed==="74135")||
