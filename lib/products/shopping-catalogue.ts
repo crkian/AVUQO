@@ -28,26 +28,11 @@ export async function ordinaryShoppingPage(input:RetailQuery):Promise<{enabled:b
  try{
   const offset=(page-1)*SHOP_PAGE_SIZE;
   const db=createAdminClient();
-  let query=db.from("offers").select("id,awin_shopping_release_reviews!inner(status)")
-   .eq("status","active").eq("awin_shopping_release_reviews.status","approved");
-  if(partner){
-   const {data:matches,error}=await db.from("merchants").select("id").eq("metadata->>external_id",partner.advertiserId!).eq("status","active");
-   if(error)return empty;
-   if(!matches?.length)return {...empty,enabled:true};
-   query=query.in("merchant_id",matches.map(m=>m.id));
-  }
-  if(q){
-   const pattern="%"+q.split(" ").join("%")+"%";
-   const {data:matches,error}=await db.from("merchants").select("id").eq("status","active").ilike("name",pattern).limit(60);
-   if(error)return empty;
-   const ids=(matches??[]).map(m=>m.id).filter(id=>/^[0-9a-f-]{36}$/i.test(id));
-   // User text has passed cleanShopSearch (no PostgREST delimiters or wildcards).
-   query=ids.length?query.or("title.ilike."+pattern+",merchant_id.in.("+ids.join(",")+")"):query.ilike("title",pattern);
-  }
-  query=sort==="recent"?query.order("last_seen_at",{ascending:false}):query.order("price",{ascending:sort==="price-low"});
-  const {data,error}=await query.order("id",{ascending:true}).range(offset,offset+SHOP_PAGE_SIZE);
-  if(error||!data)return empty;
-  const ids=data.slice(0,SHOP_PAGE_SIZE).map(r=>r.id);
+  const {data,error}=await db.rpc("shopping_catalogue_page_ids",{
+   p_query:q,p_advertiser:partner?.advertiserId??"",p_sort:sort,p_offset:offset,p_limit:SHOP_PAGE_SIZE+1
+  });
+  if(error||!Array.isArray(data))return empty;
+  const ids=(data as {offer_id:string}[]).slice(0,SHOP_PAGE_SIZE).map(r=>r.offer_id);
   const admitted=await readShoppingReleases(ids);
   const byId=new Map(admitted.map(x=>[x.offerId,x]));
   return {...empty,enabled:true,offers:ids.flatMap(id=>{const item=byId.get(id);return item?[item]:[];}),hasNext:data.length>SHOP_PAGE_SIZE&&page<SHOP_MAX_PAGE};

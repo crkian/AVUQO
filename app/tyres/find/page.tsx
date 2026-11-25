@@ -41,6 +41,7 @@ async function Results({query}:{query:Query}){
   {invalid||!ready.length?<div className={styles.empty}><ShieldCheck size={32}/><h3>Precision before a price.</h3>
    <p>We will not use unverified load or speed ratings, historical feed rows or estimated fitting totals to create a tyre offer. The showroom is ready to accept approved products when every check passes.</p>
    <Link href="/tyres/sizes">Understand my tyre size <ArrowRight size={17}/></Link>
+   <Link href={"/tyres/shop"+(size?"?"+new URLSearchParams({width:String(size.width),profile:String(size.profile),rim:String(size.rim)}).toString():"")}>Check current retailer listings <ArrowRight size={17}/></Link>
   </div>:
   <div className={styles.resultGrid}>{ready.map(({product,spec,offers})=>{
    const priced=comparableTyreOffers(offers);
@@ -67,7 +68,8 @@ export default async function Page({searchParams}:{searchParams:Promise<Query>})
     <h1>Find the tyre.<br/><em>Know the specification.</em></h1>
     <p>A premium tyre showroom built for real model variants. Select the required dimensions to see only products with separately approved load and speed evidence.</p>
     <div className={styles.heroLinks}><Link href="/tyres">Tyre showroom <ArrowRight size={16}/></Link>
-     <Link href="/tyres/brands">All tyre brands <ArrowRight size={16}/></Link></div>
+     <Link href="/tyres/brands">All tyre brands <ArrowRight size={16}/></Link>
+     <Link href="/tyres/shop">Browse current supplier tyre sizes <ArrowRight size={16}/></Link></div>
    </div><div className={styles.wheel}><TyreWheelVisual small/></div>
   </div></section>
   <section className={"shell "+styles.finder}>

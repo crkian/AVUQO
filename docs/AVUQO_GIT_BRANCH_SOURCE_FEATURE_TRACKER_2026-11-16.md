@@ -1,3 +1,8 @@
+## 25 November 2026 | Current catalogue pagination and supplier tyre size inventory
+
+- Production database migration 20261125113606_shopping_current_page_candidates_and_tyres_size_facets installed after reversible rehearsal. Live probes: 37 PlayPress page candidates, 37 ordinary first-page candidates, 225 Tyres UK size combinations and 582 listings with exact size evidence. Anonymous candidate RPC execute denied. Counts are a dated source snapshot, not fitment or public page claims.
+- Candidate UI uses server-side current review/price/digest/stock prefilter, then unchanged final admission reader. Search supports product, retailer, brand, model and exact SKU. Tyres UK dropdown options derived from current admitted size facets with wider bounded fallback; exact-size finder links into supplier shopping. New deployment unverified. Both tyre suppliers, specialist variants, all 21 integrations and automated promotion recognition remain outstanding.
+
 ## 25 November 2026 | All-supplier full-range and promotion acceptance contract
 
 - Owner confirms scope is everything each supplier offers, not deals alone: complete eligible products, variants, services, subscriptions and contracts, plus independent promotional intelligence. Per-supplier scope and next integration requirements recorded for all 21 in JSON and owner register. No supplier deemed complete simply because a studio or feed exists. Recognise promotions from feeds, APIs and authenticated communications with exact scope, terms, dedupe, expiry, renewal and monitoring; automatic mailbox ingestion still outstanding.

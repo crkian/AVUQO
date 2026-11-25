@@ -1513,8 +1513,8 @@
     "current_checkpoint": {
       "date_utc": "2026-11-25",
       "production": {
-        "sha": "d7f8b96af774c33e01a5957397bcea56f9b65027",
-        "deployment": "dpl_3Ut4yGpVaeBz8FR49vhU3BvWViGU",
+        "sha": "a8b1577bc0ecf2a07fcd96b084b6e64e692aa7e1",
+        "deployment": "dpl_HJ6wK6pDyLsjgtxDJHr78X5EyzZJ",
         "state": "READY",
         "domain": "https://www.avuqo.com",
         "owner_register": "Updated inventory snapshot committed; authenticated runtime acceptance pending"
@@ -1580,17 +1580,16 @@
           "Retailer-name and exact retailer-filter ordinary shopping search, studio-to-shelf navigation",
           "Existing dated PLAY10 campaign displayed on independently admitted PlayPress item detail, no price mutation",
           "Fix PlayPress private-only provenance TypeScript declaration; fair bounded renewal and first admission installed and live tested",
-          "All 21 supplier full-range plus promotion acceptance matrix; previous PlayPress release runtime verified"
+          "All 21 supplier full-range plus promotion acceptance matrix; previous PlayPress release runtime verified",
+          "Current evidence candidate pagination before page selection; retain final release reader",
+          "Search title, retailer, brand, model and exact SKU",
+          "Inventory-driven Tyres UK width/profile/rim options with exact-size finder links"
         ],
         "remaining": [
-          "Second PlayPress feed last attempted 11:20 before corrected deployment; new adapter runtime pending",
-          "Automatic mailbox/API promotion ingestion not installed",
-          "All 21 suppliers remain incomplete as full-range integrations; no completeness claim",
-          "Full current eligible range reconciled against source, including non-discounted products, variants and service types; missing/unavailable coverage explicit.",
-          "Specialist quote/contract/fitment adapters preserve exact conditions, total cost and evidence; no forced generic product model.",
-          "Detect product changes, new promotions, codes and expiry using feeds, affiliate API and authenticated supplier communications; deduplicate and record conditions and provenance.",
-          "Public browse/search/filter, retailer studio, category, detail, comparison and relevant Watch pathways tested; maintain rights and current evidence.",
-          "Operational monitoring per supplier: pending imports, failures, last successful fetch, review freshness, coverage gaps and recovery. No supplier is complete solely because its studio exists."
+          "Verify application build and public page runtime",
+          "Final reader may still reject candidates; no claim of perfect pagination",
+          "Tyres UK size counts are listing evidence only, not fitment approval; Pneus cross-match and complete inventory pending",
+          "All-supplier promotion ingestion, descriptions/specifications and specialist integrations pending"
         ]
       },
       "ordered_build_queue": [
@@ -7571,6 +7570,34 @@
       "Second PlayPress feed last attempted 11:20 before corrected deployment; new adapter runtime pending",
       "Automatic mailbox/API promotion ingestion not installed",
       "All 21 suppliers remain incomplete as full-range integrations; no completeness claim"
+    ]
+  },
+  "catalogue_and_tyre_size_20261125": {
+    "date_utc": "2026-11-25",
+    "status": "partial",
+    "migration": "20261125113606_shopping_current_page_candidates_and_tyres_size_facets",
+    "verified": {
+      "playpress_candidates": 37,
+      "first_page_candidates": 37,
+      "tyre_size_combinations": 225,
+      "tyre_listings_with_size": 582,
+      "anon_execute": false
+    },
+    "production": {
+      "sha": "a8b1577bc0ecf2a07fcd96b084b6e64e692aa7e1",
+      "deployment": "dpl_HJ6wK6pDyLsjgtxDJHr78X5EyzZJ",
+      "state": "READY"
+    },
+    "changes": [
+      "Current evidence candidate pagination before page selection; retain final release reader",
+      "Search title, retailer, brand, model and exact SKU",
+      "Inventory-driven Tyres UK width/profile/rim options with exact-size finder links"
+    ],
+    "remaining": [
+      "Verify application build and public page runtime",
+      "Final reader may still reject candidates; no claim of perfect pagination",
+      "Tyres UK size counts are listing evidence only, not fitment approval; Pneus cross-match and complete inventory pending",
+      "All-supplier promotion ingestion, descriptions/specifications and specialist integrations pending"
     ]
   }
 }

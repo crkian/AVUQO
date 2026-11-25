@@ -5486,5 +5486,33 @@
       "Automatic mailbox/API promotion ingestion not installed",
       "All 21 suppliers remain incomplete as full-range integrations; no completeness claim"
     ]
+  },
+  "catalogue_and_tyre_size_20261125": {
+    "date_utc": "2026-11-25",
+    "status": "partial",
+    "migration": "20261125113606_shopping_current_page_candidates_and_tyres_size_facets",
+    "verified": {
+      "playpress_candidates": 37,
+      "first_page_candidates": 37,
+      "tyre_size_combinations": 225,
+      "tyre_listings_with_size": 582,
+      "anon_execute": false
+    },
+    "production": {
+      "sha": "a8b1577bc0ecf2a07fcd96b084b6e64e692aa7e1",
+      "deployment": "dpl_HJ6wK6pDyLsjgtxDJHr78X5EyzZJ",
+      "state": "READY"
+    },
+    "changes": [
+      "Current evidence candidate pagination before page selection; retain final release reader",
+      "Search title, retailer, brand, model and exact SKU",
+      "Inventory-driven Tyres UK width/profile/rim options with exact-size finder links"
+    ],
+    "remaining": [
+      "Verify application build and public page runtime",
+      "Final reader may still reject candidates; no claim of perfect pagination",
+      "Tyres UK size counts are listing evidence only, not fitment approval; Pneus cross-match and complete inventory pending",
+      "All-supplier promotion ingestion, descriptions/specifications and specialist integrations pending"
+    ]
   }
 }

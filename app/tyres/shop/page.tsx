@@ -16,9 +16,15 @@ type Filters={width?:string;profile?:string;rim?:string;page?:string};
 type Tyre={sku:string;title:string;brand:string|null;price:number|string;
  image_url:string;affiliate_url:string;images:unknown;width:number|null;
  profile:number|null;rim:number|null;supplier_category:string|null;observed_at:string};
-const sizes={width:[155,165,175,185,195,205,215,225,235,245,255,265,275,285,295,305],
- profile:[30,35,40,45,50,55,60,65,70,75,80],
- rim:[13,14,15,16,17,18,19,20,21,22]};
+type SizeFacet={width:number;profile:number;rim:number;listing_count:number|string};
+const range=(start:number,end:number)=>Array.from({length:end-start+1},(_,i)=>i+start);
+const bounds={width:range(125,385),profile:range(20,95),rim:range(10,26)};
+async function sizeFacets():Promise<SizeFacet[]>{
+ try{
+  const {data,error}=await createAdminClient().rpc("get_verified_tyres_uk_size_facets");
+  return error||!Array.isArray(data)?[]:(data as SizeFacet[]).filter(f=>bounds.width.includes(f.width)&&bounds.profile.includes(f.profile)&&bounds.rim.includes(f.rim)&&Number(f.listing_count)>0);
+ }catch{return [];}
+}
 const money=(n:number)=>new Intl.NumberFormat("en-GB",{currency:"GBP",style:"currency"}).format(n);
 const validImage=(s:unknown):s is string=>typeof s==="string"&&s.length<2049&&
  /^https:\/\/(static[.]tyres[.]net|images2[.]productserve[.]com)\//.test(s);
@@ -34,9 +40,9 @@ const validAffiliate=(s:unknown):s is string=>{
  }catch{return false;}
 };
 function queryParams(q:Filters){
- const w=sizes.width.includes(Number(q.width))?Number(q.width):null;
- const p=sizes.profile.includes(Number(q.profile))?Number(q.profile):null;
- const r=sizes.rim.includes(Number(q.rim))?Number(q.rim):null;
+ const w=bounds.width.includes(Number(q.width))?Number(q.width):null;
+ const p=bounds.profile.includes(Number(q.profile))?Number(q.profile):null;
+ const r=bounds.rim.includes(Number(q.rim))?Number(q.rim):null;
  const sizeSpecified=Boolean(q.width||q.profile||q.rim);
  const valid=!sizeSpecified||Boolean(w&&p&&r);
  const rawPage=Number(q.page??"1");
@@ -56,7 +62,14 @@ async function products(w:number|null,p:number|null,r:number|null,page:number):P
 export default async function TyreShop({searchParams}:{searchParams:Promise<Filters>}){
  await connection();
  const raw=await searchParams,params=queryParams(raw);
- const entries=params.valid?await products(params.w,params.p,params.r,params.page):[];
+ const [entries,facets]=await Promise.all([params.valid?products(params.w,params.p,params.r,params.page):Promise.resolve([]),sizeFacets()]);
+ const sizes={width:[...new Set(facets.map(f=>f.width))],profile:[...new Set(facets.map(f=>f.profile))],rim:[...new Set(facets.map(f=>f.rim))]};
+ const selected={width:params.w,profile:params.p,rim:params.r};
+ for(const key of ["width","profile","rim"] as const){
+  const value=selected[key];
+  if(value&&!sizes[key].includes(value))sizes[key].push(value);
+  sizes[key].sort((a,b)=>a-b);
+ }
  const next=entries.length>48,shown=entries.slice(0,48);
  const href=(n:number)=>{
   const sp=new URLSearchParams();
@@ -71,12 +84,13 @@ export default async function TyreShop({searchParams}:{searchParams:Promise<Filt
    <p className={styles.eyebrow}>SOURCE-VERIFIED SHOPPING · NOT A FITMENT SERVICE</p>
    <h1>Find the exact tyre size.</h1>
    <p className={styles.lead}>Browse supplier tyre SKUs with current authenticated GBP unit prices, genuine source photographs and tracked retailer links. Check the full specification and suitability for your vehicle before buying.</p>
+   <p className={styles.count}>{facets.length?facets.length+" current supplier size combinations":"Current size inventory unavailable; use an exact size link or try again."}</p>
    <form method="get" action="/tyres/shop" className={styles.filters}>
     {(["width","profile","rim"] as const).map(name=>
      <label key={name}>{name==="width"?"Width (mm)":name==="profile"?"Profile (%)":"Rim (inches)"}
       <select name={name} defaultValue={raw[name]??""}>
        <option value="">Choose {name}</option>
-       {sizes[name].map(n=><option value={n} key={n}>{name==="rim"?"R":""}{n}</option>)}
+       {(sizes[name].length?sizes[name]:bounds[name]).map(n=><option value={n} key={n}>{name==="rim"?"R":""}{n}</option>)}
       </select>
      </label>)}
     <button type="submit">Find exact size</button>
