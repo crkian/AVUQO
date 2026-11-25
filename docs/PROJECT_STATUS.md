@@ -1,3 +1,8 @@
+## 25 November 2026 | All-supplier full-range and promotion acceptance contract
+
+- Owner confirms scope is everything each supplier offers, not deals alone: complete eligible products, variants, services, subscriptions and contracts, plus independent promotional intelligence. Per-supplier scope and next integration requirements recorded for all 21 in JSON and owner register. No supplier deemed complete simply because a studio or feed exists. Recognise promotions from feeds, APIs and authenticated communications with exact scope, terms, dedupe, expiry, renewal and monitoring; automatic mailbox ingestion still outstanding.
+- Production d7f8b96af774c33e01a5957397bcea56f9b65027 READY at dpl_3Ut4yGpVaeBz8FR49vhU3BvWViGU. Public PlayPress name search and merchant filter each returned HTTP 200 with 36 offer links; Room on the Broom detail HTTP 200 includes PLAY10. Second feed last rejection was before corrected deploy; actual private adapter runtime pending. Current approval evidence counts are dated database snapshot, not proof of all public offers. Preserve specialist tyre, contract and quote flows and all existing rich product/department features. No new branches.
+
 ## 25 November 2026 | Fair renewal and first admission recovery
 
 - Previous production 52b72e1 READY; PlayPress adapter candidate 2a340f5 failed TS2322 in local currencySource declaration. Use shared PilotCurrencySource to include private-only PlayPress provenance. No release gate changed. Corrected candidate requires CI and runtime verification.
