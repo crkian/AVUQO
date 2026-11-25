@@ -1637,3 +1637,8 @@ Shopping experience candidate: exact source description preview and full-descrip
 ## 25 November 2026 | Supplier pipeline recovery visibility
 
 Supplier pipeline recovery candidate: production two-hour conversion journal recorded 950 accepted held candidates (940 Tooled Up, 10 PlayPress) and 26 no-current-row attempts. 24-hour rotation recorded repeated Petlibro 109051/109652/119210 preflight failures (7/7/6), PlayPress 96428 later HTTP 200 but zero verified rows. Preserve categorical preflight reasons and distinguish successful private staging without live verification. Supplier Readiness now shows bounded recent journal evidence; no raw provider content stored. New regression cases authored; CI and runtime pending. No new supplier activated, no permissions changed, no extra crons, no catalogue writes. Next resolve specific adapter evidence failures, compact pilot, full-range supplier and premium shopping work.
+
+
+## 25 November 2026 | Shopping release recovery
+
+Release recovery: d38cd4f4 quality build failed on missing closing JSX expression in ordinary retail model field; fixed without changing admission. Historical continuity test incorrectly required 21 November SEO entry to remain first forever; now checks preservation anywhere, retaining all other history checks. Dedicated rich journey/filter, compact recovery and native PostgreSQL tests had passed on d38cd4f4. New CI/deployment pending. Supplier recovery diagnostics from ebf95c7b retained; actual Petlibro failure cause not yet established. No supplier or catalogue writes, no new cron, no rights changes.
