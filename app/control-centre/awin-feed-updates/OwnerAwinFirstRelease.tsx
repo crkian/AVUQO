@@ -18,6 +18,18 @@ export default function OwnerAwinFirstRelease(){
  const [confirmId,setConfirmId]=useState("");
  const [tyreEvidence,setTyreEvidence]=useState<{inspected:number;explicitSizeObservations:number;ambiguousSizeObservations:number;distinctSizeObservations:number;checksumValidGtin:number;completedAt:string}|null>(null);
  const [tyreBusy,setTyreBusy]=useState(false);
+ const [crossEvidence,setCrossEvidence]=useState<{uniqueMatches:number;brandMatches:number;brandConflicts:number;missingBrand:number;ambiguous:number;sizeCandidates:number;verifiedEquivalentOffers:number;pneusInspected:number;tyresInspected:number;pneusCompletedAt:string;tyresImportedAt:string}|null>(null);
+ const [crossBusy,setCrossBusy]=useState(false);
+ const [crossError,setCrossError]=useState("");
+ async function scanCrossTyres(){
+  setCrossBusy(true);setCrossError("");setCrossEvidence(null);
+  try{
+   const r=await fetch("/api/control-centre/awin-tyre-cross-retailer-evidence",{cache:"no-store",credentials:"same-origin"});
+   if(!r.ok)throw Error("scan unavailable");
+   setCrossEvidence(await r.json());
+  }catch{setCrossError("Complete cross-retailer scan unavailable; no matches confirmed.");}
+  finally{setCrossBusy(false);}
+ }
  const [tyreError,setTyreError]=useState("");
  async function scanTyres(){
   setTyreBusy(true);setTyreError("");setTyreEvidence(null);
@@ -135,6 +147,12 @@ export default function OwnerAwinFirstRelease(){
     </div>
    </details>
   </details>}
+  <details><summary>Private cross-retailer tyre identity evidence</summary>
+   <p>Compare the latest completed Pneus import with the latest private Tyres UK review import. Matching GTINs and manufacturer names are candidates only; dimensions, fitment, current GBP and equivalent offers are not approved by this scan.</p>
+   <button disabled={crossBusy} onClick={()=>void scanCrossTyres()}>{crossBusy?"Scanning…":"Compare private tyre inventories"}</button>
+   {crossError&&<p role="alert">{crossError}</p>}
+   {crossEvidence&&<div role="status"><p>{crossEvidence.pneusInspected.toLocaleString("en-GB")} Pneus and {crossEvidence.tyresInspected.toLocaleString("en-GB")} Tyres UK rows inspected.</p><p>{crossEvidence.uniqueMatches.toLocaleString("en-GB")} unique checksum-valid matches; {crossEvidence.brandMatches.toLocaleString("en-GB")} manufacturer agreements; {crossEvidence.brandConflicts} conflicts; {crossEvidence.missingBrand} missing brands; {crossEvidence.ambiguous} ambiguous identifiers; {crossEvidence.sizeCandidates.toLocaleString("en-GB")} unverified size candidates; {crossEvidence.verifiedEquivalentOffers} verified equivalent offers.</p><p>Pneus completed {new Date(crossEvidence.pneusCompletedAt).toLocaleString("en-GB",{timeZone:"Europe/London"})}; Tyres UK imported {new Date(crossEvidence.tyresImportedAt).toLocaleString("en-GB",{timeZone:"Europe/London"})}.</p></div>}
+  </details>
   <details><summary>Private Pneus technical evidence</summary>
    <p>Scan the latest completed exact feed for explicit title dimensions and checksum-valid GTINs. These observations do not verify vehicle fitment, identity across retailers, GBP or fitted prices.</p>
    <button disabled={tyreBusy} onClick={()=>void scanTyres()}>{tyreBusy?"Scanning…":"Scan completed tyre inventory"}</button>

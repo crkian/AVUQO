@@ -5881,5 +5881,9 @@
     "summary": "PR351 production READY at 4aa6b5ca. Pneus latest complete private import 19,723 rows, all missing explicit currency; two-hour conversion journal 1,571 accepted held candidates and eight successful Tyres UK rechecks. PR352 corrects numeric advertiser guard in owner release GET; atomic POST and public eligibility unchanged. Initial build, preview, secret, native PostgreSQL, compact and deployment safety checks passed; register check failed because five required files were missing from diff. Synchronised registers; new CI pending. No database writes or configuration changes. PR353 merged to main f2943516 after full quality, secret and preview success; production building at inspection. PR352 reconciled with current main; combined checks pending.",
     "status": "candidate_pending_ci",
     "pr": 352
+  },
+  "tyre_cross_retailer_evidence_20261125": {
+    "summary": "PR352 and PR353 production READY (076118d4 and f2943516). Read-only exact import audit: Pneus 19,723 rows, 19,598 checksum-valid GTINs, no explicit title sizes; 11,433 unique exact identifier overlaps with Tyres UK, 11,289 manufacturer agreements, zero verified size agreements. New owner-only aggregate comparison checks exact feed/import counts, GTIN checksum and conflicting duplicate identities, manufacturer agreement and bounded unverified size candidates; historical Tyres UK import date visible. No public offer, currency, fitment, archive or DB mutations. CI and authenticated full-scan runtime pending.",
+    "status": "candidate_pending_ci"
   }
 }

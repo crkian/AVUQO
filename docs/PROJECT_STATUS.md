@@ -1701,3 +1701,8 @@ PR351 production READY at 4aa6b5ca. Pneus latest complete private import 19,723 
 
 
 Release reconciliation: PR353 passed quality and secret checks and Vercel preview; merged to main f2943516. Production deployment building at inspection. PR352 advertiser correction reconciled with PR353; repeat CI pending. No source or public eligibility change.
+
+
+## 25 November 2026 | Cross-retailer tyre candidate evidence
+
+PR352 and PR353 production READY (076118d4 and f2943516). Read-only exact import audit: Pneus 19,723 rows, 19,598 checksum-valid GTINs, no explicit title sizes; 11,433 unique exact identifier overlaps with Tyres UK, 11,289 manufacturer agreements, zero verified size agreements. New owner-only aggregate comparison checks exact feed/import counts, GTIN checksum and conflicting duplicate identities, manufacturer agreement and bounded unverified size candidates; historical Tyres UK import date visible. No public offer, currency, fitment, archive or DB mutations. CI and authenticated full-scan runtime pending.
