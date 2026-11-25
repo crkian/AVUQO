@@ -72,3 +72,12 @@ test("department catalogue filters before paging and rechecks admitted classific
  assert.ok(migration.indexOf("=p_department")<migration.indexOf("order by case"));
  assert.match(migration,/FROM PUBLIC, anon, authenticated/);
 });
+
+test("Tooled Up immediate canonical conversion stays bound to each exact import",()=>{
+ const s=readFileSync("app/api/internal/awin-tooled-up-live-cohort/route.ts","utf8");
+ assert.match(s,/importGroups.get\(old.import_id\)/);
+ assert.match(s,/for\(const \[importId,merchantProductIds\] of importGroups\)/);
+ assert.match(s,/limit:merchantProductIds.length,merchantProductIds/);
+ assert.match(s,/if\(updated>=20\)break/);
+ assert.doesNotMatch(s,/importId=old.import_id/);
+});

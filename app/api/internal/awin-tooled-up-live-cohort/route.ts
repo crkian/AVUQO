@@ -151,7 +151,7 @@ async function runCohort(request:NextRequest){
  if(previousError)return reply({status:"existing_import_unavailable",no_publication:true},503);
  const bySku=new Map((previous??[] as Row[]).map(row=>[row.merchant_product_id,row]));
  let matched=0,updated=0;
- let importId:string|null=null;
+ const importGroups=new Map<string,string[]>();
  for(const current of candidates){
   const old=bySku.get(current.sku);
   if(!old||old.title!==current.title||Number(old.price)!==current.price||
@@ -175,20 +175,28 @@ async function runCohort(request:NextRequest){
    .eq("price",current.price).eq("currency","GBP").eq("status","review")
    .is("reviewed_at",null).select("id").maybeSingle();
   if(writeError)return reply({status:"cohort_recheck_write_failed",matched,updated,no_publication:true},503);
-  if(changed?.id){updated++;importId=old.import_id;}
+  if(changed?.id){updated++;const group=importGroups.get(old.import_id)??[];group.push(current.sku);importGroups.set(old.import_id,group);}
   if(updated>=20)break;
  }
- if(!updated||!importId)return reply({status:"no_exact_current_matches",scanned:visited,
+ if(!updated||!importGroups.size)return reply({status:"no_exact_current_matches",scanned:visited,
   candidate_rows:candidates.length,matched,no_publication:true});
  // The SQL batch has already attested up to 1,500 exact private SKUs.
  // Only the bounded first 20 are immediately promoted for canonical HELD
  // evaluation; remaining matches stay private and still require release gates.
  // The exact existing canonical stage independently checks every record
  // again and always creates HELD, never public first-release offers.
- const stage=await stageLiveAwinCanonicalCandidates(db,{
-  importId,advertiser:ID,feed:FEED,digest:validation.snapshot_sha256,
-  limit:20,merchantProductIds:ids
- });
+ const stage={status:"checked",canonicalAccepted:0,canonicalRejected:0};
+ const statuses=new Set<string>();
+ for(const [importId,merchantProductIds] of importGroups){
+  const result=await stageLiveAwinCanonicalCandidates(db,{
+   importId,advertiser:ID,feed:FEED,digest:validation.snapshot_sha256,
+   limit:merchantProductIds.length,merchantProductIds
+  });
+  statuses.add(result.status);
+  stage.canonicalAccepted+=result.canonicalAccepted;
+  stage.canonicalRejected+=result.canonicalRejected;
+ }
+ stage.status=statuses.size===1?[...statuses][0]:"mixed_import_results";
  // A fresh staged offer is only a HELD candidate. Run the separate audited
  // release worker NOW instead of waiting for another cron. That worker
  // independently rechecks exact Awin source, advertiser/SKU/price/link,
