@@ -16,6 +16,18 @@ export default function OwnerAwinFirstRelease(){
  const [busy,setBusy]=useState(false);
  const [result,setResult]=useState("");
  const [confirmId,setConfirmId]=useState("");
+ const [tyreEvidence,setTyreEvidence]=useState<{inspected:number;explicitSizeObservations:number;ambiguousSizeObservations:number;distinctSizeObservations:number;checksumValidGtin:number;completedAt:string}|null>(null);
+ const [tyreBusy,setTyreBusy]=useState(false);
+ const [tyreError,setTyreError]=useState("");
+ async function scanTyres(){
+  setTyreBusy(true);setTyreError("");setTyreEvidence(null);
+  try{
+   const r=await fetch("/api/control-centre/awin-pneus-technical-evidence",{cache:"no-store",credentials:"same-origin"});
+   if(!r.ok)throw Error("scan unavailable");
+   setTyreEvidence(await r.json());
+  }catch{setTyreError("Private tyre scan unavailable; no coverage confirmed.");}
+  finally{setTyreBusy(false);}
+ }
  async function refresh(){
   setBusy(true);
   try{
@@ -123,6 +135,12 @@ export default function OwnerAwinFirstRelease(){
     </div>
    </details>
   </details>}
+  <details><summary>Private Pneus technical evidence</summary>
+   <p>Scan the latest completed exact feed for explicit title dimensions and checksum-valid GTINs. These observations do not verify vehicle fitment, identity across retailers, GBP or fitted prices.</p>
+   <button disabled={tyreBusy} onClick={()=>void scanTyres()}>{tyreBusy?"Scanning…":"Scan completed tyre inventory"}</button>
+   {tyreError&&<p role="alert">{tyreError}</p>}
+   {tyreEvidence&&<p role="status">{tyreEvidence.inspected.toLocaleString("en-GB")} inspected; {tyreEvidence.explicitSizeObservations.toLocaleString("en-GB")} explicit size observations; {tyreEvidence.distinctSizeObservations} distinct sizes; {tyreEvidence.ambiguousSizeObservations} ambiguous rows; {tyreEvidence.checksumValidGtin.toLocaleString("en-GB")} checksum-valid GTINs. Snapshot completed {new Date(tyreEvidence.completedAt).toLocaleString("en-GB",{timeZone:"Europe/London"})}. Private only.</p>}
+  </details>
   {queue?.error&&<p role="alert">{queue.error}</p>}
   {queue?.status!=="source_not_launch_ready"&&!queue?.candidates?.length&&!queue?.error&&
    <p role="status">No current, price-verified offers are ready for owner release.</p>}

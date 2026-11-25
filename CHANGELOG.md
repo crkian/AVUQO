@@ -1704,6 +1704,14 @@ Department catalogue PR349 merged after all checks passed; production runtime no
 PR350 merged after CI and preview success. PR349 production READY. Live specialist profiles confirmed nine feeds and 10,747 inspected rows with 10,747 publisher links, 141 explicit GBP and zero populated standard contract terms. New candidate makes these bounded aggregate diagnostics visible in the existing owner-only portfolio, deduplicates latest observations by exact pair, recognises PlayPress physical pipeline and counts mapped numeric IDs accurately. No raw feed data or public tariff output. Pending CI/runtime; actual quote semantics remain blocked.
 
 
+## 25 November 2026 | Private Pneus technical evidence
+
+Pneus 15236:26513 latest completed private import had 19,723 rows with positive source prices, verified publisher tracking and source stock evidence, no explicit currency or verified tyre size/fitted price. New owner-only bounded completed-import scan extracts conservative explicit title size observations and checksum-valid GTIN counts, reports ambiguous sizes separately and verifies exact import count; no raw rows, price publication, fitment inference or modifications to historical archive normalization. Existing Control Centre action added. Synthetic test added; full CI, authenticated scan performance and production verification pending. Currency, fitment, cross-retailer identity and public tyre inventory remain incomplete.
+
+
 ## 25 November 2026 | Owner release identity regression
 
 PR351 production READY at 4aa6b5ca. Pneus latest complete private import 19,723 rows, all missing explicit currency; two-hour conversion journal 1,571 accepted held candidates and eight successful Tyres UK rechecks. PR352 corrects numeric advertiser guard in owner release GET; atomic POST and public eligibility unchanged. Initial build, preview, secret, native PostgreSQL, compact and deployment safety checks passed; register check failed because five required files were missing from diff. Synchronised registers; new CI pending. No database writes or configuration changes.
+
+
+Release reconciliation: PR353 passed quality and secret checks and Vercel preview; merged to main f2943516. Production deployment building at inspection. PR352 advertiser correction reconciled with PR353; repeat CI pending. No source or public eligibility change.
