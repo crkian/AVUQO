@@ -9,6 +9,6 @@ export async function GET(request:NextRequest){
  const db=createAdminClient();
  const {data:control,error:controlError}=await db.from("system_controls").select("enabled").eq("control_key","shopping_publishing").maybeSingle();
  if(controlError||!control?.enabled)return reply({status:"shopping_disabled"});
- const {data,error}=await db.rpc("auto_review_active_shopping",{p_limit:30});
+ const {data,error}=await db.rpc("auto_review_active_shopping",{p_limit:process.env.AWIN_CATALOGUE_SCALE_ENABLED==="true"?60:30});
  return error?reply({status:"approval_worker_unavailable"},503):reply(data);
 }
