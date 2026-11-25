@@ -85,7 +85,8 @@ test("Tyre cost is strictly product subtotal; no fitted or delivery amount is cr
 test("Tyre buyer journeys are real and still empty until approved products arrive",()=>{
  for(const path of ["app/tyres/find/page.tsx","app/tyres/compare/page.tsx",
   "app/tyres/products/[slug]/page.tsx"]){
-  assert.match(file(path),/verifiedProduct(Index)?|verifiedTyreSpec/);
+  assert.match(file(path),/verifiedProduct(Index)?|verifiedTyreSpec|verifiedTyreProductIndex/);
+  if(path==="app/tyres/find/page.tsx")assert.match(file(path),/eligibleTyreProducts\([\s\S]*?verifiedTyreProductIndex\(size/);
   assert.match(file(path),/robots:\{index:false,follow:true\}/);
   assert.doesNotMatch(file(path),/£269|£99\.99|load_index_candidate/);
  }
