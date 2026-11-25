@@ -98,7 +98,7 @@
     },
     {
       "path": "/api/internal/awin-pneus-archive-audit",
-      "schedule": "23 14 * * *"
+      "schedule": "53 14 * * *"
     }
   ],
   "ignoreCommand": "git diff --quiet HEAD^ HEAD -- . ':(exclude)docs/**' ':(exclude)*.md' ':(exclude).github/**'"

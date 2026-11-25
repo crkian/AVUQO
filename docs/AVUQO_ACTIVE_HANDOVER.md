@@ -1,3 +1,9 @@
+## 25 November 2026 | Durable archive audit and indexed recovery scan
+
+- Migration 20261125144100_avuqo_pneus_archive_audit_register confirmed installed; post-install rollback rehearsal passed. Daily UTC unique claim, aggregate-only evidence, completed record immutability, restricted service-role select/insert/update. First real audit at 14:23:46 UTC stopped at 1,500 rows with legacy_page_incomplete. Latest journal has 19,735 rows, 19,735 distinct SKUs, zero missing/empty identities.
+- Replace deep OFFSET with existing indexed (import_id,merchant_product_id) keyset; bounded 250/100/50 retries, rights rechecks, duplicate/count/parity safeguards. Cron now 14:53 UTC once daily (same number of scheduled jobs), writes aggregate register only; original owner read-only route unchanged. New CI and live run pending; no retention or compact supplier rows written.
+- Prior e104f595 READY, build/native PG/compact tests passed; historical retirement check passed, full lint now fails product detail true-404 pre-stream admission. Investigate separately rather than weaken admission. At 14:43 GMT database 1,978.9 MiB, 85,033 products, 14,605 active offer records, zero compact snapshots; not public counts.
+
 ## 25 November 2026 | Canonical writer transport and historical proof maintenance
 
 - Prior 0575ec46 production READY; dedicated compact, application build and native PostgreSQL passed. First 14:23 UTC scheduled archive audit not due at 14:17; no runtime result yet. Pure canonical replay-to-SQL transport now checks payload hashes and SKU/timestamp shape, limits batches to 250 rows and 4 MiB, individual payload 256 KiB. Offline test covers exact SHA-256 domain and batch boundary. No live writer connection, no retention.

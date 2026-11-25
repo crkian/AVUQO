@@ -34,7 +34,19 @@ test("scheduled recovery is fixed scope, authenticated, read-only and daily",()=
  assert.match(cron,/CRON_SECRET/);
  assert.match(cron,/AWIN_AUTO_IMPORT_ENABLED/);
  assert.ok(cron.indexOf('request.headers.get("authorization")')<cron.indexOf('recoverPneusSnapshot("latest")'));
- assert.doesNotMatch(cron,/\.from\(|\.rpc\(|\.upload\(/);
+ assert.doesNotMatch(cron,/\.rpc\(|\.upload\(|\.delete\(/);
+ assert.match(cron,/\.from\("awin_pneus_archive_audits"\)\.insert/);
+ assert.match(cron,/\.eq\("outcome","started"\)/);
+ assert.match(cron,/claimError\.code==="23505"/);
  const config=JSON.parse(readFileSync("vercel.json","utf8"));
- assert.deepEqual(config.crons.filter(x=>x.path==="/api/internal/awin-pneus-archive-audit"),[{path:"/api/internal/awin-pneus-archive-audit",schedule:"23 14 * * *"}]);
+ assert.deepEqual(config.crons.filter(x=>x.path==="/api/internal/awin-pneus-archive-audit"),[{path:"/api/internal/awin-pneus-archive-audit",schedule:"53 14 * * *"}]);
+});
+
+test("recovery scans the indexed SKU cursor with bounded retries, never deep offset",()=>{
+ const s=readFileSync("lib/awin/pneus-snapshot-recovery.ts","utf8");
+ assert.match(s,/\.order\("merchant_product_id",\{ascending:true\}\)/);
+ assert.match(s,/query\.gt\("merchant_product_id",cursor\)/);
+ assert.match(s,/for\(const limit of \[250,100,50\]\)/);
+ assert.doesNotMatch(s,/\.range\(/);
+ assert.match(s,/seen\.has\(sku\)/);
 });

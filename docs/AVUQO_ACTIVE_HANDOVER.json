@@ -2553,19 +2553,20 @@
         "Migration 20261125134246 installs dormant DBA-only transaction commit guard, SHA-256 payload pool, current rights and journal binding. Pre/post synthetic rehearsal passed, all four tables empty, API function grants zero. Batch parity append/seal and actual archive recovery remain outstanding.",
         "Migration 20261125135527 installs dormant exact normalized row reconstruction, 250-row bounded batch append and final legacy parity seal. Pre/post helper rehearsal passed. All four tables empty and API execute grants zero. Full writer transaction, actual source archive bytes, concurrency and rights revocation still unverified; no retention.",
         "Full 19,735-row rollback-only legacy writer transaction rehearsal passed; all shadow rows zero afterwards, physical DB allocation grew. Daily read-only archive audit candidate scheduled 14:23 UTC with cron authentication and rights gates; actual byte replay result outstanding.",
-        "Canonical writer transport candidate produces exact replay hashes, 250-row/4 MiB batches with no network or writes. Actual scheduled archive parity remains outstanding; no retention."
+        "Canonical writer transport candidate produces exact replay hashes, 250-row/4 MiB batches with no network or writes. Actual scheduled archive parity remains outstanding; no retention.",
+        "Permanent aggregate archive audit register installed 20261125144100, post-install rollback checks passed; first live audit failed legacy_page_incomplete at 1500, new indexed SKU cursor and daily journal integration committed candidate. Actual parity outstanding."
       ],
       "no_database_changes": true,
       "retention": "No deletion, retention change, vacuum, index removal or archive migration authorised or performed in this audit."
     },
     "infrastructure_cost_intelligence": {
-      "observed_at": "2026-11-25T14:04:05.698953Z",
+      "observed_at": "2026-11-25T14:43:23.708403Z",
       "status": "recorded_audit_monitoring_planned",
       "supabase_plan": "Pro",
-      "database_mib": 2006.4,
+      "database_mib": 1978.9,
       "object_mib": 356.4,
       "product_records": 85033,
-      "active_offer_records": 14265,
+      "active_offer_records": 14605,
       "configured_cron_entries": 24,
       "not_public_counts": true,
       "thresholds_percent": [
@@ -7988,5 +7989,26 @@
     "canonical_transport": "Pure JS bounded 250-row and 4 MiB batches; payload size and hash verification; exact SHA-256 domain and canonical JSON match SQL pool contract; no DB access.",
     "historical_branch_proof": "Original connector blob preserved byte-for-byte separately; current connector security invariants checked; actual deletion workflow unchanged and still fails closed on changed main blob. All three historical heads returned 404 on lookup; no branch operations performed.",
     "remaining": "CI and deployment; actual archive audit result; persistent evidence and restricted integration; no retention."
+  },
+  "pneus_archive_audit_register_20261125": {
+    "status": "installed_register_cursor_recovery_candidate",
+    "migration": "20261125144100_avuqo_pneus_archive_audit_register",
+    "rehearsal": "post-install passed; zero rows before deployment",
+    "previous_runtime": {
+      "at": "2026-11-25T14:23:46.006Z",
+      "status": "legacy_page_incomplete",
+      "checked": 1500
+    },
+    "source_counts": {
+      "expected": 19735,
+      "actual": 19735,
+      "distinct_skus": 19735,
+      "invalid_skus": 0
+    },
+    "cursor": "indexed import_id/merchant_product_id; limits 250/100/50; duplicate and count guards",
+    "schedule": "53 14 * * *",
+    "daily_claim": "unique UTC day, aggregate only, service role only; interrupted remains started",
+    "verified": false,
+    "remaining": "Actual revised archive audit and CI/deployment; no retention; product detail true-404 regression separate."
   }
 }

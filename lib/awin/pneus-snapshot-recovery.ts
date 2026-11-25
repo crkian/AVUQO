@@ -62,21 +62,30 @@ export async function recoverPneusSnapshot(slot:"latest"|"previous"){
   stage="legacy_parity";
   const start=Date.now(),seen=new Set<string>();
   let checked=0,matched=0,mismatched=0,missing=0,duplicates=0;
-  const pageSize=250;
-  for(let offset=0;offset<job.validated_total;offset+=pageSize){
+  let cursor:string|null=null,nextRightsCheck=0;
+  const columns="merchant_id,merchant_product_id,awin_product_id,title,price,currency,brand,category,status,reasons,image_url,metadata";
+  while(checked<job.validated_total){
    if(Date.now()-start>150000||Date.now()-began>220000)return recoveryResponse({status:"parity_time_limit",checked},503);
-   if(offset%2000===0&&!await permitted(db))return recoveryResponse({status:"source_rights_or_controls_blocked"},403);
-   const {data:rows,error:rowsError}=await db.from("feed_import_records")
-    .select("merchant_id,merchant_product_id,awin_product_id,title,price,currency,brand,category,status,reasons,image_url,metadata")
-    .eq("import_id",job.private_import_id).order("id",{ascending:true})
-    .range(offset,offset+pageSize-1);
-   if(rowsError||!rows||rows.length!==Math.min(pageSize,job.validated_total-offset))
-    return recoveryResponse({status:"legacy_page_incomplete",checked},409);
-   for(const row of rows){
-    checked++;
+   if(checked>=nextRightsCheck){
+    if(!await permitted(db))return recoveryResponse({status:"source_rights_or_controls_blocked"},403);
+    nextRightsCheck=checked+2000;
+   }
+   let page=null;
+   // Use existing (import_id,merchant_product_id) index rather than deep OFFSET.
+   // At most two smaller retries per page; no unbounded retry loop.
+   for(const limit of [250,100,50]){
+    if(Date.now()-began>220000)break;
+    let query=db.from("feed_import_records").select(columns).eq("import_id",job.private_import_id)
+     .order("merchant_product_id",{ascending:true}).limit(Math.min(limit,job.validated_total-checked));
+    if(cursor!==null)query=query.gt("merchant_product_id",cursor);
+    const {data:rows,error:rowsError}=await query;
+    if(!rowsError&&rows&&rows.length===Math.min(limit,job.validated_total-checked)){page=rows;break;}
+   }
+   if(!page)return recoveryResponse({status:"legacy_page_incomplete",checked},409);
+   for(const row of page){
     const sku=row.merchant_product_id;
-    if(typeof sku!=="string"||seen.has(sku)){duplicates++;continue;}
-    seen.add(sku);
+    if(typeof sku!=="string"||!sku||seen.has(sku))return recoveryResponse({status:"legacy_page_incomplete",checked},409);
+    seen.add(sku);cursor=sku;checked++;
     if(!snapshot.members.has(sku)){missing++;continue;}
     if(compareLegacyPneusRow(restorePneusRow(snapshot,sku),row))matched++;else mismatched++;
    }

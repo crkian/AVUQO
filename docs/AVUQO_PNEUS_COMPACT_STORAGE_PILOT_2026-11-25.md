@@ -122,3 +122,10 @@ Next implementation: isolated shadow projection and replay tests against authori
 - Historical retirement regression traced to changed lib/connectors/awin.ts (frozen b04751fd -> current 0e55b809). Reviewed diff: stricter explicit GBP, positive price and exact identity, bounded read, redirect rejection and safe numeric-only upstream errors. Preserve exact frozen blob in docs/evidence; test current safety separately. Actual retirement workflow and frozen allowed refs unchanged; it still refuses deletion on changed current-main proof. All three ref lookups returned 404; no branch changes made. CI pending.
 - All six handover files and owner register updated. Next: inspect actual archived-file verification logs, durable journal and restricted transaction integration. No database writes or public shopping changes.
 
+
+## 25 November 2026 | Durable archive audit and indexed recovery scan
+
+- Migration 20261125144100_avuqo_pneus_archive_audit_register confirmed installed; post-install rollback rehearsal passed. Daily UTC unique claim, aggregate-only evidence, completed record immutability, restricted service-role select/insert/update. First real audit at 14:23:46 UTC stopped at 1,500 rows with legacy_page_incomplete. Latest journal has 19,735 rows, 19,735 distinct SKUs, zero missing/empty identities.
+- Replace deep OFFSET with existing indexed (import_id,merchant_product_id) keyset; bounded 250/100/50 retries, rights rechecks, duplicate/count/parity safeguards. Cron now 14:53 UTC once daily (same number of scheduled jobs), writes aggregate register only; original owner read-only route unchanged. New CI and live run pending; no retention or compact supplier rows written.
+- Prior e104f595 READY, build/native PG/compact tests passed; historical retirement check passed, full lint now fails product detail true-404 pre-stream admission. Investigate separately rather than weaken admission. At 14:43 GMT database 1,978.9 MiB, 85,033 products, 14,605 active offer records, zero compact snapshots; not public counts.
+
