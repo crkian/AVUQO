@@ -1367,3 +1367,8 @@ Department catalogue PR349 merged after all checks passed; production runtime no
 ## 25 November 2026 | Specialist owner evidence
 
 PR350 merged after CI and preview success. PR349 production READY. Live specialist profiles confirmed nine feeds and 10,747 inspected rows with 10,747 publisher links, 141 explicit GBP and zero populated standard contract terms. New candidate makes these bounded aggregate diagnostics visible in the existing owner-only portfolio, deduplicates latest observations by exact pair, recognises PlayPress physical pipeline and counts mapped numeric IDs accurately. No raw feed data or public tariff output. Pending CI/runtime; actual quote semantics remain blocked.
+
+
+## 25 November 2026 | Owner release identity regression
+
+PR351 production READY at 4aa6b5ca. Pneus latest complete private import 19,723 rows, all missing explicit currency; two-hour conversion journal 1,571 accepted held candidates and eight successful Tyres UK rechecks. PR352 corrects numeric advertiser guard in owner release GET; atomic POST and public eligibility unchanged. Initial build, preview, secret, native PostgreSQL, compact and deployment safety checks passed; register check failed because five required files were missing from diff. Synchronised registers; new CI pending. No database writes or configuration changes.
