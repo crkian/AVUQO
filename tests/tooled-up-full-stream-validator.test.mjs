@@ -61,3 +61,18 @@ test("daily validation never uses a hardcoded historic inventory count",async()=
  const {stream:changed}=input([row("A"),row("B")]);
  assert.equal((await validateTooledUpGzipStream(changed,84255)).inventory_count_matches,false);
 });
+
+import {TOOLED_UP_COHORT_CAP,tooledUpCohortStart} from "../lib/awin/tooled-up-cohort-window.mjs";
+test("dense catalogue rotates through every source row without gaps at the candidate cap",()=>{
+ for(const rows of [100,1500,1501,3000,3001,15161,84255]){
+  const slots=Math.ceil(rows/TOOLED_UP_COHORT_CAP),visited=new Set();
+  for(let slot=0;slot<slots;slot++){
+   const start=tooledUpCohortStart(rows,slot*300000);
+   for(let i=start;i<Math.min(rows,start+TOOLED_UP_COHORT_CAP);i++){
+    assert.equal(visited.has(i),false);visited.add(i);
+   }
+  }
+  assert.equal(visited.size,rows);
+  assert.equal(tooledUpCohortStart(rows,slots*300000),0);
+ }
+});

@@ -13,9 +13,11 @@ import {stageLiveAwinCanonicalCandidates} from "../../../../lib/awin/private-liv
 import {autoReleaseEligibleAwinOffers} from "../../../../lib/awin/auto-first-publication";
 import {recordPrivateCronAttempt} from "../../../../lib/awin/private-cron-recorder";
 
+import {TOOLED_UP_COHORT_CAP,tooledUpCohortStart} from "../../../../lib/awin/tooled-up-cohort-window.mjs";
+
 export const maxDuration=300;
 const reply=(data:unknown,status=200)=>NextResponse.json(data,{status,headers:{"Cache-Control":"private, no-store"}});
-const ID="496",FEED="89987",MAX_SCANNED=3000,MAX_CANDIDATES=1500;
+const ID="496",FEED="89987",MAX_SCANNED=TOOLED_UP_COHORT_CAP,MAX_CANDIDATES=TOOLED_UP_COHORT_CAP;
 type Row={id:string;import_id:string;merchant_product_id:string;title:string;price:number|string;
  currency:string;status:string;reviewed_at:string|null;metadata:unknown;image_url:string|null};
 const meta=(x:unknown):Record<string,unknown>=>x&&typeof x==="object"&&!Array.isArray(x)?x as Record<string,unknown>:{};
@@ -79,10 +81,9 @@ async function runCohort(request:NextRequest){
  type Candidate={sku:string;title:string;price:number;link:string;image:string;images:unknown[];stock:string;description:string|null;attributes:Record<string,string>};
  const candidates:Candidate[]=[];
  let rowNumber=0,visited=0;
- const windows=Math.max(1,Math.ceil(validation.actual_rows/MAX_SCANNED));
  // Five-minute slots provide three distinct source windows per authenticated
  // 15-minute download, without repeatedly retrying the same cohort.
- const cohortStart=(Math.floor(now/(5*60_000))%windows)*MAX_SCANNED;
+ const cohortStart=tooledUpCohortStart(validation.actual_rows,now);
  try{
   const response=await fetch(url,{cache:"no-store",redirect:"error",signal:AbortSignal.timeout(155000)});
   if(!response.ok||!response.body)throw Error("snapshot_unavailable");
