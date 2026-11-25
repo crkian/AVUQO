@@ -1,3 +1,4 @@
+import {specialistEvidence} from "../../../../lib/awin/specialist-evidence.mjs";
 import {gunzipSync} from "node:zlib";
 import {NextRequest,NextResponse} from "next/server";
 import {createAdminClient} from "../../../../lib/supabase/admin";
@@ -67,7 +68,7 @@ export async function GET(request:NextRequest){
  const [observed,programmes,profiles]=await Promise.all([
   db.from("awin_feed_update_observations").select("advertiser_id,feed_id,feed_name,advertiser_name,listed_products,observed_at").order("observed_at",{ascending:false}).limit(1000),
   db.from("affiliate_programs").select("external_account_id,metadata").eq("provider","awin").eq("region","GB").limit(100),
-  db.from("awin_feed_schema_profiles").select("advertiser_id,feed_id,checked_at,status").limit(1000)
+  db.from("awin_feed_schema_profiles").select("advertiser_id,feed_id,checked_at,status,schema_reason").limit(1000)
  ]);
  if(observed.error||programmes.error||profiles.error)return json({status:"registry_or_profile_ledger_unavailable",private_only:true},503);
  const accepted=new Set((programmes.data??[]).filter(p=>{
@@ -83,7 +84,7 @@ export async function GET(request:NextRequest){
   seen.add(key);return true;
  });
  if(feeds.length===0)return json({status:"no_accepted_feed_observations",private_only:true});
- const scanned=new Map((profiles.data??[]).filter(p=>p.status!=="recognised_specialist_route"||!feeds.some(f=>f.advertiser_id===p.advertiser_id&&f.feed_id===p.feed_id&&recognizeAwinFeed({advertiserId:f.advertiser_id,feedId:f.feed_id,feedFormat:"Awin",feedName:f.feed_name??"",listedProducts:f.listed_products??0}).kind==="contract_or_service")).map(p=>[p.advertiser_id+":"+p.feed_id,p.checked_at]));
+ const scanned=new Map((profiles.data??[]).filter(p=>(p.status!=="recognised_specialist_route"&&!(p.status==="schema_profiled"&&p.schema_reason==="header_fields_identified"))||!feeds.some(f=>f.advertiser_id===p.advertiser_id&&f.feed_id===p.feed_id&&recognizeAwinFeed({advertiserId:f.advertiser_id,feedId:f.feed_id,feedFormat:"Awin",feedName:f.feed_name??"",listedProducts:f.listed_products??0}).kind==="contract_or_service")).map(p=>[p.advertiser_id+":"+p.feed_id,p.checked_at]));
  // Refresh old or failed profiles on the existing schedule, never treat a historical failure as final.
  const cutoff=Date.now()-7*86400000;
  const due=feeds.filter(f=>Date.parse(scanned.get(f.advertiser_id+":"+f.feed_id)??"")>=cutoff?false:true);
@@ -138,8 +139,20 @@ export async function GET(request:NextRequest){
   if(plain.length>MAX_UNPACKED)throw Error("bounded_probe_size_limit");
   const sample=new TextDecoder("utf-8",{fatal:true}).decode(plain.slice(0,Math.min(plain.length,262144)));
   const profile=profileAwinHeader(sample,format);
+  let specialistReason=profile.reason;
+  if(route.kind==="contract_or_service"&&["tab","comma","semicolon","pipe"].includes(profile.delimiter)){
+   const delimiter=({tab:"\t",comma:",",semicolon:";",pipe:"|"} as Record<string,string>)[profile.delimiter];
+   const rows:string[][]=[];
+   for await(const cells of csvRowsFromChunks(oneChunk(new TextDecoder("utf-8",{fatal:true}).decode(plain)),delimiter,256)){
+    rows.push(cells);if(rows.length>5001)throw Error("bounded_probe_size_limit");
+   }
+   const header=rows.shift()?.map(v=>v.trim().replace(/^\uFEFF/,""))??[];
+   const evidence=specialistEvidence(selected.advertiser_id,selected.feed_id,header,rows);
+   // Aggregate only, encoded in the existing private diagnostic field. Never a public price.
+   specialistReason="specialist_rows_"+evidence.rows+"_gbp_"+evidence.explicit_gbp+"_price_"+evidence.source_price+"_terms_"+evidence.contract_terms_present+"_links_"+evidence.own_publisher_links;
+  }
   return record("schema_profiled",{recognition_kind:route.kind,
-   schema_status:route.kind==="contract_or_service"?"specialist_adapter":profile.status,schema_reason:profile.reason,
+   schema_status:route.kind==="contract_or_service"?"specialist_adapter":profile.status,schema_reason:specialistReason,
    schema_delimiter:profile.delimiter,schema_fields:profile.fields,
    columns:profile.columnCount,column_names:profile.columns});
  }catch(e){return record("schema_probe_quarantined",{recognition_kind:route.kind,
