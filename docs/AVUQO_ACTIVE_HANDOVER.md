@@ -1,3 +1,8 @@
+## 25 November 2026 | Ordinary shopping product admission regression reconciliation
+
+- Prior 095aab41 READY; dedicated compact recovery, app build and native PG passed. Full lint first failure is stale two-path product-detail true-404 source assertion: current page also checks exact ordinary shopping release before notFound and Header. Updated regression to require all three admission paths, active exact product, approved review, full shopping release revalidation, and denial before rendering. Added to independent CI. Production admission code unchanged; actual HTTP status and new CI still require verification.
+- At 14:47:43 UTC revised scheduled archive audit not yet due; zero durable audit rows and zero compact snapshots. Database contents 2,004.0 MiB, 85,033 product records and 14,625 active offer records (not public counts). No data writes, deletes, retention, new branches or hosting changes. Next: inspect scheduled 14:53 UTC original archive recovery result and resolve any mismatch before compact storage integration.
+
 ## 25 November 2026 | Durable archive audit and indexed recovery scan
 
 - Migration 20261125144100_avuqo_pneus_archive_audit_register confirmed installed; post-install rollback rehearsal passed. Daily UTC unique claim, aggregate-only evidence, completed record immutability, restricted service-role select/insert/update. First real audit at 14:23:46 UTC stopped at 1,500 rows with legacy_page_incomplete. Latest journal has 19,735 rows, 19,735 distinct SKUs, zero missing/empty identities.

@@ -2560,13 +2560,13 @@
       "retention": "No deletion, retention change, vacuum, index removal or archive migration authorised or performed in this audit."
     },
     "infrastructure_cost_intelligence": {
-      "observed_at": "2026-11-25T14:43:23.708403Z",
+      "observed_at": "2026-11-25T14:47:43.473018Z",
       "status": "recorded_audit_monitoring_planned",
       "supabase_plan": "Pro",
-      "database_mib": 1978.9,
+      "database_mib": 2004,
       "object_mib": 356.4,
       "product_records": 85033,
-      "active_offer_records": 14605,
+      "active_offer_records": 14625,
       "configured_cron_entries": 24,
       "not_public_counts": true,
       "thresholds_percent": [
@@ -8010,5 +8010,13 @@
     "daily_claim": "unique UTC day, aggregate only, service role only; interrupted remains started",
     "verified": false,
     "remaining": "Actual revised archive audit and CI/deployment; no retention; product detail true-404 regression separate."
+  },
+  "product_detail_admission_reconciliation_20261125": {
+    "status": "ordinary_shopping_admission_regression_reconciled_candidate",
+    "previous_deployment": "095aab41 READY; compact recovery, native PG and build passed; full lint stopped on old product detail assertion",
+    "actual_route": "already checks verified offer, explicit research guide, then exact ordinary release reader; notFound before Header if all denied",
+    "change": "test actual three-path gate, exact active product and approved review, revalidation, single reader call; independent CI includes product tests; no production admission policy change",
+    "archive_audit": "not yet due at 14:47:43 UTC; zero journal rows; no full parity",
+    "remaining": "CI and live HTTP status verification; actual archive audit; no storage cutover or retention"
   }
 }
