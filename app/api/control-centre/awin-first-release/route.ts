@@ -242,7 +242,7 @@ export async function GET(){
    const h=heldMap.get(o.id),s=scoresMap.get(o.id),m=merchantsMap.get(o.merchant_id);
    const ad=obj(m?.metadata).external_id;
    if(!h||h.status!=="held"||!s||!m||typeof ad!=="string"||
-      !/^\\d{2,12}$/.test(ad))return [];
+      !/^\d{2,12}$/.test(ad))return [];
    const now=Date.now(),match=Number(o.match_confidence);
    const valid=fresh(o.last_seen_at,now)&&fresh(s.calculated_at,now)&&
     Number(o.price)>0&&Number(h.current_price)===Number(o.price)&&
