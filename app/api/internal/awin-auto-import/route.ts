@@ -56,7 +56,7 @@ async function attestUnchangedLiveRows(
  if(currencySource==="playpress_uk_programme_gbp_private_only")return [];
  const idPos=header.indexOf(header.includes("merchant_product_id")?"merchant_product_id":"id");
  if(idPos<0||!/^[a-f0-9]{64}$/.test(digest))throw Error("unbound_live_recheck");
- const originals=new Map(rows.map(r=>[r[idPos],r]));
+ const originals=new Map(rows.map(r=>[r[idPos]?.trim(),r]));
  const {data:stored,error}=await db.from("feed_import_records")
   .select("id,import_id,merchant_product_id,title,price,currency,status,metadata,reviewed_at")
   .eq("import_id",runId).eq("merchant_id",advertiser).eq("status","review")
@@ -297,7 +297,7 @@ export async function POST(request:NextRequest){
   const ids=new Set<string>();
   const idPosition=header.indexOf(header.includes("merchant_product_id")?"merchant_product_id":"id");
   for(const row of rows){
-   const identity=row[idPosition];
+   const identity=row[idPosition]?.trim();
    if(ids.has(identity))throw Error("duplicate_identity_across_batches");
    ids.add(identity);
   }
