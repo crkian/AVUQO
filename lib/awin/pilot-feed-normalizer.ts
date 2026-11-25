@@ -118,6 +118,10 @@ export function normalizePilotAwinFeed(advertiser:string,feedId:string,header:st
   identifyFormat(normalizedHeader);
   return {header:normalizedHeader,rows:normalizedRows,currencySource:"petlibro_uk_programme_gbp" as const};
  }
+ if(header.includes("data_feed_id")&&header.includes("merchant_id")){
+  const fi=header.indexOf("data_feed_id"),mi=header.indexOf("merchant_id");
+  if(rows.some(r=>r.length!==header.length||r[fi]?.trim()!==feedId||r[mi]?.trim()!==advertiser))throw Error("petlibro_feed_identity_mismatch");
+ }
  identifyFormat(header);
  return {header,rows,currencySource:"feed_column" as const};
 }

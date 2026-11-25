@@ -71,6 +71,7 @@ async function attestUnchangedLiveRows(
  if(error)throw Error("live_recheck_private_rows_unavailable");
  const now=new Date().toISOString();
  const verifiedSkus:string[]=[];
+ if(!(await privateStagingAllowed(db)))return verifiedSkus;
  const budget=awinRecheckLimit(process.env.AWIN_PRIVATE_RECHECK_LIMIT);
  for(const old of stored??[]){
   if(verifiedSkus.length>0&&verifiedSkus.length%10===0&&!(await privateStagingAllowed(db)))break;

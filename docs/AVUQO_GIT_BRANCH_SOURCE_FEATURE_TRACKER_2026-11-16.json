@@ -5806,35 +5806,34 @@
     "retention_authorized": false,
     "compact_snapshots": 0,
     "next": "Restricted persistent shadow pilot with exact canonical transport, rights and concurrency checks; original archive and legacy rows remain intact."
-  }
-,
+  },
   "deployment_efficiency_20261125": {
     "status": "candidate_pending_ci_and_vercel",
     "policy": "Deployment efficiency candidate: compare full known deployment baseline (VERCEL_GIT_PREVIOUS_SHA) to HEAD, build on missing/untrusted baseline or Git failure, and skip only explicit documentation/workflow paths. Runtime register JSON is never ignored. 25 cron entries unchanged. CI and Vercel behaviour not yet verified; no catalogue writes, retention or supplier permission changes. Next: restricted persistent compact pilot.",
     "cron_entries": 25
-  }
-,
+  },
   "rich_shopping_journeys_20261125": {
     "status": "candidate_pending_ci",
     "summary": "Shopping experience candidate: exact source description preview and full-description navigation, product section navigation, dated exact-studio advertiser campaigns with eligibility caveats, retailer-specific shopping links, richer retail shelf cards and missing-image/empty-result states. Prior 67ecb0f9 dedicated deployment filter, compact tests and app build passed; obsolete scheduler filter assertion reconciled, new CI pending. No new suppliers activated, catalogue rights or prices changed, or storage cutover. All 21 programme full-range acceptance remains outstanding."
-  }
-,
+  },
   "supplier_pipeline_recovery_20261125": {
     "status": "candidate_pending_ci",
     "summary": "Supplier pipeline recovery candidate: production two-hour conversion journal recorded 950 accepted held candidates (940 Tooled Up, 10 PlayPress) and 26 no-current-row attempts. 24-hour rotation recorded repeated Petlibro 109051/109652/119210 preflight failures (7/7/6), PlayPress 96428 later HTTP 200 but zero verified rows. Preserve categorical preflight reasons and distinguish successful private staging without live verification. Supplier Readiness now shows bounded recent journal evidence; no raw provider content stored. New regression cases authored; CI and runtime pending. No new supplier activated, no permissions changed, no extra crons, no catalogue writes. Next resolve specific adapter evidence failures, compact pilot, full-range supplier and premium shopping work."
-  }
-,
+  },
   "shopping_release_recovery_20261125": {
     "status": "candidate_pending_ci",
     "summary": "Release recovery: d38cd4f4 quality build failed on missing closing JSX expression in ordinary retail model field; fixed without changing admission. Historical continuity test incorrectly required 21 November SEO entry to remain first forever; now checks preservation anywhere, retaining all other history checks. Dedicated rich journey/filter, compact recovery and native PostgreSQL tests had passed on d38cd4f4. New CI/deployment pending. Supplier recovery diagnostics from ebf95c7b retained; actual Petlibro failure cause not yet established. No supplier or catalogue writes, no new cron, no rights changes."
-  }
-,
+  },
   "retail_studio_consolidation_20261125": {
     "status": "candidate_pending_ci",
     "summary": "Consolidated retail studio and release quality candidate: latest 4ba304c8 application build, dedicated filter/rich journey, compact recovery and native PostgreSQL tests passed; full lint had four errors. Fix immutable stage/duplicate declarations and move request-time evidence cutoff calculation to a server-only helper. Independently admitted ordinary offers now enrich retail studio hero/product shelves with exact offer links and deduplicated product identities, alongside existing verified deals. Category pages connect to relevant retailer catalogues, explicitly not category-filtered stock. All source permission and publication gates retained. Tests added; full CI and deployment pending. No supplier activations, storage cutover or extra crons; Petlibro schema failures still require fresh diagnostic evidence."
   },
   "consolidated_supplier_shopping_candidate_20261125": {
-  "status": "unpublished_pending_tests",
-  "summary": "Unpublished consolidated candidate: bound Petlibro optional-column adapter, bounded header profiling and four delimited formats; opt-in 1–50 supplier recheck budget (default 20); exact tyre technical candidate filtering before public admission; ordinary exact-canonical multi-retailer offers and department-classified shopping samples; newest supplier feed observations first. No source permission changes, production writes, new schedules or deployment. Automated tests written but not executed. Pneus currency, both tyre ranges, full supplier coverage, performance and build verification outstanding."
-}
+    "status": "unpublished_pending_tests",
+    "summary": "Unpublished consolidated candidate: bound Petlibro optional-column adapter, bounded header profiling and four delimited formats; opt-in 1–50 supplier recheck budget (default 20); exact tyre technical candidate filtering before public admission; ordinary exact-canonical multi-retailer offers and department-classified shopping samples; newest supplier feed observations first. No source permission changes, production writes, new schedules or deployment. Automated tests written but not executed. Pneus currency, both tyre ranges, full supplier coverage, performance and build verification outstanding."
+  },
+  "specialist_journey_candidate_20261125": {
+    "status": "unpublished_pending_tests",
+    "summary": "Added specialist quote-preparation journeys across 15 supplier studios using only existing approved destinations; no live quote API, booking submission or customer data collection. Added explicit-currency Petlibro feed identity check when feed identity columns are present, and an ingestion stop recheck before the first live row write. Candidate remains unpublished and untested."
+  }
 }
