@@ -2545,7 +2545,8 @@
         "Audit autovacuum and TOAST churn; benchmark incremental maintenance and indexes in a safe environment. Avoid production VACUUM FULL or index drops without an approved maintenance plan.",
         "Measure logical and physical database size, storage bucket cost, eligible catalogue count, query latency and archive recovery before and after each staged change.",
         "Pilot Pneus Online in shadow mode: exact advertiser/feed/SKU identity, content-addressed immutable snapshots, current membership and compact changed price/stock observations; no invented currency or tyre fitment. Latest two snapshots overlap 19,648 SKUs but only 2,180 agree on price/currency/title; preserve meaningful changes, do not collapse history.",
-        "Require byte-level snapshot digest verification, complete replay and exact SKU reconciliation, negative publication/rights tests, eBay erasure dependency checks, worker concurrency and rollback rehearsal before moving any production reader or applying retention. Read docs/AVUQO_PNEUS_COMPACT_STORAGE_PILOT_2026-11-25.md."
+        "Require byte-level snapshot digest verification, complete replay and exact SKU reconciliation, negative publication/rights tests, eBay erasure dependency checks, worker concurrency and rollback rehearsal before moving any production reader or applying retention. Read docs/AVUQO_PNEUS_COMPACT_STORAGE_PILOT_2026-11-25.md.",
+        "Offline Pneus shadow replay candidate authored (lib/awin/pneus-compact-shadow.mjs); synthetic CI pending. Actual archive byte verification, exact legacy parity and durable shadow/rollback still release-blocking."
       ],
       "no_database_changes": true,
       "retention": "No deletion, retention change, vacuum, index removal or archive migration authorised or performed in this audit."
@@ -7829,5 +7830,16 @@
       "no_database_changes": true,
       "retention": "No deletion, retention change, vacuum, index removal or archive migration authorised or performed in this audit."
     }
+  },
+  "pneus_compact_shadow_candidate_20261125": {
+    "status": "candidate_offline_replay",
+    "scope": "awin:15236:26513",
+    "module": "lib/awin/pneus-compact-shadow.mjs",
+    "tests": "tests/pneus-compact-shadow.test.mjs",
+    "ci": "Seven synthetic tests authored; execution pending",
+    "production_cutover": false,
+    "db_changes": false,
+    "archive_bytes_verified": false,
+    "remaining": "Authorised live snapshot byte retrieval and full legacy parity, bounded durable shadow projection, concurrency/rights/restore rehearsal and metrics; no retention changes."
   }
 }

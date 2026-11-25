@@ -1,3 +1,7 @@
+## 25 November 2026 | Pneus compact shadow replay candidate
+
+- Added an isolated offline gzip replay and compact hash projection for exact Awin 15236:26513, reusing the existing CSV parser and private tyre adapter. Verify decompressed SHA-256 and complete count, reject duplicate/cross-advertiser SKUs, separate content/terms/stock changes and reconstruct normalized private rows. Missing currency remains excluded; no publication path. Seven synthetic tests authored and added to quality CI, execution pending. No production worker, DB, retention, permissions or branch changes; actual archived bytes and legacy parity remain unverified. Next: authorised replay and durable shadow projection before any cutover.
+
 ## 25 November 2026 | Compact storage pilot preflight (12:00 GMT)
 
 - Production alias and Git main matched 2b7f55d708ab91df50692d6c8a056bf3edb19485; Vercel READY (dpl_4eveSm94wukviBwsLWYshXrpdX5g); Supabase active healthy. Read-only database 1,804.3 MiB, feed_import_records 1,381.0 MiB, source_ingestion_items 168.7 MiB. No database changes.

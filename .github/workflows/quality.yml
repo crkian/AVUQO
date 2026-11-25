@@ -154,6 +154,8 @@ jobs:
         run: node --experimental-strip-types --test tests/tyres-uk-server-candidates.test.mjs
       - name: Tyre catalogue rendering and evidence safety tests
         run: node --experimental-strip-types --test tests/tyre-catalogue-presentation.test.mjs tests/tyre-showroom-release.test.mjs tests/tyre-comparison-contract.test.mjs tests/pneus-online-private-import.test.mjs
+      - name: Offline Pneus compact snapshot replay and quarantine tests
+        run: node --experimental-strip-types --test tests/pneus-compact-shadow.test.mjs
       - name: Marketing, tyre and 25-category product release contract tests
         run: node --experimental-strip-types --test tests/marketing-tyres-category-readiness.test.mjs
       - name: Warm-premium design, seasonal and handover safety tests

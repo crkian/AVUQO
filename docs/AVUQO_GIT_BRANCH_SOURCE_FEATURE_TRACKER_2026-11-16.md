@@ -1,3 +1,7 @@
+## 25 November 2026 | Pneus compact shadow replay candidate
+
+- Added an isolated offline gzip replay and compact hash projection for exact Awin 15236:26513, reusing the existing CSV parser and private tyre adapter. Verify decompressed SHA-256 and complete count, reject duplicate/cross-advertiser SKUs, separate content/terms/stock changes and reconstruct normalized private rows. Missing currency remains excluded; no publication path. Seven synthetic tests authored and added to quality CI, execution pending. No production worker, DB, retention, permissions or branch changes; actual archived bytes and legacy parity remain unverified. Next: authorised replay and durable shadow projection before any cutover.
+
 ## 25 November 2026 | Storage efficiency and rich content runtime
 
 - Rich supplier content commit 8fdf4e9ee156aac5f0b4eadaecfe7c6c2a251232 READY (dpl_6Fm1P6f1mzt8CVRtJZcCmGMy5Dyb). Sweet Shop Playset and Savannah Animals Playset HTTP 200 show exact supplier description and PLAY10. Tooled Up new capture and wider supplier content still require runtime verification; CI was running at last check.

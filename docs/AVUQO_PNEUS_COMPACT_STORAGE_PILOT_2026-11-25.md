@@ -68,3 +68,8 @@ from a full join b using(merchant_product_id);
 Overlap query assumes unique non-null SKU per snapshot (existing worker validates); verify uniqueness before using as acceptance evidence for future feeds. No exact overall savings quantified. Autovacuum defaults currently 50 + 0.2 scale factor; audit workload before tuning. Keep all existing indexes pending benchmark.
 
 Next implementation: isolated shadow projection and replay tests against authorised data with no production cutover.
+
+## Offline replay candidate
+
+- Added an isolated offline gzip replay and compact hash projection for exact Awin 15236:26513, reusing the existing CSV parser and private tyre adapter. Verify decompressed SHA-256 and complete count, reject duplicate/cross-advertiser SKUs, separate content/terms/stock changes and reconstruct normalized private rows. Missing currency remains excluded; no publication path. Seven synthetic tests authored and added to quality CI, execution pending. No production worker, DB, retention, permissions or branch changes; actual archived bytes and legacy parity remain unverified. Next: authorised replay and durable shadow projection before any cutover.
+
