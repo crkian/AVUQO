@@ -13,10 +13,11 @@ test("legacy parity tolerates only decimal transport differences and JSON key or
  assert.equal(compareLegacyPneusRow(row,{...row,metadata:{...row.metadata,extra:"historical drift"}}),false);
 });
 test("owner replay route is fixed scope, bounded, read only and rights gated",()=>{
- const s=readFileSync("app/api/control-centre/pneus-snapshot-recovery/route.ts","utf8");
- assert.match(s,/role\?\.role!=="owner"/);
- assert.ok(s.indexOf("role?.role!==")<s.indexOf("const db=createAdminClient()"));
- assert.match(s,/request\.headers\.get\("origin"\)!==url\.origin/);
+ const owner=readFileSync("app/api/control-centre/pneus-snapshot-recovery/route.ts","utf8");
+ const s=readFileSync("lib/awin/pneus-snapshot-recovery.ts","utf8");
+ assert.match(owner,/role\?\.role!=="owner"/);
+ assert.ok(owner.indexOf("role?.role!==")<owner.indexOf("return await recoverPneusSnapshot(slot)"));
+ assert.match(owner,/request\.headers\.get\("origin"\)!==url\.origin/);
  assert.match(s,/\.eq\("advertiser_id","15236"\)\.eq\("feed_id","26513"\)\.eq\("state","completed"\)/);
  assert.match(s,/job\.snapshot_object_key!==pneusPrivateObjectKey/);
  assert.match(s,/journal\.source_digest!==job\.snapshot_sha256/);
@@ -25,5 +26,15 @@ test("owner replay route is fixed scope, bounded, read only and rights gated",()
  assert.match(s,/compareLegacyPneusRow\(restorePneusRow/);
  assert.match(s,/retention_authorized:false/);
  assert.doesNotMatch(s,/\.(insert|update|delete|upsert|upload|rpc)\(/);
- assert.doesNotMatch(s,/export async function GET/);
+ assert.doesNotMatch(owner,/export async function GET/);
+});
+
+test("scheduled recovery is fixed scope, authenticated, read-only and daily",()=>{
+ const cron=readFileSync("app/api/internal/awin-pneus-archive-audit/route.ts","utf8");
+ assert.match(cron,/CRON_SECRET/);
+ assert.match(cron,/AWIN_AUTO_IMPORT_ENABLED/);
+ assert.ok(cron.indexOf('request.headers.get("authorization")')<cron.indexOf('recoverPneusSnapshot("latest")'));
+ assert.doesNotMatch(cron,/\.from\(|\.rpc\(|\.upload\(/);
+ const config=JSON.parse(readFileSync("vercel.json","utf8"));
+ assert.deepEqual(config.crons.filter(x=>x.path==="/api/internal/awin-pneus-archive-audit"),[{path:"/api/internal/awin-pneus-archive-audit",schedule:"23 14 * * *"}]);
 });

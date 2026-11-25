@@ -1,3 +1,9 @@
+## 25 November 2026 | Full legacy transaction rehearsal passed; scheduled archive recovery candidate
+
+- Full 19,735-row latest Pneus legacy database rehearsal passed begin, bounded append, mismatch rejection, seal and complete rollback; all shadow tables remain empty. This replay used normalized legacy rows, not compressed source bytes or canonical JS serialization. Physical DB contents reached 2,006.4 MiB at 14:04 GMT after rehearsal (85,033 products / 14,265 active offer records, not public counts); allocation growth is not savings. Do not repeat full production rehearsals unnecessarily.
+- Shared read-only fixed-scope archive verifier now used by existing owner POST and daily 14:23 UTC server cron candidate (25th cron entry). Existing CRON_SECRET, automatic importer flag, current source rights, emergency stop and exact journal/digest checks; aggregate runtime diagnostics only, no database writes, no upstream fetch, no retention. One latest archive per invocation; no durable lease or result journal yet. Deployment/test and actual archive parity pending. Prior f1e1c880 READY; compact/app build passed; historical branch proof failure remains.
+- No existing records deleted, no production storage cutover, no publication, no new branches. Next: review actual runtime audit, durable journal/lease, canonical batch integration and concurrency, then measured incremental storage and full supplier scope.
+
 ## 25 November 2026 | Dormant exact compact batch writer installed (13:55 GMT)
 
 - Migration 20261125135527_avuqo_compact_shadow_batch_writer applied; pre/post helper rehearsal passed exact normalized row reconstruction, inferred currency and release flag rejection, missing legacy identity and no API execution grants. Bounded 250-row append and final parity seal installed, not yet exercised end-to-end. All four shadow tables empty. No live supplier copy, retention, worker or publication changes.

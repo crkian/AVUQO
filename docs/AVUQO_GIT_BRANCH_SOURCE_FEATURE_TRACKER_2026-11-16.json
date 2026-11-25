@@ -5628,13 +5628,13 @@
     "remaining": "Owner authenticated latest and previous archive replay; full CI; durable compact storage, measured cost and retention rehearsal."
   },
   "infrastructure_cost_intelligence_20261125": {
-    "observed_at": "2026-11-25T13:55:37.261155Z",
+    "observed_at": "2026-11-25T14:04:05.698953Z",
     "status": "recorded_audit_monitoring_planned",
     "supabase_plan": "Pro",
-    "database_mib": 1933.3,
+    "database_mib": 2006.4,
     "object_mib": 356.4,
     "product_records": 85033,
-    "active_offer_records": 14225,
+    "active_offer_records": 14265,
     "configured_cron_entries": 24,
     "not_public_counts": true,
     "thresholds_percent": [
@@ -5725,5 +5725,27 @@
     "archive_bytes_verified": false,
     "live_writer_connected": false,
     "remaining": "Full begin/append/seal transaction rehearsal against exact legacy rows; canonical export and authorised archive recovery; concurrency, rights revocation, resource bounds and retention acceptance."
+  },
+  "pneus_full_legacy_rehearsal_and_archive_audit_20261125": {
+    "status": "full_legacy_rehearsal_passed_archive_audit_candidate",
+    "legacy_rehearsal": {
+      "rows": 19735,
+      "mode": "rollback only from legacy normalized DB records, not archive bytes",
+      "completed": true,
+      "zero_remaining_rows": true,
+      "observed_at": "2026-11-25T14:04:05.698953Z",
+      "db_mib": 2006.4,
+      "products": 85033,
+      "active_offers": 14265
+    },
+    "archive_audit": {
+      "schedule": "23 14 * * *",
+      "scope": "latest completed exact Pneus job",
+      "read_only": true,
+      "authorization": "existing CRON_SECRET + AWIN_AUTO_IMPORT_ENABLED + existing source rights and controls",
+      "diagnostics": "Vercel runtime aggregate logs, not durable database journal",
+      "verified": false
+    },
+    "remaining": "actual archive byte and row parity runtime result; durable evidence journal, concurrent/rights tests, canonical integration; no retention."
   }
 }
