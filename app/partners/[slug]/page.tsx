@@ -7,6 +7,7 @@ import Header from "../../../components/layout/Header";
 import Footer from "../../../components/layout/Footer";
 import {createAdminClient} from "../../../lib/supabase/admin";
 import {verifiedOffersForAdvertiser} from "../../../lib/products/public-catalog";
+import {ordinaryShoppingPage} from "../../../lib/products/shopping-catalogue";
 import {partnerStudio} from "../../../lib/partners/studio-editorial";
 import {publicPageMetadata,breadcrumbSchema,collectionSchema,jsonLd} from "../../../lib/site/seo";
 import {PartnerStudioHero,PartnerStudioNavigation,PartnerStudioNotebook,PartnerStudioProducts,PartnerStudioInvitation,type StudioProduct} from "../../../components/partners/PartnerStudioExperience";
@@ -31,7 +32,8 @@ export default async function PartnerDetail({params}:Props){
  if(!partner)notFound();
  const studio=partnerStudio(slug);
  if(!studio)notFound();
- const offers=partner.advertiserId?await verifiedOffersForAdvertiser(partner.advertiserId,35):[];
+ const retailPartner=Boolean(partner.advertiserId&&(partner.kind==="retail"||partner.slug==="mozillion"));
+ const [offers,ordinary]=await Promise.all([partner.advertiserId?verifiedOffersForAdvertiser(partner.advertiserId,35):Promise.resolve([]),retailPartner?ordinaryShoppingPage({merchant:partner.slug}):Promise.resolve(null)]);
  const ids=[...new Set(offers.map(o=>o.published.product_id).filter(Boolean))];
  // All supplier studios must remain useful and auditable even if a preview
  // environment omits privileged DB credentials or a feed is temporarily down.
@@ -62,6 +64,13 @@ export default async function PartnerDetail({params}:Props){
    imageUrl:o.published.image_url,price:Number(o.offer.price),
    observedAt:o.offer.last_seen_at,merchant:o.published.merchant};
  });
+ // Independently admitted ordinary shopping offers belong to the same studio, not to deal scoring.
+ const existingOffers=new Set(studioProducts.map(p=>p.id));
+ for(const item of ordinary?.offers??[]){
+  if(existingOffers.has(item.offerId)||seenProducts.has(item.productId))continue;
+  existingOffers.add(item.offerId);seenProducts.add(item.productId);
+  studioProducts.push({id:item.offerId,slug:item.slug,title:item.title,brand:item.brand,description:null,imageUrl:item.gallery[0]??null,price:item.price,observedAt:item.observedAt,merchant:item.merchantName,detailHref:"/shop/offer/"+item.offerId});
+ }
  const promotions=activePartnerPromotions(new Date(),partner.slug);
  const theme={"--accent":partner.accent,"--deep":partner.deep,"--glow":partner.glow} as CSSProperties;
  const namedLinks=partner.links.filter(isApprovedPartnerLink);

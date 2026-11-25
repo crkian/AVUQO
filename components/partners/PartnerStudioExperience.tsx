@@ -9,7 +9,7 @@ import styles from "../../app/partners/studios.module.css";
 
 export type StudioProduct={
  id:string;slug:string;title:string;brand:string|null;description:string|null;
- imageUrl:string|null;price:number;observedAt:string|null;merchant:string;
+ imageUrl:string|null;price:number;observedAt:string|null;merchant:string;detailHref?:string;
 };
 const gbp=(n:number)=>new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP"}).format(n);
 const stamp=(date:string|null)=>date&&Number.isFinite(Date.parse(date))
@@ -20,7 +20,7 @@ const safePartnerDestination=(links:readonly PartnerLink[])=>
  links.find(l=>isApprovedPartnerLink(l));
 const byChapter=(products:StudioProduct[],chapter:StudioEditorial["chapters"][number])=>
  products.filter(p=>matchStudioChapters(p.title,[chapter]).length>0);
-const productHref=(p:StudioProduct)=>"/products/"+p.slug;
+const productHref=(p:StudioProduct)=>p.detailHref??"/products/"+p.slug;
 
 export function PartnerStudioHero({partner,studio,products,links}:{partner:Partner;studio:StudioEditorial;products:StudioProduct[];links:readonly PartnerLink[]}){
  const photos=products.filter(p=>p.imageUrl).slice(0,3);
@@ -151,7 +151,7 @@ export function PartnerStudioProducts({partner,studio,products}:{partner:Partner
  </section>;
  const featured=products.slice(0,12);
  const merchant=products[0]!.merchant;
- const href="/shop?merchant="+encodeURIComponent(merchant);
+ const href=partner.advertiserId&&(partner.kind==="retail"||partner.slug==="mozillion")?"/shop/retail?merchant="+encodeURIComponent(partner.slug):"/shop?merchant="+encodeURIComponent(merchant);
  return <section className={styles.shopping} id="source-products" aria-labelledby="source-products-title">
   <div className={styles.shoppingHeader}>
    <div><p className={styles.eyebrow}>02 <span>/</span> SOURCED AND CHECKED</p>

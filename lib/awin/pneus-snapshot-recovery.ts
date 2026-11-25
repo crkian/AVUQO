@@ -61,7 +61,8 @@ export async function recoverPneusSnapshot(slot:"latest"|"previous"){
    sha256:job.snapshot_sha256,expectedRows:job.validated_total,observedAt:job.created_at});
   stage="legacy_parity";
   const start=Date.now(),seen=new Set<string>();
-  let checked=0,matched=0,mismatched=0,missing=0,duplicates=0;
+  let checked=0,matched=0,mismatched=0,missing=0;
+  const duplicates=0;
   let cursor:string|null=null,nextRightsCheck=0;
   const columns="merchant_id,merchant_product_id,awin_product_id,title,price,currency,brand,category,status,reasons,image_url,metadata";
   while(checked<job.validated_total){

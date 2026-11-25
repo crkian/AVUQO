@@ -8,7 +8,7 @@ import {recoverPneusSnapshot,recoveryResponse as response} from "../../../../lib
  * aggregate diagnostics, not a publisher, downloader proxy or migration.
  */
 export async function POST(request:NextRequest){
- let stage="authorization";
+ const stage="authorization";
  try{
   const session=await createClient();
   const {data:{user},error:authError}=await session.auth.getUser();

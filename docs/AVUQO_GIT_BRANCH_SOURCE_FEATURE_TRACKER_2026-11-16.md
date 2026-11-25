@@ -1307,3 +1307,8 @@ Supplier pipeline recovery candidate: production two-hour conversion journal rec
 ## 25 November 2026 | Shopping release recovery
 
 Release recovery: d38cd4f4 quality build failed on missing closing JSX expression in ordinary retail model field; fixed without changing admission. Historical continuity test incorrectly required 21 November SEO entry to remain first forever; now checks preservation anywhere, retaining all other history checks. Dedicated rich journey/filter, compact recovery and native PostgreSQL tests had passed on d38cd4f4. New CI/deployment pending. Supplier recovery diagnostics from ebf95c7b retained; actual Petlibro failure cause not yet established. No supplier or catalogue writes, no new cron, no rights changes.
+
+
+## 25 November 2026 | Consolidated retail studio and release quality candidate
+
+Consolidated retail studio and release quality candidate: latest 4ba304c8 application build, dedicated filter/rich journey, compact recovery and native PostgreSQL tests passed; full lint had four errors. Fix immutable stage/duplicate declarations and move request-time evidence cutoff calculation to a server-only helper. Independently admitted ordinary offers now enrich retail studio hero/product shelves with exact offer links and deduplicated product identities, alongside existing verified deals. Category pages connect to relevant retailer catalogues, explicitly not category-filtered stock. All source permission and publication gates retained. Tests added; full CI and deployment pending. No supplier activations, storage cutover or extra crons; Petlibro schema failures still require fresh diagnostic evidence.

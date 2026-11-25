@@ -1,4 +1,5 @@
 import {connection} from "next/server";
+import {currentEvidenceCutoff} from "../../../lib/products/current-evidence-cutoff";
 import {redirect} from "next/navigation";
 import Link from "next/link";
 import {requireControlCentreAccess} from "../../../lib/auth/requireControlCentreAccess";
@@ -59,7 +60,7 @@ export default async function Page({searchParams}:{searchParams:Promise<{result?
  const {role}=await requireControlCentreAccess();
  if(role!=="owner")redirect("/unauthorized");
  const {result,refresh}=await searchParams;
- const db=createAdminClient(),cutoff=new Date(Date.now()-48*3600_000).toISOString();
+ const db=createAdminClient(),cutoff=await currentEvidenceCutoff();
  const [candidates,reviews,control]=await Promise.all([
   db.from("offers").select("id,title,price,last_seen_at,raw_data").eq("status","active").eq("currency","GBP")
    .in("stock_status",["in_stock","low_stock"]).or("raw_data->>source_currency_explicit.eq.true,raw_data->>currency_source.in.(tooled_up_uk_GBP_storefront_and_exact_staged_price_match,petlibro_uk_programme_gbp,cadbury_uk_programme_gbp)")

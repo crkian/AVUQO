@@ -9,6 +9,7 @@ import Footer from "../../../../components/layout/Footer";
 import {BROWSE_DEPARTMENTS,departmentBySlug,departmentHref as editorialHref}
  from "../../../../lib/categories/browse-tree";
 import {verifiedProductIndex} from "../../../../lib/products/public-catalog";
+import {partnersForDepartment} from "../../../../lib/partners/catalogue-taxonomy";
 import {cardDescription,hasObservedReduction} from "../../../../lib/products/listing-description";
 import RetailerSales from "../../../../components/promotions/RetailerSales";
 import DepartmentPartnerShelf from "../../../../components/partners/DepartmentPartnerShelf";
@@ -82,6 +83,7 @@ async function DepartmentGoods({department}:{department:string}){
      <Link href={"/search?q="+encodeURIComponent(d.name)}>Search AVUQO <Search size={17}/></Link>
     </div>}
   </section>
+  <section className={"shell "+styles.content} aria-label="Everyday retailer shopping"><div className={styles.heading}><div><h2>Shop participating retailers</h2><p>Explore independently checked ordinary shopping ranges, including products without a recorded discount. Retailer catalogues can span multiple departments.</p></div></div><div className={styles.goodsGrid}>{partnersForDepartment(department).filter(p=>p.advertiserId&&(p.kind==="retail"||p.slug==="mozillion")).map(p=><Link key={p.slug} className={styles.item} href={"/shop/retail?merchant="+encodeURIComponent(p.slug)}><div className={styles.itemBody}><p>{p.categoryLabel}</p><h3>{p.name}</h3><strong>Browse retailer catalogue <ArrowRight size={15}/></strong></div></Link>)}</div><Link href="/shop/retail">Browse all eligible everyday shopping listings <ArrowRight size={15}/></Link></section>
   <DepartmentPartnerShelf department={department}/>
   <section className={styles.guide} id="department-buying-guide"><div className={"shell "+styles.guideGrid}>
    <div><p className={styles.kicker}>BUYING WITH CONFIDENCE</p><h2>{d.focus}</h2>

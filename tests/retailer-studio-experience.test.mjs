@@ -85,3 +85,5 @@ test("verified canonical comparison still shows different sellers while adding s
  assert.match(product,/compareEligibleOffers/);
  assert.match(read("app/products/[slug]/page.module.css"),/studioLink/);
 });
+
+test("ordinary retail offers enrich studios without bypassing admission",()=>{const page=read("app/partners/[slug]/page.tsx");const experience=read("components/partners/PartnerStudioExperience.tsx");assert.match(page,/ordinaryShoppingPage\(\{merchant:partner.slug\}\)/);assert.match(page,/seenProducts.has\(item.productId\)/);assert.match(page,/detailHref:"\/shop\/offer\/"/);assert.match(experience,/p.detailHref\?\?/);assert.match(read("app/categories/[department]/products/page.tsx"),/partnersForDepartment\(department\)/);});
