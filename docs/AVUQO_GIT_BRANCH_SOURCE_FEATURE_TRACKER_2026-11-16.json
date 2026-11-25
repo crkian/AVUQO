@@ -5628,13 +5628,13 @@
     "remaining": "Owner authenticated latest and previous archive replay; full CI; durable compact storage, measured cost and retention rehearsal."
   },
   "infrastructure_cost_intelligence_20261125": {
-    "observed_at": "2026-11-25T12:24:48.387509Z",
+    "observed_at": "2026-11-25T13:32:36.546041Z",
     "status": "recorded_audit_monitoring_planned",
     "supabase_plan": "Pro",
-    "database_mib": 1825.2,
+    "database_mib": 1889.7,
     "object_mib": 356.4,
-    "product_records": 85002,
-    "active_offer_records": 13450,
+    "product_records": 85022,
+    "active_offer_records": 14010,
     "configured_cron_entries": 24,
     "not_public_counts": true,
     "thresholds_percent": [
@@ -5671,5 +5671,24 @@
     },
     "implementation": "Offline two-snapshot serializable pooled ledger, restores exact memberships, hashes and quarantine; no DB schema or worker changes.",
     "remaining": "Owner authenticated archive replay, durable transactional DB design, test and production verification, no retention until acceptance."
+  },
+  "pneus_compact_foundation_20261125": {
+    "status": "installed_dormant_verified",
+    "migration": "20261125133220_avuqo_compact_shadow_foundation",
+    "schema": "avuqo_compact_shadow",
+    "observed_at": "2026-11-25T13:32:36.546041Z",
+    "tables": 4,
+    "rows": 0,
+    "bytes": 196608,
+    "rls_all": true,
+    "api_grants": "none for anon, authenticated, service_role",
+    "rehearsal": "passed before and after installation, synthetic rows rolled back",
+    "security_advisor": "intentional RLS without policies on all four dormant tables",
+    "live_writer": false,
+    "archive_verified": false,
+    "retention_authorized": false,
+    "db_mib": 1889.7,
+    "products": 85022,
+    "active_offers": 14010
   }
 }

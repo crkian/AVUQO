@@ -2548,19 +2548,20 @@
         "Require byte-level snapshot digest verification, complete replay and exact SKU reconciliation, negative publication/rights tests, eBay erasure dependency checks, worker concurrency and rollback rehearsal before moving any production reader or applying retention. Read docs/AVUQO_PNEUS_COMPACT_STORAGE_PILOT_2026-11-25.md.",
         "Offline Pneus shadow replay candidate authored (lib/awin/pneus-compact-shadow.mjs); synthetic CI pending. Actual archive byte verification, exact legacy parity and durable shadow/rollback still release-blocking.",
         "Owner-only fixed-feed archive recovery and aggregate parity route candidate; validate both latest and previous completed snapshots without modifying source evidence. No storage cutover or retention approved.",
-        "Live latest-two-run normalized-field comparison: 19,645/19,648 overlapping Pneus SKUs have matching content fingerprints; 2,179 share commercial observation fingerprints. Separate reusable product payloads from changing observations; measured comparison is not archive verification or guaranteed physical savings. Offline two-snapshot pooled ledger candidate, no retention cutover."
+        "Live latest-two-run normalized-field comparison: 19,645/19,648 overlapping Pneus SKUs have matching content fingerprints; 2,179 share commercial observation fingerprints. Separate reusable product payloads from changing observations; measured comparison is not archive verification or guaranteed physical savings. Offline two-snapshot pooled ledger candidate, no retention cutover.",
+        "Private compact foundation installed via migration 20261125133220; four empty RLS tables, API access denied including service role, reversible synthetic checks passed. Structural seal is not archive parity or retention approval. Next: verified archive recovery and restricted transactional writer with concurrency and rights tests."
       ],
       "no_database_changes": true,
       "retention": "No deletion, retention change, vacuum, index removal or archive migration authorised or performed in this audit."
     },
     "infrastructure_cost_intelligence": {
-      "observed_at": "2026-11-25T12:24:48.387509Z",
+      "observed_at": "2026-11-25T13:32:36.546041Z",
       "status": "recorded_audit_monitoring_planned",
       "supabase_plan": "Pro",
-      "database_mib": 1825.2,
+      "database_mib": 1889.7,
       "object_mib": 356.4,
-      "product_records": 85002,
-      "active_offer_records": 13450,
+      "product_records": 85022,
+      "active_offer_records": 14010,
       "configured_cron_entries": 24,
       "not_public_counts": true,
       "thresholds_percent": [
@@ -7899,5 +7900,24 @@
     },
     "implementation": "Offline two-snapshot serializable pooled ledger, restores exact memberships, hashes and quarantine; no DB schema or worker changes.",
     "remaining": "Owner authenticated archive replay, durable transactional DB design, test and production verification, no retention until acceptance."
+  },
+  "pneus_compact_foundation_20261125": {
+    "status": "installed_dormant_verified",
+    "migration": "20261125133220_avuqo_compact_shadow_foundation",
+    "schema": "avuqo_compact_shadow",
+    "observed_at": "2026-11-25T13:32:36.546041Z",
+    "tables": 4,
+    "rows": 0,
+    "bytes": 196608,
+    "rls_all": true,
+    "api_grants": "none for anon, authenticated, service_role",
+    "rehearsal": "passed before and after installation, synthetic rows rolled back",
+    "security_advisor": "intentional RLS without policies on all four dormant tables",
+    "live_writer": false,
+    "archive_verified": false,
+    "retention_authorized": false,
+    "db_mib": 1889.7,
+    "products": 85022,
+    "active_offers": 14010
   }
 }

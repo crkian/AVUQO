@@ -1,3 +1,9 @@
+## 25 November 2026 | Private compact database foundation installed (13:32 GMT)
+
+- Exact rehearsed SQL recovered from Git blob 252b01eafb3037057bbacc067877bf70a13ea691. Supabase migration 20261125133220_avuqo_compact_shadow_foundation applied successfully. Reversible pre-install and post-install fixtures passed. Four empty tables in avuqo_compact_shadow, RLS enabled on all, schema usage and membership SELECT denied to anon, authenticated and service_role. Advisor flags intentional RLS without policies; keep dormant. Structural seal is not digest verification or permission to retain/delete legacy evidence.
+- Live database contents 1,889.7 MiB, 85,022 products and 14,010 active offer records at 13:32:36 GMT (not public counts); new empty foundation 196,608 bytes. No actual supplier payloads copied, no existing data deleted, no public reader, worker or retention changes.
+- Previous 4a288e3c application build, compact tests and native PostgreSQL passed; full lint still fails at historical three-branch retirement proof. Do not remove branch safety checks. Next: authenticated archive recovery and parity, restricted transactional writer and lease/concurrency rehearsal, then measured incremental imports; all supplier scope remains mandatory.
+
 ## 25 November 2026 | Compact pooled catalogue ledger candidate
 
 - Prior 532b55bf production READY, independent recovery/rotation tests, app build and native PostgreSQL passed. Full lint stopped at old Cadbury assertion expecting currency literal in worker; actual normalizer/provenance tests now verify inferred currency stays explicitly unverified/private before separate gates. No importer behavior change.

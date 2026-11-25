@@ -87,3 +87,10 @@ Next implementation: isolated shadow projection and replay tests against authori
 - Read-only comparison of latest two complete Pneus imports (08:46 GMT 25 Nov / 19:46 GMT 24 Nov): 19,735/19,711 rows, 19,648 overlap; 19,645 equal normalized content fingerprints, 2,179 equal commercial fingerprints, 2,179 both equal. SQL MD5 is an audit proxy, not archive integrity or exact recoverable disk measurement. New offline two-snapshot pooled ledger JSON round-trip retains per-snapshot membership, source timestamp, exact normalized content and observations; corruption and duplicate-key tests. CI pending.
 - Owner register and six handovers updated. Actual owner-authorized snapshot byte replay remains unverified. No migration, live storage changes, retention, publication, cron or new branches. Persistent transaction/lease and safe restore acceptance remain outstanding.
 
+
+## 25 November 2026 | Private compact database foundation installed (13:32 GMT)
+
+- Exact rehearsed SQL recovered from Git blob 252b01eafb3037057bbacc067877bf70a13ea691. Supabase migration 20261125133220_avuqo_compact_shadow_foundation applied successfully. Reversible pre-install and post-install fixtures passed. Four empty tables in avuqo_compact_shadow, RLS enabled on all, schema usage and membership SELECT denied to anon, authenticated and service_role. Advisor flags intentional RLS without policies; keep dormant. Structural seal is not digest verification or permission to retain/delete legacy evidence.
+- Live database contents 1,889.7 MiB, 85,022 products and 14,010 active offer records at 13:32:36 GMT (not public counts); new empty foundation 196,608 bytes. No actual supplier payloads copied, no existing data deleted, no public reader, worker or retention changes.
+- Previous 4a288e3c application build, compact tests and native PostgreSQL passed; full lint still fails at historical three-branch retirement proof. Do not remove branch safety checks. Next: authenticated archive recovery and parity, restricted transactional writer and lease/concurrency rehearsal, then measured incremental imports; all supplier scope remains mandatory.
+
