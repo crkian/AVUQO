@@ -16,14 +16,26 @@ const fresh=(v:string|null,now:number)=>Boolean(v&&Number.isFinite(Date.parse(v)
  * permission, product ingestion or a verified customer-facing offer.
  * All accepted programmes remain visible even if no numeric Awin ID/feed exists.
  */
+function readSpecialistSummary(p:{status:string;schema_reason:string|null;checked_at:string}|undefined){
+ if(!p||p.status!=="schema_profiled")return null;
+ const match=/^specialist_rows_(\d{1,5})_gbp_(\d{1,5})_price_(\d{1,5})_terms_(\d{1,5})_links_(\d{1,5})$/.exec(p.schema_reason??"");
+ if(!match)return null;
+ const [rows,gbp,price,terms,links]=match.slice(1).map(Number);
+ if(rows<1||rows>12000||[gbp,price,terms,links].some(n=>n>rows))return null;
+ return {rows,gbp,price,terms,links,checkedAt:p.checked_at,quoteReady:0};
+}
 async function readPortfolio(db:ReturnType<typeof createAdminClient>){
- const [{data:programmes,error:programmeError},{data:feeds,error:feedError}]=await Promise.all([
+ const [{data:programmes,error:programmeError},{data:observations,error:feedError},{data:profiles,error:profileError}]=await Promise.all([
   db.from("affiliate_programs").select("programme_name,external_account_id,region,metadata")
    .eq("provider","awin").eq("region","GB"),
   db.from("awin_feed_update_observations")
-   .select("advertiser_id,feed_id,feed_name,feed_format,listed_products,needs_private_refresh,observed_at").limit(300),
+   .select("advertiser_id,feed_id,feed_name,feed_format,listed_products,needs_private_refresh,observed_at").order("observed_at",{ascending:false}).limit(1000),
+  db.from("awin_feed_schema_profiles").select("advertiser_id,feed_id,status,schema_reason,checked_at").limit(1000),
  ]);
  if(programmeError||feedError)return null;
+ const seen=new Set<string>();
+ const feeds=(observations??[]).filter(f=>{const key=f.advertiser_id+":"+f.feed_id;if(seen.has(key))return false;seen.add(key);return true;});
+ const profileIndex=new Map((profileError?[]:profiles??[]).map(p=>[p.advertiser_id+":"+p.feed_id,p]));
  const accepted=(programmes??[]).filter(p=>
   obj(obj(p.metadata).owner_joined_accepted_attestation).membership_status==="accepted");
  const acceptedIds=new Set(accepted.map(p=>p.external_account_id).filter(
@@ -35,6 +47,7 @@ async function readPortfolio(db:ReturnType<typeof createAdminClient>){
    listedProducts:Math.max(0,Number(f.listed_products)||0),
    needsPrivateRefresh:Boolean(f.needs_private_refresh),
    observedAt:f.observed_at,
+   specialistEvidence:readSpecialistSummary(profileIndex.get(f.advertiser_id+":"+f.feed_id)),
    ...recognizeAwinFeed({advertiserId:f.advertiser_id,feedId:f.feed_id,
     feedName:f.feed_name??"",feedFormat:f.feed_format,
     listedProducts:Number(f.listed_products)||0})
@@ -51,7 +64,7 @@ async function readPortfolio(db:ReturnType<typeof createAdminClient>){
  const programmesView=accepted.map(p=>{
   const id=p.external_account_id;
   const counts=id?byAdvertiser.get(id):undefined;
-  const pipeline=id==="77952"||id==="31539"||id==="736"||id==="45747"
+  const pipeline=id==="77952"||id==="31539"||id==="736"||id==="45747"||id==="101445"
    ?"physical_pilot":id==="12715"||id==="15236"
    ?"tyre_specific":id==="496"?"large_feed_streaming"
    :!id?"advertiser_id_missing":"feed_or_category_adapter_pending";
@@ -61,7 +74,7 @@ async function readPortfolio(db:ReturnType<typeof createAdminClient>){
    publicationState:"awaiting_current_eligible_canonical_offer"};
  });
  return {acceptedProgrammes:accepted.length,
-  numericIdsMapped:programmesView.filter(p=>p.advertiserId).length,
+  numericIdsMapped:acceptedIds.size,
   discoveredFeeds:programmesView.reduce((n,p)=>n+p.discoveredFeeds,0),
   programmes:programmesView,feeds:recognizedFeeds,
   recognizedFeeds:recognizedFeeds.length,

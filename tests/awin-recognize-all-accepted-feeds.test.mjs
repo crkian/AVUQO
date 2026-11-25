@@ -81,3 +81,9 @@ test("Tooled Up immediate canonical conversion stays bound to each exact import"
  assert.match(s,/if\(updated>=20\)break/);
  assert.doesNotMatch(s,/importId=old.import_id/);
 });
+
+test("owner portfolio deduplicates observed feeds and shows bounded specialist evidence without quotes",()=>{
+ assert.match(api,/order\("observed_at",\{ascending:false\}\).limit\(1000\)/);
+ assert.match(api,/seen.has\(key\)/);assert.match(api,/readSpecialistSummary/);
+ assert.match(api,/quoteReady:0/);assert.match(ui,/Private source evidence \(not live quotes\)/);
+});

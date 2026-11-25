@@ -4,7 +4,8 @@ import {useEffect,useState} from "react";
 type Candidate={offerId:string;title:string;merchant:string;advertiserId:string;priceGbp:number;lastSeenAt:string;score:number;confidence:number};
 type Programme={name:string;advertiserId:string|null;discoveredFeeds:number;listedRows:number;needsPrivateRefresh:number;pipeline:string;publicationState:string};
 type RecognizedFeed={advertiserId:string;feedId:string;feedName:string;feedFormat:string;
- listedProducts:number;needsPrivateRefresh:boolean;observedAt:string;kind:string;next:string;schemaStatus:string};
+ listedProducts:number;needsPrivateRefresh:boolean;observedAt:string;kind:string;next:string;schemaStatus:string;
+ specialistEvidence?:{rows:number;gbp:number;price:number;terms:number;links:number;checkedAt:string;quoteReady:number}|null};
 type Portfolio={acceptedProgrammes:number;numericIdsMapped:number;discoveredFeeds:number;
  recognizedFeeds:number;unlinkedFeedRows:number;programmes:Programme[];feeds:RecognizedFeed[]};
 type Queue={status:string;totalCanonicalOffers?:number;candidates?:Candidate[];note?:string;next?:string;error?:string;
@@ -115,7 +116,8 @@ export default function OwnerAwinFirstRelease(){
        <td style={{padding:6,borderTop:"1px solid #eee"}}>{f.listedProducts.toLocaleString("en-GB")}</td>
        <td style={{padding:6,borderTop:"1px solid #eee"}}><strong>{f.kind.replaceAll("_"," ")}</strong>
         {" · "}{f.schemaStatus.replaceAll("_"," ")}
-        <span style={{display:"block",color:"#64586d"}}>{f.next}</span></td>
+        <span style={{display:"block",color:"#64586d"}}>{f.next}</span>
+        {f.specialistEvidence&&<div style={{marginTop:6,lineHeight:1.6}}><strong>Private source evidence (not live quotes)</strong><br/>{f.specialistEvidence.rows.toLocaleString("en-GB")} inspected · {f.specialistEvidence.gbp} explicit GBP · {f.specialistEvidence.price} source prices · {f.specialistEvidence.terms} populated contract terms · {f.specialistEvidence.links} publisher links<br/>Quote-ready: {f.specialistEvidence.quoteReady} · inspected {new Date(f.specialistEvidence.checkedAt).toLocaleString("en-GB",{timeZone:"Europe/London"})}</div>}</td>
       </tr>)}</tbody>
      </table>
     </div>
