@@ -1510,3 +1510,8 @@ Department catalogue candidate: database migration shopping_department_paginatio
 ## 25 November 2026 | Exact Tooled Up import groups
 
 Department catalogue PR349 merged after all checks passed; production runtime not yet verified. Tooled Up candidate fixes immediate canonical staging across multiple private import runs: group only successfully rechecked SKUs by exact import ID, retain total 20 bound, aggregate outcomes and keep independent release gate. Previously the last import ID was reused for all SKUs. No new schedules, variables or migration. Pending CI/runtime.
+
+
+## 25 November 2026 | Specialist owner evidence
+
+PR350 merged after CI and preview success. PR349 production READY. Live specialist profiles confirmed nine feeds and 10,747 inspected rows with 10,747 publisher links, 141 explicit GBP and zero populated standard contract terms. New candidate makes these bounded aggregate diagnostics visible in the existing owner-only portfolio, deduplicates latest observations by exact pair, recognises PlayPress physical pipeline and counts mapped numeric IDs accurately. No raw feed data or public tariff output. Pending CI/runtime; actual quote semantics remain blocked.
